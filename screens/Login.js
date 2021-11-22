@@ -7,19 +7,14 @@ import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
 import {CustomText} from "../highordercomponents";
 import {globalStyles} from "../styles/globalStyles";
-import axios from "axios";
+import {useDispatch} from "react-redux";
+import {getTokenAction} from "../store/reducers/loginReducer/getTokenAction";
 
 const Login = ({navigation}) => {
+  const dispatch = useDispatch();
 
   const login = (values) => {
-    axios.post('https://end.mapilio.com/api/login', {
-      email: values.email,
-      password: values.password,
-    }).then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    })
+    dispatch(getTokenAction(values));
   }
 
   const loginValidationSchema = yup.object().shape({
