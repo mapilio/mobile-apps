@@ -1,1 +1,1 @@
-export { default as ExampleReducer } from "./exampleReducer/exampleReducer";
+export { default as imagesReducer } from "./imagesReducer/imagesReducer";

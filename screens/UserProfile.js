@@ -1,13 +1,18 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { ExampleButton } from "../components";
+import { ScrollView, View } from "react-native";
+import { UserFeed, UserInfos } from "../components";
+import { globalStyles } from "../styles/globalStyles";
 
-const UserProfile = () => {
+const UserProfile = ({ navigation }) => {
   return (
-    <View style={{ flex: 1 }}>
-      <Text>lorem ipsum</Text>
-      <ExampleButton />
-    </View>
+    <ScrollView>
+      <View style={globalStyles.container}>
+        <UserInfos />
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+          <UserFeed key={item} navigation={navigation} />
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 
