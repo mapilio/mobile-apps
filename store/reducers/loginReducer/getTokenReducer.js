@@ -1,10 +1,10 @@
 import {
+  GET_TOKEN_ERROR,
   GET_TOKEN_START,
   GET_TOKEN_SUCCESS,
-  GET_TOKEN_ERROR,
-  GET_USER_INFORMATION,
   GET_USER_INDEX_TYPE,
-} from "store/actionsName";
+  GET_USER_INFORMATION
+} from "../../actionsName";
 
 const INITIAL_STATE = {
   isLoading: false,

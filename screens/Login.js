@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {View, Image, TextInput, Pressable, Alert} from "react-native";
 import logo from '../assets/logo.png';
 import * as yup from 'yup'
@@ -9,12 +9,13 @@ import {CustomText} from "../highordercomponents";
 import {globalStyles} from "../styles/globalStyles";
 import {useDispatch} from "react-redux";
 import {getTokenAction} from "../store/reducers/loginReducer/getTokenAction";
+import {store} from "../store/store";
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const login = (values) => {
-    dispatch(getTokenAction(values));
+  async function login(values) {
+    await dispatch(getTokenAction(values, navigation.navigate));
   }
 
   const loginValidationSchema = yup.object().shape({
@@ -27,6 +28,7 @@ const Login = ({navigation}) => {
       .min(8, ({min}) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   })
+  const auth = store.getState().getTokenReducer.auth;
 
   return (
     <View style={[globalStyles.container, loginStyles.container]}>

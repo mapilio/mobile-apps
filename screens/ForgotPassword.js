@@ -1,26 +1,40 @@
 import React from "react";
-import {Text, View, Image, TextInput, Button, StyleSheet, Pressable} from "react-native";
+import {Text, View, Image, TextInput, Pressable, ToastAndroid} from "react-native";
 import logo from '../assets/logo.png';
 import * as yup from 'yup'
 import {Formik} from "formik";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
 import {globalStyles} from "../styles/globalStyles";
+import axios from "axios";
 
-const Login = ({navigation}) => {
+const ForgotPassword = ({navigation}) => {
 
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
       .email("Please enter valid email")
       .required('Email Address is Required'),
-    password: yup
-      .string()
-      .min(8, ({min}) => `Password must be at least ${min} characters`)
-      .required('Password is required'),
   })
 
+  const forgotPassword = (values) => {
+    axios.post('https://end.mapilio.com/api/forgot-password', {
+      email: values.email,
+      callback: 'https://end.mapilio.com',
+      "success-params": "tverification=true",
+      "error-params": "tverification=false",
+    }).then((res) => {
+      if (res.status === 200) {
+        navigation.navigate(Routes.login);
+        ToastAndroid.show('The reset request has been sent to the e-mail address.', ToastAndroid.SHORT);
+      }
+    }).catch((err) => {
+      ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
+    })
+  }
+
   return (
+
     <View style={[globalStyles.container, loginStyles.container]}>
       <Image source={logo} style={loginStyles.logo} resizeMode={"contain"}/>
       <View style={{
@@ -34,7 +48,7 @@ const Login = ({navigation}) => {
 
       <Formik initialValues={{
         email: '',
-      }} validationSchema={loginValidationSchema} onSubmit={values => console.log(values)}>
+      }} validationSchema={loginValidationSchema} onSubmit={values => forgotPassword(values)}>
         {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
           <>
             <View style={{...loginStyles.formGroup, marginBottom: 40}}>
@@ -68,4 +82,4 @@ const Login = ({navigation}) => {
     </View>
   );
 };
-export default Login;
+export default ForgotPassword;

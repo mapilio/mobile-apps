@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Image, TextInput, Pressable} from "react-native";
+import {View, Image, TextInput, Pressable, ToastAndroid} from "react-native";
 import logo from '../assets/logo.png';
 import * as yup from 'yup'
 import {Formik} from "formik";
@@ -12,7 +12,6 @@ import axios from "axios";
 const Register = ({navigation}) => {
 
   const register = (values) => {
-/*
     axios.post('https://end.mapilio.com/api/register', {
       name: values.name,
       username: values.name,
@@ -22,8 +21,14 @@ const Register = ({navigation}) => {
       "success-params": "tverification=true",
       "error-params": "tverification=false",
 
-    }).then((res) => console.log(res)).catch((err) => console.log(err))
-*/
+    }).then((res) => {
+      if (res.status === 200) {
+        navigation.navigate(Routes.login);
+        ToastAndroid.show('Your account has been created, check your e-mail address.', ToastAndroid.SHORT);
+      }
+    }).catch((err) => {
+      ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
+    })
   }
 
   const loginValidationSchema = yup.object().shape({
