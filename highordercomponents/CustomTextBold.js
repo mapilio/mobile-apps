@@ -6,7 +6,7 @@ const CustomTextBold = (props) => (
     <Text
       style={[
         {
-          fontFamily: "Poppins-Bold",
+          fontFamily: "Poppins-SemiBold",
           flex: 1,
           flexWrap: "wrap",
           ...props.style,

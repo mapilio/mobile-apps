@@ -3,7 +3,7 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-import { UserProfile, UserUpload, UserSequence } from "../screens";
+import { UserProfile, UserUpload, UserSequence, AppCamera } from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
 import {
   SequenceNavigatorLeft,
@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 
 const MainNavigator = () => (
   <Stack.Navigator
-    initialRouteName={Routes.profile}
+    initialRouteName={Routes.camera}
     screenOptions={{
       // Todo animation for Android will be made smoother.
       cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
@@ -54,6 +54,13 @@ const MainNavigator = () => (
         headerTitleStyle: navigatorStyle.headerTitleStyle,
         headerTintColor: navigatorStyle.headerTintColor,
         headerTitleAlign: navigatorStyle.headerTitleAlign,
+      }}
+    />
+    <Stack.Screen
+      component={AppCamera}
+      name={Routes.camera}
+      options={{
+        headerShown: false,
       }}
     />
   </Stack.Navigator>

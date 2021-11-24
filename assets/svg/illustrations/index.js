@@ -1,3 +1,14 @@
 export { default as UploadIcon } from "./UploadIcon";
 export { default as ArrowLeft } from "./ArrowLeft";
 export { default as SelectedIcon } from "./SelectedIcon";
+export { default as MapIcon } from "./Map";
+export { default as InformationIcon } from "./Information";
+export { default as SettingsIcon } from "./Settings";
+export { default as GoBackIcon } from "./GoBack";
+export { default as PlayIcon } from "./Play";
+export { default as StopIcon } from "./Stop";
+export { default as FrameLeftBottom } from "./FrameLeftBottom";
+export { default as FrameLeftTop } from "./FrameLeftTop";
+export { default as FrameRightBottom } from "./FrameRightBottom";
+export { default as FrameRightTop } from "./FrameRightTop";
+export { default as CameraCenter } from "./CameraCenter";
