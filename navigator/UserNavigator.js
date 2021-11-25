@@ -12,23 +12,20 @@ import {
 } from "./navigatorbars";
 import { Routes } from "./Routes";
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import UserNavigator from "./UserNavigator";
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
-const MainNavigator = () => (
+const UserNavigator = () => (
     <NavigationContainer>
-        <Tab.Navigator
+        <Stack.Navigator
             initialRouteName={Routes.profile}
             screenOptions={{
                 // Todo animation for Android will be made smoother.
                 cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
             }}
         >
-            <Tab.Screen
-                component={UserNavigator}
+            <Stack.Screen
+                component={UserProfile}
                 name={Routes.profile}
                 options={{
                     headerStyle: navigatorStyle.headerStyle,
@@ -37,7 +34,7 @@ const MainNavigator = () => (
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                 }}
             />
-            <Tab.Screen
+            <Stack.Screen
                 component={UserUpload}
                 name={Routes.upload}
                 options={{
@@ -48,7 +45,7 @@ const MainNavigator = () => (
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                 }}
             />
-            <Tab.Screen
+            <Stack.Screen
                 component={UserSequence}
                 name={Routes.sequences}
                 options={{
@@ -61,8 +58,8 @@ const MainNavigator = () => (
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                 }}
             />
-        </Tab.Navigator>
+        </Stack.Navigator>
     </NavigationContainer>
 );
 
-export default MainNavigator;
+export default UserNavigator;
