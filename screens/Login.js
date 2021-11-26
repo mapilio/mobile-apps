@@ -9,7 +9,7 @@ import {CustomText} from "../highordercomponents";
 import {globalStyles} from "../styles/globalStyles";
 import {useDispatch} from "react-redux";
 import {getTokenAction} from "../store/reducers/loginReducer/getTokenAction";
-import {store} from "../store/store";
+import {RFValue} from "react-native-responsive-fontsize";
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -25,15 +25,13 @@ const Login = ({navigation}) => {
       .required('Email Address is Required'),
     password: yup
       .string()
-      .min(8, ({min}) => `Password must be at least ${min} characters`)
       .required('Password is required'),
   })
-  const auth = store.getState().getTokenReducer.auth;
 
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
       <Image source={logo} style={loginStyles.logo} resizeMode={"contain"}/>
-      <View style={{marginBottom: 30}}>
+      <View style={{marginBottom: RFValue(30)}}>
         <CustomText style={loginStyles.secondaryText}>LOGIN</CustomText>
         <CustomText style={loginStyles.primaryText}>Welcome back</CustomText>
         <CustomText style={loginStyles.secondaryText}>Login to manage your account</CustomText>
@@ -78,17 +76,14 @@ const Login = ({navigation}) => {
               }
             </View>
 
-            <CustomText style={{
-              color: '#CBD1D9',
-              fontSize: 14
-            }}>Don't have and account yet?
-              <CustomText style={{...loginStyles.link, fontSize: 14}}
+            <CustomText style={loginStyles.smallText}>Don't have and account yet?
+              <CustomText style={{...loginStyles.link, fontSize: RFValue(14)}}
                           onPress={() => navigation.navigate(Routes.register)}> Sign up here</CustomText>.
             </CustomText>
             <Pressable style={loginStyles.button} onPress={handleSubmit}>
               <CustomText style={{...loginStyles.secondaryText, color: '#fff'}}>Log In</CustomText>
             </Pressable>
-            <CustomText style={{...loginStyles.link, marginTop: 40}}>
+            <CustomText style={{...loginStyles.link, marginTop: RFValue(40)}}>
               Privacy policy
             </CustomText>
           </>

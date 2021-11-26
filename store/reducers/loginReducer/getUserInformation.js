@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GET_USER_INFORMATION} from "../../actionsName";
+import {GET_USER_INDEX_TYPE, GET_USER_INFORMATION} from "../../actionsName";
 
 export const getUserInformation = (auth) => (dispatch) => {
   const token = auth.token;
@@ -15,7 +15,7 @@ export const getUserInformation = (auth) => (dispatch) => {
     .then((response) => {
       const userInfo = response.data.data;
       dispatch({
-        type: "GET_USER_INDEX_TYPE",
+        type: GET_USER_INDEX_TYPE,
         payload: {
           index: 0,
           type: {

@@ -6,7 +6,8 @@ import {Formik} from "formik";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
 import {globalStyles} from "../styles/globalStyles";
-import axios from "axios";
+import {RFValue} from "react-native-responsive-fontsize";
+import {fetchHandler} from "../helper/helper";
 
 const ForgotPassword = ({navigation}) => {
 
@@ -18,19 +19,23 @@ const ForgotPassword = ({navigation}) => {
   })
 
   const forgotPassword = (values) => {
-    axios.post('https://end.mapilio.com/api/forgot-password', {
-      email: values.email,
-      callback: 'https://end.mapilio.com',
-      "success-params": "tverification=true",
-      "error-params": "tverification=false",
-    }).then((res) => {
-      if (res.status === 200) {
+    fetchHandler({
+      url: `https://end.mapilio.com/api/forgot-password`,
+      method: "POST",
+      data: {
+        email: values.email,
+        callback: 'https://end.mapilio.com',
+        "success-params": "tverification=true",
+        "error-params": "tverification=false",
+      },
+    })
+      .then((res) => {
         navigation.navigate(Routes.login);
         ToastAndroid.show('The reset request has been sent to the e-mail address.', ToastAndroid.SHORT);
-      }
-    }).catch((err) => {
-      ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
-    })
+      })
+      .catch((err) => {
+        ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
+      });
   }
 
   return (
@@ -38,7 +43,7 @@ const ForgotPassword = ({navigation}) => {
     <View style={[globalStyles.container, loginStyles.container]}>
       <Image source={logo} style={loginStyles.logo} resizeMode={"contain"}/>
       <View style={{
-        marginBottom: 30,
+        marginBottom: RFValue(30),
       }}>
         <Text style={loginStyles.secondaryText}>RECOVER ACCOUNT</Text>
         <Text style={loginStyles.primaryText}>Forgot your password?</Text>
@@ -51,7 +56,7 @@ const ForgotPassword = ({navigation}) => {
       }} validationSchema={loginValidationSchema} onSubmit={values => forgotPassword(values)}>
         {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
           <>
-            <View style={{...loginStyles.formGroup, marginBottom: 40}}>
+            <View style={{...loginStyles.formGroup, marginBottom: RFValue(40)}}>
               <TextInput
                 name="email"
                 placeholder="Email Address"
@@ -66,7 +71,7 @@ const ForgotPassword = ({navigation}) => {
               }
             </View>
 
-            <Pressable style={{...loginStyles.buttonOutline, marginBottom: 10}}
+            <Pressable style={{...loginStyles.buttonOutline, marginBottom: RFValue(10)}}
                        onPress={() => navigation.navigate(Routes.login)}>
               <Text style={loginStyles.buttonText}>Back to Log In</Text>
             </Pressable>

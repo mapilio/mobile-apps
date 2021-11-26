@@ -7,28 +7,34 @@ import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
 import {CustomText} from "../highordercomponents";
 import {globalStyles} from "../styles/globalStyles";
-import axios from "axios";
+import {RFValue} from "react-native-responsive-fontsize";
+import {fetchHandler} from "../helper/helper";
 
 const Register = ({navigation}) => {
 
   const register = (values) => {
-    axios.post('https://end.mapilio.com/api/register', {
-      name: values.name,
-      username: values.name,
-      email: values.email,
-      password: values.password,
-      callback: 'https://end.mapilio.com',
-      "success-params": "tverification=true",
-      "error-params": "tverification=false",
-
-    }).then((res) => {
-      if (res.status === 200) {
+    fetchHandler({
+      url: `https://end.mapilio.com/api/register`,
+      method: "POST",
+      data: {
+        name: values.name,
+        username: values.name,
+        email: values.email,
+        password: values.password,
+        callback: 'https://end.mapilio.com',
+        "success-params": "tverification=true",
+        "error-params": "tverification=false",
+      },
+    })
+      .then((res) => {
         navigation.navigate(Routes.login);
         ToastAndroid.show('Your account has been created, check your e-mail address.', ToastAndroid.SHORT);
-      }
-    }).catch((err) => {
-      ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
-    })
+      })
+      .catch((err) => {
+        Object.values(err.response.data).map((item, i )=> {
+          ToastAndroid.show(item[0], ToastAndroid.SHORT);
+        })
+      });
   }
 
   const loginValidationSchema = yup.object().shape({
@@ -48,7 +54,7 @@ const Register = ({navigation}) => {
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
       <Image source={logo} style={loginStyles.logo} resizeMode={"contain"}/>
-      <View style={{marginBottom: 30}}>
+      <View style={{marginBottom: RFValue(30)}}>
         <CustomText style={loginStyles.secondaryText}>SIGNUP</CustomText>
         <CustomText style={loginStyles.primaryText}>Create an account</CustomText>
         <CustomText style={loginStyles.secondaryText}>Fill out the form to get started.</CustomText>
@@ -104,22 +110,14 @@ const Register = ({navigation}) => {
               }
             </View>
 
-            <CustomText style={{
-              color: '#CBD1D9',
-              fontSize: 14
-            }}>Already have an account?
-              <CustomText style={{...loginStyles.link, fontSize: 14}}
+            <CustomText style={loginStyles.smallText}>Already have an account?
+              <CustomText style={{...loginStyles.link, fontSize: RFValue(14)}}
                           onPress={() => navigation.navigate(Routes.login)}> Log In</CustomText>.
             </CustomText>
             <Pressable style={loginStyles.button} onPress={handleSubmit}>
               <CustomText style={{...loginStyles.secondaryText, color: '#fff'}}>Sign up</CustomText>
             </Pressable>
-            <CustomText style={{
-              marginTop: 39,
-              textAlign: "center",
-              color: '#fff',
-              fontSize: 12,
-            }}>
+            <CustomText style={loginStyles.privacyText}>
               By clicking "Sign up" button you agree with our
             </CustomText>
             <CustomText style={loginStyles.link}>Privacy policy</CustomText>

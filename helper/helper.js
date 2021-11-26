@@ -1,4 +1,6 @@
 import * as Font from "expo-font";
+import {store} from "../store/store";
+import axios from "axios";
 
 const useFonts = async () =>
   await Font.loadAsync({
@@ -21,4 +23,12 @@ const convertHexToRGBA = (hexCode, opacity) => {
   return `rgba(${r},${g},${b},${opacity / 100})`;
 };
 
-export { useFonts, convertHexToRGBA };
+const fetchHandler = ({...args} = {}) => {
+  const auth = store.getState().getTokenReducer.auth;
+  auth && console.log(auth.token);
+  auth && (axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`);
+
+  return axios(args).then((response) => response.data);
+}
+
+export { useFonts, convertHexToRGBA, fetchHandler };

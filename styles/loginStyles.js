@@ -12,53 +12,63 @@ export const loginStyles = StyleSheet.create({
     justifyContent: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: 20,
+    marginBottom: RFValue(20),
   },
   primaryText: {
-    fontSize: 26,
-    lineHeight: 39,
+    fontSize: RFValue(26),
+    lineHeight: RFValue(39),
     color: '#FFF'
   },
+  smallText: {
+    color: '#CBD1D9',
+    fontSize: RFValue(14)
+  },
   secondaryText: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: RFValue(16),
+    lineHeight: RFValue(24),
     color: '#B9C0CF'
   },
   input: {
     backgroundColor: '#FFF',
-    borderRadius: 4,
-    height: 44,
-    paddingHorizontal: 21
+    borderRadius: RFValue(4),
+    height: RFValue(44),
+    paddingHorizontal: RFValue(21)
   },
   button: {
-    borderRadius: 4,
+    borderRadius: RFValue(4),
     backgroundColor: '#22CC69',
     display: "flex",
     alignItems:"center",
-    padding: 11
+    padding: RFValue(11)
   },
   buttonOutline: {
-    borderRadius: 4,
-    borderWidth: 1,
+    borderRadius: RFValue(4),
+    borderWidth: RFValue(1),
     borderColor: '#1AD971',
     display: "flex",
     alignItems:"center",
-    padding: 11
+    padding: RFValue(11)
   },
   buttonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: RFValue(16),
   },
   errorText: {
-    fontSize: 10, color: 'red'
+    fontSize: RFValue(10), color: 'red'
   },
   formGroup: {
-    marginBottom: 18
+    marginBottom: RFValue(18)
   },
   link: {
     color: "#4A90E2",
-    fontSize: 12,
-    marginBottom: 8,
+    fontSize: RFValue(12),
+    marginBottom: RFValue(8),
     textAlign: "center",
+  },
+  privacyText: {
+    marginTop: RFValue(39),
+    textAlign: "center",
+    color: '#fff',
+    fontSize: RFValue(12),
   },
 });
