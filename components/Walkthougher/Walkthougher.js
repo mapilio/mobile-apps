@@ -7,10 +7,6 @@ import {walkthogherStyle} from "../../styles/walkthogherStyle";
 import {Next, Prev, Start} from "./Buttons";
 
 
-ScreenOrientation.lockAsync(
-  ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-);
-
 const width = Dimensions.get('window').width;
 
 const _renderItem = ({item, i}) => {
