@@ -4,6 +4,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { Alert, Linking, Platform } from "react-native";
 import { Routes } from "../navigator/Routes";
 import CameraFrame from "./CameraFrame";
+import CameraInfos from "./CameraInfos";
 
 const Camera = ({ navigation }) => {
   useEffect(() => {
@@ -51,6 +52,7 @@ const Camera = ({ navigation }) => {
         }}
       >
         <CameraFrame />
+        <CameraInfos/>
       </ExpoCamera>
     </>
   );

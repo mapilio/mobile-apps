@@ -32,7 +32,8 @@
     "react-native-web": "0.17.1",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "expo-battery": "~6.0.3"
+    "expo-battery": "~6.0.3",
+    "expo-sensors": "~11.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

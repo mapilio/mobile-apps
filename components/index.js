@@ -8,3 +8,7 @@ export { default as CameraInfos } from "./CameraInfos";
 export { default as CameraActionsButtons } from "./CameraActionsButtons";
 export { default as ManuelActionButton } from "./ManuelActionButton";
 export { default as AutoActionButton } from "./AutoActionButton";
+export { default as BatteryLevel } from "./BatteryLevel";
+export { default as GPSLevel } from "./GPSLevel";
+export { default as PhotoAmounts } from "./PhotoAmounts";
+export { default as RecordStatus } from "./RecordStatus";
