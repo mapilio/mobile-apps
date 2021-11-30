@@ -16,11 +16,10 @@ const BatteryLevel = () => {
 
   const _subscribeBatteryLevel = async () => {
     let batteryLevel = await Battery.getBatteryLevelAsync();
-    batteryLevel = Math.ceil(batteryLevel*100);
+    batteryLevel = Math.ceil(batteryLevel * 100);
     setBatteryLevel(batteryLevel);
     this._subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
       setBatteryLevel(batteryLevel);
-      console.log("batteryLevel changed!", batteryLevel);
     });
   };
 
@@ -73,7 +72,7 @@ const BatteryLevel = () => {
         >
           <View
             style={{
-              width: "100%",
+              width: `${batteryLevel}%`,
               backgroundColor: "#FFFFFF",
               height: RFValue(6),
             }}

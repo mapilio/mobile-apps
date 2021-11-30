@@ -1,10 +1,13 @@
 import React from "react";
 import { View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { GoodGPS } from "../assets/svg/illustrations";
+import { useSelector } from "react-redux";
+import { BadGPS, GoodGPS } from "../assets/svg/illustrations";
 import { CustomTextMedium } from "../highordercomponents";
 
 const GPSLevel = () => {
+  const { GPSAccuracy } = useSelector((state) => state.cameraReducer);
+
   return (
     <View
       style={{
@@ -14,17 +17,35 @@ const GPSLevel = () => {
         alignItems: "center",
       }}
     >
-      <GoodGPS />
-      <CustomTextMedium
-        style={{
-          color: "#FFFFFF",
-          fontSize: RFValue(14),
-          marginLeft: RFValue(5),
-          marginBottom: RFValue(-2),
-        }}
-      >
-        Good GPS
-      </CustomTextMedium>
+      {GPSAccuracy ? (
+        <>
+          <GoodGPS />
+          <CustomTextMedium
+            style={{
+              color: "#FFFFFF",
+              fontSize: RFValue(14),
+              marginLeft: RFValue(5),
+              marginBottom: RFValue(-2),
+            }}
+          >
+            Good GPS
+          </CustomTextMedium>
+        </>
+      ) : (
+        <>
+          <BadGPS />
+          <CustomTextMedium
+            style={{
+              color: "#FFFFFF",
+              fontSize: RFValue(14),
+              marginLeft: RFValue(5),
+              marginBottom: RFValue(-2),
+            }}
+          >
+            Bad GPS
+          </CustomTextMedium>
+        </>
+      )}
     </View>
   );
 };

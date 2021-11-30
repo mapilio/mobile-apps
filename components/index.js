@@ -12,3 +12,5 @@ export { default as BatteryLevel } from "./BatteryLevel";
 export { default as GPSLevel } from "./GPSLevel";
 export { default as PhotoAmounts } from "./PhotoAmounts";
 export { default as RecordStatus } from "./RecordStatus";
+export { default as RotationLine } from "./RotationLine";
+export { default as CameraAlert } from "./CameraAlert";

@@ -2,16 +2,32 @@ import React from "react";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
+import { useSelector } from "react-redux";
+import * as FileSystem from "expo-file-system";
 
-const ManuelActionButton = () => {
+const ManuelActionButton = ({ disabled }) => {
+  const { cameraStatus, camera } = useSelector(
+    (status) => status.cameraReducer
+  );
+  const takePicture = async () => {
+    console.log(cameraStatus);
+    if (cameraStatus !== "READY") return;
+    const options = { quality: 1, base64: false };
+    const data = await camera.takePictureAsync(options);
+    console.log(data.uri);
+    const fileInfo = await FileSystem.getInfoAsync(data.uri);
+  };
+
   return (
     <TouchableOpacity
+      disabled={false}
       style={{
         width: RFValue(61),
         height: RFValue(61),
         marginBottom: RFValue(-55),
         marginTop: RFValue(35),
       }}
+      onPress={takePicture}
     >
       <View
         style={{
