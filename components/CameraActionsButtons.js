@@ -4,14 +4,12 @@ import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
 
 const CameraActionsButtons = () => {
-  const [captureType, setCaptureType] = useState("manuel");
   const [disabled, setDisabled] = useState(false);
-  const { GPSStatus, GPSAccuracy, camera } = useSelector(
+  const { GPSStatus, GPSAccuracy, camera, captureType } = useSelector(
     (state) => state.cameraReducer
   );
 
   useEffect(() => {
-    console.log(disabled);
     if (GPSStatus && GPSAccuracy && camera) {
       setDisabled(true);
     } else {

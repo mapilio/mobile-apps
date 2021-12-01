@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { useSelector } from "react-redux";
 import * as FileSystem from "expo-file-system";
+import { UPDATE_PHOTO_AMOUNT, UPDATE_IMAGE_SIZE } from "../store/actionsName";
+import { useDispatch } from "react-redux";
 
 const ManuelActionButton = ({ disabled }) => {
   const { cameraStatus, camera } = useSelector(
     (status) => status.cameraReducer
   );
+  const [photoAmount, setPhotoAmount] = useState(0);
+  const dispatch = useDispatch();
+
   const takePicture = async () => {
-    console.log(cameraStatus);
     if (cameraStatus !== "READY") return;
-    const options = { quality: 1, base64: false };
-    const data = await camera.takePictureAsync(options);
-    console.log(data.uri);
-    const fileInfo = await FileSystem.getInfoAsync(data.uri);
+    const options = { quality: 1, base64: false, exif: true };
+    const image = await camera.takePictureAsync(options);
+    const imageUri = image.uri;
+    if (!imageUri) return;
+    setPhotoAmount((amount) => amount + 1);
+    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
+    const fileInfo = await FileSystem.getInfoAsync(imageUri);
+    dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
   };
 
   return (

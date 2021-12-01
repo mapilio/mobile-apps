@@ -48,7 +48,7 @@ const Camera = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    if (locationFeatures.accuracy > 15) {
+    if (locationFeatures.accuracy > 5) {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
       setGPSAlert({
         svg: <GPSError />,
@@ -108,20 +108,34 @@ const Camera = ({ navigation }) => {
   };
 
   const alertHandler = () => {
-    Alert.alert("Alert title", "Alert test", [
-      {
-        text: "Cancel",
-        style: "cancel",
-        onPress: () => navigation.navigate(Routes.profile),
-      },
-      {
-        text: "Allow",
-        onPress: async () =>
-          Platform.OS === "ios"
-            ? Linking.openURL("app-settings:")
-            : Linking.openSettings(),
-      },
-    ]);
+    Alert.alert(
+      "Your camera permission is turned off",
+      "Please give permission to use the camera.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => navigation.navigate(Routes.profile),
+        },
+        {
+          text: "Go to settings",
+          onPress: async () =>
+            Platform.OS === "ios"
+              ? Linking.openURL("app-settings:")
+              : Linking.openSettings(),
+        },
+      ]
+    );
+  };
+
+  useEffect(() => {
+    _getCameraPermission();
+  }, []);
+
+  const _getCameraPermission = async () => {
+    const permission = await ExpoCamera.getCameraPermissionsAsync();
+    if (permission.status === "granted") return;
+    alertHandler();
   };
 
   const _subscribeProvider = async () => {
@@ -130,18 +144,22 @@ const Camera = ({ navigation }) => {
       // todo something
     } else {
       alertHandler();
-      return;
     }
-    location = await Location.watchPositionAsync(
-      {
-        accuracy: Location.Accuracy.Balanced,
-        timeInterval: 1000,
-        distanceInterval: 3,
-      },
-      async (location) => {
-        setLocation(location.coords);
-      }
-    );
+    setInterval(async () => {
+      location = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.Lowest,
+          // timeInterval: 0,
+          // distanceInterval: 0,
+        },
+        async (location) => {
+          if (Platform.OS === "android") {
+            console.log(location);
+          }
+          setLocation(location.coords);
+        }
+      );
+    }, 1000);
   };
 
   const _removeLocationProvider = async () => {

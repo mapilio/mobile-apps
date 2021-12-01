@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import { Camera, CameraSidebar } from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
