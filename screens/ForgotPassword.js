@@ -20,11 +20,11 @@ const ForgotPassword = ({navigation}) => {
 
   const forgotPassword = (values) => {
     fetchHandler({
-      url: `https://end.mapilio.com/api/forgot-password`,
+      url: `${process.env.API_URL}/api/forgot-password`,
       method: "POST",
       data: {
         email: values.email,
-        callback: 'https://end.mapilio.com',
+        callback: `${process.env.API_URL}`,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },

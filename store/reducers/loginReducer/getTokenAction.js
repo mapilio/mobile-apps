@@ -7,7 +7,7 @@ export const getTokenAction = (parameters, navigation) => (dispatch) => {
   dispatch({type: GET_TOKEN_START});
 
   fetchHandler({
-    url: `https://end.mapilio.com/api/login`,
+    url: `${process.env.API_URL}/api/login`,
     method: "POST",
     data: {
       email: parameters.email,

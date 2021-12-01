@@ -25,7 +25,6 @@ const convertHexToRGBA = (hexCode, opacity) => {
 
 const fetchHandler = ({...args} = {}) => {
   const auth = store.getState().getTokenReducer.auth;
-  auth && console.log(auth.token);
   auth && (axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`);
 
   return axios(args).then((response) => response.data);

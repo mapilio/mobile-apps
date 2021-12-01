@@ -14,14 +14,14 @@ const Register = ({navigation}) => {
 
   const register = (values) => {
     fetchHandler({
-      url: `https://end.mapilio.com/api/register`,
+      url: `${process.env.API_URL}/api/register`,
       method: "POST",
       data: {
         name: values.name,
         username: values.name,
         email: values.email,
         password: values.password,
-        callback: 'https://end.mapilio.com',
+        callback: `${process.env.API_URL}`,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },

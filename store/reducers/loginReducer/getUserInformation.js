@@ -7,7 +7,7 @@ export const getUserInformation = (auth) => (dispatch) => {
 
   axios
     .get(
-      `https://end.mapilio.com/api/entries/users/users/${user_id}`,
+      `${process.env.API_URL}/api/entries/users/users/${user_id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
