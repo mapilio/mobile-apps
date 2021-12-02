@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
-import { UserFeed, UserInfos } from "../components";
+import {UserFeed, UserInfos} from "../components";
 import { globalStyles } from "../styles/globalStyles";
 
 const UserProfile = ({ navigation }) => {
