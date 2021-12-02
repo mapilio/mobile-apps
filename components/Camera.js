@@ -29,11 +29,6 @@ const Camera = ({ navigation }) => {
   let location = null;
 
   useEffect(() => {
-    _subscribeToAccelerometer();
-    return () => _removeAccelerometerSubscribe();
-  }, []);
-
-  useEffect(() => {
     __startCamera();
     _startNetworkProvider();
     StatusBar.setHidden(true);
@@ -154,7 +149,7 @@ const Camera = ({ navigation }) => {
         },
         async (location) => {
           if (Platform.OS === "android") {
-            console.log(location);
+            // console.log(location);
           }
           setLocation(location.coords);
         }
