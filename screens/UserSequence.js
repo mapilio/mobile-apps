@@ -1,43 +1,42 @@
-import React from "react";
-import { ScrollView, View } from "react-native";
-import { useSelector } from "react-redux";
-import { UploadImageCard } from "../components";
-import { CustomText, CustomTextMedium } from "../highordercomponents";
-import { globalStyles } from "../styles/globalStyles";
-import { userSequenceStyles } from "../styles/userSequenceStyle";
+import React, {useState} from "react";
+import {ScrollView, View} from "react-native";
+import Map from "../assets/svg/illustrations/Map";
+import {ImageUpload} from "../components/Uploads";
+import {userSequenceStyles} from "../styles/userSequenceStyle";
+import SwitchSelector from "react-native-switch-selector";
 
-const UserSequence = ({ navigation }) => {
-  const { uploadedImages, selectedImages } = useSelector(
-    (state) => state.imagesReducer
-  );
+const UserSequence = ({navigation}) => {
+
+  const [active, setActive] = useState('image');
+  const icons = {
+    image: require("../assets/images/imgIcon.png"),
+    map: require("../assets/images/mapIcon.png"),
+  }
+
+  const options = [
+    {label: "Image", value: "image", imageIcon: icons.image},
+    {label: "Map", value: "map", imageIcon: icons.map},
+  ];
 
   return (
     <ScrollView>
-      <View style={globalStyles.container}>
-        <CustomTextMedium style={globalStyles.screenTitle}>
-          Upload Photos
-        </CustomTextMedium>
-        <CustomText style={globalStyles.screenDescription}>
-          Here you can delete pictures and add new pictures.
-        </CustomText>
-        <View
-          style={[
-            userSequenceStyles.sequenceWrapper,
-            globalStyles.screenTextMargin,
-          ]}
-        >
-          {uploadedImages.map((image) => (
-            <UploadImageCard
-              key={image.id}
-              path={image.path}
-              id={image.id}
-              uploadedImages={uploadedImages}
-              selectedImages={selectedImages}
-              navigation={navigation}
-            />
-          ))}
-        </View>
+      <View style={userSequenceStyles.tabBar}>
+        <SwitchSelector
+          initial={0}
+          options={options}
+          onPress={value => setActive(value)}
+          backgroundColor={'#F5F5F5'}
+          borderColor={'#CBD1D9'}
+          buttonColor={'#32425B'}
+          borderRadius={5}
+          textColor={'#32425B'}
+          hasPadding
+          imageStyle={{width: 18, height: 18, marginRight: 3}}
+          height={32}
+        />
+
       </View>
+      {active === 'image' && <ImageUpload navigation={navigation} /> }
     </ScrollView>
   );
 };

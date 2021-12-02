@@ -4,7 +4,7 @@ import { CustomText, CustomTextBold } from "../highordercomponents";
 import { Routes } from "../navigator/Routes";
 import { userFeedStyles } from "../styles/userProfileStyle";
 
-const UserFeed = ({ navigation }) => {
+const UserFeed = ({ navigation, data }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -16,8 +16,7 @@ const UserFeed = ({ navigation }) => {
           Aug 14, 2020 - 15:00
         </CustomTextBold>
         <CustomText style={userFeedStyles.descriptionStyle}>
-          Your 2 requested audits have been approved.Your 2 requested audits
-          have been approved.Your 2 requested audits have been approved.
+          {data.text}
         </CustomText>
       </View>
       <View>
