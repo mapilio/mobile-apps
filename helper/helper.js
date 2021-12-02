@@ -6,7 +6,7 @@ const useFonts = async () =>
   await Font.loadAsync({
     "Poppins": require("../assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
-    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
   });
 
 const convertHexToRGBA = (hexCode, opacity) => {

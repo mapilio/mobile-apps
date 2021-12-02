@@ -1,4 +1,17 @@
 export { default as UserFeed } from "./UserFeed";
 export { default as UserInfos } from "./UserInfos";
 export { default as UploadImageCard } from "./UploadImageCard";
+export { default as Camera } from "./Camera";
+export { default as CameraSidebar } from "./CameraSidebar";
+export { default as CameraFrame } from "./CameraFrame";
+export { default as CameraInfos } from "./CameraInfos";
+export { default as CameraActionsButtons } from "./CameraActionsButtons";
+export { default as ManuelActionButton } from "./ManuelActionButton";
+export { default as AutoActionButton } from "./AutoActionButton";
+export { default as BatteryLevel } from "./BatteryLevel";
+export { default as GPSLevel } from "./GPSLevel";
+export { default as PhotoAmounts } from "./PhotoAmounts";
+export { default as RecordStatus } from "./RecordStatus";
+export { default as RotationLine } from "./RotationLine";
+export { default as CameraAlert } from "./CameraAlert";
 export { default as Walkthougher } from "./Walkthougher";

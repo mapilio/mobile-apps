@@ -1,7 +1,8 @@
 import React from "react";
+import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 
-const ArrowLeft = ({ width = 11.5, height = 11.5 }) => (
+const ArrowLeft = ({ width = RFValue(11.5), height = RFValue(11.5) }) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}

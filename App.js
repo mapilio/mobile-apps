@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import AppLoading from "expo-app-loading";
 import {NavigationContainer} from "@react-navigation/native";
 import MainNavigator from "./navigator/MainNavigator";
+import { StatusBar } from "react-native";
 import {persistor, store} from "./store/store";
 import {Provider} from "react-redux";
 import {useFonts} from "./helper/helper";
@@ -13,6 +14,10 @@ function App() {
   const loadFonts = async () => {
     await useFonts();
   };
+
+  useEffect(() => {
+    StatusBar.setBarStyle("light-content", true);
+  }, []);
 
   if (!isReady) {
     return (

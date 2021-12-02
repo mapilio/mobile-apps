@@ -3,6 +3,7 @@ export const Routes = {
   sequences: "Sequences",
   sequenceDetail: "SequenceDetail",
   upload: "Upload",
+  camera: "Camera",
   login: "Login",
   register: "Register",
   forgotPassword: "ForgotPassword",
