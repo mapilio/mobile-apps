@@ -6,12 +6,25 @@ import { CloseIcon } from "../assets/svg/illustrations";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import SwitchSelector from "react-native-switch-selector";
+import { useSelector } from "react-redux";
 
 const CameraSettings = ({ navigation }) => {
+  const { photoAmount, batteryLevel, phoneMemory, captureType } = useSelector(
+    (state) => state.cameraReducer
+  );
+  const [index, setIndex] = useState(0);
   const [options] = useState([
     { label: "Manuel", value: "manuel" },
     { label: "Automatic", value: "auto" },
   ]);
+
+  useEffect(() => {
+    if (captureType === "manuel") {
+      setIndex(0);
+    } else {
+      setIndex(1);
+    }
+  }, [captureType]);
 
   useEffect(() => {
     ScreenOrientation.lockAsync(
@@ -75,7 +88,7 @@ const CameraSettings = ({ navigation }) => {
               color: "#1AD971",
             }}
           >
-            {/* {photoAmount} */}12
+            {photoAmount}
           </CustomTextMedium>
           <CustomTextMedium
             style={{
@@ -87,7 +100,7 @@ const CameraSettings = ({ navigation }) => {
             /
           </CustomTextMedium>
           <CustomTextMedium style={{ color: "#FFFFFF", fontSize: RFValue(14) }}>
-            {/* {availableStorage} */}128
+            {phoneMemory}
           </CustomTextMedium>
         </View>
       </View>
@@ -103,7 +116,7 @@ const CameraSettings = ({ navigation }) => {
           Battery level
         </CustomText>
         <CustomTextMedium style={{ fontSize: RFValue(14), color: "#FFFFFF" }}>
-          %46
+          %{batteryLevel}
         </CustomTextMedium>
       </View>
       <View
@@ -123,7 +136,7 @@ const CameraSettings = ({ navigation }) => {
           selectedColor={"#1AD971"}
           buttonColor={"#FFFFFF"}
           backgroundColor={convertHexToRGBA("#CBD1D9", 20)}
-          initial={0}
+          initial={index}
           fontSize={RFValue(14)}
           onPress={(value) => console.log(`Call onPress with value: ${value}`)}
           accessibilityLabel={"Camera mode selection"}

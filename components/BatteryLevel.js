@@ -4,8 +4,11 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText } from "../highordercomponents";
 import * as Battery from "expo-battery";
+import { UPDATE_BATTERY_LEVEL } from "../store/actionsName";
+import { useDispatch } from "react-redux";
 
 const BatteryLevel = () => {
+  const dispatch = useDispatch();
   const [batteryLevel, setBatteryLevel] = useState(0);
 
   useEffect(() => {
@@ -20,6 +23,7 @@ const BatteryLevel = () => {
     setBatteryLevel(batteryLevel);
     this._subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
       setBatteryLevel(batteryLevel);
+      dispatch({ type: UPDATE_BATTERY_LEVEL, payload: batteryLevel });
     });
   };
 

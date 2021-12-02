@@ -1,7 +1,6 @@
 import React from "react";
 import {
-  createStackNavigator,
-  CardStyleInterpolators,
+  CardStyleInterpolators, createStackNavigator,
 } from "@react-navigation/stack";
 import {
   UserProfile,
@@ -72,7 +71,7 @@ const MainNavigator = () => {
     </Stack.Navigator>
   ) : (
     <Stack.Navigator
-      initialRouteName={Routes.profile}
+      initialRouteName={Routes.camera}
       screenOptions={{
         // Todo animation for Android will be made smoother.
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,

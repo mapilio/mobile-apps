@@ -18,3 +18,4 @@ export { default as BadGPS } from "./BadGPS";
 export { default as GPSError } from "./GPSError";
 export { default as CameraRotate } from "./CameraRotate";
 export { default as Trash } from "./Trash";
+export { default as MarketplaceIcon } from "./MarketplaceIcon";
