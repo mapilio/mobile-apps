@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
 
 const CameraActionsButtons = () => {
-  const [captureType, setCaptureType] = useState("auto");
+  const [disabled, setDisabled] = useState(false);
+  const { GPSStatus, GPSAccuracy, camera, captureType } = useSelector(
+    (state) => state.cameraReducer
+  );
+
+  useEffect(() => {
+    if (GPSStatus && GPSAccuracy && camera) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [GPSStatus, GPSAccuracy]);
 
   return (
     <>
-      {captureType === "manuel" && <ManuelActionButton />}
-      {captureType === "auto" && <AutoActionButton />}
+      {captureType === "manuel" && <ManuelActionButton disabled={disabled} />}
+      {captureType === "auto" && <AutoActionButton disabled={disabled} />}
     </>
   );
 };

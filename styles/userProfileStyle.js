@@ -55,9 +55,6 @@ export const userInfoStyles = StyleSheet.create({
     marginRight: RFValue(22),
     borderRadius: RFValue(81) / 2,
   },
-  infoContainer: {
-    flexDirection: "column",
-  },
   username: {
     color: "#4a4a4a",
     fontSize: RFValue(18),
@@ -83,6 +80,7 @@ export const userInfoStyles = StyleSheet.create({
     color: "#5B687C",
   },
   infoContainer: {
+    flexDirection: "column",
     marginRight: RFValue(16),
   },
 });

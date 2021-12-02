@@ -4,11 +4,12 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
 
-const AutoActionButton = () => {
+const AutoActionButton = ({ disabled }) => {
   const [autoCapture, setAutoCapture] = useState(false);
 
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={{
         width: RFValue(61),
         height: RFValue(61),

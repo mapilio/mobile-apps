@@ -1,18 +1,55 @@
-import React from "react";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Dimensions, Image, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
+import { useSelector } from "react-redux";
+import * as FileSystem from "expo-file-system";
+import { UPDATE_PHOTO_AMOUNT, UPDATE_IMAGE_SIZE } from "../store/actionsName";
+import { useDispatch } from "react-redux";
 
-const ManuelActionButton = () => {
+const ManuelActionButton = ({ disabled }) => {
+  const { cameraStatus, camera } = useSelector(
+    (status) => status.cameraReducer
+  );
+  const [image, setImage] = useState("");
+  const [photoAmount, setPhotoAmount] = useState(0);
+  const dispatch = useDispatch();
+
+  const takePicture = async () => {
+    if (cameraStatus !== "READY") return;
+    const options = { quality: 1, base64: false, exif: true };
+    const image = await camera.takePictureAsync(options);
+    const imageUri = image.uri;
+    if (!imageUri) return;
+    await FileSystem.copyAsync({
+      from: imageUri,
+      to: `${FileSystem.documentDirectory}${"10"}/${Math.random()}.${"jpeg"}`,
+    });
+
+    setImage(
+      `${FileSystem.documentDirectory}${"10"}/${Math.random()}.${"jpeg"}`
+    );
+
+    setPhotoAmount((amount) => amount + 1);
+    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
+    const fileInfo = await FileSystem.getInfoAsync(imageUri);
+    dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
+  };
+
   return (
     <TouchableOpacity
+      disabled={false}
       style={{
         width: RFValue(61),
         height: RFValue(61),
         marginBottom: RFValue(-55),
         marginTop: RFValue(35),
       }}
+      onPress={takePicture}
     >
+      {image.length !== 0 && (
+        <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />
+      )}
       <View
         style={{
           position: "absolute",

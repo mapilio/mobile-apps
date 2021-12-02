@@ -1,7 +1,11 @@
 export const Routes = {
   profile: "Profile",
   sequences: "Sequences",
+  sequenceDetail: "SequenceDetail",
   upload: "Upload",
   camera: "Camera",
-  cameraSettings:"CameraSettings"
+  cameraSettings:"CameraSettings",
+  login: "Login",
+  register: "Register",
+  forgotPassword: "ForgotPassword",
 };
