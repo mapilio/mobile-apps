@@ -25,6 +25,7 @@ const CaptureTabBarButton = ({children, onPress}) => (
         style={{
             justifyContent: 'center',
             alignItems: 'center',
+            flex: 1
         }}
         onPress={onPress}
     >
@@ -53,11 +54,16 @@ const MainNavigator = () => (
                 tabBarIcon: ({focused}) => (
                     <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
                         <MarketplaceIcon />
-                        <Text style={{fontSize: 13, marginLeft: 8}}>
+                        <Text style={{fontSize: 14, marginLeft: 8, color: '#32425B'}}>
                             Marketplace
                         </Text>
                     </View>
                 ),
+                tabBarButton: ({children, onPress}) => (
+                    <TouchableOpacity style={{width: '40%'}} onPress={onPress}>
+                        {children}
+                    </TouchableOpacity>
+                )
             }}
         />
         <Tab.Screen
@@ -91,7 +97,12 @@ const MainNavigator = () => (
                             Upload
                         </Text>
                     </View>
-                )
+                ),
+                tabBarButton: ({children, onPress}) => (
+                    <TouchableOpacity style={{width: '20%'}} onPress={onPress}>
+                        {children}
+                    </TouchableOpacity>
+                ),
             }}
         />
         <Tab.Screen
@@ -105,6 +116,11 @@ const MainNavigator = () => (
                             Profile
                         </Text>
                     </View>
+                ),
+                tabBarButton: ({children, onPress}) => (
+                    <TouchableOpacity style={{width: '20%'}} onPress={onPress}>
+                        {children}
+                    </TouchableOpacity>
                 ),
                 headerShown: false,
             }}
