@@ -38,6 +38,11 @@ const Camera = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
+    _subscribeToAccelerometer();
+    return () => _removeAccelerometerSubscribe();
+  }, []);
+
+  useEffect(() => {
     _subscribeProvider();
     return () => _removeLocationProvider();
   }, []);
@@ -86,7 +91,7 @@ const Camera = ({ navigation }) => {
     if (status === "granted") {
       // todo something
     } else {
-      alertHandler();
+      // alertHandler();
     }
   };
 
