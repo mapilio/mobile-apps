@@ -1,12 +1,14 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { ExampleButton } from "../components";
+import { View } from "react-native";
+import {UserInfos} from "../components";
+import { globalStyles } from "../styles/globalStyles";
+import {List} from "../components/Uploads";
 
-const UserProfile = () => {
+const UserProfile = ({ navigation }) => {
   return (
-    <View style={{ flex: 1 }}>
-      <Text>lorem ipsum</Text>
-      <ExampleButton />
+    <View style={globalStyles.container}>
+        <UserInfos />
+        <List navigation={navigation} />
     </View>
   );
 };
