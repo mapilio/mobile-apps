@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {Modal, View, Image, Dimensions} from "react-native";
 import {CustomText} from "../../highordercomponents";
-import * as ScreenOrientation from 'expo-screen-orientation';
 import Carousel, {Pagination} from "react-native-snap-carousel";
 import {walkthogherStyle} from "../../styles/walkthogherStyle";
 import {Next, Prev, Start} from "./Buttons";
