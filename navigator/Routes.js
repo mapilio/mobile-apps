@@ -3,4 +3,5 @@ export const Routes = {
   sequences: "Sequences",
   upload: "Upload",
   camera: "Camera",
+  cameraSettings:"CameraSettings"
 };

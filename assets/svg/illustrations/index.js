@@ -12,3 +12,4 @@ export { default as FrameLeftTop } from "./FrameLeftTop";
 export { default as FrameRightBottom } from "./FrameRightBottom";
 export { default as FrameRightTop } from "./FrameRightTop";
 export { default as CameraCenter } from "./CameraCenter";
+export { default as CloseIcon } from "./CloseIcon";
