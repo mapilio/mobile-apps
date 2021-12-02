@@ -29,6 +29,14 @@ export const sequenceRight = StyleSheet.create({
   },
 });
 
+export const deleteRight = StyleSheet.create({
+  text: {
+    color: '#FFF',
+    fontSize: RFValue(14),
+    right: RFValue(10)
+  }
+})
+
 export const uploadRight = StyleSheet.create({
   container: {
     marginBottom: -5,

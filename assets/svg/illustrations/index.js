@@ -16,3 +16,4 @@ export { default as GoodGPS } from "./GoodGPS";
 export { default as BadGPS } from "./BadGPS";
 export { default as GPSError } from "./GPSError";
 export { default as CameraRotate } from "./CameraRotate";
+export { default as Trash } from "./Trash";
