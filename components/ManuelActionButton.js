@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ const ManuelActionButton = ({ disabled }) => {
   const { cameraStatus, camera } = useSelector(
     (status) => status.cameraReducer
   );
+  const [image, setImage] = useState("");
   const [photoAmount, setPhotoAmount] = useState(0);
   const dispatch = useDispatch();
 
@@ -20,6 +21,15 @@ const ManuelActionButton = ({ disabled }) => {
     const image = await camera.takePictureAsync(options);
     const imageUri = image.uri;
     if (!imageUri) return;
+    await FileSystem.copyAsync({
+      from: imageUri,
+      to: `${FileSystem.documentDirectory}${"10"}/${Math.random()}.${"jpeg"}`,
+    });
+
+    setImage(
+      `${FileSystem.documentDirectory}${"10"}/${Math.random()}.${"jpeg"}`
+    );
+
     setPhotoAmount((amount) => amount + 1);
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
     const fileInfo = await FileSystem.getInfoAsync(imageUri);
@@ -37,6 +47,9 @@ const ManuelActionButton = ({ disabled }) => {
       }}
       onPress={takePicture}
     >
+      {image.length !== 0 && (
+        <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />
+      )}
       <View
         style={{
           position: "absolute",
