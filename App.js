@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import AppLoading from "expo-app-loading";
-import { NavigationContainer } from "@react-navigation/native";
+import {NavigationContainer} from "@react-navigation/native";
 import MainNavigator from "./navigator/MainNavigator";
-import { store } from "./store/store";
-import { Provider } from "react-redux";
-import { useFonts } from "./helper/helper";
+import {persistor, store} from "./store/store";
+import {Provider} from "react-redux";
+import {useFonts} from "./helper/helper";
+import {PersistGate} from "redux-persist/integration/react";
 
 function App() {
   const [isReady, setIsReady] = useState(false);
@@ -25,9 +26,11 @@ function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <MainNavigator />
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <MainNavigator/>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }
