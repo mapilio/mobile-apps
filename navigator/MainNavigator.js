@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
 import { UserProfile, UserUpload, UserSequence } from "../screens";
@@ -11,58 +10,106 @@ import {
   UploadNavigatorRight,
 } from "./navigatorbars";
 import { Routes } from "./Routes";
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import UserNavigator from "./UserNavigator";
+import {Image, Text, TouchableOpacity, View} from "react-native";
+import {MarketplaceIcon} from "../assets/svg/illustrations";
+import CaptureIcon from "../assets/svg/illustrations/CaptureIcon";
+import Profile from "../assets/svg/illustrations/Profile";
+import Upload from "../assets/svg/illustrations/Upload";
 
-const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const CaptureTabBarButton = ({children, onPress}) => (
+    <TouchableOpacity
+        style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}
+        onPress={onPress}
+    >
+        <View style={navigatorStyle.captureButtonWrapperStyle}>
+            <View style={navigatorStyle.captureButtonStyle}>
+                {children}
+            </View>
+        </View>
+    </TouchableOpacity>
+);
+
 const MainNavigator = () => (
-    <NavigationContainer>
-        <Tab.Navigator
-            initialRouteName={Routes.profile}
-            screenOptions={{
-                // Todo animation for Android will be made smoother.
-                cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+    <Tab.Navigator
+        initialRouteName={Routes.profile}
+        screenOptions={{
+            // Todo animation for Android will be made smoother.
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+            tabBarShowLabel: false,
+            tabBarStyle: navigatorStyle.tabBarStyle
+        }}
+    >
+        <Tab.Screen
+            component={UserSequence}
+            name={'Marketplace'}
+            options={{
+                tabBarIcon: ({focused}) => (
+                    <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
+                        <MarketplaceIcon />
+                        <Text style={{fontSize: 13, marginLeft: 8}}>
+                            Marketplace
+                        </Text>
+                    </View>
+                ),
             }}
-        >
-            <Tab.Screen
-                component={UserNavigator}
-                name={Routes.profile}
-                options={{
-                    headerStyle: navigatorStyle.headerStyle,
-                    headerTitleStyle: navigatorStyle.headerTitleStyle,
-                    headerTintColor: navigatorStyle.headerTintColor,
-                    headerTitleAlign: navigatorStyle.headerTitleAlign,
-                }}
-            />
-            <Tab.Screen
-                component={UserUpload}
-                name={Routes.upload}
-                options={{
-                    headerRight: () => <UploadNavigatorRight />,
-                    headerStyle: navigatorStyle.headerStyle,
-                    headerTitleStyle: navigatorStyle.headerTitleStyle,
-                    headerTintColor: navigatorStyle.headerTintColor,
-                    headerTitleAlign: navigatorStyle.headerTitleAlign,
-                }}
-            />
-            <Tab.Screen
-                component={UserSequence}
-                name={Routes.sequences}
-                options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                    headerRight: () => <SequenceNavigatorRight />,
-                    title: null,
-                    headerStyle: navigatorStyle.headerStyle,
-                    headerTitleStyle: navigatorStyle.headerTitleStyle,
-                    headerTintColor: navigatorStyle.headerTintColor,
-                    headerTitleAlign: navigatorStyle.headerTitleAlign,
-                }}
-            />
-        </Tab.Navigator>
-    </NavigationContainer>
+        />
+        <Tab.Screen
+            component={UserUpload}
+            name={'Capture'}
+            options={{
+                headerRight: () => <UploadNavigatorRight />,
+                headerStyle: navigatorStyle.headerStyle,
+                headerTitleStyle: navigatorStyle.headerTitleStyle,
+                headerTintColor: navigatorStyle.headerTintColor,
+                headerTitleAlign: navigatorStyle.headerTitleAlign,
+                tabBarIcon: ({focused}) => (
+                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <CaptureIcon height={38} width={38} />
+                        <Text style={{position: 'absolute', color: '#1AD971', fontWeight: 'bold', fontFamily: 'Poppins'}}>Capture</Text>
+                    </View>
+                ),
+                tabBarButton: (prop) => (
+                    <CaptureTabBarButton {...prop} />
+                )
+            }}
+        />
+        <Tab.Screen
+            component={UserSequence}
+            name={Routes.upload}
+            options={{
+                tabBarIcon: ({focused}) => (
+                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <Upload />
+                        <Text style={{fontSize: 13, marginTop: 2}}>
+                            Upload
+                        </Text>
+                    </View>
+                )
+            }}
+        />
+        <Tab.Screen
+            component={UserNavigator}
+            name={Routes.profile}
+            options={{
+                tabBarIcon: ({focused}) => (
+                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <Profile />
+                        <Text style={{fontSize: 13, marginTop: 2}}>
+                            Profile
+                        </Text>
+                    </View>
+                ),
+                headerShown: false,
+            }}
+        />
+    </Tab.Navigator>
 );
 
 export default MainNavigator;
