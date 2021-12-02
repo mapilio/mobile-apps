@@ -15,4 +15,22 @@ export const userUploadStyles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: "row",
   },
+  textWhite: {
+    color: '#FFF',
+  },
+  listItem: {
+    backgroundColor: '#EDEFF1',
+    flex: 1,
+    marginBottom: 10,
+  },
+  backRightBtn: {
+    alignItems: 'center',
+    height: '100%',
+    justifyContent: 'center',
+    position: 'absolute',
+    width: 75,
+    backgroundColor: '#D33030',
+    right: 0,
+  }
+
 });
