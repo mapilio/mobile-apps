@@ -71,7 +71,7 @@ const MainNavigator = () => {
     </Stack.Navigator>
   ) : (
     <Stack.Navigator
-      initialRouteName={Routes.camera}
+      initialRouteName={Routes.profile}
       screenOptions={{
         // Todo animation for Android will be made smoother.
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
