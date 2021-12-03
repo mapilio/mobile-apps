@@ -19,3 +19,6 @@ export { default as GPSError } from "./GPSError";
 export { default as CameraRotate } from "./CameraRotate";
 export { default as Trash } from "./Trash";
 export { default as MarketplaceIcon } from "./MarketplaceIcon";
+export { default as CaptureIcon } from "./CaptureIcon";
+export { default as Profile } from "./Profile";
+export { default as Upload } from "./Upload";

@@ -15,7 +15,7 @@ const CameraSettings = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   const [options] = useState([
     { label: "Manuel", value: "manuel" },
-    { label: "Automatic", value: "auto" },
+    { label: "Automatic", value: "automatic" },
   ]);
 
   useEffect(() => {
