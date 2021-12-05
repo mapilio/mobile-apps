@@ -22,3 +22,6 @@ export { default as MarketplaceIcon } from "./MarketplaceIcon";
 export { default as CaptureIcon } from "./CaptureIcon";
 export { default as Profile } from "./Profile";
 export { default as Upload } from "./Upload";
+export { default as InfoIcon } from "./InfoIcon";
+export { default as BatteryLevelIcon } from "./BatteryLevel";
+export { default as InternetAccessIcon } from "./InternetAccess";

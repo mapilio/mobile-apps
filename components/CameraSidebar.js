@@ -22,7 +22,10 @@ const CameraSidebar = ({ navigation }) => {
         height: "100%",
       }}
     >
-      <TouchableOpacity style={{ position: "absolute", top: 0, left: 0 }}>
+      <TouchableOpacity
+        style={{ position: "absolute", top: 0, left: 0 }}
+        onPress={() => navigation.navigate(Routes.generalSettings)}
+      >
         <SettingsIcon />
       </TouchableOpacity>
       <TouchableOpacity

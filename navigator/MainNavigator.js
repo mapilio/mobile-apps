@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -13,6 +13,7 @@ import {
   ForgotPassword,
   Register,
   Walkthougher,
+  GeneralSettings,
 } from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
 import {
@@ -21,6 +22,7 @@ import {
   UploadNavigatorRight,
   DeleteNavigationRight,
 } from "./navigatorbars";
+import NetInfo from "@react-native-community/netinfo";
 import { Routes } from "./Routes";
 import { useSelector } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -32,6 +34,9 @@ import {
   Profile,
   Upload,
 } from "../assets/svg/illustrations";
+import GeneralSettingsNavigatorLeft from "./navigatorbars/GeneralSettingsNavigatorLeft";
+import { useDispatch } from "react-redux";
+import { UPDATE_CONNECTION_STATUS } from "../store/actionsName";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -53,6 +58,20 @@ const CaptureTabBarButton = ({ children, onPress }) => (
 
 const MainNavigator = () => {
   const { auth } = useSelector((state) => state.getTokenReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    NetInfo.addEventListener((state) => {
+      dispatch({
+        type: UPDATE_CONNECTION_STATUS,
+        payload: {
+          connectionStatus: state.isConnected,
+          connectionType: state.type,
+        },
+      });
+    });
+  }, []);
+
   return auth === null ? (
     <Stack.Navigator
       initialRouteName={Routes.login}
@@ -142,6 +161,15 @@ const MainNavigator = () => {
           name={Routes.cameraSettings}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          component={GeneralSettings}
+          name={Routes.generalSettings}
+          options={{
+            headerLeft: (props) => <GeneralSettingsNavigatorLeft {...props} />,
+            headerStyle: navigatorStyle.headerSettingsStyle,
+            title: null,
           }}
         />
         <Stack.Screen

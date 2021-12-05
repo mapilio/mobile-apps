@@ -5,6 +5,7 @@ export const Routes = {
   upload: "Upload",
   camera: "Camera",
   cameraSettings: "CameraSettings",
+  generalSettings: "GeneralSettings",
   login: "Login",
   register: "Register",
   forgotPassword: "ForgotPassword",
