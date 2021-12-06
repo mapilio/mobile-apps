@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -12,8 +12,10 @@ import {
   Login,
   ForgotPassword,
   Register,
-  Walkthougher,
+  Walkthrough,
   GeneralSettings,
+  UserProfile,
+  WelcomeWalkthrough,
 } from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
 import {
@@ -26,7 +28,6 @@ import NetInfo from "@react-native-community/netinfo";
 import { Routes } from "./Routes";
 import { useSelector } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import UserNavigator from "./UserNavigator";
 import { Text, TouchableOpacity, View } from "react-native";
 import {
   MarketplaceIcon,
@@ -37,6 +38,9 @@ import {
 import GeneralSettingsNavigatorLeft from "./navigatorbars/GeneralSettingsNavigatorLeft";
 import { useDispatch } from "react-redux";
 import { UPDATE_CONNECTION_STATUS } from "../store/actionsName";
+import { NotifierRoot, Notifier } from "react-native-notifier";
+import { toastGenerator } from "../helper/helper";
+import { errorAlertStyles } from "../styles/alertStyles";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -59,9 +63,11 @@ const CaptureTabBarButton = ({ children, onPress }) => (
 const MainNavigator = () => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const dispatch = useDispatch();
+  const [internetConnection, setInternetConnection] = useState(true);
+  const notifierRef = useRef();
 
   useEffect(() => {
-    NetInfo.addEventListener((state) => {
+    const unsubcribe = NetInfo.addEventListener((state) => {
       dispatch({
         type: UPDATE_CONNECTION_STATUS,
         payload: {
@@ -69,118 +75,155 @@ const MainNavigator = () => {
           connectionType: state.type,
         },
       });
+      setInternetConnection(state.isConnected);
     });
+    return unsubcribe;
   }, []);
 
+  useEffect(() => {
+    if (!internetConnection) {
+      toastGenerator(
+        "You do not have an internet connection. Please try again.",
+        "",
+        errorAlertStyles.alertContainer,
+        errorAlertStyles.alertTitle,
+        errorAlertStyles.alertImage
+      );
+    } else {
+      Notifier.hideNotification();
+    }
+  }, [internetConnection]);
+
   return auth === null ? (
-    <Stack.Navigator
-      initialRouteName={Routes.login}
-      screenOptions={{
-        // Todo animation for Android will be made smoother.
-        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-      }}
-    >
-      <Stack.Screen
-        component={Login}
-        name={Routes.login}
-        options={{
-          title: null,
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
+    <>
+      <NotifierRoot ref={notifierRef} />
+      <Stack.Navigator
+        initialRouteName={Routes.welcomeWalkthrough}
+        screenOptions={{
+          // Todo animation for Android will be made smoother.
+          cardStyleInterpolator:
+            CardStyleInterpolators.forFadeFromBottomAndroid,
         }}
-      />
-      <Stack.Screen
-        component={Register}
-        name={Routes.register}
-        options={{
-          title: null,
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
-        }}
-      />
-      <Stack.Screen
-        component={ForgotPassword}
-        name={Routes.forgotPassword}
-        options={{
-          title: null,
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
-        }}
-      />
-    </Stack.Navigator>
+      >
+        <Stack.Group>
+          <Stack.Screen
+            component={Login}
+            name={Routes.login}
+            options={{
+              title: null,
+              headerStyle: navigatorStyle.headerStyle,
+              headerTitleStyle: navigatorStyle.headerTitleStyle,
+              headerTintColor: navigatorStyle.headerTintColor,
+              headerTitleAlign: navigatorStyle.headerTitleAlign,
+            }}
+          />
+          <Stack.Screen
+            component={Register}
+            name={Routes.register}
+            options={{
+              title: null,
+              headerStyle: navigatorStyle.headerStyle,
+              headerTitleStyle: navigatorStyle.headerTitleStyle,
+              headerTintColor: navigatorStyle.headerTintColor,
+              headerTitleAlign: navigatorStyle.headerTitleAlign,
+            }}
+          />
+          <Stack.Screen
+            component={ForgotPassword}
+            name={Routes.forgotPassword}
+            options={{
+              title: null,
+              headerStyle: navigatorStyle.headerStyle,
+              headerTitleStyle: navigatorStyle.headerTitleStyle,
+              headerTintColor: navigatorStyle.headerTintColor,
+              headerTitleAlign: navigatorStyle.headerTitleAlign,
+            }}
+          />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: "modal" }}>
+          <Stack.Screen
+            component={WelcomeWalkthrough}
+            name={Routes.welcomeWalkthrough}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Group>
+      </Stack.Navigator>
+    </>
   ) : (
-    <Stack.Navigator
-      initialRouteName={Routes.tabHome}
-      screenOptions={{
-        // Todo animation for Android will be made smoother.
-        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-      }}
-    >
-      <Stack.Group>
-        <Stack.Screen
-          name={Routes.tabHome}
-          component={TabNavigator}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          component={UserSequence}
-          name={Routes.sequences}
-          options={{
-            headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-            headerRight: () => <SequenceNavigatorRight />,
-            title: null,
-            headerStyle: navigatorStyle.headerStyle,
-            headerTitleStyle: navigatorStyle.headerTitleStyle,
-            headerTintColor: navigatorStyle.headerTintColor,
-            headerTitleAlign: navigatorStyle.headerTitleAlign,
-          }}
-        />
-        <Stack.Screen
-          component={UserSequenceDetail}
-          name={Routes.sequenceDetail}
-          options={{
-            headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-            headerRight: (props) => <DeleteNavigationRight {...props} />,
-            title: null,
-            headerStyle: navigatorStyle.headerStyle,
-            headerTitleStyle: navigatorStyle.headerTitleStyle,
-            headerTintColor: navigatorStyle.headerTintColor,
-            headerTitleAlign: navigatorStyle.headerTitleAlign,
-          }}
-        />
-      </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen
-          component={CameraSettings}
-          name={Routes.cameraSettings}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          component={GeneralSettings}
-          name={Routes.generalSettings}
-          options={{
-            headerLeft: (props) => <GeneralSettingsNavigatorLeft {...props} />,
-            headerStyle: navigatorStyle.headerSettingsStyle,
-            title: null,
-          }}
-        />
-        <Stack.Screen
-          component={Walkthougher}
-          name={Routes.walkthougher}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Group>
-    </Stack.Navigator>
+    <>
+      <NotifierRoot ref={notifierRef} />
+      <Stack.Navigator
+        initialRouteName={Routes.tabHome}
+        screenOptions={{
+          // Todo animation for Android will be made smoother.
+          cardStyleInterpolator:
+            CardStyleInterpolators.forFadeFromBottomAndroid,
+        }}
+      >
+        <Stack.Group>
+          <Stack.Screen
+            name={Routes.tabHome}
+            component={TabNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            component={UserSequence}
+            name={Routes.sequences}
+            options={{
+              headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+              headerRight: () => <SequenceNavigatorRight />,
+              title: null,
+              headerStyle: navigatorStyle.headerStyle,
+              headerTitleStyle: navigatorStyle.headerTitleStyle,
+              headerTintColor: navigatorStyle.headerTintColor,
+              headerTitleAlign: navigatorStyle.headerTitleAlign,
+            }}
+          />
+          <Stack.Screen
+            component={UserSequenceDetail}
+            name={Routes.sequenceDetail}
+            options={{
+              headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+              headerRight: (props) => <DeleteNavigationRight {...props} />,
+              title: null,
+              headerStyle: navigatorStyle.headerStyle,
+              headerTitleStyle: navigatorStyle.headerTitleStyle,
+              headerTintColor: navigatorStyle.headerTintColor,
+              headerTitleAlign: navigatorStyle.headerTitleAlign,
+            }}
+          />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: "modal" }}>
+          <Stack.Screen
+            component={CameraSettings}
+            name={Routes.cameraSettings}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            component={GeneralSettings}
+            name={Routes.generalSettings}
+            options={{
+              headerLeft: (props) => (
+                <GeneralSettingsNavigatorLeft {...props} />
+              ),
+              headerStyle: navigatorStyle.headerSettingsStyle,
+              title: null,
+            }}
+          />
+          <Stack.Screen
+            component={Walkthrough}
+            name={Routes.walkthrough}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Group>
+      </Stack.Navigator>
+    </>
   );
 };
 
@@ -273,9 +316,13 @@ const TabNavigator = () => (
       }}
     />
     <Tab.Screen
-      component={UserNavigator}
+      component={UserProfile}
       name={Routes.profile}
       options={{
+        headerStyle: navigatorStyle.headerStyle,
+        headerTitleStyle: navigatorStyle.headerTitleStyle,
+        headerTintColor: navigatorStyle.headerTintColor,
+        headerTitleAlign: navigatorStyle.headerTitleAlign,
         tabBarIcon: ({ focused }) => (
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             <Profile />
@@ -287,7 +334,6 @@ const TabNavigator = () => (
             {children}
           </TouchableOpacity>
         ),
-        headerShown: false,
       }}
     />
   </Tab.Navigator>

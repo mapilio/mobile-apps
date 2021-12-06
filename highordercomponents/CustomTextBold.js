@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const CustomTextBold = (props) => (
+const CustomTextBold = ({ style, lineCount = 12, children }) => (
   <View style={{ flexDirection: "row" }}>
     <Text
       style={[
@@ -9,13 +9,13 @@ const CustomTextBold = (props) => (
           fontFamily: "Poppins-SemiBold",
           flex: 1,
           flexWrap: "wrap",
-          ...props.style,
+          ...style,
         },
       ]}
-      numberOfLines={12}
+      numberOfLines={lineCount}
       adjustsFontSizeToFit
     >
-      {props.children}
+      {children}
     </Text>
   </View>
 );

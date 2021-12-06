@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const walkthogherStyle = StyleSheet.create({
+export const walkthroughStyle = StyleSheet.create({
   image: {
     justifyContent: "center",
     alignItems: "center",
@@ -10,12 +10,12 @@ export const walkthogherStyle = StyleSheet.create({
   },
   title: {
     fontSize: RFValue(18),
-    color: '#fff',
+    color: "#fff",
     marginTop: RFValue(30),
   },
   desc: {
     fontSize: RFValue(14),
-    color: '#fff',
+    color: "#fff",
     textAlign: "center",
     marginTop: RFValue(8),
     marginBottom: RFValue(30),
@@ -34,30 +34,30 @@ export const walkthogherStyle = StyleSheet.create({
     alignItems: "center",
   },
   pagination: {
-    flexDirection: 'row',
+    flexDirection: "row",
     alignItems: "center",
   },
   hide: {
-    display: 'none'
+    display: "none",
   },
   dotStyle: {
     width: RFValue(10),
     height: RFValue(10),
     borderRadius: RFValue(5),
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: RFValue(1),
-    borderColor: '#fff',
+    borderColor: "#fff",
   },
   inactiveDotStyle: {
-    backgroundColor: 'transparent',
-    borderColor: '#fff',
+    backgroundColor: "transparent",
+    borderColor: "#fff",
   },
   nextButton: {
     fontSize: RFValue(14),
-    color: '#fff'
+    color: "#fff",
   },
   prevButton: {
     fontSize: RFValue(14),
-    color: '#B9C0CF'
+    color: "#B9C0CF",
   },
 });

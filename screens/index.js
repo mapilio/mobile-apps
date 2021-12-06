@@ -9,4 +9,5 @@ export { default as Login } from "./Login";
 export { default as Register } from "./Register";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as AppMap } from "./AppMap";
-export { default as Walkthougher } from "./Walkthougher";
+export { default as Walkthrough } from "./Walkthrough";
+export { default as WelcomeWalkthrough } from "./WelcomeWalkthrough";

@@ -40,13 +40,24 @@ const Camera = ({ navigation }) => {
   let location = null;
 
   useEffect(() => {
-    __startCamera();
-    _startNetworkProvider();
-    StatusBar.setHidden(true);
-    ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-    );
-  }, []);
+    const unsubscribe = navigation.addListener("blur", (e) => {
+      StatusBar.setHidden(false);
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", (e) => {
+      __startCamera();
+      _startNetworkProvider();
+      StatusBar.setHidden(true);
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+      );
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   useEffect(() => {
     _subscribeToAccelerometer();
@@ -82,7 +93,6 @@ const Camera = ({ navigation }) => {
 
   useEffect(() => {
     if (!connection.connectionStatus) {
-      console.log(22);
       setNetworkAlert({
         svg: <InternetAccessIcon />,
         title: "You do not have an internet connection",
@@ -215,7 +225,7 @@ const Camera = ({ navigation }) => {
 
   const onCameraReady = () => {
     dispatch({ type: UPDATE_CAMERA_STATUS, payload: "READY" });
-    dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
+    // dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
   };
 
   return (

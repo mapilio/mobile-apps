@@ -11,5 +11,6 @@ export const Routes = {
   forgotPassword: "ForgotPassword",
   marketplace: "Marketplace",
   tabHome: "Home",
-  walkthougher: "Walkthougher",
+  walkthrough: "Walkthough",
+  welcomeWalkthrough:"WelcomeWalkthrough",
 };
