@@ -3,21 +3,13 @@ import {
   CardStyleInterpolators,
 } from "@react-navigation/stack";
 import {
-  UserProfile,
   UserUpload,
   UserSequence,
-  UserSequenceDetail,
-  AppCamera,
   Login,
   AppMap
 } from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
-import {
-  SequenceNavigatorLeft,
-  SequenceNavigatorRight,
-  UploadNavigatorRight,
-  DeleteNavigationRight,
-} from "./navigatorbars";
+import { UploadNavigatorRight } from "./navigatorbars";
 import { Routes } from "./Routes";
 import ForgotPassword from "../screens/ForgotPassword";
 import Register from "../screens/Register";
@@ -94,164 +86,102 @@ const MainNavigator = () => {
       />
     </Stack.Navigator>
   ) : (
-    <Stack.Navigator
-      initialRouteName={Routes.profile}
-      screenOptions={{
-        // Todo animation for Android will be made smoother.
-        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-      }}
-    >
-      <Stack.Screen
-        component={UserProfile}
-        name={Routes.profile}
-        options={{
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
-        }}
-      />
-      <Stack.Screen
-        component={UserUpload}
-        name={Routes.upload}
-        options={{
-          headerRight: () => <UploadNavigatorRight />,
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
-        }}
-      />
-      <Stack.Screen
-        component={UserSequence}
-        name={Routes.sequences}
-        options={{
-          headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-          headerRight: () => <SequenceNavigatorRight />,
-          title: null,
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
-        }}
-      />
-      <Stack.Screen
-        component={AppCamera}
-        name={Routes.camera}
-        options={{
-          headerShown: false,
-        }}
-        component={UserSequenceDetail}
-        name={Routes.sequenceDetail}
-        options={{
-          headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-          headerRight: (props) => <DeleteNavigationRight {...props} />,
-          title: null,
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
-        }}
-      />
-    </Stack.Navigator>
+      <Tab.Navigator
+          initialRouteName={'Map'}
+          screenOptions={{
+              // Todo animation for Android will be made smoother.
+              cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+              tabBarShowLabel: false,
+              tabBarStyle: navigatorStyle.tabBarStyle
+          }}
+      >
+          <Tab.Screen
+              component={AppMap}
+              name={'Map'}
+              options={{
+                  tabBarButton: props => null
+              }}
+          />
+          <Tab.Screen
+              component={UserSequence}
+              name={'Marketplace'}
+              options={{
+                  tabBarIcon: ({focused}) => (
+                      <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
+                          <MarketplaceIcon />
+                          <Text style={{fontSize: 14, marginLeft: 8, color: '#32425B'}}>
+                              Marketplace
+                          </Text>
+                      </View>
+                  ),
+                  tabBarButton: ({children, onPress}) => (
+                      <TouchableOpacity style={{width: '40%'}} onPress={onPress}>
+                          {children}
+                      </TouchableOpacity>
+                  )
+              }}
+          />
+          <Tab.Screen
+              component={UserUpload}
+              name={'Capture'}
+              options={{
+                  headerRight: () => <UploadNavigatorRight />,
+                  headerStyle: navigatorStyle.headerStyle,
+                  headerTitleStyle: navigatorStyle.headerTitleStyle,
+                  headerTintColor: navigatorStyle.headerTintColor,
+                  headerTitleAlign: navigatorStyle.headerTitleAlign,
+                  tabBarIcon: ({focused}) => (
+                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                          <CaptureIcon height={38} width={38} />
+                          <Text style={{position: 'absolute', color: '#1AD971', fontWeight: 'bold', fontFamily: 'Poppins'}}>Capture</Text>
+                      </View>
+                  ),
+                  tabBarButton: (prop) => (
+                      <CaptureTabBarButton {...prop} />
+                  )
+              }}
+          />
+          <Tab.Screen
+              component={UserSequence}
+              name={Routes.upload}
+              options={{
+                  tabBarIcon: ({focused}) => (
+                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                          <Upload />
+                          <Text style={{fontSize: 13, marginTop: 2}}>
+                              Upload
+                          </Text>
+                      </View>
+                  ),
+                  tabBarButton: ({children, onPress}) => (
+                      <TouchableOpacity style={{width: '20%'}} onPress={onPress}>
+                          {children}
+                      </TouchableOpacity>
+                  ),
+              }}
+          />
+          <Tab.Screen
+              component={UserNavigator}
+              name={Routes.profile}
+              options={{
+                  tabBarIcon: ({focused}) => (
+                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                          <Profile />
+                          <Text style={{fontSize: 13, marginTop: 2}}>
+                              Profile
+                          </Text>
+                      </View>
+                  ),
+                  tabBarButton: ({children, onPress}) => (
+                      <TouchableOpacity style={{width: '20%'}} onPress={onPress}>
+                          {children}
+                      </TouchableOpacity>
+                  ),
+                  headerShown: false,
+              }}
+          />
+      </Tab.Navigator>
   );
 };
-const MainNavigator = () => (
-    <Tab.Navigator
-        initialRouteName={'Map'}
-        screenOptions={{
-            // Todo animation for Android will be made smoother.
-            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-            tabBarShowLabel: false,
-            tabBarStyle: navigatorStyle.tabBarStyle
-        }}
-    >
-        <Tab.Screen
-            component={AppMap}
-            name={'Map'}
-            options={{
-                tabBarButton: props => null
-            }}
-        />
-        <Tab.Screen
-            component={UserSequence}
-            name={'Marketplace'}
-            options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
-                        <MarketplaceIcon />
-                        <Text style={{fontSize: 14, marginLeft: 8, color: '#32425B'}}>
-                            Marketplace
-                        </Text>
-                    </View>
-                ),
-                tabBarButton: ({children, onPress}) => (
-                    <TouchableOpacity style={{width: '40%'}} onPress={onPress}>
-                        {children}
-                    </TouchableOpacity>
-                )
-            }}
-        />
-        <Tab.Screen
-            component={UserUpload}
-            name={'Capture'}
-            options={{
-                headerRight: () => <UploadNavigatorRight />,
-                headerStyle: navigatorStyle.headerStyle,
-                headerTitleStyle: navigatorStyle.headerTitleStyle,
-                headerTintColor: navigatorStyle.headerTintColor,
-                headerTitleAlign: navigatorStyle.headerTitleAlign,
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <CaptureIcon height={38} width={38} />
-                        <Text style={{position: 'absolute', color: '#1AD971', fontWeight: 'bold', fontFamily: 'Poppins'}}>Capture</Text>
-                    </View>
-                ),
-                tabBarButton: (prop) => (
-                    <CaptureTabBarButton {...prop} />
-                )
-            }}
-        />
-        <Tab.Screen
-            component={UserSequence}
-            name={Routes.upload}
-            options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Upload />
-                        <Text style={{fontSize: 13, marginTop: 2}}>
-                            Upload
-                        </Text>
-                    </View>
-                ),
-                tabBarButton: ({children, onPress}) => (
-                    <TouchableOpacity style={{width: '20%'}} onPress={onPress}>
-                        {children}
-                    </TouchableOpacity>
-                ),
-            }}
-        />
-        <Tab.Screen
-            component={UserNavigator}
-            name={Routes.profile}
-            options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                        <Profile />
-                        <Text style={{fontSize: 13, marginTop: 2}}>
-                            Profile
-                        </Text>
-                    </View>
-                ),
-                tabBarButton: ({children, onPress}) => (
-                    <TouchableOpacity style={{width: '20%'}} onPress={onPress}>
-                        {children}
-                    </TouchableOpacity>
-                ),
-                headerShown: false,
-            }}
-        />
-    </Tab.Navigator>
-);
 
 export default MainNavigator;

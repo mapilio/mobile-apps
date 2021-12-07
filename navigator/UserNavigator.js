@@ -3,12 +3,12 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-import { UserProfile, UserUpload, UserSequence } from "../screens";
+import {UserProfile, UserUpload, UserSequence, AppCamera} from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
 import {
-  SequenceNavigatorLeft,
-  SequenceNavigatorRight,
-  UploadNavigatorRight,
+    SequenceNavigatorLeft,
+    SequenceNavigatorRight,
+    UploadNavigatorRight,
 } from "./navigatorbars";
 import { Routes } from "./Routes";
 
@@ -54,6 +54,13 @@ const UserNavigator = () => (
                 headerTitleStyle: navigatorStyle.headerTitleStyle,
                 headerTintColor: navigatorStyle.headerTintColor,
                 headerTitleAlign: navigatorStyle.headerTitleAlign,
+            }}
+        />
+        <Stack.Screen
+            component={AppCamera}
+            name={Routes.camera}
+            options={{
+                headerShown: false,
             }}
         />
     </Stack.Navigator>
