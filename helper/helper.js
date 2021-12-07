@@ -49,11 +49,22 @@ const toastGenerator = (
     translucentStatusBar: StatusBar.currentHeight,
     componentProps: {
       //Todo xd export alert images with low quality.
-      // imageSource: image,
-      // imageStyle: imageStyle,
+      imageSource: image,
+      imageStyle: imageStyle,
       titleStyle: titleStyle,
       containerStyle: containerStyle,
     },
   });
 
-export { useFonts, convertHexToRGBA, fetchHandler, toastGenerator };
+const maxCharacterHandler = (text, maxLength) => {
+  if (text.length > maxLength) text = text.substring(0, maxLength) + "...";
+  return text;
+};
+
+export {
+  useFonts,
+  convertHexToRGBA,
+  fetchHandler,
+  toastGenerator,
+  maxCharacterHandler,
+};

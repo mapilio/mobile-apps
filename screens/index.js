@@ -11,3 +11,4 @@ export { default as ForgotPassword } from "./ForgotPassword";
 export { default as AppMap } from "./AppMap";
 export { default as Walkthrough } from "./Walkthrough";
 export { default as WelcomeWalkthrough } from "./WelcomeWalkthrough";
+export { default as NoInternetAccess } from "./NoInternetAccess";

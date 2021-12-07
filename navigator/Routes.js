@@ -13,4 +13,5 @@ export const Routes = {
   tabHome: "Home",
   walkthrough: "Walkthough",
   welcomeWalkthrough:"WelcomeWalkthrough",
+  noInternetAccess:"NoInternetAccess",
 };

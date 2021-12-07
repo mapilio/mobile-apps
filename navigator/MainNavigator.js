@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -16,6 +16,7 @@ import {
   GeneralSettings,
   UserProfile,
   WelcomeWalkthrough,
+  NoInternetAccess,
 } from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
 import {
@@ -38,7 +39,7 @@ import {
 import GeneralSettingsNavigatorLeft from "./navigatorbars/GeneralSettingsNavigatorLeft";
 import { useDispatch } from "react-redux";
 import { UPDATE_CONNECTION_STATUS } from "../store/actionsName";
-import { NotifierRoot, Notifier } from "react-native-notifier";
+import { Notifier } from "react-native-notifier";
 import { toastGenerator } from "../helper/helper";
 import { errorAlertStyles } from "../styles/alertStyles";
 
@@ -64,7 +65,6 @@ const MainNavigator = () => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const dispatch = useDispatch();
   const [internetConnection, setInternetConnection] = useState(true);
-  const notifierRef = useRef();
 
   useEffect(() => {
     const unsubcribe = NetInfo.addEventListener((state) => {
@@ -84,7 +84,7 @@ const MainNavigator = () => {
     if (!internetConnection) {
       toastGenerator(
         "You do not have an internet connection. Please try again.",
-        "",
+        require("../assets/images/Info.png"),
         errorAlertStyles.alertContainer,
         errorAlertStyles.alertTitle,
         errorAlertStyles.alertImage
@@ -94,9 +94,22 @@ const MainNavigator = () => {
     }
   }, [internetConnection]);
 
+  if (!internetConnection) {
+    return (
+      <Stack.Navigator initialRouteName={Routes.noInternetAccess}>
+        <Stack.Screen
+          component={NoInternetAccess}
+          name={Routes.noInternetAccess}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    );
+  }
+
   return auth === null ? (
     <>
-      <NotifierRoot ref={notifierRef} />
       <Stack.Navigator
         initialRouteName={Routes.welcomeWalkthrough}
         screenOptions={{
@@ -148,12 +161,18 @@ const MainNavigator = () => {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            component={NoInternetAccess}
+            name={Routes.noInternetAccess}
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </>
   ) : (
     <>
-      <NotifierRoot ref={notifierRef} />
       <Stack.Navigator
         initialRouteName={Routes.tabHome}
         screenOptions={{
@@ -221,122 +240,142 @@ const MainNavigator = () => {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            component={NoInternetAccess}
+            name={Routes.noInternetAccess}
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </>
   );
 };
 
-const TabNavigator = () => (
-  <Tab.Navigator
-    initialRouteName={Routes.profile}
-    screenOptions={{
-      // Todo animation for Android will be made smoother.
-      cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
-      tabBarShowLabel: false,
-      tabBarStyle: navigatorStyle.tabBarStyle,
-    }}
-  >
-    <Tab.Screen
-      component={UserSequence}
-      name={Routes.marketplace}
-      options={{
-        tabBarIcon: ({ focused }) => (
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "row",
-            }}
-          >
-            <MarketplaceIcon />
-            <Text style={{ fontSize: 14, marginLeft: 8, color: "#32425B" }}>
-              Marketplace
-            </Text>
-          </View>
-        ),
-        tabBarButton: ({ children, onPress }) => (
-          <TouchableOpacity style={{ width: "40%" }} onPress={onPress}>
-            {children}
-          </TouchableOpacity>
-        ),
+const TabNavigator = () => {
+  const { connection } = useSelector((state) => state.generalReducer);
+
+  return (
+    <Tab.Navigator
+      initialRouteName={Routes.profile}
+      screenOptions={{
+        // Todo animation for Android will be made smoother.
+        cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+        tabBarShowLabel: false,
+        tabBarStyle: navigatorStyle.tabBarStyle,
       }}
-    />
-    <Tab.Screen
-      component={AppCamera}
-      name={Routes.camera}
-      options={{
-        headerShown: false,
-        headerRight: () => <UploadNavigatorRight />,
-        headerStyle: navigatorStyle.headerStyle,
-        headerTitleStyle: navigatorStyle.headerTitleStyle,
-        headerTintColor: navigatorStyle.headerTintColor,
-        headerTitleAlign: navigatorStyle.headerTitleAlign,
-        tabBarIcon: ({ focused }) => (
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <CaptureIcon height={38} width={38} />
-            <Text
+    >
+      <Tab.Screen
+        component={UserSequence}
+        name={Routes.marketplace}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
               style={{
-                position: "absolute",
-                color: "#1AD971",
-                fontWeight: "bold",
-                fontFamily: "Poppins",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row",
               }}
             >
-              Capture
-            </Text>
-          </View>
-        ),
-        tabBarButton: (prop) => <CaptureTabBarButton {...prop} />,
-        tabBarStyle: {
-          display: "none",
-        },
-      }}
-    />
-    <Tab.Screen
-      component={UserUpload}
-      name={Routes.upload}
-      options={{
-        headerRight: () => <UploadNavigatorRight />,
-        headerStyle: navigatorStyle.headerStyle,
-        headerTitleStyle: navigatorStyle.headerTitleStyle,
-        headerTintColor: navigatorStyle.headerTintColor,
-        headerTitleAlign: navigatorStyle.headerTitleAlign,
-        tabBarIcon: ({ focused }) => (
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Upload />
-            <Text style={{ fontSize: 13, marginTop: 2 }}>Upload</Text>
-          </View>
-        ),
-        tabBarButton: ({ children, onPress }) => (
-          <TouchableOpacity style={{ width: "20%" }} onPress={onPress}>
-            {children}
-          </TouchableOpacity>
-        ),
-      }}
-    />
-    <Tab.Screen
-      component={UserProfile}
-      name={Routes.profile}
-      options={{
-        headerStyle: navigatorStyle.headerStyle,
-        headerTitleStyle: navigatorStyle.headerTitleStyle,
-        headerTintColor: navigatorStyle.headerTintColor,
-        headerTitleAlign: navigatorStyle.headerTitleAlign,
-        tabBarIcon: ({ focused }) => (
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Profile />
-            <Text style={{ fontSize: 13, marginTop: 2 }}>Profile</Text>
-          </View>
-        ),
-        tabBarButton: ({ children, onPress }) => (
-          <TouchableOpacity style={{ width: "20%" }} onPress={onPress}>
-            {children}
-          </TouchableOpacity>
-        ),
-      }}
-    />
-  </Tab.Navigator>
-);
+              <MarketplaceIcon />
+              <Text style={{ fontSize: 14, marginLeft: 8, color: "#32425B" }}>
+                Marketplace
+              </Text>
+            </View>
+          ),
+          tabBarButton: ({ children, onPress }) => (
+            <TouchableOpacity style={{ width: "40%" }} onPress={onPress}>
+              {children}
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Tab.Screen
+        component={AppCamera}
+        name={Routes.camera}
+        options={{
+          headerShown: false,
+          headerRight: () => <UploadNavigatorRight />,
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <CaptureIcon height={38} width={38} />
+              <Text
+                style={{
+                  position: "absolute",
+                  color: "#1AD971",
+                  fontWeight: "bold",
+                  fontFamily: "Poppins",
+                }}
+              >
+                Capture
+              </Text>
+            </View>
+          ),
+          tabBarButton: (prop) => <CaptureTabBarButton {...prop} />,
+          tabBarStyle: {
+            display: "none",
+          },
+        }}
+      />
+      <Tab.Screen
+        component={UserUpload}
+        name={Routes.upload}
+        options={{
+          headerRight: () => <UploadNavigatorRight />,
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <Upload />
+              <Text style={{ fontSize: 13, marginTop: 2 }}>Upload</Text>
+            </View>
+          ),
+          tabBarButton: ({ children, onPress }) => (
+            <TouchableOpacity style={{ width: "20%" }} onPress={onPress}>
+              {children}
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Tab.Screen
+        component={UserProfile}
+        name={Routes.profile}
+        options={{
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <Profile />
+              <Text style={{ fontSize: 13, marginTop: 2 }}>Profile</Text>
+            </View>
+          ),
+          tabBarButton: ({ children, onPress }) => (
+            <TouchableOpacity style={{ width: "20%" }} onPress={onPress}>
+              {children}
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Tab.Screen
+        component={NoInternetAccess}
+        name={Routes.noInternetAccess}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => null,
+          tabBarButton: () => null,
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export default MainNavigator;

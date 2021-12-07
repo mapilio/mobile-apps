@@ -12,7 +12,12 @@ export const infoAlertStyles = StyleSheet.create({
     borderLeftWidth: RFValue(15),
     borderLeftColor: "#213348",
   },
-  alertImage: {},
+  alertImage: {
+    width: RFValue(33),
+    height: RFValue(33),
+    resizeMode: "contain",
+    marginRight: RFValue(9),
+  },
 });
 
 export const warningAlertStyles = StyleSheet.create({
@@ -25,7 +30,12 @@ export const warningAlertStyles = StyleSheet.create({
     borderLeftWidth: RFValue(15),
     borderLeftColor: "#CD9613",
   },
-  alertImage: {},
+  alertImage: {
+    width: RFValue(33),
+    height: RFValue(33),
+    resizeMode: "contain",
+    marginRight: RFValue(9),
+  },
 });
 
 export const errorAlertStyles = StyleSheet.create({
@@ -38,7 +48,12 @@ export const errorAlertStyles = StyleSheet.create({
     borderLeftWidth: RFValue(15),
     borderLeftColor: "#9F1010",
   },
-  alertImage: {},
+  alertImage: {
+    width: RFValue(33),
+    height: RFValue(33),
+    resizeMode: "contain",
+    marginRight: RFValue(9),
+  },
 });
 
 export const successAlertStyles = StyleSheet.create({
@@ -51,5 +66,10 @@ export const successAlertStyles = StyleSheet.create({
     borderLeftWidth: RFValue(15),
     borderLeftColor: "#0DA753",
   },
-  alertImage: {},
+  alertImage: {
+    width: RFValue(33),
+    height: RFValue(33),
+    resizeMode: "contain",
+    marginRight: RFValue(9),
+  },
 });

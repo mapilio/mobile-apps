@@ -6,6 +6,7 @@ import { Routes } from "../navigator/Routes";
 import CameraFrame from "./CameraFrame";
 import CameraInfos from "./CameraInfos";
 import CameraAlert from "./CameraAlert";
+import CameraProjectInfo from "./CameraProjectInfo";
 import { Accelerometer } from "expo-sensors";
 import RotationLine from "./RotationLine";
 import * as Location from "expo-location";
@@ -42,7 +43,9 @@ const Camera = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener("blur", (e) => {
       StatusBar.setHidden(false);
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT_UP
+      );
     });
     return unsubscribe;
   }, [navigation]);
@@ -240,6 +243,7 @@ const Camera = ({ navigation }) => {
       >
         <RotationLine degree={degree} setAlert={setRotateAlert} />
         <CameraFrame />
+        <CameraProjectInfo />
         <CameraInfos />
         {GPSAlert && (
           <CameraAlert

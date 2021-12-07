@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
+import { useSelector } from "react-redux";
 import { UserFeed, UserInfos } from "../components";
 import { globalStyles } from "../styles/globalStyles";
 
