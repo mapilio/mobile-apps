@@ -7,11 +7,12 @@ import {
   UPDATE_SELECTED_IMAGES,
   UPDATE_ALL_SELECT,
 } from "../store/actionsName";
+import {Routes} from "../navigator/Routes";
 
 const UploadImageCard = (props) => {
   const dispatch = useDispatch();
   const { allSelect } = useSelector((state) => state.imagesReducer);
-  const { id, path, selectedImages, uploadedImages } = props;
+  const { id, selectedImages, uploadedImages } = props;
   const [selected, setSelected] = useState(false);
 
   const addToSelectedImages = () => {
@@ -49,7 +50,8 @@ const UploadImageCard = (props) => {
     <TouchableOpacity
       activeOpacity={0.9}
       style={sequenceCardStyles.cardContainer}
-      onPress={addToSelectedImages}
+      onPress={() => props.navigation.navigate(Routes.sequenceDetail)}
+      onLongPress={addToSelectedImages}
     >
       <View style={sequenceCardStyles.imagePosition}>
         <Image

@@ -1,10 +1,12 @@
 import * as Font from "expo-font";
+import {store} from "../store/store";
+import axios from "axios";
 
 const useFonts = async () =>
   await Font.loadAsync({
     "Poppins": require("../assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
-    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
   });
 
 const convertHexToRGBA = (hexCode, opacity) => {
@@ -21,4 +23,11 @@ const convertHexToRGBA = (hexCode, opacity) => {
   return `rgba(${r},${g},${b},${opacity / 100})`;
 };
 
-export { useFonts, convertHexToRGBA };
+const fetchHandler = ({...args} = {}) => {
+  const auth = store.getState().getTokenReducer.auth;
+  auth && (axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`);
+
+  return axios(args).then((response) => response.data);
+}
+
+export { useFonts, convertHexToRGBA, fetchHandler };

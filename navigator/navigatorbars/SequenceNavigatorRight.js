@@ -30,7 +30,7 @@ const SequenceNavigatorRight = () => {
     <View style={sequenceRight.container}>
       <TouchableOpacity onPress={allSelectHandler}>
         <CustomTextMedium style={sequenceRight.title}>
-          {allSelect ? "Remove selections" : "Select all"}
+          {allSelect ? "Unselect" : "Select all"}
         </CustomTextMedium>
       </TouchableOpacity>
       <UploadIcon />
