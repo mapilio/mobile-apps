@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  CardStyleInterpolators,
+    CardStyleInterpolators, createStackNavigator,
 } from "@react-navigation/stack";
 import {
   UserUpload,
@@ -21,8 +21,10 @@ import {MarketplaceIcon} from "../assets/svg/illustrations";
 import CaptureIcon from "../assets/svg/illustrations/CaptureIcon";
 import Profile from "../assets/svg/illustrations/Profile";
 import Upload from "../assets/svg/illustrations/Upload";
+import TabMap from "../assets/svg/illustrations/TabMap";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const CaptureTabBarButton = ({children, onPress}) => (
     <TouchableOpacity
@@ -99,7 +101,15 @@ const MainNavigator = () => {
               component={AppMap}
               name={'Map'}
               options={{
-                  tabBarButton: props => null
+                  tabBarIcon: ({focused}) => (
+                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                          <TabMap />
+                          <Text style={{fontSize: 13, marginTop: 2}}>
+                              Map
+                          </Text>
+                      </View>
+                  ),
+                  headerShown: false,
               }}
           />
           <Tab.Screen
@@ -107,18 +117,14 @@ const MainNavigator = () => {
               name={'Marketplace'}
               options={{
                   tabBarIcon: ({focused}) => (
-                      <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
+                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
                           <MarketplaceIcon />
-                          <Text style={{fontSize: 14, marginLeft: 8, color: '#32425B'}}>
+                          <Text style={{fontSize: 13, marginTop: 2}}>
                               Marketplace
                           </Text>
                       </View>
                   ),
-                  tabBarButton: ({children, onPress}) => (
-                      <TouchableOpacity style={{width: '40%'}} onPress={onPress}>
-                          {children}
-                      </TouchableOpacity>
-                  )
+                  headerShown: false,
               }}
           />
           <Tab.Screen
@@ -153,11 +159,6 @@ const MainNavigator = () => {
                           </Text>
                       </View>
                   ),
-                  tabBarButton: ({children, onPress}) => (
-                      <TouchableOpacity style={{width: '20%'}} onPress={onPress}>
-                          {children}
-                      </TouchableOpacity>
-                  ),
               }}
           />
           <Tab.Screen
@@ -171,11 +172,6 @@ const MainNavigator = () => {
                               Profile
                           </Text>
                       </View>
-                  ),
-                  tabBarButton: ({children, onPress}) => (
-                      <TouchableOpacity style={{width: '20%'}} onPress={onPress}>
-                          {children}
-                      </TouchableOpacity>
                   ),
                   headerShown: false,
               }}

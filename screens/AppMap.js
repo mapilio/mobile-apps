@@ -11,13 +11,7 @@ MapboxGL.setAccessToken(
 const AppMap = ({ navigation }) => {
   return (
     <ScrollView>
-      <View style={globalStyles.container}>
-          <View style={appMapStyle.page}>
-              <View style={appMapStyle.container}>
-                  <MapboxGL.MapView style={appMapStyle.map} />
-              </View>
-          </View>
-      </View>
+      <MapboxGL.MapView styleURL={'mapbox://styles/mapbox/light-v10'} style={appMapStyle.map} />
     </ScrollView>
   );
 };
