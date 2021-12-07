@@ -1,18 +1,19 @@
 import { StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const appMapStyles = StyleSheet.create({
-  sequenceTitle: {
-    fontSize: RFValue(18),
-    color: "#4A4A4A",
+export const appMapStyle = StyleSheet.create({
+  page: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
   },
-  sequenceDescription: {
-    fontSize: RFValue(14),
-    color: "#B9C0CF",
+  container: {
+    height: 300,
+    width: 300,
+    backgroundColor: "tomato"
   },
-  sequenceWrapper: {
-    marginTop: RFValue(24),
-    flexWrap: "wrap",
-    flexDirection: "row",
-  },
+  map: {
+    flex: 1
+  }
 });

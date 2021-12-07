@@ -2,17 +2,13 @@ import React from "react";
 import {
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-import { UserProfile, UserUpload, UserSequence } from "../screens";
+import { UserUpload, UserSequence, AppMap } from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
-import {
-  SequenceNavigatorLeft,
-  SequenceNavigatorRight,
-  UploadNavigatorRight,
-} from "./navigatorbars";
+import { UploadNavigatorRight } from "./navigatorbars";
 import { Routes } from "./Routes";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import UserNavigator from "./UserNavigator";
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import {MarketplaceIcon} from "../assets/svg/illustrations";
 import CaptureIcon from "../assets/svg/illustrations/CaptureIcon";
 import Profile from "../assets/svg/illustrations/Profile";
@@ -39,7 +35,7 @@ const CaptureTabBarButton = ({children, onPress}) => (
 
 const MainNavigator = () => (
     <Tab.Navigator
-        initialRouteName={Routes.profile}
+        initialRouteName={'Map'}
         screenOptions={{
             // Todo animation for Android will be made smoother.
             cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
@@ -47,6 +43,13 @@ const MainNavigator = () => (
             tabBarStyle: navigatorStyle.tabBarStyle
         }}
     >
+        <Tab.Screen
+            component={AppMap}
+            name={'Map'}
+            options={{
+                tabBarButton: props => null
+            }}
+        />
         <Tab.Screen
             component={UserSequence}
             name={'Marketplace'}
