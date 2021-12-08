@@ -7,4 +7,7 @@ export const Routes = {
   login: "Login",
   register: "Register",
   forgotPassword: "ForgotPassword",
+  marketplace: "Marketplace",
+  marketplaceDetail: "MarketplaceDetail",
+  marketplaceReceived: "MarketplaceReceived",
 };

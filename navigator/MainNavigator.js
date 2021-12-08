@@ -10,6 +10,8 @@ import {
   UserSequenceDetail,
   AppCamera,
   Login,
+  Marketplace,
+  MarketplaceDetail,
 } from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
 import {
@@ -22,6 +24,8 @@ import { Routes } from "./Routes";
 import ForgotPassword from "../screens/ForgotPassword";
 import Register from "../screens/Register";
 import { useSelector } from "react-redux";
+import {HeaderTitle} from "../components/Marketplace";
+import MarketplaceReceived from "../screens/MarketplaceReceived";
 
 const Stack = createStackNavigator();
 
@@ -39,11 +43,7 @@ const MainNavigator = () => {
         component={Login}
         name={Routes.login}
         options={{
-          title: null,
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -112,11 +112,6 @@ const MainNavigator = () => {
         }}
       />
       <Stack.Screen
-        component={AppCamera}
-        name={Routes.camera}
-        options={{
-          headerShown: false,
-        }}
         component={UserSequenceDetail}
         name={Routes.sequenceDetail}
         options={{
@@ -129,6 +124,47 @@ const MainNavigator = () => {
           headerTitleAlign: navigatorStyle.headerTitleAlign,
         }}
       />
+      <Stack.Screen
+        component={AppCamera}
+        name={Routes.camera}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        component={Marketplace}
+        name={Routes.marketplace}
+        options={{
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          headerTitle: () => <HeaderTitle/>,
+        }}
+      />
+      <Stack.Screen
+        component={MarketplaceDetail}
+        name={Routes.marketplaceDetail}
+        options={{
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          headerTitle: () => <HeaderTitle/>,
+        }}
+      />
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen
+          component={MarketplaceReceived}
+          name={Routes.marketplaceReceived}
+          options={{
+            headerStyle: navigatorStyle.headerStyle,
+            headerTitleAlign: navigatorStyle.headerTitleAlign,
+            headerTitle: () => <HeaderTitle/>,
+            headerLeft: '',
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };
