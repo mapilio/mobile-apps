@@ -17,7 +17,7 @@ const ManuelActionButton = ({ disabled }) => {
 
   const takePicture = async () => {
     if (cameraStatus !== "READY") return;
-    const options = { quality: 1, base64: false, exif: true };
+    const options = { quality: 1, base64: false };
     const image = await camera.takePictureAsync(options);
     const imageUri = image.uri;
     if (!imageUri) return;

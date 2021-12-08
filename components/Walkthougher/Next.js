@@ -1,7 +1,7 @@
 import React from "react";
 import {TouchableOpacity} from "react-native";
-import {CustomText} from "../../../highordercomponents";
-import {walkthogherStyle} from "../../../styles/walkthogherStyle";
+import {CustomText} from "../../highordercomponents";
+import {walkthogherStyle} from "../../styles/walkthogherStyle";
 
 const Buttons = ({active, dataLength = 0}) => {
   return (

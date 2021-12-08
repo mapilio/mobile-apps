@@ -4,7 +4,11 @@ export const Routes = {
   sequenceDetail: "SequenceDetail",
   upload: "Upload",
   camera: "Camera",
+  cameraSettings: "CameraSettings",
   login: "Login",
   register: "Register",
   forgotPassword: "ForgotPassword",
+  marketplace: "Marketplace",
+  tabHome: "Home",
+  walkthougher: "Walkthougher",
 };

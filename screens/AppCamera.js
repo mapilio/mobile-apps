@@ -16,7 +16,7 @@ const AppCamera = ({ navigation }) => {
           padding: RFValue(22),
         }}
       >
-        <CameraSidebar />
+        <CameraSidebar navigation={navigation} />
       </View>
     </View>
   );
