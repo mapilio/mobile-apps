@@ -17,6 +17,8 @@ import {
   UserProfile,
   WelcomeWalkthrough,
   NoInternetAccess,
+  Marketplace,
+  MarketplaceDetail,
 } from "../screens";
 import { navigatorStyle } from "../styles/navigatorStyle";
 import {
@@ -42,6 +44,8 @@ import { UPDATE_CONNECTION_STATUS } from "../store/actionsName";
 import { Notifier } from "react-native-notifier";
 import { toastGenerator } from "../helper/helper";
 import { errorAlertStyles } from "../styles/alertStyles";
+import {HeaderTitle} from "../components/Marketplace";
+import MarketplaceReceived from "../screens/MarketplaceReceived";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -248,6 +252,29 @@ const MainNavigator = () => {
             }}
           />
         </Stack.Group>
+        <Stack.Group screenOptions={{presentation: "modal"}}>
+          <Stack.Screen
+            component={MarketplaceDetail}
+            name={Routes.marketplaceDetail}
+            options={{
+              headerStyle: navigatorStyle.headerStyle,
+              headerTitleStyle: navigatorStyle.headerTitleStyle,
+              headerTintColor: navigatorStyle.headerTintColor,
+              headerTitleAlign: navigatorStyle.headerTitleAlign,
+              headerTitle: () => <HeaderTitle/>,
+            }}
+          />
+          <Stack.Screen
+            component={MarketplaceReceived}
+            name={Routes.marketplaceReceived}
+            options={{
+              headerStyle: navigatorStyle.headerStyle,
+              headerTitleAlign: navigatorStyle.headerTitleAlign,
+              headerTitle: () => <HeaderTitle/>,
+              headerLeft: '',
+            }}
+          />
+        </Stack.Group>
       </Stack.Navigator>
     </>
   );
@@ -267,9 +294,14 @@ const TabNavigator = () => {
       }}
     >
       <Tab.Screen
-        component={UserSequence}
+        component={Marketplace}
         name={Routes.marketplace}
         options={{
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          headerTitle: () => <HeaderTitle />,
           tabBarIcon: ({ focused }) => (
             <View
               style={{

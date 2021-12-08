@@ -15,7 +15,7 @@ const Marketplace = ({navigation}) => {
       />
 
       <SlidingUpPanel
-        draggableRange={{top: height - RFValue(50), bottom: 60}}
+        draggableRange={{top: height - RFValue(100), bottom: 60}}
         showBackdrop={false}>
         <List navigation={navigation} />
       </SlidingUpPanel>
