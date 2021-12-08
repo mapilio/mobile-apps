@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { Platform } from "react-native";
 import { useSelector } from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
 
 const CameraActionsButtons = () => {
   const [disabled, setDisabled] = useState(false);
-  const { GPSStatus, GPSAccuracy, camera, captureType } = useSelector(
-    (state) => state.cameraReducer
-  );
+  const { GPSStatus, GPSAccuracy, camera, captureType, batteryLevel } =
+    useSelector((state) => state.cameraReducer);
 
   useEffect(() => {
-    if (GPSStatus && GPSAccuracy && camera) {
+    const batteryError =
+      Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
+    if (GPSStatus && GPSAccuracy && camera && batteryError) {
       setDisabled(true);
     } else {
       setDisabled(false);

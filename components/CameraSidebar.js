@@ -10,8 +10,9 @@ import {
   SettingsIcon,
 } from "../assets/svg/illustrations";
 import CameraActionsButtons from "./CameraActionsButtons";
+import { Routes } from "../navigator/Routes";
 
-const CameraSidebar = () => {
+const CameraSidebar = ({ navigation }) => {
   return (
     <View
       style={{
@@ -21,18 +22,27 @@ const CameraSidebar = () => {
         height: "100%",
       }}
     >
-      <TouchableOpacity style={{ position: "absolute", top: 0, left: 0 }}>
+      <TouchableOpacity
+        style={{ position: "absolute", top: 0, left: 0 }}
+        onPress={() => navigation.navigate(Routes.generalSettings)}
+      >
         <SettingsIcon />
       </TouchableOpacity>
       <TouchableOpacity
         style={{ position: "absolute", top: RFValue(40), left: RFValue(2) }}
+        onPress={() => navigation.navigate(Routes.walkthrough)}
       >
         <InformationIcon />
       </TouchableOpacity>
-      <TouchableOpacity style={{ position: "absolute", top: 0, right: 0 }}>
+      <TouchableOpacity
+        style={{ position: "absolute", top: 0, right: 0 }}
+        onPress={() => navigation.navigate(Routes.profile)}
+      >
         <GoBackIcon />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(Routes.cameraSettings)}
+      >
         <CustomText
           style={{
             color: convertHexToRGBA("#FFFFFF", 75),

@@ -31,15 +31,29 @@ export const sequenceRight = StyleSheet.create({
 
 export const deleteRight = StyleSheet.create({
   text: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: RFValue(14),
-    right: RFValue(10)
-  }
-})
+    right: RFValue(10),
+  },
+});
 
 export const uploadRight = StyleSheet.create({
   container: {
     marginBottom: -5,
     marginRight: RFValue(10),
+  },
+});
+
+export const generalSettingsLeft = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: RFValue(16),
+  },
+  backTitle: {
+    fontSize: RFValue(16),
+    color: "#B9C0CF",
+    marginBottom: Platform.OS === "ios" ? 0 : RFValue(-2),
+    marginLeft: RFValue(3),
   },
 });

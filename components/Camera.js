@@ -6,6 +6,7 @@ import { Routes } from "../navigator/Routes";
 import CameraFrame from "./CameraFrame";
 import CameraInfos from "./CameraInfos";
 import CameraAlert from "./CameraAlert";
+import CameraProjectInfo from "./CameraProjectInfo";
 import { Accelerometer } from "expo-sensors";
 import RotationLine from "./RotationLine";
 import * as Location from "expo-location";
@@ -16,26 +17,50 @@ import {
   UPDATE_GPS_STATUS,
 } from "../store/actionsName";
 import { useDispatch } from "react-redux";
-import { GPSError } from "../assets/svg/illustrations";
+import {
+  BadGPS,
+  BatteryLevelIcon,
+  GPSError,
+  InternetAccessIcon,
+} from "../assets/svg/illustrations";
+import { useSelector } from "react-redux";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Camera = ({ navigation }) => {
   const [degree, setDegree] = useState(0);
+  const [batteryAlert, setBatteryAlert] = useState(null);
   const [subscription, setSubscription] = useState(null);
+  const [networkAlert, setNetworkAlert] = useState(null);
   const [GPSAlert, setGPSAlert] = useState(null);
   const [rotateAlert, setRotateAlert] = useState(null);
   const [locationFeatures, setLocation] = useState({});
   const dispatch = useDispatch();
+  const { batteryLevel } = useSelector((state) => state.cameraReducer);
+  const { connection } = useSelector((state) => state.generalReducer);
   const cameraRef = useRef(null);
   let location = null;
 
   useEffect(() => {
-    __startCamera();
-    _startNetworkProvider();
-    StatusBar.setHidden(true);
-    ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-    );
-  }, []);
+    const unsubscribe = navigation.addListener("blur", (e) => {
+      StatusBar.setHidden(false);
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT_UP
+      );
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", (e) => {
+      __startCamera();
+      _startNetworkProvider();
+      StatusBar.setHidden(true);
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+      );
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   useEffect(() => {
     _subscribeToAccelerometer();
@@ -48,10 +73,45 @@ const Camera = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
+    if (Platform.OS === "ios") {
+      batteryLevel <= 20
+        ? setBatteryAlert({
+            svg: <BatteryLevelIcon />,
+            title: "Battery level low",
+            content:
+              "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
+          })
+        : setBatteryAlert(null);
+    } else if (Platform.OS === "android") {
+      batteryLevel <= 15
+        ? setBatteryAlert({
+            svg: <BatteryLevelIcon />,
+            title: "Battery level low",
+            content:
+              "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible.",
+          })
+        : setBatteryAlert(null);
+    }
+  }, [batteryLevel]);
+
+  useEffect(() => {
+    if (!connection.connectionStatus) {
+      setNetworkAlert({
+        svg: <InternetAccessIcon />,
+        title: "You do not have an internet connection",
+        content:
+          "You do not have an internet connection. Make sure mobile cellular data of wifi is turned on.",
+      });
+    } else {
+      setNetworkAlert(null);
+    }
+  }, [connection]);
+
+  useEffect(() => {
     if (locationFeatures.accuracy > 5) {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
       setGPSAlert({
-        svg: <GPSError />,
+        svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
         title: "GPS accuracy is too low",
         content: "Shooting will continue when the GPS alert icon turns green.",
       });
@@ -168,7 +228,7 @@ const Camera = ({ navigation }) => {
 
   const onCameraReady = () => {
     dispatch({ type: UPDATE_CAMERA_STATUS, payload: "READY" });
-    dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
+    // dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
   };
 
   return (
@@ -183,6 +243,7 @@ const Camera = ({ navigation }) => {
       >
         <RotationLine degree={degree} setAlert={setRotateAlert} />
         <CameraFrame />
+        <CameraProjectInfo />
         <CameraInfos />
         {GPSAlert && (
           <CameraAlert
@@ -198,6 +259,20 @@ const Camera = ({ navigation }) => {
             content={rotateAlert.content}
           />
         ) : null}
+        {batteryAlert && (
+          <CameraAlert
+            svg={batteryAlert.svg}
+            title={batteryAlert.title}
+            content={batteryAlert.content}
+          />
+        )}
+        {networkAlert && (
+          <CameraAlert
+            svg={networkAlert.svg}
+            title={networkAlert.title}
+            content={networkAlert.content}
+          />
+        )}
       </ExpoCamera>
     </>
   );
