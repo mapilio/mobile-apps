@@ -1,9 +1,9 @@
-import {applyMiddleware, createStore} from "redux";
+import { applyMiddleware, createStore } from "redux";
 import reducer from "./combineReducer";
 import thunk from "redux-thunk";
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
-import {createTransform, persistReducer, persistStore} from "redux-persist";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createTransform, persistReducer, persistStore } from "redux-persist";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import JSOG from "jsog";
 
 export const JSOGTransform = createTransform(
@@ -11,12 +11,12 @@ export const JSOGTransform = createTransform(
   (outboundState, key) => JSOG.decode(outboundState)
 );
 
-
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,
-  transform: [JSOGTransform]
+  blacklist: ["cameraReducer"],
+  transform: [JSOGTransform],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

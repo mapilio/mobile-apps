@@ -4,6 +4,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { useSelector } from "react-redux";
 import * as FileSystem from "expo-file-system";
+import * as Location from "expo-location";
 import { UPDATE_PHOTO_AMOUNT, UPDATE_IMAGE_SIZE } from "../store/actionsName";
 import { useDispatch } from "react-redux";
 
@@ -19,6 +20,8 @@ const ManuelActionButton = ({ disabled }) => {
     if (cameraStatus !== "READY") return;
     const options = { quality: 1, base64: false };
     const image = await camera.takePictureAsync(options);
+    const location = await Location.getCurrentPositionAsync();
+  
     const imageUri = image.uri;
     if (!imageUri) return;
     await FileSystem.copyAsync({

@@ -258,7 +258,7 @@ const TabNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={Routes.profile}
+      initialRouteName={Routes.camera}
       screenOptions={{
         // Todo animation for Android will be made smoother.
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,

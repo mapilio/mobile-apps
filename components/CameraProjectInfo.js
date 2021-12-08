@@ -7,7 +7,7 @@ import SelectedProject from "./SelectedProject";
 import SelectProjectButton from "./SelectProjectButton";
 
 const CameraProjectInfo = () => {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const { selectedProject } = useSelector((state) => state.cameraReducer);
 
   return (

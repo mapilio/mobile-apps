@@ -57,7 +57,9 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-sqlite": "~10.0.3",
+    "expo-asset": "~8.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
