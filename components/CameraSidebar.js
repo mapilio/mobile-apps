@@ -30,13 +30,13 @@ const CameraSidebar = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={{ position: "absolute", top: RFValue(40), left: RFValue(2) }}
-        onPress={() => navigation.navigate(Routes.walkthougher)}
+        onPress={() => navigation.navigate(Routes.walkthrough)}
       >
         <InformationIcon />
       </TouchableOpacity>
       <TouchableOpacity
         style={{ position: "absolute", top: 0, right: 0 }}
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.navigate(Routes.profile)}
       >
         <GoBackIcon />
       </TouchableOpacity>

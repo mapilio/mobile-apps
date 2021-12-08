@@ -1,28 +1,33 @@
 import React, { useState } from "react";
-import { Modal, View, Image, Dimensions } from "react-native";
+import { View, Image, Dimensions } from "react-native";
 import { CustomText } from "../highordercomponents";
 import Carousel, { Pagination } from "react-native-snap-carousel";
-import { walkthogherStyle } from "../styles/walkthogherStyle";
-import { Next, Prev, Start } from "../components/Walkthougher";
+import { walkthroughStyle } from "../styles/walkthroughStyle";
+import {
+  Next,
+  Prev,
+  Start,
+} from "../components/Walkthrough/CaptureWalkthrough";
 import { useSelector } from "react-redux";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const width = Dimensions.get("window").width;
 
 const _renderItem = ({ item, i }) => {
   return (
-    <View key={i} style={walkthogherStyle.image}>
+    <View key={i} style={walkthroughStyle.image}>
       <Image
         source={item.src}
         style={{ width: item.width, height: item.height }}
         resizeMode={"contain"}
       />
-      <CustomText style={walkthogherStyle.title}>{item.title}</CustomText>
-      <CustomText style={walkthogherStyle.desc}>{item.desc}</CustomText>
+      <CustomText style={walkthroughStyle.title}>{item.title}</CustomText>
+      <CustomText style={walkthroughStyle.desc}>{item.desc}</CustomText>
     </View>
   );
 };
 
-const Walkthougher = () => {
+const Walkthrough = () => {
   const { captureType } = useSelector((state) => state.cameraReducer);
   const [modalVisible, setModalVisible] = useState(true);
   const [active, setActive] = useState(0);
@@ -78,8 +83,8 @@ const Walkthougher = () => {
   ].filter((e) => e.mode === captureType);
 
   return (
-    <View style={{ ...walkthogherStyle.centeredView }}>
-      <View style={walkthogherStyle.modalView}>
+    <View style={{ ...walkthroughStyle.centeredView }}>
+      <View style={walkthroughStyle.modalView}>
         <Carousel
           ref={(c) => {
             this._carousel = c;
@@ -91,13 +96,13 @@ const Walkthougher = () => {
           onSnapToItem={(index) => setActive(index)}
         />
 
-        <View style={walkthogherStyle.pagination}>
+        <View style={walkthroughStyle.pagination}>
           <Prev active={active} />
           <Pagination
             dotsLength={data.length}
             activeDotIndex={active}
-            dotStyle={walkthogherStyle.dotStyle}
-            inactiveDotStyle={walkthogherStyle.inactiveDotStyle}
+            dotStyle={walkthroughStyle.dotStyle}
+            inactiveDotStyle={walkthroughStyle.inactiveDotStyle}
             inactiveDotScale={1}
           />
           <Next active={active} dataLength={data.length} />
@@ -113,4 +118,4 @@ const Walkthougher = () => {
   );
 };
 
-export default Walkthougher;
+export default Walkthrough;

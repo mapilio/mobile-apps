@@ -8,6 +8,7 @@ import {
   UPDATE_PHONE_MEMORY,
   UPDATE_PHOTO_AMOUNT,
   UPDATE_BATTERY_LEVEL,
+  UPDATE_SELECTED_PROJECT,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -20,6 +21,7 @@ const INITIAL_STATE = {
   photoAmount: 0,
   batteryLevel: 100,
   captureType: "manuel",
+  selectedProject: { type: "individual", key: 0, projectName: "lorem" },
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -73,6 +75,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         batteryLevel: action.payload,
+      };
+    case UPDATE_SELECTED_PROJECT:
+      return {
+        ...state,
+        selectedProject: action.payload,
       };
     default:
       return state;

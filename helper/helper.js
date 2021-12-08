@@ -1,10 +1,12 @@
 import * as Font from "expo-font";
-import {store} from "../store/store";
+import { store } from "../store/store";
+import { Notifier, NotifierComponents } from "react-native-notifier";
 import axios from "axios";
+import { StatusBar } from "react-native";
 
 const useFonts = async () =>
   await Font.loadAsync({
-    "Poppins": require("../assets/fonts/Poppins-Regular.ttf"),
+    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
     "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
   });
@@ -23,11 +25,46 @@ const convertHexToRGBA = (hexCode, opacity) => {
   return `rgba(${r},${g},${b},${opacity / 100})`;
 };
 
-const fetchHandler = ({...args} = {}) => {
+const fetchHandler = ({ ...args } = {}) => {
   const auth = store.getState().getTokenReducer.auth;
-  auth && (axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`);
+  auth &&
+    (axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`);
 
   return axios(args).then((response) => response.data);
-}
+};
 
-export { useFonts, convertHexToRGBA, fetchHandler };
+const toastGenerator = (
+  title,
+  image,
+  containerStyle,
+  titleStyle,
+  imageStyle,
+  duration = 0
+) =>
+  Notifier.showNotification({
+    title: title,
+    Component: NotifierComponents.Notification,
+    swipeEnabled: true,
+    duration: duration,
+    translucentStatusBar: StatusBar.currentHeight,
+    componentProps: {
+      //Todo xd export alert images with low quality.
+      imageSource: image,
+      imageStyle: imageStyle,
+      titleStyle: titleStyle,
+      containerStyle: containerStyle,
+    },
+  });
+
+const maxCharacterHandler = (text, maxLength) => {
+  if (text.length > maxLength) text = text.substring(0, maxLength) + "...";
+  return text;
+};
+
+export {
+  useFonts,
+  convertHexToRGBA,
+  fetchHandler,
+  toastGenerator,
+  maxCharacterHandler,
+};

@@ -25,3 +25,8 @@ export { default as Upload } from "./Upload";
 export { default as InfoIcon } from "./InfoIcon";
 export { default as BatteryLevelIcon } from "./BatteryLevel";
 export { default as InternetAccessIcon } from "./InternetAccess";
+export { default as StreetLevel } from "./StreetLevel";
+export { default as UploadCapture } from "./UploadCapture";
+export { default as NoInternetAccessIcon } from "./NoInternetAccess";
+export { default as TaskIcon } from "./Task";
+export { default as DropdownArrow } from "./DropdownArrow";
