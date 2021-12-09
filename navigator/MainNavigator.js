@@ -127,11 +127,7 @@ const MainNavigator = () => {
             component={Login}
             name={Routes.login}
             options={{
-              title: null,
-              headerStyle: navigatorStyle.headerStyle,
-              headerTitleStyle: navigatorStyle.headerTitleStyle,
-              headerTintColor: navigatorStyle.headerTintColor,
-              headerTitleAlign: navigatorStyle.headerTitleAlign,
+              headerShown: false,
             }}
           />
           <Stack.Screen

@@ -1,5 +1,5 @@
-import React from "react";
-import {View, Image, TextInput, Pressable, ToastAndroid} from "react-native";
+import React, {useState} from "react";
+import {View, Image, TextInput, Pressable, ToastAndroid, TouchableOpacity} from "react-native";
 import logo from '../assets/logo.png';
 import * as yup from 'yup'
 import {Formik} from "formik";
@@ -9,8 +9,10 @@ import {CustomText} from "../highordercomponents";
 import {globalStyles} from "../styles/globalStyles";
 import {RFValue} from "react-native-responsive-fontsize";
 import {fetchHandler} from "../helper/helper";
+import {Eye, EyeSlash} from "../assets/svg/illustrations";
 
 const Register = ({navigation}) => {
+  const [securePassword, setSecurePassword] = useState(true);
 
   const register = (values) => {
     fetchHandler({
@@ -64,7 +66,7 @@ const Register = ({navigation}) => {
         name: '',
         email: '',
         password: '',
-      }} validationSchema={loginValidationSchema} onSubmit={values => register(values)}>
+      }} validateOnBlur={false} validateOnChange={false} validationSchema={loginValidationSchema} onSubmit={values => register(values)}>
         {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
           <>
             <View style={loginStyles.formGroup}>
@@ -96,15 +98,23 @@ const Register = ({navigation}) => {
               }
             </View>
             <View style={loginStyles.formGroup}>
-              <TextInput
-                name="password"
-                placeholder="Password"
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-                style={loginStyles.input}
-                secureTextEntry
-              />
+              <View style={{justifyContent: 'center'}}>
+                <TextInput
+                  name="password"
+                  placeholder="Password"
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  style={loginStyles.input}
+                  secureTextEntry={securePassword}
+                />
+                <TouchableOpacity
+                  style={loginStyles.passwordIcon}
+                  onPress={() => setSecurePassword(!securePassword)}
+                >
+                  {securePassword ? <Eye/> : <EyeSlash/>}
+                </TouchableOpacity>
+              </View>
               {errors.password &&
               <CustomText style={loginStyles.errorText}>{errors.password}</CustomText>
               }

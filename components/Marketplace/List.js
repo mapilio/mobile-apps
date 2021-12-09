@@ -6,7 +6,7 @@ import Info from "../../assets/svg/illustrations/Info";
 import Popover from "react-native-popover-view";
 import {fetchHandler} from "../../helper/helper";
 import {marketplaceStyles} from "../../styles/marketplaceStyles";
-import {ListItem} from "./index";
+import ListItem from "./ListItem";
 
 
 const List = ({navigation}) => {

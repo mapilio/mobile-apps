@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Image, TextInput, Pressable, Alert} from "react-native";
-import logo from '../assets/logo.png';
+import {View, TextInput, Pressable, TouchableOpacity } from "react-native";
 import * as yup from 'yup'
 import {Formik} from "formik";
 import {loginStyles} from "../styles/loginStyles";
@@ -10,9 +9,13 @@ import {globalStyles} from "../styles/globalStyles";
 import {useDispatch} from "react-redux";
 import {getTokenAction} from "../store/reducers/loginReducer/getTokenAction";
 import {RFValue} from "react-native-responsive-fontsize";
+import {Eye, EyeSlash} from "../assets/svg/illustrations";
+import {SocialLogin} from "../components";
+import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
+  const [securePassword, setSecurePassword] = useState(true);
 
   async function login(values) {
     await dispatch(getTokenAction(values, navigation.navigate));
@@ -30,17 +33,19 @@ const Login = ({navigation}) => {
 
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
-      <Image source={logo} style={loginStyles.logo} resizeMode={"contain"}/>
+      <View style={loginStyles.logo}>
+        <MapilioLogo width={RFValue(150)} height={RFValue(50)} />
+      </View>
       <View style={{marginBottom: RFValue(30)}}>
         <CustomText style={loginStyles.secondaryText}>LOGIN</CustomText>
         <CustomText style={loginStyles.primaryText}>Welcome back</CustomText>
         <CustomText style={loginStyles.secondaryText}>Login to manage your account</CustomText>
       </View>
-
+      <SocialLogin />
       <Formik initialValues={{
         email: '',
         password: '',
-      }} validationSchema={loginValidationSchema} onSubmit={values => login(values)}>
+      }} validateOnBlur={false} validateOnChange={false} validationSchema={loginValidationSchema} onSubmit={values => login(values)}>
         {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
           <>
             <View style={loginStyles.formGroup}>
@@ -54,7 +59,7 @@ const Login = ({navigation}) => {
                 style={loginStyles.input}
               />
               {errors.email &&
-              <CustomText style={loginStyles.errorText}>{errors.email}</CustomText>
+                <CustomText style={loginStyles.errorText}>{errors.email}</CustomText>
               }
             </View>
             <View style={loginStyles.formGroup}>
@@ -62,15 +67,23 @@ const Login = ({navigation}) => {
                 onPress={() => navigation.navigate(Routes.forgotPassword)}
                 style={{...loginStyles.link, textAlign: 'right'}}
               >Forgot your password?</CustomText>
-              <TextInput
-                name="password"
-                placeholder="Password"
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-                style={loginStyles.input}
-                secureTextEntry
-              />
+              <View style={{justifyContent: 'center'}}>
+                <TextInput
+                  name="password"
+                  placeholder="Password"
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  style={loginStyles.input}
+                  secureTextEntry={securePassword}
+                />
+                <TouchableOpacity
+                  style={loginStyles.passwordIcon}
+                  onPress={() => setSecurePassword(!securePassword)}
+                >
+                  {securePassword ? <Eye/> : <EyeSlash/>}
+                </TouchableOpacity>
+              </View>
               {errors.password &&
               <CustomText style={loginStyles.errorText}>{errors.password}</CustomText>
               }

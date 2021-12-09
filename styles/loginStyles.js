@@ -7,12 +7,10 @@ export const loginStyles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    width: "50%",
     display: "flex",
     justifyContent: "center",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginBottom: RFValue(20),
+    alignItems: "center",
+    marginVertical: RFValue(30),
   },
   primaryText: {
     fontSize: RFValue(26),
@@ -71,4 +69,14 @@ export const loginStyles = StyleSheet.create({
     color: '#fff',
     fontSize: RFValue(12),
   },
+  passwordIcon: {
+    position: "absolute",
+    right: RFValue(20),
+  }
+});
+
+export const socialLoginStyles = StyleSheet.create({
+  container: {
+    marginBottom: RFValue(20),
+  }
 });
