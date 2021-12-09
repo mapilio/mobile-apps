@@ -2,7 +2,7 @@ import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 
-const Google = ({ width = RFValue(23), height = RFValue(23) }) => (
+const GoogleIcon = ({ width = RFValue(23), height = RFValue(23) }) => (
   <Svg width={width} height={height} viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path d="M4.87595 13.2949L4.10995 16.1529L1.30995 16.2119C0.463227 14.6351 0.0133571 12.8757 -0.000755994 11.086C-0.0148691 9.2962 0.407199 7.52995 1.22895 5.93994L3.72095 6.39694L4.81395 8.87294C4.32306 10.3091 4.34497 11.8711 4.87595 13.2929V13.2949Z" fill="#FBBB00"/>
     <Path d="M21.8079 8.94482C22.1808 10.9061 22.0129 12.932 21.3221 14.8051C20.6314 16.6783 19.4439 18.3282 17.8869 19.5778L14.7479 19.4178L14.3039 16.6448C15.6001 15.8851 16.596 14.7031 17.1249 13.2968H11.2429V8.94482H21.8089H21.8079Z" fill="#518EF8"/>
@@ -11,4 +11,4 @@ const Google = ({ width = RFValue(23), height = RFValue(23) }) => (
   </Svg>
 );
 
-export default Google;
+export default GoogleIcon;
