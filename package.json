@@ -43,6 +43,7 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-notifier": "^1.7.1",
+    "react-native-popover-view": "^4.1.0",
     "react-native-reanimated": "^2.2.4",
     "react-native-responsive-fontsize": "^0.5.1",
     "react-native-safe-area-context": "^3.3.2",
@@ -57,6 +58,7 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.0",
+    "rn-sliding-up-panel": "^2.4.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {
