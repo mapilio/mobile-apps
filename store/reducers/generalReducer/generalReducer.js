@@ -1,11 +1,13 @@
 import {
   UPDATE_CONNECTION_STATUS,
   UPDATE_WELCOME_WALKTHROUGH_STATUS,
+  UPDATE_CURRENT_DB,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   connection: { connectionStatus: true, connectionType: "wifi" },
   welcomeWalkthroughStatus: false,
+  db: null,
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -19,6 +21,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         welcomeWalkthroughStatus: action.payload,
+      };
+    case UPDATE_CURRENT_DB:
+      return {
+        ...state,
+        db: action.payload,
       };
     default:
       return state;

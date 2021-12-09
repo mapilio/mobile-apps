@@ -40,15 +40,15 @@ const Camera = ({ navigation }) => {
   const cameraRef = useRef(null);
   let location = null;
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", (e) => {
-      StatusBar.setHidden(false);
-      ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.PORTRAIT_UP
-      );
-    });
-    return unsubscribe;
-  }, [navigation]);
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("blur", (e) => {
+  //     StatusBar.setHidden(false);
+  //     ScreenOrientation.lockAsync(
+  //       ScreenOrientation.OrientationLock.PORTRAIT_UP
+  //     );
+  //   });
+  //   return unsubscribe;
+  // }, [navigation]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", (e) => {
@@ -200,12 +200,8 @@ const Camera = ({ navigation }) => {
 
   const _subscribeProvider = async () => {
     const { status } = await Location.getForegroundPermissionsAsync();
+    const lo = await Location.getBackgroundPermissionsAsync();
     if (status === "granted") {
-      // todo something
-    } else {
-      alertHandler();
-    }
-    setInterval(async () => {
       location = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.Lowest,
@@ -213,13 +209,15 @@ const Camera = ({ navigation }) => {
           // distanceInterval: 0,
         },
         async (location) => {
+          // console.log(location);
           if (Platform.OS === "android") {
-            // console.log(location);
           }
           setLocation(location.coords);
         }
       );
-    }, 1000);
+    } else {
+      alertHandler();
+    }
   };
 
   const _removeLocationProvider = async () => {
@@ -228,7 +226,7 @@ const Camera = ({ navigation }) => {
 
   const onCameraReady = () => {
     dispatch({ type: UPDATE_CAMERA_STATUS, payload: "READY" });
-    // dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
+    dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
   };
 
   return (
