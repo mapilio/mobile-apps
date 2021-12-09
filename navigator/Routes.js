@@ -10,6 +10,8 @@ export const Routes = {
   register: "Register",
   forgotPassword: "ForgotPassword",
   marketplace: "Marketplace",
+  marketplaceDetail: "MarketplaceDetail",
+  marketplaceReceived: "MarketplaceReceived",
   tabHome: "Home",
   walkthrough: "Walkthough",
   welcomeWalkthrough:"WelcomeWalkthrough",
