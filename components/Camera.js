@@ -200,12 +200,8 @@ const Camera = ({ navigation }) => {
 
   const _subscribeProvider = async () => {
     const { status } = await Location.getForegroundPermissionsAsync();
+    const lo = await Location.getBackgroundPermissionsAsync();
     if (status === "granted") {
-      // todo something
-    } else {
-      alertHandler();
-    }
-    setInterval(async () => {
       location = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.Lowest,
@@ -213,13 +209,15 @@ const Camera = ({ navigation }) => {
           // distanceInterval: 0,
         },
         async (location) => {
+          // console.log(location);
           if (Platform.OS === "android") {
-            // console.log(location);
           }
           setLocation(location.coords);
         }
       );
-    }, 1000);
+    } else {
+      alertHandler();
+    }
   };
 
   const _removeLocationProvider = async () => {

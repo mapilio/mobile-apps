@@ -1,17 +1,15 @@
 import axios from "axios";
-import {GET_USER_INDEX_TYPE, GET_USER_INFORMATION} from "../../actionsName";
+import { GET_USER_INDEX_TYPE, GET_USER_INFORMATION } from "../../actionsName";
 
 export const getUserInformation = (auth) => (dispatch) => {
   const token = auth.token;
   const user_id = auth.id;
 
+
   axios
-    .get(
-      `${process.env.API_URL}/api/entries/users/users/${user_id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+    .get(`${process.env.API_URL}/api/entries/users/users/${user_id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
     .then((response) => {
       const userInfo = response.data.data;
       dispatch({
@@ -30,5 +28,6 @@ export const getUserInformation = (auth) => (dispatch) => {
         },
       });
       dispatch({ type: GET_USER_INFORMATION, payload: userInfo });
-    });
+    })
+    .catch((err) => console.log(err));
 };
