@@ -1,10 +1,10 @@
-import {GET_TOKEN_START, GET_TOKEN_SUCCESS, GET_TOKEN_ERROR} from "../../actionsName";
-import {getUserInformation} from "./getUserInformation";
-import {ToastAndroid} from "react-native";
-import {fetchHandler} from "../../../helper/helper";
+import { GET_TOKEN_START, GET_TOKEN_SUCCESS } from "../../actionsName";
+import { getUserInformation } from "./getUserInformation";
+import { ToastAndroid } from "react-native";
+import { fetchHandler, startDB } from "../../../helper/helper";
 
 export const getTokenAction = (parameters, navigation) => (dispatch) => {
-  dispatch({type: GET_TOKEN_START});
+  dispatch({ type: GET_TOKEN_START });
 
   fetchHandler({
     url: `${process.env.API_URL}/api/login`,
@@ -13,10 +13,15 @@ export const getTokenAction = (parameters, navigation) => (dispatch) => {
       email: parameters.email,
       password: parameters.password,
     },
-  }).then((res) => {
-    dispatch({type: GET_TOKEN_SUCCESS, payload: res});
-    dispatch(getUserInformation(res));
-  }).catch((err) => {
-    ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
-  });
+  })
+    .then((res) => {
+      console.log(res);
+      dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
+      dispatch(getUserInformation(res));
+      startDB(res.id);
+    })
+    .catch((err) => {
+      console.log(err);
+      ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
+    });
 };

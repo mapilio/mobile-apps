@@ -12,6 +12,7 @@ const ProjectListModal = ({ modalVisible, setModalVisible }) => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        zIndex: 10000,
       }}
     >
       <Modal animationType={"fade"} visible={modalVisible} transparent={true}>

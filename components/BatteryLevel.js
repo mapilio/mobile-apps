@@ -12,9 +12,9 @@ const BatteryLevel = () => {
   const [batteryLevel, setBatteryLevel] = useState(0);
 
   useEffect(() => {
-    _subscribeBatteryLevel();
+    let unsubscribe = _subscribeBatteryLevel();
 
-    return () => _unsubscribeBatteryLevel();
+    return unsubscribe;
   }, [batteryLevel]);
 
   const _subscribeBatteryLevel = async () => {
@@ -27,10 +27,10 @@ const BatteryLevel = () => {
     });
   };
 
-  const _unsubscribeBatteryLevel = () => {
-    this._subscription && this._subscription.remove();
-    this._subscription = null;
-  };
+  // const _unsubscribeBatteryLevel = () => {
+  //   this._subscription && this._subscription.remove();
+  //   this._subscription = null;
+  // };
 
   return (
     <View
