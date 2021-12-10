@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, TextInput, Pressable, TouchableOpacity } from "react-native";
+import {View, TextInput, Pressable, TouchableOpacity} from "react-native";
 import * as yup from 'yup'
 import {Formik} from "formik";
 import {loginStyles} from "../styles/loginStyles";
@@ -24,7 +24,7 @@ const Login = ({navigation}) => {
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
-      .email("Please enter valid email")
+      .email("You have entered an invalid username and password")
       .required('Email Address is Required'),
     password: yup
       .string()
@@ -51,12 +51,12 @@ const Login = ({navigation}) => {
             <View style={loginStyles.formGroup}>
               <TextInput
                 name="email"
-                placeholder="Email Address"
+                placeholder="Email or Username"
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
                 keyboardType="email-address"
-                style={loginStyles.input}
+                style={errors.email ? {...loginStyles.errorInput , ...loginStyles.input} : loginStyles. input}
               />
               {errors.email &&
                 <CustomText style={loginStyles.errorText}>{errors.email}</CustomText>
@@ -74,7 +74,7 @@ const Login = ({navigation}) => {
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
                   value={values.password}
-                  style={loginStyles.input}
+                  style={errors.password ? {...loginStyles.errorInput , ...loginStyles.input} : loginStyles. input}
                   secureTextEntry={securePassword}
                 />
                 <TouchableOpacity

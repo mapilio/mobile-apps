@@ -30,14 +30,19 @@ export const loginStyles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: RFValue(4),
     height: RFValue(44),
-    paddingHorizontal: RFValue(21)
+    paddingHorizontal: RFValue(21),
+  },
+  errorInput: {
+    borderWidth: 1,
+    borderColor: '#ed535a',
   },
   button: {
     borderRadius: RFValue(4),
     backgroundColor: '#22CC69',
     display: "flex",
     alignItems:"center",
-    padding: RFValue(11)
+    padding: RFValue(11),
+    marginTop: RFValue(5)
   },
   buttonOutline: {
     borderRadius: RFValue(4),
@@ -52,7 +57,7 @@ export const loginStyles = StyleSheet.create({
     fontSize: RFValue(16),
   },
   errorText: {
-    fontSize: RFValue(10), color: 'red'
+    fontSize: RFValue(10), color: '#ed535a', marginTop: RFValue(2)
   },
   formGroup: {
     marginBottom: RFValue(18)

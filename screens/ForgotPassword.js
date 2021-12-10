@@ -1,13 +1,14 @@
 import React from "react";
-import {Text, View, Image, TextInput, Pressable, ToastAndroid} from "react-native";
-import logo from '../assets/logo.png';
+import {Text, View, TextInput, Pressable} from "react-native";
 import * as yup from 'yup'
 import {Formik} from "formik";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
 import {globalStyles} from "../styles/globalStyles";
 import {RFValue} from "react-native-responsive-fontsize";
-import {fetchHandler} from "../helper/helper";
+import {fetchHandler, toastGenerator} from "../helper/helper";
+import MapilioLogo from "../assets/svg/logos/MapilioLogo";
+import {errorAlertStyles, successAlertStyles} from "../styles/alertStyles";
 
 const ForgotPassword = ({navigation}) => {
 
@@ -31,17 +32,33 @@ const ForgotPassword = ({navigation}) => {
     })
       .then((res) => {
         navigation.navigate(Routes.login);
-        ToastAndroid.show('The reset request has been sent to the e-mail address.', ToastAndroid.SHORT);
+        toastGenerator(
+          `The reset request has been sent to the e-mail address.`,
+          require("../assets/images/Success.png"),
+          successAlertStyles.alertContainer,
+          successAlertStyles.alertTitle,
+          successAlertStyles.alertImage,
+          3000
+        );
       })
       .catch((err) => {
-        ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
+        toastGenerator(
+          `${err.response.data.message}`,
+          require("../assets/images/Warning.png"),
+          errorAlertStyles.alertContainer,
+          errorAlertStyles.alertTitle,
+          errorAlertStyles.alertImage,
+          3000
+        );
       });
   }
 
   return (
 
     <View style={[globalStyles.container, loginStyles.container]}>
-      <Image source={logo} style={loginStyles.logo} resizeMode={"contain"}/>
+      <View style={loginStyles.logo}>
+        <MapilioLogo width={RFValue(150)} height={RFValue(50)} />
+      </View>
       <View style={{
         marginBottom: RFValue(30),
       }}>
@@ -64,7 +81,7 @@ const ForgotPassword = ({navigation}) => {
                 onBlur={handleBlur('email')}
                 value={values.email}
                 keyboardType="email-address"
-                style={loginStyles.input}
+                style={errors.email ? {...loginStyles.errorInput , ...loginStyles.input} : loginStyles. input}
               />
               {errors.email &&
               <Text style={loginStyles.errorText}>{errors.email}</Text>
