@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {View, TextInput, Pressable, TouchableOpacity } from "react-native";
 import * as yup from 'yup'
 import {Formik} from "formik";
@@ -10,8 +10,8 @@ import {useDispatch} from "react-redux";
 import {getTokenAction} from "../store/reducers/loginReducer/getTokenAction";
 import {RFValue} from "react-native-responsive-fontsize";
 import {Eye, EyeSlash} from "../assets/svg/illustrations";
-import {SocialLogin} from "../components";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
+import {SocialLogin} from "../components";
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
