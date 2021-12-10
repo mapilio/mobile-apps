@@ -5,6 +5,7 @@ import GoogleIcon from "../../assets/svg/illustrations/GoogleIcon";
 import * as Google from 'expo-google-app-auth';
 import {toastGenerator} from "../../helper/helper";
 import {successAlertStyles, warningAlertStyles} from "../../styles/alertStyles";
+import {socialLoginStyles} from "../../styles/loginStyles";
 
 
 const GoogleLogin = () => {
@@ -42,22 +43,21 @@ const GoogleLogin = () => {
         Alert.alert(`Login Error: ${error}`);
         setLoading(false)
       })
-    } catch ({ message }){
-      alert(`Google Login Error: ${message}`);
+    } catch ({message}) {
+      toastGenerator(
+        `${message}`,
+        require("../../assets/images/Warning.png"),
+        warningAlertStyles.alertContainer,
+        warningAlertStyles.alertTitle,
+        warningAlertStyles.alertImage,
+        3000
+      );
       setLoading(false);
     }
   }
 
   return (
-    <View style={{
-      backgroundColor: '#FFF',
-      flex: 1,
-      padding: 10,
-      borderRadius: 20,
-      marginLeft: 6,
-      justifyContent: "center"
-    }}>
-
+    <View style={socialLoginStyles.googleButton}>
       {loading ?
         (
           <View>

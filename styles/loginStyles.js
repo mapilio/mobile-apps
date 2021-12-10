@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import {StyleSheet} from "react-native";
+import {RFValue} from "react-native-responsive-fontsize";
 
 export const loginStyles = StyleSheet.create({
   container: {
@@ -40,7 +40,7 @@ export const loginStyles = StyleSheet.create({
     borderRadius: RFValue(4),
     backgroundColor: '#22CC69',
     display: "flex",
-    alignItems:"center",
+    alignItems: "center",
     padding: RFValue(11),
     marginTop: RFValue(5)
   },
@@ -49,7 +49,7 @@ export const loginStyles = StyleSheet.create({
     borderWidth: RFValue(1),
     borderColor: '#1AD971',
     display: "flex",
-    alignItems:"center",
+    alignItems: "center",
     padding: RFValue(11)
   },
   buttonText: {
@@ -83,5 +83,33 @@ export const loginStyles = StyleSheet.create({
 export const socialLoginStyles = StyleSheet.create({
   container: {
     marginBottom: RFValue(20),
+  },
+  topContainer: {
+    flexDirection: "row", marginBottom: 20
+  },
+  bottomContainer: {
+    flexDirection: "row", justifyContent: "center", alignItems: "center"
+  },
+  line: {
+    backgroundColor: '#CBD1D9', height: 1, flex: 1,
+  },
+  bottomText: {
+    paddingHorizontal: 15, color: '#B9C0CF'
+  },
+  googleButton: {
+    flex: 1,
+    padding: 10,
+    borderRadius: 20,
+    marginLeft: 6,
+    backgroundColor: '#FFF',
+    justifyContent: "center"
+  },
+  facebookButton: {
+    backgroundColor: '#3B5998',
+    flex: 1,
+    padding: 10,
+    borderRadius: 20,
+    marginRight: 6,
+    justifyContent: "center",
   }
 });

@@ -10,14 +10,14 @@ const SocialLogin = () => {
 
   return (
     <View style={socialLoginStyles.container}>
-      <View style={{flexDirection: "row", marginBottom: 20}}>
+      <View style={socialLoginStyles.topContainer}>
         <FacebookLogin />
         <GoogleLogin />
       </View>
-      <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-        <View style={{backgroundColor: '#CBD1D9', height: 1, flex: 1}}/>
-        <CustomText style={{paddingHorizontal: 15, color: '#B9C0CF'}}>or</CustomText>
-        <View style={{backgroundColor: '#CBD1D9', height: 1, flex: 1}}/>
+      <View style={socialLoginStyles.bottomContainer}>
+        <View style={socialLoginStyles.line}/>
+        <CustomText style={socialLoginStyles.bottomText}>or</CustomText>
+        <View style={socialLoginStyles.line}/>
       </View>
     </View>
   );

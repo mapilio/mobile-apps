@@ -5,6 +5,7 @@ import FacebookIcon from "../../assets/svg/illustrations/FacebookIcon";
 import * as Facebook from 'expo-facebook';
 import {toastGenerator} from "../../helper/helper";
 import {successAlertStyles} from "../../styles/alertStyles";
+import {socialLoginStyles} from "../../styles/loginStyles";
 
 
 const FacebookLogin = () => {
@@ -38,14 +39,7 @@ const FacebookLogin = () => {
   }
 
   return (
-    <View style={{
-      backgroundColor: '#3B5998',
-      flex: 1,
-      padding: 10,
-      borderRadius: 20,
-      marginRight: 6,
-      justifyContent: "center"
-    }}>
+    <View style={socialLoginStyles.facebookButton}>
       {loading === 'facebook' ?
         (
           <View>

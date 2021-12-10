@@ -96,9 +96,6 @@ const Login = ({navigation}) => {
             <Pressable style={loginStyles.button} onPress={handleSubmit}>
               <CustomText style={{...loginStyles.secondaryText, color: '#fff'}}>Log In</CustomText>
             </Pressable>
-            <CustomText style={{...loginStyles.link, marginTop: RFValue(40)}}>
-              Privacy policy
-            </CustomText>
           </>
         )}
       </Formik>
