@@ -4,11 +4,9 @@ import {
   UPDATE_CAMERA_STATUS,
   UPDATE_CAMERA_REF,
   UPDATE_IMAGE_SIZE,
-  UPDATE_CAPTURE_TYPE,
   UPDATE_PHONE_MEMORY,
   UPDATE_PHOTO_AMOUNT,
   UPDATE_BATTERY_LEVEL,
-  UPDATE_SELECTED_PROJECT,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -20,8 +18,8 @@ const INITIAL_STATE = {
   phoneMemory: 0,
   photoAmount: 0,
   batteryLevel: 100,
-  captureType: "manuel",
-  selectedProject: { type: "individual", key: 0, projectName: "lorem" },
+  // captureType: "manuel",
+  // selectedProject: { type: "individual", key: 0, projectName: "lorem" },
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -61,11 +59,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         ...state,
         phoneMemory: action.payload,
       };
-    case UPDATE_CAPTURE_TYPE:
-      return {
-        ...state,
-        captureType: action.payload,
-      };
+    // case UPDATE_CAPTURE_TYPE:
+    //   return {
+    //     ...state,
+    //     captureType: action.payload,
+    //   };
     case UPDATE_PHOTO_AMOUNT:
       return {
         ...state,
@@ -76,11 +74,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         ...state,
         batteryLevel: action.payload,
       };
-    case UPDATE_SELECTED_PROJECT:
-      return {
-        ...state,
-        selectedProject: action.payload,
-      };
+    // case UPDATE_SELECTED_PROJECT:
+    //   return {
+    //     ...state,
+    //     selectedProject: action.payload,
+    //   };
     default:
       return state;
   }

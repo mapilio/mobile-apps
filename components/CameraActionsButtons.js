@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
 
-const CameraActionsButtons = () => {
+const CameraActionsButtons = ({uuid}) => {
   const [disabled, setDisabled] = useState(false);
-  const { GPSStatus, GPSAccuracy, camera, captureType, batteryLevel } =
-    useSelector((state) => state.cameraReducer);
+  const { GPSStatus, GPSAccuracy, camera, batteryLevel } = useSelector(
+    (state) => state.cameraReducer
+  );
+  const { captureType } = useSelector((state) => state.settingsReducer);
 
   useEffect(() => {
     const batteryError =
@@ -21,8 +23,8 @@ const CameraActionsButtons = () => {
 
   return (
     <>
-      {captureType === "manuel" && <ManuelActionButton disabled={disabled} />}
-      {captureType === "auto" && <AutoActionButton disabled={disabled} />}
+      {captureType && <ManuelActionButton disabled={disabled} uuid={uuid} />}
+      {!captureType && <AutoActionButton disabled={disabled} uuid={uuid} />}
     </>
   );
 };

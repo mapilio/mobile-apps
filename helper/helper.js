@@ -66,7 +66,6 @@ const maxCharacterHandler = (text, maxLength) => {
 
 const startDB = async (id) => {
   const db = Database.getConnection();
-  console.log("RUN");
 
   const sqliteDirectory = `${FileSystem.documentDirectory}SQLite/mapilio-test-${id}.db`;
   const { exists, isDirectory } = await FileSystem.getInfoAsync(

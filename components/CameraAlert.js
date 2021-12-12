@@ -9,10 +9,8 @@ const CameraAlert = ({ svg, title, content }) => {
     <View
       style={{
         position: "absolute",
-        width: "100%",
-        height: "100%",
-        alignItems: "center",
-        justifyContent: "center",
+        alignSelf: "center",
+        bottom: "25%",
       }}
     >
       <View

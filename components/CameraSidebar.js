@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CustomText } from "../highordercomponents";
@@ -9,10 +9,20 @@ import {
   MapIcon,
   SettingsIcon,
 } from "../assets/svg/illustrations";
+import uuid from "react-native-uuid";
 import CameraActionsButtons from "./CameraActionsButtons";
 import { Routes } from "../navigator/Routes";
 
 const CameraSidebar = ({ navigation }) => {
+  const [uuidV4, setUUID] = useState("");
+
+  useEffect(() => {
+    navigation.addListener("focus", () => {
+      const sequenceUUID = uuid.v4();
+      setUUID(sequenceUUID);
+    });
+  }, [navigation]);
+
   return (
     <View
       style={{
@@ -36,7 +46,7 @@ const CameraSidebar = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={{ position: "absolute", top: 0, right: 0 }}
-        onPress={() => navigation.navigate(Routes.profile)}
+        onPress={() => navigation.goBack()}
       >
         <GoBackIcon />
       </TouchableOpacity>
@@ -52,7 +62,7 @@ const CameraSidebar = ({ navigation }) => {
           Advanced
         </CustomText>
       </TouchableOpacity>
-      <CameraActionsButtons />
+      <CameraActionsButtons uuid={uuidV4} />
       <TouchableOpacity style={{ position: "absolute", bottom: 0, left: 0 }}>
         <MapIcon />
       </TouchableOpacity>

@@ -29,7 +29,13 @@ import NetInfo from "@react-native-community/netinfo";
 import { Routes } from "./Routes";
 import { useSelector } from "react-redux";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   MarketplaceIcon,
   CaptureIcon,
@@ -42,6 +48,7 @@ import { UPDATE_CONNECTION_STATUS } from "../store/actionsName";
 import { Notifier } from "react-native-notifier";
 import { toastGenerator } from "../helper/helper";
 import { errorAlertStyles } from "../styles/alertStyles";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -253,8 +260,18 @@ const MainNavigator = () => {
   );
 };
 
-const TabNavigator = () => {
-  const { connection } = useSelector((state) => state.generalReducer);
+const TabNavigator = ({ navigation }) => {
+  // const { connection } = useSelector((state) => state.generalReducer);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", (e) => {
+      StatusBar.setHidden(false);
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT_UP
+      );
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <Tab.Navigator

@@ -9,7 +9,6 @@ import {
   Start,
 } from "../components/Walkthrough/CaptureWalkthrough";
 import { useSelector } from "react-redux";
-import { RFValue } from "react-native-responsive-fontsize";
 
 const width = Dimensions.get("window").width;
 
@@ -28,7 +27,7 @@ const _renderItem = ({ item, i }) => {
 };
 
 const Walkthrough = () => {
-  const { captureType } = useSelector((state) => state.cameraReducer);
+  const { captureType } = useSelector((state) => state.settingsReducer);
   const [modalVisible, setModalVisible] = useState(true);
   const [active, setActive] = useState(0);
   const data = [

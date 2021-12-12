@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { Dimensions, Pressable, TouchableHighlight, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
 import { DropdownArrow, TaskIcon } from "../assets/svg/illustrations";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 
-const SelectProjectButton = ({ setModalVisible }) => {
+const SelectProjectButton = ({ setModalVisible, dene }) => {
   return (
     <TouchableOpacity
       style={{
@@ -18,11 +18,14 @@ const SelectProjectButton = ({ setModalVisible }) => {
         borderRadius: RFValue(15),
         paddingHorizontal: RFValue(5),
       }}
-      onPress={() => {
-        setModalVisible(true);
-      }}
+      onPressIn={() => setModalVisible(true)}
     >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
         <TaskIcon />
         <CustomTextMedium
           style={{

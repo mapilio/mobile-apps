@@ -8,7 +8,9 @@ import SelectProjectButton from "./SelectProjectButton";
 
 const CameraProjectInfo = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { selectedProject } = useSelector((state) => state.cameraReducer);
+  const { selectedProject } = useSelector((state) => state.settingsReducer);
+
+  const dene = () => setModalVisible(true);
 
   return (
     <View
@@ -19,10 +21,9 @@ const CameraProjectInfo = () => {
         marginHorizontal: RFValue(20),
         justifyContent: "center",
         alignItems: "center",
-        position: "absolute",
         left: 0,
+        top: 0,
         right: 0,
-        alignItems: "center",
       }}
     >
       <ProjectListModal
