@@ -14,3 +14,4 @@ export { default as RecordStatus } from "./RecordStatus";
 export { default as RotationLine } from "./RotationLine";
 export { default as CameraAlert } from "./CameraAlert";
 export { default as TabsBar } from "./TabsBar";
+export { default as SocialLogin } from "./SocialLogin";

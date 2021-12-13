@@ -12,3 +12,5 @@ export { default as AppMap } from "./AppMap";
 export { default as Walkthrough } from "./Walkthrough";
 export { default as WelcomeWalkthrough } from "./WelcomeWalkthrough";
 export { default as NoInternetAccess } from "./NoInternetAccess";
+export { default as Marketplace } from "./Marketplace";
+export { default as MarketplaceDetail } from "./MarketplaceDetail";
