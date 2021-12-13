@@ -1,11 +1,8 @@
 import * as Font from "expo-font";
 import { store } from "../store/store";
 import { Notifier, NotifierComponents } from "react-native-notifier";
-import axios from "axios";
-import * as FileSystem from "expo-file-system";
-import { Platform, StatusBar } from "react-native";
-import { UPDATE_CURRENT_DB } from "../store/actionsName";
-import Database from "../db";
+import axios from "axios";;
+import { StatusBar } from "react-native";
 
 const useFonts = async () =>
   await Font.loadAsync({
@@ -51,7 +48,6 @@ const toastGenerator = (
     duration: duration,
     translucentStatusBar: StatusBar.currentHeight,
     componentProps: {
-      //Todo xd export alert images with low quality.
       imageSource: image,
       imageStyle: imageStyle,
       titleStyle: titleStyle,
@@ -64,35 +60,10 @@ const maxCharacterHandler = (text, maxLength) => {
   return text;
 };
 
-const startDB = async (id) => {
-  const db = Database.getConnection();
-  console.log("RUN");
-
-  const sqliteDirectory = `${FileSystem.documentDirectory}SQLite/mapilio-test-${id}.db`;
-  const { exists, isDirectory } = await FileSystem.getInfoAsync(
-    sqliteDirectory
-  );
-
-  store.dispatch({ type: UPDATE_CURRENT_DB, payload: db });
-  db.transaction((txn) => {
-    txn.executeSql(
-      "CREATE TABLE IF NOT EXISTS captures (id INTEGER PRIMARY KEY AUTOINCREMENT, exif TEXT NOT NULL, location TEXT NOT NULL, project_key TEXT, organization_name TEXT, sequence_uuid TEXT NOT NULL)",
-      [],
-      (txn, rs) => {
-        // Todo something
-      },
-      (_, error) => {
-        console.log(error, 33);
-      }
-    );
-  });
-};
-
 export {
   useFonts,
   convertHexToRGBA,
   fetchHandler,
   toastGenerator,
   maxCharacterHandler,
-  startDB,
 };

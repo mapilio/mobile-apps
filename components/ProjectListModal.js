@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, Pressable, ScrollView, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CloseIcon } from "../assets/svg/illustrations";
-import { CustomText, CustomTextMedium } from "../highordercomponents";
+import { CustomTextMedium } from "../highordercomponents";
 import ProjectList from "./ProjectList";
 
 const ProjectListModal = ({ modalVisible, setModalVisible }) => {
@@ -12,10 +12,14 @@ const ProjectListModal = ({ modalVisible, setModalVisible }) => {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 10000,
       }}
     >
-      <Modal animationType={"fade"} visible={modalVisible} transparent={true}>
+      <Modal
+        animationType={"fade"}
+        visible={modalVisible}
+        transparent={true}
+        supportedOrientations={["landscape-right"]}
+      >
         <View
           style={{
             flex: 1,

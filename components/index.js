@@ -4,7 +4,6 @@ export { default as UploadImageCard } from "./UploadImageCard";
 export { default as Camera } from "./Camera";
 export { default as CameraSidebar } from "./CameraSidebar";
 export { default as CameraFrame } from "./CameraFrame";
-export { default as CameraInfos } from "./CameraInfos";
 export { default as CameraActionsButtons } from "./CameraActionsButtons";
 export { default as ManuelActionButton } from "./ManuelActionButton";
 export { default as AutoActionButton } from "./AutoActionButton";

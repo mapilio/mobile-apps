@@ -10,27 +10,28 @@ import { useDispatch } from "react-redux";
 const BatteryLevel = () => {
   const dispatch = useDispatch();
   const [batteryLevel, setBatteryLevel] = useState(0);
+  let subscription = null;
 
   useEffect(() => {
-    let unsubscribe = _subscribeBatteryLevel();
+    _subscribeBatteryLevel();
 
-    return unsubscribe;
+    return _unsubscribeBatteryLevel;
   }, [batteryLevel]);
 
   const _subscribeBatteryLevel = async () => {
     let batteryLevel = await Battery.getBatteryLevelAsync();
     batteryLevel = Math.ceil(batteryLevel * 100);
     setBatteryLevel(batteryLevel);
-    this._subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
+    subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
       setBatteryLevel(batteryLevel);
       dispatch({ type: UPDATE_BATTERY_LEVEL, payload: batteryLevel });
     });
   };
 
-  // const _unsubscribeBatteryLevel = () => {
-  //   this._subscription && this._subscription.remove();
-  //   this._subscription = null;
-  // };
+  const _unsubscribeBatteryLevel = () => {
+    subscription && subscription.remove();
+    subscription = null;
+  };
 
   return (
     <View

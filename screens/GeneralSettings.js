@@ -1,22 +1,32 @@
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import React, { useState } from "react";
-import { Platform, ScrollView, Switch, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import Slider from "@react-native-community/slider";
+import { Platform, ScrollView, StatusBar, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { UPDATE_DISTANCE_BETWEEN } from "../store/actionsName";
 import { InfoIcon, SettingsIcon } from "../assets/svg/illustrations";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
+import * as ScreenOrientation from "expo-screen-orientation";
+import { useDispatch } from "react-redux";
 
 const GeneralSettings = ({ navigation }) => {
-  const [scrollEnabled, setScrollEnabled] = useState(true);
-  const [switchToggle, setSwitchToggle] = useState(false);
+  const dispatch = useDispatch();
   const [sliderMeterValue, setSliderMeterValue] = useState(5);
-  const [sliderSecondValue, setSliderSecondValue] = useState(2);
 
-  const disableScroll = () => setScrollEnabled(false);
+  const changeDistanceValue = (value) => {
+    setSliderMeterValue(value);
+    dispatch({ type: UPDATE_DISTANCE_BETWEEN, payload: value });
+  };
 
-  const enableScroll = () => setScrollEnabled(true);
-
-  const toggleSwitch = () => setSwitchToggle((previousState) => !previousState);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", (e) => {
+      StatusBar.setHidden(true);
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+      );
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View
@@ -84,43 +94,34 @@ const GeneralSettings = ({ navigation }) => {
               marginBottom: RFValue(4),
             }}
           >
-            Distance between images (default 5 meters)
+            Distance between images
           </CustomText>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <ScrollView scrollEnabled={scrollEnabled}>
-              <MultiSlider
-                onValuesChangeStart={disableScroll}
-                onValuesChangeFinish={enableScroll}
-                containerStyle={{
-                  marginLeft:
-                    Platform.OS === "android" ? RFValue(8) : RFValue(11),
-                }}
-                isMarkersSeparated={true}
-                markerStyle={{
-                  backgroundColor: "#FFFFFF",
-                }}
-                selectedStyle={{
-                  backgroundColor: "#007AFF",
-                  height: RFValue(2),
-                }}
-                min={3}
-                max={15}
-                values={[5]}
-                sliderLength={RFValue(530)}
-                onValuesChange={(value) => setSliderMeterValue(value)}
+            <ScrollView>
+              <Slider
+                style={{ width: "100%", height: RFValue(40) }}
+                minimumValue={5}
+                maximumValue={15}
+                value={5}
+                step={1}
+                onValueChange={changeDistanceValue}
+                minimumTrackTintColor={"#007AFF"}
+                maximumTrackTintColor={"#C7C7CC"}
+                thumbTintColor={"#FFFFFF"}
               />
             </ScrollView>
             <CustomTextMedium
               style={{
                 fontSize: RFValue(14),
                 color: "#FFFFFF",
+                marginLeft: RFValue(7),
               }}
             >
               {sliderMeterValue} m
             </CustomTextMedium>
           </View>
         </View>
-        <View
+        {/* <View
           style={{
             paddingHorizontal: RFValue(38),
             paddingVertical: RFValue(8),
@@ -168,8 +169,8 @@ const GeneralSettings = ({ navigation }) => {
               {sliderSecondValue}.0 sn
             </CustomTextMedium>
           </View>
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             paddingHorizontal: RFValue(38),
             paddingVertical: RFValue(8),
@@ -192,7 +193,7 @@ const GeneralSettings = ({ navigation }) => {
             trackColor={{ true: "#1AD971", false: "#FFFFFF" }}
             thumbColor={"#FFFFFF"}
           />
-        </View>
+        </View> */}
       </ScrollView>
       <View
         style={{

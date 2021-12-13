@@ -4,6 +4,7 @@ import {
   cameraReducer,
   getTokenReducer,
   generalReducer,
+  settingsReducer,
 } from "./reducers";
 
 export default combineReducers({
@@ -11,4 +12,5 @@ export default combineReducers({
   cameraReducer,
   getTokenReducer,
   generalReducer,
+  settingsReducer,
 });

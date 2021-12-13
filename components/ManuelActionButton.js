@@ -7,26 +7,26 @@ import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
 import { UPDATE_PHOTO_AMOUNT, UPDATE_IMAGE_SIZE } from "../store/actionsName";
 import { useDispatch } from "react-redux";
-import uuid from "react-native-uuid";
 import Database from "../db";
 
-const ManuelActionButton = ({ disabled }) => {
-  const { cameraStatus, camera, selectedProject } = useSelector(
+const ManuelActionButton = ({ disabled, uuid }) => {
+  const { cameraStatus, camera } = useSelector(
     (status) => status.cameraReducer
   );
+  const { selectedProject } = useSelector((status) => status.settingsReducer);
   const { userInformation } = useSelector((state) => state.getTokenReducer);
   const [image, setImage] = useState("");
-  const [uuidV4, setUUID] = useState("");
   const [photoAmount, setPhotoAmount] = useState(0);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const sequenceUUID = uuid.v4();
-    setUUID(sequenceUUID);
-  }, [selectedProject]);
+  useEffect(() => {}, [selectedProject]);
 
   const takePicture = async () => {
     const db = Database.getConnection();
+    const id =
+      selectedProject === "individual"
+        ? userInformation.id
+        : selectedProject.id;
 
     if (cameraStatus !== "READY") return;
     const options = { quality: 1, base64: false, exif: true };
@@ -34,9 +34,9 @@ const ManuelActionButton = ({ disabled }) => {
     const location = await Location.getCurrentPositionAsync();
     const imageUri = image.uri;
     if (!imageUri) return;
-    const newPath = `${FileSystem.documentDirectory}/${
-      userInformation.id
-    }/${Math.random()}.${"jpeg"}`;
+    const newPath = `${
+      FileSystem.documentDirectory
+    }/${id}/${Math.random()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,
@@ -48,7 +48,7 @@ const ManuelActionButton = ({ disabled }) => {
     db.transaction((txn) => {
       txn.executeSql(
         "INSERT INTO captures (exif, location, project_key, organization_name, sequence_uuid) VALUES (?, ?, ?, ?, ?)",
-        [JSONExif, JSONLocation, null, null, uuidV4],
+        [JSONExif, JSONLocation, null, null, uuid],
         (txn, rs) => {
           // Todo something
         },

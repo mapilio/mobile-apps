@@ -4,7 +4,6 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { Alert, Linking, Platform, StatusBar } from "react-native";
 import { Routes } from "../navigator/Routes";
 import CameraFrame from "./CameraFrame";
-import CameraInfos from "./CameraInfos";
 import CameraAlert from "./CameraAlert";
 import CameraProjectInfo from "./CameraProjectInfo";
 import { Accelerometer } from "expo-sensors";
@@ -39,16 +38,15 @@ const Camera = ({ navigation }) => {
   const { connection } = useSelector((state) => state.generalReducer);
   const cameraRef = useRef(null);
   let location = null;
+  let accelerometerSubscription = null;
 
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener("blur", (e) => {
-  //     StatusBar.setHidden(false);
-  //     ScreenOrientation.lockAsync(
-  //       ScreenOrientation.OrientationLock.PORTRAIT_UP
-  //     );
-  //   });
-  //   return unsubscribe;
-  // }, [navigation]);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", (e) => {
+      StatusBar.setHidden(false);
+      ScreenOrientation.unlockAsync();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", (e) => {
@@ -108,7 +106,7 @@ const Camera = ({ navigation }) => {
   }, [connection]);
 
   useEffect(() => {
-    if (locationFeatures.accuracy > 5) {
+    if (locationFeatures.accuracy > 1) {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
       setGPSAlert({
         svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
@@ -121,28 +119,21 @@ const Camera = ({ navigation }) => {
     }
   }, [locationFeatures, dispatch]);
 
-  useEffect(() => {
-    const GPSInterval = setInterval(async () => {
-      const status = await Location.hasServicesEnabledAsync();
-      dispatch({ type: UPDATE_GPS_STATUS, payload: status });
-    }, 1000);
-    return () => clearInterval(GPSInterval);
-  }, []);
-
   const _subscribeToAccelerometer = () => {
-    setSubscription(
-      Accelerometer.addListener((accelerometerData) => {
+    accelerometerSubscription = Accelerometer.addListener(
+      (accelerometerData) => {
         let x = accelerometerData.x;
         let y = accelerometerData.y;
         let degree = (Math.atan2(y, x) * 180) / Math.PI;
         setDegree(degree);
         return accelerometerData;
-      })
+      }
     );
+    setSubscription(accelerometerSubscription);
   };
 
   const _removeAccelerometerSubscribe = () => {
-    subscription && subscription.remove();
+    accelerometerSubscription && accelerometerSubscription.remove();
     setSubscription(null);
   };
 
@@ -200,7 +191,6 @@ const Camera = ({ navigation }) => {
 
   const _subscribeProvider = async () => {
     const { status } = await Location.getForegroundPermissionsAsync();
-    const lo = await Location.getBackgroundPermissionsAsync();
     if (status === "granted") {
       location = await Location.watchPositionAsync(
         {
@@ -242,7 +232,6 @@ const Camera = ({ navigation }) => {
         <RotationLine degree={degree} setAlert={setRotateAlert} />
         <CameraFrame />
         <CameraProjectInfo />
-        <CameraInfos />
         {GPSAlert && (
           <CameraAlert
             svg={GPSAlert.svg}

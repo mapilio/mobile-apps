@@ -1,6 +1,7 @@
 import { GET_TOKEN_START, GET_TOKEN_SUCCESS } from "../../actionsName";
 import { getUserInformation } from "./getUserInformation";
-import {fetchHandler, startDB, toastGenerator} from "../../../helper/helper";
+import Database from "../../../db";
+import {fetchHandler, toastGenerator} from "../../../helper/helper";
 import {errorAlertStyles} from "../../../styles/alertStyles";
 
 export const getTokenAction = (parameters, navigation) => (dispatch) => {
@@ -15,10 +16,9 @@ export const getTokenAction = (parameters, navigation) => (dispatch) => {
     },
   })
     .then((res) => {
-      console.log(res);
       dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
       dispatch(getUserInformation(res));
-      startDB(res.id);
+      Database.startDB(res.id);
     })
     .catch((err) => {
       toastGenerator(

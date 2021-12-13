@@ -7,11 +7,15 @@ import { convertHexToRGBA } from "../helper/helper";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import SwitchSelector from "react-native-switch-selector";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { UPDATE_CAPTURE_TYPE } from "../store/actionsName";
 
 const CameraSettings = ({ navigation }) => {
-  const { photoAmount, batteryLevel, phoneMemory, captureType } = useSelector(
+  const { photoAmount, batteryLevel, phoneMemory } = useSelector(
     (state) => state.cameraReducer
   );
+  const dispatch = useDispatch();
+  const { captureType } = useSelector((state) => state.settingsReducer);
   const [index, setIndex] = useState(0);
   const [options] = useState([
     { label: "Manuel", value: "manuel" },
@@ -19,19 +23,29 @@ const CameraSettings = ({ navigation }) => {
   ]);
 
   useEffect(() => {
-    if (captureType === "manuel") {
+    const unsubscribe = navigation.addListener("focus", (e) => {
+      StatusBar.setHidden(true);
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+      );
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    StatusBar.setHidden(true);
+    if (captureType) {
       setIndex(0);
     } else {
       setIndex(1);
     }
   }, [captureType]);
 
-  useEffect(() => {
-    ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-    );
-    StatusBar.setHidden(true);
-  }, []);
+  const switchHandler = (value) => {
+    value === "manuel"
+      ? dispatch({ type: UPDATE_CAPTURE_TYPE, payload: true })
+      : dispatch({ type: UPDATE_CAPTURE_TYPE, payload: false });
+  };
 
   return (
     <View
@@ -138,7 +152,7 @@ const CameraSettings = ({ navigation }) => {
           backgroundColor={convertHexToRGBA("#CBD1D9", 20)}
           initial={index}
           fontSize={RFValue(14)}
-          onPress={(value) => console.log(`Call onPress with value: ${value}`)}
+          onPress={switchHandler}
           accessibilityLabel={"Camera mode selection"}
           style={{ width: RFValue(186) }}
         />
