@@ -23,8 +23,9 @@ const BatteryLevel = () => {
     batteryLevel = Math.ceil(batteryLevel * 100);
     setBatteryLevel(batteryLevel);
     subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
-      setBatteryLevel(batteryLevel);
-      dispatch({ type: UPDATE_BATTERY_LEVEL, payload: batteryLevel });
+      let roundedValue = Math.ceil(batteryLevel * 100);
+      setBatteryLevel(roundedValue);
+      dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
     });
   };
 

@@ -8,7 +8,11 @@ import Database from "../db";
 import * as FileSystem from "expo-file-system";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT } from "../store/actionsName";
+import {
+  UPDATE_AUTOCAPTURE_START,
+  UPDATE_IMAGE_SIZE,
+  UPDATE_PHOTO_AMOUNT,
+} from "../store/actionsName";
 
 const AutoActionButton = ({ disabled, uuid }) => {
   const [autoCapture, setAutoCapture] = useState(false);
@@ -17,7 +21,9 @@ const AutoActionButton = ({ disabled, uuid }) => {
     (status) => status.cameraReducer
   );
   const { userInformation } = useSelector((state) => state.getTokenReducer);
-  const { selectedProject } = useSelector((status) => status.settingsReducer);
+  const { selectedProject, distanceBetween } = useSelector(
+    (status) => status.settingsReducer
+  );
   const dispatch = useDispatch();
 
   const playHandler = () => {
@@ -32,7 +38,7 @@ const AutoActionButton = ({ disabled, uuid }) => {
       location = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.High,
-          distanceInterval: 5,
+          distanceInterval: distanceBetween,
         },
         (location) => {
           // if (!autoCapture && !disabled) return;
@@ -44,14 +50,15 @@ const AutoActionButton = ({ disabled, uuid }) => {
     return () => {
       location.remove();
     };
-  }, [autoCapture, disabled]);
+  }, [autoCapture, disabled, distanceBetween]);
 
   const takePicture = async (location) => {
     const db = Database.getConnection();
     const id =
-      selectedProject === "individual"
+      selectedProject.type === "individual"
         ? userInformation.id
         : selectedProject.id;
+
     if (cameraStatus !== "READY") return;
     const options = { quality: 1, base64: false, exif: true };
     const image = await camera.takePictureAsync(options);
@@ -68,30 +75,12 @@ const AutoActionButton = ({ disabled, uuid }) => {
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
 
-    db.transaction((txn) => {
-      txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, sequence_uuid) VALUES (?, ?, ?, ?, ?)",
-        [JSONExif, JSONLocation, null, null, uuid],
-        (txn, rs) => {
-          // Todo something
-        },
-        (_, error) => {
-          console.log(error);
-        }
-      );
-    });
-
-    db.transaction((txn) => {
-      txn.executeSql(
-        "SELECT * FROM captures",
-        [],
-        (_, result) => {
-          console.log(result.rows._array);
-        },
-        (_, error) => {
-          console.log(error, 22);
-        }
-      );
+    Database.insertToDB({
+      JSONExif,
+      JSONLocation,
+      projectKey: null,
+      organizationName: null,
+      uuid,
     });
 
     setPhotoAmount((amount) => amount + 1);

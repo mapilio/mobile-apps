@@ -10,20 +10,25 @@ import { Accelerometer } from "expo-sensors";
 import RotationLine from "./RotationLine";
 import * as Location from "expo-location";
 import {
+  CAMERA_REDUCER_RESET,
+  UPDATE_AUTOCAPTURE_START,
   UPDATE_CAMERA_REF,
   UPDATE_CAMERA_STATUS,
   UPDATE_GPS_ACCURACY,
   UPDATE_GPS_STATUS,
+  UPDATE_START_ACCURACY,
 } from "../store/actionsName";
 import { useDispatch } from "react-redux";
 import {
   BadGPS,
   BatteryLevelIcon,
   GPSError,
+  GPSSearch,
   InternetAccessIcon,
 } from "../assets/svg/illustrations";
 import { useSelector } from "react-redux";
 import { RFValue } from "react-native-responsive-fontsize";
+import { log } from "react-native-reanimated";
 
 const Camera = ({ navigation }) => {
   const [degree, setDegree] = useState(0);
@@ -31,6 +36,8 @@ const Camera = ({ navigation }) => {
   const [subscription, setSubscription] = useState(null);
   const [networkAlert, setNetworkAlert] = useState(null);
   const [GPSAlert, setGPSAlert] = useState(null);
+  const [GPSStartAlert, setGPSStartAlert] = useState(null);
+  const [waitGPS, setWaitGPS] = useState(true);
   const [rotateAlert, setRotateAlert] = useState(null);
   const [locationFeatures, setLocation] = useState({});
   const dispatch = useDispatch();
@@ -44,6 +51,8 @@ const Camera = ({ navigation }) => {
     const unsubscribe = navigation.addListener("blur", (e) => {
       StatusBar.setHidden(false);
       ScreenOrientation.unlockAsync();
+      dispatch({ type: CAMERA_REDUCER_RESET });
+      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
     });
     return unsubscribe;
   }, [navigation]);
@@ -105,20 +114,6 @@ const Camera = ({ navigation }) => {
     }
   }, [connection]);
 
-  useEffect(() => {
-    if (locationFeatures.accuracy > 1) {
-      dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
-      setGPSAlert({
-        svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
-        title: "GPS accuracy is too low",
-        content: "Shooting will continue when the GPS alert icon turns green.",
-      });
-    } else {
-      dispatch({ type: UPDATE_GPS_ACCURACY, payload: true });
-      setGPSAlert(null);
-    }
-  }, [locationFeatures, dispatch]);
-
   const _subscribeToAccelerometer = () => {
     accelerometerSubscription = Accelerometer.addListener(
       (accelerometerData) => {
@@ -133,6 +128,7 @@ const Camera = ({ navigation }) => {
   };
 
   const _removeAccelerometerSubscribe = () => {
+    subscription && subscription.remove();
     accelerometerSubscription && accelerometerSubscription.remove();
     setSubscription(null);
   };
@@ -194,19 +190,47 @@ const Camera = ({ navigation }) => {
     if (status === "granted") {
       location = await Location.watchPositionAsync(
         {
-          accuracy: Location.Accuracy.Lowest,
-          // timeInterval: 0,
-          // distanceInterval: 0,
+          accuracy: Location.Accuracy.High,
+          distanceInterval: 0,
         },
-        async (location) => {
-          // console.log(location);
-          if (Platform.OS === "android") {
-          }
+        (location) => {
+          accuracyHandler(location.coords.accuracy);
+          startAccuracyHandler(location.coords.accuracy);
           setLocation(location.coords);
         }
       );
     } else {
       alertHandler();
+    }
+  };
+
+  const accuracyHandler = (accuracy) => {
+    if (accuracy > 50) {
+      dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
+      setGPSAlert({
+        svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
+        title: "GPS accuracy is too low",
+        content: "Shooting will continue when the GPS alert icon turns green.",
+      });
+    } else {
+      dispatch({ type: UPDATE_GPS_ACCURACY, payload: true });
+      setGPSAlert(null);
+    }
+  };
+
+  const startAccuracyHandler = (accuracy) => {
+    if (accuracy > 15 && waitGPS) {
+      dispatch({ type: UPDATE_START_ACCURACY, payload: false });
+      setGPSStartAlert({
+        svg: <GPSSearch />,
+        title: "GPS Searching",
+        content:
+          "Please be in the open area where the GPS will capture. This process can take up to 30 seconds.",
+      });
+    } else {
+      setWaitGPS(false);
+      dispatch({ type: UPDATE_START_ACCURACY, payload: true });
+      setGPSStartAlert(null);
     }
   };
 
@@ -237,6 +261,13 @@ const Camera = ({ navigation }) => {
             svg={GPSAlert.svg}
             title={GPSAlert.title}
             content={GPSAlert.content}
+          />
+        )}
+        {GPSStartAlert && (
+          <CameraAlert
+            svg={GPSStartAlert.svg}
+            title={GPSStartAlert.title}
+            content={GPSStartAlert.content}
           />
         )}
         {rotateAlert && !GPSAlert ? (

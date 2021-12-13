@@ -19,12 +19,10 @@ const ManuelActionButton = ({ disabled, uuid }) => {
   const [photoAmount, setPhotoAmount] = useState(0);
   const dispatch = useDispatch();
 
-  useEffect(() => {}, [selectedProject]);
-
   const takePicture = async () => {
     const db = Database.getConnection();
     const id =
-      selectedProject === "individual"
+      selectedProject.type === "individual"
         ? userInformation.id
         : selectedProject.id;
 
@@ -36,7 +34,7 @@ const ManuelActionButton = ({ disabled, uuid }) => {
     if (!imageUri) return;
     const newPath = `${
       FileSystem.documentDirectory
-    }/${id}/${Math.random()}.${"jpeg"}`;
+    }${id}${Math.random().toString()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,
@@ -45,30 +43,13 @@ const ManuelActionButton = ({ disabled, uuid }) => {
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
 
-    db.transaction((txn) => {
-      txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, sequence_uuid) VALUES (?, ?, ?, ?, ?)",
-        [JSONExif, JSONLocation, null, null, uuid],
-        (txn, rs) => {
-          // Todo something
-        },
-        (_, error) => {
-          console.log(error);
-        }
-      );
-    });
-
-    db.transaction((txn) => {
-      txn.executeSql(
-        "SELECT * FROM captures",
-        [],
-        (_, result) => {
-          console.log(result.rows._array);
-        },
-        (_, error) => {
-          console.log(error, 22);
-        }
-      );
+    Database.insertToDB({
+      JSONExif,
+      JSONLocation,
+      projectKey: null,
+      organizationName: null,
+      uuid,
+      userID: userInformation.id,
     });
 
     setPhotoAmount((amount) => amount + 1);
@@ -79,7 +60,7 @@ const ManuelActionButton = ({ disabled, uuid }) => {
 
   return (
     <TouchableOpacity
-      disabled={false}
+      disabled={disabled}
       style={{
         width: RFValue(61),
         height: RFValue(61),
