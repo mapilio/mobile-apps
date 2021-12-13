@@ -1,7 +1,7 @@
 import * as Font from "expo-font";
 import { store } from "../store/store";
 import { Notifier, NotifierComponents } from "react-native-notifier";
-import axios from "axios";
+import axios from "axios";;
 import { StatusBar } from "react-native";
 
 const useFonts = async () =>
@@ -48,7 +48,6 @@ const toastGenerator = (
     duration: duration,
     translucentStatusBar: StatusBar.currentHeight,
     componentProps: {
-      //Todo xd export alert images with low quality.
       imageSource: image,
       imageStyle: imageStyle,
       titleStyle: titleStyle,

@@ -65,7 +65,6 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.0",
-    "yup": "^0.32.11"
     "yup": "^0.32.11",
     "rn-sliding-up-panel": "^2.4.5",
     "expo-facebook": "~12.0.3"

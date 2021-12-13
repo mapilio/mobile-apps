@@ -6,9 +6,7 @@ import { BadGPS, GoodGPS } from "../assets/svg/illustrations";
 import { CustomTextMedium } from "../highordercomponents";
 
 const GPSLevel = () => {
-  const { GPSAccuracy, GPSStartAccuracy } = useSelector(
-    (state) => state.cameraReducer
-  );
+  const { GPSAccuracy } = useSelector((state) => state.cameraReducer);
 
   return (
     <View
@@ -19,7 +17,7 @@ const GPSLevel = () => {
         alignItems: "center",
       }}
     >
-      {GPSAccuracy && GPSStartAccuracy ? (
+      {GPSAccuracy ? (
         <>
           <GoodGPS />
           <CustomTextMedium
