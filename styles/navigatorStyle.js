@@ -1,4 +1,4 @@
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 
 export const navigatorStyle = {
   headerStyle: {
@@ -34,4 +34,9 @@ export const navigatorStyle = {
     borderRadius: RFValue(35),
     backgroundColor: '#32425B',
   },
+  borderStyle: {
+    height: 12,
+    backgroundColor: '#000',
+    width: RFPercentage(100)
+  }
 };

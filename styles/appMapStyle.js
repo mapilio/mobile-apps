@@ -6,6 +6,6 @@ export const appMapStyle = StyleSheet.create({
     flex: 1,
     width: RFPercentage(100),
     height: RFPercentage(100),
-    paddingBottom: RFValue(67),
+    paddingBottom: RFValue(10),
   }
 });

@@ -103,10 +103,11 @@ const MainNavigator = () => {
               options={{
                   tabBarIcon: ({focused}) => (
                       <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                          <TabMap />
+                          <TabMap fill={focused ? '#32425B' : undefined} />
                           <Text style={{fontSize: 13, marginTop: 2}}>
                               Map
                           </Text>
+                          <View style={navigatorStyle.borderStyle}></View>
                       </View>
                   ),
                   headerShown: false,
@@ -118,9 +119,9 @@ const MainNavigator = () => {
               options={{
                   tabBarIcon: ({focused}) => (
                       <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                          <MarketplaceIcon />
+                          <MarketplaceIcon fill={focused ? '#32425B' : undefined} />
                           <Text style={{fontSize: 13, marginTop: 2}}>
-                              Marketplace
+                              Market
                           </Text>
                       </View>
                   ),
@@ -153,7 +154,7 @@ const MainNavigator = () => {
               options={{
                   tabBarIcon: ({focused}) => (
                       <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                          <Upload />
+                          <Upload fill={focused ? '#32425B' : undefined} />
                           <Text style={{fontSize: 13, marginTop: 2}}>
                               Upload
                           </Text>
@@ -167,7 +168,7 @@ const MainNavigator = () => {
               options={{
                   tabBarIcon: ({focused}) => (
                       <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                          <Profile />
+                          <Profile fill={focused ? '#32425B' : undefined} />
                           <Text style={{fontSize: 13, marginTop: 2}}>
                               Profile
                           </Text>
