@@ -30,5 +30,6 @@ export { default as UploadCapture } from "./UploadCapture";
 export { default as NoInternetAccessIcon } from "./NoInternetAccess";
 export { default as TaskIcon } from "./Task";
 export { default as DropdownArrow } from "./DropdownArrow";
+export { default as GPSSearch } from "./GPSSearch";
 export { default as Eye } from "./Eye";
 export { default as EyeSlash } from "./EyeSlash";

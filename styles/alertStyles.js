@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { convertHexToRGBA } from "../helper/helper";
+import {convertHexToRGBA} from '../helper/helper'
 
 export const infoAlertStyles = StyleSheet.create({
   alertTitle: {

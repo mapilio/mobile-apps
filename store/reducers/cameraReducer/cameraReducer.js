@@ -4,15 +4,16 @@ import {
   UPDATE_CAMERA_STATUS,
   UPDATE_CAMERA_REF,
   UPDATE_IMAGE_SIZE,
-  UPDATE_CAPTURE_TYPE,
   UPDATE_PHONE_MEMORY,
   UPDATE_PHOTO_AMOUNT,
   UPDATE_BATTERY_LEVEL,
-  UPDATE_SELECTED_PROJECT,
+  UPDATE_START_ACCURACY,
+  CAMERA_REDUCER_RESET,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
-  GPSAccuracy: true,
+  GPSAccuracy: false,
+  GPSStartAccuracy: false,
   GPSStatus: true,
   cameraStatus: "",
   camera: null,
@@ -20,8 +21,6 @@ const INITIAL_STATE = {
   phoneMemory: 0,
   photoAmount: 0,
   batteryLevel: 100,
-  captureType: "manuel",
-  selectedProject: { type: "individual", key: 0, projectName: "lorem" },
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -61,11 +60,6 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         ...state,
         phoneMemory: action.payload,
       };
-    case UPDATE_CAPTURE_TYPE:
-      return {
-        ...state,
-        captureType: action.payload,
-      };
     case UPDATE_PHOTO_AMOUNT:
       return {
         ...state,
@@ -76,10 +70,23 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         ...state,
         batteryLevel: action.payload,
       };
-    case UPDATE_SELECTED_PROJECT:
+    case UPDATE_START_ACCURACY:
       return {
         ...state,
-        selectedProject: action.payload,
+        GPSStartAccuracy: action.payload,
+      };
+    case CAMERA_REDUCER_RESET:
+      return {
+        ...state,
+        GPSAccuracy: false,
+        GPSStartAccuracy: false,
+        GPSStatus: true,
+        cameraStatus: "",
+        camera: null,
+        imageSize: 3145728,
+        phoneMemory: 0,
+        photoAmount: 0,
+        batteryLevel: 100,
       };
     default:
       return state;

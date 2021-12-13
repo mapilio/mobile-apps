@@ -16,7 +16,7 @@ import PhotoAmounts from "./PhotoAmounts";
 import RecordStatus from "./RecordStatus";
 
 const CameraFrame = () => {
-  const { captureType } = useSelector((state) => state.cameraReducer);
+  const { captureType } = useSelector((state) => state.settingsReducer);
 
   return (
     <View
@@ -35,7 +35,7 @@ const CameraFrame = () => {
       </View>
       <View style={{ position: "absolute", top: 0, right: 0 }}>
         <FrameRightTop />
-        {captureType === "automatic" && <RecordStatus />}
+        {!captureType && <RecordStatus />}
       </View>
       <View style={{ position: "absolute", bottom: 0, left: 0 }}>
         <PhotoAmounts />

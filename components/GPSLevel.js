@@ -6,48 +6,51 @@ import { BadGPS, GoodGPS } from "../assets/svg/illustrations";
 import { CustomTextMedium } from "../highordercomponents";
 
 const GPSLevel = () => {
-  const { GPSAccuracy } = useSelector((state) => state.cameraReducer);
+    const { GPSAccuracy, GPSStartAccuracy } = useSelector(
+        (state) => state.cameraReducer
+    );
 
-  return (
-    <View
-      style={{
-        marginBottom: RFValue(-40),
-        marginLeft: RFValue(-19),
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
-      {GPSAccuracy ? (
-        <>
-          <GoodGPS />
-          <CustomTextMedium
+    return (
+        <View
             style={{
-              color: "#FFFFFF",
-              fontSize: RFValue(14),
-              marginLeft: RFValue(5),
-              marginBottom: RFValue(-2),
+                marginBottom: RFValue(-40),
+                marginLeft: RFValue(-19),
+                flexDirection: "row",
+                alignItems: "center",
             }}
-          >
-            Good GPS
-          </CustomTextMedium>
-        </>
-      ) : (
-        <>
-          <BadGPS />
-          <CustomTextMedium
-            style={{
-              color: "#FFFFFF",
-              fontSize: RFValue(14),
-              marginLeft: RFValue(5),
-              marginBottom: RFValue(-2),
-            }}
-          >
-            Bad GPS
-          </CustomTextMedium>
-        </>
-      )}
-    </View>
-  );
+        >
+            {GPSAccuracy && GPSStartAccuracy ? (
+                <>
+                    <GoodGPS />
+                    <CustomTextMedium
+                        style={{
+                            color: "#FFFFFF",
+                            fontSize: RFValue(14),
+                            marginLeft: RFValue(5),
+                            marginBottom: RFValue(-2),
+                        }}
+                    >
+                        Good GPS
+                    </CustomTextMedium>
+                </>
+            ) : (
+                <>
+                    <BadGPS />
+                    <CustomTextMedium
+                        style={{
+                            color: "#FFFFFF",
+                            fontSize: RFValue(14),
+                            marginLeft: RFValue(5),
+                            marginBottom: RFValue(-2),
+                        }}
+                    >
+                        Bad GPS
+                    </CustomTextMedium>
+                </>
+            )}
+        </View>
+    );
 };
 
 export default GPSLevel;
+
