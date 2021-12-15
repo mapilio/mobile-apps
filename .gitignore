@@ -99,6 +99,7 @@ captures/
 
 # Google Services (e.g. APIs or Firebase)
 # google-services.json
+package-lock.json
 
 # Freeline
 freeline.py
