@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const userUploadStyles = StyleSheet.create({
+  container: {
+    paddingVertical: RFValue(35),
+    paddingHorizontal: RFValue(16),
+  },
   sequenceTitle: {
     fontSize: RFValue(18),
     color: "#4A4A4A",
