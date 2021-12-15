@@ -51,6 +51,7 @@ const ProjectListModal = ({ modalVisible, setModalVisible }) => {
                 position: "absolute",
                 top: RFValue(15),
                 right: RFValue(25),
+                  padding:RFValue(10)
               }}
               onPress={() => setModalVisible(false)}
             >

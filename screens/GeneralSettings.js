@@ -21,11 +21,8 @@ const GeneralSettings = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", (e) => {
       StatusBar.setHidden(true);
-      ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-      );
     });
-    return unsubscribe;
+    return () => unsubscribe();
   }, [navigation]);
 
   return (
