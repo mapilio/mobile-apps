@@ -42,7 +42,7 @@ export const sequenceCardStyles = StyleSheet.create({
   imageContainer: {
     position: "relative",
     height: RFValue(78),
-    borderRadius: 8,
+    borderRadius: 4,
     maxWidth: "100%",
   },
   imagePosition: { position: "relative" },
