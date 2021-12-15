@@ -114,6 +114,7 @@ const TabNavigator = ({navigation, route}) => {
                             </Text>
                         </View>
                     ),
+                    // TODO onpress will move
                     // tabBarButton: ({children, onPress}) => (
                     //     <TouchableOpacity
                     //           onPress={() => {
@@ -172,6 +173,7 @@ const TabNavigator = ({navigation, route}) => {
                             </Text>
                         </View>
                     ),
+                    // TODO onpress will move
                     // tabBarButton: ({children, onPress}) => (
                     //     <TouchableOpacity
                     //       onPress={() => {
@@ -235,6 +237,7 @@ const TabNavigator = ({navigation, route}) => {
                             </Text>
                         </View>
                     ),
+                    // TODO onpress will move
                     // tabBarButton: ({children, onPress}) => (
                     //     <TouchableOpacity
                     //           onPress={() => {
