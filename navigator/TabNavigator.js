@@ -114,18 +114,18 @@ const TabNavigator = ({navigation, route}) => {
                             </Text>
                         </View>
                     ),
-                    tabBarButton: ({children, onPress}) => (
-                        <TouchableOpacity style={{width: "40%"}}
-                                          onPress={() => {
-                                              if (connection.connectionStatus) {
-                                                  onPress()
-                                              } else {
-                                                  connectionAlertHandler(navigation)
-                                              }
-                                          }}>
-                            {children}
-                        </TouchableOpacity>
-                    ),
+                    // tabBarButton: ({children, onPress}) => (
+                    //     <TouchableOpacity
+                    //           onPress={() => {
+                    //               if (connection.connectionStatus) {
+                    //                   onPress()
+                    //               } else {
+                    //                   connectionAlertHandler(navigation)
+                    //               }
+                    //           }}>
+                    //         {children}
+                    //     </TouchableOpacity>
+                    // ),
                 })}
             />
             <Tab.Screen
@@ -172,18 +172,18 @@ const TabNavigator = ({navigation, route}) => {
                             </Text>
                         </View>
                     ),
-                    tabBarButton: ({children, onPress}) => (
-                        <TouchableOpacity style={{width: "20%"}}
-                                          onPress={() => {
-                                              if (connection.connectionStatus) {
-                                                  onPress()
-                                              } else {
-                                                  connectionAlertHandler(navigation)
-                                              }
-                                          }}>
-                            {children}
-                        </TouchableOpacity>
-                    ),
+                    // tabBarButton: ({children, onPress}) => (
+                    //     <TouchableOpacity
+                    //       onPress={() => {
+                    //           if (connection.connectionStatus) {
+                    //               onPress()
+                    //           } else {
+                    //               connectionAlertHandler(navigation)
+                    //           }
+                    //       }}>
+                    //         {children}
+                    //     </TouchableOpacity>
+                    // ),
                 })}
             />
             <Tab.Screen
@@ -235,18 +235,18 @@ const TabNavigator = ({navigation, route}) => {
                             </Text>
                         </View>
                     ),
-                    tabBarButton: ({children, onPress}) => (
-                        <TouchableOpacity style={{width: "20%"}}
-                              onPress={() => {
-                                  if (connection.connectionStatus) {
-                                      onPress()
-                                  } else {
-                                      connectionAlertHandler(navigation)
-                                  }
-                              }}>
-                            {children}
-                        </TouchableOpacity>
-                    ),
+                    // tabBarButton: ({children, onPress}) => (
+                    //     <TouchableOpacity
+                    //           onPress={() => {
+                    //               if (connection.connectionStatus) {
+                    //                   onPress()
+                    //               } else {
+                    //                   connectionAlertHandler(navigation)
+                    //               }
+                    //           }}>
+                    //         {children}
+                    //     </TouchableOpacity>
+                    // ),
                 })}
             />
             <Tab.Screen
