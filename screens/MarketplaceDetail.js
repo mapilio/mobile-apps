@@ -6,6 +6,7 @@ import {globalStyles} from "../styles/globalStyles";
 import {marketplaceDetailStyles} from "../styles/marketplaceStyles";
 import {fetchHandler} from "../helper/helper";
 import {Routes} from "../navigator/Routes";
+import Moment from 'moment';
 
 const MarketplaceDetail = ({navigation, route}) => {
 
@@ -33,7 +34,7 @@ const MarketplaceDetail = ({navigation, route}) => {
           </View>
           <CustomTextBold style={marketplaceDetailStyles.title}>{route.params.data.marketplace_name}</CustomTextBold>
           <CustomText style={{...marketplaceDetailStyles.secondaryTextColor, ...marketplaceDetailStyles.smallText}}>
-            05 Nov. 09:45 PM
+            {Moment(route.params.data.created_at).format('d MMM. H:M')}
           </CustomText>
           <View style={marketplaceDetailStyles.imageArea}>
             <Image

@@ -186,32 +186,6 @@ const MainNavigator = () => {
             component={TabNavigator}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            component={UserSequence}
-            name={Routes.sequences}
-            options={{
-              headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-              headerRight: () => <SequenceNavigatorRight />,
-              title: null,
-              headerStyle: navigatorStyle.headerStyle,
-              headerTitleStyle: navigatorStyle.headerTitleStyle,
-              headerTintColor: navigatorStyle.headerTintColor,
-              headerTitleAlign: navigatorStyle.headerTitleAlign,
-            }}
-          />
-          <Stack.Screen
-            component={UserSequenceDetail}
-            name={Routes.sequenceDetail}
-            options={{
-              headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-              headerRight: (props) => <DeleteNavigationRight {...props} />,
-              title: null,
-              headerStyle: navigatorStyle.headerStyle,
-              headerTitleStyle: navigatorStyle.headerTitleStyle,
-              headerTintColor: navigatorStyle.headerTintColor,
-              headerTitleAlign: navigatorStyle.headerTitleAlign,
-            }}
-          />
         </Stack.Group>
         <Stack.Group screenOptions={{ presentation: "modal" }}>
           <Stack.Screen
@@ -400,6 +374,36 @@ const TabNavigator = ({ navigation }) => {
               {children}
             </TouchableOpacity>
           ),
+        }}
+      />
+      <Tab.Screen
+        component={UserSequence}
+        name={Routes.sequences}
+        options={{
+          headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+          headerRight: () => <SequenceNavigatorRight />,
+          title: null,
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          tabBarIcon: () => null,
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        component={UserSequenceDetail}
+        name={Routes.sequenceDetail}
+        options={{
+          headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+          headerRight: (props) => <DeleteNavigationRight {...props} />,
+          title: null,
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          tabBarIcon: () => null,
+          tabBarButton: () => null,
         }}
       />
       <Tab.Screen
