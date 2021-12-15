@@ -8,13 +8,10 @@ import {
     MarketplaceDetail,
     NoInternetAccess,
     Register,
-    UserSequence,
-    UserSequenceDetail,
     Walkthrough,
     WelcomeWalkthrough,
 } from "../screens";
 import {navigatorStyle} from "../styles/navigatorStyle";
-import {DeleteNavigationRight, SequenceNavigatorLeft, SequenceNavigatorRight,} from "./navigatorbars";
 import NetInfo from "@react-native-community/netinfo";
 import {Routes} from "./Routes";
 import {useDispatch, useSelector} from "react-redux";
@@ -51,7 +48,7 @@ const MainNavigator = () => {
         }
     }
 
-    return auth === null ? internetConnection ?
+    return auth === null ? !internetConnection ?
         (
             <Stack.Navigator
                 initialRouteName={Routes.noInternetAccess}
