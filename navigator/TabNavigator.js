@@ -4,13 +4,16 @@ import {Notifier} from "react-native-notifier";
 import {Routes} from "./Routes";
 import {CardStyleInterpolators} from "@react-navigation/stack";
 import {navigatorStyle} from "../styles/navigatorStyle";
-import {AppCamera, Marketplace, NoInternetAccess, UserProfile, UserUpload} from "../screens";
+import {AppCamera, AppMap, Marketplace, NoInternetAccess, UserProfile, UserSequence, UserUpload} from "../screens";
 import {HeaderTitle} from "../components/Marketplace";
 import {Text, TouchableOpacity, View} from "react-native";
 import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
 import {UploadNavigatorRight} from "./navigatorbars";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import * as ScreenOrientation from "expo-screen-orientation";
+import TabMap from "../assets/svg/illustrations/TabMap";
+import MapLogo from "../assets/svg/illustrations/MapLogo";
+import UserNavigator from "./UserNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,12 +46,12 @@ const TabNavigator = ({navigation, route}) => {
 
     return (
         <Tab.Navigator
-            initialRouteName={Routes.profile}
+            initialRouteName={'Map'}
             screenOptions={{
                 // Todo animation for Android will be made smoother.
                 cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
                 tabBarShowLabel: false,
-                tabBarStyle: navigatorStyle.tabBarStyle,
+                tabBarStyle: navigatorStyle.tabBarStyle
             }}
             screenListeners={({navigation, route}) => ({
                 focus: (e) => {
@@ -64,6 +67,29 @@ const TabNavigator = ({navigation, route}) => {
             })}
         >
             <Tab.Screen
+                component={AppMap}
+                name={'Map'}
+                options={{
+                    tabBarIcon: ({focused}) => (
+                        <View style={[
+                            navigatorStyle.tabIconStyle,
+                            focused ? navigatorStyle.borderStyle : {}
+                        ]}>
+                            <TabMap fill={focused ? '#32425B' : undefined} />
+                            <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
+                                Map
+                            </Text>
+                        </View>
+                    ),
+                    // headerShown: false,
+                    title: <MapLogo fill={'#000'} />,
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: '#213348'
+                    },
+                }}
+            />
+            <Tab.Screen
                 component={Marketplace}
                 name={Routes.marketplace}
                 options={({navigation}) => ({
@@ -73,17 +99,13 @@ const TabNavigator = ({navigation, route}) => {
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                     headerTitle: () => <HeaderTitle/>,
                     tabBarIcon: ({focused}) => (
-                        <View
-
-                            style={{
-                                alignItems: "center",
-                                justifyContent: "center",
-                                flexDirection: "row",
-                            }}
-                        >
-                            <MarketplaceIcon/>
-                            <Text style={{fontSize: 14, marginLeft: 8, color: "#32425B"}}>
-                                Marketplace
+                        <View style={[
+                            navigatorStyle.tabIconStyle,
+                            focused ? navigatorStyle.borderStyle : {}
+                        ]}>
+                            <MarketplaceIcon fill={focused ? '#32425B' : undefined} />
+                            <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
+                                Market
                             </Text>
                         </View>
                     ),
@@ -112,21 +134,14 @@ const TabNavigator = ({navigation, route}) => {
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                     tabBarIcon: ({focused}) => (
-                        <View style={{alignItems: "center", justifyContent: "center"}}>
-                            <CaptureIcon height={38} width={38}/>
-                            <Text
-                                style={{
-                                    position: "absolute",
-                                    color: "#1AD971",
-                                    fontWeight: "bold",
-                                    fontFamily: "Poppins",
-                                }}
-                            >
-                                Capture
-                            </Text>
+                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                            <CaptureIcon height={37.26} width={37.26} />
+                            <Text style={navigatorStyle.captureTextStyle}>Capture</Text>
                         </View>
                     ),
-                    tabBarButton: (prop) => <CaptureTabBarButton {...prop} />,
+                    tabBarButton: (prop) => (
+                        <CaptureTabBarButton {...prop} />
+                    ),
                     tabBarStyle: {
                         display: "none",
                     },
@@ -142,9 +157,14 @@ const TabNavigator = ({navigation, route}) => {
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                     tabBarIcon: ({focused}) => (
-                        <View style={{alignItems: "center", justifyContent: "center"}}>
-                            <Upload/>
-                            <Text style={{fontSize: 13, marginTop: 2}}>Upload</Text>
+                        <View style={[
+                            navigatorStyle.tabIconStyle,
+                            focused ? navigatorStyle.borderStyle : {}
+                        ]}>
+                            <Upload fill={focused ? '#32425B' : undefined} />
+                            <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
+                                Upload
+                            </Text>
                         </View>
                     ),
                     tabBarButton: ({children, onPress}) => (
@@ -170,20 +190,25 @@ const TabNavigator = ({navigation, route}) => {
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                     tabBarIcon: ({focused}) => (
-                        <View style={{alignItems: "center", justifyContent: "center"}}>
-                            <Profile/>
-                            <Text style={{fontSize: 13, marginTop: 2}}>Profile</Text>
+                        <View style={[
+                            navigatorStyle.tabIconStyle,
+                            focused ? navigatorStyle.borderStyle : {}
+                        ]}>
+                            <Profile fill={focused ? '#32425B' : undefined} />
+                            <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
+                                Profile
+                            </Text>
                         </View>
                     ),
                     tabBarButton: ({children, onPress}) => (
                         <TouchableOpacity style={{width: "20%"}}
-                                          onPress={() => {
-                                              if (connection.connectionStatus) {
-                                                  onPress()
-                                              } else {
-                                                  connectionAlertHandler(navigation)
-                                              }
-                                          }}>
+                              onPress={() => {
+                                  if (connection.connectionStatus) {
+                                      onPress()
+                                  } else {
+                                      connectionAlertHandler(navigation)
+                                  }
+                              }}>
                             {children}
                         </TouchableOpacity>
                     ),
