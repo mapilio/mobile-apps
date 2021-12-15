@@ -3,7 +3,6 @@ import {
     CardStyleInterpolators, createStackNavigator,
 } from "@react-navigation/stack";
 import {
-    UserSequence,
     Login,
     CameraSettings,
     ForgotPassword,
@@ -11,12 +10,10 @@ import {
     MarketplaceDetail,
     NoInternetAccess,
     Register,
-    UserSequenceDetail,
     Walkthrough,
     WelcomeWalkthrough,
 } from "../screens";
 import {navigatorStyle} from "../styles/navigatorStyle";
-import {DeleteNavigationRight, SequenceNavigatorLeft, SequenceNavigatorRight,} from "./navigatorbars";
 import NetInfo from "@react-native-community/netinfo";
 import {Routes} from "./Routes";
 import {useDispatch, useSelector} from "react-redux";
@@ -54,7 +51,7 @@ const Stack = createStackNavigator();
         }
     }
 
-    return auth === null ? internetConnection ?
+    return auth === null ? !internetConnection ?
         (
             <Stack.Navigator
                 initialRouteName={Routes.noInternetAccess}
