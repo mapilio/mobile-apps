@@ -13,7 +13,7 @@ const ListItem = ({data, navigation}) => {
         <CustomText style={marketplaceItemStyles.job}>Imagery Capture</CustomText>
       </View>
       <CustomText style={marketplaceItemStyles.title}>{data.marketplace_name}</CustomText>
-      <CustomText style={marketplaceItemStyles.description} numberOfLines={2}>{data.marketplace_description}</CustomText>
+      <CustomText style={marketplaceItemStyles.description} lineCount={2}>{data.marketplace_description}</CustomText>
       <CustomText style={marketplaceItemStyles.equipment}>CAPTURE EQUIPMENT: {data.project_camera_type}</CustomText>
     </TouchableOpacity>
   );

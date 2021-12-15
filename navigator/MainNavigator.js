@@ -131,38 +131,6 @@ const Stack = createStackNavigator();
                     component={TabNavigator}
                     options={{headerShown: false}}
                 />
-                <Stack.Screen
-                    component={UserSequence}
-                    name={Routes.sequences}
-                    options={{
-                        headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                        headerRight: () => <SequenceNavigatorRight/>,
-                        title: null,
-                        headerStyle: navigatorStyle.headerStyle,
-                        headerTitleStyle: navigatorStyle.headerTitleStyle,
-                        headerTintColor: navigatorStyle.headerTintColor,
-                        headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    }}
-                    listeners={({navigation, route}) => ({
-                        focus: () => noInternetHandler(navigation, route)
-                    })}
-                />
-                <Stack.Screen
-                    component={UserSequenceDetail}
-                    name={Routes.sequenceDetail}
-                    options={{
-                        headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                        headerRight: (props) => <DeleteNavigationRight {...props} />,
-                        title: null,
-                        headerStyle: navigatorStyle.headerStyle,
-                        headerTitleStyle: navigatorStyle.headerTitleStyle,
-                        headerTintColor: navigatorStyle.headerTintColor,
-                        headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    }}
-                    listeners={({navigation, route}) => ({
-                        focus: () => noInternetHandler(navigation, route)
-                    })}
-                />
             </Stack.Group>
             <Stack.Group screenOptions={{presentation: "modal"}}>
                 <Stack.Screen

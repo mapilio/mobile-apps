@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const CustomTextBold = ({ style, lineCount = 12, children }) => (
+const CustomTextBold = ({ style, lineCount = null, children }) => (
   <View style={{ flexDirection: "row" }}>
     <Text
       style={[

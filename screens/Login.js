@@ -56,6 +56,7 @@ const Login = ({navigation}) => {
                 onBlur={handleBlur('email')}
                 value={values.email}
                 keyboardType="email-address"
+                autoCapitalize='none'
                 style={errors.email ? {...loginStyles.errorInput , ...loginStyles.input} : loginStyles. input}
               />
               {errors.email &&
