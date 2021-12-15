@@ -1,18 +1,23 @@
 import { StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 
-export const appMapStyles = StyleSheet.create({
-  sequenceTitle: {
-    fontSize: RFValue(18),
-    color: "#4A4A4A",
+export const appMapStyle = StyleSheet.create({
+  map: {
+    width: RFPercentage(100),
+    height: RFPercentage(100),
+    paddingBottom: RFValue(69),
   },
-  sequenceDescription: {
-    fontSize: RFValue(14),
-    color: "#B9C0CF",
-  },
-  sequenceWrapper: {
-    marginTop: RFValue(24),
-    flexWrap: "wrap",
-    flexDirection: "row",
-  },
+  searchIcon: {
+    backgroundColor: 'rgba(50, 66, 91, 0.9)',
+    padding: RFValue(8),
+    width: RFValue(35.5),
+    height: RFValue(35.5),
+    position: 'absolute',
+    zIndex: 5,
+    top: 10.25,
+    right: 16.25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: RFPercentage(50)
+  }
 });

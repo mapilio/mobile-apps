@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {CardStyleInterpolators, createStackNavigator,} from "@react-navigation/stack";
 import {
+    CardStyleInterpolators, createStackNavigator,
+} from "@react-navigation/stack";
+import {
+    Login,
     CameraSettings,
     ForgotPassword,
     GeneralSettings,
-    Login,
     MarketplaceDetail,
     NoInternetAccess,
     Register,
@@ -27,6 +29,7 @@ const MainNavigator = () => {
     const {auth} = useSelector((state) => state.getTokenReducer);
     const dispatch = useDispatch();
     const [internetConnection, setInternetConnection] = useState(true);
+const Stack = createStackNavigator();
 
     useEffect(() => {
         const unsubcribe = NetInfo.addEventListener((state) => {
@@ -185,6 +188,5 @@ const MainNavigator = () => {
         </Stack.Navigator>
     );
 };
-
 
 export default MainNavigator;

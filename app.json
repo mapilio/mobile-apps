@@ -13,10 +13,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "requireFullScreen": true
+      "requireFullScreen": true,
+      "bundleIdentifier": "com.mapilio"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,10 +34,14 @@
         "xhdpi": "./assets/splash/mapilio_splash_x2.png",
         "xxhdpi": "./assets/splash/mapilio_splash_x3.png",
         "xxxhdpi": "./assets/splash/mapilio_splash_x4.png"
-      }
+      },
+      "package": "com.mapilio"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "@react-native-mapbox-gl/maps"
+    ]
   }
 }
