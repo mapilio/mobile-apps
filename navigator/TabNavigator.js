@@ -4,16 +4,7 @@ import {Notifier} from "react-native-notifier";
 import {Routes} from "./Routes";
 import {CardStyleInterpolators} from "@react-navigation/stack";
 import {navigatorStyle} from "../styles/navigatorStyle";
-import {
-  AppCamera,
-  Marketplace,
-  NoInternetAccess,
-  UserProfile,
-  UserSequence,
-  UserSequenceDetail,
-  UserUpload
-} from "../screens";
-import {AppCamera, AppMap, Marketplace, NoInternetAccess, UserProfile, UserSequence, UserUpload} from "../screens";
+import {AppCamera, AppMap, Marketplace, NoInternetAccess, UserProfile, UserSequence, UserUpload, UserSequenceDetail} from "../screens";
 import {HeaderTitle} from "../components/Marketplace";
 import {Text, TouchableOpacity, View} from "react-native";
 import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
