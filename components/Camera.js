@@ -20,6 +20,8 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {BadGPS, BatteryLevelIcon, GPSSearch, InternetAccessIcon,} from "../assets/svg/illustrations";
 import {RFValue} from "react-native-responsive-fontsize";
+import {toastGenerator} from "../helper/helper";
+import {errorAlertStyles} from "../styles/alertStyles";
 
 const Camera = ({navigation}) => {
     const [degree, setDegree] = useState(0);
@@ -28,7 +30,6 @@ const Camera = ({navigation}) => {
     const [networkAlert, setNetworkAlert] = useState(null);
     const [GPSAlert, setGPSAlert] = useState(null);
     const [GPSStartAlert, setGPSStartAlert] = useState(null);
-    const [waitGPS, setWaitGPS] = useState(true);
     const [rotateAlert, setRotateAlert] = useState(null);
     const [locationFeatures, setLocation] = useState({});
     const dispatch = useDispatch();
@@ -36,12 +37,11 @@ const Camera = ({navigation}) => {
     const {connection} = useSelector((state) => state.generalReducer);
     const cameraRef = useRef(null);
     let location = null;
+    let waitGPS = true
     let accelerometerSubscription = null;
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("blur", (e) => {
-            StatusBar.setHidden(false);
-            ScreenOrientation.unlockAsync();
             dispatch({type: CAMERA_REDUCER_RESET});
             dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false});
         });
@@ -50,15 +50,27 @@ const Camera = ({navigation}) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", (e) => {
-            __startCamera();
+            _getCameraPermission();
             _startNetworkProvider();
             StatusBar.setHidden(true);
             ScreenOrientation.lockAsync(
                 ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
             );
         });
-        return unsubscribe;
+        return () => unsubscribe();
     }, [navigation]);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener("focus", async (e) => {
+            const currentOrientation = await ScreenOrientation.getOrientationLockAsync()
+            if (currentOrientation !== 7) {
+                await ScreenOrientation.lockAsync(
+                    ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+                );
+            }
+        });
+        return () => unsubscribe();
+    }, [navigation])
 
     useEffect(() => {
         _subscribeToAccelerometer();
@@ -127,18 +139,20 @@ const Camera = ({navigation}) => {
     const __startCamera = async () => {
         const {status} = await ExpoCamera.requestCameraPermissionsAsync();
         if (status === "granted") {
-            // todo something
+            return false
         } else {
-            // alertHandler();
+            alertHandler();
+            navigation.navigate(Routes.profile)
         }
     };
 
     const _startNetworkProvider = async () => {
         const {status} = await Location.requestForegroundPermissionsAsync();
         if (status === "granted") {
-            // todo something
+            return false
         } else {
             alertHandler();
+            navigation.navigate(Routes.profile())
         }
         Location.enableNetworkProviderAsync()
             .then((res) => res)
@@ -157,10 +171,12 @@ const Camera = ({navigation}) => {
                 },
                 {
                     text: "Go to settings",
-                    onPress: async () =>
+                    onPress: () => {
+                        navigation.navigate(Routes.profile)
                         Platform.OS === "ios"
                             ? Linking.openURL("app-settings:")
-                            : Linking.openSettings(),
+                            : Linking.openSettings()
+                    }
                 },
             ]
         );
@@ -173,6 +189,7 @@ const Camera = ({navigation}) => {
     const _getCameraPermission = async () => {
         const permission = await ExpoCamera.getCameraPermissionsAsync();
         if (permission.status === "granted") return;
+        __startCamera()
     };
 
     const _subscribeProvider = async () => {
@@ -184,13 +201,16 @@ const Camera = ({navigation}) => {
                     distanceInterval: 0,
                 },
                 (location) => {
-                    startAccuracyHandler(location.coords.accuracy)
+                    if (waitGPS) {
+                        startAccuracyHandler(location.coords.accuracy)
+                    }
                     accuracyHandler(location.coords.accuracy);
                     setLocation(location.coords);
                 }
             );
         } else {
             alertHandler();
+            navigation.navigate(Routes.profile)
         }
     };
 
@@ -209,15 +229,27 @@ const Camera = ({navigation}) => {
     };
 
     const startAccuracyHandler = (accuracy) => {
-        if (accuracy > 15 && waitGPS) {
+        setTimeout(() => {
+            toastGenerator(
+                "GPS accuracy is not enough. Please try again.",
+                require("../assets/images/Info.png"),
+                errorAlertStyles.alertContainer,
+                errorAlertStyles.alertTitle,
+                errorAlertStyles.alertImage,
+                5000
+            );
+            navigation.navigate(Routes.profile)
+            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+        }, 3000 * 10)
+        if (accuracy > 15) {
             dispatch({type: UPDATE_START_ACCURACY, payload: false});
             setGPSStartAlert({
                 svg: <GPSSearch/>,
                 title: "GPS Searching",
                 content: "Please be in the open area where the GPS will capture. This process can take up to 30 seconds.",
             });
-        } else if (accuracy <= 15 && waitGPS) {
-            setWaitGPS(false);
+        } else if (accuracy <= 15) {
+            waitGPS = false
             dispatch({type: UPDATE_START_ACCURACY, payload: true});
             setGPSStartAlert(null);
         }
@@ -259,13 +291,13 @@ const Camera = ({navigation}) => {
                         content={GPSStartAlert.content}
                     />
                 )}
-                {rotateAlert && !GPSAlert ? (
+                {rotateAlert && (
                     <CameraAlert
                         svg={rotateAlert.svg}
                         title={rotateAlert.title}
                         content={rotateAlert.content}
                     />
-                ) : null}
+                )}
                 {batteryAlert && (
                     <CameraAlert
                         svg={batteryAlert.svg}

@@ -1,33 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Dimensions, TouchableOpacity, View } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { convertHexToRGBA } from "../helper/helper";
-import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
+import React, {useEffect, useState} from "react";
+import {Dimensions, TouchableOpacity, View} from "react-native";
+import {RFValue} from "react-native-responsive-fontsize";
+import {convertHexToRGBA} from "../helper/helper";
+import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import * as Location from "expo-location";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import {
-    UPDATE_AUTOCAPTURE_START,
-    UPDATE_IMAGE_SIZE,
-    UPDATE_PHOTO_AMOUNT,
-} from "../store/actionsName";
+import {useDispatch, useSelector} from "react-redux";
+import {UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT,} from "../store/actionsName";
 
-const AutoActionButton = ({ disabled, uuid }) => {
+const AutoActionButton = ({disabled, uuid}) => {
     const [autoCapture, setAutoCapture] = useState(false);
     const [photoAmount, setPhotoAmount] = useState(0);
-    const { cameraStatus, camera } = useSelector(
+    const {cameraStatus, camera} = useSelector(
         (status) => status.cameraReducer
     );
-    const { userInformation } = useSelector((state) => state.getTokenReducer);
-    const { selectedProject, distanceBetween } = useSelector(
+    const {userInformation} = useSelector((state) => state.getTokenReducer);
+    const {selectedProject, distanceBetween} = useSelector(
         (status) => status.settingsReducer
     );
     const dispatch = useDispatch();
 
     const playHandler = () => {
-        dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: !autoCapture });
+        dispatch({type: UPDATE_AUTOCAPTURE_START, payload: !autoCapture});
         setAutoCapture((prevState) => !prevState);
     };
 
@@ -60,18 +55,20 @@ const AutoActionButton = ({ disabled, uuid }) => {
                 : selectedProject.id;
 
         if (cameraStatus !== "READY") return;
-        const options = { quality: 1, base64: false, exif: true };
+        const options = {quality: 1, base64: false, exif: true};
         const image = await camera.takePictureAsync(options);
+        const heading = await Location.getHeadingAsync()
         const imageUri = image.uri;
         if (!imageUri) return;
         const newPath = `${
             FileSystem.documentDirectory
-        }${id}${Math.random()}.${"jpeg"}`;
+        }${id}${Math.random().toString()}.${"jpeg"}`;
         await FileSystem.copyAsync({
             from: imageUri,
             to: newPath,
         });
         image.uri = newPath;
+        location.coords.heading = heading.trueHeading
         const JSONExif = JSON.stringify(image.exif);
         const JSONLocation = JSON.stringify(location);
 
@@ -81,13 +78,13 @@ const AutoActionButton = ({ disabled, uuid }) => {
             projectKey: null,
             organizationName: null,
             uuid,
-            path:newPath
+            path: newPath
         });
 
         setPhotoAmount((amount) => amount + 1);
-        dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
+        dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1});
         const fileInfo = await FileSystem.getInfoAsync(newPath);
-        dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
+        dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
     };
 
     return (
@@ -117,7 +114,7 @@ const AutoActionButton = ({ disabled, uuid }) => {
                     justifyContent: "center",
                 }}
             >
-                {autoCapture ? <StopIcon /> : <PlayIcon />}
+                {autoCapture ? <StopIcon/> : <PlayIcon/>}
             </View>
             <View
                 style={{

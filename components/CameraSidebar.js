@@ -25,8 +25,9 @@ const CameraSidebar = ({ navigation }) => {
   }, [navigation]);
 
   const exitFromCamera = async () => {
-    navigation.goBack()
+    await ScreenOrientation.unlockAsync()
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+    navigation.navigate(Routes.profile)
     StatusBar.setHidden(false)
   }
 

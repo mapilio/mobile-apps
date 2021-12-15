@@ -5,8 +5,7 @@ import {convertHexToRGBA} from "../helper/helper";
 import {useDispatch, useSelector} from "react-redux";
 import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
-import { UPDATE_PHOTO_AMOUNT, UPDATE_IMAGE_SIZE } from "../store/actionsName";
-import { useDispatch } from "react-redux";
+import {UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT} from "../store/actionsName";
 import Database from "../db";
 
 const ManuelActionButton = ({disabled, uuid}) => {
@@ -30,6 +29,7 @@ const ManuelActionButton = ({disabled, uuid}) => {
         const options = {quality: 1, base64: false, exif: true};
         const image = await camera.takePictureAsync(options);
         const location = await Location.getCurrentPositionAsync();
+        const heading = await Location.getHeadingAsync()
         const imageUri = image.uri;
         if (!imageUri) return;
         const newPath = `${
@@ -40,6 +40,7 @@ const ManuelActionButton = ({disabled, uuid}) => {
             to: newPath,
         });
         image.uri = newPath;
+        location.coords.heading = heading.trueHeading
         const JSONExif = JSON.stringify(image.exif);
         const JSONLocation = JSON.stringify(location);
 

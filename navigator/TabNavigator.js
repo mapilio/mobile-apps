@@ -10,6 +10,7 @@ import {Text, TouchableOpacity, View} from "react-native";
 import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
 import {UploadNavigatorRight} from "./navigatorbars";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +29,7 @@ const CaptureTabBarButton = ({children, onPress}) => (
     </TouchableOpacity>
 );
 
-const TabNavigator = ({navigation,route}) => {
+const TabNavigator = ({navigation, route}) => {
     const {connection} = useSelector((state) => state.generalReducer);
 
     const connectionAlertHandler = (navigation) => {
@@ -55,6 +56,11 @@ const TabNavigator = ({navigation,route}) => {
                         navigation.navigate(Routes.noInternetAccess)
                     }
                 },
+                state: () => {
+                    if (route.name !== Routes.camera) {
+                        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+                    }
+                }
             })}
         >
             <Tab.Screen
