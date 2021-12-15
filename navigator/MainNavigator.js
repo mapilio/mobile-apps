@@ -22,6 +22,7 @@ import CaptureIcon from "../assets/svg/illustrations/CaptureIcon";
 import Profile from "../assets/svg/illustrations/Profile";
 import Upload from "../assets/svg/illustrations/Upload";
 import TabMap from "../assets/svg/illustrations/TabMap";
+import MapLogo from "../assets/svg/illustrations/MapLogo";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -102,15 +103,22 @@ const MainNavigator = () => {
               name={'Map'}
               options={{
                   tabBarIcon: ({focused}) => (
-                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                      <View style={[
+                          navigatorStyle.tabIconStyle,
+                          focused ? navigatorStyle.borderStyle : {}
+                      ]}>
                           <TabMap fill={focused ? '#32425B' : undefined} />
-                          <Text style={{fontSize: 13, marginTop: 2}}>
+                          <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                               Map
                           </Text>
-                          <View style={navigatorStyle.borderStyle}></View>
                       </View>
                   ),
-                  headerShown: false,
+                  // headerShown: false,
+                  title: <MapLogo fill={'#000'} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: {
+                      backgroundColor: '#213348'
+                  },
               }}
           />
           <Tab.Screen
@@ -118,9 +126,12 @@ const MainNavigator = () => {
               name={'Marketplace'}
               options={{
                   tabBarIcon: ({focused}) => (
-                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                      <View style={[
+                          navigatorStyle.tabIconStyle,
+                          focused ? navigatorStyle.borderStyle : {}
+                      ]}>
                           <MarketplaceIcon fill={focused ? '#32425B' : undefined} />
-                          <Text style={{fontSize: 13, marginTop: 2}}>
+                          <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                               Market
                           </Text>
                       </View>
@@ -139,8 +150,8 @@ const MainNavigator = () => {
                   headerTitleAlign: navigatorStyle.headerTitleAlign,
                   tabBarIcon: ({focused}) => (
                       <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                          <CaptureIcon height={38} width={38} />
-                          <Text style={{position: 'absolute', color: '#1AD971', fontWeight: 'bold', fontFamily: 'Poppins'}}>Capture</Text>
+                          <CaptureIcon height={37.26} width={37.26} />
+                          <Text style={navigatorStyle.captureTextStyle}>Capture</Text>
                       </View>
                   ),
                   tabBarButton: (prop) => (
@@ -153,9 +164,12 @@ const MainNavigator = () => {
               name={Routes.upload}
               options={{
                   tabBarIcon: ({focused}) => (
-                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                      <View style={[
+                          navigatorStyle.tabIconStyle,
+                          focused ? navigatorStyle.borderStyle : {}
+                      ]}>
                           <Upload fill={focused ? '#32425B' : undefined} />
-                          <Text style={{fontSize: 13, marginTop: 2}}>
+                          <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                               Upload
                           </Text>
                       </View>
@@ -167,9 +181,12 @@ const MainNavigator = () => {
               name={Routes.profile}
               options={{
                   tabBarIcon: ({focused}) => (
-                      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                      <View style={[
+                          navigatorStyle.tabIconStyle,
+                          focused ? navigatorStyle.borderStyle : {}
+                      ]}>
                           <Profile fill={focused ? '#32425B' : undefined} />
-                          <Text style={{fontSize: 13, marginTop: 2}}>
+                          <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                               Profile
                           </Text>
                       </View>

@@ -11,11 +11,11 @@ export const navigatorStyle = {
   headerTintColor: "#ffffff",
   headerTitleAlign: "center",
   tabBarStyle: {
-    height: RFValue(60)
+    height: RFValue(63),
   },
   captureButtonWrapperStyle: {
-    width: RFValue(70),
-    height: RFValue(70),
+    width: RFValue(71),
+    height: RFValue(71),
     borderRadius: RFValue(35),
     backgroundColor: '#fff',
     justifyContent: 'center',
@@ -26,17 +26,39 @@ export const navigatorStyle = {
     shadowRadius: 3.5,
     elevation: 5,
     position: 'relative',
-    top: RFValue(-15),
+    bottom: RFValue(12),
   },
   captureButtonStyle: {
-    width: RFValue(64),
-    height: RFValue(64),
+    width: RFValue(65),
+    height: RFValue(65),
     borderRadius: RFValue(35),
     backgroundColor: '#32425B',
   },
+  captureTextStyle: {
+    position: 'absolute',
+    color: '#1AD971',
+    fontFamily: 'Poppins',
+    fontSize: RFValue(12),
+    bottom: 7.5,
+  },
+  tabIconStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    paddingBottom: RFValue(2.5),
+    borderBottomWidth: RFValue(3),
+    borderColor: 'transparent',
+    paddingLeft: RFValue(10),
+    paddingRight: RFValue(10),
+  },
   borderStyle: {
-    height: 12,
-    backgroundColor: '#000',
-    width: RFPercentage(100)
-  }
+    borderColor: '#32425B',
+  },
+  tabTextStyle: {
+    fontSize: 12,
+    marginTop: 3,
+    color: '#7E86B0',
+    fontFamily: 'Poppins-SemiBold'
+  },
 };
