@@ -26,6 +26,7 @@
     "expo-asset": "~8.4.3",
     "expo-battery": "~6.0.3",
     "expo-camera": "^12.0.3",
+    "expo-facebook": "~12.0.3",
     "expo-file-system": "~13.0.3",
     "expo-font": "^10.0.3",
     "expo-google-app-auth": "~9.0.0",
@@ -33,13 +34,14 @@
     "expo-network": "~4.0.3",
     "expo-screen-orientation": "~4.0.3",
     "expo-sensors": "~11.0.3",
-    "expo-sqlite": "~10.0.3",
     "expo-splash-screen": "~0.13.5",
+    "expo-sqlite": "~10.0.3",
     "expo-status-bar": "~1.1.0",
     "expo-task-manager": "^10.0.3",
     "expo-updates": "~0.10.13",
     "formik": "^2.2.9",
     "jsog": "^1.0.7",
+    "moment": "^2.29.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
@@ -65,9 +67,8 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.0",
-    "yup": "^0.32.11",
     "rn-sliding-up-panel": "^2.4.5",
-    "expo-facebook": "~12.0.3"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

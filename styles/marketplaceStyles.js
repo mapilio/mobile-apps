@@ -110,8 +110,7 @@ export const marketplaceDetailStyles = StyleSheet.create({
     justifyContent: "center",
   },
   captureZoneText: {
-    marginBottom: RFValue(15),
-    paddingHorizontal: RFValue(50),
+    marginBottom: RFValue(20),
     fontSize: RFValue(14),
     textAlign: "center",
   },
