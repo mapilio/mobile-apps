@@ -1,6 +1,5 @@
 import * as SQLite from "expo-sqlite";
 import {toastGenerator} from "./helper/helper";
-import {UPDATE_CURRENT_DB} from "./store/actionsName";
 import {store} from "./store/store";
 import {errorAlertStyles} from "./styles/alertStyles";
 
@@ -10,7 +9,6 @@ let db = SQLite.openDatabase(`mapilio-test-${id}.db`);
 
 class Database {
     async startDB(id) {
-        store.dispatch({type: UPDATE_CURRENT_DB, payload: db});
         db.transaction((txn) => {
             txn.executeSql(
                 "CREATE TABLE IF NOT EXISTS captures (id INTEGER PRIMARY KEY AUTOINCREMENT, exif TEXT NOT NULL, location TEXT NOT NULL, project_key TEXT, organization_name TEXT, sequence_uuid TEXT NOT NULL, path TEXT NOT NULL)",

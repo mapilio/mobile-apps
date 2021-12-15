@@ -72,53 +72,8 @@ const MainNavigator = () => {
         )
         :
         (
-            <>
-                <Stack.Navigator
-                    initialRouteName={Routes.welcomeWalkthrough}
-                    screenOptions={{
-                        // Todo animation for Android will be made smoother.
-                        cardStyleInterpolator:
-                        CardStyleInterpolators.forFadeFromBottomAndroid,
-                    }}
-                >
-                    <Stack.Group>
-                        <Stack.Screen
-                            component={Login}
-                            name={Routes.login}
-                            options={{
-                                headerShown: false,
-                            }}
-                        />
-                        <Stack.Screen
-                            component={Register}
-                            name={Routes.register}
-                            options={{
-                                headerShown: false,
-                            }}
-                        />
-                        <Stack.Screen
-                            component={ForgotPassword}
-                            name={Routes.forgotPassword}
-                            options={{
-                                headerShown: false,
-                            }}
-                        />
-                    </Stack.Group>
-                    <Stack.Group screenOptions={{presentation: "modal"}}>
-                        <Stack.Screen
-                            component={WelcomeWalkthrough}
-                            name={Routes.welcomeWalkthrough}
-                            options={{
-                                headerShown: false,
-                            }}
-                        />
-                    </Stack.Group>
-                </Stack.Navigator>
-            </>
-        ) : (
-        <>
             <Stack.Navigator
-                initialRouteName={Routes.tabHome}
+                initialRouteName={Routes.welcomeWalkthrough}
                 screenOptions={{
                     // Todo animation for Android will be made smoother.
                     cardStyleInterpolator:
@@ -127,65 +82,22 @@ const MainNavigator = () => {
             >
                 <Stack.Group>
                     <Stack.Screen
-                        name={Routes.tabHome}
-                        component={TabNavigator}
-                        options={{headerShown: false}}
-                    />
-                    <Stack.Screen
-                        component={UserSequence}
-                        name={Routes.sequences}
-                        options={{
-                            headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                            headerRight: () => <SequenceNavigatorRight/>,
-                            title: null,
-                            headerStyle: navigatorStyle.headerStyle,
-                            headerTitleStyle: navigatorStyle.headerTitleStyle,
-                            headerTintColor: navigatorStyle.headerTintColor,
-                            headerTitleAlign: navigatorStyle.headerTitleAlign,
-                        }}
-                        listeners={({navigation, route}) => ({
-                            focus: () => noInternetHandler(navigation, route)
-                        })}
-                    />
-                    <Stack.Screen
-                        component={UserSequenceDetail}
-                        name={Routes.sequenceDetail}
-                        options={{
-                            headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                            headerRight: (props) => <DeleteNavigationRight {...props} />,
-                            title: null,
-                            headerStyle: navigatorStyle.headerStyle,
-                            headerTitleStyle: navigatorStyle.headerTitleStyle,
-                            headerTintColor: navigatorStyle.headerTintColor,
-                            headerTitleAlign: navigatorStyle.headerTitleAlign,
-                        }}
-                        listeners={({navigation, route}) => ({
-                            focus: () => noInternetHandler(navigation, route)
-                        })}
-                    />
-                </Stack.Group>
-                <Stack.Group screenOptions={{presentation: "modal"}}>
-                    <Stack.Screen
-                        component={CameraSettings}
-                        name={Routes.cameraSettings}
+                        component={Login}
+                        name={Routes.login}
                         options={{
                             headerShown: false,
                         }}
                     />
                     <Stack.Screen
-                        component={GeneralSettings}
-                        name={Routes.generalSettings}
+                        component={Register}
+                        name={Routes.register}
                         options={{
-                            headerLeft: (props) => (
-                                <GeneralSettingsNavigatorLeft {...props} />
-                            ),
-                            headerStyle: navigatorStyle.headerSettingsStyle,
-                            title: null,
+                            headerShown: false,
                         }}
                     />
                     <Stack.Screen
-                        component={Walkthrough}
-                        name={Routes.walkthrough}
+                        component={ForgotPassword}
+                        name={Routes.forgotPassword}
                         options={{
                             headerShown: false,
                         }}
@@ -193,35 +105,119 @@ const MainNavigator = () => {
                 </Stack.Group>
                 <Stack.Group screenOptions={{presentation: "modal"}}>
                     <Stack.Screen
-                        component={MarketplaceDetail}
-                        name={Routes.marketplaceDetail}
+                        component={WelcomeWalkthrough}
+                        name={Routes.welcomeWalkthrough}
                         options={{
-                            headerStyle: navigatorStyle.headerStyle,
-                            headerTitleStyle: navigatorStyle.headerTitleStyle,
-                            headerTintColor: navigatorStyle.headerTintColor,
-                            headerTitleAlign: navigatorStyle.headerTitleAlign,
-                            headerTitle: () => <HeaderTitle/>,
+                            headerShown: false,
                         }}
-                        listeners={({navigation, route}) => ({
-                            focus: () => noInternetHandler(navigation, route)
-                        })}
-                    />
-                    <Stack.Screen
-                        component={MarketplaceReceived}
-                        name={Routes.marketplaceReceived}
-                        options={{
-                            headerStyle: navigatorStyle.headerStyle,
-                            headerTitleAlign: navigatorStyle.headerTitleAlign,
-                            headerTitle: () => <HeaderTitle/>,
-                            headerLeft: '',
-                        }}
-                        listeners={({navigation, route}) => ({
-                            focus: () => noInternetHandler(navigation, route)
-                        })}
                     />
                 </Stack.Group>
             </Stack.Navigator>
-        </>
+        ) : (
+        <Stack.Navigator
+            initialRouteName={Routes.tabHome}
+            screenOptions={{
+                // Todo animation for Android will be made smoother.
+                cardStyleInterpolator:
+                CardStyleInterpolators.forFadeFromBottomAndroid,
+            }}
+        >
+            <Stack.Group>
+                <Stack.Screen
+                    name={Routes.tabHome}
+                    component={TabNavigator}
+                    options={{headerShown: false}}
+                />
+                <Stack.Screen
+                    component={UserSequence}
+                    name={Routes.sequences}
+                    options={{
+                        headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                        headerRight: () => <SequenceNavigatorRight/>,
+                        title: null,
+                        headerStyle: navigatorStyle.headerStyle,
+                        headerTitleStyle: navigatorStyle.headerTitleStyle,
+                        headerTintColor: navigatorStyle.headerTintColor,
+                        headerTitleAlign: navigatorStyle.headerTitleAlign,
+                    }}
+                    listeners={({navigation, route}) => ({
+                        focus: () => noInternetHandler(navigation, route)
+                    })}
+                />
+                <Stack.Screen
+                    component={UserSequenceDetail}
+                    name={Routes.sequenceDetail}
+                    options={{
+                        headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                        headerRight: (props) => <DeleteNavigationRight {...props} />,
+                        title: null,
+                        headerStyle: navigatorStyle.headerStyle,
+                        headerTitleStyle: navigatorStyle.headerTitleStyle,
+                        headerTintColor: navigatorStyle.headerTintColor,
+                        headerTitleAlign: navigatorStyle.headerTitleAlign,
+                    }}
+                    listeners={({navigation, route}) => ({
+                        focus: () => noInternetHandler(navigation, route)
+                    })}
+                />
+            </Stack.Group>
+            <Stack.Group screenOptions={{presentation: "modal"}}>
+                <Stack.Screen
+                    component={CameraSettings}
+                    name={Routes.cameraSettings}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    component={GeneralSettings}
+                    name={Routes.generalSettings}
+                    options={{
+                        headerLeft: (props) => (
+                            <GeneralSettingsNavigatorLeft {...props} />
+                        ),
+                        headerStyle: navigatorStyle.headerSettingsStyle,
+                        title: null,
+                    }}
+                />
+                <Stack.Screen
+                    component={Walkthrough}
+                    name={Routes.walkthrough}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+            </Stack.Group>
+            <Stack.Group screenOptions={{presentation: "modal"}}>
+                <Stack.Screen
+                    component={MarketplaceDetail}
+                    name={Routes.marketplaceDetail}
+                    options={{
+                        headerStyle: navigatorStyle.headerStyle,
+                        headerTitleStyle: navigatorStyle.headerTitleStyle,
+                        headerTintColor: navigatorStyle.headerTintColor,
+                        headerTitleAlign: navigatorStyle.headerTitleAlign,
+                        headerTitle: () => <HeaderTitle/>,
+                    }}
+                    listeners={({navigation, route}) => ({
+                        focus: () => noInternetHandler(navigation, route)
+                    })}
+                />
+                <Stack.Screen
+                    component={MarketplaceReceived}
+                    name={Routes.marketplaceReceived}
+                    options={{
+                        headerStyle: navigatorStyle.headerStyle,
+                        headerTitleAlign: navigatorStyle.headerTitleAlign,
+                        headerTitle: () => <HeaderTitle/>,
+                        headerLeft: '',
+                    }}
+                    listeners={({navigation, route}) => ({
+                        focus: () => noInternetHandler(navigation, route)
+                    })}
+                />
+            </Stack.Group>
+        </Stack.Navigator>
     );
 };
 

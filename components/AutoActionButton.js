@@ -47,6 +47,7 @@ const AutoActionButton = ({disabled, uuid}) => {
         };
     }, [autoCapture, disabled, distanceBetween]);
 
+    // TODO ADD TO HELPER.JS
     const takePicture = async (location) => {
         const db = Database.getConnection();
         const id =
@@ -72,6 +73,7 @@ const AutoActionButton = ({disabled, uuid}) => {
         const JSONExif = JSON.stringify(image.exif);
         const JSONLocation = JSON.stringify(location);
 
+        // TODO PROJECT KEY AND ORG NAME ARE CONNECTED TO VARIABLE WHEN THE API IS COMING
         Database.insertToDB({
             JSONExif,
             JSONLocation,

@@ -64,6 +64,7 @@ const Camera = ({navigation}) => {
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", async (e) => {
             const currentOrientation = await ScreenOrientation.getOrientationLockAsync()
+            // 7 EQUAL TO LANDSCAPE_RIGHT
             if (currentOrientation !== 7) {
                 await ScreenOrientation.lockAsync(
                     ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
@@ -273,8 +274,8 @@ const Camera = ({navigation}) => {
         dispatch({type: UPDATE_CAMERA_REF, payload: cameraRef.current});
     };
 
+    // TODO EDIT ALERT LOGIC
     return (
-        <>
             <ExpoCamera
                 style={{
                     flex: 1,
@@ -323,7 +324,6 @@ const Camera = ({navigation}) => {
                     />
                 ) : null}
             </ExpoCamera>
-        </>
     );
 };
 
