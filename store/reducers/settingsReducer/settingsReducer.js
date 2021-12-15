@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   selectedProject: { type: "individual", key: 0, projectName: "lorem" },
 };
 
-const cameraReducer = (state = INITIAL_STATE, action) => {
+const settingsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UPDATE_DISTANCE_BETWEEN:
       return {
@@ -39,4 +39,4 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default cameraReducer;
+export default settingsReducer;

@@ -23,16 +23,6 @@ const CameraSettings = ({ navigation }) => {
   ]);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", (e) => {
-      StatusBar.setHidden(true);
-      ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-      );
-    });
-    return unsubscribe;
-  }, [navigation]);
-
-  useEffect(() => {
     StatusBar.setHidden(true);
     if (captureType) {
       setIndex(0);
