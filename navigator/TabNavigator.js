@@ -4,11 +4,24 @@ import {Notifier} from "react-native-notifier";
 import {Routes} from "./Routes";
 import {CardStyleInterpolators} from "@react-navigation/stack";
 import {navigatorStyle} from "../styles/navigatorStyle";
-import {AppCamera, Marketplace, NoInternetAccess, UserProfile, UserUpload} from "../screens";
+import {
+  AppCamera,
+  Marketplace,
+  NoInternetAccess,
+  UserProfile,
+  UserSequence,
+  UserSequenceDetail,
+  UserUpload
+} from "../screens";
 import {HeaderTitle} from "../components/Marketplace";
 import {Text, TouchableOpacity, View} from "react-native";
 import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
-import {UploadNavigatorRight} from "./navigatorbars";
+import {
+  DeleteNavigationRight,
+  SequenceNavigatorLeft,
+  SequenceNavigatorRight,
+  UploadNavigatorRight
+} from "./navigatorbars";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import * as ScreenOrientation from "expo-screen-orientation";
 
@@ -160,6 +173,36 @@ const TabNavigator = ({navigation, route}) => {
                         </TouchableOpacity>
                     ),
                 })}
+            />
+            <Tab.Screen
+                component={UserSequence}
+                name={Routes.sequences}
+                options={{
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    headerRight: () => <SequenceNavigatorRight/>,
+                    title: null,
+                    headerStyle: navigatorStyle.headerStyle,
+                    headerTitleStyle: navigatorStyle.headerTitleStyle,
+                    headerTintColor: navigatorStyle.headerTintColor,
+                    headerTitleAlign: navigatorStyle.headerTitleAlign,
+                    tabBarIcon: () => null,
+                    tabBarButton: () => null,
+                }}
+            />
+            <Tab.Screen
+                component={UserSequenceDetail}
+                name={Routes.sequenceDetail}
+                options={{
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    headerRight: (props) => <DeleteNavigationRight {...props} />,
+                    title: null,
+                    headerStyle: navigatorStyle.headerStyle,
+                    headerTitleStyle: navigatorStyle.headerTitleStyle,
+                    headerTintColor: navigatorStyle.headerTintColor,
+                    headerTitleAlign: navigatorStyle.headerTitleAlign,
+                    tabBarIcon: () => null,
+                    tabBarButton: () => null,
+                }}
             />
             <Tab.Screen
                 component={UserProfile}
