@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View } from "react-native";
 import { Camera, CameraSidebar } from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -16,7 +16,7 @@ const AppCamera = ({ navigation }) => {
           padding: RFValue(22),
         }}
       >
-        <CameraSidebar />
+        <CameraSidebar navigation={navigation} />
       </View>
     </View>
   );

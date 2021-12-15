@@ -1,10 +1,11 @@
-import {GET_TOKEN_START, GET_TOKEN_SUCCESS, GET_TOKEN_ERROR} from "../../actionsName";
-import {getUserInformation} from "./getUserInformation";
-import {ToastAndroid} from "react-native";
-import {fetchHandler} from "../../../helper/helper";
+import { GET_TOKEN_START, GET_TOKEN_SUCCESS } from "../../actionsName";
+import { getUserInformation } from "./getUserInformation";
+import Database from "../../../db";
+import {fetchHandler, toastGenerator} from "../../../helper/helper";
+import {errorAlertStyles} from "../../../styles/alertStyles";
 
 export const getTokenAction = (parameters, navigation) => (dispatch) => {
-  dispatch({type: GET_TOKEN_START});
+  dispatch({ type: GET_TOKEN_START });
 
   fetchHandler({
     url: `${process.env.API_URL}/api/login`,
@@ -13,10 +14,20 @@ export const getTokenAction = (parameters, navigation) => (dispatch) => {
       email: parameters.email,
       password: parameters.password,
     },
-  }).then((res) => {
-    dispatch({type: GET_TOKEN_SUCCESS, payload: res});
-    dispatch(getUserInformation(res));
-  }).catch((err) => {
-    ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
-  });
+  })
+    .then((res) => {
+      dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
+      dispatch(getUserInformation(res));
+      Database.startDB(res.id);
+    })
+    .catch((err) => {
+      toastGenerator(
+        `${err.response.data.message}`,
+        require("../../../assets/images/Warning.png"),
+        errorAlertStyles.alertContainer,
+        errorAlertStyles.alertTitle,
+        errorAlertStyles.alertImage,
+        3000
+      );
+    });
 };

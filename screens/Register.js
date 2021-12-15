@@ -1,6 +1,5 @@
-import React from "react";
-import {View, Image, TextInput, Pressable, ToastAndroid} from "react-native";
-import logo from '../assets/logo.png';
+import React, {useState} from "react";
+import {View, TextInput, Pressable, TouchableOpacity} from "react-native";
 import * as yup from 'yup'
 import {Formik} from "formik";
 import {loginStyles} from "../styles/loginStyles";
@@ -8,9 +7,13 @@ import {Routes} from "../navigator/Routes";
 import {CustomText} from "../highordercomponents";
 import {globalStyles} from "../styles/globalStyles";
 import {RFValue} from "react-native-responsive-fontsize";
-import {fetchHandler} from "../helper/helper";
+import {fetchHandler, toastGenerator} from "../helper/helper";
+import {Eye, EyeSlash} from "../assets/svg/illustrations";
+import MapilioLogo from "../assets/svg/logos/MapilioLogo";
+import {errorAlertStyles, successAlertStyles} from "../styles/alertStyles";
 
 const Register = ({navigation}) => {
+  const [securePassword, setSecurePassword] = useState(true);
 
   const register = (values) => {
     fetchHandler({
@@ -28,11 +31,25 @@ const Register = ({navigation}) => {
     })
       .then((res) => {
         navigation.navigate(Routes.login);
-        ToastAndroid.show('Your account has been created, check your e-mail address.', ToastAndroid.SHORT);
+        toastGenerator(
+          `Your account has been created, check your e-mail address.`,
+          require("../assets/images/Success.png"),
+          successAlertStyles.alertContainer,
+          successAlertStyles.alertTitle,
+          successAlertStyles.alertImage,
+          3000
+        );
       })
       .catch((err) => {
         Object.values(err.response.data).map((item, i )=> {
-          ToastAndroid.show(item[0], ToastAndroid.SHORT);
+          toastGenerator(
+            `${item[0]}`,
+            require("../assets/images/Warning.png"),
+            errorAlertStyles.alertContainer,
+            errorAlertStyles.alertTitle,
+            errorAlertStyles.alertImage,
+            3000
+          );
         })
       });
   }
@@ -53,7 +70,9 @@ const Register = ({navigation}) => {
 
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
-      <Image source={logo} style={loginStyles.logo} resizeMode={"contain"}/>
+      <View style={loginStyles.logo}>
+        <MapilioLogo width={RFValue(150)} height={RFValue(50)} />
+      </View>
       <View style={{marginBottom: RFValue(30)}}>
         <CustomText style={loginStyles.secondaryText}>SIGNUP</CustomText>
         <CustomText style={loginStyles.primaryText}>Create an account</CustomText>
@@ -64,7 +83,7 @@ const Register = ({navigation}) => {
         name: '',
         email: '',
         password: '',
-      }} validationSchema={loginValidationSchema} onSubmit={values => register(values)}>
+      }} validateOnBlur={false} validateOnChange={false} validationSchema={loginValidationSchema} onSubmit={values => register(values)}>
         {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
           <>
             <View style={loginStyles.formGroup}>
@@ -75,7 +94,7 @@ const Register = ({navigation}) => {
                 onBlur={handleBlur('name')}
                 value={values.name}
                 keyboardType="default"
-                style={loginStyles.input}
+                style={errors.name ? {...loginStyles.errorInput , ...loginStyles.input} : loginStyles. input}
               />
               {errors.name &&
               <CustomText style={loginStyles.errorText}>{errors.name}</CustomText>
@@ -89,22 +108,30 @@ const Register = ({navigation}) => {
                 onBlur={handleBlur('email')}
                 value={values.email}
                 keyboardType="email-address"
-                style={loginStyles.input}
+                style={errors.email ? {...loginStyles.errorInput , ...loginStyles.input} : loginStyles. input}
               />
               {errors.email &&
               <CustomText style={loginStyles.errorText}>{errors.email}</CustomText>
               }
             </View>
             <View style={loginStyles.formGroup}>
-              <TextInput
-                name="password"
-                placeholder="Password"
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-                style={loginStyles.input}
-                secureTextEntry
-              />
+              <View style={{justifyContent: 'center'}}>
+                <TextInput
+                  name="password"
+                  placeholder="Password"
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  style={errors.password ? {...loginStyles.errorInput , ...loginStyles.input} : loginStyles. input}
+                  secureTextEntry={securePassword}
+                />
+                <TouchableOpacity
+                  style={loginStyles.passwordIcon}
+                  onPress={() => setSecurePassword(!securePassword)}
+                >
+                  {securePassword ? <Eye/> : <EyeSlash/>}
+                </TouchableOpacity>
+              </View>
               {errors.password &&
               <CustomText style={loginStyles.errorText}>{errors.password}</CustomText>
               }
