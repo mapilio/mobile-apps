@@ -44,6 +44,7 @@ const Camera = ({navigation}) => {
         const unsubscribe = navigation.addListener("blur", (e) => {
             dispatch({type: CAMERA_REDUCER_RESET});
             dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false});
+            waitGPS = true
         });
         return unsubscribe;
     }, [navigation]);
@@ -228,19 +229,27 @@ const Camera = ({navigation}) => {
         }
     };
 
+    useEffect(() => {
+        if (waitGPS) {
+            const timeout = setTimeout(() => {
+                toastGenerator(
+                    "GPS accuracy is not enough. Please try again.",
+                    require("../assets/images/Info.png"),
+                    errorAlertStyles.alertContainer,
+                    errorAlertStyles.alertTitle,
+                    errorAlertStyles.alertImage,
+                    5000
+                );
+                navigation.navigate(Routes.profile)
+                ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
+            }, 3000 * 10)
+        }
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, [waitGPS])
+
     const startAccuracyHandler = (accuracy) => {
-        setTimeout(() => {
-            toastGenerator(
-                "GPS accuracy is not enough. Please try again.",
-                require("../assets/images/Info.png"),
-                errorAlertStyles.alertContainer,
-                errorAlertStyles.alertTitle,
-                errorAlertStyles.alertImage,
-                5000
-            );
-            navigation.navigate(Routes.profile)
-            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
-        }, 3000 * 10)
         if (accuracy > 15) {
             dispatch({type: UPDATE_START_ACCURACY, payload: false});
             setGPSStartAlert({
@@ -277,13 +286,13 @@ const Camera = ({navigation}) => {
                 <RotationLine degree={degree} setAlert={setRotateAlert}/>
                 <CameraFrame/>
                 <CameraProjectInfo/>
-                {GPSAlert && (
+                {GPSAlert && !GPSStartAlert ? (
                     <CameraAlert
                         svg={GPSAlert.svg}
                         title={GPSAlert.title}
                         content={GPSAlert.content}
                     />
-                )}
+                ) : null}
                 {GPSStartAlert && (
                     <CameraAlert
                         svg={GPSStartAlert.svg}
@@ -291,27 +300,28 @@ const Camera = ({navigation}) => {
                         content={GPSStartAlert.content}
                     />
                 )}
-                {rotateAlert && (
-                    <CameraAlert
-                        svg={rotateAlert.svg}
-                        title={rotateAlert.title}
-                        content={rotateAlert.content}
-                    />
-                )}
-                {batteryAlert && (
+                {rotateAlert && !GPSStartAlert ?
+                    (
+                        <CameraAlert
+                            svg={rotateAlert.svg}
+                            title={rotateAlert.title}
+                            content={rotateAlert.content}
+                        />
+                    ) : null}
+                {batteryAlert && !GPSStartAlert ? (
                     <CameraAlert
                         svg={batteryAlert.svg}
                         title={batteryAlert.title}
                         content={batteryAlert.content}
                     />
-                )}
-                {networkAlert && (
+                ) : null}
+                {networkAlert && !GPSStartAlert ? (
                     <CameraAlert
                         svg={networkAlert.svg}
                         title={networkAlert.title}
                         content={networkAlert.content}
                     />
-                )}
+                ) : null}
             </ExpoCamera>
         </>
     );

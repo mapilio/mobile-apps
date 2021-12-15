@@ -140,7 +140,7 @@ const CameraSettings = ({ navigation }) => {
           selectedColor={"#1AD971"}
           buttonColor={"#FFFFFF"}
           backgroundColor={convertHexToRGBA("#CBD1D9", 20)}
-          initial={index}
+          initial={captureType ? 0 : 1}
           fontSize={RFValue(14)}
           onPress={switchHandler}
           accessibilityLabel={"Camera mode selection"}
