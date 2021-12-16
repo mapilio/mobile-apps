@@ -38,8 +38,7 @@ const Login = ({navigation}) => {
       </View>
       <View style={{marginBottom: RFValue(30)}}>
         <CustomText style={loginStyles.secondaryText}>LOGIN</CustomText>
-        <CustomText style={loginStyles.primaryText}>Welcome back</CustomText>
-        <CustomText style={loginStyles.secondaryText}>Login to manage your account</CustomText>
+        <CustomText style={loginStyles.headerText}>Login to manage your account</CustomText>
       </View>
       <SocialLogin />
       <Formik initialValues={{

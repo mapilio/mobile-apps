@@ -49,7 +49,11 @@ const FacebookLogin = () => {
           <TouchableOpacity onPress={() => {
             setLoading('facebook');
             login();
-          }}>
+          }}
+          style={{
+            justifyContent:"center"
+          }}
+          >
             <View style={{position: "absolute", left: 10}}>
               <FacebookIcon />
             </View>

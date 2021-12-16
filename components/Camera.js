@@ -25,6 +25,8 @@ import {errorAlertStyles} from "../styles/alertStyles";
 
 const Camera = ({navigation}) => {
     const [degree, setDegree] = useState(0);
+    const [cameraPermission, setCameraPermission] = useState(false)
+    const [locationPermission, setlocationPermission] = useState(false)
     const [batteryAlert, setBatteryAlert] = useState(null);
     const [subscription, setSubscription] = useState(null);
     const [networkAlert, setNetworkAlert] = useState(null);
@@ -50,13 +52,11 @@ const Camera = ({navigation}) => {
     }, [navigation]);
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener("focus", (e) => {
-            _getCameraPermission();
-            _startNetworkProvider();
+        const unsubscribe = navigation.addListener("focus", async (e) => {
+            await _getCameraPermission();
+            await _startNetworkProvider();
             StatusBar.setHidden(true);
-            ScreenOrientation.lockAsync(
-                ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-            );
+            ScreenOrientation.unlockAsync()
         });
         return () => unsubscribe();
     }, [navigation]);
@@ -66,9 +66,7 @@ const Camera = ({navigation}) => {
             const currentOrientation = await ScreenOrientation.getOrientationLockAsync()
             // 7 EQUAL TO LANDSCAPE_RIGHT
             if (currentOrientation !== 7) {
-                await ScreenOrientation.lockAsync(
-                    ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-                );
+                await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
             }
         });
         return () => unsubscribe();
@@ -163,8 +161,8 @@ const Camera = ({navigation}) => {
 
     const alertHandler = () => {
         Alert.alert(
-            "Your camera permission is turned off",
-            "Please give permission to use the camera.",
+            "Your some permissions is turned off",
+            "Please give permissions to use the camera.",
             [
                 {
                     text: "Cancel",
@@ -174,10 +172,13 @@ const Camera = ({navigation}) => {
                 {
                     text: "Go to settings",
                     onPress: () => {
-                        navigation.navigate(Routes.profile)
-                        Platform.OS === "ios"
-                            ? Linking.openURL("app-settings:")
-                            : Linking.openSettings()
+                        if (!locationPermission || !cameraPermission) {
+                            console.log(locationPermission, cameraPermission)
+                            navigation.navigate(Routes.profile)
+                            Platform.OS === "ios"
+                                ? Linking.openURL("app-settings:")
+                                : Linking.openSettings()
+                        }
                     }
                 },
             ]
@@ -190,13 +191,20 @@ const Camera = ({navigation}) => {
 
     const _getCameraPermission = async () => {
         const permission = await ExpoCamera.getCameraPermissionsAsync();
-        if (permission.status === "granted") return;
-        __startCamera()
+        if (permission.status === "granted") {
+            __startCamera()
+            setCameraPermission(true)
+        } else {
+            alertHandler()
+            setCameraPermission(false)
+            navigation.navigate(Routes.profile)
+        }
     };
 
     const _subscribeProvider = async () => {
         const {status} = await Location.getForegroundPermissionsAsync();
         if (status === "granted") {
+            setlocationPermission(true)
             location = await Location.watchPositionAsync(
                 {
                     accuracy: Location.Accuracy.High,
@@ -211,8 +219,9 @@ const Camera = ({navigation}) => {
                 }
             );
         } else {
-            alertHandler();
+            setlocationPermission(false)
             navigation.navigate(Routes.profile)
+            alertHandler();
         }
     };
 
@@ -231,8 +240,9 @@ const Camera = ({navigation}) => {
     };
 
     useEffect(() => {
+        let timeout = null
         if (waitGPS) {
-            const timeout = setTimeout(() => {
+            timeout = setTimeout(() => {
                 toastGenerator(
                     "GPS accuracy is not enough. Please try again.",
                     require("../assets/images/Info.png"),
@@ -244,6 +254,8 @@ const Camera = ({navigation}) => {
                 navigation.navigate(Routes.profile)
                 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
             }, 3000 * 10)
+        } else {
+            timeout = null
         }
         return () => {
             clearTimeout(timeout)
@@ -276,54 +288,54 @@ const Camera = ({navigation}) => {
 
     // TODO EDIT ALERT LOGIC
     return (
-            <ExpoCamera
-                style={{
-                    flex: 1,
-                    position: "relative",
-                }}
-                ref={cameraRef}
-                onCameraReady={onCameraReady}
-            >
-                <RotationLine degree={degree} setAlert={setRotateAlert}/>
-                <CameraFrame/>
-                <CameraProjectInfo/>
-                {GPSAlert && !GPSStartAlert ? (
+        <ExpoCamera
+            style={{
+                flex: 1,
+                position: "relative",
+            }}
+            ref={cameraRef}
+            onCameraReady={onCameraReady}
+        >
+            <RotationLine degree={degree} setAlert={setRotateAlert}/>
+            <CameraFrame/>
+            <CameraProjectInfo/>
+            {GPSAlert && !GPSStartAlert ? (
+                <CameraAlert
+                    svg={GPSAlert.svg}
+                    title={GPSAlert.title}
+                    content={GPSAlert.content}
+                />
+            ) : null}
+            {GPSStartAlert && (
+                <CameraAlert
+                    svg={GPSStartAlert.svg}
+                    title={GPSStartAlert.title}
+                    content={GPSStartAlert.content}
+                />
+            )}
+            {rotateAlert && !GPSStartAlert ?
+                (
                     <CameraAlert
-                        svg={GPSAlert.svg}
-                        title={GPSAlert.title}
-                        content={GPSAlert.content}
+                        svg={rotateAlert.svg}
+                        title={rotateAlert.title}
+                        content={rotateAlert.content}
                     />
                 ) : null}
-                {GPSStartAlert && (
-                    <CameraAlert
-                        svg={GPSStartAlert.svg}
-                        title={GPSStartAlert.title}
-                        content={GPSStartAlert.content}
-                    />
-                )}
-                {rotateAlert && !GPSStartAlert ?
-                    (
-                        <CameraAlert
-                            svg={rotateAlert.svg}
-                            title={rotateAlert.title}
-                            content={rotateAlert.content}
-                        />
-                    ) : null}
-                {batteryAlert && !GPSStartAlert ? (
-                    <CameraAlert
-                        svg={batteryAlert.svg}
-                        title={batteryAlert.title}
-                        content={batteryAlert.content}
-                    />
-                ) : null}
-                {networkAlert && !GPSStartAlert ? (
-                    <CameraAlert
-                        svg={networkAlert.svg}
-                        title={networkAlert.title}
-                        content={networkAlert.content}
-                    />
-                ) : null}
-            </ExpoCamera>
+            {batteryAlert && !GPSStartAlert ? (
+                <CameraAlert
+                    svg={batteryAlert.svg}
+                    title={batteryAlert.title}
+                    content={batteryAlert.content}
+                />
+            ) : null}
+            {networkAlert && !GPSStartAlert ? (
+                <CameraAlert
+                    svg={networkAlert.svg}
+                    title={networkAlert.title}
+                    content={networkAlert.content}
+                />
+            ) : null}
+        </ExpoCamera>
     );
 };
 

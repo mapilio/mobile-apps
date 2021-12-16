@@ -1,24 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import {Notifier} from "react-native-notifier";
 import {Routes} from "./Routes";
 import {CardStyleInterpolators} from "@react-navigation/stack";
 import {navigatorStyle} from "../styles/navigatorStyle";
-import {AppCamera, AppMap, Marketplace, NoInternetAccess, UserProfile, UserSequence, UserUpload, UserSequenceDetail} from "../screens";
+import {
+    AppCamera,
+    AppMap,
+    Marketplace,
+    NoInternetAccess,
+    UserProfile,
+    UserSequence,
+    UserSequenceDetail,
+    UserUpload
+} from "../screens";
 import {HeaderTitle} from "../components/Marketplace";
 import {Text, TouchableOpacity, View} from "react-native";
 import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
 import {
-  DeleteNavigationRight,
-  SequenceNavigatorLeft,
-  SequenceNavigatorRight,
-  UploadNavigatorRight
+    DeleteNavigationRight,
+    ProfileNavigatorRight,
+    SequenceNavigatorLeft,
+    SequenceNavigatorRight,
+    UploadNavigatorRight
 } from "./navigatorbars";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import * as ScreenOrientation from "expo-screen-orientation";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
-import UserNavigator from "./UserNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,13 +48,16 @@ const CaptureTabBarButton = ({children, onPress}) => (
 
 const TabNavigator = ({navigation, route}) => {
     const {connection} = useSelector((state) => state.generalReducer);
+    const [internetGoes, setInternetGoes] = useState(false)
 
     const connectionAlertHandler = (navigation) => {
-        if (connection.connectionStatus) {
+        if (connection.connectionStatus && internetGoes) {
             Notifier.hideNotification();
             navigation.goBack()
-        } else {
+            setInternetGoes(false)
+        } else if (!connection.connectionStatus) {
             navigation.navigate(Routes.noInternetAccess)
+            setInternetGoes(true)
         }
     }
 
@@ -56,7 +68,7 @@ const TabNavigator = ({navigation, route}) => {
                 // Todo animation for Android will be made smoother.
                 cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
                 tabBarShowLabel: false,
-                tabBarStyle: navigatorStyle.tabBarStyle
+                tabBarStyle: navigatorStyle.tabBarStyle,
             }}
             screenListeners={({navigation, route}) => ({
                 focus: (e) => {
@@ -64,6 +76,7 @@ const TabNavigator = ({navigation, route}) => {
                         navigation.navigate(Routes.noInternetAccess)
                     }
                 },
+                tabPress: () => connectionAlertHandler(navigation),
                 state: () => {
                     if (route.name !== Routes.camera) {
                         ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
@@ -80,14 +93,14 @@ const TabNavigator = ({navigation, route}) => {
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
                         ]}>
-                            <TabMap fill={focused ? '#32425B' : undefined} />
+                            <TabMap fill={focused ? '#32425B' : undefined}/>
                             <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                                 Map
                             </Text>
                         </View>
                     ),
                     // headerShown: false,
-                    title: <MapLogo fill={'#000'} />,
+                    title: <MapLogo fill={'#000'}/>,
                     headerTitleAlign: 'center',
                     headerStyle: {
                         backgroundColor: '#213348'
@@ -108,25 +121,12 @@ const TabNavigator = ({navigation, route}) => {
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
                         ]}>
-                            <MarketplaceIcon fill={focused ? '#32425B' : undefined} />
+                            <MarketplaceIcon fill={focused ? '#32425B' : undefined}/>
                             <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                                 Market
                             </Text>
                         </View>
                     ),
-                    // TODO onpress will move
-                    // tabBarButton: ({children, onPress}) => (
-                    //     <TouchableOpacity
-                    //           onPress={() => {
-                    //               if (connection.connectionStatus) {
-                    //                   onPress()
-                    //               } else {
-                    //                   connectionAlertHandler(navigation)
-                    //               }
-                    //           }}>
-                    //         {children}
-                    //     </TouchableOpacity>
-                    // ),
                 })}
             />
             <Tab.Screen
@@ -141,7 +141,7 @@ const TabNavigator = ({navigation, route}) => {
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                     tabBarIcon: ({focused}) => (
                         <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                            <CaptureIcon height={37.26} width={37.26} />
+                            <CaptureIcon height={37.26} width={37.26}/>
                             <Text style={navigatorStyle.captureTextStyle}>Capture</Text>
                         </View>
                     ),
@@ -167,25 +167,12 @@ const TabNavigator = ({navigation, route}) => {
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
                         ]}>
-                            <Upload fill={focused ? '#32425B' : undefined} />
+                            <Upload fill={focused ? '#32425B' : undefined}/>
                             <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                                 Upload
                             </Text>
                         </View>
                     ),
-                    // TODO onpress will move
-                    // tabBarButton: ({children, onPress}) => (
-                    //     <TouchableOpacity
-                    //       onPress={() => {
-                    //           if (connection.connectionStatus) {
-                    //               onPress()
-                    //           } else {
-                    //               connectionAlertHandler(navigation)
-                    //           }
-                    //       }}>
-                    //         {children}
-                    //     </TouchableOpacity>
-                    // ),
                 })}
             />
             <Tab.Screen
@@ -226,30 +213,18 @@ const TabNavigator = ({navigation, route}) => {
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
+                    headerRight: () => <ProfileNavigatorRight/>,
                     tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
                         ]}>
-                            <Profile fill={focused ? '#32425B' : undefined} />
+                            <Profile fill={focused ? '#32425B' : undefined}/>
                             <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                                 Profile
                             </Text>
                         </View>
                     ),
-                    // TODO onpress will move
-                    // tabBarButton: ({children, onPress}) => (
-                    //     <TouchableOpacity
-                    //           onPress={() => {
-                    //               if (connection.connectionStatus) {
-                    //                   onPress()
-                    //               } else {
-                    //                   connectionAlertHandler(navigation)
-                    //               }
-                    //           }}>
-                    //         {children}
-                    //     </TouchableOpacity>
-                    // ),
                 })}
             />
             <Tab.Screen
