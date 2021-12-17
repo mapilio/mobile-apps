@@ -48,8 +48,8 @@ const Camera = ({navigation}) => {
             dispatch({type: CAMERA_REDUCER_RESET});
             dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false});
             waitGPS = true
-            timeout = null
             clearTimeout(timeout)
+            timeout = null
         });
         return unsubscribe;
     }, [navigation]);
@@ -69,10 +69,8 @@ const Camera = ({navigation}) => {
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", async (e) => {
             const currentOrientation = await ScreenOrientation.getOrientationLockAsync()
-            console.log(currentOrientation)
             // 7 EQUAL TO LANDSCAPE_RIGHT
             if (currentOrientation !== 7) {
-                console.log(33)
                 await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
             }
         });
