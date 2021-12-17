@@ -15,7 +15,7 @@ import {
     UserUpload
 } from "../screens";
 import {HeaderTitle} from "../components/Marketplace";
-import {Text, TouchableOpacity, View} from "react-native";
+import {AppState, Text, TouchableOpacity, View} from "react-native";
 import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
 import {
     DeleteNavigationRight,
@@ -28,23 +28,38 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import * as ScreenOrientation from "expo-screen-orientation";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
+import {permissionHandler} from "../helper/helper";
 
 const Tab = createBottomTabNavigator();
 
-const CaptureTabBarButton = ({children, onPress}) => (
-    <TouchableOpacity
-        style={{
-            justifyContent: "center",
-            alignItems: "center",
-            flex: 1,
-        }}
-        onPress={onPress}
-    >
-        <View style={navigatorStyle.captureButtonWrapperStyle}>
-            <View style={navigatorStyle.captureButtonStyle}>{children}</View>
-        </View>
-    </TouchableOpacity>
-);
+const CaptureTabBarButton = ({children, onPress}) => {
+
+    const screenListen = () => {
+        permissionHandler(() => {
+        }, () => {
+        }, onPress)
+        AppState.addEventListener("change", async (status) => {
+            if (status === "active") {
+                await permissionHandler(onPress)
+            }
+        })
+    }
+
+    return (
+        <TouchableOpacity
+            style={{
+                justifyContent: "center",
+                alignItems: "center",
+                flex: 1,
+            }}
+            onPress={screenListen}
+        >
+            <View style={navigatorStyle.captureButtonWrapperStyle}>
+                <View style={navigatorStyle.captureButtonStyle}>{children}</View>
+            </View>
+        </TouchableOpacity>
+    )
+}
 
 const TabNavigator = ({navigation, route}) => {
     const {connection} = useSelector((state) => state.generalReducer);

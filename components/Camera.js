@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Camera as ExpoCamera} from "expo-camera";
 import * as ScreenOrientation from "expo-screen-orientation";
-import {Alert, Linking, Platform, StatusBar} from "react-native";
+import {Platform, StatusBar} from "react-native";
 import {Routes} from "../navigator/Routes";
 import CameraFrame from "./CameraFrame";
 import CameraAlert from "./CameraAlert";
@@ -20,7 +20,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {BadGPS, BatteryLevelIcon, GPSSearch, InternetAccessIcon,} from "../assets/svg/illustrations";
 import {RFValue} from "react-native-responsive-fontsize";
-import {toastGenerator} from "../helper/helper";
+import {permissionHandler, toastGenerator} from "../helper/helper";
 import {errorAlertStyles} from "../styles/alertStyles";
 
 const Camera = ({navigation}) => {
@@ -38,6 +38,7 @@ const Camera = ({navigation}) => {
     const {batteryLevel} = useSelector((state) => state.cameraReducer);
     const {connection} = useSelector((state) => state.generalReducer);
     const cameraRef = useRef(null);
+    let timeout = null
     let location = null;
     let waitGPS = true
     let accelerometerSubscription = null;
@@ -47,25 +48,31 @@ const Camera = ({navigation}) => {
             dispatch({type: CAMERA_REDUCER_RESET});
             dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false});
             waitGPS = true
+            timeout = null
+            clearTimeout(timeout)
         });
         return unsubscribe;
     }, [navigation]);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", async (e) => {
-            await _getCameraPermission();
-            await _startNetworkProvider();
+            await permissionHandler(false, goProfile)
+            await _startNetworkProvider()
             StatusBar.setHidden(true);
-            ScreenOrientation.unlockAsync()
+            await ScreenOrientation.unlockAsync()
         });
         return () => unsubscribe();
     }, [navigation]);
 
+    const goProfile = () => navigation.navigate(Routes.profile)
+
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", async (e) => {
             const currentOrientation = await ScreenOrientation.getOrientationLockAsync()
+            console.log(currentOrientation)
             // 7 EQUAL TO LANDSCAPE_RIGHT
             if (currentOrientation !== 7) {
+                console.log(33)
                 await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
             }
         });
@@ -136,93 +143,26 @@ const Camera = ({navigation}) => {
         setSubscription(null);
     };
 
-    const __startCamera = async () => {
-        const {status} = await ExpoCamera.requestCameraPermissionsAsync();
-        if (status === "granted") {
-            return false
-        } else {
-            alertHandler();
-            navigation.navigate(Routes.profile)
-        }
-    };
-
     const _startNetworkProvider = async () => {
-        const {status} = await Location.requestForegroundPermissionsAsync();
-        if (status === "granted") {
-            return false
-        } else {
-            alertHandler();
-            navigation.navigate(Routes.profile())
-        }
-        Location.enableNetworkProviderAsync()
+        await Location.enableNetworkProviderAsync()
             .then((res) => res)
             .catch((err) => err);
     };
 
-    const alertHandler = () => {
-        Alert.alert(
-            "Your some permissions is turned off",
-            "Please give permissions to use the camera.",
-            [
-                {
-                    text: "Cancel",
-                    style: "cancel",
-                    onPress: () => navigation.navigate(Routes.profile),
-                },
-                {
-                    text: "Go to settings",
-                    onPress: () => {
-                        if (!locationPermission || !cameraPermission) {
-                            console.log(locationPermission, cameraPermission)
-                            navigation.navigate(Routes.profile)
-                            Platform.OS === "ios"
-                                ? Linking.openURL("app-settings:")
-                                : Linking.openSettings()
-                        }
-                    }
-                },
-            ]
-        );
-    };
-
-    useEffect(() => {
-        _getCameraPermission();
-    }, []);
-
-    const _getCameraPermission = async () => {
-        const permission = await ExpoCamera.getCameraPermissionsAsync();
-        if (permission.status === "granted") {
-            __startCamera()
-            setCameraPermission(true)
-        } else {
-            alertHandler()
-            setCameraPermission(false)
-            navigation.navigate(Routes.profile)
-        }
-    };
-
     const _subscribeProvider = async () => {
-        const {status} = await Location.getForegroundPermissionsAsync();
-        if (status === "granted") {
-            setlocationPermission(true)
-            location = await Location.watchPositionAsync(
-                {
-                    accuracy: Location.Accuracy.High,
-                    distanceInterval: 0,
-                },
-                (location) => {
-                    if (waitGPS) {
-                        startAccuracyHandler(location.coords.accuracy)
-                    }
-                    accuracyHandler(location.coords.accuracy);
-                    setLocation(location.coords);
+        location = await Location.watchPositionAsync(
+            {
+                accuracy: Location.Accuracy.High,
+                distanceInterval: 0,
+            },
+            (location) => {
+                if (waitGPS) {
+                    startAccuracyHandler(location.coords.accuracy)
                 }
-            );
-        } else {
-            setlocationPermission(false)
-            navigation.navigate(Routes.profile)
-            alertHandler();
-        }
+                accuracyHandler(location.coords.accuracy);
+                setLocation(location.coords);
+            }
+        );
     };
 
     const accuracyHandler = (accuracy) => {
@@ -240,7 +180,6 @@ const Camera = ({navigation}) => {
     };
 
     useEffect(() => {
-        let timeout = null
         if (waitGPS) {
             timeout = setTimeout(() => {
                 toastGenerator(
@@ -255,6 +194,7 @@ const Camera = ({navigation}) => {
                 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP)
             }, 3000 * 10)
         } else {
+            clearTimeout(timeout)
             timeout = null
         }
         return () => {
