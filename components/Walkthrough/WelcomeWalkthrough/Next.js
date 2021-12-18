@@ -9,7 +9,7 @@ const Buttons = ({ active, dataLength = 0, setModalVisible, navigation }) => {
     <TouchableOpacity
       onPress={() =>
         active === dataLength - 1
-          ? navigation.navigate(Routes.login)
+          ? navigation.navigate(Routes.nonUserTab)
           : _carousel.snapToNext()
       }
     >

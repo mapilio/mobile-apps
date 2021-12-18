@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
+import {CardStyleInterpolators, createStackNavigator,} from "@react-navigation/stack";
 import {
-    CardStyleInterpolators, createStackNavigator,
-} from "@react-navigation/stack";
-import {
-    Login,
     CameraSettings,
     ForgotPassword,
     GeneralSettings,
+    Login,
     MarketplaceDetail,
     NoInternetAccess,
     Register,
@@ -22,6 +20,7 @@ import {UPDATE_CONNECTION_STATUS} from "../store/actionsName";
 import {HeaderTitle} from "../components/Marketplace";
 import MarketplaceReceived from "../screens/MarketplaceReceived";
 import TabNavigator from "./TabNavigator";
+import NonUserTabNavigator from "./NonUserTabNavigator";
 
 const Stack = createStackNavigator();
 
@@ -29,7 +28,7 @@ const MainNavigator = () => {
     const {auth} = useSelector((state) => state.getTokenReducer);
     const dispatch = useDispatch();
     const [internetConnection, setInternetConnection] = useState(true);
-const Stack = createStackNavigator();
+    const Stack = createStackNavigator();
 
     useEffect(() => {
         const unsubcribe = NetInfo.addEventListener((state) => {
@@ -101,6 +100,11 @@ const Stack = createStackNavigator();
                         options={{
                             headerShown: false,
                         }}
+                    />
+                    <Stack.Screen
+                        component={NonUserTabNavigator}
+                        name={Routes.nonUserTab}
+                        options={{headerShown: false}}
                     />
                 </Stack.Group>
                 <Stack.Group screenOptions={{presentation: "modal"}}>
