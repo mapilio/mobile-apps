@@ -19,5 +19,18 @@ export const appMapStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: RFPercentage(50)
+  },
+  currentIcon: {
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    padding: RFValue(8),
+    width: RFValue(26),
+    height: RFValue(26),
+    position: 'absolute',
+    zIndex: 5,
+    bottom: RFValue(80),
+    left: RFValue(16),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: RFPercentage(.5)
   }
 });

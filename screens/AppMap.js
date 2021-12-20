@@ -4,6 +4,8 @@ import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import Pano from "../components/Map/Pano";
+import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
+import MapAttributeAndLogo from "../components/Map/MapAttributeAndLogo";
 
 MapboxGL.setAccessToken(
     "pk.eyJ1IjoiZGlhc2hhbGFiaSIsImEiOiJja3dwMjR6Y3IwOG5zMm9sMDVzYXl3dnNvIn0.pRISURiBok67zjI1B4jDhQ"
@@ -24,8 +26,19 @@ const AppMap = ({ navigation }) => {
       <MapboxGL.MapView
           styleURL={'mapbox://styles/mapbox/light-v10'}
           style={appMapStyle.map}
-          attributionPosition={{bottom: 26, right: 8}}
-      />
+          attributionEnabled={false}
+          logoEnabled={false}
+      >
+          <MapboxGL.UserLocation
+              ref={(location) => {console.log({location})}}
+          />
+      </MapboxGL.MapView>
+
+        <View style={appMapStyle.currentIcon}>
+            <CurrentLocationIcon />
+        </View>
+
+        <MapAttributeAndLogo />
     </View>
   );
 };
