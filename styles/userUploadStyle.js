@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {Dimensions, StyleSheet} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const userUploadStyles = StyleSheet.create({
@@ -35,6 +35,33 @@ export const userUploadStyles = StyleSheet.create({
     width: 75,
     backgroundColor: '#D33030',
     right: 0,
+  },
+  deleteButton: {
+    backgroundColor: "#D33030",
+    height: 45,
+    width: 45,
+    position: "absolute",
+    right: 30,
+    bottom: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 45
   }
+});
 
+export const userUploadModalStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#4D4D4D'
+  },
+  text: {
+    color: '#FFF',
+    marginVertical: RFValue(5)
+  },
+  progressBar: {
+    borderRadius: 4,
+    width: Dimensions.get("window").width - RFValue(100)
+  }
 });

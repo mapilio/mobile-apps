@@ -193,7 +193,7 @@ const TabNavigator = ({navigation, route}) => {
                 name={Routes.sequences}
                 options={{
                     headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                    headerRight: () => <SequenceNavigatorRight/>,
+                    headerRight: () => <SequenceNavigatorRight navigation={navigation}/>,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
