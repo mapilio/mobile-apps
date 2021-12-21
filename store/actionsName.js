@@ -26,3 +26,4 @@ export const CAMERA_REDUCER_RESET = "CAMERA_REDUCER_RESET";
 export const PROGRESS = "PROGRESS";
 export const UPLOAD_DATA = "UPLOAD_DATA";
 export const ACTIVE_SEQUENCE = "ACTIVE_SEQUENCE";
+export const EXIT_USER = "EXIT_USER";

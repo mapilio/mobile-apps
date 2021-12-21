@@ -21,6 +21,10 @@ export const loginStyles = StyleSheet.create({
     color: '#CBD1D9',
     fontSize: RFValue(14)
   },
+  headerText: {
+    color: '#FFFFFF',
+    fontSize: RFValue(24)
+  },
   secondaryText: {
     fontSize: RFValue(16),
     lineHeight: RFValue(24),
@@ -42,7 +46,7 @@ export const loginStyles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     padding: RFValue(11),
-    marginTop: RFValue(5)
+    marginTop: RFValue(12)
   },
   buttonOutline: {
     borderRadius: RFValue(4),
@@ -91,7 +95,7 @@ export const socialLoginStyles = StyleSheet.create({
     flexDirection: "row", justifyContent: "center", alignItems: "center"
   },
   line: {
-    backgroundColor: '#CBD1D9', height: 1, flex: 1,
+    backgroundColor: '#CBD1D9',opacity:0.7, height: 1, flex: 1,
   },
   bottomText: {
     paddingHorizontal: 15, color: '#B9C0CF'

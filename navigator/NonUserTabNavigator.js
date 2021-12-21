@@ -1,48 +1,21 @@
-import React, {useState} from "react";
-import {useSelector} from "react-redux";
-import {Notifier} from "react-native-notifier";
-import {Routes} from "./Routes";
+import React, {useState} from 'react'
 import {CardStyleInterpolators} from "@react-navigation/stack";
 import {navigatorStyle} from "../styles/navigatorStyle";
-import {
-    AppCamera,
-    AppMap,
-    Marketplace,
-    NoInternetAccess,
-    UserProfile,
-    UserSequence,
-    UserSequenceDetail,
-    UserUpload
-} from "../screens";
-import {HeaderTitle} from "../components/Marketplace";
-import {AppState, Text, TouchableOpacity, View} from "react-native";
-import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
-import {
-    DeleteNavigationRight,
-    ProfileNavigatorRight,
-    SequenceNavigatorLeft,
-    SequenceNavigatorRight,
-    UploadNavigatorRight
-} from "./navigatorbars";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {Routes} from "./Routes";
 import * as ScreenOrientation from "expo-screen-orientation";
+import {AppMap, Marketplace, NoInternetAccess} from "../screens";
+import {Text, TouchableOpacity, View} from "react-native";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
-import {permissionHandler} from "../helper/helper";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {useSelector} from "react-redux";
+import {Notifier} from "react-native-notifier";
+import {HeaderTitle} from "../components/Marketplace";
+import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
 
 const Tab = createBottomTabNavigator();
 
 const CaptureTabBarButton = ({children, onPress}) => {
-
-    const screenListen = () => {
-        permissionHandler(() => false, () => false, onPress)
-        AppState.addEventListener("change", async (status) => {
-            if (status === "active") {
-                await permissionHandler(onPress)
-            }
-        })
-    }
-
     return (
         <TouchableOpacity
             style={{
@@ -50,7 +23,7 @@ const CaptureTabBarButton = ({children, onPress}) => {
                 alignItems: "center",
                 flex: 1,
             }}
-            onPress={screenListen}
+            onPress={() => false}
         >
             <View style={navigatorStyle.captureButtonWrapperStyle}>
                 <View style={navigatorStyle.captureButtonStyle}>{children}</View>
@@ -59,7 +32,10 @@ const CaptureTabBarButton = ({children, onPress}) => {
     )
 }
 
-const TabNavigator = ({navigation, route}) => {
+// TODO Bottom bar will be changed when I find a way to add an icon without adding a component
+const EmptyComponent = () => <View></View>
+
+const NonUserTabNavigator = () => {
     const {connection} = useSelector((state) => state.generalReducer);
     const [internetGoes, setInternetGoes] = useState(false)
 
@@ -143,11 +119,13 @@ const TabNavigator = ({navigation, route}) => {
                 })}
             />
             <Tab.Screen
-                component={AppCamera}
-                name={Routes.camera}
-                options={({navigation}) => ({
-                    headerShown: false,
-                    headerRight: () => <UploadNavigatorRight/>,
+                // TODO Bottom bar will be changed when I find a way to add an icon without adding a component
+                name={"dolor"}
+                component={EmptyComponent}
+                listeners={({navigation}) => ({
+                    tabPress: () => navigation.navigate(Routes.login)
+                })}
+                options={() => ({
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
@@ -167,10 +145,12 @@ const TabNavigator = ({navigation, route}) => {
                 })}
             />
             <Tab.Screen
-                component={UserUpload}
-                name={Routes.upload}
-                options={({navigation}) => ({
-                    headerRight: () => <UploadNavigatorRight/>,
+                name={"ipsum"}
+                component={EmptyComponent}
+                listeners={({navigation}) => ({
+                    tabPress: () => navigation.navigate(Routes.login)
+                })}
+                options={() => ({
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
@@ -180,7 +160,7 @@ const TabNavigator = ({navigation, route}) => {
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
                         ]}>
-                            <Upload fill={focused ? '#32425B' : undefined}/>
+                            <Upload fill={'#32425B'}/>
                             <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                                 Upload
                             </Text>
@@ -189,51 +169,24 @@ const TabNavigator = ({navigation, route}) => {
                 })}
             />
             <Tab.Screen
-                component={UserSequence}
-                name={Routes.sequences}
-                options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                    headerRight: () => <SequenceNavigatorRight navigation={navigation}/>,
-                    title: null,
+                name={"lorem"}
+                component={EmptyComponent}
+                listeners={({navigation}) => ({
+                    tabPress: () => navigation.navigate(Routes.login)
+                })}
+                options={() => ({
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    tabBarIcon: () => null,
-                    tabBarButton: () => null,
-                }}
-            />
-            <Tab.Screen
-                component={UserSequenceDetail}
-                name={Routes.sequenceDetail}
-                options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                    headerRight: (props) => <DeleteNavigationRight {...props} />,
-                    title: null,
-                    headerStyle: navigatorStyle.headerStyle,
-                    headerTitleStyle: navigatorStyle.headerTitleStyle,
-                    headerTintColor: navigatorStyle.headerTintColor,
-                    headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    tabBarIcon: () => null,
-                    tabBarButton: () => null,
-                }}
-            />
-            <Tab.Screen
-                component={UserProfile}
-                name={Routes.profile}
-                options={({navigation}) => ({
-                    headerStyle: navigatorStyle.headerStyle,
-                    headerTitleStyle: navigatorStyle.headerTitleStyle,
-                    headerTintColor: navigatorStyle.headerTintColor,
-                    headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    headerRight: () => <ProfileNavigatorRight/>,
                     tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
                         ]}>
-                            <Profile fill={focused ? '#32425B' : undefined}/>
-                            <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
+                            <Profile fill={'#32425B'}/>
+                            <Text
+                                style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                                 Profile
                             </Text>
                         </View>
@@ -250,7 +203,7 @@ const TabNavigator = ({navigation, route}) => {
                 }}
             />
         </Tab.Navigator>
-    );
-};
+    )
+}
 
-export default TabNavigator
+export default NonUserTabNavigator

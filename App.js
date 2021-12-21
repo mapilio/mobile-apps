@@ -1,48 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import AppLoading from "expo-app-loading";
-import { NavigationContainer } from "@react-navigation/native";
+import {NavigationContainer} from "@react-navigation/native";
 import MainNavigator from "./navigator/MainNavigator";
-import { StatusBar } from "react-native";
-import { persistor, store } from "./store/store";
-import { Provider } from "react-redux";
-import { useFonts } from "./helper/helper";
-import { PersistGate } from "redux-persist/integration/react";
-import { NotifierWrapper } from "react-native-notifier";
+import {AppState, StatusBar} from "react-native";
+import {persistor, store} from "./store/store";
+import {Provider} from "react-redux";
+import {permissionHandler, useFonts} from "./helper/helper";
+import {PersistGate} from "redux-persist/integration/react";
+import {NotifierWrapper} from "react-native-notifier";
 
 function App() {
-  const [isReady, setIsReady] = useState(false);
+    const [isReady, setIsReady] = useState(false);
 
-  const loadFonts = async () => {
-    await useFonts();
-  };
+    const loadFonts = async () => {
+        await useFonts();
+    };
 
-  useEffect(() => {
-    if (isReady) {
-      StatusBar.setBarStyle("light-content", true);
+    useEffect(() => {
+        if (isReady) {
+            StatusBar.setBarStyle("light-content", true);
+        }
+    }, [isReady]);
+
+    const setReady = () => {
+        permissionHandler()
+        openApp()
+        AppState.addEventListener("change", async (status) => {
+            if (status === "active" && !isReady) {
+                await permissionHandler()
+                openApp()
+            } else {
+                openApp()
+            }
+        })
     }
-  }, [isReady]);
 
-  if (!isReady) {
+    const openApp = () => setIsReady(true)
+
+    if (!isReady) {
+        return (
+            <AppLoading
+                startAsync={loadFonts}
+                onFinish={setReady}
+                onError={(error) => console.error(error)}
+            />
+        );
+    }
+
     return (
-        <AppLoading
-            startAsync={loadFonts}
-            onFinish={() => setIsReady(true)}
-            onError={(error) => console.error(error)}
-        />
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <NavigationContainer>
+                    <NotifierWrapper>
+                        <MainNavigator/>
+                    </NotifierWrapper>
+                </NavigationContainer>
+            </PersistGate>
+        </Provider>
     );
-  }
-
-  return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <NavigationContainer>
-            <NotifierWrapper>
-              <MainNavigator />
-            </NotifierWrapper>
-          </NavigationContainer>
-        </PersistGate>
-      </Provider>
-  );
 }
 
 export default App;

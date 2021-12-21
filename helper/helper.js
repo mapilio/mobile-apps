@@ -1,8 +1,12 @@
 import * as Font from "expo-font";
-import { store } from "../store/store";
-import { Notifier, NotifierComponents } from "react-native-notifier";
-import axios from "axios";;
-import { StatusBar } from "react-native";
+import {store} from "../store/store";
+import {Notifier, NotifierComponents} from "react-native-notifier";
+import axios from "axios";
+import {Alert, Linking, Platform, StatusBar} from "react-native";
+import {Camera as ExpoCamera} from "expo-camera";
+import * as Location from "expo-location";
+
+;
 
 const useFonts = async () =>
     await Font.loadAsync({
@@ -25,7 +29,7 @@ const convertHexToRGBA = (hexCode, opacity) => {
     return `rgba(${r},${g},${b},${opacity / 100})`;
 };
 
-const fetchHandler = ({ ...args } = {}) => {
+const fetchHandler = ({...args} = {}) => {
     const auth = store.getState().getTokenReducer.auth;
     auth &&
     (axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`);
@@ -41,29 +45,64 @@ const toastGenerator = (
     imageStyle,
     duration = 0
 ) =>
-  Notifier.showNotification({
-    title: title,
-    Component: NotifierComponents.Notification,
-    swipeEnabled: true,
-    duration: duration,
-    translucentStatusBar: StatusBar.currentHeight,
-    componentProps: {
-      imageSource: image,
-      imageStyle: imageStyle,
-      titleStyle: titleStyle,
-      containerStyle: containerStyle,
-    },
-  });
+    Notifier.showNotification({
+        title: title,
+        Component: NotifierComponents.Notification,
+        swipeEnabled: true,
+        duration: duration,
+        translucentStatusBar: StatusBar.currentHeight,
+        componentProps: {
+            imageSource: image,
+            imageStyle: imageStyle,
+            titleStyle: titleStyle,
+            containerStyle: containerStyle,
+        },
+    });
 
 const maxCharacterHandler = (text, maxLength) => {
     if (text.length > maxLength) text = text.substring(0, maxLength) + "...";
     return text;
 };
 
+const permissionHandler = async (
+    handler = () => {},
+    cancelHandler = () => {},
+    noAccessHandler = () => {},
+) => {
+    const {status: cameraStatus} = await ExpoCamera.requestCameraPermissionsAsync()
+    const {status: locationStatus} = await Location.requestForegroundPermissionsAsync()
+
+    if (cameraStatus !== "granted" || locationStatus !== "granted") {
+        Alert.alert(
+            "Your some permissions is turned off",
+            "If you do not allow permissions, you will not access to capture.",
+            [
+                {
+                    text: "Continue",
+                    style: "cancel",
+                    onPress: () => cancelHandler,
+                },
+                {
+                    text: "Go to settings",
+                    onPress: () => {
+                        Platform.OS === "ios"
+                            ? Linking.openURL("app-settings:")
+                            : Linking.openSettings()
+                    }
+                },
+            ]
+        );
+    } else {
+        noAccessHandler()
+    }
+
+}
+
 export {
-  useFonts,
-  convertHexToRGBA,
-  fetchHandler,
-  toastGenerator,
-  maxCharacterHandler,
+    useFonts,
+    convertHexToRGBA,
+    fetchHandler,
+    toastGenerator,
+    maxCharacterHandler,
+    permissionHandler
 };
