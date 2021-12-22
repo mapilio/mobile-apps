@@ -1,7 +1,12 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 
 export const appMapStyle = StyleSheet.create({
+  mapWrapper: {
+    width: RFValue(Dimensions.get('window').width),
+    // width: RFPercentage(100),
+    height: RFPercentage(100),
+  },
   map: {
     width: RFPercentage(100),
     height: RFPercentage(100),
@@ -32,5 +37,11 @@ export const appMapStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: RFPercentage(.5)
+  },
+  minimizePano: {
+    position: 'absolute',
+    bottom: RFValue(113),
+    right: RFValue(16),
+    zIndex: 1,
   }
 });
