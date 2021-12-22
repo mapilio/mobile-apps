@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {View, ScrollView, TouchableOpacity, Platform, StatusBar, ToastAndroid} from "react-native";
 import SwipeLine from "../../assets/svg/illustrations/SwipeLine";
 import {CustomText} from "../../highordercomponents";
@@ -9,20 +9,10 @@ import {marketplaceStyles} from "../../styles/marketplaceStyles";
 import ListItem from "./ListItem";
 
 
-const List = ({navigation}) => {
+const List = ({projects, navigation}) => {
 
   const touchable = useRef();
   const [showPopover, setShowPopover] = useState(false);
-  const [projects, setProjects] = useState([]);
-
-  fetchHandler({
-    url: `${process.env.API_URL}/api/get-marketplaces`,
-    method: "POST",
-  }).then((res) => {
-    setProjects(res.data)
-  }).catch((err) => {
-    ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
-  });
 
   return (
     <View style={marketplaceStyles.container}>
@@ -51,13 +41,15 @@ const List = ({navigation}) => {
         </View>
       </View>
       <ScrollView>
+{/*
         {projects.map((value, index) => {
           return (
             <View key={index}>
-              <ListItem data={value} navigation={navigation} />
+              <ListItem data={value.properties} navigation={navigation} />
             </View>
           )
         })}
+*/}
       </ScrollView>
     </View>
   );

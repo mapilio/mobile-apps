@@ -1,13 +1,14 @@
 import {
   UPDATE_CONNECTION_STATUS,
   UPDATE_WELCOME_WALKTHROUGH_STATUS,
-  UPDATE_CURRENT_DB,
+  UPDATE_CURRENT_DB, MARKETPLACE_DATA,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   connection: { connectionStatus: true, connectionType: "wifi" },
   welcomeWalkthroughStatus: false,
   db: null,
+  marketplaceData: {},
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -27,6 +28,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
         ...state,
         db: action.payload,
       };
+    case MARKETPLACE_DATA:
+      return {
+        ...state,
+        marketplaceData: action.payload
+      }
     default:
       return state;
   }
