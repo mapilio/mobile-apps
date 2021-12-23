@@ -1,12 +1,13 @@
 import React from "react";
-import {View, Image, ScrollView, ToastAndroid} from "react-native";
+import {View, Image, ScrollView} from "react-native";
 import {CustomText, CustomTextBold, CustomTextMedium} from "../highordercomponents";
 import {RFValue} from "react-native-responsive-fontsize";
 import {globalStyles} from "../styles/globalStyles";
 import {marketplaceDetailStyles} from "../styles/marketplaceStyles";
-import {fetchHandler} from "../helper/helper";
+import {fetchHandler, toastGenerator} from "../helper/helper";
 import {Routes} from "../navigator/Routes";
 import Moment from 'moment';
+import {errorAlertStyles} from "../styles/alertStyles";
 
 const MarketplaceDetail = ({navigation, route}) => {
 
@@ -17,10 +18,17 @@ const MarketplaceDetail = ({navigation, route}) => {
       data: {
         id: route.params.data.id,
       },
-    }).then((res) => {
+    }).then(() => {
       navigation.navigate(Routes.marketplaceReceived);
     }).catch((err) => {
-      ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
+      toastGenerator(
+        `${err.response.data.message}`,
+        require("../assets/images/Warning.png"),
+        errorAlertStyles.alertContainer,
+        errorAlertStyles.alertTitle,
+        errorAlertStyles.alertImage,
+        3000
+      );
     });
   }
 

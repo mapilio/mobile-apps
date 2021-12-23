@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {View, Dimensions, ToastAndroid} from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import {RFValue} from "react-native-responsive-fontsize";
@@ -8,14 +8,13 @@ import {appMapStyle} from "../styles/appMapStyle";
 import {fetchHandler} from "../helper/helper";
 import {useDispatch, useSelector} from "react-redux";
 import {MARKETPLACE_DATA} from "../store/actionsName";
-import {MarketplaceIcon} from "../assets/svg/illustrations";
+import {Routes} from "../navigator/Routes";
 
 const {height} = Dimensions.get('window')
 
 const Marketplace = ({navigation}) => {
   const dispatch = useDispatch();
   const {marketplaceData} = useSelector((status) => status.generalReducer)
-  console.log(marketplaceData)
   useEffect(() => {
     fetchHandler({
       url: `${process.env.API_URL}/api/get-marketplaces`,
@@ -27,24 +26,38 @@ const Marketplace = ({navigation}) => {
     });
   }, []);
 
-  return (
-    <View style={{flex: 1}}>
-          <MapboxGL.MapView
-            styleURL={'mapbox://styles/mapbox/light-v10'}
-            style={appMapStyle.map}
-            attributionPosition={{bottom: 41, right: 28}}
-          >
-            <MapboxGL.ShapeSource id={"test"} shape={marketplaceData} images={<MarketplaceIcon />} cluster={false} >
-              <MapboxGL.SymbolLayer id={"testLayer"} style={{iconImage: require("../assets/images/marketplaceMarker.png"), iconSize: .5}}/>
+  return (<View style={{flex: 1}}>
+      <MapboxGL.MapView
+        styleURL={'mapbox://styles/mapbox/light-v10'}
+        style={appMapStyle.map}
+        attributionPosition={{bottom: 41, right: 28}}
+      >
+        <MapboxGL.Camera centerCoordinate={[30.8, 41.015137]} zoomLevel={6}/>
+        {
+          !!Object.keys(marketplaceData).length && (
+            <MapboxGL.ShapeSource
+              id={"marketplaceShape"}
+              shape={marketplaceData}
+              onPress={(project) => {
+                console.log(project.features[0].properties.id)
+                navigation.navigate(Routes.marketplaceDetail, {data: project.features[0].properties})
+              }}
+            >
+              <MapboxGL.SymbolLayer
+                id={"marketplaceSymbol"}
+                style={{ iconImage: require("../assets/images/marketplaceMarker.png"), iconSize: .2 }}
+              />
             </MapboxGL.ShapeSource>
-          </MapboxGL.MapView>
+          )
+        }
+      </MapboxGL.MapView>
 
       <SlidingUpPanel
-        draggableRange={{top: height - RFValue(150), bottom: RFValue(60)}}
+        draggableRange={{top: height - (height / 2), bottom: RFValue(60)}}
         showBackdrop={false}
-        containerStyle={{paddingBottom: RFValue(110)}}
+        containerStyle={{paddingBottom: RFValue(310)}}
       >
-        <List navigation={navigation} projects={marketplaceData} />
+        <List navigation={navigation} projects={marketplaceData}/>
       </SlidingUpPanel>
     </View>
   );

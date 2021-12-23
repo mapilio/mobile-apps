@@ -41,15 +41,17 @@ const List = ({projects, navigation}) => {
         </View>
       </View>
       <ScrollView>
-{/*
-        {projects.map((value, index) => {
-          return (
-            <View key={index}>
-              <ListItem data={value.properties} navigation={navigation} />
-            </View>
+         {
+          !!Object.keys(projects).length && (
+            projects.features.map((value, index) => {
+              return (
+                <View key={index}>
+                  <ListItem data={value.properties} navigation={navigation}/>
+                </View>
+              )
+            })
           )
-        })}
-*/}
+        }
       </ScrollView>
     </View>
   );
