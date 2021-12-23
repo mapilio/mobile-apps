@@ -27,3 +27,4 @@ export const PROGRESS = "PROGRESS";
 export const UPLOAD_DATA = "UPLOAD_DATA";
 export const ACTIVE_SEQUENCE = "ACTIVE_SEQUENCE";
 export const EXIT_USER = "EXIT_USER";
+export const MARKETPLACE_DATA = "MARKETPLACE_DATA";
