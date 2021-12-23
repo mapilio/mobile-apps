@@ -1,9 +1,118 @@
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
+import { Dimensions } from 'react-native';
 
 export const panoStyle = {
+  topBar: {
+    paddingTop: RFValue(10),
+    paddingBottom: RFValue(10),
+    paddingLeft: RFValue(16),
+    paddingRight: RFValue(16),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    position: 'absolute',
+    top: RFValue(0),
+    left: RFValue(0),
+    width: RFValue(Dimensions.get('window').width),
+    alignSelf: 'stretch',
+    zIndex: RFValue(1),
+  },
+  switch: {
+    backgroundColor: 'rgba(31,48,76,0.75)',
+    padding: RFValue(5),
+    borderRadius: RFValue(4),
+  },
+  minimize: {
+    backgroundColor: 'rgba(31,48,76,0.75)',
+    padding: RFValue(4.5),
+    borderRadius: RFValue(4),
+  },
+  playWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: RFValue(13.19),
+  },
+  frameWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  frameText: {
+    fontSize: RFValue(14),
+    color: '#CBD1D9',
+  },
   imageStyle: {
-    width: RFPercentage(100),
-    objectFit: 'cover',
-    objectPosition: 'center',
+    width: RFValue(Dimensions.get('window').width),
+    resizeMode: 'cover',
+    height: RFPercentage( 45),
+    aspectRatio: 3/2,
+  },
+  bottomTab: {
+    paddingLeft: RFValue(13),
+    paddingRight: RFValue(13),
+    paddingTop: RFValue(6),
+    paddingBottom: RFValue(6),
+    backgroundColor: '#213348',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomLeftRadius: RFValue(5),
+    borderBottomRightRadius: RFValue(5),
+  },
+  report: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  reportText: {
+    fontSize: RFValue(12),
+    color: '#929BCC',
+    marginLeft: RFValue(3.87 ),
+    textDecorationLine: 'underline',
+  },
+  capturerWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  capturerName: {
+    color: '#B9C0CF',
+    marginRight: RFValue(6.64),
+    fontSize: RFValue(14),
+    fontFamily: 'Poppins-SemiBold',
+    top: RFValue(1),
+  },
+  captureDate: {
+    color: '#B9C0CF',
+    fontSize: RFValue(12),
+  },
+  watermark: {
+    position: 'absolute',
+    bottom: RFValue(43.01),
+    left: RFValue(11.59),
+  },
+  userActionWrapper: {
+    position: 'absolute',
+    bottom: RFValue(43),
+    right: RFValue(17),
+    zIndex: 1,
+    alignItems: 'center',
+  },
+  zoomIn: {
+    backgroundColor: 'rgba(31,48,76,0.75)',
+    width: RFValue(19),
+    height: RFValue(22),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopRightRadius: RFValue(2),
+    borderTopLeftRadius: RFValue(2),
+  },
+  zoomOut: {
+    backgroundColor: 'rgba(31,48,76,0.75)',
+    width: RFValue(19),
+    height: RFValue(22),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomRightRadius: RFValue(2),
+    borderBottomLeftRadius: RFValue(2),
+  },
+  zoomWrapper: {
+    marginBottom: RFValue(8),
   },
 };
