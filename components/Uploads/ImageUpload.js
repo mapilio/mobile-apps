@@ -1,12 +1,34 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {View} from "react-native";
 import {globalStyles} from "../../styles/globalStyles";
 import {CustomText, CustomTextMedium} from "../../highordercomponents";
 import {userSequenceStyles} from "../../styles/userSequenceStyle";
 import {UploadImageCard} from "../index";
 import {useSelector} from "react-redux";
+import database from "../../db";
 
-const UserFeed = ({ navigation }) => {
+const ImageUpload = ({ navigation, sequence_uuid }) => {
+
+  const [images, setImages] = useState([]);
+  const db = database.getConnection();
+
+  useEffect(() => {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `SELECT id, path
+         FROM captures
+         where sequence_uuid = '${sequence_uuid}'`,
+        [],
+        (_, result) => {
+          setImages(result.rows._array);
+        },
+        (_, error) => {
+          console.log(error)
+        }
+      )
+    })
+  }, [sequence_uuid])
+
 
   const {uploadedImages, selectedImages} = useSelector(
     (state) => state.imagesReducer
@@ -27,7 +49,7 @@ const UserFeed = ({ navigation }) => {
         ]}
       >
 
-        {uploadedImages.map((image) => (
+        {images.map((image) => (
           <UploadImageCard
             key={image.id}
             path={image.path}
@@ -42,4 +64,4 @@ const UserFeed = ({ navigation }) => {
   );
 };
 
-export default UserFeed;
+export default ImageUpload;

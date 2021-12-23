@@ -5,6 +5,7 @@ import {
   getTokenReducer,
   generalReducer,
   settingsReducer,
+  uploadReducer,
 } from "./reducers";
 
 export default combineReducers({
@@ -13,4 +14,5 @@ export default combineReducers({
   getTokenReducer,
   generalReducer,
   settingsReducer,
+  uploadReducer,
 });

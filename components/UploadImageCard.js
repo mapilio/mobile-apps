@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Image, View, TouchableOpacity, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { sequenceCardStyles } from "../styles/userSequenceStyle";
-import { SelectedIcon } from "../assets/svg/illustrations";
+import {SelectedIcon} from "../assets/svg/illustrations";
 import {
   UPDATE_SELECTED_IMAGES,
   UPDATE_ALL_SELECT,
 } from "../store/actionsName";
 import {Routes} from "../navigator/Routes";
+import {RFValue} from "react-native-responsive-fontsize";
 
 const UploadImageCard = (props) => {
   const dispatch = useDispatch();
   const { allSelect } = useSelector((state) => state.imagesReducer);
-  const { id, selectedImages, uploadedImages } = props;
+  const { id, selectedImages, uploadedImages, path } = props;
   const [selected, setSelected] = useState(false);
 
   const addToSelectedImages = () => {
@@ -50,12 +51,12 @@ const UploadImageCard = (props) => {
     <TouchableOpacity
       activeOpacity={0.9}
       style={sequenceCardStyles.cardContainer}
-      onPress={() => props.navigation.navigate(Routes.sequenceDetail)}
+      onPress={() => props.navigation.navigate(Routes.sequenceDetail, {id: id, path: path})}
       onLongPress={addToSelectedImages}
     >
       <View style={sequenceCardStyles.imagePosition}>
         <Image
-          source={require("../assets/images/car.png")}
+          source={{width: RFValue(200), height: RFValue(78), uri: `${path}`}}
           resizeMode={"cover"}
           style={{
             ...sequenceCardStyles.imageContainer,

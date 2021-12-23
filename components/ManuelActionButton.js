@@ -35,7 +35,7 @@ const ManuelActionButton = ({disabled, uuid}) => {
         if (!imageUri) return;
         const newPath = `${
             FileSystem.documentDirectory
-        }${id}${Math.random().toString()}.${"jpeg"}`;
+        }/${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
         await FileSystem.copyAsync({
             from: imageUri,
             to: newPath,
@@ -89,7 +89,7 @@ const ManuelActionButton = ({disabled, uuid}) => {
                         ) / 2,
                     backgroundColor: "#ffffff",
                 }}
-            ></View>
+            />
             <View
                 style={{
                     position: "absolute",
@@ -105,7 +105,7 @@ const ManuelActionButton = ({disabled, uuid}) => {
                             Dimensions.get("window").width + Dimensions.get("window").height
                         ) / 2,
                 }}
-            ></View>
+            />
         </TouchableOpacity>
     );
 };

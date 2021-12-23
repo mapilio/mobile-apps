@@ -8,12 +8,14 @@ import {
   UPDATE_ALL_SELECT,
   UPDATE_SELECTED_IMAGES,
 } from "../../store/actionsName";
+import {Upload} from "../../components/Uploads";
 
-const SequenceNavigatorRight = () => {
+const SequenceNavigatorRight = ({navigation}) => {
   const dispatch = useDispatch();
   const { allSelect, uploadedImages } = useSelector(
     (state) => state.imagesReducer
   );
+  const {activeSequence} = useSelector((state) => state.uploadReducer)
 
   const allSelectHandler = () => {
     if (allSelect) {
@@ -33,7 +35,8 @@ const SequenceNavigatorRight = () => {
           {allSelect ? "Unselect" : "Select all"}
         </CustomTextMedium>
       </TouchableOpacity>
-      <UploadIcon />
+
+      <Upload sequence_uuid={activeSequence} navigation={navigation} />
     </View>
   );
 };

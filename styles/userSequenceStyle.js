@@ -5,7 +5,6 @@ export const userSequenceStyles = StyleSheet.create({
   sequenceWrapper: {
     flexWrap: "wrap",
     flexDirection: "row",
-    justifyContent: "space-between",
   },
   tabBar: {
     width: 300,
