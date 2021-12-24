@@ -42,7 +42,6 @@ class Database {
                         errorAlertStyles.alertTitle,
                         errorAlertStyles.alertImage
                     );
-                    console.log(error)
                     this.startDB(values.userID);
                 }
             );

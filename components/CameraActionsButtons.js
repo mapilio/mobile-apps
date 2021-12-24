@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
 
-const CameraActionsButtons = ({uuid}) => {
+const CameraActionsButtons = ({uuid,setTake}) => {
     const [disabled, setDisabled] = useState(true);
     const [waitGPS, setWaitGPS] = useState(true);
     const {captureType} = useSelector((state) => state.settingsReducer);
@@ -32,8 +32,8 @@ const CameraActionsButtons = ({uuid}) => {
 
     return (
         <>
-            {captureType && <ManuelActionButton disabled={disabled} uuid={uuid}/>}
-            {!captureType && <AutoActionButton disabled={disabled} uuid={uuid}/>}
+            {captureType && <ManuelActionButton disabled={disabled} uuid={uuid} setTake={setTake} />}
+            {!captureType && <AutoActionButton disabled={disabled} uuid={uuid} setTake={setTake} />}
         </>
     );
 };

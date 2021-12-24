@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Camera as ExpoCamera} from "expo-camera";
 import * as ScreenOrientation from "expo-screen-orientation";
-import {Platform, StatusBar} from "react-native";
+import {Animated, Platform, StatusBar} from "react-native";
 import {Routes} from "../navigator/Routes";
 import CameraFrame from "./CameraFrame";
 import CameraAlert from "./CameraAlert";
@@ -15,6 +15,7 @@ import {
     UPDATE_CAMERA_REF,
     UPDATE_CAMERA_STATUS,
     UPDATE_GPS_ACCURACY,
+    UPDATE_SELECTED_PROJECT,
     UPDATE_START_ACCURACY,
 } from "../store/actionsName";
 import {useDispatch, useSelector} from "react-redux";
@@ -23,7 +24,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {permissionHandler, toastGenerator} from "../helper/helper";
 import {errorAlertStyles} from "../styles/alertStyles";
 
-const Camera = ({navigation}) => {
+const Camera = ({navigation, takeNow}) => {
     const [degree, setDegree] = useState(0);
     const [cameraPermission, setCameraPermission] = useState(false)
     const [locationPermission, setlocationPermission] = useState(false)
@@ -33,6 +34,8 @@ const Camera = ({navigation}) => {
     const [GPSAlert, setGPSAlert] = useState(null);
     const [GPSStartAlert, setGPSStartAlert] = useState(null);
     const [rotateAlert, setRotateAlert] = useState(null);
+    const [gps, setGPS] = useState(true);
+    const fadeAnim = useRef(new Animated.Value(0.7)).current
     const [locationFeatures, setLocation] = useState({});
     const dispatch = useDispatch();
     const {batteryLevel} = useSelector((state) => state.cameraReducer);
@@ -47,6 +50,7 @@ const Camera = ({navigation}) => {
         const unsubscribe = navigation.addListener("blur", (e) => {
             dispatch({type: CAMERA_REDUCER_RESET});
             dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false});
+            dispatch({type: UPDATE_SELECTED_PROJECT, payload: {type: "individual", key: 0}})
             waitGPS = true
             clearTimeout(timeout)
             timeout = null
@@ -54,12 +58,12 @@ const Camera = ({navigation}) => {
         return unsubscribe;
     }, [navigation]);
 
+
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", async (e) => {
             await permissionHandler(false, goProfile)
             await _startNetworkProvider()
             StatusBar.setHidden(true);
-            await ScreenOrientation.unlockAsync()
         });
         return () => unsubscribe();
     }, [navigation]);
@@ -154,7 +158,7 @@ const Camera = ({navigation}) => {
                 distanceInterval: 0,
             },
             (location) => {
-                if (waitGPS) {
+                if (gps && waitGPS) {
                     startAccuracyHandler(location.coords.accuracy)
                 }
                 accuracyHandler(location.coords.accuracy);
@@ -177,8 +181,9 @@ const Camera = ({navigation}) => {
         }
     };
 
+
     useEffect(() => {
-        if (waitGPS) {
+        if (gps) {
             timeout = setTimeout(() => {
                 toastGenerator(
                     "GPS accuracy is not enough. Please try again.",
@@ -198,7 +203,7 @@ const Camera = ({navigation}) => {
         return () => {
             clearTimeout(timeout)
         }
-    }, [waitGPS])
+    }, [gps])
 
     const startAccuracyHandler = (accuracy) => {
         if (accuracy > 15) {
@@ -210,6 +215,7 @@ const Camera = ({navigation}) => {
             });
         } else if (accuracy <= 15) {
             waitGPS = false
+            setGPS(false)
             dispatch({type: UPDATE_START_ACCURACY, payload: true});
             setGPSStartAlert(null);
         }
@@ -224,6 +230,18 @@ const Camera = ({navigation}) => {
         dispatch({type: UPDATE_CAMERA_REF, payload: cameraRef.current});
     };
 
+
+    useEffect(() => {
+        Animated.timing(
+            fadeAnim,
+            {
+                toValue: 0,
+                duration: 1300,
+                useNativeDriver: true
+            }
+        ).start();
+    }, [fadeAnim])
+
     // TODO EDIT ALERT LOGIC
     return (
         <ExpoCamera
@@ -236,7 +254,19 @@ const Camera = ({navigation}) => {
         >
             <RotationLine degree={degree} setAlert={setRotateAlert}/>
             <CameraFrame/>
-            <CameraProjectInfo/>
+            <CameraProjectInfo navigation={navigation}/>
+            {takeNow &&
+                <Animated.View
+                    style={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        backgroundColor: "#000000",
+                        opacity: fadeAnim
+                    }}/>
+            }
             {GPSAlert && !GPSStartAlert ? (
                 <CameraAlert
                     svg={GPSAlert.svg}

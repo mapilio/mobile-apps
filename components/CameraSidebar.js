@@ -13,9 +13,11 @@ import uuid from "react-native-uuid";
 import CameraActionsButtons from "./CameraActionsButtons";
 import { Routes } from "../navigator/Routes";
 import * as ScreenOrientation from "expo-screen-orientation";
+import {useSelector} from "react-redux";
 
-const CameraSidebar = ({ navigation }) => {
+const CameraSidebar = ({ navigation, setTake }) => {
   const [uuidV4, setUUID] = useState("");
+  const {selectedProject} = useSelector(state => state.settingsReducer)
 
   useEffect(() => {
     navigation.addListener("focus", () => {
@@ -23,6 +25,11 @@ const CameraSidebar = ({ navigation }) => {
       setUUID(sequenceUUID);
     });
   }, [navigation]);
+
+  useEffect(() => {
+    const sequenceUUID = uuid.v4();
+    setUUID(sequenceUUID);
+  },[selectedProject])
 
   const exitFromCamera = async () => {
     await ScreenOrientation.unlockAsync()
@@ -70,7 +77,7 @@ const CameraSidebar = ({ navigation }) => {
           Advanced
         </CustomText>
       </TouchableOpacity>
-      <CameraActionsButtons uuid={uuidV4} />
+      <CameraActionsButtons uuid={uuidV4} setTake={setTake} />
       <TouchableOpacity style={{ position: "absolute", bottom: 0, left: 0 }}>
         <MapIcon />
       </TouchableOpacity>

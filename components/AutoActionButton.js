@@ -9,7 +9,7 @@ import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT,} from "../store/actionsName";
 
-const AutoActionButton = ({disabled, uuid}) => {
+const AutoActionButton = ({disabled, uuid,setTake}) => {
     const [autoCapture, setAutoCapture] = useState(false);
     const [photoAmount, setPhotoAmount] = useState(0);
     const {cameraStatus, camera} = useSelector(
@@ -58,6 +58,7 @@ const AutoActionButton = ({disabled, uuid}) => {
         if (cameraStatus !== "READY") return;
         const options = {quality: 1, base64: false, exif: true};
         const image = await camera.takePictureAsync(options);
+        setTake(true)
         const heading = await Location.getHeadingAsync()
         const imageUri = image.uri;
         if (!imageUri) return;
@@ -68,6 +69,7 @@ const AutoActionButton = ({disabled, uuid}) => {
             from: imageUri,
             to: newPath,
         });
+        setTake(false)
         image.uri = newPath;
         location.coords.heading = heading.trueHeading
         const JSONExif = JSON.stringify(image.exif);
