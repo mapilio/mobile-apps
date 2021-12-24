@@ -22,8 +22,8 @@ function App() {
         }
     }, [isReady]);
 
-    const setReady = () => {
-        permissionHandler()
+    const setReady = async () => {
+        await permissionHandler()
         openApp()
         AppState.addEventListener("change", async (status) => {
             if (status === "active" && !isReady) {

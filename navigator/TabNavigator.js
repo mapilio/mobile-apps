@@ -34,8 +34,8 @@ const Tab = createBottomTabNavigator();
 
 const CaptureTabBarButton = ({children, onPress}) => {
 
-    const screenListen = () => {
-        permissionHandler(() => false, () => false, onPress)
+    const screenListen = async () => {
+        await permissionHandler(() => false, () => false, onPress)
         AppState.addEventListener("change", async (status) => {
             if (status === "active") {
                 await permissionHandler(onPress)
@@ -76,7 +76,7 @@ const TabNavigator = ({navigation, route}) => {
 
     return (
         <Tab.Navigator
-            initialRouteName={Routes.map}
+            initialRouteName={Routes.camera}
             screenOptions={{
                 // Todo animation for Android will be made smoother.
                 cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
@@ -193,7 +193,7 @@ const TabNavigator = ({navigation, route}) => {
                 name={Routes.sequences}
                 options={{
                     headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                    headerRight: () => <SequenceNavigatorRight navigation={navigation}/>,
+                    headerRight: () => <SequenceNavigatorRight/>,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
@@ -231,6 +231,7 @@ const TabNavigator = ({navigation, route}) => {
                         <View style={[
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
+
                         ]}>
                             <Profile fill={focused ? '#32425B' : undefined}/>
                             <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>

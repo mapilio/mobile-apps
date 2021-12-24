@@ -69,33 +69,36 @@ const permissionHandler = async (
     cancelHandler = () => {},
     noAccessHandler = () => {},
 ) => {
-    const {status: cameraStatus} = await ExpoCamera.requestCameraPermissionsAsync()
-    const {status: locationStatus} = await Location.requestForegroundPermissionsAsync()
+    const {status: cameraStatus} = await ExpoCamera.getCameraPermissionsAsync()
+    const {status: locationStatus} = await Location.getForegroundPermissionsAsync()
 
     if (cameraStatus !== "granted" || locationStatus !== "granted") {
-        Alert.alert(
-            "Your some permissions is turned off",
-            "If you do not allow permissions, you will not access to capture.",
-            [
-                {
-                    text: "Continue",
-                    style: "cancel",
-                    onPress: () => cancelHandler,
-                },
-                {
-                    text: "Go to settings",
-                    onPress: () => {
-                        Platform.OS === "ios"
-                            ? Linking.openURL("app-settings:")
-                            : Linking.openSettings()
-                    }
-                },
-            ]
-        );
+        const {status: cameraStatus} = await ExpoCamera.requestCameraPermissionsAsync()
+        const {status: locationStatus} = await Location.requestForegroundPermissionsAsync()
+        if (cameraStatus !== "granted" || locationStatus !== "granted") {
+            Alert.alert(
+                "Your some permissions is turned off",
+                "If you do not allow permissions, you will not access to capture.",
+                [
+                    {
+                        text: "Continue",
+                        style: "cancel",
+                        onPress: () => cancelHandler,
+                    },
+                    {
+                        text: "Go to settings",
+                        onPress: () => {
+                            Platform.OS === "ios"
+                                ? Linking.openURL("app-settings:")
+                                : Linking.openSettings()
+                        }
+                    },
+                ]
+            );
+        }
     } else {
         noAccessHandler()
     }
-
 }
 
 export {

@@ -6,7 +6,7 @@ import ProjectListModal from "./ProjectListModal";
 import SelectedProject from "./SelectedProject";
 import SelectProjectButton from "./SelectProjectButton";
 
-const CameraProjectInfo = () => {
+const CameraProjectInfo = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { selectedProject } = useSelector((state) => state.settingsReducer);
 
@@ -29,8 +29,9 @@ const CameraProjectInfo = () => {
       <ProjectListModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
+        navigation={navigation}
       />
-      {selectedProject.type === "individual" ? (
+        {selectedProject.type === "individual" ? (
         <SelectProjectButton setModalVisible={setModalVisible} />
       ) : (
         <SelectedProject projectName={selectedProject.projectName} />

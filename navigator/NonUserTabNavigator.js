@@ -109,7 +109,8 @@ const NonUserTabNavigator = () => {
                         <View style={[
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
-                        ]}>
+                        ]}
+                        >
                             <MarketplaceIcon fill={focused ? '#32425B' : undefined}/>
                             <Text style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>
                                 Market
@@ -131,7 +132,8 @@ const NonUserTabNavigator = () => {
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                     tabBarIcon: ({focused}) => (
-                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                        <View style={{alignItems: 'center', justifyContent: 'center'}}
+                        >
                             <CaptureIcon height={37.26} width={37.26}/>
                             <Text style={navigatorStyle.captureTextStyle}>Capture</Text>
                         </View>
