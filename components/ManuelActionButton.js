@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import {UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT} from "../store/actionsName";
 import Database from "../db";
 
-const ManuelActionButton = ({disabled, uuid,setTake}) => {
+const ManuelActionButton = ({disabled, uuid, setTake}) => {
     const {cameraStatus, camera} = useSelector(
         (status) => status.cameraReducer
     );
@@ -36,7 +36,7 @@ const ManuelActionButton = ({disabled, uuid,setTake}) => {
         if (!imageUri) return;
         const newPath = `${
             FileSystem.documentDirectory
-        }/${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
+        }${id}${Math.random().toString()}.${"jpeg"}`;
         await FileSystem.copyAsync({
             from: imageUri,
             to: newPath,
@@ -91,7 +91,7 @@ const ManuelActionButton = ({disabled, uuid,setTake}) => {
                         ) / 2,
                     backgroundColor: "#ffffff",
                 }}
-            />
+            ></View>
             <View
                 style={{
                     position: "absolute",
@@ -107,7 +107,7 @@ const ManuelActionButton = ({disabled, uuid,setTake}) => {
                             Dimensions.get("window").width + Dimensions.get("window").height
                         ) / 2,
                 }}
-            />
+            ></View>
         </TouchableOpacity>
     );
 };

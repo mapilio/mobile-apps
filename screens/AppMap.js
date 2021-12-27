@@ -99,11 +99,9 @@ const AppMap = ({ navigation }) => {
             <MapboxGL.MapView
                 styleURL={'mapbox://styles/mapbox/light-v10'}
                 style={appMapStyle.map}
-                attributionEnabled={false}
-                logoEnabled={false}
             >
                 <MapboxGL.UserLocation
-                    ref={(location) => {console.log({location})}}
+                    ref={(location) => location}
                 />
 
                 {/*{renderAnnotations()}*/}

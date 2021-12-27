@@ -21,7 +21,6 @@ const UserSequence = ({navigation, route}) => {
         [],
         (_, result) => {
           data = result.rows._array;
-          console.log(result.rows._array)
         },
         (_, error) => {
           console.log(error)

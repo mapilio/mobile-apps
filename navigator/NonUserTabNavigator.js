@@ -3,7 +3,7 @@ import {CardStyleInterpolators} from "@react-navigation/stack";
 import {navigatorStyle} from "../styles/navigatorStyle";
 import {Routes} from "./Routes";
 import * as ScreenOrientation from "expo-screen-orientation";
-import {AppMap, Marketplace, NoInternetAccess} from "../screens";
+import {AppMap, Login, Marketplace, NoInternetAccess} from "../screens";
 import {Text, TouchableOpacity, View} from "react-native";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
@@ -12,10 +12,11 @@ import {useSelector} from "react-redux";
 import {Notifier} from "react-native-notifier";
 import {HeaderTitle} from "../components/Marketplace";
 import {CaptureIcon, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
+import SignInNavigatorRight from "./navigatorbars/SignInNavigatorRight";
 
 const Tab = createBottomTabNavigator();
 
-const CaptureTabBarButton = ({children, onPress}) => {
+const CaptureTabBarButton = ({children, onPress, navigation}) => {
     return (
         <TouchableOpacity
             style={{
@@ -23,7 +24,7 @@ const CaptureTabBarButton = ({children, onPress}) => {
                 alignItems: "center",
                 flex: 1,
             }}
-            onPress={() => false}
+            onPress={() => navigation.navigate(Routes.login)}
         >
             <View style={navigatorStyle.captureButtonWrapperStyle}>
                 <View style={navigatorStyle.captureButtonStyle}>{children}</View>
@@ -31,9 +32,6 @@ const CaptureTabBarButton = ({children, onPress}) => {
         </TouchableOpacity>
     )
 }
-
-// TODO Bottom bar will be changed when I find a way to add an icon without adding a component
-const EmptyComponent = () => <View></View>
 
 const NonUserTabNavigator = () => {
     const {connection} = useSelector((state) => state.generalReducer);
@@ -53,12 +51,13 @@ const NonUserTabNavigator = () => {
     return (
         <Tab.Navigator
             initialRouteName={Routes.map}
-            screenOptions={{
+            screenOptions={({navigation}) => ({
                 // Todo animation for Android will be made smoother.
                 cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
                 tabBarShowLabel: false,
                 tabBarStyle: navigatorStyle.tabBarStyle,
-            }}
+                headerRight: () => <SignInNavigatorRight navigation={navigation}/>
+            })}
             screenListeners={({navigation, route}) => ({
                 focus: (e) => {
                     if (!connection.connectionStatus && route.name !== Routes.camera) {
@@ -122,15 +121,12 @@ const NonUserTabNavigator = () => {
             <Tab.Screen
                 // TODO Bottom bar will be changed when I find a way to add an icon without adding a component
                 name={"dolor"}
-                component={EmptyComponent}
-                listeners={({navigation}) => ({
-                    tabPress: () => navigation.navigate(Routes.login)
-                })}
-                options={() => ({
-                    headerStyle: navigatorStyle.headerStyle,
-                    headerTitleStyle: navigatorStyle.headerTitleStyle,
-                    headerTintColor: navigatorStyle.headerTintColor,
-                    headerTitleAlign: navigatorStyle.headerTitleAlign,
+                component={Login}
+                options={({navigation}) => ({
+                    headerShown: false,
+                    tabBarStyle: {
+                        display: "none",
+                    },
                     tabBarIcon: ({focused}) => (
                         <View style={{alignItems: 'center', justifyContent: 'center'}}
                         >
@@ -139,24 +135,18 @@ const NonUserTabNavigator = () => {
                         </View>
                     ),
                     tabBarButton: (prop) => (
-                        <CaptureTabBarButton {...prop} />
+                        <CaptureTabBarButton navigation={navigation} {...prop} />
                     ),
-                    tabBarStyle: {
-                        display: "none",
-                    },
                 })}
             />
             <Tab.Screen
                 name={"ipsum"}
-                component={EmptyComponent}
-                listeners={({navigation}) => ({
-                    tabPress: () => navigation.navigate(Routes.login)
-                })}
-                options={() => ({
-                    headerStyle: navigatorStyle.headerStyle,
-                    headerTitleStyle: navigatorStyle.headerTitleStyle,
-                    headerTintColor: navigatorStyle.headerTintColor,
-                    headerTitleAlign: navigatorStyle.headerTitleAlign,
+                component={Login}
+                options={({navigation}) => ({
+                    headerShown: false,
+                    tabBarStyle: {
+                        display: "none",
+                    },
                     tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,
@@ -172,20 +162,18 @@ const NonUserTabNavigator = () => {
             />
             <Tab.Screen
                 name={"lorem"}
-                component={EmptyComponent}
-                listeners={({navigation}) => ({
-                    tabPress: () => navigation.navigate(Routes.login)
-                })}
+                component={Login}
                 options={() => ({
-                    headerStyle: navigatorStyle.headerStyle,
-                    headerTitleStyle: navigatorStyle.headerTitleStyle,
-                    headerTintColor: navigatorStyle.headerTintColor,
-                    headerTitleAlign: navigatorStyle.headerTitleAlign,
+                    headerShown: false,
+                    tabBarStyle: {
+                        display: "none",
+                    },
                     tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
-                        ]}>
+                        ]}
+                        >
                             <Profile fill={'#32425B'}/>
                             <Text
                                 style={[navigatorStyle.tabTextStyle, focused ? {color: '#32425B'} : {}]}>

@@ -39,7 +39,6 @@ const Marketplace = ({navigation}) => {
               id={"marketplaceShape"}
               shape={marketplaceData}
               onPress={(project) => {
-                console.log(project.features[0].properties.id)
                 navigation.navigate(Routes.marketplaceDetail, {data: project.features[0].properties})
               }}
             >

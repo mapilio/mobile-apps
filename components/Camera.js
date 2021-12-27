@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Camera as ExpoCamera} from "expo-camera";
 import * as ScreenOrientation from "expo-screen-orientation";
-import {Animated, Platform, StatusBar} from "react-native";
+import {ActivityIndicator, Animated, Platform, StatusBar, View} from "react-native";
 import {Routes} from "../navigator/Routes";
 import CameraFrame from "./CameraFrame";
 import CameraAlert from "./CameraAlert";
@@ -23,9 +23,11 @@ import {BadGPS, BatteryLevelIcon, GPSSearch, InternetAccessIcon,} from "../asset
 import {RFValue} from "react-native-responsive-fontsize";
 import {permissionHandler, toastGenerator} from "../helper/helper";
 import {errorAlertStyles} from "../styles/alertStyles";
+import {CustomTextMedium} from "../highordercomponents";
 
 const Camera = ({navigation, takeNow}) => {
     const [degree, setDegree] = useState(0);
+    const [cameraReady, setCameraReady] = useState(false)
     const [cameraPermission, setCameraPermission] = useState(false)
     const [locationPermission, setlocationPermission] = useState(false)
     const [batteryAlert, setBatteryAlert] = useState(null);
@@ -35,7 +37,7 @@ const Camera = ({navigation, takeNow}) => {
     const [GPSStartAlert, setGPSStartAlert] = useState(null);
     const [rotateAlert, setRotateAlert] = useState(null);
     const [gps, setGPS] = useState(true);
-    const fadeAnim = useRef(new Animated.Value(0.7)).current
+    const fadeAnimation = useRef(new Animated.Value(0.7)).current
     const [locationFeatures, setLocation] = useState({});
     const dispatch = useDispatch();
     const {batteryLevel} = useSelector((state) => state.cameraReducer);
@@ -48,6 +50,7 @@ const Camera = ({navigation, takeNow}) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("blur", (e) => {
+            setCameraReady(false)
             dispatch({type: CAMERA_REDUCER_RESET});
             dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false});
             dispatch({type: UPDATE_SELECTED_PROJECT, payload: {type: "individual", key: 0}})
@@ -61,6 +64,7 @@ const Camera = ({navigation, takeNow}) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", async (e) => {
+            setCameraReady(true)
             await permissionHandler(false, goProfile)
             await _startNetworkProvider()
             StatusBar.setHidden(true);
@@ -233,78 +237,91 @@ const Camera = ({navigation, takeNow}) => {
 
     useEffect(() => {
         Animated.timing(
-            fadeAnim,
+            fadeAnimation,
             {
                 toValue: 0,
                 duration: 1300,
                 useNativeDriver: true
             }
         ).start();
-    }, [fadeAnim])
+    }, [fadeAnimation])
 
-    // TODO EDIT ALERT LOGIC
-    return (
-        <ExpoCamera
-            style={{
-                flex: 1,
-                position: "relative",
-            }}
-            ref={cameraRef}
-            onCameraReady={onCameraReady}
-        >
-            <RotationLine degree={degree} setAlert={setRotateAlert}/>
-            <CameraFrame/>
-            <CameraProjectInfo navigation={navigation}/>
-            {takeNow &&
-                <Animated.View
-                    style={{
-                        position: "absolute",
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                        backgroundColor: "#000000",
-                        opacity: fadeAnim
-                    }}/>
-            }
-            {GPSAlert && !GPSStartAlert ? (
-                <CameraAlert
-                    svg={GPSAlert.svg}
-                    title={GPSAlert.title}
-                    content={GPSAlert.content}
-                />
-            ) : null}
-            {GPSStartAlert && (
-                <CameraAlert
-                    svg={GPSStartAlert.svg}
-                    title={GPSStartAlert.title}
-                    content={GPSStartAlert.content}
-                />
-            )}
-            {rotateAlert && !GPSStartAlert ?
-                (
+    if (cameraReady) {
+        return (
+            <ExpoCamera
+                style={{
+                    flex: 1,
+                    position: "relative",
+                }}
+                ref={cameraRef}
+                onCameraReady={onCameraReady}
+            >
+                <RotationLine degree={degree} setAlert={setRotateAlert}/>
+                <CameraFrame/>
+                <CameraProjectInfo navigation={navigation}/>
+                {takeNow &&
+                    <Animated.View
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            backgroundColor: "#000000",
+                            opacity: fadeAnimation
+                        }}/>
+                }
+                {GPSAlert && !GPSStartAlert ? (
                     <CameraAlert
-                        svg={rotateAlert.svg}
-                        title={rotateAlert.title}
-                        content={rotateAlert.content}
+                        svg={GPSAlert.svg}
+                        title={GPSAlert.title}
+                        content={GPSAlert.content}
                     />
                 ) : null}
-            {batteryAlert && !GPSStartAlert ? (
-                <CameraAlert
-                    svg={batteryAlert.svg}
-                    title={batteryAlert.title}
-                    content={batteryAlert.content}
-                />
-            ) : null}
-            {networkAlert && !GPSStartAlert ? (
-                <CameraAlert
-                    svg={networkAlert.svg}
-                    title={networkAlert.title}
-                    content={networkAlert.content}
-                />
-            ) : null}
-        </ExpoCamera>
-    );
+                {GPSStartAlert && (
+                    <CameraAlert
+                        svg={GPSStartAlert.svg}
+                        title={GPSStartAlert.title}
+                        content={GPSStartAlert.content}
+                    />
+                )}
+                {rotateAlert && !GPSStartAlert ?
+                    (
+                        <CameraAlert
+                            svg={rotateAlert.svg}
+                            title={rotateAlert.title}
+                            content={rotateAlert.content}
+                        />
+                    ) : null}
+                {batteryAlert && !GPSStartAlert ? (
+                    <CameraAlert
+                        svg={batteryAlert.svg}
+                        title={batteryAlert.title}
+                        content={batteryAlert.content}
+                    />
+                ) : null}
+                {networkAlert && !GPSStartAlert ? (
+                    <CameraAlert
+                        svg={networkAlert.svg}
+                        title={networkAlert.title}
+                        content={networkAlert.content}
+                    />
+                ) : null}
+            </ExpoCamera>
+        );
+    } else {
+        return (
+            <View style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#2E2E2E",
+            }}>
+                <ActivityIndicator size={"large"} color={"#FFFFFF"} />
+                <CustomTextMedium style={{fontSize:RFValue(16), marginTop:RFValue(30),color:"#FFFFFF"}}>Camera is getting ready. Please wait.</CustomTextMedium>
+            </View>
+        )
+    }
 };
 
 export default Camera;
