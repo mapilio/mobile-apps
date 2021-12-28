@@ -9,7 +9,7 @@ import {userUploadStyles} from "../styles/userUploadStyle";
 import {useDispatch, useSelector} from "react-redux";
 import database from "../db";
 import * as FileSystem from "expo-file-system";
-import {SEQUENCE_IMAGES, UPDATE_SELECTED_IMAGES} from "../store/actionsName";
+import {SEQUENCE_IMAGES, UPDATE_SELECTED_IMAGES, UPLOAD_DATA} from "../store/actionsName";
 
 const UserSequence = ({navigation, route}) => {
   const [active, setActive] = useState('image');
@@ -40,6 +40,9 @@ const UserSequence = ({navigation, route}) => {
                     database.query(`SELECT * FROM captures WHERE sequence_uuid = '${sequence_uuid}'`, (_, result) => {
                       dispatch({type: SEQUENCE_IMAGES, payload: result.rows._array});
                       dispatch({type: UPDATE_SELECTED_IMAGES, payload: selectedImages.filter((e) => e !== file.id)});
+                      database.query("SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid", (_, result) => {
+                        dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+                      })
                     })
                   })
                 })
