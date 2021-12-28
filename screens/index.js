@@ -14,3 +14,4 @@ export { default as WelcomeWalkthrough } from "./WelcomeWalkthrough";
 export { default as NoInternetAccess } from "./NoInternetAccess";
 export { default as Marketplace } from "./Marketplace";
 export { default as MarketplaceDetail } from "./MarketplaceDetail";
+export { default as ProfileSequence } from "./ProfileSequence";

@@ -10,8 +10,6 @@ const CameraProjectInfo = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const { selectedProject } = useSelector((state) => state.settingsReducer);
 
-    const dene = () => setModalVisible(true);
-
     return (
         <View
             style={{

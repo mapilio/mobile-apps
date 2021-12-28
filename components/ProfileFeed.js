@@ -4,14 +4,17 @@ import {CustomText, CustomTextBold} from "../highordercomponents";
 import {Routes} from "../navigator/Routes";
 import {userFeedStyles} from "../styles/userProfileStyle";
 import moment from "moment";
+import {useSelector} from "react-redux";
 
 const ProfileFeed = ({navigation, data}) => {
+    const {userInformation} = useSelector((state) => state.getTokenReducer);
+
     return (
         <TouchableOpacity
             activeOpacity={0.7}
             style={userFeedStyles.feedContainer}
             onPress={() => {
-                navigation.navigate(Routes.sequences, {id: 1})
+                navigation.navigate(Routes.profileSequence, {id: data.sequence_uuid, user_id: userInformation.id})
             }}
         >
             <View style={userFeedStyles.viewStyle}>
@@ -25,7 +28,7 @@ const ProfileFeed = ({navigation, data}) => {
             <View>
                 <Image
                     style={userFeedStyles.imageStyle}
-                    source={require("../assets/images/car.png")}
+                    source={{uri: `https://image.mapilio.com/cdn/?key=${data.img_code}==/${data.cover_photo}`}}
                 />
             </View>
         </TouchableOpacity>

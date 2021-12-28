@@ -8,7 +8,7 @@ import {
     AppCamera,
     AppMap,
     Marketplace,
-    NoInternetAccess,
+    NoInternetAccess, ProfileSequence,
     UserProfile,
     UserSequence,
     UserSequenceDetail,
@@ -202,6 +202,20 @@ const TabNavigator = ({navigation, route}) => {
                     tabBarIcon: () => null,
                     tabBarButton: () => null,
                 }}
+            />
+            <Tab.Screen
+                component={ProfileSequence}
+                name={Routes.profileSequence}
+                options={({navigation}) => ({
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    title: "Your uploads",
+                    headerStyle: navigatorStyle.headerStyle,
+                    headerTitleStyle: navigatorStyle.headerTitleStyle,
+                    headerTintColor: navigatorStyle.headerTintColor,
+                    headerTitleAlign: navigatorStyle.headerTitleAlign,
+                    tabBarIcon: () => null,
+                    tabBarButton: () => null,
+                })}
             />
             <Tab.Screen
                 component={UserSequenceDetail}

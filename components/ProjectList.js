@@ -11,7 +11,7 @@ const ProjectList = ({project, setModalVisible}) => {
     const dispatch = useDispatch()
     // TODO Real data waiting from Vedat
     const chooseHandler = () => {
-        dispatch({type: UPDATE_SELECTED_PROJECT, payload: {type: "project",projectName:"lorem", id: project.project_key}})
+        dispatch({type: UPDATE_SELECTED_PROJECT, payload: {type: "project",projectName:project.project_detail.marketplace_name, id: project.project_key}})
         setModalVisible(false)
     }
 
@@ -31,7 +31,7 @@ const ProjectList = ({project, setModalVisible}) => {
         >
             <View>
                 <CustomTextMedium style={{fontSize: RFValue(14), color: "#32425B"}}>
-                    {maxCharacterHandler("Crosswalk detection project lorem", 40)}
+                    {maxCharacterHandler(project.project_detail.marketplace_name, 40)}
                 </CustomTextMedium>
                 <CustomText
                     style={{
@@ -39,7 +39,7 @@ const ProjectList = ({project, setModalVisible}) => {
                         color: convertHexToRGBA("#4B6583", 60),
                     }}
                 >
-                    LaneMarketing Recognize
+                    {project.project_detail.marketplace_description}
                 </CustomText>
             </View>
             <TouchableOpacity
