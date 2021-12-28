@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, TouchableOpacity} from "react-native";
 import Map from "../assets/svg/illustrations/Map";
 import {ImageUpload} from "../components/Uploads";
 import {userSequenceStyles} from "../styles/userSequenceStyle";
 import SwitchSelector from "react-native-switch-selector";
 import {Trash} from "../assets/svg/illustrations";
 import {userUploadStyles} from "../styles/userUploadStyle";
+import {useSelector} from "react-redux";
 
 const UserSequence = ({navigation, route}) => {
   const [active, setActive] = useState('image');
@@ -14,11 +15,15 @@ const UserSequence = ({navigation, route}) => {
     map: require("../assets/images/mapIcon.png"),
   }
   const sequence_uuid = route.params.id;
-
+  const { selectedImages } = useSelector((state) => state.imagesReducer);
   const options = [
     {label: "Image", value: "image", imageIcon: icons.image},
     {label: "Map", value: "map", imageIcon: icons.map},
   ];
+
+  const deletedImages = () => {
+    // TODO delete selected pictures
+  }
 
   return (
     <View style={{flex: 1}}>
@@ -41,9 +46,14 @@ const UserSequence = ({navigation, route}) => {
       </View>
       {active === 'image' && <ImageUpload navigation={navigation} sequence_uuid={sequence_uuid}/>}
     </ScrollView>
-      <View style={userUploadStyles.deleteButton}>
-        <Trash width={24} height={24} />
-      </View>
+        {
+          !!selectedImages.length &&
+            <View style={userUploadStyles.deleteButton}>
+              <TouchableOpacity onPress={() => deletedImages()}>
+                <Trash width={24} height={24} />
+              </TouchableOpacity>
+            </View>
+        }
     </View>
   );
 };
