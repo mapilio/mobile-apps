@@ -1,12 +1,15 @@
 import {
   ACTIVE_SEQUENCE,
-  PROGRESS, UPLOAD_DATA
+  PROGRESS,
+  SEQUENCE_IMAGES,
+  UPLOAD_DATA
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   progress: 0,
   uploadData: [],
   activeSequence: '',
+  sequenceImages: [],
 };
 
 const uploadReducer = (state = INITIAL_STATE, action) => {
@@ -25,6 +28,11 @@ const uploadReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         activeSequence: action.payload
+      }
+    case SEQUENCE_IMAGES:
+      return {
+        ...state,
+        sequenceImages: action.payload
       }
     default:
       return state;

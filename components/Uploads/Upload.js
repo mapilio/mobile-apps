@@ -22,29 +22,15 @@ const Upload = ({sequence_uuid, navigation}) => {
 	const [mbps, setMbps] = useState(0);
 	const [status, setStatus] = useState('');
 	const [modalVisible, setModalVisible] = useState(false);
-	const db = database.getConnection();
 	let percent = 0;
 
-	const getUploadData = () => {
-		db.transaction((txn) => {
-			txn.executeSql("SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid", [], (_, result) => {
-				dispatch({type: UPLOAD_DATA, payload: result.rows._array});
-			}, (_, error) => {
-				console.log(error)
-			});
-		});
-	}
 	const deleteUpload = (auth, sequence_uuid) => {
-		db.transaction((txn) => {
-			txn.executeSql(`DELETE
-                      FROM captures
-                      where sequence_uuid = '${sequence_uuid}'`, [], (_, result) => {
-				FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence_uuid}`).then(async () => {
-					await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + `${auth.id}`)
-				});
-				getUploadData();
-			}, (_, error) => {
-				console.log(error)
+		database.query(`DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`, (_, result) => {
+			FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence_uuid}`).then(async () => {
+				await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + `${auth.id}`)
+			});
+			database.query('SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid', (_, result) => {
+				dispatch({type: UPLOAD_DATA, payload: result.rows._array});
 			})
 		})
 	}
