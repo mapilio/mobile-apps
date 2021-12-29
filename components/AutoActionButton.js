@@ -62,9 +62,7 @@ const AutoActionButton = ({disabled, uuid,setTake}) => {
         const heading = await Location.getHeadingAsync()
         const imageUri = image.uri;
         if (!imageUri) return;
-        const newPath = `${
-            FileSystem.documentDirectory
-        }${id}${Math.random().toString()}.${"jpeg"}`;
+        const newPath = FileSystem.documentDirectory + `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
         await FileSystem.copyAsync({
             from: imageUri,
             to: newPath,

@@ -62,6 +62,7 @@ const CaptureTabBarButton = ({children, onPress}) => {
 const TabNavigator = ({navigation, route}) => {
     const {connection} = useSelector((state) => state.generalReducer);
     const [internetGoes, setInternetGoes] = useState(false)
+    const {uploadData} = useSelector((state) => state.uploadReducer)
 
     const connectionAlertHandler = (navigation) => {
         if (connection.connectionStatus && internetGoes) {
@@ -175,7 +176,8 @@ const TabNavigator = ({navigation, route}) => {
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    tabBarIcon: ({focused}) => (
+                    tabBarBadge: uploadData.length,
+                  tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
@@ -192,7 +194,7 @@ const TabNavigator = ({navigation, route}) => {
                 component={UserSequence}
                 name={Routes.sequences}
                 options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.upload} />,
                     headerRight: () => <SequenceNavigatorRight/>,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,
@@ -221,7 +223,7 @@ const TabNavigator = ({navigation, route}) => {
                 component={UserSequenceDetail}
                 name={Routes.sequenceDetail}
                 options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.sequences} />,
                     headerRight: (props) => <DeleteNavigationRight {...props} />,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,

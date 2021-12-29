@@ -1,12 +1,15 @@
 import React, {useState} from "react";
-import {ScrollView, View, TouchableOpacity} from "react-native";
+import {ScrollView, View, TouchableOpacity, Alert} from "react-native";
 import Map from "../assets/svg/illustrations/Map";
 import {ImageUpload} from "../components/Uploads";
 import {userSequenceStyles} from "../styles/userSequenceStyle";
 import SwitchSelector from "react-native-switch-selector";
 import {Trash} from "../assets/svg/illustrations";
 import {userUploadStyles} from "../styles/userUploadStyle";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import database from "../db";
+import * as FileSystem from "expo-file-system";
+import {SEQUENCE_IMAGES, UPDATE_SELECTED_IMAGES, UPLOAD_DATA} from "../store/actionsName";
 
 const UserSequence = ({navigation, route}) => {
   const [active, setActive] = useState('image');
@@ -14,7 +17,8 @@ const UserSequence = ({navigation, route}) => {
     image: require("../assets/images/imgIcon.png"),
     map: require("../assets/images/mapIcon.png"),
   }
-  const sequence_uuid = route.params.id;
+   const {activeSequence} = useSelector((state) => state.uploadReducer);
+  const dispatch = useDispatch();
   const { selectedImages } = useSelector((state) => state.imagesReducer);
   const options = [
     {label: "Image", value: "image", imageIcon: icons.image},
@@ -22,7 +26,35 @@ const UserSequence = ({navigation, route}) => {
   ];
 
   const deletedImages = () => {
-    // TODO delete selected pictures
+    Alert.alert(
+      "Are you sure?",
+      "Are you sure you want to delete this image",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            database.query(`SELECT id, path FROM captures WHERE id IN (${selectedImages})`, (_, result) => {
+              result.rows._array.map((file) => {
+                FileSystem.deleteAsync(file.path).then(() => {
+                  database.query(`DELETE FROM captures WHERE id = ${file.id}`, () => {
+                    database.query(`SELECT * FROM captures WHERE sequence_uuid = '${activeSequence}'`, (_, result) => {
+                      dispatch({type: SEQUENCE_IMAGES, payload: result.rows._array});
+                      dispatch({type: UPDATE_SELECTED_IMAGES, payload: selectedImages.filter((e) => e !== file.id)});
+                      database.query("SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid", (_, result) => {
+                        dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          }
+        },
+        {
+          text: "No",
+        }
+      ]
+    )
   }
 
   return (
@@ -44,7 +76,7 @@ const UserSequence = ({navigation, route}) => {
         />
 
       </View>
-      {active === 'image' && <ImageUpload navigation={navigation} sequence_uuid={sequence_uuid}/>}
+      {active === 'image' && <ImageUpload navigation={navigation} sequence_uuid={activeSequence}/>}
     </ScrollView>
         {
           !!selectedImages.length &&

@@ -18,6 +18,7 @@ const UserProfile = ({navigation}) => {
             url: `${process.env.API_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`
         })
             .then(res => {
+                setListData(res.data !== null ? res.data : [])
                 setLoading(false)
                 setListData(res.data)
             })
