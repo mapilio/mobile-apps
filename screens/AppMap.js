@@ -1,16 +1,15 @@
-import React, {useState} from "react";
-import { View, TouchableOpacity } from "react-native";
-import { appMapStyle } from "../styles/appMapStyle";
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import React, {useEffect, useRef, useState} from "react";
+import {TouchableOpacity, View} from "react-native";
+import {appMapStyle} from "../styles/appMapStyle";
+import MapboxGL, {Logger} from "@react-native-mapbox-gl/maps";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
 import MapAttributeAndLogo from "../components/Map/MapAttributeAndLogo";
-import MinimizePano from "../assets/svg/illustrations/MinimizePano";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 
 MapboxGL.setAccessToken(
-    "pk.eyJ1IjoiZGlhc2hhbGFiaSIsImEiOiJja3dwMjR6Y3IwOG5zMm9sMDVzYXl3dnNvIn0.pRISURiBok67zjI1B4jDhQ"
+    "pk.your_mapbox_public_token"
 );
 
 // const coordinates = [
@@ -27,9 +26,22 @@ MapboxGL.setAccessToken(
 //     [-73.98571014404297, 40.748947591479705]
 // ]
 
-const AppMap = ({ navigation }) => {
-    const [showPano, setShowPano] = useState(true);
+Logger.setLogCallback(log => {
+    const {message} = log;
 
+    // expected warnings - see https://github.com/mapbox/mapbox-gl-native/issues/15341#issuecomment-522889062
+    if (
+        message.match('Request failed due to a permanent error: Canceled') ||
+        message.match('Request failed due to a permanent error: Socket Closed')
+    ) {
+        return true;
+    }
+    return false;
+});
+
+const AppMap = ({navigation}) => {
+    const [showPano, setShowPano] = useState(true);
+    let mapRef = useRef()
     const [minimizePano, setMinimizePano] = useState(false);
 
     const hidePano = () => {
@@ -80,43 +92,51 @@ const AppMap = ({ navigation }) => {
     //     return items;
     // }
 
-  return (
-    <View>
-        {showPano ?
-            <Pano hidePano={hidePano} minimizePano={runMinimizePano} /> :
-            <View style={appMapStyle.searchIcon}>
-                <SearchIcon width={19.55} height={19.55} />
+    useEffect(() => {
+        if (mapRef) {
+            mapRef.current.setSourceVisibility(false, "composite", "mapilio_objects")
+        }
+    }, [mapRef]);
+
+
+    return (
+        <View>
+            {showPano ?
+                <Pano hidePano={hidePano} minimizePano={runMinimizePano}/> :
+                <View style={appMapStyle.searchIcon}>
+                    <SearchIcon width={19.55} height={19.55}/>
+                </View>
+            }
+
+            {minimizePano ?
+                <TouchableOpacity style={appMapStyle.minimizePano} onPress={unminimizePano}>
+                    <PanoMinimize/>
+                </TouchableOpacity> : null
+            }
+
+            <View style={appMapStyle.mapWrapper}>
+                <MapboxGL.MapView
+                    styleURL={'mapbox://styles/mapilio/ckwan9y0s0jgt15lczdcgio6l'}
+                    style={appMapStyle.map}
+                    ref={mapRef}
+                >
+                    <MapboxGL.UserLocation
+                        ref={(location) => location}
+                    />
+
+                    {/*{renderAnnotations()}*/}
+
+                    <MapboxGL.Camera followUserLocation={true}/>
+                </MapboxGL.MapView>
             </View>
-        }
 
-        {minimizePano ?
-            <TouchableOpacity style={appMapStyle.minimizePano} onPress={unminimizePano}>
-                <PanoMinimize />
-            </TouchableOpacity> : null
-        }
+            <View style={appMapStyle.currentIcon}>
+                <CurrentLocationIcon/>
+            </View>
 
-        <View style={appMapStyle.mapWrapper}>
-            <MapboxGL.MapView
-                styleURL={'mapbox://styles/mapbox/light-v10'}
-                style={appMapStyle.map}
-            >
-                <MapboxGL.UserLocation
-                    ref={(location) => location}
-                />
-
-                {/*{renderAnnotations()}*/}
-
-                <MapboxGL.Camera followUserLocation={true} />
-            </MapboxGL.MapView>
+            <MapAttributeAndLogo/>
         </View>
-
-        <View style={appMapStyle.currentIcon}>
-            <CurrentLocationIcon />
-        </View>
-
-        <MapAttributeAndLogo />
-    </View>
-  );
+    );
 };
 
 export default AppMap;
