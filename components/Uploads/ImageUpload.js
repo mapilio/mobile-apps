@@ -4,28 +4,17 @@ import {globalStyles} from "../../styles/globalStyles";
 import {CustomText, CustomTextMedium} from "../../highordercomponents";
 import {userSequenceStyles} from "../../styles/userSequenceStyle";
 import {UploadImageCard} from "../index";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import database from "../../db";
+import {SEQUENCE_IMAGES} from "../../store/actionsName";
 
 const ImageUpload = ({ navigation, sequence_uuid }) => {
-
-  const [images, setImages] = useState([]);
-  const db = database.getConnection();
+  const dispatch = useDispatch();
+  const {sequenceImages} = useSelector((state) => state.uploadReducer)
 
   useEffect(() => {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `SELECT id, path
-         FROM captures
-         where sequence_uuid = '${sequence_uuid}'`,
-        [],
-        (_, result) => {
-          setImages(result.rows._array);
-        },
-        (_, error) => {
-          console.log(error)
-        }
-      )
+    database.query(`SELECT id, path FROM captures where sequence_uuid = '${sequence_uuid}'`, (_, result) => {
+      dispatch({type: SEQUENCE_IMAGES, payload: result.rows._array});
     })
   }, [sequence_uuid])
 
@@ -49,7 +38,7 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
         ]}
       >
 
-        {images.map((image) => (
+        {sequenceImages.map((image) => (
           <UploadImageCard
             key={image.id}
             path={image.path}

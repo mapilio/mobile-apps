@@ -73,6 +73,21 @@ class Database {
             );
         });
     }
+
+    query(query, callback) {
+        db.transaction((txn) => {
+            txn.executeSql(query, [], callback, (_, error) => {
+                toastGenerator(
+                  "Something went wrong.",
+                  require("./assets/images/Info.png"),
+                  errorAlertStyles.alertContainer,
+                  errorAlertStyles.alertTitle,
+                  errorAlertStyles.alertImage
+                );
+                console.log(error)
+            });
+        });
+    }
 }
 
 const database = new Database();

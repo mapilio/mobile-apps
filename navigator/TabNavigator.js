@@ -62,6 +62,7 @@ const CaptureTabBarButton = ({children, onPress}) => {
 const TabNavigator = ({navigation, route}) => {
     const {connection} = useSelector((state) => state.generalReducer);
     const [internetGoes, setInternetGoes] = useState(false)
+    const {uploadData} = useSelector((state) => state.uploadReducer)
 
     const connectionAlertHandler = (navigation) => {
         if (connection.connectionStatus && internetGoes) {
@@ -175,7 +176,8 @@ const TabNavigator = ({navigation, route}) => {
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    tabBarIcon: ({focused}) => (
+                    tabBarBadge: uploadData.length,
+                  tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}

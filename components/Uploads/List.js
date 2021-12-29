@@ -11,23 +11,16 @@ import {UPLOAD_DATA} from "../../store/actionsName";
 import * as FileSystem from "expo-file-system";
 
 const List = ({navigation}) => {
-
 	const {uploadData} = useSelector((status) => status.uploadReducer);
 	const {auth} = useSelector((status) => status.getTokenReducer);
-	const db = database.getConnection();
 	const dispatch = useDispatch();
 
 	const getData = () => {
-		db.transaction((txn) => {
-			txn.executeSql("SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",[], (_, result) => {
-					dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-				},
-				(_, error) => {
-					console.log(error)
-				}
-			);
-		});
+		database.query("SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid", (_, result) => {
+			dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+		})
 	}
+
 	useEffect(() => {
 		getData()
 	}, []);
@@ -40,20 +33,11 @@ const List = ({navigation}) => {
 				{
 					text: "Yes",
 					onPress: () => {
-						db.transaction((txn) => {
-							txn.executeSql(
-								`DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
-								[],
-								(_, result) => {
-									FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence_uuid}`).then(async () => {
-										await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + `${auth.id}`)
-									});
-									getData();
-								},
-								(_, error) => {
-									console.log(error)
-								}
-							)
+						database.query(`DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`, () => {
+							FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence_uuid}`).then(async () => {
+								await FileSystem.readDirectoryAsync(FileSystem.documentDirectory + `${auth.id}`)
+							});
+							getData();
 						})
 					}
 				},

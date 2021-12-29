@@ -15,7 +15,7 @@ const UserProfile = ({navigation}) => {
             url: `${process.env.API_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`
         })
             .then(res => {
-                setListData(res.data)
+                setListData(res.data !== null ? res.data : [])
             })
             .catch(err => {
                 console.log(err)
@@ -27,7 +27,7 @@ const UserProfile = ({navigation}) => {
         <View style={globalStyles.container}>
             <UserInfos/>
             <ScrollView>
-                {listData.map((data, index) => (
+                {!!listData.length && listData.map((data, index) => (
                     <ProfileFeed key={index} data={data} navigation={navigation}/>
                 ))}
             </ScrollView>
