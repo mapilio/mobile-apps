@@ -22,7 +22,10 @@ const UserSequence = ({route}) => {
             height: maximize ? screenHeight : screenHeight / 2,
           }}
         />
-        <View style={sequenceDetailStyles.resizeButton}>
+        <View style={[
+          sequenceDetailStyles.resizeButton,
+          maximize ? sequenceDetailStyles.maximizeButton : sequenceDetailStyles.minimizeButton
+        ]}>
           <TouchableOpacity onPress={() => setMaximize(!maximize)}>
             {
               maximize ? <Minimize /> : <Maximize />
