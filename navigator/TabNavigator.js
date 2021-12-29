@@ -194,7 +194,7 @@ const TabNavigator = ({navigation, route}) => {
                 component={UserSequence}
                 name={Routes.sequences}
                 options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.upload} />,
                     headerRight: () => <SequenceNavigatorRight/>,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,
@@ -209,7 +209,7 @@ const TabNavigator = ({navigation, route}) => {
                 component={UserSequenceDetail}
                 name={Routes.sequenceDetail}
                 options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.sequences} />,
                     headerRight: (props) => <DeleteNavigationRight {...props} />,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,

@@ -9,6 +9,7 @@ const SequenceNavigatorLeft = (props) => (
     {...props}
     activeOpacity={0.7}
     style={sequenceLeft.container}
+    onPress={() => props.navigation.navigate(props.backRoute)}
   >
     <ArrowLeft />
     <CustomText style={sequenceLeft.backTitle}>Back</CustomText>

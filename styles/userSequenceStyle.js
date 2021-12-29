@@ -67,7 +67,12 @@ export const sequenceDetailStyles = StyleSheet.create({
   resizeButton: {
     position: "absolute",
     right: RFValue(10),
+  },
+  minimizeButton: {
     bottom: RFValue(10)
+  },
+  maximizeButton: {
+    bottom: RFValue(30)
   }
 });
 

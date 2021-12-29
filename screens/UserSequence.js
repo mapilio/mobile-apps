@@ -17,7 +17,7 @@ const UserSequence = ({navigation, route}) => {
     image: require("../assets/images/imgIcon.png"),
     map: require("../assets/images/mapIcon.png"),
   }
-  const sequence_uuid = route.params.id;
+   const {activeSequence} = useSelector((state) => state.uploadReducer);
   const dispatch = useDispatch();
   const { selectedImages } = useSelector((state) => state.imagesReducer);
   const options = [
@@ -37,7 +37,7 @@ const UserSequence = ({navigation, route}) => {
               result.rows._array.map((file) => {
                 FileSystem.deleteAsync(file.path).then(() => {
                   database.query(`DELETE FROM captures WHERE id = ${file.id}`, () => {
-                    database.query(`SELECT * FROM captures WHERE sequence_uuid = '${sequence_uuid}'`, (_, result) => {
+                    database.query(`SELECT * FROM captures WHERE sequence_uuid = '${activeSequence}'`, (_, result) => {
                       dispatch({type: SEQUENCE_IMAGES, payload: result.rows._array});
                       dispatch({type: UPDATE_SELECTED_IMAGES, payload: selectedImages.filter((e) => e !== file.id)});
                       database.query("SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid", (_, result) => {
@@ -76,7 +76,7 @@ const UserSequence = ({navigation, route}) => {
         />
 
       </View>
-      {active === 'image' && <ImageUpload navigation={navigation} sequence_uuid={sequence_uuid}/>}
+      {active === 'image' && <ImageUpload navigation={navigation} sequence_uuid={activeSequence}/>}
     </ScrollView>
         {
           !!selectedImages.length &&
