@@ -4,11 +4,15 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {TouchableOpacity} from "react-native";
 import {useDispatch} from "react-redux";
 import {EXIT_USER} from "../../store/actionsName";
+import {Routes} from "../Routes";
 
-const ProfileNavigatorRight = () => {
+const ProfileNavigatorRight = ({navigation}) => {
     const dispatch = useDispatch()
 
-    const exitHandler = () => dispatch({type: EXIT_USER})
+    const exitHandler = () => {
+        dispatch({type: EXIT_USER})
+        navigation.navigate(Routes.map)
+    }
 
     return (<TouchableOpacity style={{flexDirection: "row", marginRight: RFValue(10), alignItems: "center"}}
                               onPress={exitHandler}>

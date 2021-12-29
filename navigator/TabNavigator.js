@@ -242,7 +242,7 @@ const TabNavigator = ({navigation, route}) => {
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    headerRight: () => <ProfileNavigatorRight/>,
+                    headerRight: () => <ProfileNavigatorRight navigation={navigation} />,
                     tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,

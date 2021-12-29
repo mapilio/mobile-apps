@@ -6,6 +6,7 @@ import {fetchHandler} from "../helper/helper";
 import {useSelector} from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {RFValue} from "react-native-responsive-fontsize";
+import {CustomTextMedium} from "../highordercomponents";
 
 const UserProfile = ({navigation}) => {
     const [listData, setListData] = useState([]);
@@ -38,10 +39,14 @@ const UserProfile = ({navigation}) => {
                             <View style={{height: RFValue(70), width: "100%", marginTop: RFValue(10)}}/>
                         </SkeletonPlaceholder>
                     )
-                    :
+                    : listData ?
                     listData.map((data, index) => (
                         <ProfileFeed key={index} data={data} navigation={navigation}/>
                     ))
+                        :
+                        <View style={{alignItems:"center",justifyContent:"center"}}>
+                            <CustomTextMedium style={{fontSize:RFValue(16),color:"#1AD971"}} >You have no feed.</CustomTextMedium>
+                        </View>
                 }
             </ScrollView>
         </View>
