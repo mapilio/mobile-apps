@@ -2,6 +2,7 @@ import {
   UPDATE_SELECTED_IMAGES,
   UPDATE_UPLOADED_IMAGES,
   UPDATE_ALL_SELECT,
+  UPDATE_CURRENT_SEQUENCE
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   ],
   selectedImages: [],
   allSelect: false,
+  currentSequence: {sequence_uuid:null,user_id:null}
 };
 
 const imagesReducer = (state = INITIAL_STATE, action) => {
@@ -37,6 +39,11 @@ const imagesReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         allSelect: action.payload,
+      };
+    case UPDATE_CURRENT_SEQUENCE:
+      return {
+        ...state,
+        currentSequence: action.payload,
       };
     default:
       return state;

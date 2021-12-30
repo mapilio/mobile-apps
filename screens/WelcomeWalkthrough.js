@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, View} from "react-native";
+import {Dimensions, View, Image} from "react-native";
 import Carousel, {Pagination} from "react-native-snap-carousel";
 import {StreetLevel, UploadCapture} from "../assets/svg/illustrations";
 import {Next, Prev, Start,} from "../components/Walkthrough/WelcomeWalkthrough";
@@ -22,15 +22,16 @@ const WelcomeWalkthrough = ({navigation}) => {
         },
         {
             svg: <UploadCapture/>,
-            title: "Lorem ipsum",
-            subTitle: "Upload Captures",
+            title: "Upload Captures",
+            subTitle: "Contribute",
             desc: "Upload the images you took to the mapilio system.",
         },
         {
-            svg: <UploadCapture/>,
-            title: "Lorem ipsum",
-            subTitle: "Upload Captures",
-            desc: "Upload the images you took to the mapilio system.",
+            svg: false,
+            png: require("../assets/images/EarnGifts.png"),
+            title: "Earn gifts",
+            subTitle: "Complete missions",
+            desc: "Get a chance to win gifts through the tasks you contribute.",
         },
     ]);
     const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const WelcomeWalkthrough = ({navigation}) => {
                 alignItems: "center",
             }}
         >
-            {item.svg}
+            {item.svg ? item.svg : <Image source={item.png} style={{width: RFValue(306), height: RFValue(271)}}/>}
             <View
                 style={{
                     paddingHorizontal: RFValue(45),

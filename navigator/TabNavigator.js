@@ -209,7 +209,7 @@ const TabNavigator = ({navigation, route}) => {
                 component={ProfileSequence}
                 name={Routes.profileSequence}
                 options={({navigation}) => ({
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.profile} />,
                     title: "Your uploads",
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
