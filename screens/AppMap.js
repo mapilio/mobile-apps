@@ -116,17 +116,23 @@ const AppMap = ({navigation}) => {
 
             <View style={appMapStyle.mapWrapper}>
                 <MapboxGL.MapView
-                    styleURL={'mapbox://styles/mapilio/ckwan9y0s0jgt15lczdcgio6l'}
+                    styleURL={'mapbox://styles/mapilio/ckxj47efr6tvl15ph40p8ldvx'}
                     style={appMapStyle.map}
                     ref={mapRef}
+                    onPress={async (feature,) => {
+                        const point = feature.geometry.coordinates
+                        const features = await mapRef.current.queryRenderedFeaturesAtPoint(point,[],["mapilio-road-points"])
+                        console.log(features.features[0].properties)
+                    }}
                 >
-                    <MapboxGL.UserLocation
-                        ref={(location) => location}
-                    />
+                    {/*<MapboxGL.UserLocation*/}
+                    {/*    ref={(location) => location}*/}
+                    {/*/>*/}
+
 
                     {/*{renderAnnotations()}*/}
 
-                    <MapboxGL.Camera followUserLocation={true}/>
+                    {/*<MapboxGL.Camera followUserLocation={true}/>*/}
                 </MapboxGL.MapView>
             </View>
 
