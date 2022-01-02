@@ -6,8 +6,6 @@ import {Alert, Linking, Platform, StatusBar} from "react-native";
 import {Camera as ExpoCamera} from "expo-camera";
 import * as Location from "expo-location";
 
-;
-
 const useFonts = async () =>
     await Font.loadAsync({
         Poppins: require("../assets/fonts/Poppins-Regular.ttf"),

@@ -10,7 +10,7 @@ export const appMapStyle = StyleSheet.create({
   map: {
     width: RFPercentage(100),
     height: RFPercentage(100),
-    paddingBottom: RFValue(69),
+    paddingBottom: RFValue(90),
   },
   searchIcon: {
     backgroundColor: 'rgba(50, 66, 91, 0.9)',
@@ -32,7 +32,7 @@ export const appMapStyle = StyleSheet.create({
     height: RFValue(26),
     position: 'absolute',
     zIndex: 5,
-    bottom: RFValue(80),
+    bottom: RFValue(130),
     left: RFValue(16),
     alignItems: 'center',
     justifyContent: 'center',

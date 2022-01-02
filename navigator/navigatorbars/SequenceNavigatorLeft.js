@@ -17,7 +17,7 @@ const SequenceNavigatorLeft = (props) => {
             activeOpacity={0.7}
             style={sequenceLeft.container}
             onPress={() => {
-                if (!route.params.base) {
+                if (!route?.params?.base) {
                     props.navigation.navigate(props.backRoute)
                 } else {
                     props.navigation.navigate(Routes.profileSequence, {

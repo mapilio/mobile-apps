@@ -23,7 +23,8 @@ export const marketplaceStyles = StyleSheet.create({
     borderBottomWidth: RFValue(1),
     borderBottomColor: '#CBD1D9',
     marginBottom: RFValue(7.5),
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent:"space-between"
   },
   panel: {
     flex: 1,
