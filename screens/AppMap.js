@@ -7,6 +7,7 @@ import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
 import MapAttributeAndLogo from "../components/Map/MapAttributeAndLogo";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
+import {RFValue} from "react-native-responsive-fontsize";
 
 MapboxGL.setAccessToken(
     "pk.your_mapbox_public_token"
@@ -101,7 +102,7 @@ const AppMap = ({navigation}) => {
 
     return (
         <View>
-            {showPano ?
+            {!showPano ?
                 <Pano hidePano={hidePano} minimizePano={runMinimizePano}/> :
                 <View style={appMapStyle.searchIcon}>
                     <SearchIcon width={19.55} height={19.55}/>
@@ -116,13 +117,14 @@ const AppMap = ({navigation}) => {
 
             <View style={appMapStyle.mapWrapper}>
                 <MapboxGL.MapView
-                    styleURL={'mapbox://styles/mapilio/ckwan9y0s0jgt15lczdcgio6l'}
+                    styleURL={'mapbox://styles/mapilio/ckxj47efr6tvl15ph40p8ldvx'}
                     style={appMapStyle.map}
                     ref={mapRef}
                 >
                     <MapboxGL.UserLocation
                         ref={(location) => location}
                     />
+
 
                     {/*{renderAnnotations()}*/}
 
@@ -133,8 +135,6 @@ const AppMap = ({navigation}) => {
             <View style={appMapStyle.currentIcon}>
                 <CurrentLocationIcon/>
             </View>
-
-            <MapAttributeAndLogo/>
         </View>
     );
 };

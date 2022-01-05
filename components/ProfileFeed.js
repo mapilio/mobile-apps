@@ -13,9 +13,7 @@ const ProfileFeed = ({navigation, data}) => {
         <TouchableOpacity
             activeOpacity={0.7}
             style={userFeedStyles.feedContainer}
-            onPress={() => {
-                navigation.navigate(Routes.profileSequence, {id: data.sequence_uuid, user_id: userInformation.id})
-            }}
+            onPress={() => navigation.navigate(Routes.profileSequence, {id: data.sequence_uuid, user_id: userInformation.id})}
         >
             <View style={userFeedStyles.viewStyle}>
                 <CustomTextBold style={userFeedStyles.dateStyle}>

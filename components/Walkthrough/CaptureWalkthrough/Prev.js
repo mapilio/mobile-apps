@@ -3,9 +3,9 @@ import {CustomText} from "../../../highordercomponents";
 import {walkthroughStyle} from "../../../styles/walkthroughStyle";
 import {TouchableOpacity} from "react-native";
 
-const Buttons = ({active}) => {
+const Buttons = ({active,carousel}) => {
   return (
-    <TouchableOpacity onPress={() => _carousel.snapToPrev()}>
+    <TouchableOpacity onPress={() => carousel.snapToPrev()}>
       <CustomText style={active === 0 ? walkthroughStyle.hide : walkthroughStyle.prevButton}>
         Prev
       </CustomText>

@@ -46,7 +46,7 @@ const UserNavigator = () => (
         <Stack.Screen
             component={UserSequence}
             name={Routes.sequences}
-            options={{
+            options={({navigation}) => ({
                 headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
                 headerRight: () => <SequenceNavigatorRight />,
                 title: null,
@@ -54,7 +54,7 @@ const UserNavigator = () => (
                 headerTitleStyle: navigatorStyle.headerTitleStyle,
                 headerTintColor: navigatorStyle.headerTintColor,
                 headerTitleAlign: navigatorStyle.headerTitleAlign,
-            }}
+            })}
         />
         <Stack.Screen
             component={AppCamera}

@@ -9,7 +9,11 @@ const FeedImageCard = (props) => {
         <TouchableOpacity
             activeOpacity={0.9}
             style={sequenceCardStyles.cardContainer}
-            onPress={() => props.navigation.navigate(Routes.sequenceDetail, {id: props.id, path: props.path})}
+            onPress={() => props.navigation.navigate(Routes.sequenceDetail, {
+                id: props.id,
+                path: props.path,
+                base: true,
+            })}
         >
             <View style={sequenceCardStyles.imagePosition}>
                 <Image
@@ -17,7 +21,7 @@ const FeedImageCard = (props) => {
                         height: RFValue(78),
                         borderRadius: 8,
                         maxWidth: "100%",
-                        width:120,
+                        width: 120,
                         uri: props.path
                     }}
                     resizeMode={"cover"}

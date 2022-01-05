@@ -15,7 +15,7 @@ const persistConfig = {
   key: "root",
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,
-  blacklist: ["cameraReducer"],
+  blacklist: ["cameraReducer","imagesReducer"],
   transform: [JSOGTransform],
 };
 

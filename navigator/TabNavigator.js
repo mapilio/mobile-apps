@@ -8,7 +8,8 @@ import {
     AppCamera,
     AppMap,
     Marketplace,
-    NoInternetAccess, ProfileSequence,
+    NoInternetAccess,
+    ProfileSequence,
     UserProfile,
     UserSequence,
     UserSequenceDetail,
@@ -177,7 +178,7 @@ const TabNavigator = ({navigation, route}) => {
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
                     tabBarBadge: uploadData.length,
-                  tabBarIcon: ({focused}) => (
+                    tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,
                             focused ? navigatorStyle.borderStyle : {}
@@ -194,7 +195,8 @@ const TabNavigator = ({navigation, route}) => {
                 component={UserSequence}
                 name={Routes.sequences}
                 options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.upload} />,
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation}
+                                                                  backRoute={Routes.upload}/>,
                     headerRight: () => <SequenceNavigatorRight/>,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,
@@ -209,7 +211,8 @@ const TabNavigator = ({navigation, route}) => {
                 component={ProfileSequence}
                 name={Routes.profileSequence}
                 options={({navigation}) => ({
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation}
+                                                                  backRoute={Routes.profile}/>,
                     title: "Your uploads",
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
@@ -223,7 +226,8 @@ const TabNavigator = ({navigation, route}) => {
                 component={UserSequenceDetail}
                 name={Routes.sequenceDetail}
                 options={{
-                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.sequences} />,
+                    headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation}
+                                                                  backRoute={Routes.sequences}/>,
                     headerRight: (props) => <DeleteNavigationRight {...props} />,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,
@@ -242,7 +246,7 @@ const TabNavigator = ({navigation, route}) => {
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
                     headerTitleAlign: navigatorStyle.headerTitleAlign,
-                    headerRight: () => <ProfileNavigatorRight navigation={navigation} />,
+                    headerRight: () => <ProfileNavigatorRight navigation={navigation}/>,
                     tabBarIcon: ({focused}) => (
                         <View style={[
                             navigatorStyle.tabIconStyle,

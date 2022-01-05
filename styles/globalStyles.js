@@ -6,6 +6,7 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
     paddingVertical: RFValue(35),
     paddingHorizontal: RFValue(16),
+    paddingBottom:RFValue(100)
   },
   screenTitle: {
     fontSize: RFValue(18),

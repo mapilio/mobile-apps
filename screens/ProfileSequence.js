@@ -3,11 +3,13 @@ import {ScrollView, View} from "react-native";
 import Map from "../assets/svg/illustrations/Map";
 import {userSequenceStyles} from "../styles/userSequenceStyle";
 import SwitchSelector from "react-native-switch-selector";
-import {fetchHandler} from "../helper/helper";
 import ListProfileUploads from "../components/ListProfileUploads";
+import {useDispatch} from "react-redux";
+import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
 
 const UserSequence = ({navigation, route}) => {
     const [active, setActive] = useState('image');
+    const dispatch = useDispatch()
     const icons = {
         image: require("../assets/images/imgIcon.png"),
         map: require("../assets/images/mapIcon.png"),
@@ -17,6 +19,13 @@ const UserSequence = ({navigation, route}) => {
         {label: "Image", value: "image", imageIcon: icons.image},
         {label: "Map", value: "map", imageIcon: icons.map},
     ];
+
+    useEffect(() => {
+        dispatch({
+            type: UPDATE_CURRENT_SEQUENCE,
+            payload: {sequence_uuid: route.params.id, user_id: route.params.user_id}
+        })
+    }, [])
 
     return (
         <View style={{flex: 1}}>
@@ -36,7 +45,8 @@ const UserSequence = ({navigation, route}) => {
                         height={32}
                     />
                 </View>
-                {active === 'image' && <ListProfileUploads navigation={navigation} sequence_uuid={route.params.id} user_id={route.params.user_id} />}
+                {active === 'image' && <ListProfileUploads navigation={navigation} sequence_uuid={route.params.id}
+                                                           user_id={route.params.user_id}/>}
             </ScrollView>
         </View>
     );
