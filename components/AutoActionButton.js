@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, TouchableOpacity, View} from "react-native";
+import {Dimensions, Platform, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {convertHexToRGBA} from "../helper/helper";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
@@ -62,7 +62,8 @@ const AutoActionButton = ({disabled, uuid,setTake}) => {
         const heading = await Location.getHeadingAsync()
         const imageUri = image.uri;
         if (!imageUri) return;
-        const newPath = FileSystem.documentDirectory + `${id}${uuid}${Math.random().toString()}.${"jpeg"}`;
+        const path =  Platform.OS === 'android' ? `/${id}/${uuid}/${Math.random().toString()}.${"jpeg"}` : `${id}${uuid}${Math.random().toString()}.${"jpeg"}` ;
+        const newPath = FileSystem.documentDirectory + path;
         await FileSystem.copyAsync({
             from: imageUri,
             to: newPath,
@@ -133,7 +134,7 @@ const AutoActionButton = ({disabled, uuid,setTake}) => {
                             Dimensions.get("window").width + Dimensions.get("window").height
                         ) / 2,
                 }}
-            ></View>
+            />
         </TouchableOpacity>
     );
 };

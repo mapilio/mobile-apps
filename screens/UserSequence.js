@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ScrollView, View, TouchableOpacity, Alert} from "react-native";
 import Map from "../assets/svg/illustrations/Map";
 import {ImageUpload} from "../components/Uploads";
@@ -10,16 +10,23 @@ import {useDispatch, useSelector} from "react-redux";
 import database from "../db";
 import * as FileSystem from "expo-file-system";
 import {SEQUENCE_IMAGES, UPDATE_SELECTED_IMAGES, UPLOAD_DATA} from "../store/actionsName";
+import MapboxGL from "@react-native-mapbox-gl/maps";
+import {appMapStyle} from "../styles/appMapStyle";
+import {Routes} from "../navigator/Routes";
 
 const UserSequence = ({navigation, route}) => {
   const [active, setActive] = useState('image');
+  const [coordinates, setCoordinates] = useState({});
+  const [points, setPoints] = useState({});
+  const [center, setCenter] = useState([]);
   const icons = {
     image: require("../assets/images/imgIcon.png"),
     map: require("../assets/images/mapIcon.png"),
   }
-   const {activeSequence} = useSelector((state) => state.uploadReducer);
+  const {activeSequence} = useSelector((state) => state.uploadReducer);
+  const {selectedImages} = useSelector((state) => state.imagesReducer);
   const dispatch = useDispatch();
-  const { selectedImages } = useSelector((state) => state.imagesReducer);
+
   const options = [
     {label: "Image", value: "image", imageIcon: icons.image},
     {label: "Map", value: "map", imageIcon: icons.map},
@@ -57,6 +64,43 @@ const UserSequence = ({navigation, route}) => {
     )
   }
 
+  const getCoordinates = () => {
+    database.query(`SELECT * FROM captures WHERE sequence_uuid='${activeSequence}'`, (_, result) => {
+      setCenter([JSON.parse(result.rows._array[0].location).coords.longitude, JSON.parse(result.rows._array[0].location).coords.latitude]);
+      let line = {type: "FeatureCollection"}
+      let points = {type: "FeatureCollection"}
+
+      line.features = [{
+        type: 'Feature',
+        geometry: {
+          type: "LineString",
+          coordinates: [],
+        },
+        properties: {}
+      }];
+      points.features = []
+      result.rows._array.map((item) => {
+        console.log()
+        points.features.push(
+          {
+            type: "Feature",
+            properties: {item},
+            geometry: {
+              type: "Point",
+              coordinates: [JSON.parse(item.location).coords.longitude, JSON.parse(item.location).coords.latitude],
+            },
+          })
+        line.features[0].geometry.coordinates.push([JSON.parse(item.location).coords.longitude, JSON.parse(item.location).coords.latitude]);
+      })
+      setCoordinates(line)
+      setPoints(points)
+    })
+  }
+
+  useEffect(() => {
+    getCoordinates();
+  }, [activeSequence]);
+
   return (
     <View style={{flex: 1}}>
     <ScrollView>
@@ -76,7 +120,46 @@ const UserSequence = ({navigation, route}) => {
         />
 
       </View>
-      {active === 'image' && <ImageUpload navigation={navigation} sequence_uuid={activeSequence}/>}
+      {active === 'image' ?
+        <ImageUpload navigation={navigation} sequence_uuid={activeSequence}/> :
+        <MapboxGL.MapView
+          styleURL={'mapbox://styles/mapbox/light-v10'}
+          style={appMapStyle.map}
+          attributionPosition={{bottom: 26, right: 8}}
+        >
+          <MapboxGL.Camera centerCoordinate={center} zoomLevel={20} />
+					{
+						!!Object.keys(points).length && (
+							<MapboxGL.ShapeSource
+								id={"pointsShape"}
+								shape={points}
+                onPress={(point) => {
+                  navigation.navigate(Routes.sequenceDetail, {
+                    id: point.features[0].properties.item.id,
+                    path: point.features[0].properties.item.path,
+                    coordinate: point.features[0].geometry.coordinates,
+                  })
+                }}
+              >
+                <MapboxGL.CircleLayer id={'circle'} style={{circleColor: '#1AD971', circleRadius: 5}} />
+                <MapboxGL.CircleLayer id={'circleBuffer'} style={{circleColor: '#1AD971', circleRadius: 8, circleOpacity: .3}} />
+              </MapboxGL.ShapeSource>
+						)
+					}
+
+          {
+            !!Object.keys(coordinates).length && (
+              <MapboxGL.ShapeSource
+                id={"marketplaceShape"}
+                shape={coordinates}
+              >
+                <MapboxGL.LineLayer id='linelayer1' style={{lineColor: '#1AD971', lineWidth: 3}} />
+              </MapboxGL.ShapeSource>
+            )
+          }
+
+        </MapboxGL.MapView>
+      }
     </ScrollView>
         {
           !!selectedImages.length &&
