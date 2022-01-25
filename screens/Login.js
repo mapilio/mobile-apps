@@ -40,7 +40,8 @@ const Login = ({ navigation }) => {
             Login to manage your account
           </CustomText>
         </View>
-        <SocialLogin />
+        {/* // TODO API DID NOT CONNECT */}
+        {/* <SocialLogin /> */}
         <Formik
           initialValues={{
             email: "",
