@@ -1,16 +1,14 @@
-import React, {useEffect, useRef, useState} from "react";
-import {TouchableOpacity, View} from "react-native";
-import {appMapStyle} from "../styles/appMapStyle";
-import MapboxGL, {Logger} from "@react-native-mapbox-gl/maps";
+import React, { useEffect, useRef, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
+import { appMapStyle } from "../styles/appMapStyle";
+import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
-import MapAttributeAndLogo from "../components/Map/MapAttributeAndLogo";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
-import {RFValue} from "react-native-responsive-fontsize";
 
 MapboxGL.setAccessToken(
-    "pk.your_mapbox_public_token"
+  "pk.your_mapbox_public_token"
 );
 
 // const coordinates = [
@@ -27,116 +25,163 @@ MapboxGL.setAccessToken(
 //     [-73.98571014404297, 40.748947591479705]
 // ]
 
-Logger.setLogCallback(log => {
-    const {message} = log;
+const styles = {
+  circles: {
+    circleRadius: [
+      "interpolate",
+      ["exponential", 1.75],
+      ["zoom"],
+      12,
+      2,
+      22,
+      180,
+    ],
 
-    // expected warnings - see https://github.com/mapbox/mapbox-gl-native/issues/15341#issuecomment-522889062
-    if (
-        message.match('Request failed due to a permanent error: Canceled') ||
-        message.match('Request failed due to a permanent error: Socket Closed')
-    ) {
-        return true;
-    }
-    return false;
+    circleColor: "#49b5f8",
+  },
+};
+
+Logger.setLogCallback((log) => {
+  const { message } = log;
+
+  // expected warnings - see https://github.com/mapbox/mapbox-gl-native/issues/15341#issuecomment-522889062
+  if (
+    message.match("Request failed due to a permanent error: Canceled") ||
+    message.match("Request failed due to a permanent error: Socket Closed")
+  ) {
+    return true;
+  }
+  return false;
 });
 
-const AppMap = ({navigation}) => {
-    const [showPano, setShowPano] = useState(true);
-    let mapRef = useRef()
-    const [minimizePano, setMinimizePano] = useState(false);
+const AppMap = ({ navigation }) => {
+  const [imageInformations, setImageInformations] = useState(null);
+  const [showPano, setShowPano] = useState(true);
+  let mapRef = useRef();
+  const [minimizePano, setMinimizePano] = useState(false);
 
-    const hidePano = () => {
-        setShowPano(false);
-    }
+  const hidePano = () => {
+    setShowPano(true);
+  };
 
-    const runMinimizePano = () => {
-        setMinimizePano(true);
-        hidePano();
-    }
+  const runMinimizePano = () => {
+    setMinimizePano(true);
+    hidePano();
+  };
 
-    const unminimizePano = () => {
-        setMinimizePano(false);
-        setShowPano(true);
-    }
+  const unminimizePano = () => {
+    setMinimizePano(false);
+    setShowPano(false);
+  };
 
-    // function renderAnnotation(counter) {
-    //     const id = `pointAnnotation${counter}`;
-    //     const coordinate = coordinates[counter];
-    //     const title = `Longitude: ${coordinates[counter][0]} Latitude: ${coordinates[counter][1]}`;
-    //
-    //     return (
-    //         <MapboxGL.PointAnnotation
-    //             key={id}
-    //             id={id}
-    //             title='Test'
-    //             coordinate={coordinate}>
-    //
-    //             {/*<Image*/}
-    //             {/*    source={require('../common/images/marker.png')}*/}
-    //             {/*    style={{*/}
-    //             {/*        flex: 1,*/}
-    //             {/*        resizeMode: 'contain',*/}
-    //             {/*        width: 25,*/}
-    //             {/*        height: 25*/}
-    //             {/*    }}/>*/}
-    //         </MapboxGL.PointAnnotation>
-    //     );
-    // }
-    //
-    // function renderAnnotations() {
-    //     const items = [];
-    //
-    //     for (let i = 0; i < coordinates.length; i++) {
-    //         items.push(renderAnnotation(i));
-    //     }
-    //
-    //     return items;
-    // }
+  // function renderAnnotation(counter) {
+  //     const id = `pointAnnotation${counter}`;
+  //     const coordinate = coordinates[counter];
+  //     const title = `Longitude: ${coordinates[counter][0]} Latitude: ${coordinates[counter][1]}`;
+  //
+  //     return (
+  //         <MapboxGL.PointAnnotation
+  //             key={id}
+  //             id={id}
+  //             title='Test'
+  //             coordinate={coordinate}>
+  //
+  //             {/*<Image*/}
+  //             {/*    source={require('../common/images/marker.png')}*/}
+  //             {/*    style={{*/}
+  //             {/*        flex: 1,*/}
+  //             {/*        resizeMode: 'contain',*/}
+  //             {/*        width: 25,*/}
+  //             {/*        height: 25*/}
+  //             {/*    }}/>*/}
+  //         </MapboxGL.PointAnnotation>
+  //     );
+  // }
+  //
+  // function renderAnnotations() {
+  //     const items = [];
+  //
+  //     for (let i = 0; i < coordinates.length; i++) {
+  //         items.push(renderAnnotation(i));
+  //     }
+  //
+  //     return items;
+  // }
 
-    useEffect(() => {
-        if (mapRef) {
-            mapRef.current.setSourceVisibility(false, "composite", "mapilio_objects")
-        }
-    }, [mapRef]);
+  const touchPoint = (e) => {
+    const pointFeatures = e.features[0].properties;
+    setImageInformations({
+      sequenceID: pointFeatures.SEQUENCE_UUID,
+      date: pointFeatures.created_at,
+      user: pointFeatures.created_by_id,
+      pointID: pointFeatures.id,
+      heading: pointFeatures.heading,
+      image: `https://cdn.mapilio.com/im/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
+    });
+    setShowPano(false);
+  };
 
-
-    return (
-        <View>
-            {!showPano ?
-                <Pano hidePano={hidePano} minimizePano={runMinimizePano}/> :
-                <View style={appMapStyle.searchIcon}>
-                    <SearchIcon width={19.55} height={19.55}/>
-                </View>
-            }
-
-            {minimizePano ?
-                <TouchableOpacity style={appMapStyle.minimizePano} onPress={unminimizePano}>
-                    <PanoMinimize/>
-                </TouchableOpacity> : null
-            }
-
-            <View style={appMapStyle.mapWrapper}>
-                <MapboxGL.MapView
-                    styleURL={'mapbox://styles/mapilio/ckxj47efr6tvl15ph40p8ldvx'}
-                    style={appMapStyle.map}
-                    ref={mapRef}
-                >
-                    <MapboxGL.UserLocation
-                        ref={(location) => location}
-                    />
-
-
-                    {/*{renderAnnotations()}*/}
-
-                    <MapboxGL.Camera followUserLocation={true}/>
-                </MapboxGL.MapView>
-            </View>
-
-            <View style={appMapStyle.currentIcon}>
-                <CurrentLocationIcon/>
-            </View>
+  return (
+    <View>
+      {!showPano ? (
+        <Pano
+          hidePano={hidePano}
+          minimizePano={runMinimizePano}
+          imageInformation={imageInformations}
+        />
+      ) : (
+        <View style={appMapStyle.searchIcon}>
+          <SearchIcon width={19.55} height={19.55} />
         </View>
-    );
+      )}
+
+      {showPano && imageInformations ? (
+        <TouchableOpacity
+          style={appMapStyle.minimizePano}
+          onPress={unminimizePano}
+        >
+          <PanoMinimize />
+        </TouchableOpacity>
+      ) : null}
+
+      <View style={appMapStyle.mapWrapper}>
+        <MapboxGL.MapView
+          styleURL={MapboxGL.StyleURL.Light}
+          style={appMapStyle.map}
+          ref={mapRef}
+        >
+          <MapboxGL.UserLocation
+            ref={(location) => location}
+            showsUserHeadingIndicator
+          />
+
+          <MapboxGL.VectorSource
+            id="road-points"
+            url={"mapbox://mapilio.ckyo3y4wk0nc321ofadzu1hu0-2hg3c"}
+            onPress={touchPoint}
+          >
+            <MapboxGL.CircleLayer
+              id="mapilio_point_v1"
+              sourceLayerID="mapilio_point_v1"
+              style={styles.circles}
+            />
+          </MapboxGL.VectorSource>
+
+          {/*{renderAnnotations()}*/}
+
+          <MapboxGL.Camera
+            followUserLocation={true}
+            centerCoordinate={[30.8, 41.015137]}
+            zoomLevel={2}
+          />
+        </MapboxGL.MapView>
+      </View>
+
+      <View style={[appMapStyle.currentIcon]}>
+        <CurrentLocationIcon />
+      </View>
+    </View>
+  );
 };
 
 export default AppMap;
