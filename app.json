@@ -4,7 +4,8 @@
     "slug": "mapilio-platform-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/playstore.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash/mapilio_splash.png",
       "backgroundColor": "#213348",
@@ -13,17 +14,15 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true,
-      "bundleIdentifier": "com.mapilio",
+      "bundleIdentifier": "com.mapilio"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/playstore.png",
         "backgroundColor": "#FFFFFF"
       },
       "splash": {
@@ -40,8 +39,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "@react-native-mapbox-gl/maps"
-    ]
+    "plugins": ["@react-native-mapbox-gl/maps"]
   }
 }

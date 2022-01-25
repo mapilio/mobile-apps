@@ -62,7 +62,6 @@ const ForgotPassword = ({navigation}) => {
       <View style={{
         marginBottom: RFValue(30),
       }}>
-        <Text style={loginStyles.secondaryText}>RECOVER ACCOUNT</Text>
         <Text style={loginStyles.primaryText}>Forgot your password?</Text>
         <Text style={loginStyles.secondaryText}>Enter your email address below and we'll
           get you back on track.</Text>

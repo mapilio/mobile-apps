@@ -31,12 +31,11 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
-      <ScrollView>
+      <View>
         <View style={loginStyles.logo}>
           <MapilioLogo width={RFValue(150)} height={RFValue(50)} />
         </View>
         <View style={{ marginBottom: RFValue(30) }}>
-          <CustomText style={loginStyles.secondaryText}>LOGIN</CustomText>
           <CustomText style={loginStyles.headerText}>
             Login to manage your account
           </CustomText>
@@ -150,7 +149,7 @@ const Login = ({ navigation }) => {
             </>
           )}
         </Formik>
-      </ScrollView>
+      </View>
     </View>
   );
 };
