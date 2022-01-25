@@ -46,7 +46,7 @@ const SearchbarSwipe = ({ setFly }) => {
             errorAlertStyles.alertContainer,
             errorAlertStyles.alertTitle,
             errorAlertStyles.alertImage
-          );r
+          );
         });
     } else {
       setLoading(false);

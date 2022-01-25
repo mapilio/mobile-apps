@@ -63,7 +63,7 @@ const AppMap = ({ navigation }) => {
   const [imageInformations, setImageInformations] = useState(null);
   const [openSearchbar, setOpenSearchbar] = useState(false);
   const [minimizePano, setMinimizePano] = useState(false);
-  const [flyLocation, setFlyLocation] = useState([52.205276, 0.119167]);
+  const [flyLocation, setFlyLocation] = useState([40.879848, 29.257639]);
   const [showPano, setShowPano] = useState(true);
   let mapRef = useRef();
 
