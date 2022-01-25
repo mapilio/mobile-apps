@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Dimensions, TouchableOpacity, View } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
+import SlidingUpPanel from "rn-sliding-up-panel";
+import { RFValue } from "react-native-responsive-fontsize";
+import { List } from "../components/Marketplace";
+import SearhcbarSwipe from "../components/SearchbarSwipe";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -41,6 +45,8 @@ const styles = {
   },
 };
 
+const { height } = Dimensions.get("window");
+
 Logger.setLogCallback((log) => {
   const { message } = log;
 
@@ -59,6 +65,7 @@ const AppMap = ({ navigation }) => {
   const [showPano, setShowPano] = useState(true);
   let mapRef = useRef();
   const [minimizePano, setMinimizePano] = useState(false);
+  const [value, setInputValue] = useState("");
 
   const hidePano = () => {
     setShowPano(true);
@@ -134,7 +141,21 @@ const AppMap = ({ navigation }) => {
           <SearchIcon width={19.55} height={19.55} />
         </View>
       )}
-
+      <SlidingUpPanel
+        draggableRange={{ top: height, bottom: RFValue(60) }}
+        showBackdrop={false}
+        containerStyle={{
+          marginBottom:
+            Platform.OS === "android"
+              ? RFValue(63)
+              : Dimensions.get("window").height > 775
+              ? RFValue(83)
+              : RFValue(63),
+          zIndex: 6,
+        }}
+      >
+        <SearhcbarSwipe />
+      </SlidingUpPanel>
       {showPano && imageInformations ? (
         <TouchableOpacity
           style={appMapStyle.minimizePano}
