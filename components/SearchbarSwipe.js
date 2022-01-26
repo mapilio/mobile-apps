@@ -21,11 +21,11 @@ import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
 import { ActivityIndicator } from "react-native-paper";
 
-const SearchbarSwipe = () => {
+const SearchbarSwipe = ({ setFly }) => {
   const [value, setInputValue] = useState("");
   const [valueAPI, setAPIValue] = useState("");
-  const [loading, setLoading] = useState(false);
   const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const ourRequest = axios.CancelToken.source();
@@ -57,6 +57,10 @@ const SearchbarSwipe = () => {
       ourRequest.cancel();
     };
   }, [valueAPI]);
+
+  const flyToCoordinate = (coord) => {
+    setFly(coord);
+  };
 
   return (
     <View style={marketplaceStyles.container}>
@@ -133,6 +137,7 @@ const SearchbarSwipe = () => {
                 <TouchableOpacity
                   key={index}
                   id={index}
+                  onPress={(r) => flyToCoordinate(item.geometry.coordinates)}
                   style={{
                     borderBottomColor: convertHexToRGBA("#CBD1D9", 20),
                     borderBottomWidth: 1,
