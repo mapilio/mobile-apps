@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Animated,
   Dimensions,
-  Image,
+  Touchable,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
@@ -67,14 +67,15 @@ Logger.setLogCallback((log) => {
 
 const AppMap = ({ navigation }) => {
   const [imageInformations, setImageInformations] = useState(null);
+  const [openSearchbar, setOpenSearchbar] = useState(false);
   const [minimizePano, setMinimizePano] = useState(false);
-  const [showPano, setShowPano] = useState(true);
-  const [value, setInputValue] = useState("");
-  const [hide, setHide] = useState(false);
   const [clickedCoord, setClickedCoord] = useState(null);
-  let mapRef = useRef();
-  let panelRef = useRef();
+  const [showPano, setShowPano] = useState(true);
+  const [flyLocation, setFlyLocation] = useState([30.8, 41.015137]);
+  const [hide, setHide] = useState(false);
   let cameraRef = useRef();
+  let panelRef = useRef();
+  let mapRef = useRef();
 
   const hidePano = () => {
     setShowPano(true);
@@ -90,6 +91,12 @@ const AppMap = ({ navigation }) => {
     setMinimizePano(false);
     setShowPano(false);
   };
+
+  useEffect(() => {
+    if (openSearchbar) {
+      panelRef.current.show(400);
+    }
+  }, [openSearchbar]);
 
   // function renderAnnotation(counter) {
   //     const id = `pointAnnotation${counter}`;
@@ -157,26 +164,31 @@ const AppMap = ({ navigation }) => {
           imageInformation={imageInformations}
         />
       ) : (
-        <View style={appMapStyle.searchIcon}>
+        <View
+          onStartShouldSetResponder={() => setOpenSearchbar((state) => !state)}
+          style={appMapStyle.searchIcon}
+        >
           <SearchIcon width={19.55} height={19.55} />
         </View>
       )}
-      <SlidingUpPanel
-        draggableRange={{ top: height, bottom: RFValue(60) }}
-        showBackdrop={false}
-        ref={panelRef}
-        containerStyle={{
-          marginBottom:
-            Platform.OS === "android"
-              ? RFValue(63)
-              : Dimensions.get("window").height > 775
-              ? RFValue(83)
-              : RFValue(63),
-          zIndex: 6,
-        }}
-      >
-        <SearhcbarSwipe />
-      </SlidingUpPanel>
+      {openSearchbar ? (
+        <SlidingUpPanel
+          draggableRange={{ top: height, bottom: RFValue(60) }}
+          showBackdrop={false}
+          ref={panelRef}
+          containerStyle={{
+            marginBottom:
+              Platform.OS === "android"
+                ? RFValue(63)
+                : Dimensions.get("window").height > 775
+                ? RFValue(83)
+                : RFValue(63),
+            zIndex: 6,
+          }}
+        >
+          <SearhcbarSwipe setFly={setFlyLocation} panelRef={panelRef} />
+        </SlidingUpPanel>
+      ) : null}
       {showPano && imageInformations ? (
         <TouchableOpacity
           style={appMapStyle.minimizePano}
@@ -234,7 +246,7 @@ const AppMap = ({ navigation }) => {
 
           <MapboxGL.Camera
             ref={cameraRef}
-            centerCoordinate={[30.8, 41.015137]}
+            centerCoordinate={flyLocation}
             maxZoomLevel={16}
             zoomLevel={8}
           />

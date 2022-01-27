@@ -59,7 +59,7 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
           : imageList.map((image) => (
               <FeedImageCard
                 key={image.id}
-                path={`https://image.mapilio.com/cdn/?key=${image.img_code}==/${image.filename}`}
+                path={`https://cdn.mapilio.com/im/${image.img_code}/${image.filename}/100`}
                 id={image.id}
                 navigation={navigation}
               />
