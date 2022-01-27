@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import {
+  Animated,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
@@ -8,7 +14,6 @@ import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
-import { List } from "../components/Marketplace";
 import SearhcbarSwipe from "../components/SearchbarSwipe";
 
 MapboxGL.setAccessToken(
@@ -62,16 +67,21 @@ Logger.setLogCallback((log) => {
 
 const AppMap = ({ navigation }) => {
   const [imageInformations, setImageInformations] = useState(null);
-  const [showPano, setShowPano] = useState(true);
-  let mapRef = useRef();
   const [minimizePano, setMinimizePano] = useState(false);
+  const [showPano, setShowPano] = useState(true);
   const [value, setInputValue] = useState("");
+  const [hide, setHide] = useState(false);
+  const [clickedCoord, setClickedCoord] = useState(null);
+  let mapRef = useRef();
+  let panelRef = useRef();
+  let cameraRef = useRef();
 
   const hidePano = () => {
     setShowPano(true);
   };
 
   const runMinimizePano = () => {
+    setClickedCoord(null);
     setMinimizePano(true);
     hidePano();
   };
@@ -117,6 +127,7 @@ const AppMap = ({ navigation }) => {
 
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
+    setClickedCoord([e.coordinates.longitude, e.coordinates.latitude]);
     setImageInformations({
       sequenceID: pointFeatures.SEQUENCE_UUID,
       date: pointFeatures.created_at,
@@ -126,6 +137,15 @@ const AppMap = ({ navigation }) => {
       image: `https://cdn.mapilio.com/im/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
     });
     setShowPano(false);
+  };
+
+  const willHide = async (e) => {
+    const zoom = await mapRef.current.getZoom();
+    if (Math.round(zoom) < 10) {
+      setHide(true);
+    } else {
+      setHide(false);
+    }
   };
 
   return (
@@ -144,6 +164,7 @@ const AppMap = ({ navigation }) => {
       <SlidingUpPanel
         draggableRange={{ top: height, bottom: RFValue(60) }}
         showBackdrop={false}
+        ref={panelRef}
         containerStyle={{
           marginBottom:
             Platform.OS === "android"
@@ -169,6 +190,7 @@ const AppMap = ({ navigation }) => {
         <MapboxGL.MapView
           styleURL={MapboxGL.StyleURL.Light}
           style={appMapStyle.map}
+          onRegionDidChange={willHide}
           ref={mapRef}
         >
           <MapboxGL.UserLocation
@@ -185,15 +207,36 @@ const AppMap = ({ navigation }) => {
               id="mapilio_point_v1"
               sourceLayerID="mapilio_point_v1"
               style={styles.circles}
+              layerIndex={60}
             />
           </MapboxGL.VectorSource>
+
+          {clickedCoord && !hide ? (
+            <MapboxGL.PointAnnotation
+              key="pointAnnotation"
+              id="pointAnnotation"
+              coordinate={clickedCoord}
+              style={{ zIndex: 1000 }}
+            >
+              <Image
+                source={require("../assets/images/heding.png")}
+                resizeMode={"cover"}
+                style={{
+                  transform: [{ rotate: `${imageInformations.heading}deg` }],
+                }}
+                width={80}
+                height={80}
+              />
+            </MapboxGL.PointAnnotation>
+          ) : null}
 
           {/*{renderAnnotations()}*/}
 
           <MapboxGL.Camera
-            followUserLocation={true}
+            ref={cameraRef}
             centerCoordinate={[30.8, 41.015137]}
-            zoomLevel={2}
+            maxZoomLevel={16}
+            zoomLevel={8}
           />
         </MapboxGL.MapView>
       </View>
