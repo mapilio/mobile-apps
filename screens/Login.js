@@ -29,6 +29,7 @@ const Login = ({ navigation }) => {
     password: yup.string().required("Password is required"),
   });
 
+
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
       <View>
@@ -135,7 +136,7 @@ const Login = ({ navigation }) => {
                   Log In
                 </CustomText>
               </Pressable>
-              <Pressable onPress={() => navigation.navigate(Routes.map)}>
+              <Pressable onPress={() => navigation.navigate(Routes.nonUserTab)}>
                 <CustomText
                   style={{
                     fontSize: RFValue(14),

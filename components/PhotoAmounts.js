@@ -21,7 +21,7 @@ const PhotoAmounts = () => {
       setMemory(freeDiskStorage);
     });
   }, []);
-  
+
   useEffect(() => {
     setAvailableStorage(parseInt(phoneMemory / imageSize));
   }, [phoneMemory, imageSize]);
