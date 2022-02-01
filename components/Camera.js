@@ -181,7 +181,7 @@ const Camera = ({ navigation, takeNow }) => {
         distanceInterval: 0,
       },
       (location) => {
-        if (location.mocked) {
+        if (location.mocked && mockedAlert === null) {
           setMockedAlert({
             svg: <MockedIcon />,
             title: "Fake GPS",
@@ -193,7 +193,7 @@ const Camera = ({ navigation, takeNow }) => {
           setMockedAlert(null);
           dispatch({ type: UPDATE_MOCKED_STATUS, payload: false });
         }
-        if (Math.round(location.coords.speed) >= 70) {
+        if (Math.round(location.coords.speed) >= 70 && speedAlert === null) {
           dispatch({ type: UPDATE_HIGHSPEED_STATUS, payload: true });
           setSpeedAlert({
             svg: <HighSpeedIcon />,
@@ -225,6 +225,10 @@ const Camera = ({ navigation, takeNow }) => {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: true });
       setGPSAlert(null);
     }
+  };
+
+  const _removeLocationProvider = async () => {
+    await location?.remove();
   };
 
   useEffect(() => {
@@ -267,10 +271,6 @@ const Camera = ({ navigation, takeNow }) => {
       dispatch({ type: UPDATE_START_ACCURACY, payload: true });
       setGPSStartAlert(null);
     }
-  };
-
-  const _removeLocationProvider = async () => {
-    await location.remove();
   };
 
   const onCameraReady = () => {
