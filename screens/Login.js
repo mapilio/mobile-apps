@@ -29,6 +29,7 @@ const Login = ({ navigation }) => {
     password: yup.string().required("Password is required"),
   });
 
+
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
       <View>
@@ -117,7 +118,6 @@ const Login = ({ navigation }) => {
                     </CustomText>
                   )}
                 </View>
-
                 <CustomText style={loginStyles.smallText}>
                   Don't have an account yet?
                   <CustomText
@@ -127,7 +127,6 @@ const Login = ({ navigation }) => {
                     {" "}
                     Sign up here
                   </CustomText>
-                  .
                 </CustomText>
                 <Pressable style={loginStyles.button} onPress={handleSubmit}>
                   <CustomText
@@ -136,7 +135,7 @@ const Login = ({ navigation }) => {
                     Log In
                   </CustomText>
                 </Pressable>
-                <Pressable onPress={() => navigation.navigate(Routes.map)}>
+                <Pressable onPress={() => navigation.navigate(Routes.nonUserTab)}>
                   <CustomText
                     style={{
                       fontSize: RFValue(14),

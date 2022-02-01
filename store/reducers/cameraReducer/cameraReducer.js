@@ -8,6 +8,8 @@ import {
   UPDATE_PHOTO_AMOUNT,
   UPDATE_BATTERY_LEVEL,
   UPDATE_START_ACCURACY,
+  UPDATE_MOCKED_STATUS,
+  UPDATE_HIGHSPEED_STATUS,
   CAMERA_REDUCER_RESET,
 } from "../../actionsName";
 
@@ -21,6 +23,8 @@ const INITIAL_STATE = {
   phoneMemory: 0,
   photoAmount: 0,
   batteryLevel: 100,
+  mocked: false,
+  highSpeed: false,
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -74,6 +78,16 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         GPSStartAccuracy: action.payload,
+      };
+    case UPDATE_HIGHSPEED_STATUS:
+      return {
+        ...state,
+        highSpeed: action.payload,
+      };
+    case UPDATE_MOCKED_STATUS:
+      return {
+        ...state,
+        mocked: action.payload,
       };
     case CAMERA_REDUCER_RESET:
       return {
