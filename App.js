@@ -1,66 +1,66 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import AppLoading from "expo-app-loading";
-import {NavigationContainer} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./navigator/MainNavigator";
-import {AppState, StatusBar} from "react-native";
-import {persistor, store} from "./store/store";
-import {Provider} from "react-redux";
-import {permissionHandler, useFonts} from "./helper/helper";
-import {PersistGate} from "redux-persist/integration/react";
-import {NotifierWrapper} from "react-native-notifier";
-import {SafeAreaProvider} from "react-native-safe-area-context/src/SafeAreaContext";
+import { AppState, StatusBar } from "react-native";
+import { persistor, store } from "./store/store";
+import { Provider } from "react-redux";
+import { permissionHandler, useFonts } from "./helper/helper";
+import { PersistGate } from "redux-persist/integration/react";
+import { NotifierWrapper } from "react-native-notifier";
+import { SafeAreaProvider } from "react-native-safe-area-context/src/SafeAreaContext";
 
 function App() {
-    const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
-    const loadFonts = async () => {
-        await useFonts();
-    };
+  const loadFonts = async () => {
+    await useFonts();
+  };
 
-    useEffect(() => {
-        if (isReady) {
-            StatusBar.setBarStyle("light-content", true);
-        }
-    }, [isReady]);
-
-    const setReady = async () => {
-        await permissionHandler()
-        openApp()
-        AppState.addEventListener("change", async (status) => {
-            if (status === "active" && !isReady) {
-                await permissionHandler()
-                openApp()
-            } else {
-                openApp()
-            }
-        })
+  useEffect(() => {
+    if (isReady) {
+      StatusBar.setBarStyle("light-content", true);
     }
+  }, [isReady]);
 
-    const openApp = () => setIsReady(true)
+  const setReady = async () => {
+    await permissionHandler();
+    openApp();
+    AppState.addEventListener("change", async (status) => {
+      if (status === "active" && !isReady) {
+        await permissionHandler();
+        openApp();
+      } else {
+        openApp();
+      }
+    });
+  };
 
-    if (!isReady) {
-        return (
-            <AppLoading
-                startAsync={loadFonts}
-                onFinish={setReady}
-                onError={(error) => console.error(error)}
-            />
-        );
-    }
+  const openApp = () => setIsReady(true);
 
+  if (!isReady) {
     return (
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <NavigationContainer>
-                    <NotifierWrapper>
-                        <SafeAreaProvider>
-                            <MainNavigator/>
-                        </SafeAreaProvider>
-                    </NotifierWrapper>
-                </NavigationContainer>
-            </PersistGate>
-        </Provider>
+      <AppLoading
+        startAsync={loadFonts}
+        onFinish={setReady}
+        onError={(error) => console.error(error)}
+      />
     );
+  }
+
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <NotifierWrapper>
+            <SafeAreaProvider>
+              <MainNavigator />
+            </SafeAreaProvider>
+          </NotifierWrapper>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
+  );
 }
 
 export default App;

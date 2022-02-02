@@ -6,7 +6,6 @@ import { UPDATE_DISTANCE_BETWEEN } from "../store/actionsName";
 import { InfoIcon, SettingsIcon } from "../assets/svg/illustrations";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
-import * as ScreenOrientation from "expo-screen-orientation";
 import { useDispatch } from "react-redux";
 
 const GeneralSettings = ({ navigation }) => {

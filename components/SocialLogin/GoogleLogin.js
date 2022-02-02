@@ -20,12 +20,9 @@ const GoogleLogin = ({ navigation }) => {
   const dispatch = useDispatch();
   const [stateKey, setStateKey] = useState("");
   const [request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId:
-      "563319300844-3m356468nbkj40ke4ct2offeufm1k3u4.apps.googleusercontent.com",
-    androidClientId:
-      "563319300844-27h266rqlr510tte0tbhfqu3c0l3cbjp.apps.googleusercontent.com",
-    expoClientId:
-      "563319300844-27h266rqlr510tte0tbhfqu3c0l3cbjp.apps.googleusercontent.com",
+    iosClientId: process.env.GOOGLE_IOS_CLIENT_ID,
+    androidClientId: process.env.GOOGLE_ANDROID_CLIENT_ID,
+    expoClientId: process.env.GOOGLE_ANDROID_CLIENT_ID,
     scopes: ["profile", "email"],
     permissions: ["public_profile", "email"],
   });
@@ -47,13 +44,12 @@ const GoogleLogin = ({ navigation }) => {
     if (response?.type === "success") {
       const { authentication } = response;
       axios
-        .get(
-          "https://www.googleapis.com/oauth2/v3/userinfo?access_token=" +
-            authentication.accessToken
-        )
+        .get(process.env.GOOGLE_REQUEST_URL + authentication.accessToken)
         .then((res) => {
           loginToMapilio(res.data);
         });
+    } else {
+      setLoading(false);
     }
   }, [response]);
 

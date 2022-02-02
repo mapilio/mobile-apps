@@ -28,7 +28,7 @@ const FacebookLogin = ({ navigation }) => {
   const login = async () => {
     try {
       await Facebook.initializeAsync({
-        appId: `254795350007625`,
+        appId: process.env.FACEBOOK_APP_ID,
       });
       const { type, token, expirationDate, permissions, declinedPermissions } =
         await Facebook.logInWithReadPermissionsAsync({
@@ -36,7 +36,7 @@ const FacebookLogin = ({ navigation }) => {
         });
       if (type === "success") {
         const response = await fetch(
-          `https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`
+          `${process.env.FACEBOOK_REQUEST_URL}${token}`
         );
         const json = await response.json();
         if (!json.email) {

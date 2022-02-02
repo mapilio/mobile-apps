@@ -25,6 +25,7 @@ export const panoStyle = {
   minimize: {
     backgroundColor: 'rgba(31,48,76,0.75)',
     padding: RFValue(4.5),
+    marginRight:RFValue(30),
     borderRadius: RFValue(4),
   },
   playWrapper: {
@@ -43,7 +44,6 @@ export const panoStyle = {
   imageStyle: {
     width: RFValue(Dimensions.get('window').width),
     resizeMode: 'cover',
-    height: RFPercentage( 45),
     aspectRatio: 3/2,
   },
   bottomTab: {

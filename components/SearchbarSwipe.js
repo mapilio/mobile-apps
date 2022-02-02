@@ -33,7 +33,7 @@ const SearchbarSwipe = ({ setFly, panelRef }) => {
 
     if (valueAPI.length !== 0) {
       fetchHandler({
-        url: `https://photon.komoot.io/api/?q=${valueAPI}`,
+        url: `${process.env.SEARCH_API}${valueAPI}`,
       })
         .then((res) => {
           setLocations(res.features);

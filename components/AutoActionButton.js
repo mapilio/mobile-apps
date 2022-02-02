@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Dimensions, Platform, TouchableOpacity, View} from "react-native";
+import { Dimensions, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
@@ -13,7 +13,7 @@ import {
   UPDATE_PHOTO_AMOUNT,
 } from "../store/actionsName";
 
-const AutoActionButton = ({ disabled, uuid, setTake }) => {
+const AutoActionButton = ({ disabled, uuid }) => {
   const [autoCapture, setAutoCapture] = useState(false);
   const [photoAmount, setPhotoAmount] = useState(0);
   const { cameraStatus, camera } = useSelector(
@@ -23,6 +23,7 @@ const AutoActionButton = ({ disabled, uuid, setTake }) => {
   const { selectedProject, distanceBetween } = useSelector(
     (status) => status.settingsReducer
   );
+  let photo = 0;
   const dispatch = useDispatch();
 
   const playHandler = () => {
@@ -65,12 +66,12 @@ const AutoActionButton = ({ disabled, uuid, setTake }) => {
     if (cameraStatus !== "READY") return;
     const options = { quality: 0.6, base64: false, exif: true };
     const image = await camera.takePictureAsync(options);
-    setTake(true);
     const heading = await Location.getHeadingAsync();
     const imageUri = image.uri;
     if (!imageUri) return;
-    const path =  Platform.OS === 'android' ? `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}` : `${id}${uuid}${Math.random().toString()}.${"jpeg"}` ;
-    const newPath = FileSystem.documentDirectory + path;
+    const newPath =
+      FileSystem.documentDirectory +
+      `${id}${uuid}${Math.random().toString()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,
@@ -90,8 +91,7 @@ const AutoActionButton = ({ disabled, uuid, setTake }) => {
       uuid,
       path: newPath,
     });
-
-    setPhotoAmount((amount) => amount + 1);
+    setPhotoAmount((state) => state++);
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
     const fileInfo = await FileSystem.getInfoAsync(newPath);
     dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
@@ -141,7 +141,7 @@ const AutoActionButton = ({ disabled, uuid, setTake }) => {
               Dimensions.get("window").width + Dimensions.get("window").height
             ) / 2,
         }}
-      />
+      ></View>
     </TouchableOpacity>
   );
 };

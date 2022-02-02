@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, View, Text, TouchableOpacity, Pressable } from "react-native";
 import { panoStyle } from "../../styles/panoStyle";
 import ReportIcon from "../../assets/svg/illustrations/ReportIcon";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 import SwitchMapPano from "../../assets/svg/illustrations/SwitchMapPano";
-import PlayArrowLeft from "../../assets/svg/illustrations/PlayArrowLeft";
-import PanoPlayBtn from "../../assets/svg/illustrations/PanoPlayBtn";
-import PlayArrowRight from "../../assets/svg/illustrations/PlayArrowRight";
 import MinimizePano from "../../assets/svg/illustrations/MinimizePano";
-import { RFValue } from "react-native-responsive-fontsize";
 import ZoomIn from "../../assets/svg/illustrations/ZoomIn";
 import ZoomOut from "../../assets/svg/illustrations/ZoomOut";
 import Campus from "../../assets/svg/illustrations/Campus";
@@ -17,10 +13,12 @@ import { Routes } from "../../navigator/Routes";
 import { fetchHandler, toastGenerator } from "../../helper/helper";
 import { errorAlertStyles, infoAlertStyles } from "../../styles/alertStyles";
 import { useSelector } from "react-redux";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const Pano = (props) => {
   const { imageInformation, navigation } = props;
   const { auth } = useSelector((state) => state.getTokenReducer);
+  const [fullHeight, setFullHeight] = useState(false);
 
   const reportImage = () => {
     if (auth) {
@@ -64,7 +62,10 @@ const Pano = (props) => {
   return (
     <View>
       <View style={panoStyle.topBar}>
-        <TouchableOpacity style={panoStyle.switch} onPress={props.hidePano}>
+        <TouchableOpacity
+          style={panoStyle.switch}
+          onPress={() => setFullHeight(!fullHeight)}
+        >
           <SwitchMapPano />
         </TouchableOpacity>
         <View style={panoStyle.frameWrapper}>
@@ -79,22 +80,22 @@ const Pano = (props) => {
               <PlayArrowRight />
             </View>
           </View> */}
-          <Text style={panoStyle.frameText}>
+          {/* <Text style={panoStyle.frameText}>
             (frame 120/{" "}
             <Text style={{ fontFamily: "Poppins-SemiBold" }}>45</Text>)
-          </Text>
+          </Text> */}
         </View>
 
-        <TouchableOpacity
-          style={panoStyle.minimize}
-          onPress={props.minimizePano}
-        >
+        <TouchableOpacity style={panoStyle.minimize} onPress={props.hidePano}>
           <MinimizePano />
         </TouchableOpacity>
       </View>
 
       <Image
-        source={{ uri: imageInformation.image }}
+        source={{
+          uri: imageInformation.image,
+          height: fullHeight ? "100%" : RFPercentage(45),
+        }}
         style={panoStyle.imageStyle}
       />
 
