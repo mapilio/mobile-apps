@@ -21,7 +21,7 @@ import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
 import { ActivityIndicator } from "react-native-paper";
 
-const SearchbarSwipe = ({ setFly }) => {
+const SearchbarSwipe = ({ setFly, panelRef }) => {
   const [value, setInputValue] = useState("");
   const [valueAPI, setAPIValue] = useState("");
   const [locations, setLocations] = useState([]);
@@ -60,6 +60,7 @@ const SearchbarSwipe = ({ setFly }) => {
 
   const flyToCoordinate = (coord) => {
     setFly(coord);
+    panelRef.current.show(80);
   };
 
   return (
