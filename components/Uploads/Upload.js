@@ -27,7 +27,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 	const [totalFile, setTotalFile] = useState(0);
 	const [uploadedFile, setUploadedFile] = useState(0);
 	let percent = 0;
-	const upload_url = `https://end.mapilio.com/api/function/mapilio/imagery/upload`
+	const upload_url = `${process.env.END_URL}/api/function/mapilio/imagery/upload`
 
 	const hFov = (horizontal_pixel, pixel_pitch, focal_length) => {
 		return 360 / Math.PI * Math.atan(horizontal_pixel / 2 * pixel_pitch / 1e3 / focal_length)
@@ -53,14 +53,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 				images.map(async (image) => {
 					const fileInfo = await RNFS.stat(path + '/' + image);
 					const filePath = await Platform.OS === 'ios' ? fileInfo.path.replace('file://', '') : fileInfo.path
-					RNFetchBlob.fetch('POST', 'https://cdn.mapilio.com/api/upload/mobile', {
-						'Content-Range': `bytes=0-${fileInfo.size}/${fileInfo.size}`,
-						'Connection': `keep-alive`,
-						'X-File-id': `${image}`,
-						'Content-Length': String(fileInfo.size),
-						'email': `${userInformation.email}`,
-						'Content-Type': 'multipart/form-data',
-					}, [
+					RNFetchBlob.fetch('POST', `${process.env.CDN_URL}/api/upload/mobile`, {}, [
 						{name: 'email', data: userInformation.email},
 						{name: 'project_organization_key', data: ''},
 						{name: 'project_key', data: ''},
@@ -75,9 +68,6 @@ const Upload = ({sequence_uuid, navigation}) => {
 						let elapsed = (now - lastNow) / 1000;
 						setMbps(elapsed ? (uploadedkBytes / elapsed) / 1000 : 0);
 						dispatch({type: PROGRESS, payload: completed});
-
-
-						console.log('uploaded', (written / total) / images.length)
 					}).then(async (response) => {
 						await db.query(`SELECT * FROM captures WHERE path = "${filePath}" AND sequence_uuid="${value}"`, (_, result) => {
 							const data = result.rows._array[0];
@@ -106,7 +96,6 @@ const Upload = ({sequence_uuid, navigation}) => {
 									dispatch({type: UPLOAD_DATA, payload: result.rows._array});
 								})
 								await FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${value}`)
-
 							}, [
 								filePath,
 								fileInfo.size,
