@@ -29,7 +29,7 @@ const CameraAlert = ({svg, title, content}) => {
                     style={{
                         color: "#FFFFFF",
                         fontSize: RFValue(14),
-                        marginBottom: RFValue(15),
+                        marginBottom: RFValue(6),
                         marginTop: RFValue(15),
                     }}
                 >

@@ -1,10 +1,12 @@
 {
   "expo": {
-    "name": "mapilio-platform-react-native",
-    "slug": "mapilio-platform-react-native",
+    "name": "Mapilio",
+    "slug": "mapilio",
+    "scheme": "mapilio",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/playstore.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash/mapilio_splash.png",
       "backgroundColor": "#213348",
@@ -13,17 +15,17 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "facebookAppId": "254795350007625",
+    "facebookDisplayName": "Mapilio",
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true,
-      "bundleIdentifier": "com.mapilio",
+      "bundleIdentifier": "com.mapilio.app"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/playstore.png",
         "backgroundColor": "#FFFFFF"
       },
       "splash": {
@@ -35,13 +37,11 @@
         "xxhdpi": "./assets/splash/mapilio_splash_x3.png",
         "xxxhdpi": "./assets/splash/mapilio_splash_x4.png"
       },
-      "package": "com.mapilio"
+      "package": "com.mapilio.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "@react-native-mapbox-gl/maps"
-    ]
+    "plugins": ["@react-native-mapbox-gl/maps", "expo-facebook"]
   }
 }

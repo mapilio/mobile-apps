@@ -26,7 +26,7 @@ const ProfileFeed = ({navigation, data}) => {
             <View>
                 <Image
                     style={userFeedStyles.imageStyle}
-                    source={{uri: `https://image.mapilio.com/cdn/?key=${data.img_code}==/${data.cover_photo}`}}
+                    source={{uri: `https://cdn.mapilio.com/im/${data.img_code}/${data.cover_photo}/100`}}
                 />
             </View>
         </TouchableOpacity>

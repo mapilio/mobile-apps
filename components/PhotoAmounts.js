@@ -13,6 +13,7 @@ const PhotoAmounts = () => {
     (status) => status.cameraReducer
   );
   const [phoneMemory, setMemory] = useState(0);
+  const [amount, setPhotoAmount] = useState(0);
   const [availableStorage, setAvailableStorage] = useState(0);
 
   useEffect(() => {
@@ -21,10 +22,14 @@ const PhotoAmounts = () => {
       setMemory(freeDiskStorage);
     });
   }, []);
-  
+
   useEffect(() => {
     setAvailableStorage(parseInt(phoneMemory / imageSize));
   }, [phoneMemory, imageSize]);
+
+  useEffect(() => {
+    setPhotoAmount(photoAmount);
+  }, [photoAmount]);
 
   return (
     <View
@@ -40,7 +45,7 @@ const PhotoAmounts = () => {
           color: "#1AD971",
         }}
       >
-        {photoAmount}
+        {amount}
       </CustomTextMedium>
       <CustomTextMedium
         style={{
