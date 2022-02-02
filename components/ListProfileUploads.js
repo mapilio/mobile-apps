@@ -11,10 +11,11 @@ import { fetchHandler } from "../helper/helper";
 const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
   const [imageList, setImagesList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const url = `${process.env.API_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`
 
   useEffect(() => {
     fetchHandler({
-      url: `${process.env.API_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`,
+      url: url,
     })
       .then((res) => {
         setImagesList(res.data);

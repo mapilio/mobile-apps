@@ -6,9 +6,9 @@ import {errorAlertStyles} from "../../../styles/alertStyles";
 
 export const getTokenAction = (parameters, navigation) => (dispatch) => {
   dispatch({ type: GET_TOKEN_START });
-
+  const url = `${process.env.API_URL}/api/login`
   fetchHandler({
-    url: `${process.env.API_URL}/api/login`,
+    url: url,
     method: "POST",
     data: {
       email: parameters.email,

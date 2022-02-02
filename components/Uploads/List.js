@@ -25,6 +25,7 @@ const List = ({navigation}) => {
 		getData()
 	}, []);
 
+
 	const deleteRow = (rowMap, sequence_uuid) => {
 		Alert.alert(
 			"Are you sure?",
