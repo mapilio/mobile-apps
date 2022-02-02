@@ -141,7 +141,7 @@ const AutoActionButton = ({ disabled, uuid, setTake }) => {
               Dimensions.get("window").width + Dimensions.get("window").height
             ) / 2,
         }}
-      ></View>
+      />
     </TouchableOpacity>
   );
 };

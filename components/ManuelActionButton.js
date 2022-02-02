@@ -91,7 +91,7 @@ const ManuelActionButton = ({ disabled, uuid, setTake }) => {
             ) / 2,
           backgroundColor: "#ffffff",
         }}
-      ></View>
+      />
       <View
         style={{
           position: "absolute",
@@ -107,7 +107,7 @@ const ManuelActionButton = ({ disabled, uuid, setTake }) => {
               Dimensions.get("window").width + Dimensions.get("window").height
             ) / 2,
         }}
-      ></View>
+      />
     </TouchableOpacity>
   );
 };
