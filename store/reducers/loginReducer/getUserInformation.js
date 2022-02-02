@@ -5,7 +5,6 @@ export const getUserInformation = (auth) => (dispatch) => {
   const token = auth.token;
   const user_id = auth.id;
 
-
   axios
     .get(`${process.env.API_URL}/api/entries/users/users/${user_id}`, {
       headers: { Authorization: `Bearer ${token}` },
