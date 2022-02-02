@@ -48,7 +48,7 @@ const UserNavigator = () => (
             name={Routes.sequences}
             options={({navigation}) => ({
                 headerLeft: (props) => <SequenceNavigatorLeft {...props} />,
-                headerRight: () => <SequenceNavigatorRight />,
+                headerRight: () => <SequenceNavigatorRight navigation={navigation} />,
                 title: null,
                 headerStyle: navigatorStyle.headerStyle,
                 headerTitleStyle: navigatorStyle.headerTitleStyle,

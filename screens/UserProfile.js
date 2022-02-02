@@ -12,11 +12,11 @@ const UserProfile = ({navigation}) => {
     const [listData, setListData] = useState([]);
     const [loading, setLoading] = useState(true)
     const {userInformation} = useSelector((state) => state.getTokenReducer);
-
+    const url = `${process.env.API_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`
 
     useEffect(() => {
         fetchHandler({
-            url: `${process.env.API_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`
+            url: url
         })
             .then(res => {
                 setListData(res.data !== null ? res.data : [])

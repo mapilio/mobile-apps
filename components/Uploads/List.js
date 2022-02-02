@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {View, TouchableOpacity, Alert} from "react-native";
 import {userUploadStyles} from "../../styles/userUploadStyle";
 import {UserFeed} from "../index";
@@ -15,15 +15,11 @@ const List = ({navigation}) => {
 	const {auth} = useSelector((status) => status.getTokenReducer);
 	const dispatch = useDispatch();
 
-	const getData = () => {
-		database.query("SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid", (_, result) => {
+	const getData = async () => {
+		await database.query("SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid", (_, result) => {
 			dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
 		})
 	}
-
-	useEffect(() => {
-		getData()
-	}, []);
 
 	const deleteRow = (rowMap, sequence_uuid) => {
 		Alert.alert(

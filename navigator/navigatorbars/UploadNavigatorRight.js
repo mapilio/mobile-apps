@@ -3,10 +3,10 @@ import {View} from "react-native";
 import {uploadRight} from "../../styles/navigatorBarStyles";
 import {Upload} from "../../components/Uploads";
 
-const UploadNavigatorRight = () => {
+const UploadNavigatorRight = ({navigation}) => {
 	return (
 		<View style={uploadRight.container}>
-			<Upload />
+			<Upload navigation={navigation} />
 		</View>
 	)
 };

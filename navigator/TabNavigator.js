@@ -172,7 +172,7 @@ const TabNavigator = ({navigation, route}) => {
                 component={UserUpload}
                 name={Routes.upload}
                 options={({navigation}) => ({
-                    headerRight: () => <UploadNavigatorRight/>,
+                    headerRight: () => <UploadNavigatorRight navigation={navigation}/>,
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
                     headerTintColor: navigatorStyle.headerTintColor,
@@ -197,7 +197,7 @@ const TabNavigator = ({navigation, route}) => {
                 options={{
                     headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation}
                                                                   backRoute={Routes.upload}/>,
-                    headerRight: () => <SequenceNavigatorRight/>,
+                    headerRight: () => <SequenceNavigatorRight navigation={navigation}/>,
                     title: null,
                     headerStyle: navigatorStyle.headerStyle,
                     headerTitleStyle: navigatorStyle.headerTitleStyle,
