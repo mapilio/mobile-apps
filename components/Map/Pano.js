@@ -68,7 +68,7 @@ const Pano = (props) => {
           <SwitchMapPano />
         </TouchableOpacity>
         <View style={panoStyle.frameWrapper}>
-          <View style={panoStyle.playWrapper}>
+          {/* <View style={panoStyle.playWrapper}>
             <View style={{ marginRight: RFValue(9.5) }}>
               <PlayArrowLeft />
             </View>
@@ -78,7 +78,7 @@ const Pano = (props) => {
             <View style={{ marginLeft: RFValue(9.5) }}>
               <PlayArrowRight />
             </View>
-          </View>
+          </View> */}
           <Text style={panoStyle.frameText}>
             (frame 120/{" "}
             <Text style={{ fontFamily: "Poppins-SemiBold" }}>45</Text>)
@@ -127,7 +127,7 @@ const Pano = (props) => {
         </Pressable>
 
         <View style={panoStyle.capturerWrapper}>
-          <Text style={panoStyle.capturerName}>@M.CanVarer</Text>
+          {/* <Text style={panoStyle.capturerName}>@M.CanVarer</Text> */}
           <Text style={panoStyle.captureDate}>
             {moment(imageInformation.date).format("DD.MM.YYYY")}
           </Text>

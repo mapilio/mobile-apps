@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, Touchable, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  Touchable,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
@@ -65,6 +71,10 @@ const AppMap = ({ navigation }) => {
   const [minimizePano, setMinimizePano] = useState(false);
   const [flyLocation, setFlyLocation] = useState([29.9081, 40.8793]);
   const [showPano, setShowPano] = useState(true);
+  const [flyLocation, setFlyLocation] = useState([30.8, 41.015137]);
+  const [hide, setHide] = useState(false);
+  let cameraRef = useRef();
+  let panelRef = useRef();
   let mapRef = useRef();
 
   const hidePano = () => {
@@ -72,6 +82,7 @@ const AppMap = ({ navigation }) => {
   };
 
   const runMinimizePano = () => {
+    setClickedCoord(null);
     setMinimizePano(true);
     hidePano();
   };
@@ -80,6 +91,12 @@ const AppMap = ({ navigation }) => {
     setMinimizePano(false);
     setShowPano(false);
   };
+
+  useEffect(() => {
+    if (openSearchbar) {
+      panelRef.current.show(400);
+    }
+  }, [openSearchbar]);
 
   // function renderAnnotation(counter) {
   //     const id = `pointAnnotation${counter}`;
@@ -117,6 +134,7 @@ const AppMap = ({ navigation }) => {
 
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
+    setClickedCoord([e.coordinates.longitude, e.coordinates.latitude]);
     setImageInformations({
       sequenceID: pointFeatures.SEQUENCE_UUID,
       date: pointFeatures.created_at,
@@ -126,6 +144,15 @@ const AppMap = ({ navigation }) => {
       image: `https://cdn.mapilio.com/im/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
     });
     setShowPano(false);
+  };
+
+  const willHide = async (e) => {
+    const zoom = await mapRef.current.getZoom();
+    if (Math.round(zoom) < 10) {
+      setHide(true);
+    } else {
+      setHide(false);
+    }
   };
 
   return (
@@ -149,6 +176,7 @@ const AppMap = ({ navigation }) => {
         <SlidingUpPanel
           draggableRange={{ top: height, bottom: RFValue(60) }}
           showBackdrop={false}
+          ref={panelRef}
           containerStyle={{
             marginBottom:
               Platform.OS === "android"
@@ -159,7 +187,7 @@ const AppMap = ({ navigation }) => {
             zIndex: 6,
           }}
         >
-          <SearhcbarSwipe setFly={setFlyLocation} />
+          <SearhcbarSwipe setFly={setFlyLocation} panelRef={panelRef} />
         </SlidingUpPanel>
       ) : null}
       {showPano && imageInformations ? (
@@ -175,6 +203,7 @@ const AppMap = ({ navigation }) => {
         <MapboxGL.MapView
           styleURL={MapboxGL.StyleURL.Light}
           style={appMapStyle.map}
+          onRegionDidChange={willHide}
           ref={mapRef}
         >
           <MapboxGL.UserLocation
@@ -191,12 +220,33 @@ const AppMap = ({ navigation }) => {
               id="mapilio_point_v1"
               sourceLayerID="mapilio_point_v1"
               style={styles.circles}
+              layerIndex={60}
             />
           </MapboxGL.VectorSource>
+
+          {clickedCoord && !hide ? (
+            <MapboxGL.PointAnnotation
+              key="pointAnnotation"
+              id="pointAnnotation"
+              coordinate={clickedCoord}
+              style={{ zIndex: 1000 }}
+            >
+              <Image
+                source={require("../assets/images/heding.png")}
+                resizeMode={"cover"}
+                style={{
+                  transform: [{ rotate: `${imageInformations.heading}deg` }],
+                }}
+                width={80}
+                height={80}
+              />
+            </MapboxGL.PointAnnotation>
+          ) : null}
 
           {/*{renderAnnotations()}*/}
 
           <MapboxGL.Camera
+            ref={cameraRef}
             centerCoordinate={flyLocation}
             zoomLevel={7}
             animationMode={"flyTo"}
