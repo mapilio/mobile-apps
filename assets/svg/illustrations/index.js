@@ -34,3 +34,5 @@ export { default as GPSSearch } from "./GPSSearch";
 export { default as Eye } from "./Eye";
 export { default as EyeSlash } from "./EyeSlash";
 export { default as SignOutIcon } from "./SignOut";
+export { default as MockedIcon } from "./Mocked";
+export { default as HighSpeedIcon } from "./HighSpeed";

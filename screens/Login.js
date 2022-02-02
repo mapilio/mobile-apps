@@ -29,6 +29,7 @@ const Login = ({ navigation }) => {
     password: yup.string().required("Password is required"),
   });
 
+
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
       <View>
@@ -40,116 +41,116 @@ const Login = ({ navigation }) => {
             Login to manage your account
           </CustomText>
         </View>
-        {/* // TODO API DID NOT CONNECT */}
-        {/* <SocialLogin /> */}
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          validateOnBlur={false}
-          validateOnChange={false}
-          validationSchema={loginValidationSchema}
-          onSubmit={(values) => login(values)}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            isValid,
-          }) => (
-            <>
-              <View style={loginStyles.formGroup}>
-                <TextInput
-                  name="email"
-                  placeholder="Email or Username"
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  value={values.email}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  style={
-                    errors.email
-                      ? { ...loginStyles.errorInput, ...loginStyles.input }
-                      : loginStyles.input
-                  }
-                />
-                {errors.email && (
-                  <CustomText style={loginStyles.errorText}>
-                    {errors.email}
-                  </CustomText>
-                )}
-              </View>
-              <View style={loginStyles.formGroup}>
-                <CustomText
-                  onPress={() => navigation.navigate(Routes.forgotPassword)}
-                  style={{ ...loginStyles.link, textAlign: "right" }}
-                >
-                  Forgot your password?
-                </CustomText>
-                <View style={{ justifyContent: "center" }}>
+        <ScrollView>
+          {/* // TODO API DID NOT CONNECT */}
+          {/* <SocialLogin />*/}
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            validateOnBlur={false}
+            validateOnChange={false}
+            validationSchema={loginValidationSchema}
+            onSubmit={(values) => login(values)}
+          >
+            {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                isValid,
+              }) => (
+              <>
+                <View style={loginStyles.formGroup}>
                   <TextInput
-                    name="password"
-                    placeholder="Password"
-                    onChangeText={handleChange("password")}
-                    onBlur={handleBlur("password")}
-                    value={values.password}
+                    name="email"
+                    placeholder="Email or Username"
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
                     style={
-                      errors.password
+                      errors.email
                         ? { ...loginStyles.errorInput, ...loginStyles.input }
                         : loginStyles.input
                     }
-                    secureTextEntry={securePassword}
                   />
-                  <TouchableOpacity
-                    style={loginStyles.passwordIcon}
-                    onPress={() => setSecurePassword(!securePassword)}
-                  >
-                    {securePassword ? <Eye /> : <EyeSlash />}
-                  </TouchableOpacity>
+                  {errors.email && (
+                    <CustomText style={loginStyles.errorText}>
+                      {errors.email}
+                    </CustomText>
+                  )}
                 </View>
-                {errors.password && (
-                  <CustomText style={loginStyles.errorText}>
-                    {errors.password}
+                <View style={loginStyles.formGroup}>
+                  <CustomText
+                    onPress={() => navigation.navigate(Routes.forgotPassword)}
+                    style={{ ...loginStyles.link, textAlign: "right" }}
+                  >
+                    Forgot your password?
                   </CustomText>
-                )}
-              </View>
-
-              <CustomText style={loginStyles.smallText}>
-                Don't have an account yet?
-                <CustomText
-                  style={{ ...loginStyles.link, fontSize: RFValue(14) }}
-                  onPress={() => navigation.navigate(Routes.register)}
-                >
-                  {" "}
-                  Sign up here
+                  <View style={{ justifyContent: "center" }}>
+                    <TextInput
+                      name="password"
+                      placeholder="Password"
+                      onChangeText={handleChange("password")}
+                      onBlur={handleBlur("password")}
+                      value={values.password}
+                      style={
+                        errors.password
+                          ? { ...loginStyles.errorInput, ...loginStyles.input }
+                          : loginStyles.input
+                      }
+                      secureTextEntry={securePassword}
+                    />
+                    <TouchableOpacity
+                      style={loginStyles.passwordIcon}
+                      onPress={() => setSecurePassword(!securePassword)}
+                    >
+                      {securePassword ? <Eye /> : <EyeSlash />}
+                    </TouchableOpacity>
+                  </View>
+                  {errors.password && (
+                    <CustomText style={loginStyles.errorText}>
+                      {errors.password}
+                    </CustomText>
+                  )}
+                </View>
+                <CustomText style={loginStyles.smallText}>
+                  Don't have an account yet?
+                  <CustomText
+                    style={{ ...loginStyles.link, fontSize: RFValue(14) }}
+                    onPress={() => navigation.navigate(Routes.register)}
+                  >
+                    {" "}
+                    Sign up here
+                  </CustomText>
                 </CustomText>
-                .
-              </CustomText>
-              <Pressable style={loginStyles.button} onPress={handleSubmit}>
-                <CustomText
-                  style={{ ...loginStyles.secondaryText, color: "#fff" }}
-                >
-                  Log In
-                </CustomText>
-              </Pressable>
-              <Pressable onPress={() => navigation.navigate(Routes.map)}>
-                <CustomText
-                  style={{
-                    fontSize: RFValue(14),
-                    color: "#22CC69",
-                    marginTop: RFValue(15),
-                    textAlign: "center",
-                  }}
-                >
-                  Continue without a member
-                </CustomText>
-              </Pressable>
-            </>
-          )}
-        </Formik>
+                <Pressable style={loginStyles.button} onPress={handleSubmit}>
+                  <CustomText
+                    style={{ ...loginStyles.secondaryText, color: "#fff" }}
+                  >
+                    Log In
+                  </CustomText>
+                </Pressable>
+                <Pressable onPress={() => navigation.navigate(Routes.nonUserTab)}>
+                  <CustomText
+                    style={{
+                      fontSize: RFValue(14),
+                      color: "#22CC69",
+                      marginTop: RFValue(15),
+                      textAlign: "center",
+                    }}
+                  >
+                    Continue without a member
+                  </CustomText>
+                </Pressable>
+              </>
+            )}
+          </Formik>
+        </ScrollView>
       </View>
     </View>
   );

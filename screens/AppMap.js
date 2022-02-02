@@ -162,6 +162,7 @@ const AppMap = ({ navigation }) => {
           hidePano={hidePano}
           minimizePano={runMinimizePano}
           imageInformation={imageInformations}
+          navigation={navigation}
         />
       ) : (
         <View

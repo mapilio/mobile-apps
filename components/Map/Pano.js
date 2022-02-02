@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, View, Text, TouchableOpacity } from "react-native";
+import { Image, View, Text, TouchableOpacity, Pressable } from "react-native";
 import { panoStyle } from "../../styles/panoStyle";
 import ReportIcon from "../../assets/svg/illustrations/ReportIcon";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
@@ -13,9 +13,53 @@ import ZoomIn from "../../assets/svg/illustrations/ZoomIn";
 import ZoomOut from "../../assets/svg/illustrations/ZoomOut";
 import Campus from "../../assets/svg/illustrations/Campus";
 import moment from "moment";
+import { Routes } from "../../navigator/Routes";
+import { fetchHandler, toastGenerator } from "../../helper/helper";
+import { errorAlertStyles, infoAlertStyles } from "../../styles/alertStyles";
+import { useSelector } from "react-redux";
 
 const Pano = (props) => {
-  const { imageInformation } = props;
+  const { imageInformation, navigation } = props;
+  const { auth } = useSelector((state) => state.getTokenReducer);
+
+  const reportImage = () => {
+    if (auth) {
+      fetchHandler({
+        url: `${process.env.API_URL}/api/function/image_complaint/complaint/report`,
+        method: "POST",
+        data: {
+          options: {
+            parameters: {
+              imagery_id: imageInformation.pointID,
+              message: "",
+            },
+          },
+        },
+      })
+        .then((res) => {
+          toastGenerator(
+            "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
+            require("../../assets/images/Info.png"),
+            infoAlertStyles.alertContainer,
+            infoAlertStyles.alertTitle,
+            infoAlertStyles.alertImage,
+            5000
+          );
+        })
+        .catch((err) => {
+          toastGenerator(
+            "An error occurred while reporting. Try again.",
+            require("../../assets/images/Warning.png"),
+            errorAlertStyles.alertContainer,
+            errorAlertStyles.alertTitle,
+            errorAlertStyles.alertImage,
+            5000
+          );
+        });
+    } else {
+      navigation.navigate(Routes.login);
+    }
+  };
 
   return (
     <View>
@@ -77,10 +121,10 @@ const Pano = (props) => {
       </View>
 
       <View style={panoStyle.bottomTab}>
-        {/* <View style={panoStyle.report}>
+        <Pressable style={panoStyle.report} onPress={reportImage}>
           <ReportIcon />
           <Text style={panoStyle.reportText}>Image Report</Text>
-        </View> */}
+        </Pressable>
 
         <View style={panoStyle.capturerWrapper}>
           {/* <Text style={panoStyle.capturerName}>@M.CanVarer</Text> */}
