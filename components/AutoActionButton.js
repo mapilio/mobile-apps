@@ -40,14 +40,17 @@ const AutoActionButton = ({ disabled, uuid, setTake }) => {
           distanceInterval: distanceBetween,
         },
         (location) => {
-          // if (!autoCapture && !disabled) return;
-          takePicture(location);
+          if (disabled) {
+            return;
+          } else {
+            takePicture(location);
+          }
         }
       );
     };
     watchLocation();
     return () => {
-      location.remove();
+      location?.remove();
     };
   }, [autoCapture, disabled, distanceBetween]);
 

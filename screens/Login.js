@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Pressable, ScrollView, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Pressable,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { loginStyles } from "../styles/loginStyles";
@@ -29,7 +35,6 @@ const Login = ({ navigation }) => {
     password: yup.string().required("Password is required"),
   });
 
-
   return (
     <View style={[globalStyles.container, loginStyles.container]}>
       <View>
@@ -43,7 +48,7 @@ const Login = ({ navigation }) => {
         </View>
         <ScrollView>
           {/* // TODO API DID NOT CONNECT */}
-          {/* <SocialLogin />*/}
+          <SocialLogin navigation={navigation} />
           <Formik
             initialValues={{
               email: "",
@@ -55,13 +60,13 @@ const Login = ({ navigation }) => {
             onSubmit={(values) => login(values)}
           >
             {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                isValid,
-              }) => (
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              isValid,
+            }) => (
               <>
                 <View style={loginStyles.formGroup}>
                   <TextInput
@@ -135,7 +140,9 @@ const Login = ({ navigation }) => {
                     Log In
                   </CustomText>
                 </Pressable>
-                <Pressable onPress={() => navigation.navigate(Routes.nonUserTab)}>
+                <Pressable
+                  onPress={() => navigation.navigate(Routes.nonUserTab)}
+                >
                   <CustomText
                     style={{
                       fontSize: RFValue(14),

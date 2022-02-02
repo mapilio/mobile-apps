@@ -69,7 +69,7 @@ const AppMap = ({ navigation }) => {
   const [imageInformations, setImageInformations] = useState(null);
   const [openSearchbar, setOpenSearchbar] = useState(false);
   const [minimizePano, setMinimizePano] = useState(false);
-  const [clickedCoord, setClickedCoord] = useState(null);
+  const [flyLocation, setFlyLocation] = useState([29.9081, 40.8793]);
   const [showPano, setShowPano] = useState(true);
   const [flyLocation, setFlyLocation] = useState([30.8, 41.015137]);
   const [hide, setHide] = useState(false);
@@ -213,7 +213,7 @@ const AppMap = ({ navigation }) => {
 
           <MapboxGL.VectorSource
             id="road-points"
-            url={"mapbox://mapilio.ckyo3y4wk0nc321ofadzu1hu0-2hg3c"}
+            url={"mapbox://your_tileset_url"}
             onPress={touchPoint}
           >
             <MapboxGL.CircleLayer
@@ -248,8 +248,9 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.Camera
             ref={cameraRef}
             centerCoordinate={flyLocation}
-            maxZoomLevel={16}
-            zoomLevel={8}
+            zoomLevel={7}
+            animationMode={"flyTo"}
+            animationDuration={1000}
           />
         </MapboxGL.MapView>
       </View>

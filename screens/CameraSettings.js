@@ -123,7 +123,7 @@ const CameraSettings = ({ navigation }) => {
           %{batteryLevel}
         </CustomTextMedium>
       </View>
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
@@ -146,7 +146,7 @@ const CameraSettings = ({ navigation }) => {
           accessibilityLabel={"Camera mode selection"}
           style={{ width: RFValue(186) }}
         />
-      </View>
+      </View> */}
     </View>
   );
 };

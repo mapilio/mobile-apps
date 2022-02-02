@@ -1,23 +1,21 @@
 import React from "react";
-import {View} from "react-native";
-import {CustomText} from "../../highordercomponents";
-import {socialLoginStyles} from "../../styles/loginStyles";
+import { Platform, View } from "react-native";
+import { CustomText } from "../../highordercomponents";
+import { socialLoginStyles } from "../../styles/loginStyles";
 import GoogleLogin from "./GoogleLogin";
 import FacebookLogin from "./FacebookLogin";
 
-
-const SocialLogin = () => {
-
+const SocialLogin = ({ navigation }) => {
   return (
     <View style={socialLoginStyles.container}>
       <View style={socialLoginStyles.topContainer}>
-        <FacebookLogin />
-        <GoogleLogin />
+        {Platform.OS === "android" && <FacebookLogin navigation={navigation} />}
+        <GoogleLogin navigation={navigation} />
       </View>
       <View style={socialLoginStyles.bottomContainer}>
-        <View style={socialLoginStyles.line}/>
+        <View style={socialLoginStyles.line} />
         <CustomText style={socialLoginStyles.bottomText}>or</CustomText>
-        <View style={socialLoginStyles.line}/>
+        <View style={socialLoginStyles.line} />
       </View>
     </View>
   );
