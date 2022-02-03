@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import * as FileSystem from "expo-file-system";
-import {Modal, Platform, TouchableOpacity, View} from "react-native";
+import {Alert, Modal, Platform, TouchableOpacity, View} from "react-native";
 import db from "../../db";
 import {UPLOAD_DATA} from "../../store/actionsName";
-import {UploadIcon} from "../../assets/svg/illustrations";
+import {CloseIcon, UploadIcon} from "../../assets/svg/illustrations";
 import {CustomText} from "../../highordercomponents";
 import {userUploadModalStyles} from "../../styles/userUploadStyle";
 import {fetchHandler, toastGenerator} from "../../helper/helper";
@@ -18,6 +18,7 @@ const RNFS = require('react-native-fs');
 const Upload = ({sequence_uuid, navigation}) => {
 
 	const dispatch = useDispatch();
+	const {uploadData} = useSelector((status) => status.uploadReducer);
 	const {progress} = useSelector((status) => status.uploadReducer);
 	const {auth, userInformation} = useSelector((status) => status.getTokenReducer);
 	const [mbytes, setMbytes] = useState(0);
@@ -25,6 +26,8 @@ const Upload = ({sequence_uuid, navigation}) => {
 	const [status, setStatus] = useState('');
 	const [modalVisible, setModalVisible] = useState(false);
 	const upload_url = `${process.env.SERVICE_URL}/api/function/mapilio/imagery/upload`
+	const cancelToken = axios.CancelToken.source();
+	const { connection } = useSelector((state) => state.generalReducer);
 
 	const hFov = (horizontal_pixel, pixel_pitch, focal_length) => {
 		return 360 / Math.PI * Math.atan(horizontal_pixel / 2 * pixel_pitch / 1e3 / focal_length)
@@ -59,6 +62,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 							axios.post(`${process.env.CDN_URL}/api/upload/mobile`, data, {
 								onUploadProgress: ({loaded, total}) => {
 									// TODO Progressbar Calculate
+									console.log(loaded)
 								}
 							}).then((response) => {
 								db.query(`SELECT * FROM captures WHERE path = "${filePath}" AND sequence_uuid="${sequence}"`, async (_, result) => {
@@ -208,7 +212,20 @@ const Upload = ({sequence_uuid, navigation}) => {
 	return (
 		<View>
 			<TouchableOpacity onPress={async () => {
-				await getHash()
+				if (uploadData.length) {
+					if (connection.connectionType === "wifi") {
+						await getHash()
+					} else {
+						Alert.alert(
+							"Are you sure?",
+							"Are you sure you want to send via cellular data?",
+							[
+								{ text: "Yes", onPress: () => getHash() },
+								{ text: "No" }
+							]
+						)
+					}
+				}
 			}}>
 				<UploadIcon/>
 			</TouchableOpacity>
@@ -218,6 +235,12 @@ const Upload = ({sequence_uuid, navigation}) => {
 				visible={modalVisible}
 			>
 				<View style={userUploadModalStyles.container}>
+					<TouchableOpacity style={userUploadModalStyles.close} onPress={() => {
+						cancelToken.cancel('Operation canceled by the user.')
+						setModalVisible(false)
+					}}>
+						<CloseIcon />
+					</TouchableOpacity>
 					<View style={{alignItems: 'center'}}>
 						<CustomText style={userUploadModalStyles.text}>{status}</CustomText>
 						<CustomText style={userUploadModalStyles.text}>
