@@ -15,6 +15,7 @@ import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
 import SearhcbarSwipe from "../components/SearchbarSwipe";
+import { useSelector } from "react-redux";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -57,8 +58,9 @@ const AppMap = ({ navigation }) => {
   const [minimizePano, setMinimizePano] = useState(false);
   const [flyLocation, setFlyLocation] = useState([29.9081, 40.8793]);
   const [showPano, setShowPano] = useState(true);
-  const [flyLocation, setFlyLocation] = useState([30.8, 41.015137]);
+  const [clickedCoord, setClickedCoord] = useState(null);
   const [hide, setHide] = useState(false);
+  const { userInformation } = useSelector((state) => state.getTokenReducer);
   let cameraRef = useRef();
   let panelRef = useRef();
   let mapRef = useRef();
@@ -93,7 +95,7 @@ const AppMap = ({ navigation }) => {
       user: pointFeatures.created_by_id,
       pointID: pointFeatures.id,
       heading: pointFeatures.heading,
-      image: `process.env.IMAGE_API/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
+      image: `${process.env.IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
     });
     setShowPano(false);
   };

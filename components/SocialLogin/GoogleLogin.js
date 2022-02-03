@@ -14,6 +14,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
+import Database from "../../db";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -66,6 +67,7 @@ const GoogleLogin = ({ navigation }) => {
       .then((res) => {
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
         dispatch(getUserInformation(res));
+        Database.startDB(res.id);
         toastGenerator(
           `Login Success ${response.name}`,
           require("../../assets/images/Success.png"),

@@ -65,14 +65,9 @@ const Camera = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener("blur", (e) => {
       setCameraReady(false);
-      dispatch({ type: CAMERA_REDUCER_RESET });
-      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
-      dispatch({
-        type: UPDATE_SELECTED_PROJECT,
-        payload: { type: "individual", key: 0 },
-      });
       waitGPS = true;
       clearTimeout(timeout);
+      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
       timeout = null;
     });
     return unsubscribe;

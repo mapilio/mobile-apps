@@ -6,10 +6,11 @@ import { UPDATE_DISTANCE_BETWEEN } from "../store/actionsName";
 import { InfoIcon, SettingsIcon } from "../assets/svg/illustrations";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const GeneralSettings = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { distanceBetween } = useSelector((state) => state.settingsReducer);
   const [sliderMeterValue, setSliderMeterValue] = useState(5);
 
   const changeDistanceValue = (value) => {
@@ -20,6 +21,7 @@ const GeneralSettings = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", (e) => {
       StatusBar.setHidden(true);
+      setSliderMeterValue(distanceBetween);
     });
     return () => unsubscribe();
   }, [navigation]);
@@ -98,7 +100,7 @@ const GeneralSettings = ({ navigation }) => {
                 style={{ width: "100%", height: RFValue(40) }}
                 minimumValue={5}
                 maximumValue={15}
-                value={5}
+                value={sliderMeterValue}
                 step={1}
                 onValueChange={changeDistanceValue}
                 minimumTrackTintColor={"#007AFF"}

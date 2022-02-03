@@ -80,7 +80,6 @@ const UserSequence = ({navigation, route}) => {
       }];
       points.features = []
       result.rows._array.map((item) => {
-        console.log()
         points.features.push(
           {
             type: "Feature",

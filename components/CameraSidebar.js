@@ -14,7 +14,7 @@ import CameraActionsButtons from "./CameraActionsButtons";
 import { Routes } from "../navigator/Routes";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useDispatch, useSelector } from "react-redux";
-import { UPDATE_SELECTED_PROJECT, UPDATE_UUID } from "../store/actionsName";
+import { CAMERA_REDUCER_RESET, UPDATE_AUTOCAPTURE_START, UPDATE_SELECTED_PROJECT, UPDATE_UUID } from "../store/actionsName";
 
 const CameraSidebar = ({ navigation }) => {
   const [uuidV4, setUUID] = useState("");
@@ -55,6 +55,11 @@ const CameraSidebar = ({ navigation }) => {
     );
     navigation.navigate(Routes.profile);
     StatusBar.setHidden(false);
+    dispatch({ type: CAMERA_REDUCER_RESET })
+    dispatch({
+      type: UPDATE_SELECTED_PROJECT,
+      payload: { type: "individual", key: 0 },
+    });
   };
 
   return (
@@ -102,7 +107,7 @@ const CameraSidebar = ({ navigation }) => {
           Advanced
         </CustomText>
       </TouchableOpacity>
-      <CameraActionsButtons uuid={uuidV4} />
+      <CameraActionsButtons uuid={uuidV4} navigation={navigation} />
       <TouchableOpacity style={{ position: "absolute", bottom: 0, left: 0 }}>
         <MapIcon />
       </TouchableOpacity>

@@ -59,7 +59,7 @@ const UserInfos = () => {
         setLoading(false);
         toastGenerator(
           "There was a problem fetching your information. Please try again.",
-          `${result.type}`,
+          `${err.type}`,
           require("../assets/images/Warning.png"),
           warningAlertStyles.alertContainer,
           warningAlertStyles.alertTitle,

@@ -182,7 +182,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 					method: "POST",
 					data: files,
 				}).then(async (res) => {
-					console.log(res, sequence)
+					// console.log(res, sequence)
 				}).catch((err) => {
 					console.log(err)
 				})

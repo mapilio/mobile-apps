@@ -10,22 +10,21 @@ import { getUserInformation } from "../../store/reducers/loginReducer/getUserInf
 import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
+import Database from "../../db";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
-  const [stateKey, setStateKey] = useState("");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async (e) => {
-      fetchHandler({ url: `${process.env.API_URL}/oauth-api/generate-state` })
-        .then((response) => setStateKey(response.data.state))
-        .catch((err) => console.error(err));
-    });
-    return () => unsubscribe();
-  }, [navigation]);
-
   const login = async () => {
+    fetchHandler({ url: `${process.env.API_URL}/oauth-api/generate-state` })
+      .then((response) => {
+        facebookAccess(response.data.state);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const facebookAccess = async (stateKey) => {
     try {
       await Facebook.initializeAsync({
         appId: process.env.FACEBOOK_APP_ID,
@@ -48,6 +47,7 @@ const FacebookLogin = ({ navigation }) => {
             errorAlertStyles.alertImage
           );
         } else {
+          console.log(stateKey.length, "TWO");
           fetchHandler({
             url: `${process.env.API_URL}/oauth-api/callback`,
             method: "POST",
@@ -58,8 +58,10 @@ const FacebookLogin = ({ navigation }) => {
             },
           })
             .then((res) => {
+              console.log(res, "THEN");
               dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
               dispatch(getUserInformation(res));
+              Database.startDB(res.id);
               navigation.navigate(Routes.tabHome);
             })
             .catch((err) => console.error(err));

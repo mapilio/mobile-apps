@@ -5,7 +5,6 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { CloseIcon } from "../assets/svg/illustrations";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
-import SwitchSelector from "react-native-switch-selector";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { UPDATE_CAPTURE_TYPE } from "../store/actionsName";

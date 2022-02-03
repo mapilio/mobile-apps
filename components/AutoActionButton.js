@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, TouchableOpacity, View } from "react-native";
+import { Dimensions, Platform, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
@@ -13,17 +13,25 @@ import {
   UPDATE_PHOTO_AMOUNT,
 } from "../store/actionsName";
 
-const AutoActionButton = ({ disabled, uuid }) => {
+const AutoActionButton = ({
+  disabled,
+  uuid,
+  navigation,
+  GPSStatus,
+  GPSAccuracy,
+  batteryLevel,
+  mocked,
+  highSpeed,
+}) => {
   const [autoCapture, setAutoCapture] = useState(false);
-  const [photoAmount, setPhotoAmount] = useState(0);
-  const { cameraStatus, camera } = useSelector(
+  const { cameraStatus, camera, photoAmount } = useSelector(
     (status) => status.cameraReducer
   );
   const { userInformation } = useSelector((state) => state.getTokenReducer);
   const { selectedProject, distanceBetween } = useSelector(
     (status) => status.settingsReducer
   );
-  let photo = 0;
+  let photo = photoAmount;
   const dispatch = useDispatch();
 
   const playHandler = () => {
@@ -32,7 +40,18 @@ const AutoActionButton = ({ disabled, uuid }) => {
   };
 
   useEffect(() => {
-    if (!autoCapture) return;
+    const batteryError =
+      Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
+    if (
+      !autoCapture &&
+      GPSStatus &&
+      GPSAccuracy &&
+      GPSStatus &&
+      batteryError &&
+      !highSpeed &&
+      !mocked
+    )
+      return;
     var location = null;
     const watchLocation = async () => {
       location = await Location.watchPositionAsync(
@@ -55,8 +74,26 @@ const AutoActionButton = ({ disabled, uuid }) => {
     };
   }, [autoCapture, disabled, distanceBetween]);
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", (e) => {
+      setAutoCapture(false);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   // TODO ADD TO HELPER.JS
   const takePicture = async (location) => {
+    const batteryError =
+      Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
+    if (
+      !autoCapture &&
+      GPSStatus &&
+      GPSAccuracy &&
+      GPSStatus &&
+      batteryError &&
+      !highSpeed &&
+      !mocked
+    )
     const db = Database.getConnection();
     const id =
       selectedProject.type === "individual"
@@ -76,7 +113,6 @@ const AutoActionButton = ({ disabled, uuid }) => {
       from: imageUri,
       to: newPath,
     });
-    setTake(false);
     image.uri = newPath;
     location.coords.heading = heading.trueHeading;
     const JSONExif = JSON.stringify(image.exif);
@@ -91,10 +127,15 @@ const AutoActionButton = ({ disabled, uuid }) => {
       uuid,
       path: newPath,
     });
-    setPhotoAmount((state) => state++);
-    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
     const fileInfo = await FileSystem.getInfoAsync(newPath);
     dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
+    incrementAmount();
+  };
+
+  const incrementAmount = () => {
+    photo = photo + 1;
+    console.log(photo);
+    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photo });
   };
 
   return (
