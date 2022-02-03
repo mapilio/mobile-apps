@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import { UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT } from "../store/actionsName";
 import Database from "../db";
 
-const ManuelActionButton = ({ disabled, uuid, setTake }) => {
+const ManuelActionButton = ({ disabled, uuid }) => {
   const { cameraStatus, camera } = useSelector(
     (status) => status.cameraReducer
   );
@@ -29,7 +29,6 @@ const ManuelActionButton = ({ disabled, uuid, setTake }) => {
     if (cameraStatus !== "READY") return;
     const options = { quality: 0.6, base64: false, exif: true };
     const image = await camera.takePictureAsync(options);
-    setTake(true);
     const location = await Location.getCurrentPositionAsync();
     const heading = await Location.getHeadingAsync();
     const imageUri = image.uri;
@@ -41,7 +40,6 @@ const ManuelActionButton = ({ disabled, uuid, setTake }) => {
       from: imageUri,
       to: newPath,
     });
-    setTake(false);
     image.uri = newPath;
     location.coords.heading = heading.trueHeading;
     const JSONExif = JSON.stringify(image.exif);
