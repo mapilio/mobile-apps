@@ -95,7 +95,7 @@ const AppMap = ({ navigation }) => {
       user: pointFeatures.created_by_id,
       pointID: pointFeatures.id,
       heading: pointFeatures.heading,
-      image: `${process.env.IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
+      image: `${process.env.IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/1080`,
     });
     setShowPano(false);
   };

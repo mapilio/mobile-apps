@@ -94,6 +94,7 @@ const AutoActionButton = ({
       !highSpeed &&
       !mocked
     )
+      return;
     const db = Database.getConnection();
     const id =
       selectedProject.type === "individual"
