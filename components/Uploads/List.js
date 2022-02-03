@@ -23,7 +23,7 @@ const List = ({navigation}) => {
 
 	useEffect(() => {
 		getData()
-	}, []);
+	}, [uploadData]);
 
 
 	const deleteRow = (rowMap, sequence_uuid) => {

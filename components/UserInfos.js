@@ -49,7 +49,7 @@ const UserInfos = () => {
 
   useEffect(() => {
     fetchHandler({
-      url: `${process.env.API_URL}/api/function/user_profile/profile/getProfile`,
+      url: `${process.env.SERVICE_URL}/api/function/user_profile/profile/getProfile`,
     })
       .then((res) => {
         setLoading(false);

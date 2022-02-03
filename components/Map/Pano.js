@@ -25,7 +25,7 @@ const Pano = (props) => {
   const reportImage = () => {
     if (auth) {
       fetchHandler({
-        url: `${process.env.API_URL}/api/function/image_complaint/complaint/report`,
+        url: `${process.env.SERVICE_URL}/api/function/image_complaint/complaint/report`,
         method: "POST",
         data: {
           options: {

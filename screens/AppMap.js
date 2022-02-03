@@ -71,7 +71,7 @@ const AppMap = ({ navigation }) => {
   const [minimizePano, setMinimizePano] = useState(false);
   const [flyLocation, setFlyLocation] = useState([29.9081, 40.8793]);
   const [showPano, setShowPano] = useState(true);
-  const [flyLocation, setFlyLocation] = useState([30.8, 41.015137]);
+  const [clickedCoord, setClickedCoord] = useState([30.8, 41.015137]);
   const [hide, setHide] = useState(false);
   let cameraRef = useRef();
   let panelRef = useRef();
@@ -235,7 +235,7 @@ const AppMap = ({ navigation }) => {
                 source={require("../assets/images/heding.png")}
                 resizeMode={"cover"}
                 style={{
-                  transform: [{ rotate: `${imageInformations.heading}deg` }],
+                  transform: [{ rotate: imageInformations ? `${imageInformations.heading}deg` : '0deg' }],
                 }}
                 width={80}
                 height={80}

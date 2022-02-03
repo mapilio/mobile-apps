@@ -17,7 +17,7 @@ const Marketplace = ({navigation}) => {
     const {marketplaceData} = useSelector((status) => status.generalReducer)
     useEffect(() => {
         fetchHandler({
-            url: `${process.env.API_URL}/api/get-marketplaces`,
+            url: `${process.env.SERVICE_URL}/api/get-marketplaces`,
             method: "POST",
         }).then((res) => {
             dispatch({type: MARKETPLACE_DATA, payload: JSON.parse(res.data.geojson)});

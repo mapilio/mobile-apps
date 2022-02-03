@@ -14,7 +14,7 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        fetchHandler({url: `${process.env.API_URL}/api/function/projects/job/getMyJobs`})
+        fetchHandler({url: `${process.env.SERVICE_URL}/api/function/projects/job/getMyJobs`})
             .then(res => {
                 setLoading(false)
                 setProjects(res.data)

@@ -15,7 +15,7 @@ const UserProfile = ({ navigation }) => {
 
   useEffect(() => {
     fetchHandler({
-      url: `${process.env.API_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`,
+      url: `${process.env.SERVICE_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`,
     })
       .then((res) => {
         setListData(res.data !== null ? res.data : []);
