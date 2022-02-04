@@ -46,7 +46,7 @@ const UserInfos = () => {
       setAvatarLoading(false);
     }
   };
-
+  console.log(process.env.SERVICE_URL)
   useEffect(() => {
     fetchHandler({
       url: `${process.env.SERVICE_URL}/api/function/user_profile/profile/getProfile`,

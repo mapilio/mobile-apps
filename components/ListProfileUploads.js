@@ -14,7 +14,7 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
 
   useEffect(() => {
     fetchHandler({
-      url: `${process.env.API_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`,
+      url: `${process.env.SERVICE_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`,
     })
       .then((res) => {
         setImagesList(res.data);

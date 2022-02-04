@@ -25,7 +25,8 @@ const Upload = ({sequence_uuid, navigation}) => {
 	const [mbps, setMbps] = useState(0);
 	const [status, setStatus] = useState('');
 	const [modalVisible, setModalVisible] = useState(false);
-	const upload_url = `${process.env.API_URL}/api/function/mapilio/imagery/upload`
+	console.log(process.env.SERVICE_URL)
+	const upload_url = `${process.env.SERVICE_URL}/api/function/mapilio/imagery/upload`
 	const cancelToken = axios.CancelToken.source();
 	const { connection } = useSelector((state) => state.generalReducer);
 
@@ -58,8 +59,9 @@ const Upload = ({sequence_uuid, navigation}) => {
 							data.append('email', userInformation.email);
 							data.append('project_organization_key', '');
 							data.append('project_key', '');
+							console.log(process.env.IMAGE_API)
 
-							axios.post(`${process.env.CDN_URL}/api/upload/mobile`, data, {
+							axios.post(`${process.env.IMAGE_API}/api/upload/mobile`, data, {
 								onUploadProgress: ({loaded, total}) => {
 									// TODO Progressbar Calculate
 									console.log(loaded)

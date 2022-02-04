@@ -17,7 +17,7 @@ const FacebookLogin = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const login = async () => {
-    fetchHandler({ url: `${process.env.API_URL}/oauth-api/generate-state` })
+    fetchHandler({ url: `${process.env.SERVICE_URL}/oauth-api/generate-state` })
       .then((response) => {
         facebookAccess(response.data.state);
       })
@@ -48,7 +48,7 @@ const FacebookLogin = ({ navigation }) => {
           );
         } else {
           fetchHandler({
-            url: `${process.env.API_URL}/oauth-api/callback`,
+            url: `${process.env.SERVICE_URL}/oauth-api/callback`,
             method: "POST",
             data: {
               email: json.email,
