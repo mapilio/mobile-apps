@@ -25,7 +25,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 	const [mbps, setMbps] = useState(0);
 	const [status, setStatus] = useState('');
 	const [modalVisible, setModalVisible] = useState(false);
-	const upload_url = `${process.env.SERVICE_URL}/api/function/mapilio/imagery/upload`
+	const upload_url = `${process.env.API_URL}/api/function/mapilio/imagery/upload`
 	const cancelToken = axios.CancelToken.source();
 	const { connection } = useSelector((state) => state.generalReducer);
 

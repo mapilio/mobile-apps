@@ -41,7 +41,7 @@ const WelcomeWalkthrough = ({navigation}) => {
 
     useEffect(() => {
         if (welcomeWalkthroughStatus) {
-            // navigation.navigate(Routes.nonUserTab);
+            navigation.navigate(Routes.nonUserTab);
         } else {
             dispatch({type: UPDATE_WELCOME_WALKTHROUGH_STATUS, payload: true});
         }

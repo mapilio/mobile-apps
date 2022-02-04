@@ -47,7 +47,6 @@ const Login = ({ navigation }) => {
           </CustomText>
         </View>
         <ScrollView>
-          {/* // TODO API DID NOT CONNECT */}
           <SocialLogin navigation={navigation} />
           <Formik
             initialValues={{
@@ -141,7 +140,7 @@ const Login = ({ navigation }) => {
                   </CustomText>
                 </Pressable>
                 <Pressable
-                  onPress={() => navigation.navigate(Routes.nonUserTab)}
+                  onPress={() => navigation.navigate(Routes.map)}
                 >
                   <CustomText
                     style={{

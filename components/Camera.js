@@ -40,7 +40,7 @@ import { permissionHandler, toastGenerator } from "../helper/helper";
 import { errorAlertStyles } from "../styles/alertStyles";
 import { CustomTextMedium } from "../highordercomponents";
 
-const Camera = ({ navigation, takeNow }) => {
+const Camera = ({ navigation }) => {
   const [degree, setDegree] = useState(0);
   const [cameraReady, setCameraReady] = useState(false);
   const [batteryAlert, setBatteryAlert] = useState(null);
@@ -65,14 +65,9 @@ const Camera = ({ navigation, takeNow }) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener("blur", (e) => {
       setCameraReady(false);
-      dispatch({ type: CAMERA_REDUCER_RESET });
-      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
-      dispatch({
-        type: UPDATE_SELECTED_PROJECT,
-        payload: { type: "individual", key: 0 },
-      });
       waitGPS = true;
       clearTimeout(timeout);
+      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
       timeout = null;
     });
     return unsubscribe;
@@ -163,8 +158,8 @@ const Camera = ({ navigation, takeNow }) => {
   };
 
   const _removeAccelerometerSubscribe = () => {
-    subscription && subscription.remove();
-    accelerometerSubscription && accelerometerSubscription.remove();
+    subscription?.remove();
+    accelerometerSubscription?.remove();
     setSubscription(null);
   };
 
@@ -299,19 +294,6 @@ const Camera = ({ navigation, takeNow }) => {
         <RotationLine degree={degree} setAlert={setRotateAlert} />
         <CameraFrame />
         <CameraProjectInfo navigation={navigation} />
-        {takeNow && (
-          <Animated.View
-            style={{
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: 0,
-              bottom: 0,
-              backgroundColor: "#000000",
-              opacity: fadeAnimation,
-            }}
-          />
-        )}
         {GPSAlert && !GPSStartAlert ? (
           <CameraAlert
             svg={GPSAlert.svg}

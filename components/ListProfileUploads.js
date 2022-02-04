@@ -11,11 +11,10 @@ import { fetchHandler } from "../helper/helper";
 const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
   const [imageList, setImagesList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const url = `${process.env.SERVICE_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`
 
   useEffect(() => {
     fetchHandler({
-      url: url,
+      url: `${process.env.API_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`,
     })
       .then((res) => {
         setImagesList(res.data);
@@ -60,7 +59,7 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
           : imageList.map((image) => (
               <FeedImageCard
                 key={image.id}
-                path={`https://cdn.mapilio.com/im/${image.img_code}/${image.filename}/100`}
+                path={`${process.env.IMAGE_API}/${image.img_code}/${image.filename}/100`}
                 id={image.id}
                 navigation={navigation}
               />

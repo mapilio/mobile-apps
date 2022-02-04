@@ -4,10 +4,9 @@ import { GET_USER_INDEX_TYPE, GET_USER_INFORMATION } from "../../actionsName";
 export const getUserInformation = (auth) => (dispatch) => {
   const token = auth.token;
   const user_id = auth.id;
-  const url = `${process.env.SERVICE_URL}/api/entries/users/users/${user_id}`
 
   axios
-    .get(url, {
+    .get(`${process.env.API_URL}/api/entries/users/users/${user_id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
