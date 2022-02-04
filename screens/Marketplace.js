@@ -9,6 +9,7 @@ import {fetchHandler} from "../helper/helper";
 import {useDispatch, useSelector} from "react-redux";
 import {MARKETPLACE_DATA} from "../store/actionsName";
 import {Routes} from "../navigator/Routes";
+ 
 
 const {height} = Dimensions.get('window')
 
@@ -17,7 +18,7 @@ const Marketplace = ({navigation}) => {
     const {marketplaceData} = useSelector((status) => status.generalReducer)
     useEffect(() => {
         fetchHandler({
-            url: `${process.env.API_URL}/api/get-marketplaces`,
+            url: `${process.env.SERVICE_URL}/api/get-marketplaces`,
             method: "POST",
         }).then((res) => {
             dispatch({type: MARKETPLACE_DATA, payload: JSON.parse(res.data.geojson)});

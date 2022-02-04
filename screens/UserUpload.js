@@ -1,15 +1,18 @@
 import React from "react";
-import {Dimensions, Platform, View} from "react-native";
-import {CustomText, CustomTextMedium} from "../highordercomponents";
-import {globalStyles} from "../styles/globalStyles";
-import {List} from "../components/Uploads";
-import {userUploadStyles} from "../styles/userUploadStyle";
-import {RFValue} from "react-native-responsive-fontsize";
+import { Dimensions, Platform, View } from "react-native";
+import { CustomText, CustomTextMedium } from "../highordercomponents";
+import { globalStyles } from "../styles/globalStyles";
+import { List } from "../components/Uploads";
+import { userUploadStyles } from "../styles/userUploadStyle";
+import { RFValue } from "react-native-responsive-fontsize";
+import { useKeepAwake } from "expo-keep-awake";
 
-const UserUpload = ({navigation}) => {
-    return (
-    <View style={{paddingBottom: RFValue(220)}}>
-      <View style={userUploadStyles.container }>
+const UserUpload = ({ navigation }) => {
+  useKeepAwake();
+
+  return (
+    <View style={{ paddingBottom: RFValue(220) }}>
+      <View style={userUploadStyles.container}>
         <CustomTextMedium style={globalStyles.screenTitle}>
           Upload Photos
         </CustomTextMedium>
@@ -17,7 +20,7 @@ const UserUpload = ({navigation}) => {
           You can upload images from here.
         </CustomText>
       </View>
-      <List navigation={navigation}/>
+      <List navigation={navigation} />
     </View>
   );
 };

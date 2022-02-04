@@ -10,6 +10,7 @@ import { fetchHandler, kFormatter, toastGenerator } from "../helper/helper";
 import { warningAlertStyles } from "../styles/alertStyles";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
+ 
 
 const UserInfos = () => {
   const [avatarLoading, setAvatarLoading] = useState(true);
@@ -49,7 +50,7 @@ const UserInfos = () => {
 
   useEffect(() => {
     fetchHandler({
-      url: `${process.env.API_URL}/api/function/user_profile/profile/getProfile`,
+      url: `${process.env.SERVICE_URL}/api/function/user_profile/profile/getProfile`,
     })
       .then((res) => {
         setLoading(false);

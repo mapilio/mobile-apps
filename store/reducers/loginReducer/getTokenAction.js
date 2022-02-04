@@ -3,10 +3,11 @@ import { getUserInformation } from "./getUserInformation";
 import Database from "../../../db";
 import {fetchHandler, toastGenerator} from "../../../helper/helper";
 import {errorAlertStyles} from "../../../styles/alertStyles";
+ 
 
 export const getTokenAction = (parameters, navigation) => (dispatch) => {
   dispatch({ type: GET_TOKEN_START });
-  const url = `${process.env.API_URL}/api/login`
+  const url = `${process.env.SERVICE_URL}/api/login`
   fetchHandler({
     url: url,
     method: "POST",

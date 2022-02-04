@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Image, View, Text, TouchableOpacity, Pressable } from "react-native";
+import {
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import { panoStyle } from "../../styles/panoStyle";
 import ReportIcon from "../../assets/svg/illustrations/ReportIcon";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
@@ -13,7 +21,8 @@ import { Routes } from "../../navigator/Routes";
 import { fetchHandler, toastGenerator } from "../../helper/helper";
 import { errorAlertStyles, infoAlertStyles } from "../../styles/alertStyles";
 import { useSelector } from "react-redux";
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { NorthArrow } from "../../assets/svg/illustrations";
 
 const Pano = (props) => {
   const { imageInformation, navigation } = props;
@@ -23,7 +32,7 @@ const Pano = (props) => {
   const reportImage = () => {
     if (auth) {
       fetchHandler({
-        url: `${process.env.API_URL}/api/function/image_complaint/complaint/report`,
+        url: `${process.env.SERVICE_URL}/api/function/image_complaint/complaint/report`,
         method: "POST",
         data: {
           options: {
@@ -90,27 +99,38 @@ const Pano = (props) => {
           <MinimizePano />
         </TouchableOpacity>
       </View>
-
-      <Image
-        source={{
-          uri: imageInformation.image,
-          height: fullHeight ? "100%" : RFPercentage(45),
-        }}
-        style={panoStyle.imageStyle}
-      />
-
+      <ScrollView horizontal={true}>
+        <ScrollView>
+          <Image
+            source={{
+              uri: fullHeight
+                ? imageInformation.highResImage
+                : imageInformation.image,
+            }}
+            style={{
+              height: fullHeight ? RFValue(592) : RFValue(285),
+              width: RFValue(Dimensions.get("window").width),
+              resizeMode: "cover",
+              // aspectRatio: 3 / 2,
+            }}
+          />
+        </ScrollView>
+      </ScrollView>
       <View style={panoStyle.watermark}>
         <LogoWatermark />
       </View>
 
       <View style={panoStyle.userActionWrapper}>
-        <View style={panoStyle.zoomWrapper}>
+        {/* <View style={panoStyle.zoomWrapper}>
           <View style={panoStyle.zoomIn}>
             <ZoomIn />
           </View>
           <View style={panoStyle.zoomOut}>
             <ZoomOut />
           </View>
+        </View> */}
+        <View>
+          <NorthArrow />
         </View>
         <View
           style={{

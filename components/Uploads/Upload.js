@@ -12,6 +12,7 @@ import RNFetchBlob from "rn-fetch-blob";
 import {fetchHandler} from "../../helper/helper";
 import {Routes} from "../../navigator/Routes";
 import * as Progress from 'react-native-progress';
+ 
 const md5 = require('md5');
 const RNFS = require('react-native-fs');
 
@@ -27,7 +28,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 	const [totalFile, setTotalFile] = useState(0);
 	const [uploadedFile, setUploadedFile] = useState(0);
 	let percent = 0;
-	const upload_url = `${process.env.API_URL}/api/function/mapilio/imagery/upload`
+	const upload_url = `${process.env.SERVICE_URL}/api/function/mapilio/imagery/upload`
 
 	const hFov = (horizontal_pixel, pixel_pitch, focal_length) => {
 		return 360 / Math.PI * Math.atan(horizontal_pixel / 2 * pixel_pitch / 1e3 / focal_length)

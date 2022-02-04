@@ -21,11 +21,11 @@ const ForgotPassword = ({navigation}) => {
 
   const forgotPassword = (values) => {
     fetchHandler({
-      url: `${process.env.API_URL}/api/forgot-password`,
+      url: `${process.env.SERVICE_URL}/api/forgot-password`,
       method: "POST",
       data: {
         email: values.email,
-        callback: `${process.env.API_URL}`,
+        callback: `${process.env.SERVICE_URL}`,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },

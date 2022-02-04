@@ -7,6 +7,7 @@ import ProjectList from "./ProjectList";
 import {fetchHandler, toastGenerator} from "../helper/helper";
 import {warningAlertStyles} from "../styles/alertStyles";
 import {Routes} from "../navigator/Routes";
+ 
 
 const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
     const [projects, setProjects] = useState([])
@@ -14,7 +15,7 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        fetchHandler({url: `${process.env.API_URL}/api/function/projects/job/getMyJobs`})
+        fetchHandler({url: `${process.env.SERVICE_URL}/api/function/projects/job/getMyJobs`})
             .then(res => {
                 setLoading(false)
                 setProjects(res.data)

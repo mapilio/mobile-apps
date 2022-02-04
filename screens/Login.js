@@ -19,7 +19,7 @@ import { Eye, EyeSlash } from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import { SocialLogin } from "../components";
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [securePassword, setSecurePassword] = useState(true);
 
@@ -140,7 +140,10 @@ const Login = ({ navigation }) => {
                   </CustomText>
                 </Pressable>
                 <Pressable
-                  onPress={() => navigation.navigate(Routes.map)}
+                  onPress={() => {
+                    console.log(route);
+                    navigation.navigate(Routes.nonUserTab);
+                  }}
                 >
                   <CustomText
                     style={{

@@ -11,13 +11,14 @@ import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import Database from "../../db";
+ 
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
   const dispatch = useDispatch();
 
   const login = async () => {
-    fetchHandler({ url: `${process.env.API_URL}/oauth-api/generate-state` })
+    fetchHandler({ url: `${process.env.SERVICE_URL}/oauth-api/generate-state` })
       .then((response) => {
         facebookAccess(response.data.state);
       })
@@ -47,9 +48,8 @@ const FacebookLogin = ({ navigation }) => {
             errorAlertStyles.alertImage
           );
         } else {
-          console.log(stateKey.length, "TWO");
           fetchHandler({
-            url: `${process.env.API_URL}/oauth-api/callback`,
+            url: `${process.env.SERVICE_URL}/oauth-api/callback`,
             method: "POST",
             data: {
               email: json.email,
@@ -58,7 +58,7 @@ const FacebookLogin = ({ navigation }) => {
             },
           })
             .then((res) => {
-              console.log(res, "THEN");
+
               dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
               dispatch(getUserInformation(res));
               Database.startDB(res.id);
