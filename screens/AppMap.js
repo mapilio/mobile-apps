@@ -189,7 +189,7 @@ const AppMap = ({ navigation }) => {
                 source={require("../assets/images/heding.png")}
                 resizeMode={"cover"}
                 style={{
-                  transform: [{ rotate: `${imageInformations.heading}deg` }],
+                  transform: [{ rotate: imageInformations ? `${imageInformations.heading}deg` : '0deg' }],
                 }}
                 width={80}
                 height={80}

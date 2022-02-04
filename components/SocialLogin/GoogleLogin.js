@@ -30,7 +30,7 @@ const GoogleLogin = ({ navigation }) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async (e) => {
-      fetchHandler({ url: `${process.env.API_URL}/oauth-api/generate-state` })
+      fetchHandler({ url: `${process.env.SERVICE_URL}/oauth-api/generate-state` })
         .then((response) => setStateKey(response.data.state))
         .catch((err) => console.error(err));
     });
@@ -56,7 +56,7 @@ const GoogleLogin = ({ navigation }) => {
 
   const loginToMapilio = (response) => {
     fetchHandler({
-      url: `${process.env.API_URL}/oauth-api/callback`,
+      url: `${process.env.SERVICE_URL}/oauth-api/callback`,
       method: "POST",
       data: {
         email: response.email,

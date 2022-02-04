@@ -13,7 +13,7 @@ const MarketplaceDetail = ({navigation, route}) => {
 
   const applyProject = () => {
     fetchHandler({
-      url: `${process.env.API_URL}/api/function/projects/job/createJob`,
+      url: `${process.env.SERVICE_URL}/api/function/projects/job/createJob`,
       method: "POST",
       data: {
         id: route.params.data.id,

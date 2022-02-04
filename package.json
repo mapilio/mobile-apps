@@ -46,7 +46,6 @@
     "expo-task-manager": "~10.1.0",
     "expo-updates": "~0.11.3",
     "formik": "^2.2.9",
-    "ios-deploy": "^1.11.4",
     "jsog": "^1.0.7",
     "md5": "^2.3.0",
     "moment": "^2.29.1",

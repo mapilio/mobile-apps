@@ -61,7 +61,12 @@ export const userUploadModalStyles = StyleSheet.create({
     marginVertical: RFValue(5)
   },
   progressBar: {
-    borderRadius: 4,
+    borderRadius: RFValue(4),
     width: Dimensions.get("window").width - RFValue(100)
+  },
+  close: {
+    position: "absolute",
+    top: RFValue(15),
+    right: RFValue(15),
   }
 });

@@ -17,14 +17,14 @@ const Register = ({ navigation }) => {
 
   const register = (values) => {
     fetchHandler({
-      url: `${process.env.API_URL}/api/register`,
+      url: `${process.env.SERVICE_URL}/api/register`,
       method: "POST",
       data: {
         name: values.name,
         username: values.name,
         email: values.email,
         password: values.password,
-        callback: `${process.env.API_URL}`,
+        callback: `${process.env.SERVICE_URL}`,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },
