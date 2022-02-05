@@ -35,7 +35,7 @@ const CameraFrame = () => {
       </View>
       <View style={{ position: "absolute", top: 0, right: 0 }}>
         <FrameRightTop />
-        {!captureType && <RecordStatus />}
+        <RecordStatus />
       </View>
       <View style={{ position: "absolute", bottom: 0, left: 0 }}>
         <PhotoAmounts />

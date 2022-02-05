@@ -3,6 +3,7 @@ import { getUserInformation } from "./getUserInformation";
 import Database from "../../../db";
 import {fetchHandler, toastGenerator} from "../../../helper/helper";
 import {errorAlertStyles} from "../../../styles/alertStyles";
+ 
 
 export const getTokenAction = (parameters, navigation) => (dispatch) => {
   dispatch({ type: GET_TOKEN_START });

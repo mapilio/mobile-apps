@@ -20,6 +20,7 @@ import {
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
 import { ActivityIndicator } from "react-native-paper";
+ 
 
 const SearchbarSwipe = ({ setFly, panelRef }) => {
   const [value, setInputValue] = useState("");

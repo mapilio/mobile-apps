@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { Camera, CameraSidebar } from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useKeepAwake } from "expo-keep-awake";
 
 const AppCamera = ({ navigation }) => {
+  useKeepAwake();
+
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
       <View style={{ flex: 0.78 }}>

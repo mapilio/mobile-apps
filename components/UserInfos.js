@@ -10,6 +10,7 @@ import { fetchHandler, kFormatter, toastGenerator } from "../helper/helper";
 import { warningAlertStyles } from "../styles/alertStyles";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
+ 
 
 const UserInfos = () => {
   const [avatarLoading, setAvatarLoading] = useState(true);

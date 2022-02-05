@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CustomTextMedium } from "../highordercomponents";
+ 
 
 const UserProfile = ({ navigation }) => {
   const [listData, setListData] = useState([]);

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GET_USER_INDEX_TYPE, GET_USER_INFORMATION } from "../../actionsName";
+ 
 
 export const getUserInformation = (auth) => (dispatch) => {
   const token = auth.token;

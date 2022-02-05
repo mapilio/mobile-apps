@@ -11,6 +11,7 @@ import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import Database from "../../db";
+ 
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
@@ -57,6 +58,7 @@ const FacebookLogin = ({ navigation }) => {
             },
           })
             .then((res) => {
+
               dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
               dispatch(getUserInformation(res));
               Database.startDB(res.id);

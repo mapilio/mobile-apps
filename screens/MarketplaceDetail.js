@@ -8,6 +8,7 @@ import {fetchHandler, toastGenerator} from "../helper/helper";
 import {Routes} from "../navigator/Routes";
 import Moment from 'moment';
 import {errorAlertStyles} from "../styles/alertStyles";
+ 
 
 const MarketplaceDetail = ({navigation, route}) => {
 

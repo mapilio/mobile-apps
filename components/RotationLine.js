@@ -30,6 +30,7 @@ const RotationLine = ({ degree, setAlert }) => {
       const betweenPositiveLandscape = between(degree, 162, 180);
       const betweenHighNegativeLandscape = between(degree, -180, -170);
       const betweenNegativeLandscape = between(degree, -15, 15);
+
       if (
         !betweenNegativeLandscape &&
         !betweenPositiveLandscape &&

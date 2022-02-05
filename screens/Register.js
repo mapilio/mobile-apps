@@ -11,6 +11,7 @@ import { fetchHandler, toastGenerator } from "../helper/helper";
 import { Eye, EyeSlash } from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import { errorAlertStyles, successAlertStyles } from "../styles/alertStyles";
+ 
 
 const Register = ({ navigation }) => {
   const [securePassword, setSecurePassword] = useState(true);
