@@ -11,14 +11,14 @@ import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import Database from "../../db";
- 
+import { SERVICE_URL, FACEBOOK_APP_ID, FACEBOOK_REQUEST_URL } from "@env";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
   const dispatch = useDispatch();
 
   const login = async () => {
-    fetchHandler({ url: `${process.env.SERVICE_URL}/oauth-api/generate-state` })
+    fetchHandler({ url: `${SERVICE_URL}/oauth-api/generate-state` })
       .then((response) => {
         facebookAccess(response.data.state);
       })
@@ -28,7 +28,7 @@ const FacebookLogin = ({ navigation }) => {
   const facebookAccess = async (stateKey) => {
     try {
       await Facebook.initializeAsync({
-        appId: process.env.FACEBOOK_APP_ID,
+        appId: FACEBOOK_APP_ID,
       });
       const { type, token, expirationDate, permissions, declinedPermissions } =
         await Facebook.logInWithReadPermissionsAsync({
@@ -36,7 +36,7 @@ const FacebookLogin = ({ navigation }) => {
         });
       if (type === "success") {
         const response = await fetch(
-          `${process.env.FACEBOOK_REQUEST_URL}${token}`
+          `${FACEBOOK_REQUEST_URL}${token}`
         );
         const json = await response.json();
         if (!json.email) {
@@ -49,7 +49,7 @@ const FacebookLogin = ({ navigation }) => {
           );
         } else {
           fetchHandler({
-            url: `${process.env.SERVICE_URL}/oauth-api/callback`,
+            url: `${SERVICE_URL}/oauth-api/callback`,
             method: "POST",
             data: {
               email: json.email,
@@ -58,7 +58,6 @@ const FacebookLogin = ({ navigation }) => {
             },
           })
             .then((res) => {
-
               dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
               dispatch(getUserInformation(res));
               Database.startDB(res.id);

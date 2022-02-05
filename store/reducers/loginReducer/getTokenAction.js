@@ -1,13 +1,13 @@
 import { GET_TOKEN_START, GET_TOKEN_SUCCESS } from "../../actionsName";
 import { getUserInformation } from "./getUserInformation";
 import Database from "../../../db";
-import {fetchHandler, toastGenerator} from "../../../helper/helper";
-import {errorAlertStyles} from "../../../styles/alertStyles";
- 
+import { fetchHandler, toastGenerator } from "../../../helper/helper";
+import { errorAlertStyles } from "../../../styles/alertStyles";
+import { SERVICE_URL } from "@env";
 
 export const getTokenAction = (parameters, navigation) => (dispatch) => {
   dispatch({ type: GET_TOKEN_START });
-  const url = `${process.env.SERVICE_URL}/api/login`
+  const url = `${SERVICE_URL}/api/login`;
   fetchHandler({
     url: url,
     method: "POST",

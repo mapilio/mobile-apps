@@ -7,6 +7,7 @@ import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { userSequenceStyles } from "../styles/userSequenceStyle";
 import { fetchHandler } from "../helper/helper";
+import { SERVICE_URL, IMAGE_API } from "@env";
 
 const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
   const [imageList, setImagesList] = useState([]);
@@ -14,7 +15,7 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
 
   useEffect(() => {
     fetchHandler({
-      url: `${process.env.SERVICE_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`,
+      url: `${SERVICE_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`,
     })
       .then((res) => {
         setImagesList(res.data);
@@ -59,7 +60,7 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
           : imageList.map((image) => (
               <FeedImageCard
                 key={image.id}
-                path={`${process.env.IMAGE_API}/${image.img_code}/${image.filename}/100`}
+                path={`${IMAGE_API}/${image.img_code}/${image.filename}/100`}
                 id={image.id}
                 navigation={navigation}
               />

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CustomTextMedium } from "../highordercomponents";
- 
+import {SERVICE_URL} from '@env'
 
 const UserProfile = ({ navigation }) => {
   const [listData, setListData] = useState([]);
@@ -16,7 +16,7 @@ const UserProfile = ({ navigation }) => {
 
   useEffect(() => {
     fetchHandler({
-      url: `${process.env.SERVICE_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`,
+      url: `${SERVICE_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`,
     })
       .then((res) => {
         setListData(res.data !== null ? res.data : []);

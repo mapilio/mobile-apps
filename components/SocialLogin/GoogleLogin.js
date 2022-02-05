@@ -10,28 +10,34 @@ import {
   warningAlertStyles,
 } from "../../styles/alertStyles";
 import { socialLoginStyles } from "../../styles/loginStyles";
- 
+
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import Database from "../../db";
+import {
+  GOOGLE_ANDROID_CLIENT_ID,
+  GOOGLE_IOS_CLIENT_ID,
+  GOOGLE_REQUEST_URL,
+  SERVICE_URL,
+} from "@env";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [stateKey, setStateKey] = useState("");
   const [request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId: process.env.GOOGLE_IOS_CLIENT_ID,
-    androidClientId: process.env.GOOGLE_ANDROID_CLIENT_ID,
-    expoClientId: process.env.GOOGLE_ANDROID_CLIENT_ID,
+    iosClientId: GOOGLE_IOS_CLIENT_ID,
+    androidClientId: GOOGLE_ANDROID_CLIENT_ID,
+    expoClientId: GOOGLE_ANDROID_CLIENT_ID,
     scopes: ["profile", "email"],
     permissions: ["public_profile", "email"],
   });
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async (e) => {
-      fetchHandler({ url: `${process.env.SERVICE_URL}/oauth-api/generate-state` })
+      fetchHandler({ url: `${SERVICE_URL}/oauth-api/generate-state` })
         .then((response) => setStateKey(response.data.state))
         .catch((err) => console.error(err));
     });
@@ -45,11 +51,9 @@ const GoogleLogin = ({ navigation }) => {
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      axios
-        .get(process.env.GOOGLE_REQUEST_URL + authentication.accessToken)
-        .then((res) => {
-          loginToMapilio(res.data);
-        });
+      axios.get(GOOGLE_REQUEST_URL + authentication.accessToken).then((res) => {
+        loginToMapilio(res.data);
+      });
     } else {
       setLoading(false);
     }
@@ -57,7 +61,7 @@ const GoogleLogin = ({ navigation }) => {
 
   const loginToMapilio = (response) => {
     fetchHandler({
-      url: `${process.env.SERVICE_URL}/oauth-api/callback`,
+      url: `${SERVICE_URL}/oauth-api/callback`,
       method: "POST",
       data: {
         email: response.email,

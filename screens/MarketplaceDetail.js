@@ -8,13 +8,13 @@ import {fetchHandler, toastGenerator} from "../helper/helper";
 import {Routes} from "../navigator/Routes";
 import Moment from 'moment';
 import {errorAlertStyles} from "../styles/alertStyles";
- 
+import {SERVICE_URL} from '@env'
 
 const MarketplaceDetail = ({navigation, route}) => {
 
   const applyProject = () => {
     fetchHandler({
-      url: `${process.env.SERVICE_URL}/api/function/projects/job/createJob`,
+      url: `${SERVICE_URL}/api/function/projects/job/createJob`,
       method: "POST",
       data: {
         id: route.params.data.id,

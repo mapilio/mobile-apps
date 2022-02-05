@@ -9,6 +9,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {fetchHandler, toastGenerator} from "../helper/helper";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import {errorAlertStyles, successAlertStyles} from "../styles/alertStyles";
+import {SERVICE_URL} from '@env'
 
 const ForgotPassword = ({navigation}) => {
 
@@ -21,11 +22,11 @@ const ForgotPassword = ({navigation}) => {
 
   const forgotPassword = (values) => {
     fetchHandler({
-      url: `${process.env.SERVICE_URL}/api/forgot-password`,
+      url: `${SERVICE_URL}/api/forgot-password`,
       method: "POST",
       data: {
         email: values.email,
-        callback: `${process.env.SERVICE_URL}`,
+        callback: `${SERVICE_URL}`,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },

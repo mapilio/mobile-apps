@@ -20,7 +20,7 @@ import {
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
 import { ActivityIndicator } from "react-native-paper";
- 
+import { SEARCH_API } from "@env";
 
 const SearchbarSwipe = ({ setFly, panelRef }) => {
   const [value, setInputValue] = useState("");
@@ -34,7 +34,7 @@ const SearchbarSwipe = ({ setFly, panelRef }) => {
 
     if (valueAPI.length !== 0) {
       fetchHandler({
-        url: `${process.env.SEARCH_API}${valueAPI}`,
+        url: `${SEARCH_API}${valueAPI}`,
       })
         .then((res) => {
           setLocations(res.features);

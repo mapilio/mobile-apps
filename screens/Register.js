@@ -11,21 +11,21 @@ import { fetchHandler, toastGenerator } from "../helper/helper";
 import { Eye, EyeSlash } from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import { errorAlertStyles, successAlertStyles } from "../styles/alertStyles";
- 
+import {SERVICE_URL} from '@env'
 
 const Register = ({ navigation }) => {
   const [securePassword, setSecurePassword] = useState(true);
 
   const register = (values) => {
     fetchHandler({
-      url: `${process.env.SERVICE_URL}/api/register`,
+      url: `${SERVICE_URL}/api/register`,
       method: "POST",
       data: {
         name: values.name,
         username: values.name,
         email: values.email,
         password: values.password,
-        callback: `${process.env.SERVICE_URL}`,
+        callback: `${SERVICE_URL}`,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },

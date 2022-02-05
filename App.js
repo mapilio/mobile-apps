@@ -26,14 +26,6 @@ function App() {
   const setReady = async () => {
     await permissionHandler();
     openApp();
-    AppState.addEventListener("change", async (status) => {
-      if (status === "active" && !isReady) {
-        await permissionHandler();
-        openApp();
-      } else {
-        openApp();
-      }
-    });
   };
 
   const openApp = () => setIsReady(true);

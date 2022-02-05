@@ -16,6 +16,7 @@ import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
 import SearhcbarSwipe from "../components/SearchbarSwipe";
 import { useSelector } from "react-redux";
+import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -95,8 +96,8 @@ const AppMap = ({ navigation }) => {
       user: pointFeatures.created_by_id,
       pointID: pointFeatures.id,
       heading: pointFeatures.heading,
-      image: `${process.env.IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
-      highResImage: `${process.env.IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/1080`,
+      image: `${IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
+      highResImage: `${IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/1080`,
     });
     setShowPano(false);
   };
@@ -168,12 +169,12 @@ const AppMap = ({ navigation }) => {
 
           <MapboxGL.VectorSource
             id="road-points"
-            url={process.env.MAPBOX_TILESET_URL}
+            url={MAPBOX_TILESET_URL}
             onPress={touchPoint}
           >
             <MapboxGL.CircleLayer
-              id={process.env.MAPBOX_TILESET_ID}
-              sourceLayerID={process.env.MAPBOX_TILESET_ID}
+              id={MAPBOX_TILESET_ID}
+              sourceLayerID={MAPBOX_TILESET_ID}
               style={styles.circles}
               layerIndex={60}
             />
@@ -190,7 +191,13 @@ const AppMap = ({ navigation }) => {
                 source={require("../assets/images/heding.png")}
                 resizeMode={"cover"}
                 style={{
-                  transform: [{ rotate: imageInformations ? `${imageInformations.heading}deg` : '0deg' }],
+                  transform: [
+                    {
+                      rotate: imageInformations
+                        ? `${imageInformations.heading}deg`
+                        : "0deg",
+                    },
+                  ],
                 }}
                 width={80}
                 height={80}

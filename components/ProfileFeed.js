@@ -5,6 +5,7 @@ import { Routes } from "../navigator/Routes";
 import { userFeedStyles } from "../styles/userProfileStyle";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import { IMAGE_API } from "@env";
 
 const ProfileFeed = ({ navigation, data }) => {
   const { userInformation } = useSelector((state) => state.getTokenReducer);
@@ -32,7 +33,7 @@ const ProfileFeed = ({ navigation, data }) => {
         <Image
           style={userFeedStyles.imageStyle}
           source={{
-            uri: `${process.env.IMAGE_API}/${data.img_code}/${data.cover_photo}/100`,
+            uri: `${IMAGE_API}/${data.img_code}/${data.cover_photo}/100`,
           }}
         />
       </View>

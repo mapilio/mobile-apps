@@ -78,25 +78,35 @@ const permissionHandler = async (
     await Location.getForegroundPermissionsAsync();
 
   if (cameraStatus !== "granted" || locationStatus !== "granted") {
-    Alert.alert(
-      "Your some permissions is turned off",
-      "If you do not allow permissions, you will not access to capture.",
-      [
-        {
-          text: "Continue",
-          style: "cancel",
-          onPress: () => cancelHandler,
-        },
-        {
-          text: "Go to settings",
-          onPress: () => {
-            Platform.OS === "ios"
-              ? Linking.openURL("app-settings:")
-              : Linking.openSettings();
+    if (cameraStatus !== "granted") {
+      const { status: cameraStatus } =
+        await ExpoCamera.requestCameraPermissionsAsync();
+    }
+    if (locationStatus !== "granted") {
+      const { status: locationStatus } =
+        await Location.requestForegroundPermissionsAsync();
+    }
+    if (cameraStatus !== "granted" || locationStatus !== "granted") {
+      Alert.alert(
+        "Your some permissions is turned off",
+        "If you do not allow permissions, you will not access to capture.",
+        [
+          {
+            text: "Continue",
+            style: "cancel",
+            onPress: () => cancelHandler,
           },
-        },
-      ]
-    );
+          {
+            text: "Go to settings",
+            onPress: () => {
+              Platform.OS === "ios"
+                ? Linking.openURL("app-settings:")
+                : Linking.openSettings();
+            },
+          },
+        ]
+      );
+    }
   } else {
     noAccessHandler();
   }
