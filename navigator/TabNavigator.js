@@ -45,11 +45,6 @@ const CaptureTabBarButton = ({ children, onPress }) => {
       () => false,
       onPress
     );
-    AppState.addEventListener("change", async (status) => {
-      if (status === "active") {
-        await permissionHandler(onPress);
-      }
-    });
   };
 
   return (

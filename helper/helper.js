@@ -5,6 +5,7 @@ import axios from "axios";
 import { Alert, Linking, Platform, StatusBar } from "react-native";
 import { Camera as ExpoCamera } from "expo-camera";
 import * as Location from "expo-location";
+let isOpenOnce = false;
 
 const useFonts = async () =>
   await Font.loadAsync({
@@ -78,27 +79,49 @@ const permissionHandler = async (
     await Location.getForegroundPermissionsAsync();
 
   if (cameraStatus !== "granted" || locationStatus !== "granted") {
-    Alert.alert(
-      "Your some permissions is turned off",
-      "If you do not allow permissions, you will not access to capture.",
-      [
-        {
-          text: "Continue",
-          style: "cancel",
-          onPress: () => cancelHandler,
-        },
-        {
-          text: "Go to settings",
-          onPress: () => {
-            Platform.OS === "ios"
-              ? Linking.openURL("app-settings:")
-              : Linking.openSettings();
-          },
-        },
-      ]
-    );
+    if (cameraStatus !== "granted") {
+      const { status: cameraStatus } =
+        await ExpoCamera.requestCameraPermissionsAsync();
+      alertHandler(cameraStatus, cancelHandler);
+    }
+    if (locationStatus !== "granted") {
+      const { status: locationStatus } =
+        await Location.requestForegroundPermissionsAsync();
+      alertHandler(locationStatus, cancelHandler);
+    }
   } else {
     noAccessHandler();
+  }
+};
+
+const alertHandler = (status, cancelHandler) => {
+  if (!isOpenOnce) {
+    isOpenOnce = true;
+    if (status !== "granted") {
+      Alert.alert(
+        "Your some permissions is turned off",
+        "If you do not allow permissions, you will not access to capture.",
+        [
+          {
+            text: "Continue",
+            style: "cancel",
+            onPress: () => {
+              cancelHandler();
+              isOpenOnce = false;
+            },
+          },
+          {
+            text: "Go to settings",
+            onPress: () => {
+              Platform.OS === "ios"
+                ? Linking.openURL("app-settings:")
+                : Linking.openSettings();
+              isOpenOnce = false;
+            },
+          },
+        ]
+      );
+    }
   }
 };
 

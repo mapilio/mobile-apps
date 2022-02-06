@@ -10,7 +10,7 @@ import { fetchHandler, kFormatter, toastGenerator } from "../helper/helper";
 import { warningAlertStyles } from "../styles/alertStyles";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
- 
+import { SERVICE_URL } from "@env";
 
 const UserInfos = () => {
   const [avatarLoading, setAvatarLoading] = useState(true);
@@ -47,10 +47,10 @@ const UserInfos = () => {
       setAvatarLoading(false);
     }
   };
-  console.log(process.env.SERVICE_URL)
+  console.log(SERVICE_URL);
   useEffect(() => {
     fetchHandler({
-      url: `${process.env.SERVICE_URL}/api/function/user_profile/profile/getProfile`,
+      url: `${SERVICE_URL}/api/function/user_profile/profile/getProfile`,
     })
       .then((res) => {
         setLoading(false);
