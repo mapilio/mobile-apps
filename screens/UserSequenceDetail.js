@@ -3,7 +3,7 @@ import {Dimensions, Image, View, TouchableOpacity} from "react-native";
 import Maximize from "../assets/svg/illustrations/Maximize";
 import {sequenceDetailStyles} from "../styles/userSequenceStyle";
 import Minimize from "../assets/svg/illustrations/Minimize";
-import {RFValue} from "react-native-responsive-fontsize";
+import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import {appMapStyle} from "../styles/appMapStyle";
 import database from "../db";
@@ -14,7 +14,7 @@ const UserSequenceDetail = ({navigation, route}) => {
   const [maximize, setMaximize] = useState(false);
   const [lines, setLines] = useState({});
   const [points, setPoints] = useState({});
-  const [center, setCenter] = useState([]);
+  const [center, setCenter] = useState([30.8, 41.015137]);
   const {activeSequence} = useSelector((state) => state.uploadReducer);
   const screenHeight = Dimensions.get('window').height - RFValue(110);
 
@@ -79,11 +79,15 @@ const UserSequenceDetail = ({navigation, route}) => {
 
       <MapboxGL.MapView
         styleURL={'mapbox://styles/mapbox/light-v10'}
-        style={appMapStyle.map}
+        style={{...appMapStyle.map, height: RFPercentage(54)}}
         attributionPosition={{bottom: 26, right: 8}}
       >
-
-        <MapboxGL.Camera centerCoordinate={center} zoomLevel={20} />
+        <MapboxGL.Camera
+          centerCoordinate={center}
+          zoomLevel={20}
+          animationMode={"flyTo"}
+          animationDuration={1000}
+        />
         {
           !!Object.keys(points).length && (
             <MapboxGL.ShapeSource id={"pointsShape"} shape={points} onPress={(point) => {
