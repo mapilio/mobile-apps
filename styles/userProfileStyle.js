@@ -28,7 +28,7 @@ export const userFeedStyles = StyleSheet.create({
         flexWrap: "nowrap",
     },
     imageStyle: {
-        width: RFValue(99),
+        width: RFValue(130),
         height: RFValue(70),
         resizeMode: "cover",
         borderRadius: 4,

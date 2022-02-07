@@ -141,7 +141,6 @@ const Login = ({ navigation, route }) => {
                 </Pressable>
                 <Pressable
                   onPress={() => {
-                    console.log(route);
                     navigation.navigate(Routes.nonUserTab);
                   }}
                 >
