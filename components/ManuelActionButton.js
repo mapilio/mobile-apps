@@ -32,19 +32,32 @@ const ManuelActionButton = ({ disabled, uuid }) => {
         ? userInformation.id
         : selectedProject.id;
 
-    if (cameraStatus !== "READY") return;
     const options = { quality: 0.6, base64: false, exif: true };
     const image = await camera.takePictureAsync(options);
     const location = await Location.getCurrentPositionAsync();
     const heading = await Location.getHeadingAsync();
     const imageUri = image.uri;
-    if (!imageUri) return;
-    const path =
-      Platform.OS === "android"
-        ? `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`
-        : `${id}${uuid}${Math.random().toString()}.${"jpeg"}`;
-    const newPath = FileSystem.documentDirectory + path;
 
+    console.log(3333);
+    const metaDataDir = await FileSystem.getInfoAsync(
+      FileSystem.documentDirectory + `${id}/${uuid}`
+    );
+    const isDir = metaDataDir.isDirectory;
+    if (!isDir) {
+      try {
+        await FileSystem.makeDirectoryAsync(
+          FileSystem.documentDirectory + `${id}/${uuid}`,
+          { intermediates: true }
+        );
+      } catch (e) {
+        console.info("ERROR", e);
+      }
+    }
+
+    const newPath =
+      FileSystem.documentDirectory +
+      `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
+    console.log(newPath);
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,
@@ -73,7 +86,7 @@ const ManuelActionButton = ({ disabled, uuid }) => {
 
   return (
     <TouchableOpacity
-      disabled={disabled}
+      disabled={false}
       style={{
         width: RFValue(61),
         height: RFValue(61),

@@ -47,7 +47,6 @@ const UserInfos = () => {
       setAvatarLoading(false);
     }
   };
-  console.log(SERVICE_URL);
   useEffect(() => {
     fetchHandler({
       url: `${SERVICE_URL}/api/function/user_profile/profile/getProfile`,

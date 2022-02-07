@@ -98,13 +98,10 @@ const AutoActionButton = ({
     if (!autoCapture) return;
     const image = await camera.takePictureAsync(options);
     const heading = await Location.getHeadingAsync();
-    console.log(heading);
     const imageUri = image.uri;
     if (!imageUri) return;
-    const newPath =
-      FileSystem.documentDirectory +
-      `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
-    console.log(newPath);
+    const path = `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
+    const newPath = FileSystem.documentDirectory + path;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,
