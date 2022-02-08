@@ -16,7 +16,7 @@ export const navigatorStyle = {
     headerTintColor: "#ffffff",
     headerTitleAlign: "center",
     tabBarStyle: {
-        height: Platform.OS === "android" ? RFValue(63) : Dimensions.get("window").height > 775 ? RFValue(83) : RFValue(63),
+        height: Platform.OS === "android" ? RFValue(63) : Dimensions.get("window").height > 775 ? RFValue(53) : RFValue(63),
         position:"absolute",
         bottom:0
     },
