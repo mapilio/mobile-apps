@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, TextInput, Pressable, TouchableOpacity } from "react-native";
+import {
+  View,
+  TextInput,
+  Pressable,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { loginStyles } from "../styles/loginStyles";
@@ -11,7 +17,8 @@ import { fetchHandler, toastGenerator } from "../helper/helper";
 import { Eye, EyeSlash } from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import { errorAlertStyles, successAlertStyles } from "../styles/alertStyles";
-import {SERVICE_URL} from '@env'
+import { SERVICE_URL } from "@env";
+import { SocialLogin } from "../components";
 
 const Register = ({ navigation }) => {
   const [securePassword, setSecurePassword] = useState(true);
@@ -55,6 +62,18 @@ const Register = ({ navigation }) => {
       });
   };
 
+  const redirectBrowser = () => {
+    Linking.openURL("https://mapilio.com/privacy").catch((err) => {
+      toastGenerator(
+        "An error occurred while redirecting, please try again.",
+        require("../assets/images/Info.png"),
+        errorAlertStyles.alertContainer,
+        errorAlertStyles.alertTitle,
+        errorAlertStyles.alertImage
+      );
+    });
+  };
+
   const loginValidationSchema = yup.object().shape({
     name: yup.string().required("Name is required"),
     email: yup
@@ -80,7 +99,7 @@ const Register = ({ navigation }) => {
           Fill out the form to get started.
         </CustomText>
       </View>
-
+      <SocialLogin navigation={navigation} />
       <Formik
         initialValues={{
           name: "",
@@ -192,7 +211,9 @@ const Register = ({ navigation }) => {
             <CustomText style={loginStyles.privacyText}>
               By clicking "Sign up" button you agree with our
             </CustomText>
-            <CustomText style={loginStyles.link}>Privacy policy</CustomText>
+            <CustomText style={loginStyles.link} onPress={redirectBrowser}>
+              Privacy policy
+            </CustomText>
           </>
         )}
       </Formik>

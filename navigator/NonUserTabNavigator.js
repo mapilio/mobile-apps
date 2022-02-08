@@ -13,6 +13,7 @@ import { Notifier } from "react-native-notifier";
 import { HeaderTitle } from "../components/Marketplace";
 import {
   CaptureIcon,
+  CaptureText,
   MarketplaceIcon,
   Profile,
   Upload,
@@ -32,7 +33,9 @@ const CaptureTabBarButton = ({ children, onPress, navigation }) => {
       onPress={() => navigation.navigate(Routes.login)}
     >
       <View style={navigatorStyle.captureButtonWrapperStyle}>
-        <View style={navigatorStyle.captureButtonStyle}>{children}</View>
+        <View style={navigatorStyle.captureButtonStyle}>
+          <CaptureText />
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -174,7 +177,7 @@ const NonUserTabNavigator = () => {
               ]}
               onPress={() => navigation.navigate(Routes.login)}
             >
-              <Upload fill={"#32425B"} />
+              <Upload fill={focused ? "#32425B" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
@@ -203,7 +206,7 @@ const NonUserTabNavigator = () => {
               ]}
               onPress={() => navigation.navigate(Routes.login)}
             >
-              <Profile fill={"#32425B"} />
+              <Profile fill={focused ? "#32425B" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,

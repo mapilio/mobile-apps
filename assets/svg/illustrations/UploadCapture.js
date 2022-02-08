@@ -2,7 +2,7 @@ import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { G, Path } from "react-native-svg";
 
-const UploadCapture = ({ width = RFValue(300), height = RFValue(200) }) => (
+const UploadCapture = ({ width = RFValue(280), height = RFValue(201) }) => (
   <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
     <G opacity=".35" fill="none" stroke="#dadada">
       <Path d="m38.953 28.874 27.483 43.142M32.931 35.772l12.811 4.052-30.987 90.442m2.518-65.152 17.847 6.46" />

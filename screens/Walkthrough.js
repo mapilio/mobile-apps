@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { View, Image, Dimensions } from "react-native";
 import { CustomText } from "../highordercomponents";
-import Carousel, {Pagination} from "react-native-snap-carousel";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 import { walkthroughStyle } from "../styles/walkthroughStyle";
 import {
   Next,
@@ -9,55 +9,28 @@ import {
   Start,
 } from "../components/Walkthrough/CaptureWalkthrough";
 import { useSelector } from "react-redux";
+import { CleanRoad, Orientation, Road } from "../assets/svg/illustrations";
 
 const width = Dimensions.get("window").width;
 
 const _renderItem = ({ item, i }) => {
   return (
     <View key={i} style={walkthroughStyle.image}>
-      <Image
-        source={item.src}
-        style={{ width: item.width, height: item.height }}
-        resizeMode={"contain"}
-      />
+      {item.src}
       <CustomText style={walkthroughStyle.title}>{item.title}</CustomText>
       <CustomText style={walkthroughStyle.desc}>{item.desc}</CustomText>
     </View>
   );
 };
 
-const Walkthrough = ({navigation}) => {
+const Walkthrough = ({ navigation }) => {
   const { captureType } = useSelector((state) => state.settingsReducer);
   const [modalVisible, setModalVisible] = useState(true);
-  const carouselRef = useRef()
+  const carouselRef = useRef();
   const [active, setActive] = useState(0);
   const data = [
     {
-      src: require("../assets/images/manuel_1.png"),
-      width: 78,
-      height: 76,
-      title: "Manual Shooting",
-      desc: "View panoramic locations, objects, facades and intersections with manual shooting mode.",
-      mode: true,
-    },
-    {
-      src: require("../assets/images/manuel_2.png"),
-      width: 94,
-      height: 86,
-      title: "Take more shots",
-      desc: "Save as many images as possible.",
-      mode: true,
-    },
-    {
-      src: require("../assets/images/auto_3.png"),
-      width: 199,
-      height: 25,
-      title: "Camera Direction",
-      desc: "Adjust the position of the camera to record the image parallel to the ground.",
-      mode: true,
-    },
-    {
-      src: require("../assets/images/auto_1.png"),
+      src: <Road />,
       width: 74,
       height: 93,
       title: "Focus the Road",
@@ -65,7 +38,7 @@ const Walkthrough = ({navigation}) => {
       mode: false,
     },
     {
-      src: require("../assets/images/auto_2.png"),
+      src: <CleanRoad />,
       width: 78,
       height: 83,
       title: "Clean Image",
@@ -73,14 +46,14 @@ const Walkthrough = ({navigation}) => {
       mode: false,
     },
     {
-      src: require("../assets/images/auto_3.png"),
+      src: <Orientation />,
       width: 199,
       height: 25,
       title: "Camera Direction",
       desc: "Adjust the position of the camera to record the image parallel to the ground.",
       mode: false,
     },
-  ].filter((e) => e.mode === captureType);
+  ];
 
   return (
     <View style={walkthroughStyle.centeredView}>
@@ -95,9 +68,7 @@ const Walkthrough = ({navigation}) => {
           onSnapToItem={(index) => setActive(index)}
         />
         <View style={walkthroughStyle.pagination}>
-          <Prev active={active}
-                carousel={carouselRef.current}
-          />
+          <Prev active={active} carousel={carouselRef.current} />
           <Pagination
             dotsLength={data.length}
             activeDotIndex={active}
@@ -105,7 +76,11 @@ const Walkthrough = ({navigation}) => {
             inactiveDotStyle={walkthroughStyle.inactiveDotStyle}
             inactiveDotScale={1}
           />
-          <Next active={active} dataLength={data.length} carousel={carouselRef.current} />
+          <Next
+            active={active}
+            dataLength={data.length}
+            carousel={carouselRef.current}
+          />
           <Start
             active={active}
             dataLength={data.length}

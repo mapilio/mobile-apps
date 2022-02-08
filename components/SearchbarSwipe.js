@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   input: {
     height: RFValue(40),
     margin: RFValue(12),
-    borderWidth: 1,
+    borderWidth: 0,
     padding: RFValue(10),
     paddingLeft: RFValue(42),
     borderRadius: RFValue(30),

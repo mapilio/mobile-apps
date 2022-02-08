@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const CustomTextBold = ({ style, lineCount = null, children }) => (
+const CustomTextBold = ({ style, lineCount = null, children, onPress }) => (
   <View style={{ flexDirection: "row" }}>
     <Text
       style={[
@@ -14,6 +14,7 @@ const CustomTextBold = ({ style, lineCount = null, children }) => (
       ]}
       numberOfLines={lineCount}
       adjustsFontSizeToFit
+      onPress={onPress}
     >
       {children}
     </Text>

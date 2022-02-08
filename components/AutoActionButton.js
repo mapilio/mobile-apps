@@ -28,7 +28,7 @@ const AutoActionButton = ({
     (status) => status.cameraReducer
   );
   const { userInformation } = useSelector((state) => state.getTokenReducer);
-  const { selectedProject, distanceBetween } = useSelector(
+  const { selectedProject, distanceBetween, autoCaptureStart } = useSelector(
     (status) => status.settingsReducer
   );
   let photo = photoAmount;
@@ -36,8 +36,11 @@ const AutoActionButton = ({
 
   const playHandler = () => {
     dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: !autoCapture });
-    setAutoCapture((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    setAutoCapture(autoCaptureStart);
+  }, [autoCapture]);
 
   useEffect(() => {
     const batteryError =

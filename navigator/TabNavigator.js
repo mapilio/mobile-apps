@@ -19,6 +19,7 @@ import { HeaderTitle } from "../components/Marketplace";
 import { AppState, Text, TouchableOpacity, View } from "react-native";
 import {
   CaptureIcon,
+  CaptureText,
   MarketplaceIcon,
   Profile,
   Upload,
@@ -57,7 +58,9 @@ const CaptureTabBarButton = ({ children, onPress }) => {
       onPress={screenListen}
     >
       <View style={navigatorStyle.captureButtonWrapperStyle}>
-        <View style={navigatorStyle.captureButtonStyle}>{children}</View>
+        <View style={navigatorStyle.captureButtonStyle}>
+          <CaptureText />
+        </View>
       </View>
     </TouchableOpacity>
   );

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { CustomTextMedium } from "../highordercomponents";
 
 const RecordStatus = () => {
-  const { autocaptureStart } = useSelector((state) => state.settingsReducer);
+  const { autoCaptureStart } = useSelector((state) => state.settingsReducer);
   return (
     <View
       style={{
@@ -15,7 +15,7 @@ const RecordStatus = () => {
         right: RFValue(-2),
       }}
     >
-      {autocaptureStart ? (
+      {!autoCaptureStart ? (
         <>
           <View
             style={{
@@ -32,7 +32,7 @@ const RecordStatus = () => {
             }}
           ></View>
           <CustomTextMedium style={{ fontSize: RFValue(14), color: "#FFFFFF" }}>
-            REC
+            NO REC
           </CustomTextMedium>
         </>
       ) : (
@@ -52,7 +52,7 @@ const RecordStatus = () => {
             }}
           ></View>
           <CustomTextMedium style={{ fontSize: RFValue(14), color: "#FFFFFF" }}>
-            NO REC
+            REC
           </CustomTextMedium>
         </>
       )}

@@ -8,7 +8,7 @@ import {
 const INITIAL_STATE = {
   distanceBetween: 5,
   captureType: true,
-  autocaptureStart: false,
+  autoCaptureStart: false,
   selectedProject: { type: "individual", key: 0, projectName: "lorem" },
 };
 
@@ -32,7 +32,7 @@ const settingsReducer = (state = INITIAL_STATE, action) => {
     case UPDATE_AUTOCAPTURE_START:
       return {
         ...state,
-        autocaptureStart: action.payload,
+        autoCaptureStart: action.payload,
       };
     default:
       return state;

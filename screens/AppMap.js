@@ -17,7 +17,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import SearhcbarSwipe from "../components/SearchbarSwipe";
 import { useSelector } from "react-redux";
 import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
-
+import { useHeaderHeight } from "@react-navigation/elements";
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
 );
@@ -54,14 +54,14 @@ Logger.setLogCallback((log) => {
 });
 
 const AppMap = ({ navigation }) => {
+  const [flyLocation, setFlyLocation] = useState([29.9081, 40.8793]);
   const [imageInformations, setImageInformations] = useState(null);
   const [openSearchbar, setOpenSearchbar] = useState(false);
   const [minimizePano, setMinimizePano] = useState(false);
-  const [flyLocation, setFlyLocation] = useState([29.9081, 40.8793]);
-  const [showPano, setShowPano] = useState(true);
   const [clickedCoord, setClickedCoord] = useState(null);
+  const [showPano, setShowPano] = useState(true);
   const [hide, setHide] = useState(false);
-  const { userInformation } = useSelector((state) => state.getTokenReducer);
+  const headerHeight = useHeaderHeight();
   let cameraRef = useRef();
   let panelRef = useRef();
   let mapRef = useRef();
@@ -130,7 +130,10 @@ const AppMap = ({ navigation }) => {
       )}
       {openSearchbar ? (
         <SlidingUpPanel
-          draggableRange={{ top: height, bottom: RFValue(60) }}
+          draggableRange={{
+            top: height - headerHeight * 2,
+            bottom: RFValue(120),
+          }}
           showBackdrop={false}
           ref={panelRef}
           containerStyle={{

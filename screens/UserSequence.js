@@ -104,7 +104,7 @@ const UserSequence = ({navigation, route}) => {
     <View style={{flex: 1}}>
     <ScrollView>
       <View style={userSequenceStyles.tabBar}>
-        <SwitchSelector
+        {/* <SwitchSelector
           initial={0}
           options={options}
           onPress={value => setActive(value)}
@@ -116,7 +116,7 @@ const UserSequence = ({navigation, route}) => {
           hasPadding
           imageStyle={{width: 18, height: 18, marginRight: 3}}
           height={32}
-        />
+        /> */}
 
       </View>
       {active === 'image' ?
