@@ -98,13 +98,24 @@ const AutoActionButton = ({
     if (!autoCapture) return;
     const image = await camera.takePictureAsync(options);
     const heading = await Location.getHeadingAsync();
-    console.log(heading);
     const imageUri = image.uri;
     if (!imageUri) return;
-    const newPath =
-      FileSystem.documentDirectory +
-      `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
-    console.log(newPath);
+
+    const metaDataDir = await FileSystem.getInfoAsync(
+        FileSystem.documentDirectory + `${id}/${uuid}`
+    );
+    const isDir = metaDataDir.isDirectory;
+    if (!isDir) {
+      try {
+        await FileSystem.makeDirectoryAsync(
+            FileSystem.documentDirectory + `${id}/${uuid}`,
+            { intermediates: true }
+        );
+      } catch (e) {
+        console.info("ERROR", e);
+      }
+    }
+    const newPath = FileSystem.documentDirectory + `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,
@@ -120,7 +131,7 @@ const AutoActionButton = ({
       JSONLocation,
       projectKey: selectedProject.projectKey,
       organizationName: selectedProject.projectName,
-      organizationKey: project.organizationKey,
+      organizationKey: selectedProject.organizationKey,
       uuid,
       path: newPath,
     });

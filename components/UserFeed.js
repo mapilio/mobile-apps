@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import {Image, Platform, TouchableOpacity, View} from "react-native";
 import { CustomText, CustomTextBold } from "../highordercomponents";
 import { Routes } from "../navigator/Routes";
 import { userFeedStyles } from "../styles/userProfileStyle";
@@ -30,7 +30,7 @@ const UserFeed = ({ navigation, data }) => {
     >
       <View style={userFeedStyles.viewStyle}>
         <CustomTextBold style={userFeedStyles.dateStyle}>
-          {data.exif && JSON.parse(data.exif).DateTime}
+          {data.exif && JSON.parse(data.exif).DateTime || JSON.parse(data.exif).DateTimeOriginal}
         </CustomTextBold>
         <CustomText style={userFeedStyles.descriptionStyle}>
           {data.count} images
@@ -39,7 +39,7 @@ const UserFeed = ({ navigation, data }) => {
       <View>
         <Image
           style={userFeedStyles.imageStyle}
-          source={{ uri: `${data.path}` }}
+          source={{ uri: `${Platform.OS === "ios" ? data.path.replace("file://", "") : data.path}` }}
         />
       </View>
     </TouchableOpacity>
