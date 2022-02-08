@@ -60,8 +60,8 @@ const SearchbarSwipe = ({ setFly, panelRef }) => {
   }, [valueAPI]);
 
   const flyToCoordinate = (coord) => {
-    setFly(coord);
     panelRef.current.show(80);
+    setFly(coord);
   };
 
   return (

@@ -90,55 +90,57 @@ const AutoActionButton = ({
   const takePicture = async (location) => {
     const batteryError =
       Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
-    if (
-      !autoCapture &&
-      GPSStatus &&
-      GPSAccuracy &&
-      GPSStatus &&
-      batteryError &&
-      !highSpeed &&
-      !mocked
-    ) {
-      return;
-    } else {
-      const db = Database.getConnection();
-      const id =
-        selectedProject.type === "individual"
-          ? userInformation.id
-          : selectedProject.id;
+    const db = Database.getConnection();
+    const id =
+      selectedProject.type === "individual"
+        ? userInformation.id
+        : selectedProject.id;
 
-      if (cameraStatus !== "READY") return;
-      const options = { quality: 0.6, base64: false, exif: true };
-      if (!autoCapture) return;
-      const image = await camera.takePictureAsync(options);
-      const heading = await Location.getHeadingAsync();
-      const imageUri = image.uri;
-      if (!imageUri) return;
-      const newPath =
-        FileSystem.documentDirectory +
-        `${id}${uuid}${Math.random().toString()}.${"jpeg"}`;
-      await FileSystem.copyAsync({
-        from: imageUri,
-        to: newPath,
-      });
-      image.uri = newPath;
-      location.coords.heading = heading.trueHeading;
-      const JSONExif = JSON.stringify(image.exif);
-      const JSONLocation = JSON.stringify(location);
+    if (cameraStatus !== "READY") return;
+    const options = { quality: 0.6, base64: false, exif: true };
+    if (!autoCapture) return;
+    const image = await camera.takePictureAsync(options);
+    const heading = await Location.getHeadingAsync();
+    const imageUri = image.uri;
+    if (!imageUri) return;
 
-      // TODO PROJECT KEY AND ORG NAME ARE CONNECTED TO VARIABLE WHEN THE API IS COMING
-      Database.insertToDB({
-        JSONExif,
-        JSONLocation,
-        projectKey: null,
-        organizationName: null,
-        uuid,
-        path: newPath,
-      });
-      const fileInfo = await FileSystem.getInfoAsync(newPath);
-      dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
-      incrementAmount();
+    const metaDataDir = await FileSystem.getInfoAsync(
+        FileSystem.documentDirectory + `${id}/${uuid}`
+    );
+    const isDir = metaDataDir.isDirectory;
+    if (!isDir) {
+      try {
+        await FileSystem.makeDirectoryAsync(
+            FileSystem.documentDirectory + `${id}/${uuid}`,
+            { intermediates: true }
+        );
+      } catch (e) {
+        console.info("ERROR", e);
+      }
     }
+    const newPath = FileSystem.documentDirectory + `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
+    await FileSystem.copyAsync({
+      from: imageUri,
+      to: newPath,
+    });
+    image.uri = newPath;
+    location.coords.heading = heading.trueHeading;
+    const JSONExif = JSON.stringify(image.exif);
+    const JSONLocation = JSON.stringify(location);
+
+    // TODO PROJECT KEY AND ORG NAME ARE CONNECTED TO VARIABLE WHEN THE API IS COMING
+    Database.insertToDB({
+      JSONExif,
+      JSONLocation,
+      projectKey: selectedProject.projectKey,
+      organizationName: selectedProject.projectName,
+      organizationKey: selectedProject.organizationKey,
+      uuid,
+      path: newPath,
+    });
+    const fileInfo = await FileSystem.getInfoAsync(newPath);
+    dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
+    incrementAmount();
   };
 
   const incrementAmount = () => {
@@ -148,7 +150,7 @@ const AutoActionButton = ({
 
   return (
     <TouchableOpacity
-      disabled={disabled}
+      disabled={false}
       style={{
         width: RFValue(61),
         height: RFValue(61),

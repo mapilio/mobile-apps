@@ -12,9 +12,12 @@ import { Routes } from "../navigator/Routes";
 import { SERVICE_URL } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 const { height } = Dimensions.get("window");
+import { MapView } from "../highordercomponents";
 
 const Marketplace = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
+
+const Marketplace = ({ navigation }) => {
   const dispatch = useDispatch();
   const { marketplaceData } = useSelector((status) => status.generalReducer);
   useEffect(() => {
@@ -35,10 +38,9 @@ const Marketplace = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <MapboxGL.MapView
-        styleURL={"mapbox://styles/mapbox/light-v10"}
-        style={appMapStyle.map}
-        attributionPosition={{ bottom: 41, right: 28 }}
+      <MapView
+        mapStyle={appMapStyle.map}
+        attributionStyle={{ bottom: 41, right: 28 }}
       >
         <MapboxGL.Camera centerCoordinate={[30.8, 41.015137]} zoomLevel={6} />
         {!!Object.keys(marketplaceData).length && (
@@ -60,7 +62,7 @@ const Marketplace = ({ navigation }) => {
             />
           </MapboxGL.ShapeSource>
         )}
-      </MapboxGL.MapView>
+      </MapView>
 
       <SlidingUpPanel
         draggableRange={{

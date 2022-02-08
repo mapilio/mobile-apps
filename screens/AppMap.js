@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
-  Touchable,
   TouchableOpacity,
   View,
   Image,
+  Platform,
 } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
@@ -18,6 +18,8 @@ import SearhcbarSwipe from "../components/SearchbarSwipe";
 import { useSelector } from "react-redux";
 import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { MapView } from "../highordercomponents";
+
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
 );
@@ -159,11 +161,10 @@ const AppMap = ({ navigation }) => {
       ) : null}
 
       <View style={appMapStyle.mapWrapper}>
-        <MapboxGL.MapView
-          styleURL={MapboxGL.StyleURL.Light}
-          style={appMapStyle.map}
-          onRegionDidChange={willHide}
-          ref={mapRef}
+        <MapView
+          mapStyle={appMapStyle.map}
+          regionChange={willHide}
+          mapRef={mapRef}
         >
           <MapboxGL.UserLocation
             ref={(location) => location}
@@ -201,9 +202,9 @@ const AppMap = ({ navigation }) => {
                         : "0deg",
                     },
                   ],
+                  width: Platform.OS === "android" ? 80 : 35,
+                  height: Platform.OS === "android" ? 80 : 35,
                 }}
-                width={80}
-                height={80}
               />
             </MapboxGL.PointAnnotation>
           ) : null}
@@ -212,10 +213,11 @@ const AppMap = ({ navigation }) => {
             ref={cameraRef}
             centerCoordinate={flyLocation}
             zoomLevel={7}
+            maxZoomLevel={16}
             animationMode={"flyTo"}
             animationDuration={1000}
           />
-        </MapboxGL.MapView>
+        </MapView>
       </View>
 
       <View style={[appMapStyle.currentIcon]}>
