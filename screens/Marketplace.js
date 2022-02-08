@@ -16,8 +16,6 @@ import { MapView } from "../highordercomponents";
 
 const Marketplace = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
-
-const Marketplace = ({ navigation }) => {
   const dispatch = useDispatch();
   const { marketplaceData } = useSelector((status) => status.generalReducer);
   useEffect(() => {
@@ -85,4 +83,5 @@ const Marketplace = ({ navigation }) => {
     </View>
   );
 };
+
 export default Marketplace;

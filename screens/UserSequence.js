@@ -138,10 +138,10 @@ const UserSequence = ({ navigation, route }) => {
   }, [activeSequence]);
 
   return (
-    <View style={{flex: 1}}>
-    <ScrollView>
-      <View style={userSequenceStyles.tabBar}>
-        {/* <SwitchSelector
+    <View style={{ flex: 1 }}>
+      <ScrollView>
+        <View style={userSequenceStyles.tabBar}>
+          {/* <SwitchSelector
           initial={0}
           options={options}
           onPress={value => setActive(value)}
@@ -154,21 +154,19 @@ const UserSequence = ({ navigation, route }) => {
           imageStyle={{width: 18, height: 18, marginRight: 3}}
           height={32}
         /> */}
-
-      </View>
-      {active === 'image' ?
-        <ImageUpload navigation={navigation} sequence_uuid={activeSequence}/> :
-        <MapboxGL.MapView
-          styleURL={'mapbox://styles/mapbox/light-v10'}
-          style={appMapStyle.map}
-          attributionPosition={{bottom: 26, right: 8}}
-        >
-          <MapboxGL.Camera centerCoordinate={center} zoomLevel={20} />
-					{
-						!!Object.keys(points).length && (
-							<MapboxGL.ShapeSource
-								id={"pointsShape"}
-								shape={points}
+        </View>
+        {active === "image" ? (
+          <ImageUpload navigation={navigation} sequence_uuid={activeSequence} />
+        ) : (
+          <MapView
+            mapStyle={appMapStyle.map}
+            attributionPosition={{ bottom: 26, right: 8 }}
+          >
+            <MapboxGL.Camera centerCoordinate={center} zoomLevel={20} />
+            {!!Object.keys(points).length && (
+              <MapboxGL.ShapeSource
+                id={"pointsShape"}
+                shape={points}
                 onPress={(point) => {
                   navigation.navigate(Routes.sequenceDetail, {
                     id: point.features[0].properties.item.id,
