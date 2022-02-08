@@ -40,7 +40,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
 
   const authPath = FileSystem.documentDirectory + auth.id;
   const newPath = authPath + sequence_uuid;
-  console.log("------------", newPath);
 
   const hFovCalculate = (horizontal_pixel, vertical_pixel, focal_length) => {
     const pixel_pitch =
@@ -68,31 +67,24 @@ const Upload = ({ sequence_uuid, navigation }) => {
         `SELECT * FROM captures WHERE sequence_uuid="${sequence.sequence_uuid}"`,
         (_, results) => {
           results.rows._array.map(async (data, i) => {
-            console.log("db path: " + data.path);
-            const filePath =
-              Platform.OS === "ios"
-                ? data.path.replace("file://", "")
-                : data.path;
-
+            const filePath = Platform.OS === "ios" ? data.path.replace("file://", "") : data.path;
             const file = await RNFetchBlob.fs.stat(filePath);
             RNFS.exists(filePath).then(async (fileExist) => {
               if (fileExist) {
-                const data = new FormData();
-                data.append("file", {
+                const formData = new FormData();
+                formData.append("file", {
                   uri: filePath,
                   name: file.filename,
                   type: "image/jpeg",
                 });
-                data.append("email", userInformation.email);
-                data.append("project_organization_key", "");
-                data.append("project_key", "");
+                formData.append("email", userInformation.email);
+                formData.append("project_organization_key", "");
+                formData.append("project_key", "");
                 await axios
-                  .post(`https://cdn.mapilio.com/api/upload/mobile`, data)
+                  .post(`https://cdn.mapilio.com/api/upload/mobile`, formData)
                   .then((response) => {
-                    console.log("file path " + file.path);
-					console.log('sequence ' + response.data.files[0].hash);
                     db.query(
-                      `UPDATE captures SET uploaded=1, hash="33333" WHERE path="${filePath}" AND sequence_uuid="${sequence.sequence_uuid}"`,
+                      `UPDATE captures SET uploaded=1, hash="${response.data.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
                       () => {
                         if (i === results.rows._array.length - 1) {
                           sendFile(sequence.sequence_uuid);
@@ -119,7 +111,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
   };
 
   const sendFile = (sequence) => {
-    console.log(sequence);
     let files = {
       options: {
         parameters: {
@@ -145,8 +136,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
     db.query(
       `SELECT * FROM captures WHERE sequence_uuid="${sequence}"`,
       (_, results) => {
-        console.log(results);
-        throw new Error();
         results.rows._array.map(async (file, i) => {
           const location = await JSON.parse(file.location);
           const exif = await JSON.parse(file.exif);
@@ -189,7 +178,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
             },
           };
 
-          console.log(11111);
           if (i === results.rows._array.length - 1) {
             fetchHandler({
               url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
@@ -197,7 +185,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
               data: files,
             })
               .then((res) => {
-                console.log({ res });
                 if (res.status === true) {
                   deleteSequence(sequence);
                 }
@@ -212,7 +199,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
   };
 
   const deleteSequence = (sequence) => {
-    console.log("delete");
     FileSystem.deleteAsync(
       FileSystem.documentDirectory + `${auth.id}/${sequence}`
     ).then(() => {
