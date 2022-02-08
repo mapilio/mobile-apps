@@ -100,8 +100,22 @@ const AutoActionButton = ({
     const heading = await Location.getHeadingAsync();
     const imageUri = image.uri;
     if (!imageUri) return;
-    const path = `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
-    const newPath = FileSystem.documentDirectory + path;
+
+    const metaDataDir = await FileSystem.getInfoAsync(
+        FileSystem.documentDirectory + `${id}/${uuid}`
+    );
+    const isDir = metaDataDir.isDirectory;
+    if (!isDir) {
+      try {
+        await FileSystem.makeDirectoryAsync(
+            FileSystem.documentDirectory + `${id}/${uuid}`,
+            { intermediates: true }
+        );
+      } catch (e) {
+        console.info("ERROR", e);
+      }
+    }
+    const newPath = FileSystem.documentDirectory + `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,

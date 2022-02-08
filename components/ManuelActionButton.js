@@ -38,7 +38,6 @@ const ManuelActionButton = ({ disabled, uuid }) => {
     const heading = await Location.getHeadingAsync();
     const imageUri = image.uri;
 
-    console.log(3333);
     const metaDataDir = await FileSystem.getInfoAsync(
       FileSystem.documentDirectory + `${id}/${uuid}`
     );
@@ -54,10 +53,7 @@ const ManuelActionButton = ({ disabled, uuid }) => {
       }
     }
 
-    const newPath =
-      FileSystem.documentDirectory +
-      `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
-    console.log(newPath);
+    const newPath = FileSystem.documentDirectory + `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,

@@ -139,7 +139,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
         results.rows._array.map(async (file, i) => {
           const location = await JSON.parse(file.location);
           const exif = await JSON.parse(file.exif);
-          const fileInfo = await RNFetchBlob.fs.stat(file.path);
+          const fileInfo = await RNFetchBlob.fs.stat(Platform.OS === "ios" ? file.path.replace("file://", "") : file.path);
           const fov = await hFovCalculate(
             exif.ImageWidth || exif.PixelXDimension,
             exif.ImageLength || exif.PixelYDimension,
@@ -165,7 +165,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
             SequenceUUID: file.sequence_uuid,
             FoV: fov,
             PhotoUUID: md5(
-              userInformation.email + exif.DateTime || exif.DateTimeOriginal
+              userInformation.email + (exif.DateTime || exif.DateTimeOriginal)
             ),
             anomaly: 0,
           });

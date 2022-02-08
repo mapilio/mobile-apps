@@ -85,6 +85,7 @@ class Database {
     }
 
     async query(query, callback, args = []) {
+        this.startDB(id)
         db.transaction((txn) => {
             txn.executeSql(query, args, callback, (_, error) => {
                 toastGenerator(
@@ -97,7 +98,6 @@ class Database {
                 console.log(error)
             });
         });
-        this.startDB(id)
     }
 }
 
