@@ -112,7 +112,7 @@ const Pano = (props) => {
               height: fullHeight ? RFValue(592) : RFValue(285),
               width: RFValue(Dimensions.get("window").width),
               resizeMode: "cover",
-              // aspectRatio: 3 / 2,
+              aspectRatio: 3 / 2,
             }}
           />
         </ScrollView>
