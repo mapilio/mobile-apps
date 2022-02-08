@@ -131,7 +131,7 @@ const AutoActionButton = ({
       JSONLocation,
       projectKey: selectedProject.projectKey,
       organizationName: selectedProject.projectName,
-      organizationKey: project.organizationKey,
+      organizationKey: selectedProject.organizationKey,
       uuid,
       path: newPath,
     });
