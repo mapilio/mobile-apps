@@ -5,7 +5,9 @@ export const navigatorStyle = {
   headerStyle: {
     height:
       Platform.OS === "android"
-        ? RFValue(70)
+        ? RFValue(50)
+        : Dimensions.get("window").height > 1100
+        ? RFValue(55)
         : Dimensions.get("window").height > 775
         ? RFValue(90)
         : RFValue(80),

@@ -12,8 +12,8 @@ const RotationLine = ({ degree, setAlert }) => {
 
   useEffect(() => {
     if (Platform.OS === "android") {
-      const betweenPositiveLandscape = between(degree, 165, 195);
-      const betweenNegativeLandscape = between(degree, -15, 15);
+      const betweenPositiveLandscape = between(degree, 175, 205);
+      const betweenNegativeLandscape = between(degree, -25, 25);
       if (!betweenNegativeLandscape && !betweenPositiveLandscape) {
         setAppear(true);
         setAlert({
@@ -27,9 +27,9 @@ const RotationLine = ({ degree, setAlert }) => {
         setAlert(null);
       }
     } else if (Platform.OS === "ios") {
-      const betweenPositiveLandscape = between(degree, 162, 180);
-      const betweenHighNegativeLandscape = between(degree, -180, -170);
-      const betweenNegativeLandscape = between(degree, -15, 15);
+      const betweenPositiveLandscape = between(degree, 152, 190);
+      const betweenHighNegativeLandscape = between(degree, -190, -160);
+      const betweenNegativeLandscape = between(degree, -25, 25);
 
       if (
         !betweenNegativeLandscape &&

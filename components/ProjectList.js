@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA, maxCharacterHandler } from "../helper/helper";
@@ -9,8 +9,7 @@ import { UPDATE_SELECTED_PROJECT } from "../store/actionsName";
 
 const ProjectList = ({ project, setModalVisible }) => {
   const dispatch = useDispatch();
-  // TODO Real data waiting from Vedat
-  console.log(project);
+
   const chooseHandler = () => {
     dispatch({
       type: UPDATE_SELECTED_PROJECT,
@@ -52,7 +51,7 @@ const ProjectList = ({ project, setModalVisible }) => {
           {project.project_detail.marketplace_description}
         </CustomText>
       </View>
-      <TouchableOpacity
+      <Pressable
         style={{
           backgroundColor: "#4A90E2",
           borderRadius: RFValue(4),
@@ -63,10 +62,12 @@ const ProjectList = ({ project, setModalVisible }) => {
         }}
         onPress={chooseHandler}
       >
-        <CustomTextMedium style={{ fontSize: RFValue(12), color: "#FFFFFF" }}>
+        <CustomTextMedium
+          style={{ fontSize: RFValue(12), color: "#FFFFFF" }}
+        >
           Start
         </CustomTextMedium>
-      </TouchableOpacity>
+      </Pressable>
       {/* <Button
         color={"#4A90E2"}
         title={"Start"}

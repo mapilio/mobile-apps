@@ -3,7 +3,9 @@ import { Camera as ExpoCamera } from "expo-camera";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {
   ActivityIndicator,
+  Alert,
   Animated,
+  BackHandler,
   Platform,
   StatusBar,
   View,
@@ -15,6 +17,7 @@ import CameraProjectInfo from "./CameraProjectInfo";
 import { Accelerometer } from "expo-sensors";
 import RotationLine from "./RotationLine";
 import * as Location from "expo-location";
+import database from "../db";
 import {
   CAMERA_REDUCER_RESET,
   UPDATE_AUTOCAPTURE_START,
@@ -25,6 +28,7 @@ import {
   UPDATE_START_ACCURACY,
   UPDATE_MOCKED_STATUS,
   UPDATE_HIGHSPEED_STATUS,
+  UPLOAD_DATA,
 } from "../store/actionsName";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -40,9 +44,15 @@ import { permissionHandler, toastGenerator } from "../helper/helper";
 import { errorAlertStyles } from "../styles/alertStyles";
 import { CustomTextMedium } from "../highordercomponents";
 
-const Camera = ({ navigation }) => {
+const Camera = ({
+  navigation,
+  route,
+  cameraReady,
+  setCameraReady,
+  backButton,
+  dene,
+}) => {
   const [degree, setDegree] = useState(0);
-  const [cameraReady, setCameraReady] = useState(false);
   const [batteryAlert, setBatteryAlert] = useState(null);
   const [subscription, setSubscription] = useState(null);
   const [mockedAlert, setMockedAlert] = useState(null);
@@ -54,7 +64,9 @@ const Camera = ({ navigation }) => {
   const [gps, setGPS] = useState(true);
   const fadeAnimation = useRef(new Animated.Value(0.7)).current;
   const dispatch = useDispatch();
-  const { batteryLevel } = useSelector((state) => state.cameraReducer);
+  const { batteryLevel, photoAmount } = useSelector(
+    (state) => state.cameraReducer
+  );
   const { connection } = useSelector((state) => state.generalReducer);
   const cameraRef = useRef(null);
   let timeout = null;
@@ -63,15 +75,62 @@ const Camera = ({ navigation }) => {
   let accelerometerSubscription = null;
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", (e) => {
-      setCameraReady(false);
-      waitGPS = true;
-      clearTimeout(timeout);
-      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
-      timeout = null;
-    });
-    return unsubscribe;
-  }, [navigation]);
+    if (route.name === "Camera") {
+      BackHandler.addEventListener("hardwareBackPress", () => true);
+    }
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", () => true);
+  }, []);
+
+  // const backAction = (e) => {
+  //   console.log(dene);
+  //   if (photoAmount >= 5) {
+  //     database.query(
+  //       "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
+  //       (_, result) => {
+  //         dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+  //       }
+  //     );
+  //     exitHandler();
+  //   } else if (photoAmount >= 1 && photoAmount <= 4) {
+  //     Alert.alert(
+  //       "Capture failed",
+  //       "For capture, you need to take at 5 least photos.",
+  //       [
+  //         {
+  //           text: "Exit",
+  //           style: "cancel",
+  //           onPress: () => exitHandler(),
+  //         },
+  //         {
+  //           text: "Continue",
+  //           onPress: () => false,
+  //         },
+  //       ]
+  //     );
+  //   } else if (photoAmount === 0) {
+  //     exitHandler();
+  //   }
+  //   return false;
+  // };
+
+  // const exitHandler = async () => {
+  //   setCameraReady(false);
+  //   waitGPS = true;
+  //   clearTimeout(timeout);
+  //   dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
+  //   await ScreenOrientation.unlockAsync();
+  //   await ScreenOrientation.lockAsync(
+  //     ScreenOrientation.OrientationLock.PORTRAIT_UP
+  //   );
+  //   navigation.navigate(Routes.profile);
+  //   StatusBar.setHidden(false);
+  //   dispatch({ type: CAMERA_REDUCER_RESET });
+  //   dispatch({
+  //     type: UPDATE_SELECTED_PROJECT,
+  //     payload: { type: "individual", key: 0 },
+  //   });
+  // };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async (e) => {

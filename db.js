@@ -1,17 +1,18 @@
 import * as SQLite from "expo-sqlite";
-import {toastGenerator} from "./helper/helper";
-import {store} from "./store/store";
-import {errorAlertStyles} from "./styles/alertStyles";
+import { toastGenerator } from "./helper/helper";
+import { store } from "./store/store";
+import { errorAlertStyles } from "./styles/alertStyles";
+import * as FileSystem from "expo-file-system";
 
 const id = store.getState().generalReducer.id;
 
 let db = SQLite.openDatabase(`mapilio-test-${id}.db`);
 
 class Database {
-    async startDB(id) {
-        db.transaction((txn) => {
-            txn.executeSql(
-                `CREATE TABLE IF NOT EXISTS captures (
+  async startDB(id) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `CREATE TABLE IF NOT EXISTS captures (
                                 id INTEGER PRIMARY KEY AUTOINCREMENT, 
                                 exif TEXT NOT NULL, 
                                 location TEXT NOT NULL, 
@@ -22,83 +23,96 @@ class Database {
                                 hash TEXT DEFAULT NULL,
                                 uploaded BOOLEAN DEFAULT 0
                                 )`,
-                []
-            );
-        });
-    }
+        []
+      );
+    });
+  }
 
-    getConnection() {
-        return db;
-    }
+  getConnection() {
+    return db;
+  }
 
-    insertToDB(values) {
-        db.transaction((txn) => {
-            txn.executeSql(
-                "INSERT INTO captures (exif, location, project_key, organization_name, sequence_uuid, path) VALUES (?, ?, ?, ?, ?, ?)",
-                [
-                    values.JSONExif,
-                    values.JSONLocation,
-                    values.projectKey,
-                    values.organizationName,
-                    values.uuid,
-                    values.path
-                ],
-                (txn, rs) => null,
-                (_, error) => {
-                    toastGenerator(
-                        "An error occurred while shooting, please try again.",
-                        require("./assets/images/Info.png"),
-                        errorAlertStyles.alertContainer,
-                        errorAlertStyles.alertTitle,
-                        errorAlertStyles.alertImage
-                    );
-                    this.startDB(values.userID);
-                }
-            );
-        });
-    }
+  insertToDB(values) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        "INSERT INTO captures (exif, location, project_key, organization_name, sequence_uuid, path) VALUES (?, ?, ?, ?, ?, ?)",
+        [
+          values.JSONExif,
+          values.JSONLocation,
+          values.projectKey,
+          values.organizationName,
+          values.uuid,
+          values.path,
+        ],
+        (txn, rs) => null,
+        (_, error) => {
+          toastGenerator(
+            "An error occurred while shooting, please try again.",
+            require("./assets/images/Info.png"),
+            errorAlertStyles.alertContainer,
+            errorAlertStyles.alertTitle,
+            errorAlertStyles.alertImage
+          );
+          this.startDB(values.userID);
+        }
+      );
+    });
+  }
 
-    getDB(userID) {
-        return db.transaction((txn) => {
-            txn.executeSql(
-                "SELECT * FROM captures",
-                [],
-                (_, result) => {
-                    // TODO Muammer
-                },
-                (_, error) => {
-                    toastGenerator(
-                        "An error occurred while shooting, please try again.",
-                        require("./assets/images/Info.png"),
-                        errorAlertStyles.alertContainer,
-                        errorAlertStyles.alertTitle,
-                        errorAlertStyles.alertImage
-                    );
-                    console.log(error)
+  getDB(userID) {
+    return db.transaction((txn) => {
+      txn.executeSql(
+        "SELECT * FROM captures",
+        [],
+        (_, result) => {
+          // TODO Muammer
+        },
+        (_, error) => {
+          toastGenerator(
+            "An error occurred while shooting, please try again.",
+            require("./assets/images/Info.png"),
+            errorAlertStyles.alertContainer,
+            errorAlertStyles.alertTitle,
+            errorAlertStyles.alertImage
+          );
+          console.log(error);
 
-                    if (userID) {
-                        this.startDB(userID);
-                    }
-                }
-            );
-        });
-    }
+          if (userID) {
+            this.startDB(userID);
+          }
+        }
+      );
+    });
+  }
 
-    async query(query, callback, args = []) {
-        this.startDB(id)
-        db.transaction((txn) => {
-            txn.executeSql(query, args, callback, (_, error) => {
-                toastGenerator(
-                  "Something went wrong.",
-                  require("./assets/images/Info.png"),
-                  errorAlertStyles.alertContainer,
-                  errorAlertStyles.alertTitle,
-                  errorAlertStyles.alertImage
-                );
-                console.log(error)
-            });
-        });
-    }
+  async query(query, callback, args = []) {
+    this.startDB(id);
+    db.transaction((txn) => {
+      txn.executeSql(query, args, callback, (_, error) => {
+        toastGenerator(
+          "Something went wrong.",
+          require("./assets/images/Info.png"),
+          errorAlertStyles.alertContainer,
+          errorAlertStyles.alertTitle,
+          errorAlertStyles.alertImage
+        );
+        console.log(error);
+      });
+    });
+  }
+
+  deleteRow(sequenceUUID) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `DELETE FROM captures WHERE sequence_uuid = '${sequenceUUID}'`,
+        () => {
+          FileSystem.deleteAsync(
+            FileSystem.documentDirectory + `${id}/${sequenceUUID}`
+          );
+        }
+      );
+    });
+  }
 }
 
 const database = new Database();

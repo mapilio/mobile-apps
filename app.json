@@ -23,6 +23,12 @@
       "requireFullScreen": true,
       "bundleIdentifier": "com.mapilio.app"
     },
+    "androidStatusBar": {
+      "hidden": false
+    },
+    "androidNavigationBar": {
+      "visible": "leanback"
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/playstore.png",
