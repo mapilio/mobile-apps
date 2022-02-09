@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StatusBar, TouchableOpacity, View } from "react-native";
+import { Alert, StatusBar, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import {
   CustomText,
@@ -16,6 +16,7 @@ import {
 import uuid from "react-native-uuid";
 import CameraActionsButtons from "./CameraActionsButtons";
 import { Routes } from "../navigator/Routes";
+import database from "../db";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,17 +24,24 @@ import {
   UPDATE_AUTOCAPTURE_START,
   UPDATE_SELECTED_PROJECT,
   UPDATE_UUID,
+  UPLOAD_DATA,
 } from "../store/actionsName";
 import * as Brightness from "expo-brightness";
 
-const CameraSidebar = ({ navigation, setLowBrigthness }) => {
+const CameraSidebar = ({
+  navigation,
+  setLowBrigthness,
+  setCameraReady,
+  backButtonRef,
+  setDene,
+}) => {
   const dispatch = useDispatch();
   const [uuidV4, setUUID] = useState("");
   const permissionsGranted = useRef(false);
   const { selectedProject, autoCaptureStart } = useSelector(
     (state) => state.settingsReducer
   );
-  const { keepUUID } = useSelector((state) => state.cameraReducer);
+  const { keepUUID, photoAmount } = useSelector((state) => state.cameraReducer);
 
   useEffect(() => {
     navigation.addListener("focus", () => {
@@ -45,6 +53,10 @@ const CameraSidebar = ({ navigation, setLowBrigthness }) => {
       }
     });
   }, [navigation]);
+
+  useEffect(() => {
+    setDene(photoAmount);
+  }, [photoAmount]);
 
   useEffect(() => {
     navigation.addListener("blur", () => {
@@ -86,7 +98,42 @@ const CameraSidebar = ({ navigation, setLowBrigthness }) => {
   };
 
   const exitFromCamera = async () => {
+    if (photoAmount >= 5) {
+      database.query(
+        "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
+        (_, result) => {
+          dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+        }
+      );
+      exitHandler();
+    } else if (photoAmount >= 1 && photoAmount <= 4) {
+      Alert.alert(
+        "Capture failed",
+        "For capture, you need to take at least 5 photos",
+        [
+          {
+            text: "Exit",
+            style: "cancel",
+            onPress: () => {
+              exitHandler();
+              database.deleteRow(uuidV4);
+            },
+          },
+          {
+            text: "Continue",
+            onPress: () => false,
+          },
+        ]
+      );
+    } else if (photoAmount === 0) {
+      navigation.navigate(Routes.map);
+      exitHandler();
+    }
+  };
+
+  const exitHandler = async () => {
     await ScreenOrientation.unlockAsync();
+    setCameraReady(false);
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
@@ -168,6 +215,7 @@ const CameraSidebar = ({ navigation, setLowBrigthness }) => {
           <TouchableOpacity
             style={{ position: "absolute", top: 0, right: 0 }}
             onPress={exitFromCamera}
+            ref={backButtonRef}
           >
             <GoBackIcon />
           </TouchableOpacity>
@@ -187,11 +235,11 @@ const CameraSidebar = ({ navigation, setLowBrigthness }) => {
             </CustomText>
           </TouchableOpacity>
           <CameraActionsButtons uuid={uuidV4} navigation={navigation} />
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{ position: "absolute", bottom: 0, left: 0 }}
           >
             <MapIcon />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </>
       )}
     </View>

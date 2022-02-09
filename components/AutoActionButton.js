@@ -105,20 +105,22 @@ const AutoActionButton = ({
     if (!imageUri) return;
 
     const metaDataDir = await FileSystem.getInfoAsync(
-        FileSystem.documentDirectory + `${id}/${uuid}`
+      FileSystem.documentDirectory + `${id}/${uuid}`
     );
     const isDir = metaDataDir.isDirectory;
     if (!isDir) {
       try {
         await FileSystem.makeDirectoryAsync(
-            FileSystem.documentDirectory + `${id}/${uuid}`,
-            { intermediates: true }
+          FileSystem.documentDirectory + `${id}/${uuid}`,
+          { intermediates: true }
         );
       } catch (e) {
         console.info("ERROR", e);
       }
     }
-    const newPath = FileSystem.documentDirectory + `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
+    const newPath =
+      FileSystem.documentDirectory +
+      `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,
@@ -150,7 +152,7 @@ const AutoActionButton = ({
 
   return (
     <TouchableOpacity
-      disabled={false}
+      disabled={disabled}
       style={{
         width: RFValue(61),
         height: RFValue(61),

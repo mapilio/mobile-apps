@@ -46,18 +46,17 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
 
   return (
     <>
-      {/* {captureType && <ManuelActionButton disabled={disabled} uuid={uuid}/>} */}
+      {/* <ManuelActionButton disabled={disabled} uuid={uuid} /> */}
       <AutoActionButton
-          disabled={disabled}
-          uuid={uuid}
-          navigation={navigation}
-          GPSStatus={GPSStatus}
-          GPSAccuracy={GPSAccuracy}
-          batteryLevel={batteryLevel}
-          mocked={mocked}
-          highSpeed={highSpeed}
+        disabled={disabled}
+        uuid={uuid}
+        navigation={navigation}
+        GPSStatus={GPSStatus}
+        GPSAccuracy={GPSAccuracy}
+        batteryLevel={batteryLevel}
+        mocked={mocked}
+        highSpeed={highSpeed}
       />
-
     </>
   );
 };

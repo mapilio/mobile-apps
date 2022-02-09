@@ -47,7 +47,6 @@ const WelcomeWalkthrough = ({ navigation }) => {
     if (welcomeWalkthroughStatus) {
       navigation.navigate(Routes.nonUserTab);
     } else {
-      console.log(22);
       dispatch({ type: UPDATE_WELCOME_WALKTHROUGH_STATUS, payload: true });
     }
   }, []);

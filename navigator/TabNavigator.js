@@ -16,7 +16,13 @@ import {
   UserUpload,
 } from "../screens";
 import { HeaderTitle } from "../components/Marketplace";
-import { AppState, Text, TouchableOpacity, View } from "react-native";
+import {
+  AppState,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import {
   CaptureIcon,
   CaptureText,
@@ -36,6 +42,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
 import { permissionHandler } from "../helper/helper";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Tab = createBottomTabNavigator();
 
@@ -129,10 +136,10 @@ const TabNavigator = ({ navigation, route }) => {
               </Text>
             </View>
           ),
-          // headerShown: false,
           title: <MapLogo fill={"#000"} />,
           headerTitleAlign: "center",
           headerStyle: {
+            height: RFValue(50),
             backgroundColor: "#213348",
           },
         }}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as FileSystem from "expo-file-system";
 import { Alert, Modal, Platform, TouchableOpacity, View } from "react-native";
@@ -20,7 +20,9 @@ const RNFS = require("react-native-fs");
 const Upload = ({ sequence_uuid, navigation }) => {
   const dispatch = useDispatch();
   const { uploadData } = useSelector((status) => status.uploadReducer);
-  const { progress } = useSelector((status) => status.uploadReducer);
+  const [summerCount, setSummerCount] = useState(0);
+  const [sentCount, setSentCount] = useState(0);
+  const [success, setSuccess] = useState(false);
   const { auth, userInformation } = useSelector(
     (status) => status.getTokenReducer
   );
@@ -30,6 +32,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const cancelToken = axios.CancelToken.source();
   const { connection } = useSelector((state) => state.generalReducer);
+  const [deletedRows, setDeletedRows] = useState(0);
 
   const hFov = (horizontal_pixel, pixel_pitch, focal_length) => {
     return (
@@ -57,17 +60,30 @@ const Upload = ({ sequence_uuid, navigation }) => {
     );
   };
 
-  const getHash = () => {
-    const sequences = sequence_uuid
+  const getSequences = () =>
+    sequence_uuid
       ? uploadData.filter((data) => data.sequence_uuid === sequence_uuid)
       : uploadData;
+
+  const summerImages = () => {
+    const sequences = getSequences();
+    let summer = sequences.reduce((partialSum, a) => partialSum + a.count, 0);
+    setSummerCount(summer);
+  };
+
+  const getHash = () => {
+    summerImages();
+    const sequences = getSequences();
     sequences.map((sequence) => {
       setModalVisible(true);
       db.query(
         `SELECT * FROM captures WHERE sequence_uuid="${sequence.sequence_uuid}"`,
         (_, results) => {
           results.rows._array.map(async (data, i) => {
-            const filePath = Platform.OS === "ios" ? data.path.replace("file://", "") : data.path;
+            const filePath =
+              Platform.OS === "ios"
+                ? data.path.replace("file://", "")
+                : data.path;
             const file = await RNFetchBlob.fs.stat(filePath);
             RNFS.exists(filePath).then(async (fileExist) => {
               if (fileExist) {
@@ -83,6 +99,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
                 await axios
                   .post(`https://cdn.mapilio.com/api/upload/mobile`, formData)
                   .then((response) => {
+                    setSentCount((state) => state + 1);
                     db.query(
                       `UPDATE captures SET uploaded=1, hash="${response.data.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
                       () => {
@@ -139,7 +156,9 @@ const Upload = ({ sequence_uuid, navigation }) => {
         results.rows._array.map(async (file, i) => {
           const location = await JSON.parse(file.location);
           const exif = await JSON.parse(file.exif);
-          const fileInfo = await RNFetchBlob.fs.stat(Platform.OS === "ios" ? file.path.replace("file://", "") : file.path);
+          const fileInfo = await RNFetchBlob.fs.stat(
+            Platform.OS === "ios" ? file.path.replace("file://", "") : file.path
+          );
           const fov = await hFovCalculate(
             exif.ImageWidth || exif.PixelXDimension,
             exif.ImageLength || exif.PixelYDimension,
@@ -198,6 +217,11 @@ const Upload = ({ sequence_uuid, navigation }) => {
     );
   };
 
+  const percentage = (partialValue, totalValue) => {
+    let number = (100 * partialValue) / totalValue;
+    return number / 100;
+  };
+
   const deleteSequence = (sequence) => {
     FileSystem.deleteAsync(
       FileSystem.documentDirectory + `${auth.id}/${sequence}`
@@ -208,9 +232,22 @@ const Upload = ({ sequence_uuid, navigation }) => {
           db.query(
             "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
             (_, result) => {
+              setDeletedRows((state) => state + 1);
               dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
               navigation.navigate(Routes.upload);
-              setModalVisible(false);
+              if (deletedRows === getSequences().length) {
+                setSuccess(true);
+                setModalVisible(false);
+                setSentCount(0);
+                toastGenerator(
+                  "Upload success",
+                  require("../../assets/images/Success.png"),
+                  successAlertStyles.alertContainer,
+                  successAlertStyles.alertTitle,
+                  successAlertStyles.alertImage,
+                  3000
+                );
+              }
             }
           );
         }
@@ -249,19 +286,12 @@ const Upload = ({ sequence_uuid, navigation }) => {
             <CloseIcon />
           </TouchableOpacity>
           <View style={{ alignItems: "center" }}>
-            <CustomText style={userUploadModalStyles.text}>{status}</CustomText>
             <CustomText style={userUploadModalStyles.text}>
-              {mbytes.toFixed(2) +
-                "MB (" +
-                (progress * 100).toFixed(2) +
-                "%) " +
-                mbps.toFixed(2) +
-                " Mbps"}
+              {sentCount + "/" + summerCount}
             </CustomText>
             <Progress.Bar
-              progress={progress}
+              progress={percentage(sentCount, summerCount)}
               width={200}
-              indeterminate={true}
             />
           </View>
         </View>

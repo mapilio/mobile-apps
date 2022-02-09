@@ -4,7 +4,7 @@ import { navigatorStyle } from "../styles/navigatorStyle";
 import { Routes } from "./Routes";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { AppMap, Login, Marketplace, NoInternetAccess } from "../screens";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -19,6 +19,7 @@ import {
   Upload,
 } from "../assets/svg/illustrations";
 import SignInNavigatorRight from "./navigatorbars/SignInNavigatorRight";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Tab = createBottomTabNavigator();
 
@@ -108,6 +109,7 @@ const NonUserTabNavigator = () => {
           title: <MapLogo fill={"#000"} />,
           headerTitleAlign: "center",
           headerStyle: {
+            height: RFValue(50),
             backgroundColor: "#213348",
           },
         }}
