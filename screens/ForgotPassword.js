@@ -96,9 +96,6 @@ const ForgotPassword = ({navigation}) => {
             <Pressable style={loginStyles.button} onPress={handleSubmit}>
               <Text style={loginStyles.buttonText}>Send reset link</Text>
             </Pressable>
-            <Text style={{...loginStyles.link, marginTop: 40}}>
-              Privacy policy
-            </Text>
           </>
         )}
       </Formik>

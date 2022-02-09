@@ -10,11 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { MARKETPLACE_DATA } from "../store/actionsName";
 import { Routes } from "../navigator/Routes";
 import { SERVICE_URL } from "@env";
+import { useHeaderHeight } from "@react-navigation/elements";
+const { height } = Dimensions.get("window");
 import { MapView } from "../highordercomponents";
 
-const { height } = Dimensions.get("window");
-
 const Marketplace = ({ navigation }) => {
+  const headerHeight = useHeaderHeight();
   const dispatch = useDispatch();
   const { marketplaceData } = useSelector((status) => status.generalReducer);
   useEffect(() => {
@@ -62,13 +63,25 @@ const Marketplace = ({ navigation }) => {
       </MapView>
 
       <SlidingUpPanel
-        draggableRange={{ top: height - height / 2, bottom: RFValue(160) }}
+        draggableRange={{
+          top: height - headerHeight - 10,
+          bottom: RFValue(60),
+        }}
         showBackdrop={false}
-        containerStyle={{ paddingBottom: RFValue(310) }}
+        containerStyle={{
+          marginBottom:
+            Platform.OS === "android"
+              ? RFValue(63)
+              : Dimensions.get("window").height > 775
+              ? RFValue(83)
+              : RFValue(63),
+          zIndex: 6,
+        }}
       >
         <List navigation={navigation} projects={marketplaceData} />
       </SlidingUpPanel>
     </View>
   );
 };
+
 export default Marketplace;

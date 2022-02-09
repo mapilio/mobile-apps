@@ -3,12 +3,24 @@ import { View } from "react-native";
 import { Camera, CameraSidebar } from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useKeepAwake } from "expo-keep-awake";
+import * as Brightness from "expo-brightness";
 
 const AppCamera = ({ navigation }) => {
+  const [lowBrightness, setLowBrigthness] = useState(false);
   useKeepAwake();
 
+  const breakBrightness = () => {
+    if (lowBrightness) {
+      Brightness.setSystemBrightnessAsync(0.7);
+      setLowBrigthness(false);
+    }
+  };
+
   return (
-    <View style={{ flex: 1, flexDirection: "row" }}>
+    <View
+      style={{ flex: 1, flexDirection: "row" }}
+      onTouchEndCapture={breakBrightness}
+    >
       <View style={{ flex: 0.78 }}>
         <Camera navigation={navigation} />
       </View>
@@ -19,7 +31,10 @@ const AppCamera = ({ navigation }) => {
           padding: RFValue(22),
         }}
       >
-        <CameraSidebar navigation={navigation} />
+        <CameraSidebar
+          navigation={navigation}
+          setLowBrigthness={setLowBrigthness}
+        />
       </View>
     </View>
   );

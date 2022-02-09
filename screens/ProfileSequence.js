@@ -30,7 +30,7 @@ const UserSequence = ({navigation, route}) => {
     return (
         <View style={{flex: 1}}>
             <ScrollView>
-                <View style={userSequenceStyles.tabBar}>
+                {/* <View style={userSequenceStyles.tabBar}>
                     <SwitchSelector
                         initial={0}
                         options={options}
@@ -44,7 +44,7 @@ const UserSequence = ({navigation, route}) => {
                         imageStyle={{width: 18, height: 18, marginRight: 3}}
                         height={32}
                     />
-                </View>
+                </View> */}
                 {active === 'image' && <ListProfileUploads navigation={navigation} sequence_uuid={route.params.id}
                                                            user_id={route.params.user_id}/>}
             </ScrollView>

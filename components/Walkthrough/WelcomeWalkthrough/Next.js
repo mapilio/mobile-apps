@@ -14,7 +14,7 @@ const Buttons = ({ active, dataLength = 0, setModalVisible, navigation }) => {
       }
     >
       <CustomText style={{ fontSize: RFValue(17), color: "#4A4A4A" }}>
-        {active === dataLength - 1 ? "Finish" : "Next"}
+        {active === dataLength - 1 ? "      Start" : "Next"}
       </CustomText>
     </TouchableOpacity>
   );

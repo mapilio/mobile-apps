@@ -209,7 +209,7 @@ const Camera = ({ navigation }) => {
   };
 
   const accuracyHandler = (accuracy) => {
-    if (accuracy > 50) {
+    if (accuracy > 35) {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
       setGPSAlert({
         svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,

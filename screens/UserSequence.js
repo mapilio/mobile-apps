@@ -141,19 +141,19 @@ const UserSequence = ({ navigation, route }) => {
     <View style={{ flex: 1 }}>
       <ScrollView>
         <View style={userSequenceStyles.tabBar}>
-          <SwitchSelector
-            initial={0}
-            options={options}
-            onPress={(value) => setActive(value)}
-            backgroundColor={"#F5F5F5"}
-            borderColor={"#CBD1D9"}
-            buttonColor={"#32425B"}
-            borderRadius={5}
-            textColor={"#32425B"}
-            hasPadding
-            imageStyle={{ width: 18, height: 18, marginRight: 3 }}
-            height={32}
-          />
+          {/* <SwitchSelector
+          initial={0}
+          options={options}
+          onPress={value => setActive(value)}
+          backgroundColor={'#F5F5F5'}
+          borderColor={'#CBD1D9'}
+          buttonColor={'#32425B'}
+          borderRadius={5}
+          textColor={'#32425B'}
+          hasPadding
+          imageStyle={{width: 18, height: 18, marginRight: 3}}
+          height={32}
+        /> */}
         </View>
         {active === "image" ? (
           <ImageUpload navigation={navigation} sequence_uuid={activeSequence} />
