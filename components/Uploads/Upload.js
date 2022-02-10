@@ -66,7 +66,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
 
   const getHash = () => {
     summerImages();
-    const sequences = getSequences();
+    const sequences = getSequences();x
     sequences.map((sequence) => {
       setModalVisible(true);
       db.query(
@@ -88,7 +88,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
                 });
                 formData.append("email", userInformation.email);
                 if (data.project_key && data.organization_key) {
-  
                   formData.append(
                     "project_organization_key",
                     data.organization_key
@@ -96,7 +95,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
                   formData.append("project_key", data.project_key);
                 }
                 await axios
-                  .post(`https://cdn.mapilio.com/api/upload/mobile`, formData)
+                  .post(process.env.CDN_URL, formData)
                   .then((response) => {
                     setSentCount((state) => state + 1);
                     db.query(
