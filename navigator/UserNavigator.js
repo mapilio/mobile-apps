@@ -18,7 +18,7 @@ const UserNavigator = () => (
     <Stack.Navigator
         initialRouteName={Routes.profile}
         screenOptions={{
-            // Todo animation for Android will be made smoother.
+             
             cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         }}
     >

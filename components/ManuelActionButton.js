@@ -63,7 +63,6 @@ const ManuelActionButton = ({ disabled, uuid }) => {
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
 
-    // TODO PROJECT KEY AND ORG NAME ARE CONNECTED TO VARIABLE WHEN THE API IS COMING
     Database.insertToDB({
       JSONExif,
       JSONLocation,

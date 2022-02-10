@@ -80,56 +80,6 @@ const Camera = ({
       BackHandler.removeEventListener("hardwareBackPress", () => true);
   }, []);
 
-  // const backAction = (e) => {
-  //   console.log(dene);
-  //   if (photoAmount >= 5) {
-  //     database.query(
-  //       "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
-  //       (_, result) => {
-  //         dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-  //       }
-  //     );
-  //     exitHandler();
-  //   } else if (photoAmount >= 1 && photoAmount <= 4) {
-  //     Alert.alert(
-  //       "Capture failed",
-  //       "For capture, you need to take at 5 least photos.",
-  //       [
-  //         {
-  //           text: "Exit",
-  //           style: "cancel",
-  //           onPress: () => exitHandler(),
-  //         },
-  //         {
-  //           text: "Continue",
-  //           onPress: () => false,
-  //         },
-  //       ]
-  //     );
-  //   } else if (photoAmount === 0) {
-  //     exitHandler();
-  //   }
-  //   return false;
-  // };
-
-  // const exitHandler = async () => {
-  //   setCameraReady(false);
-  //   waitGPS = true;
-  //   clearTimeout(timeout?.current);
-  //   dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
-  //   await ScreenOrientation.unlockAsync();
-  //   await ScreenOrientation.lockAsync(
-  //     ScreenOrientation.OrientationLock.PORTRAIT_UP
-  //   );
-  //   navigation.navigate(Routes.profile);
-  //   StatusBar.setHidden(false);
-  //   dispatch({ type: CAMERA_REDUCER_RESET });
-  //   dispatch({
-  //     type: UPDATE_SELECTED_PROJECT,
-  //     payload: { type: "individual", key: 0 },
-  //   });
-  // };
-
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async (e) => {
       setCameraReady(true);

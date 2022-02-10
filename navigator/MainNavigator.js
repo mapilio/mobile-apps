@@ -55,7 +55,7 @@ const MainNavigator = () => {
             <Stack.Navigator
                 initialRouteName={Routes.noInternetAccess}
                 screenOptions={{
-                    // Todo animation for Android will be made smoother.
+                     
                     cardStyleInterpolator:
                     CardStyleInterpolators.forFadeFromBottomAndroid,
                 }}
@@ -74,7 +74,7 @@ const MainNavigator = () => {
             <Stack.Navigator
                 initialRouteName={Routes.welcomeWalkthrough}
                 screenOptions={{
-                    // Todo animation for Android will be made smoother.
+                     
                     cardStyleInterpolator:
                     CardStyleInterpolators.forFadeFromBottomAndroid,
                 }}
@@ -121,7 +121,7 @@ const MainNavigator = () => {
         <Stack.Navigator
             initialRouteName={Routes.tabHome}
             screenOptions={{
-                // Todo animation for Android will be made smoother.
+                 
                 cardStyleInterpolator:
                 CardStyleInterpolators.forFadeFromBottomAndroid,
             }}

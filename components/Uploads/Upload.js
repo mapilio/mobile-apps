@@ -88,7 +88,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
                 });
                 formData.append("email", userInformation.email);
                 if (data.project_key && data.organization_key) {
-                  console.log(33);
+  
                   formData.append(
                     "project_organization_key",
                     data.organization_key

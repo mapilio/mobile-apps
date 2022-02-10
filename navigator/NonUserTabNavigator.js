@@ -67,7 +67,7 @@ const NonUserTabNavigator = () => {
     <Tab.Navigator
       initialRouteName={Routes.map}
       screenOptions={({ navigation }) => ({
-        // Todo animation for Android will be made smoother.
+         
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
         tabBarStyle: navigatorStyle.tabBarStyle,
@@ -155,7 +155,6 @@ const NonUserTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        // TODO Bottom bar will be changed when I find a way to add an icon without adding a component
         name={"dolor"}
         component={Login}
         options={({ navigation }) => ({
