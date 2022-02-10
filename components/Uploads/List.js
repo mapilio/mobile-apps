@@ -6,7 +6,6 @@ import { NoUpload, Trash } from "../../assets/svg/illustrations";
 import {
   CustomText,
   CustomTextBold,
-  CustomTextMedium,
 } from "../../highordercomponents";
 import { SwipeListView } from "react-native-swipe-list-view";
 import database from "../../db";

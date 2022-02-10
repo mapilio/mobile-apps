@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CAMERA_REDUCER_RESET,
   UPDATE_AUTOCAPTURE_START,
+  UPDATE_PHOTO_AMOUNT,
   UPDATE_SELECTED_PROJECT,
   UPDATE_UUID,
   UPLOAD_DATA,
@@ -42,6 +43,14 @@ const CameraSidebar = ({
     (state) => state.settingsReducer
   );
   const { keepUUID, photoAmount } = useSelector((state) => state.cameraReducer);
+
+  useEffect(() => {
+    if (photoAmount === 500) {
+      const sequenceUUID = uuid.v4();
+      setUUID(sequenceUUID);
+      dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
+    }
+  }, [photoAmount]);
 
   useEffect(() => {
     navigation.addListener("focus", () => {
@@ -142,7 +151,7 @@ const CameraSidebar = ({
     });
     setCameraReady(false);
     waitGPS.current = true;
-    clearTimeout(timeout.current);
+    clearTimeout(timeout?.current);
     dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
     timeout.current = null;
   };

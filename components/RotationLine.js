@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
 import { CameraRotate } from "../assets/svg/illustrations";
-import * as Animatable from "react-native-animatable";
 
 const RotationLine = ({ degree, setAlert }) => {
   const [appear, setAppear] = useState(false);
@@ -64,8 +63,7 @@ const RotationLine = ({ degree, setAlert }) => {
         height: "100%",
       }}
     >
-      <Animatable.View
-        easing={"ease-in-out-sine"}
+      <View
         style={{
           display: appear ? "flex" : "none",
           width: "90%",
@@ -80,7 +78,7 @@ const RotationLine = ({ degree, setAlert }) => {
             },
           ],
         }}
-      ></Animatable.View>
+      ></View>
     </View>
   );
 };

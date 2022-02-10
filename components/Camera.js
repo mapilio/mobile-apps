@@ -115,7 +115,7 @@ const Camera = ({
   // const exitHandler = async () => {
   //   setCameraReady(false);
   //   waitGPS = true;
-  //   clearTimeout(timeout.current);
+  //   clearTimeout(timeout?.current);
   //   dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
   //   await ScreenOrientation.unlockAsync();
   //   await ScreenOrientation.lockAsync(
@@ -300,11 +300,11 @@ const Camera = ({
         );
       }, 3000 * 10);
     } else {
-      clearTimeout(timeout.current);
+      clearTimeout(timeout?.current);
       timeout = null;
     }
     return () => {
-      clearTimeout(timeout.current);
+      clearTimeout(timeout?.current);
     };
   }, [gps]);
 

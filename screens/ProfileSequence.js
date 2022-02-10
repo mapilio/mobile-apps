@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {ScrollView, View} from "react-native";
 import Map from "../assets/svg/illustrations/Map";
-import {userSequenceStyles} from "../styles/userSequenceStyle";
-import SwitchSelector from "react-native-switch-selector";
 import ListProfileUploads from "../components/ListProfileUploads";
 import {useDispatch} from "react-redux";
 import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";

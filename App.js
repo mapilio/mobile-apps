@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import { permissionHandler, useFonts } from "./helper/helper";
 import { PersistGate } from "redux-persist/integration/react";
 import { NotifierWrapper } from "react-native-notifier";
-import { SafeAreaProvider } from "react-native-safe-area-context/src/SafeAreaContext";
 
 function App() {
   const [isReady, setIsReady] = useState(false);
@@ -45,9 +44,7 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <NotifierWrapper>
-            <SafeAreaProvider>
               <MainNavigator />
-            </SafeAreaProvider>
           </NotifierWrapper>
         </NavigationContainer>
       </PersistGate>

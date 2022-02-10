@@ -73,7 +73,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
         `SELECT * FROM captures WHERE sequence_uuid="${sequence.sequence_uuid}"`,
         (_, results) => {
           results.rows._array.map(async (data, i) => {
-            console.log(data);
             const filePath =
               Platform.OS === "ios"
                 ? data.path.replace("file://", "")
@@ -88,10 +87,14 @@ const Upload = ({ sequence_uuid, navigation }) => {
                   type: "image/jpeg",
                 });
                 formData.append("email", userInformation.email);
-                // if(data.project_key && data.organization) {
-                //   formData.append("project_organization_key", "");
-                //   formData.append("project_key", "");
-                // }
+                if (data.project_key && data.organization_key) {
+                  console.log(33);
+                  formData.append(
+                    "project_organization_key",
+                    data.organization_key
+                  );
+                  formData.append("project_key", data.project_key);
+                }
                 await axios
                   .post(`https://cdn.mapilio.com/api/upload/mobile`, formData)
                   .then((response) => {
@@ -100,7 +103,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
                       `UPDATE captures SET uploaded=1, hash="${response.data.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
                       () => {
                         if (i === results.rows._array.length - 1) {
-                          // sendFile(sequence.sequence_uuid);
+                          sendFile(sequence.sequence_uuid);
                         }
                       }
                     );

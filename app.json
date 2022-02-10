@@ -20,19 +20,7 @@
     "facebookDisplayName": "Mapilio",
     "ios": {
       "supportsTablet": true,
-      "requireFullScreen": true,
-      "bundleIdentifier": "com.mapilio.main",
-      "config": {
-        "googleSignIn": {
-          "reservedClientId": "563319300844-3m356468nbkj40ke4ct2offeufm1k3u4.apps.googleusercontent.com"
-        }
-      }
-    },
-    "androidStatusBar": {
-      "hidden": false
-    },
-    "androidNavigationBar": {
-      "visible": "leanback"
+      "requireFullScreen": true
     },
     "android": {
       "adaptiveIcon": {

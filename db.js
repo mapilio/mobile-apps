@@ -36,18 +36,19 @@ class Database {
   insertToDB(values) {
     db.transaction((txn) => {
       txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path) VALUES (?, ?, ?, ?, ?, ?, ?)",
         [
           values.JSONExif,
           values.JSONLocation,
           values.projectKey,
           values.organizationName,
-          values.organization_key,
+          values.organizationKey,
           values.uuid,
           values.path,
         ],
         (txn, rs) => null,
         (_, error) => {
+          console.log(error);
           toastGenerator(
             "An error occurred while shooting, please try again.",
             require("./assets/images/Info.png"),
@@ -67,7 +68,7 @@ class Database {
         "SELECT * FROM captures",
         [],
         (_, result) => {
-          // TODO Muammer
+          return;
         },
         (_, error) => {
           toastGenerator(
