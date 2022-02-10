@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as FileSystem from "expo-file-system";
 import { Alert, Modal, Platform, TouchableOpacity, View } from "react-native";
@@ -12,7 +12,7 @@ import { Routes } from "../../navigator/Routes";
 import * as Progress from "react-native-progress";
 import { errorAlertStyles } from "../../styles/alertStyles";
 import axios from "axios";
-import { SERVICE_URL, IMAGE_API } from "@env";
+import { SERVICE_URL } from "@env";
 import RNFetchBlob from "rn-fetch-blob";
 const md5 = require("md5");
 const RNFS = require("react-native-fs");
@@ -22,13 +22,9 @@ const Upload = ({ sequence_uuid, navigation }) => {
   const { uploadData } = useSelector((status) => status.uploadReducer);
   const [summerCount, setSummerCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
-  const [success, setSuccess] = useState(false);
   const { auth, userInformation } = useSelector(
     (status) => status.getTokenReducer
   );
-  const [mbytes, setMbytes] = useState(0);
-  const [mbps, setMbps] = useState(0);
-  const [status, setStatus] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const cancelToken = axios.CancelToken.source();
   const { connection } = useSelector((state) => state.generalReducer);
@@ -40,9 +36,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
       Math.atan(((horizontal_pixel / 2) * pixel_pitch) / 1e3 / focal_length)
     );
   };
-
-  const authPath = FileSystem.documentDirectory + auth.id;
-  const newPath = authPath + sequence_uuid;
 
   const hFovCalculate = (horizontal_pixel, vertical_pixel, focal_length) => {
     const pixel_pitch =
@@ -73,7 +66,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
 
   const getHash = () => {
     summerImages();
-    const sequences = getSequences();
+    const sequences = getSequences();x
     sequences.map((sequence) => {
       setModalVisible(true);
       db.query(
@@ -94,10 +87,15 @@ const Upload = ({ sequence_uuid, navigation }) => {
                   type: "image/jpeg",
                 });
                 formData.append("email", userInformation.email);
-                formData.append("project_organization_key", "");
-                formData.append("project_key", "");
+                if (data.project_key && data.organization_key) {
+                  formData.append(
+                    "project_organization_key",
+                    data.organization_key
+                  );
+                  formData.append("project_key", data.project_key);
+                }
                 await axios
-                  .post(`https://cdn.mapilio.com/api/upload/mobile`, formData)
+                  .post(process.env.CDN_URL, formData)
                   .then((response) => {
                     setSentCount((state) => state + 1);
                     db.query(
@@ -236,7 +234,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
               dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
               navigation.navigate(Routes.upload);
               if (deletedRows === getSequences().length) {
-                setSuccess(true);
                 setModalVisible(false);
                 setSentCount(0);
                 toastGenerator(

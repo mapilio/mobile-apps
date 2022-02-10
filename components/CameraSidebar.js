@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CAMERA_REDUCER_RESET,
   UPDATE_AUTOCAPTURE_START,
+  UPDATE_PHOTO_AMOUNT,
   UPDATE_SELECTED_PROJECT,
   UPDATE_UUID,
   UPLOAD_DATA,
@@ -32,8 +33,8 @@ const CameraSidebar = ({
   navigation,
   setLowBrigthness,
   setCameraReady,
-  backButtonRef,
-  setDene,
+  timeout,
+  waitGPS,
 }) => {
   const dispatch = useDispatch();
   const [uuidV4, setUUID] = useState("");
@@ -42,6 +43,14 @@ const CameraSidebar = ({
     (state) => state.settingsReducer
   );
   const { keepUUID, photoAmount } = useSelector((state) => state.cameraReducer);
+
+  useEffect(() => {
+    if (photoAmount === 500) {
+      const sequenceUUID = uuid.v4();
+      setUUID(sequenceUUID);
+      dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
+    }
+  }, [photoAmount]);
 
   useEffect(() => {
     navigation.addListener("focus", () => {
@@ -53,10 +62,6 @@ const CameraSidebar = ({
       }
     });
   }, [navigation]);
-
-  useEffect(() => {
-    setDene(photoAmount);
-  }, [photoAmount]);
 
   useEffect(() => {
     navigation.addListener("blur", () => {
@@ -144,6 +149,11 @@ const CameraSidebar = ({
       type: UPDATE_SELECTED_PROJECT,
       payload: { type: "individual", key: 0 },
     });
+    setCameraReady(false);
+    waitGPS.current = true;
+    clearTimeout(timeout?.current);
+    dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
+    timeout.current = null;
   };
 
   return (
@@ -215,7 +225,6 @@ const CameraSidebar = ({
           <TouchableOpacity
             style={{ position: "absolute", top: 0, right: 0 }}
             onPress={exitFromCamera}
-            ref={backButtonRef}
           >
             <GoBackIcon />
           </TouchableOpacity>

@@ -1,24 +1,23 @@
 import React from "react";
-import {Text, View, TextInput, Pressable} from "react-native";
-import * as yup from 'yup'
-import {Formik} from "formik";
-import {loginStyles} from "../styles/loginStyles";
-import {Routes} from "../navigator/Routes";
-import {globalStyles} from "../styles/globalStyles";
-import {RFValue} from "react-native-responsive-fontsize";
-import {fetchHandler, toastGenerator} from "../helper/helper";
+import { Text, View, TextInput, Pressable } from "react-native";
+import * as yup from "yup";
+import { Formik } from "formik";
+import { loginStyles } from "../styles/loginStyles";
+import { Routes } from "../navigator/Routes";
+import { globalStyles } from "../styles/globalStyles";
+import { RFValue } from "react-native-responsive-fontsize";
+import { fetchHandler, toastGenerator } from "../helper/helper";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
-import {errorAlertStyles, successAlertStyles} from "../styles/alertStyles";
-import {SERVICE_URL} from '@env'
+import { errorAlertStyles, successAlertStyles } from "../styles/alertStyles";
+import { SERVICE_URL, FORGOT_URL } from "@env";
 
-const ForgotPassword = ({navigation}) => {
-
+const ForgotPassword = ({ navigation }) => {
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
       .email("Please enter valid email")
-      .required('Email Address is Required'),
-  })
+      .required("Email Address is Required"),
+  });
 
   const forgotPassword = (values) => {
     fetchHandler({
@@ -26,7 +25,7 @@ const ForgotPassword = ({navigation}) => {
       method: "POST",
       data: {
         email: values.email,
-        callback: `${SERVICE_URL}`,
+        callback: FORGOT_URL,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },
@@ -52,45 +51,69 @@ const ForgotPassword = ({navigation}) => {
           3000
         );
       });
-  }
+  };
 
   return (
-
     <View style={[globalStyles.container, loginStyles.container]}>
       <View style={loginStyles.logo}>
         <MapilioLogo width={RFValue(150)} height={RFValue(50)} />
       </View>
-      <View style={{
-        marginBottom: RFValue(30),
-      }}>
+      <View
+        style={{
+          marginBottom: RFValue(30),
+        }}
+      >
         <Text style={loginStyles.primaryText}>Forgot your password?</Text>
-        <Text style={loginStyles.secondaryText}>Enter your email address below and we'll
-          get you back on track.</Text>
+        <Text style={loginStyles.secondaryText}>
+          Enter your email address below and we'll get you back on track.
+        </Text>
       </View>
 
-      <Formik initialValues={{
-        email: '',
-      }} validationSchema={loginValidationSchema} onSubmit={values => forgotPassword(values)}>
-        {({handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
+      <Formik
+        initialValues={{
+          email: "",
+        }}
+        validationSchema={loginValidationSchema}
+        onSubmit={(values) => forgotPassword(values)}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          isValid,
+        }) => (
           <>
-            <View style={{...loginStyles.formGroup, marginBottom: RFValue(40)}}>
+            <View
+              style={{ ...loginStyles.formGroup, marginBottom: RFValue(40) }}
+            >
               <TextInput
                 name="email"
                 placeholder="Email Address"
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
                 value={values.email}
                 keyboardType="email-address"
-                autoCapitalize='none'
-                style={errors.email ? {...loginStyles.errorInput , ...loginStyles.input} : loginStyles. input}
+                autoCapitalize="none"
+                style={
+                  errors.email
+                    ? { ...loginStyles.errorInput, ...loginStyles.input }
+                    : loginStyles.input
+                }
               />
-              {errors.email &&
-              <Text style={loginStyles.errorText}>{errors.email}</Text>
-              }
+              {errors.email && (
+                <Text style={loginStyles.errorText}>{errors.email}</Text>
+              )}
             </View>
 
-            <Pressable style={{...loginStyles.buttonOutline, marginBottom: RFValue(10)}}
-                       onPress={() => navigation.navigate(Routes.login)}>
+            <Pressable
+              style={{
+                ...loginStyles.buttonOutline,
+                marginBottom: RFValue(10),
+              }}
+              onPress={() => navigation.navigate(Routes.login)}
+            >
               <Text style={loginStyles.buttonText}>Back to Log In</Text>
             </Pressable>
             <Pressable style={loginStyles.button} onPress={handleSubmit}>

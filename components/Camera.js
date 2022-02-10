@@ -49,8 +49,8 @@ const Camera = ({
   route,
   cameraReady,
   setCameraReady,
-  backButton,
-  dene,
+  timeout,
+  waitGPS
 }) => {
   const [degree, setDegree] = useState(0);
   const [batteryAlert, setBatteryAlert] = useState(null);
@@ -69,9 +69,7 @@ const Camera = ({
   );
   const { connection } = useSelector((state) => state.generalReducer);
   const cameraRef = useRef(null);
-  let timeout = null;
   let location = null;
-  let waitGPS = true;
   let accelerometerSubscription = null;
 
   useEffect(() => {
@@ -81,56 +79,6 @@ const Camera = ({
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", () => true);
   }, []);
-
-  // const backAction = (e) => {
-  //   console.log(dene);
-  //   if (photoAmount >= 5) {
-  //     database.query(
-  //       "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
-  //       (_, result) => {
-  //         dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-  //       }
-  //     );
-  //     exitHandler();
-  //   } else if (photoAmount >= 1 && photoAmount <= 4) {
-  //     Alert.alert(
-  //       "Capture failed",
-  //       "For capture, you need to take at 5 least photos.",
-  //       [
-  //         {
-  //           text: "Exit",
-  //           style: "cancel",
-  //           onPress: () => exitHandler(),
-  //         },
-  //         {
-  //           text: "Continue",
-  //           onPress: () => false,
-  //         },
-  //       ]
-  //     );
-  //   } else if (photoAmount === 0) {
-  //     exitHandler();
-  //   }
-  //   return false;
-  // };
-
-  // const exitHandler = async () => {
-  //   setCameraReady(false);
-  //   waitGPS = true;
-  //   clearTimeout(timeout);
-  //   dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
-  //   await ScreenOrientation.unlockAsync();
-  //   await ScreenOrientation.lockAsync(
-  //     ScreenOrientation.OrientationLock.PORTRAIT_UP
-  //   );
-  //   navigation.navigate(Routes.profile);
-  //   StatusBar.setHidden(false);
-  //   dispatch({ type: CAMERA_REDUCER_RESET });
-  //   dispatch({
-  //     type: UPDATE_SELECTED_PROJECT,
-  //     payload: { type: "individual", key: 0 },
-  //   });
-  // };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async (e) => {
@@ -259,7 +207,7 @@ const Camera = ({
           dispatch({ type: UPDATE_HIGHSPEED_STATUS, payload: false });
           setSpeedAlert(null);
         }
-        if (gps && waitGPS) {
+        if (gps && waitGPS.current) {
           startAccuracyHandler(location.coords.accuracy);
         }
         accuracyHandler(location.coords.accuracy);
@@ -287,7 +235,7 @@ const Camera = ({
 
   useEffect(() => {
     if (gps) {
-      timeout = setTimeout(() => {
+      timeout.current = setTimeout(() => {
         toastGenerator(
           "GPS accuracy is not enough. Please try again.",
           require("../assets/images/Info.png"),
@@ -302,11 +250,11 @@ const Camera = ({
         );
       }, 3000 * 10);
     } else {
-      clearTimeout(timeout);
+      clearTimeout(timeout?.current);
       timeout = null;
     }
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(timeout?.current);
     };
   }, [gps]);
 
@@ -320,7 +268,7 @@ const Camera = ({
           "Please be in the open area where the GPS will capture. This process can take up to 30 seconds.",
       });
     } else if (accuracy <= 15) {
-      waitGPS = false;
+      waitGPS.current = false;
       setGPS(false);
       dispatch({ type: UPDATE_START_ACCURACY, payload: true });
       setGPSStartAlert(null);

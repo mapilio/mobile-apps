@@ -8,8 +8,8 @@ import * as Brightness from "expo-brightness";
 const AppCamera = ({ navigation, route }) => {
   const [lowBrightness, setLowBrigthness] = useState(false);
   const [cameraReady, setCameraReady] = useState(false);
-  const backButtonRef = useRef(null);
-  const [dene, setDene] = useState(0);
+  const timeout = useRef(null);
+  const waitGPS = useRef(true);
 
   useKeepAwake();
 
@@ -31,8 +31,8 @@ const AppCamera = ({ navigation, route }) => {
           route={route}
           cameraReady={cameraReady}
           setCameraReady={setCameraReady}
-          backButton={backButtonRef.current}
-          dene={dene}
+          timeout={timeout}
+          waitGPS={waitGPS}
         />
       </View>
       <View
@@ -44,10 +44,10 @@ const AppCamera = ({ navigation, route }) => {
       >
         <CameraSidebar
           navigation={navigation}
-          setDene={setDene}
           setLowBrigthness={setLowBrigthness}
           setCameraReady={setCameraReady}
-          backButtonRef={backButtonRef}
+          timeout={timeout}
+          waitGPS={waitGPS}
         />
       </View>
     </View>

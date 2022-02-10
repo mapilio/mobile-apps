@@ -88,14 +88,7 @@ const AutoActionButton = ({
 
   // TODO ADD TO HELPER.JS
   const takePicture = async (location) => {
-    const batteryError =
-      Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
-    const db = Database.getConnection();
-    const id =
-      selectedProject.type === "individual"
-        ? userInformation.id
-        : selectedProject.id;
-
+    const id = userInformation.id;
     if (cameraStatus !== "READY") return;
     const options = { quality: 0.6, base64: false, exif: true };
     if (!autoCapture) return;
@@ -103,7 +96,6 @@ const AutoActionButton = ({
     const heading = await Location.getHeadingAsync();
     const imageUri = image.uri;
     if (!imageUri) return;
-
     const metaDataDir = await FileSystem.getInfoAsync(
       FileSystem.documentDirectory + `${id}/${uuid}`
     );
@@ -129,8 +121,6 @@ const AutoActionButton = ({
     location.coords.heading = heading.trueHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
-
-    // TODO PROJECT KEY AND ORG NAME ARE CONNECTED TO VARIABLE WHEN THE API IS COMING
     Database.insertToDB({
       JSONExif,
       JSONLocation,

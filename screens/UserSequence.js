@@ -3,7 +3,6 @@ import { ScrollView, View, TouchableOpacity, Alert } from "react-native";
 import Map from "../assets/svg/illustrations/Map";
 import { ImageUpload } from "../components/Uploads";
 import { userSequenceStyles } from "../styles/userSequenceStyle";
-import SwitchSelector from "react-native-switch-selector";
 import { Trash } from "../assets/svg/illustrations";
 import { userUploadStyles } from "../styles/userUploadStyle";
 import { useDispatch, useSelector } from "react-redux";

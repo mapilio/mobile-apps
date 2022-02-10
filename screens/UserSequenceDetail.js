@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image, View, TouchableOpacity } from "react-native";
+import {
+  Dimensions,
+  Image,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import Maximize from "../assets/svg/illustrations/Maximize";
 import { sequenceDetailStyles } from "../styles/userSequenceStyle";
 import Minimize from "../assets/svg/illustrations/Minimize";
@@ -70,7 +76,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
 
   return (
     <View>
-      <View style={sequenceDetailStyles.imageArea}>
+      <ScrollView style={sequenceDetailStyles.imageArea}>
         <Image
           source={{
             width: RFValue(200),
@@ -95,10 +101,9 @@ const UserSequenceDetail = ({ navigation, route }) => {
             {maximize ? <Minimize /> : <Maximize />}
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
 
       <MapView
-        styleURL={"mapbox://styles/mapbox/light-v10"}
         mapStyle={{ ...appMapStyle.map, height: RFPercentage(54) }}
         attributionPosition={{ bottom: 26, right: 8 }}
       >

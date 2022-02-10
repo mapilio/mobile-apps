@@ -2,6 +2,7 @@ export const Routes = {
   profile: "Profile",
   sequences: "Sequences",
   sequenceDetail: "SequenceDetail",
+  feedDetail: "feedDetail",
   upload: "Upload",
   camera: "Camera",
   cameraSettings: "CameraSettings",
@@ -14,9 +15,9 @@ export const Routes = {
   marketplaceReceived: "MarketplaceReceived",
   tabHome: "Home",
   walkthrough: "Walkthough",
-  welcomeWalkthrough:"WelcomeWalkthrough",
-  noInternetAccess:"NoInternetAccess",
-  map:"map",
-  nonUserTab:"NonUserTab",
-  profileSequence:"ProfileSequence"
+  welcomeWalkthrough: "WelcomeWalkthrough",
+  noInternetAccess: "NoInternetAccess",
+  map: "map",
+  nonUserTab: "NonUserTab",
+  profileSequence: "ProfileSequence",
 };

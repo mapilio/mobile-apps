@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ActivityIndicator
 } from "react-native";
 import SwipeLine from "../assets/svg/illustrations/SwipeLine";
 import { CustomText } from "../highordercomponents";
@@ -19,7 +20,6 @@ import {
 } from "../helper/helper";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
-import { ActivityIndicator } from "react-native-paper";
 import { SEARCH_API } from "@env";
 
 const SearchbarSwipe = ({ setFly, panelRef }) => {

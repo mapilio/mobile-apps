@@ -62,9 +62,7 @@ const ProjectList = ({ project, setModalVisible }) => {
         }}
         onPress={chooseHandler}
       >
-        <CustomTextMedium
-          style={{ fontSize: RFValue(12), color: "#FFFFFF" }}
-        >
+        <CustomTextMedium style={{ fontSize: RFValue(12), color: "#FFFFFF" }}>
           Start
         </CustomTextMedium>
       </Pressable>

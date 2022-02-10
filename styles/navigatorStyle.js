@@ -6,7 +6,7 @@ export const navigatorStyle = {
     height:
       Platform.OS === "android"
         ? RFValue(50)
-        : Dimensions.get("window").height > 1100
+        : Dimensions.get("window").height > 1000
         ? RFValue(55)
         : Dimensions.get("window").height > 775
         ? RFValue(90)
@@ -26,7 +26,7 @@ export const navigatorStyle = {
     height:
       Platform.OS === "android"
         ? RFValue(63)
-        : Dimensions.get("window").height > 1100
+        : Dimensions.get("window").height > 1000
         ? RFValue(56)
         : Dimensions.get("window").height > 775
         ? RFValue(83)

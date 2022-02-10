@@ -42,11 +42,6 @@ const UserInfos = () => {
     setAvatarError(true);
   };
 
-  const loadIOS = () => {
-    if (Platform.OS === "ios") {
-      setAvatarLoading(false);
-    }
-  };
   useEffect(() => {
     fetchHandler({
       url: `${SERVICE_URL}/api/function/user_profile/profile/getProfile`,

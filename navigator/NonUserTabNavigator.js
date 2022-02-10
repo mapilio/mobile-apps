@@ -4,7 +4,13 @@ import { navigatorStyle } from "../styles/navigatorStyle";
 import { Routes } from "./Routes";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { AppMap, Login, Marketplace, NoInternetAccess } from "../screens";
-import { Dimensions, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -61,7 +67,7 @@ const NonUserTabNavigator = () => {
     <Tab.Navigator
       initialRouteName={Routes.map}
       screenOptions={({ navigation }) => ({
-        // Todo animation for Android will be made smoother.
+         
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
         tabBarStyle: navigatorStyle.tabBarStyle,
@@ -109,7 +115,10 @@ const NonUserTabNavigator = () => {
           title: <MapLogo fill={"#000"} />,
           headerTitleAlign: "center",
           headerStyle: {
-            height: RFValue(50),
+            height:
+              Dimensions.get("window").height > 1100
+                ? RFValue(50)
+                : RFValue(70),
             backgroundColor: "#213348",
           },
         }}
@@ -136,6 +145,8 @@ const NonUserTabNavigator = () => {
                   navigatorStyle.tabTextStyle,
                   focused ? { color: "#32425B" } : {},
                 ]}
+                numberOfLines={1}
+                ellipsizeMode={"clip"}
               >
                 Market
               </Text>
@@ -144,7 +155,6 @@ const NonUserTabNavigator = () => {
         })}
       />
       <Tab.Screen
-        // TODO Bottom bar will be changed when I find a way to add an icon without adding a component
         name={"dolor"}
         component={Login}
         options={({ navigation }) => ({
@@ -185,6 +195,8 @@ const NonUserTabNavigator = () => {
                   navigatorStyle.tabTextStyle,
                   focused ? { color: "#32425B" } : {},
                 ]}
+                numberOfLines={1}
+                ellipsizeMode={"clip"}
               >
                 Upload
               </Text>
@@ -214,6 +226,8 @@ const NonUserTabNavigator = () => {
                   navigatorStyle.tabTextStyle,
                   focused ? { color: "#32425B" } : {},
                 ]}
+                numberOfLines={1}
+                ellipsizeMode={"clip"}
               >
                 Profile
               </Text>

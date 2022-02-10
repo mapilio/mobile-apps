@@ -10,7 +10,6 @@ import {RFValue} from "react-native-responsive-fontsize";
 
 
 const List = ({projects, navigation}) => {
-
     const touchable = useRef();
     const [showPopover, setShowPopover] = useState(false);
 
