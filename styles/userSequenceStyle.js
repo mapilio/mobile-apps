@@ -17,19 +17,19 @@ export const userSequenceStyles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 15,
     paddingVertical: 3,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
     width: 150,
   },
   tabItemActive: {
-    backgroundColor: '#32425B',
+    backgroundColor: "#32425B",
     borderRadius: 5,
   },
   tabText: {
-    color: '#32425B',
+    color: "#32425B",
   },
   tabTextActive: {
-    color: '#FFF',
-  }
+    color: "#FFF",
+  },
 });
 
 export const sequenceCardStyles = StyleSheet.create({
@@ -59,7 +59,7 @@ export const sequenceCardStyles = StyleSheet.create({
 
 export const sequenceDetailStyles = StyleSheet.create({
   imageArea: {
-    position: "relative"
+    position: "relative",
   },
   image: {
     width: "100%",
@@ -69,10 +69,9 @@ export const sequenceDetailStyles = StyleSheet.create({
     right: RFValue(10),
   },
   minimizeButton: {
-    bottom: RFValue(10)
+    bottom: RFValue(10),
   },
   maximizeButton: {
-    bottom: RFValue(30)
-  }
+    bottom: RFValue(30),
+  },
 });
-

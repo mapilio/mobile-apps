@@ -18,6 +18,7 @@ class Database {
                                 location TEXT NOT NULL, 
                                 project_key TEXT, 
                                 organization_name TEXT, 
+                                organization_key TEXT,
                                 sequence_uuid TEXT NOT NULL, 
                                 path TEXT NOT NULL, 
                                 hash TEXT DEFAULT NULL,
@@ -35,12 +36,13 @@ class Database {
   insertToDB(values) {
     db.transaction((txn) => {
       txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, sequence_uuid, path) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path) VALUES (?, ?, ?, ?, ?, ?)",
         [
           values.JSONExif,
           values.JSONLocation,
           values.projectKey,
           values.organizationName,
+          values.organization_key,
           values.uuid,
           values.path,
         ],

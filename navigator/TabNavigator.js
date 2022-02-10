@@ -10,6 +10,7 @@ import {
   Marketplace,
   NoInternetAccess,
   ProfileSequence,
+  ProfileUploadDetail,
   UserProfile,
   UserSequence,
   UserSequenceDetail,
@@ -131,6 +132,8 @@ const TabNavigator = ({ navigation, route }) => {
                   navigatorStyle.tabTextStyle,
                   focused ? { color: "#32425B" } : {},
                 ]}
+                numberOfLines={1}
+                ellipsizeMode={"clip"}
               >
                 Map
               </Text>
@@ -166,6 +169,8 @@ const TabNavigator = ({ navigation, route }) => {
                   navigatorStyle.tabTextStyle,
                   focused ? { color: "#32425B" } : {},
                 ]}
+                numberOfLines={1}
+                ellipsizeMode={"clip"}
               >
                 Market
               </Text>
@@ -218,6 +223,8 @@ const TabNavigator = ({ navigation, route }) => {
                   navigatorStyle.tabTextStyle,
                   focused ? { color: "#32425B" } : {},
                 ]}
+                numberOfLines={1}
+                ellipsizeMode={"clip"}
               >
                 Upload
               </Text>
@@ -288,6 +295,26 @@ const TabNavigator = ({ navigation, route }) => {
         }}
       />
       <Tab.Screen
+        component={ProfileUploadDetail}
+        name={Routes.feedDetail}
+        options={{
+          headerLeft: (props) => (
+            <SequenceNavigatorLeft
+              {...props}
+              navigation={navigation}
+              backRoute={Routes.sequences}
+            />
+          ),
+          title: "Upload detail",
+          headerStyle: navigatorStyle.headerStyle,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          tabBarIcon: () => null,
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
         component={UserProfile}
         name={Routes.profile}
         options={({ navigation }) => ({
@@ -309,6 +336,8 @@ const TabNavigator = ({ navigation, route }) => {
                   navigatorStyle.tabTextStyle,
                   focused ? { color: "#32425B" } : {},
                 ]}
+                numberOfLines={1}
+                ellipsizeMode={"clip"}
               >
                 Profile
               </Text>

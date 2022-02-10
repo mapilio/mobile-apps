@@ -49,8 +49,8 @@ const Camera = ({
   route,
   cameraReady,
   setCameraReady,
-  backButton,
-  dene,
+  timeout,
+  waitGPS
 }) => {
   const [degree, setDegree] = useState(0);
   const [batteryAlert, setBatteryAlert] = useState(null);
@@ -69,9 +69,7 @@ const Camera = ({
   );
   const { connection } = useSelector((state) => state.generalReducer);
   const cameraRef = useRef(null);
-  let timeout = null;
   let location = null;
-  let waitGPS = true;
   let accelerometerSubscription = null;
 
   useEffect(() => {
@@ -117,7 +115,7 @@ const Camera = ({
   // const exitHandler = async () => {
   //   setCameraReady(false);
   //   waitGPS = true;
-  //   clearTimeout(timeout);
+  //   clearTimeout(timeout.current);
   //   dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
   //   await ScreenOrientation.unlockAsync();
   //   await ScreenOrientation.lockAsync(
@@ -259,7 +257,7 @@ const Camera = ({
           dispatch({ type: UPDATE_HIGHSPEED_STATUS, payload: false });
           setSpeedAlert(null);
         }
-        if (gps && waitGPS) {
+        if (gps && waitGPS.current) {
           startAccuracyHandler(location.coords.accuracy);
         }
         accuracyHandler(location.coords.accuracy);
@@ -287,7 +285,7 @@ const Camera = ({
 
   useEffect(() => {
     if (gps) {
-      timeout = setTimeout(() => {
+      timeout.current = setTimeout(() => {
         toastGenerator(
           "GPS accuracy is not enough. Please try again.",
           require("../assets/images/Info.png"),
@@ -302,11 +300,11 @@ const Camera = ({
         );
       }, 3000 * 10);
     } else {
-      clearTimeout(timeout);
+      clearTimeout(timeout.current);
       timeout = null;
     }
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(timeout.current);
     };
   }, [gps]);
 
@@ -320,7 +318,7 @@ const Camera = ({
           "Please be in the open area where the GPS will capture. This process can take up to 30 seconds.",
       });
     } else if (accuracy <= 15) {
-      waitGPS = false;
+      waitGPS.current = false;
       setGPS(false);
       dispatch({ type: UPDATE_START_ACCURACY, payload: true });
       setGPSStartAlert(null);

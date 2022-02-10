@@ -32,8 +32,8 @@ const CameraSidebar = ({
   navigation,
   setLowBrigthness,
   setCameraReady,
-  backButtonRef,
-  setDene,
+  timeout,
+  waitGPS,
 }) => {
   const dispatch = useDispatch();
   const [uuidV4, setUUID] = useState("");
@@ -53,10 +53,6 @@ const CameraSidebar = ({
       }
     });
   }, [navigation]);
-
-  useEffect(() => {
-    setDene(photoAmount);
-  }, [photoAmount]);
 
   useEffect(() => {
     navigation.addListener("blur", () => {
@@ -144,6 +140,11 @@ const CameraSidebar = ({
       type: UPDATE_SELECTED_PROJECT,
       payload: { type: "individual", key: 0 },
     });
+    setCameraReady(false);
+    waitGPS.current = true;
+    clearTimeout(timeout.current);
+    dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
+    timeout.current = null;
   };
 
   return (
@@ -215,7 +216,6 @@ const CameraSidebar = ({
           <TouchableOpacity
             style={{ position: "absolute", top: 0, right: 0 }}
             onPress={exitFromCamera}
-            ref={backButtonRef}
           >
             <GoBackIcon />
           </TouchableOpacity>

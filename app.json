@@ -21,7 +21,12 @@
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true,
-      "bundleIdentifier": "com.mapilio.app"
+      "bundleIdentifier": "com.mapilio.main",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "563319300844-3m356468nbkj40ke4ct2offeufm1k3u4.apps.googleusercontent.com"
+        }
+      }
     },
     "androidStatusBar": {
       "hidden": false
@@ -43,7 +48,7 @@
         "xxhdpi": "./assets/splash/mapilio_splash_x3.png",
         "xxxhdpi": "./assets/splash/mapilio_splash_x4.png"
       },
-      "package": "com.mapilio.app"
+      "package": "com.mapilio.main"
     },
     "web": {
       "favicon": "./assets/favicon.png"

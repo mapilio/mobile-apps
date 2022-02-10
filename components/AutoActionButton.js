@@ -88,13 +88,7 @@ const AutoActionButton = ({
 
   // TODO ADD TO HELPER.JS
   const takePicture = async (location) => {
-    const batteryError =
-      Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
-    const db = Database.getConnection();
-    const id =
-      selectedProject.type === "individual"
-        ? userInformation.id
-        : selectedProject.id;
+    const id = userInformation.id;
 
     if (cameraStatus !== "READY") return;
     const options = { quality: 0.6, base64: false, exif: true };

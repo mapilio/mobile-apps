@@ -24,6 +24,12 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
       .catch((err) => console.log(err));
   }, [sequence_uuid]);
 
+  useEffect(() => {
+    navigation.addListener("blur", () => {
+      setImagesList([]);
+    });
+  }, [navigation]);
+
   return (
     <View style={globalStyles.container}>
       <CustomTextMedium style={globalStyles.screenTitle}>
@@ -60,7 +66,7 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
           : imageList.map((image) => (
               <FeedImageCard
                 key={image.id}
-                path={`${IMAGE_API}/${image.img_code}/${image.filename}/100`}
+                path={`${IMAGE_API}/${image.img_code}/${image.filename}`}
                 id={image.id}
                 navigation={navigation}
               />

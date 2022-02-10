@@ -33,7 +33,7 @@ const ProfileFeed = ({ navigation, data }) => {
         <Image
           style={userFeedStyles.imageStyle}
           source={{
-            uri: `${IMAGE_API}/${data.img_code}/${data.cover_photo}/100`,
+            uri: `${IMAGE_API}/${data.img_code}/${data.cover_photo}/480`,
           }}
         />
       </View>
