@@ -1,14 +1,19 @@
 import {
   UPDATE_CONNECTION_STATUS,
   UPDATE_WELCOME_WALKTHROUGH_STATUS,
-  UPDATE_CURRENT_DB, MARKETPLACE_DATA,
+  UPDATE_CURRENT_DB,
+  MARKETPLACE_DATA,
+  UPDATE_CURRENT_FEED_SEQUENCE,
+  UPDATE_CAMERA_WALKTHROUGH_STATUS
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   connection: { connectionStatus: true, connectionType: "wifi" },
   welcomeWalkthroughStatus: false,
+  cameraWalkthroughStatus: false,
   db: null,
   marketplaceData: {},
+  currentFeedSequence: null,
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +28,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
         ...state,
         welcomeWalkthroughStatus: action.payload,
       };
+    case UPDATE_CAMERA_WALKTHROUGH_STATUS:
+      return {
+        ...state,
+        cameraWalkthroughStatus: action.payload,
+      };
     case UPDATE_CURRENT_DB:
       return {
         ...state,
@@ -31,8 +41,13 @@ const generalReducer = (state = INITIAL_STATE, action) => {
     case MARKETPLACE_DATA:
       return {
         ...state,
-        marketplaceData: action.payload
-      }
+        marketplaceData: action.payload,
+      };
+    case UPDATE_CURRENT_FEED_SEQUENCE:
+      return {
+        ...state,
+        currentFeedSequence: action.payload,
+      };
     default:
       return state;
   }

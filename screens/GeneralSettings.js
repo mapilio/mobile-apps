@@ -193,7 +193,7 @@ const GeneralSettings = ({ navigation }) => {
           />
         </View> */}
       </ScrollView>
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -212,7 +212,7 @@ const GeneralSettings = ({ navigation }) => {
           Help
         </CustomTextMedium>
         <InfoIcon />
-      </View>
+      </View> */}
     </View>
   );
 };

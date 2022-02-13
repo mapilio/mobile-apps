@@ -13,17 +13,29 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { appMapStyle } from "../styles/appMapStyle";
 import database from "../db";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import { MapView } from "../highordercomponents";
+import { ACTIVE_SEQUENCE } from "../store/actionsName";
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
   const [lines, setLines] = useState({});
   const [points, setPoints] = useState({});
+  const dispatch = useDispatch();
   const [center, setCenter] = useState([30.8, 41.015137]);
   const { activeSequence } = useSelector((state) => state.uploadReducer);
   const screenHeight = Dimensions.get("window").height - RFValue(110);
+
+  useEffect(() => {
+    // let unsubscribe = navigation.addListener("focus", () => {
+    //   dispatch({
+    //     type: ACTIVE_SEQUENCE,
+    //     payload: route.params.sequence_uuid,
+    //   });
+    // });
+    // return unsubscribe;
+  }, [navigation]);
 
   const getCoordinates = () => {
     database.query(

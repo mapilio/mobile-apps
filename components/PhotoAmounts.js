@@ -17,15 +17,17 @@ const PhotoAmounts = () => {
   const [availableStorage, setAvailableStorage] = useState(0);
 
   useEffect(() => {
-    FileSystem.getFreeDiskStorageAsync().then((freeDiskStorage) => {
-      setMemory(freeDiskStorage);
-    });
-    setAvailableStorage(parseInt(phoneMemory / imageSize));
-    dispatch({
-      type: UPDATE_PHONE_MEMORY,
-      payload: parseInt(phoneMemory / imageSize),
-    });
-  }, [phoneMemory, imageSize]);
+    if (photoAmount === 1) {
+      FileSystem.getFreeDiskStorageAsync().then((freeDiskStorage) => {
+        setMemory(freeDiskStorage);
+        setAvailableStorage(parseInt(freeDiskStorage / imageSize));
+        dispatch({
+          type: UPDATE_PHONE_MEMORY,
+          payload: parseInt(freeDiskStorage / imageSize),
+        });
+      });
+    }
+  }, [photoAmount]);
 
   useEffect(() => {
     setPhotoAmount(photoAmount);

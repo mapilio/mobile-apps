@@ -49,7 +49,7 @@ const toastGenerator = (
   titleStyle,
   imageStyle,
   duration = 0
-) =>
+) => {
   Notifier.showNotification({
     title: title,
     Component: NotifierComponents.Notification,
@@ -63,6 +63,7 @@ const toastGenerator = (
       containerStyle: containerStyle,
     },
   });
+};
 
 const maxCharacterHandler = (text, maxLength) => {
   if (text.length > maxLength) text = text.substring(0, maxLength) + "...";
@@ -72,14 +73,16 @@ const maxCharacterHandler = (text, maxLength) => {
 const permissionHandler = async (
   handler = () => {},
   cancelHandler = () => {},
-  noAccessHandler = () => {}
+  noAccessHandler = () => {},
+  from = "location"
 ) => {
   const { status: cameraStatus } = await ExpoCamera.getCameraPermissionsAsync();
+
   const { status: locationStatus } =
     await Location.getForegroundPermissionsAsync();
 
   if (cameraStatus !== "granted" || locationStatus !== "granted") {
-    if (cameraStatus !== "granted") {
+    if (cameraStatus !== "granted" && from === "camera") {
       const { status: cameraStatus } =
         await ExpoCamera.requestCameraPermissionsAsync();
       alertHandler(cameraStatus, cancelHandler);
@@ -95,34 +98,34 @@ const permissionHandler = async (
 };
 
 const alertHandler = (status, cancelHandler) => {
-  if (!isOpenOnce) {
-    isOpenOnce = true;
-    if (status !== "granted") {
-      Alert.alert(
-        "Your some permissions is turned off",
-        "If you do not allow permissions, you will not access to capture.",
-        [
-          {
-            text: "Continue",
-            style: "cancel",
-            onPress: () => {
-              cancelHandler();
-              isOpenOnce = false;
-            },
-          },
-          {
-            text: "Go to settings",
-            onPress: () => {
-              Platform.OS === "ios"
-                ? Linking.openURL("app-settings:")
-                : Linking.openSettings();
-              isOpenOnce = false;
-            },
-          },
-        ]
-      );
-    }
-  }
+  // if (!isOpenOnce) {
+  //   isOpenOnce = true;
+  //   if (status !== "granted") {
+  //     Alert.alert(
+  //       "Your some permissions is turned off",
+  //       "If you do not allow permissions, you will not access to capture.",
+  //       [
+  //         {
+  //           text: "Continue",
+  //           style: "cancel",
+  //           onPress: () => {
+  //             cancelHandler();
+  //             isOpenOnce = false;
+  //           },
+  //         },
+  //         {
+  //           text: "Go to settings",
+  //           onPress: () => {
+  //             Platform.OS === "ios"
+  //               ? Linking.openURL("app-settings:")
+  //               : Linking.openSettings();
+  //             isOpenOnce = false;
+  //           },
+  //         },
+  //       ]
+  //     );
+  //   }
+  // }
 };
 
 export {

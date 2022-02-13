@@ -15,12 +15,15 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "facebookAppId": "254795350007625",
     "facebookDisplayName": "Mapilio",
     "ios": {
       "supportsTablet": true,
-      "requireFullScreen": true
+      "requireFullScreen": true,
+      "bundleIdentifier": "com.mapilio.main"
     },
     "android": {
       "adaptiveIcon": {
@@ -41,6 +44,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["@react-native-mapbox-gl/maps", "expo-facebook"]
+    "plugins": [
+      "@react-native-mapbox-gl/maps",
+      "expo-facebook"
+    ]
   }
 }

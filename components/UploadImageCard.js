@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Image, View, TouchableOpacity, Alert } from "react-native";
+import { Image, View, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { sequenceCardStyles } from "../styles/userSequenceStyle";
-import {SelectedIcon} from "../assets/svg/illustrations";
+import { SelectedIcon } from "../assets/svg/illustrations";
 import {
   UPDATE_SELECTED_IMAGES,
   UPDATE_ALL_SELECT,
 } from "../store/actionsName";
-import {Routes} from "../navigator/Routes";
-import {RFValue} from "react-native-responsive-fontsize";
+import { Routes } from "../navigator/Routes";
+import { RFValue } from "react-native-responsive-fontsize";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const UploadImageCard = (props) => {
   const dispatch = useDispatch();
-  const { allSelect } = useSelector((state) => state.imagesReducer);
-  const { id, selectedImages, uploadedImages, path } = props;
   const [selected, setSelected] = useState(false);
+  const { id, selectedImages, uploadedImages, path } = props;
+  const { activeSequence } = useSelector((state) => state.uploadReducer);
+  const { allSelect } = useSelector((state) => state.imagesReducer);
 
   const addToSelectedImages = () => {
     const isSelected = selectedImages.some((selectedId) => selectedId === id);
@@ -51,18 +53,29 @@ const UploadImageCard = (props) => {
     <TouchableOpacity
       activeOpacity={0.9}
       style={sequenceCardStyles.cardContainer}
-      onPress={() => props.navigation.navigate(Routes.sequenceDetail, {id: id, path: path})}
+      onPress={() => {
+        props.navigation.navigate(Routes.sequenceDetail, {
+          id: id,
+          path: path,
+          sequence_uuid: props.sequence_uuid,
+        });
+      }}
       onLongPress={addToSelectedImages}
     >
       <View style={sequenceCardStyles.imagePosition}>
         <Image
-          source={{width: RFValue(200), height: RFValue(78), uri: `${path}`}}
+          source={{
+            width: RFValue(200),
+            height: RFValue(78),
+            uri: `${path}`,
+          }}
           resizeMode={"cover"}
           style={{
             ...sequenceCardStyles.imageContainer,
             borderWidth: selected ? 1 : 0,
             borderColor: selected ? "#1AD971" : "#000000",
           }}
+          onLoadEnd={() => props.setLoadImage(false)}
         />
         {selected && (
           <View style={sequenceCardStyles.iconStyle}>

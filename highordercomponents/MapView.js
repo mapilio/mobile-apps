@@ -1,5 +1,6 @@
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import React, { memo } from "react";
+import { Platform } from "react-native";
 
 const MapView = ({
   children,
@@ -14,6 +15,8 @@ const MapView = ({
     ref={mapRef}
     attributionPosition={attributionStyle}
     onRegionDidChange={regionChange}
+    logoEnabled={Platform.OS !== "android"}
+    attributionEnabled={Platform.OS !== "android"}
   >
     {children}
   </MapboxGL.MapView>

@@ -3,7 +3,6 @@ import { Camera as ExpoCamera } from "expo-camera";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {
   ActivityIndicator,
-  Alert,
   Animated,
   BackHandler,
   Platform,
@@ -17,18 +16,13 @@ import CameraProjectInfo from "./CameraProjectInfo";
 import { Accelerometer } from "expo-sensors";
 import RotationLine from "./RotationLine";
 import * as Location from "expo-location";
-import database from "../db";
 import {
-  CAMERA_REDUCER_RESET,
-  UPDATE_AUTOCAPTURE_START,
   UPDATE_CAMERA_REF,
   UPDATE_CAMERA_STATUS,
   UPDATE_GPS_ACCURACY,
-  UPDATE_SELECTED_PROJECT,
   UPDATE_START_ACCURACY,
   UPDATE_MOCKED_STATUS,
   UPDATE_HIGHSPEED_STATUS,
-  UPLOAD_DATA,
 } from "../store/actionsName";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -50,7 +44,7 @@ const Camera = ({
   cameraReady,
   setCameraReady,
   timeout,
-  waitGPS
+  waitGPS,
 }) => {
   const [degree, setDegree] = useState(0);
   const [batteryAlert, setBatteryAlert] = useState(null);
@@ -64,10 +58,10 @@ const Camera = ({
   const [gps, setGPS] = useState(true);
   const fadeAnimation = useRef(new Animated.Value(0.7)).current;
   const dispatch = useDispatch();
-  const { batteryLevel, photoAmount } = useSelector(
-    (state) => state.cameraReducer
+  const { batteryLevel } = useSelector((state) => state.cameraReducer);
+  const { connection, cameraWalkthroughStatus } = useSelector(
+    (state) => state.generalReducer
   );
-  const { connection } = useSelector((state) => state.generalReducer);
   const cameraRef = useRef(null);
   let location = null;
   let accelerometerSubscription = null;
@@ -83,9 +77,16 @@ const Camera = ({
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async (e) => {
       setCameraReady(true);
-      await permissionHandler(false, goProfile);
+      await permissionHandler(false, goProfile, () => false, "camera");
       await _startNetworkProvider();
       StatusBar.setHidden(true);
+    });
+    return () => unsubscribe();
+  }, [navigation]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", (e) => {
+      setCameraReady(false);
     });
     return () => unsubscribe();
   }, [navigation]);
@@ -216,7 +217,7 @@ const Camera = ({
   };
 
   const accuracyHandler = (accuracy) => {
-    if (accuracy > 35) {
+    if (accuracy >= 35) {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
       setGPSAlert({
         svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
@@ -278,6 +279,9 @@ const Camera = ({
   const onCameraReady = () => {
     dispatch({ type: UPDATE_CAMERA_STATUS, payload: "READY" });
     dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
+    if (!cameraWalkthroughStatus) {
+      navigation.navigate(Routes.walkthrough);
+    }
   };
 
   useEffect(() => {
@@ -299,7 +303,7 @@ const Camera = ({
         onCameraReady={onCameraReady}
       >
         <RotationLine degree={degree} setAlert={setRotateAlert} />
-        <CameraFrame />
+        <CameraFrame navigation={navigation} />
         <CameraProjectInfo navigation={navigation} />
         {GPSAlert && !GPSStartAlert ? (
           <CameraAlert

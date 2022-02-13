@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -13,10 +13,12 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { appMapStyle } from "../styles/appMapStyle";
 import { MapView } from "../highordercomponents";
+import { useDispatch } from "react-redux";
+import { UPDATE_CURRENT_FEED_SEQUENCE } from "../store/actionsName";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
-  const [maximize, setMaximize] = useState(false);
   const screenHeight = Dimensions.get("window").height - RFValue(110);
+  const [maximize, setMaximize] = useState(false);
 
   return (
     <View>

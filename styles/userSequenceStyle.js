@@ -37,6 +37,8 @@ export const sequenceCardStyles = StyleSheet.create({
     maxWidth: "31%",
     marginRight: RFValue(5),
     marginBottom: RFValue(5),
+    borderRadius: 4,
+    overflow: "hidden",
   },
   imageContainer: {
     position: "relative",

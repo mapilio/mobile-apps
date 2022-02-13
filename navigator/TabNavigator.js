@@ -52,7 +52,8 @@ const CaptureTabBarButton = ({ children, onPress }) => {
     await permissionHandler(
       () => false,
       () => false,
-      onPress
+      onPress,
+      "camera"
     );
   };
 
@@ -94,7 +95,6 @@ const TabNavigator = ({ navigation, route }) => {
     <Tab.Navigator
       initialRouteName={Routes.map}
       screenOptions={{
-         
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
         tabBarStyle: navigatorStyle.tabBarStyle,
@@ -142,7 +142,10 @@ const TabNavigator = ({ navigation, route }) => {
           title: <MapLogo fill={"#000"} />,
           headerTitleAlign: "center",
           headerStyle: {
-            height: RFValue(50),
+            height:
+              Dimensions.get("window").height > 1100
+                ? RFValue(50)
+                : RFValue(70),
             backgroundColor: "#213348",
           },
         }}

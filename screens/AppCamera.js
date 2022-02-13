@@ -4,6 +4,7 @@ import { Camera, CameraSidebar } from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useKeepAwake } from "expo-keep-awake";
 import * as Brightness from "expo-brightness";
+import { Routes } from "../navigator/Routes";
 
 const AppCamera = ({ navigation, route }) => {
   const [lowBrightness, setLowBrigthness] = useState(false);

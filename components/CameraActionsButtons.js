@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Platform } from "react-native";
+import { LogBox, Platform } from "react-native";
 import { useSelector } from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
@@ -23,6 +23,9 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
     if (GPSStartAccuracy) {
       setWaitGPS(false);
       setDisabled(false);
+    } else {
+      setDisabled(true);
+      setWaitGPS(true);
     }
   }, [GPSStartAccuracy, waitGPS]);
 
@@ -30,25 +33,19 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
     if (waitGPS) return;
     const batteryError =
       Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
-    if (
-      GPSStatus &&
-      GPSAccuracy &&
-      GPSStatus &&
-      batteryError &&
-      !highSpeed &&
-      !mocked
-    ) {
+    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [GPSStatus, GPSAccuracy, waitGPS]);
+  }, [GPSAccuracy, waitGPS]);
 
   return (
     <>
       {/* <ManuelActionButton disabled={disabled} uuid={uuid} /> */}
       <AutoActionButton
         disabled={disabled}
+        setDisabled={setDisabled}
         uuid={uuid}
         navigation={navigation}
         GPSStatus={GPSStatus}

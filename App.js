@@ -16,6 +16,7 @@ function App() {
     await useFonts();
   };
 
+
   useEffect(() => {
     if (isReady) {
       StatusBar.setBarStyle("light-content", true);
@@ -44,7 +45,7 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <NotifierWrapper>
-              <MainNavigator />
+            <MainNavigator />
           </NotifierWrapper>
         </NavigationContainer>
       </PersistGate>

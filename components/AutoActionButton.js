@@ -15,6 +15,7 @@ import {
 
 const AutoActionButton = ({
   disabled,
+  setDisabled,
   uuid,
   navigation,
   GPSStatus,
@@ -40,20 +41,17 @@ const AutoActionButton = ({
 
   useEffect(() => {
     setAutoCapture(autoCaptureStart);
+    if (!autoCapture) {
+      setDisabled(false);
+    } else {
+      setDisabled(false);
+    }
   }, [autoCapture]);
 
   useEffect(() => {
     const batteryError =
       Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
-    if (
-      !autoCapture &&
-      GPSStatus &&
-      GPSAccuracy &&
-      GPSStatus &&
-      batteryError &&
-      !highSpeed &&
-      !mocked
-    ) {
+    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
       return;
     } else {
       var location = null;
@@ -80,7 +78,7 @@ const AutoActionButton = ({
   }, [autoCapture, disabled, distanceBetween]);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", (e) => {
+    let unsubscribe = navigation.addListener("blur", (e) => {
       setAutoCapture(false);
     });
     return unsubscribe;
@@ -118,7 +116,9 @@ const AutoActionButton = ({
       to: newPath,
     });
     image.uri = newPath;
-    location.coords.heading = heading.trueHeading;
+    let newHeading =
+      heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
+    location.coords.heading = newHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
     Database.insertToDB({
@@ -142,7 +142,7 @@ const AutoActionButton = ({
 
   return (
     <TouchableOpacity
-      disabled={disabled}
+      // disabled={disabled}
       style={{
         width: RFValue(61),
         height: RFValue(61),
