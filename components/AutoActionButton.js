@@ -142,7 +142,7 @@ const AutoActionButton = ({
 
   return (
     <TouchableOpacity
-      // disabled={disabled}
+      disabled={disabled}
       style={{
         width: RFValue(61),
         height: RFValue(61),
