@@ -24,8 +24,7 @@ const AutoActionButton = ({
   mocked,
   highSpeed,
 }) => {
-  const [autoCapture, setAutoCapture] = useState(false);
-  const { cameraStatus, camera, photoAmount } = useSelector(
+  const { cameraStatus, camera, photoAmount, isCharge } = useSelector(
     (status) => status.cameraReducer
   );
   const { userInformation } = useSelector((state) => state.getTokenReducer);
@@ -36,21 +35,21 @@ const AutoActionButton = ({
   const dispatch = useDispatch();
 
   const playHandler = () => {
-    dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: !autoCapture });
+    dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: true });
+  };
+
+  const stopHandler = () => {
+    dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
   };
 
   useEffect(() => {
-    setAutoCapture(autoCaptureStart);
-    if (!autoCapture) {
-      setDisabled(false);
+    let batteryError = false;
+    if (isCharge) {
+      batteryError = false;
     } else {
-      setDisabled(false);
+      batteryError =
+        Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-  }, [autoCapture]);
-
-  useEffect(() => {
-    const batteryError =
-      Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     if (!GPSAccuracy || batteryError || highSpeed || mocked) {
       return;
     } else {
@@ -75,11 +74,19 @@ const AutoActionButton = ({
         location?.remove();
       };
     }
-  }, [autoCapture, disabled, distanceBetween]);
+  }, [
+    autoCaptureStart,
+    disabled,
+    distanceBetween,
+    isCharge,
+    mocked,
+    highSpeed,
+    batteryLevel,
+  ]);
 
   useEffect(() => {
     let unsubscribe = navigation.addListener("blur", (e) => {
-      setAutoCapture(false);
+      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
     });
     return unsubscribe;
   }, [navigation]);
@@ -89,7 +96,7 @@ const AutoActionButton = ({
     const id = userInformation.id;
     if (cameraStatus !== "READY") return;
     const options = { quality: 0.6, base64: false, exif: true };
-    if (!autoCapture) return;
+    if (!autoCaptureStart) return;
     const image = await camera.takePictureAsync(options);
     const heading = await Location.getHeadingAsync();
     const imageUri = image.uri;
@@ -140,53 +147,102 @@ const AutoActionButton = ({
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photo });
   };
 
-  return (
-    <TouchableOpacity
-      disabled={disabled}
-      style={{
-        width: RFValue(61),
-        height: RFValue(61),
-        marginBottom: RFValue(-55),
-        marginTop: RFValue(35),
-      }}
-      onPress={playHandler}
-    >
-      <View
+  if (autoCaptureStart) {
+    return (
+      <TouchableOpacity
         style={{
-          position: "absolute",
-          top: "12%",
-          left: "12%",
-          bottom: "12%",
-          right: "12%",
-          borderRadius:
-            Math.round(
-              Dimensions.get("window").width + Dimensions.get("window").height
-            ) / 2,
-          backgroundColor: "#ffffff",
-          alignItems: "center",
-          justifyContent: "center",
+          width: RFValue(61),
+          height: RFValue(61),
+          marginBottom: RFValue(-55),
+          marginTop: RFValue(35),
         }}
+        onPress={stopHandler}
       >
-        {autoCapture ? <StopIcon /> : <PlayIcon />}
-      </View>
-      <View
+        <View
+          style={{
+            position: "absolute",
+            top: "12%",
+            left: "12%",
+            bottom: "12%",
+            right: "12%",
+            borderRadius:
+              Math.round(
+                Dimensions.get("window").width + Dimensions.get("window").height
+              ) / 2,
+            backgroundColor: "#ffffff",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <StopIcon />
+        </View>
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            borderWidth: RFValue(5),
+            margin: RFValue(-2),
+            borderColor: convertHexToRGBA("#FFFFFF", 10),
+            borderRadius:
+              Math.round(
+                Dimensions.get("window").width + Dimensions.get("window").height
+              ) / 2,
+          }}
+        ></View>
+      </TouchableOpacity>
+    );
+  } else {
+    return (
+      <TouchableOpacity
+        disabled={disabled}
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          borderWidth: RFValue(5),
-          margin: RFValue(-2),
-          borderColor: convertHexToRGBA("#FFFFFF", 10),
-          borderRadius:
-            Math.round(
-              Dimensions.get("window").width + Dimensions.get("window").height
-            ) / 2,
+          width: RFValue(61),
+          height: RFValue(61),
+          marginBottom: RFValue(-55),
+          marginTop: RFValue(35),
         }}
-      ></View>
-    </TouchableOpacity>
-  );
+        onPress={playHandler}
+      >
+        <View
+          style={{
+            position: "absolute",
+            top: "12%",
+            left: "12%",
+            bottom: "12%",
+            right: "12%",
+            borderRadius:
+              Math.round(
+                Dimensions.get("window").width + Dimensions.get("window").height
+              ) / 2,
+            backgroundColor: "#ffffff",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <PlayIcon />
+        </View>
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            borderWidth: RFValue(5),
+            margin: RFValue(-2),
+            borderColor: convertHexToRGBA("#FFFFFF", 10),
+            borderRadius:
+              Math.round(
+                Dimensions.get("window").width + Dimensions.get("window").height
+              ) / 2,
+          }}
+        ></View>
+      </TouchableOpacity>
+    );
+  }
 };
 
 export default AutoActionButton;

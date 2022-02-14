@@ -10,6 +10,7 @@ import {
   UPDATE_START_ACCURACY,
   UPDATE_MOCKED_STATUS,
   UPDATE_HIGHSPEED_STATUS,
+  UPDATE_CHARGE_STATUS,
   UPDATE_UUID,
   CAMERA_REDUCER_RESET,
 } from "../../actionsName";
@@ -27,6 +28,7 @@ const INITIAL_STATE = {
   mocked: false,
   highSpeed: false,
   keepUUID: null,
+  isCharge: false,
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -95,6 +97,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         keepUUID: action.payload,
+      };
+    case UPDATE_CHARGE_STATUS:
+      return {
+        ...state,
+        isCharge: action.payload,
       };
     case CAMERA_REDUCER_RESET:
       return {

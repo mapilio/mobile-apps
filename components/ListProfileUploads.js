@@ -6,37 +6,16 @@ import { FeedImageCard } from "./index";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { userSequenceStyles } from "../styles/userSequenceStyle";
-import { fetchHandler } from "../helper/helper";
-import { SERVICE_URL, IMAGE_API } from "@env";
-import { UPDATE_CURRENT_FEED_SEQUENCE } from "../store/actionsName";
-import { useDispatch } from "react-redux";
+import { IMAGE_API } from "@env";
 
-const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
-  const [imageList, setImagesList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    let unsubscribe = navigation.addListener("focus", () => {
-      dispatch({
-        type: UPDATE_CURRENT_FEED_SEQUENCE,
-        payload: {
-          sequenceUUID: sequence_uuid,
-          userID: user_id,
-        },
-      });
-      fetchHandler({
-        url: `${SERVICE_URL}/api/user-uploads-detail?user_id=${user_id}&sequence_uuid=${sequence_uuid}`,
-      })
-        .then((res) => {
-          setImagesList(res.data);
-          setLoading(false);
-        })
-        .catch((err) => console.log(err));
-    });
-    return unsubscribe;
-  }, [navigation, sequence_uuid]);
-
+const ListProfileUploads = ({
+  navigation,
+  sequence_uuid,
+  user_id,
+  imageList,
+  setImagesList,
+  loading,
+}) => {
   useEffect(() => {
     let unsubscribe = navigation.addListener("blur", () => {
       setImagesList([]);
@@ -46,12 +25,14 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
 
   return (
     <View style={globalStyles.container}>
-      <CustomTextMedium style={globalStyles.screenTitle}>
-        Images you uploaded
-      </CustomTextMedium>
-      <CustomText style={globalStyles.screenDescription}>
-        Here you can uploaded pictures.
-      </CustomText>
+      <View style={{ marginTop: RFValue(25) }}>
+        <CustomTextMedium style={globalStyles.screenTitle}>
+          Images you uploaded
+        </CustomTextMedium>
+        <CustomText style={globalStyles.screenDescription}>
+          Here you can uploaded pictures.
+        </CustomText>
+      </View>
       <View
         style={[
           userSequenceStyles.sequenceWrapper,
@@ -61,7 +42,11 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
         {loading
           ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((i) => (
               <View
-                style={{ maxWidth: "31%", justifyContent: "space-between" }}
+                style={{
+                  maxWidth: "31%",
+                  marginRight: RFValue(5),
+                  justifyContent: "space-between",
+                }}
                 key={i}
               >
                 <SkeletonPlaceholder>
@@ -85,6 +70,7 @@ const ListProfileUploads = ({ navigation, sequence_uuid, user_id }) => {
                 navigation={navigation}
                 sequenceUUID={sequence_uuid}
                 userID={user_id}
+                imageList={imageList}
               />
             ))}
       </View>

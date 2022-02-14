@@ -40,37 +40,20 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
 
   return (
     <View style={globalStyles.container}>
-      <CustomTextMedium style={globalStyles.screenTitle}>
-        Images you uploaded
-      </CustomTextMedium>
-      <CustomText style={globalStyles.screenDescription}>
-        Here you can upload or delete pictures.
-      </CustomText>
+      <View style={{ marginTop: RFValue(25) }}>
+        <CustomTextMedium style={globalStyles.screenTitle}>
+          Images you uploaded
+        </CustomTextMedium>
+        <CustomText style={globalStyles.screenDescription}>
+          Here you can upload or delete pictures.
+        </CustomText>
+      </View>
       <View
         style={[
           userSequenceStyles.sequenceWrapper,
           globalStyles.screenTextMargin,
         ]}
       >
-        {imageLoad &&
-          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-            <View
-              style={{ maxWidth: "33%", justifyContent: "space-between" }}
-              key={i}
-            >
-              <SkeletonPlaceholder>
-                <View
-                  style={{
-                    width: RFValue(100),
-                    height: RFValue(78),
-                    borderRadius: 8,
-                    marginRight: RFValue(5),
-                    marginBottom: RFValue(5),
-                  }}
-                />
-              </SkeletonPlaceholder>
-            </View>
-          ))}
         {sequenceImages.map((image) => (
           <UploadImageCard
             key={image.id}

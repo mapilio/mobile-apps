@@ -93,8 +93,8 @@ const CameraSidebar = ({
         Brightness.setSystemBrightnessAsync(0);
         setLowBrigthness(true);
       }
-    } catch (e) {
-      console.log("Something wrong with brightness permissions");
+    } catch (error) {
+      console.error(error);
     }
 
     if (permissionsGranted.current) {

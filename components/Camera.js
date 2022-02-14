@@ -58,7 +58,9 @@ const Camera = ({
   const [gps, setGPS] = useState(true);
   const fadeAnimation = useRef(new Animated.Value(0.7)).current;
   const dispatch = useDispatch();
-  const { batteryLevel } = useSelector((state) => state.cameraReducer);
+  const { batteryLevel, isCharge } = useSelector(
+    (state) => state.cameraReducer
+  );
   const { connection, cameraWalkthroughStatus } = useSelector(
     (state) => state.generalReducer
   );
@@ -119,25 +121,33 @@ const Camera = ({
 
   useEffect(() => {
     if (Platform.OS === "ios") {
-      batteryLevel <= 20
-        ? setBatteryAlert({
-            svg: <BatteryLevelIcon />,
-            title: "Battery level low",
-            content:
-              "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
-          })
-        : setBatteryAlert(null);
+      if (!isCharge) {
+        batteryLevel <= 20
+          ? setBatteryAlert({
+              svg: <BatteryLevelIcon />,
+              title: "Battery level low",
+              content:
+                "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
+            })
+          : setBatteryAlert(null);
+      } else {
+        setBatteryAlert(null);
+      }
     } else if (Platform.OS === "android") {
-      batteryLevel <= 15
-        ? setBatteryAlert({
-            svg: <BatteryLevelIcon />,
-            title: "Battery level low",
-            content:
-              "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible.",
-          })
-        : setBatteryAlert(null);
+      if (!isCharge) {
+        batteryLevel <= 15
+          ? setBatteryAlert({
+              svg: <BatteryLevelIcon />,
+              title: "Battery level low",
+              content:
+                "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible.",
+            })
+          : setBatteryAlert(null);
+      } else {
+        setBatteryAlert(null);
+      }
     }
-  }, [batteryLevel]);
+  }, [batteryLevel, isCharge]);
 
   useEffect(() => {
     if (!connection.connectionStatus) {

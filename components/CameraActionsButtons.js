@@ -7,15 +7,14 @@ import ManuelActionButton from "./ManuelActionButton";
 const CameraActionsButtons = ({ uuid, navigation }) => {
   const [disabled, setDisabled] = useState(true);
   const [waitGPS, setWaitGPS] = useState(true);
-  const { captureType } = useSelector((state) => state.settingsReducer);
   const {
     GPSStatus,
     GPSAccuracy,
     GPSStartAccuracy,
-    camera,
     batteryLevel,
     mocked,
     highSpeed,
+    isCharge,
   } = useSelector((state) => state.cameraReducer);
 
   useEffect(() => {
@@ -31,14 +30,19 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
 
   useEffect(() => {
     if (waitGPS) return;
-    const batteryError =
-      Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
+    let batteryError = false;
+    if (isCharge) {
+      batteryError = false;
+    } else {
+      batteryError =
+        Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
+    }
     if (!GPSAccuracy || batteryError || highSpeed || mocked) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [GPSAccuracy, waitGPS]);
+  }, [GPSAccuracy, waitGPS, isCharge, highSpeed, mocked, batteryLevel]);
 
   return (
     <>

@@ -3,10 +3,7 @@ import { View, TouchableOpacity, Alert } from "react-native";
 import { userUploadStyles } from "../../styles/userUploadStyle";
 import { UserFeed } from "../index";
 import { NoUpload, Trash } from "../../assets/svg/illustrations";
-import {
-  CustomText,
-  CustomTextBold,
-} from "../../highordercomponents";
+import { CustomText, CustomTextBold } from "../../highordercomponents";
 import { SwipeListView } from "react-native-swipe-list-view";
 import database from "../../db";
 import { useDispatch, useSelector } from "react-redux";
