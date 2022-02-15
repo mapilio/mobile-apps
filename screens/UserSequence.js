@@ -175,7 +175,10 @@ const UserSequence = ({ navigation, route }) => {
             mapStyle={appMapStyle.map}
             attributionPosition={{ bottom: 26, right: 8 }}
           >
-            <MapboxGL.Camera centerCoordinate={center} zoomLevel={20} />
+            <MapboxGL.Camera
+              centerCoordinate={[center[0] + 0.0009, center[1]]}
+              zoomLevel={16}
+            />
             {!!Object.keys(points).length && (
               <MapboxGL.ShapeSource
                 id={"pointsShape"}
@@ -185,6 +188,9 @@ const UserSequence = ({ navigation, route }) => {
                     id: point.features[0].properties.item.id,
                     path: point.features[0].properties.item.path,
                     coordinate: point.features[0].geometry.coordinates,
+                    heading: JSON.parse(
+                      point.features[0].properties.item.location
+                    ).coords.heading,
                   });
                 }}
               >

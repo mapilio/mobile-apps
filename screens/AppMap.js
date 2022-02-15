@@ -5,6 +5,8 @@ import {
   View,
   Image,
   Platform,
+  Pressable,
+  Keyboard,
 } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
@@ -15,7 +17,6 @@ import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
 import SearhcbarSwipe from "../components/SearchbarSwipe";
-import { useSelector } from "react-redux";
 import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { MapView } from "../highordercomponents";
@@ -58,15 +59,44 @@ Logger.setLogCallback((log) => {
 const AppMap = ({ navigation }) => {
   const [flyLocation, setFlyLocation] = useState([29.9081, 40.8793]);
   const [imageInformations, setImageInformations] = useState(null);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [openSearchbar, setOpenSearchbar] = useState(false);
   const [minimizePano, setMinimizePano] = useState(false);
   const [clickedCoord, setClickedCoord] = useState(null);
+  const [onScroll, setOnScroll] = useState(false);
   const [showPano, setShowPano] = useState(true);
+  const [visible, setVisible] = useState(true);
   const [hide, setHide] = useState(false);
   const headerHeight = useHeaderHeight();
   let cameraRef = useRef();
   let panelRef = useRef();
   let mapRef = useRef();
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isKeyboardVisible) {
+      panelRef?.current.show(1800);
+    }
+  }, [isKeyboardVisible]);
 
   const hidePano = () => {
     setShowPano(true);
@@ -85,7 +115,7 @@ const AppMap = ({ navigation }) => {
 
   useEffect(() => {
     if (openSearchbar) {
-      panelRef.current.show(400);
+      panelRef?.current.show(400);
     }
   }, [openSearchbar]);
 
@@ -136,6 +166,7 @@ const AppMap = ({ navigation }) => {
             top: height - headerHeight * 2,
             bottom: RFValue(120),
           }}
+          allowDragging={!onScroll}
           showBackdrop={false}
           ref={panelRef}
           containerStyle={{
@@ -148,7 +179,11 @@ const AppMap = ({ navigation }) => {
             zIndex: 6,
           }}
         >
-          <SearhcbarSwipe setFly={setFlyLocation} panelRef={panelRef} />
+          <SearhcbarSwipe
+            setFly={setFlyLocation}
+            panelRef={panelRef}
+            setOnScroll={setOnScroll}
+          />
         </SlidingUpPanel>
       ) : null}
       {showPano && imageInformations ? (
@@ -167,7 +202,7 @@ const AppMap = ({ navigation }) => {
           mapRef={mapRef}
         >
           <MapboxGL.UserLocation
-            ref={(location) => location}
+            visible={visible}
             showsUserHeadingIndicator={Platform.OS === "android"}
           />
 
@@ -192,7 +227,7 @@ const AppMap = ({ navigation }) => {
               style={{ zIndex: 1000 }}
             >
               <Image
-                source={require("../assets/images/heding.png")}
+                source={require("../assets/images/heading.png")}
                 resizeMode={"cover"}
                 style={{
                   transform: [
@@ -202,8 +237,8 @@ const AppMap = ({ navigation }) => {
                         : "0deg",
                     },
                   ],
-                  width: Platform.OS === "android" ? 80 : 35,
-                  height: Platform.OS === "android" ? 80 : 35,
+                  width: Platform.OS === "android" ? RFValue(37) : RFValue(35),
+                  height: Platform.OS === "android" ? RFValue(37) : RFValue(35),
                 }}
               />
             </MapboxGL.PointAnnotation>
@@ -220,9 +255,12 @@ const AppMap = ({ navigation }) => {
         </MapView>
       </View>
 
-      <View style={[appMapStyle.currentIcon]}>
+      <Pressable
+        style={[appMapStyle.currentIcon]}
+        onPress={() => setVisible((prev) => !prev)}
+      >
         <CurrentLocationIcon />
-      </View>
+      </Pressable>
     </View>
   );
 };

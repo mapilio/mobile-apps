@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { LogBox, View } from "react-native";
 import { globalStyles } from "../../styles/globalStyles";
 import { CustomText, CustomTextMedium } from "../../highordercomponents";
 import { userSequenceStyles } from "../../styles/userSequenceStyle";
@@ -7,7 +7,6 @@ import { UploadImageCard } from "../index";
 import { useDispatch, useSelector } from "react-redux";
 import database from "../../db";
 import { SEQUENCE_IMAGES } from "../../store/actionsName";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 
 const ImageUpload = ({ navigation, sequence_uuid }) => {
@@ -18,7 +17,7 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
   useEffect(() => {
     let unsubscribe = navigation.addListener("focus", () => {
       database.query(
-        `SELECT id, path FROM captures where sequence_uuid = '${sequence_uuid}'`,
+        `SELECT id, path, location FROM captures where sequence_uuid = '${sequence_uuid}'`,
         (_, result) => {
           dispatch({ type: SEQUENCE_IMAGES, payload: result.rows._array });
         }
@@ -58,6 +57,7 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
           <UploadImageCard
             key={image.id}
             path={image.path}
+            location={JSON.parse(image.location)}
             id={image.id}
             uploadedImages={uploadedImages}
             selectedImages={selectedImages}

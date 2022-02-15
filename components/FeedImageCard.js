@@ -24,7 +24,12 @@ const FeedImageCard = (props) => {
           userID: props.userID,
           path: `${props.path}/1080`,
           points: props.imageList,
+          heading: props.heading,
           base: true,
+          coordinate: [
+            Number(props.coordinate[0]),
+            Number(props.coordinate[1]),
+          ],
         });
       }}
     >

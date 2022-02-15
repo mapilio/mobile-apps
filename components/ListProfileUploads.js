@@ -69,8 +69,10 @@ const ListProfileUploads = ({
                 id={image.id}
                 navigation={navigation}
                 sequenceUUID={sequence_uuid}
+                heading={image.heading}
                 userID={user_id}
                 imageList={imageList}
+                coordinate={[image.longitude, image.latitude]}
               />
             ))}
       </View>

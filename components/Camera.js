@@ -312,7 +312,11 @@ const Camera = ({
         ref={cameraRef}
         onCameraReady={onCameraReady}
       >
-        <RotationLine degree={degree} setAlert={setRotateAlert} />
+        <RotationLine
+          degree={degree}
+          setAlert={setRotateAlert}
+          rotateAlert={rotateAlert}
+        />
         <CameraFrame navigation={navigation} />
         <CameraProjectInfo navigation={navigation} />
         {GPSAlert && !GPSStartAlert ? (

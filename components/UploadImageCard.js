@@ -15,7 +15,6 @@ const UploadImageCard = (props) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(false);
   const { id, selectedImages, uploadedImages, path } = props;
-  const { activeSequence } = useSelector((state) => state.uploadReducer);
   const { allSelect } = useSelector((state) => state.imagesReducer);
 
   const addToSelectedImages = () => {
@@ -58,6 +57,11 @@ const UploadImageCard = (props) => {
           id: id,
           path: path,
           sequence_uuid: props.sequence_uuid,
+          coordinate: [
+            props.location.coords.longitude,
+            props.location.coords.latitude,
+          ],
+          heading: props.location.coords.heading,
         });
       }}
       onLongPress={addToSelectedImages}

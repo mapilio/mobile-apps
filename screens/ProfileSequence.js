@@ -151,7 +151,10 @@ const UserSequence = ({ navigation, route }) => {
             mapStyle={appMapStyle.map}
             attributionPosition={{ bottom: 26, right: 8 }}
           >
-            <MapboxGL.Camera centerCoordinate={center} zoomLevel={20} />
+            <MapboxGL.Camera
+              centerCoordinate={[center[0] + 0.0009, center[1]]}
+              zoomLevel={16}
+            />
             {!!Object.keys(points).length && (
               <MapboxGL.ShapeSource
                 id={"pointsProfileShape"}
@@ -162,6 +165,7 @@ const UserSequence = ({ navigation, route }) => {
                     path: `${IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/1080`,
                     coordinate: point.features[0].geometry.coordinates,
                     points: imageList,
+                    heading: point.features[0].properties.item.heading,
                     base: true,
                   });
                 }}

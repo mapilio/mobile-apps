@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, ToastAndroid, View } from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -17,6 +17,7 @@ import { MapView } from "../highordercomponents";
 const Marketplace = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
   const dispatch = useDispatch();
+  const [onScroll, setOnScroll] = useState(false);
   const { marketplaceData } = useSelector((status) => status.generalReducer);
   useEffect(() => {
     fetchHandler({
@@ -64,9 +65,10 @@ const Marketplace = ({ navigation }) => {
 
       <SlidingUpPanel
         draggableRange={{
-          top: height - headerHeight - 10,
+          top: height - headerHeight - 80,
           bottom: RFValue(60),
         }}
+        allowDragging={!onScroll}
         showBackdrop={false}
         containerStyle={{
           marginBottom:
@@ -78,7 +80,11 @@ const Marketplace = ({ navigation }) => {
           zIndex: 6,
         }}
       >
-        <List navigation={navigation} projects={marketplaceData} />
+        <List
+          navigation={navigation}
+          projects={marketplaceData}
+          setOnScroll={setOnScroll}
+        />
       </SlidingUpPanel>
     </View>
   );

@@ -13,28 +13,24 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { appMapStyle } from "../styles/appMapStyle";
 import database from "../db";
-import { useDispatch, useSelector } from "react-redux";
-import { Routes } from "../navigator/Routes";
+import { useSelector } from "react-redux";
 import { MapView } from "../highordercomponents";
-import { ACTIVE_SEQUENCE } from "../store/actionsName";
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
   const [lines, setLines] = useState({});
   const [points, setPoints] = useState({});
-  const dispatch = useDispatch();
   const [center, setCenter] = useState([30.8, 41.015137]);
+  const [clickedPoint, setClickedPoint] = useState(null);
+  const [currentImage, setCurrentImage] = useState(null);
+  const [width, setWidth] = useState(RFValue(33));
   const { activeSequence } = useSelector((state) => state.uploadReducer);
   const screenHeight = Dimensions.get("window").height - RFValue(110);
 
   useEffect(() => {
-    // let unsubscribe = navigation.addListener("focus", () => {
-    //   dispatch({
-    //     type: ACTIVE_SEQUENCE,
-    //     payload: route.params.sequence_uuid,
-    //   });
-    // });
-    // return unsubscribe;
+    navigation.addListener("blur", () => {
+      setClickedPoint(null);
+    });
   }, [navigation]);
 
   const getCoordinates = () => {
@@ -78,13 +74,21 @@ const UserSequenceDetail = ({ navigation, route }) => {
         });
         setLines(line);
         setPoints(points);
+        setClickedPoint({
+          heading: route.params.heading,
+          longitude: route.params.coordinate[0],
+          latitude: route.params.coordinate[1],
+        });
+        setTimeout(() => {
+          setWidth(RFValue(35));
+        }, 1000);
       }
     );
   };
 
   useEffect(() => {
     getCoordinates();
-  }, [activeSequence]);
+  }, [activeSequence, route.params]);
 
   return (
     <View>
@@ -93,7 +97,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
           source={{
             width: RFValue(200),
             height: RFValue(78),
-            uri: `${route.params.path}`,
+            uri: currentImage ? currentImage : `${route.params.path}`,
           }}
           resizeMode={"cover"}
           style={{
@@ -101,7 +105,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
             height: maximize ? screenHeight : screenHeight / 2,
           }}
         />
-        <View
+        {/* <View
           style={[
             sequenceDetailStyles.resizeButton,
             maximize
@@ -112,16 +116,16 @@ const UserSequenceDetail = ({ navigation, route }) => {
           <TouchableOpacity onPress={() => setMaximize(!maximize)}>
             {maximize ? <Minimize /> : <Maximize />}
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
 
       <MapView
-        mapStyle={{ ...appMapStyle.map, height: RFPercentage(54) }}
+        mapStyle={{ ...appMapStyle.map, height: RFPercentage(74) }}
         attributionPosition={{ bottom: 26, right: 8 }}
       >
         <MapboxGL.Camera
-          centerCoordinate={center}
-          zoomLevel={20}
+          centerCoordinate={[center[0] + 0.0009, center[1]]}
+          zoomLevel={16}
           animationMode={"flyTo"}
           animationDuration={1000}
         />
@@ -130,17 +134,19 @@ const UserSequenceDetail = ({ navigation, route }) => {
             id={"pointsShape"}
             shape={points}
             onPress={(point) => {
-              navigation.navigate(Routes.sequenceDetail, {
-                id: point.features[0].properties.item.id,
-                path: point.features[0].properties.item.path,
-                coordinate: point.features[0].geometry.coordinates,
+              setCurrentImage(point.features[0].properties.item.path);
+              setClickedPoint({
+                heading: JSON.parse(point.features[0].properties.item.location)
+                  .coords.heading,
+                longitude: Number(point.features[0].geometry.coordinates[0]),
+                latitude: Number(point.features[0].geometry.coordinates[1]),
               });
             }}
           >
-            {/* TODO highlight the active image */}
             <MapboxGL.CircleLayer
               id={"circle"}
               style={{ circleColor: "#1AD971", circleRadius: 5 }}
+              layerIndex={60}
             />
             <MapboxGL.CircleLayer
               id={"circleBuffer"}
@@ -149,14 +155,39 @@ const UserSequenceDetail = ({ navigation, route }) => {
                 circleRadius: 8,
                 circleOpacity: 0.3,
               }}
+              layerIndex={30}
             />
           </MapboxGL.ShapeSource>
+        )}
+        {clickedPoint && (
+          <MapboxGL.PointAnnotation
+            key="pointAnnotation3"
+            id="pointAnnotation3"
+            coordinate={[clickedPoint.longitude, clickedPoint.latitude]}
+            style={{ zIndex: 100000000 }}
+          >
+            <Image
+              source={require("../assets/images/heading.png")}
+              resizeMode={"cover"}
+              style={{
+                zIndex: 100000000,
+                transform: [
+                  {
+                    rotate: `${clickedPoint.heading}deg`,
+                  },
+                ],
+                width: clickedPoint ? width : RFValue(32),
+                height: clickedPoint ? RFValue(35) : RFValue(32),
+              }}
+            />
+          </MapboxGL.PointAnnotation>
         )}
         {!!Object.keys(lines).length && (
           <MapboxGL.ShapeSource id={"detailShape"} shape={lines}>
             <MapboxGL.LineLayer
               id="linelayer1"
               style={{ lineColor: "#1AD971", lineWidth: 3 }}
+              layerIndex={29}
             />
           </MapboxGL.ShapeSource>
         )}

@@ -8,7 +8,7 @@ const SignInNavigatorRight = ({navigation}) => (
     <TouchableOpacity style={{flexDirection: "row", marginRight: RFValue(10), alignItems: "center"}}
                       onPress={() => navigation.navigate(Routes.login)}>
         <CustomText style={{fontSize: RFValue(12), color: "#B9C0CF", marginLeft: RFValue(6)}}>
-            Sign In
+            Login
         </CustomText>
     </TouchableOpacity>
 )
