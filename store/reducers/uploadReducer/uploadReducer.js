@@ -1,6 +1,6 @@
 import {
   ACTIVE_SEQUENCE,
-  PROGRESS,
+  PROGRESS, RANK,
   SEQUENCE_IMAGES,
   SWITCH_SELECTOR,
   UPLOAD_DATA
@@ -12,6 +12,11 @@ const INITIAL_STATE = {
   activeSequence: '',
   sequenceImages: [],
   switchSelector: 'image',
+  rank: {
+    id: 0,
+    total: 0,
+    active: 0
+  }
 };
 
 const uploadReducer = (state = INITIAL_STATE, action) => {
@@ -40,6 +45,11 @@ const uploadReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         switchSelector: action.payload
+      }
+    case RANK:
+      return {
+        ...state,
+        rank: action.payload
       }
     default:
       return state;

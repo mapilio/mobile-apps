@@ -65,3 +65,13 @@ export const generalSettingsLeft = StyleSheet.create({
     marginLeft: RFValue(3),
   },
 });
+
+export const sequenceDetailTitle = StyleSheet.create({
+  rank: {
+    color: '#FFF',
+    fontSize: RFValue(16),
+  },
+  active: {
+    color: '#1AD971',
+  }
+});

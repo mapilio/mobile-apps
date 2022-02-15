@@ -228,7 +228,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
         `DELETE FROM captures where sequence_uuid = '${sequence}'`,
         () => {
           db.query(
-            "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
+            "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
             (_, result) => {
               setDeletedRows((state) => state + 1);
               dispatch({ type: UPLOAD_DATA, payload: result.rows._array });

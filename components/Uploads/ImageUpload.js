@@ -7,7 +7,6 @@ import { UploadImageCard } from "../index";
 import { useDispatch, useSelector } from "react-redux";
 import database from "../../db";
 import { SEQUENCE_IMAGES } from "../../store/actionsName";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 
 const ImageUpload = ({ navigation, sequence_uuid }) => {
@@ -18,7 +17,7 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
   useEffect(() => {
     let unsubscribe = navigation.addListener("focus", () => {
       database.query(
-        `SELECT id, path FROM captures where sequence_uuid = '${sequence_uuid}'`,
+        `SELECT id, path FROM captures where sequence_uuid = '${sequence_uuid}' ORDER BY id ASC`,
         (_, result) => {
           dispatch({ type: SEQUENCE_IMAGES, payload: result.rows._array });
         }

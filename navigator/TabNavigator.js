@@ -34,6 +34,7 @@ import {
 import {
   DeleteNavigationRight,
   ProfileNavigatorRight,
+  SequenceDetailTitle,
   SequenceNavigatorLeft,
   SequenceNavigatorRight, SequenceNavigatorTitle,
   UploadNavigatorRight,
@@ -287,8 +288,10 @@ const TabNavigator = ({ navigation, route }) => {
               backRoute={Routes.sequences}
             />
           ),
-          headerRight: (props) => <DeleteNavigationRight {...props} />,
-          title: null,
+          headerRight: (props) => (
+            <DeleteNavigationRight {...props} navigation={navigation} />
+          ),
+          title: <SequenceDetailTitle />,
           headerStyle: navigatorStyle.headerStyle,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,

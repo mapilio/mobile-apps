@@ -16,7 +16,7 @@ import database from "../db";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import { MapView } from "../highordercomponents";
-import { ACTIVE_SEQUENCE } from "../store/actionsName";
+import {RANK} from "../store/actionsName";
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
@@ -24,18 +24,17 @@ const UserSequenceDetail = ({ navigation, route }) => {
   const [points, setPoints] = useState({});
   const dispatch = useDispatch();
   const [center, setCenter] = useState([30.8, 41.015137]);
-  const { activeSequence } = useSelector((state) => state.uploadReducer);
+  const { activeSequence, sequenceImages } = useSelector((state) => state.uploadReducer);
   const screenHeight = Dimensions.get("window").height - RFValue(110);
 
-  useEffect(() => {
-    // let unsubscribe = navigation.addListener("focus", () => {
-    //   dispatch({
-    //     type: ACTIVE_SEQUENCE,
-    //     payload: route.params.sequence_uuid,
-    //   });
-    // });
-    // return unsubscribe;
-  }, [navigation]);
+	useEffect(() => {
+		for (let i in sequenceImages) {
+			if (route.params.id === sequenceImages[i].id) {
+        dispatch({type: RANK, payload: {id: sequenceImages[i].id, total: sequenceImages.length, active: ++i}});
+				break;
+			}
+		}
+	}, [route.params]);
 
   const getCoordinates = () => {
     database.query(

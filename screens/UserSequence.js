@@ -64,7 +64,7 @@ const UserSequence = ({ navigation, route }) => {
                             ),
                           });
                           database.query(
-                            "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
+                            "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
                             (_, result) => {
                               dispatch({
                                 type: UPLOAD_DATA,
