@@ -35,7 +35,7 @@ import {
   DeleteNavigationRight,
   ProfileNavigatorRight,
   SequenceNavigatorLeft,
-  SequenceNavigatorRight,
+  SequenceNavigatorRight, SequenceNavigatorTitle,
   UploadNavigatorRight,
 } from "./navigatorbars";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -247,7 +247,7 @@ const TabNavigator = ({ navigation, route }) => {
             />
           ),
           headerRight: () => <SequenceNavigatorRight navigation={navigation} />,
-          title: null,
+          title: <SequenceNavigatorTitle />,
           headerStyle: navigatorStyle.headerStyle,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,

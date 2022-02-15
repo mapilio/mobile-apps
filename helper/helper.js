@@ -5,7 +5,9 @@ import axios from "axios";
 import { Alert, Linking, Platform, StatusBar } from "react-native";
 import { Camera as ExpoCamera } from "expo-camera";
 import * as Location from "expo-location";
+import Moment from "moment";
 let isOpenOnce = false;
+Moment.suppressDeprecationWarnings = true;
 
 const useFonts = async () =>
   await Font.loadAsync({
@@ -128,6 +130,15 @@ const alertHandler = (status, cancelHandler) => {
   // }
 };
 
+const dateConvert = (datetime, format = 'MMM D, YYYY') => {
+  if (!Moment(datetime).isValid()) {
+    const parsedDatetime = datetime.split(' ').map((time, i) => i === 0 ? time.split(':').join('/') : time)
+    return Moment(new Date(parsedDatetime.join(' '))).format(format)
+  }
+  return Moment(datetime).format(format)
+}
+
+
 export {
   useFonts,
   convertHexToRGBA,
@@ -136,4 +147,5 @@ export {
   maxCharacterHandler,
   permissionHandler,
   kFormatter,
+  dateConvert
 };

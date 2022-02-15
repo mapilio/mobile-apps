@@ -10,7 +10,7 @@ import database from "../db";
 import * as FileSystem from "expo-file-system";
 import SwitchSelector from "react-native-switch-selector";
 import {
-  SEQUENCE_IMAGES,
+  SEQUENCE_IMAGES, SWITCH_SELECTOR,
   UPDATE_SELECTED_IMAGES,
   UPLOAD_DATA,
 } from "../store/actionsName";
@@ -21,7 +21,6 @@ import { MapView } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 
 const UserSequence = ({ navigation, route }) => {
-  const [active, setActive] = useState("image");
   const [coordinates, setCoordinates] = useState({});
   const [points, setPoints] = useState({});
   const [center, setCenter] = useState([]);
@@ -29,7 +28,7 @@ const UserSequence = ({ navigation, route }) => {
     image: require("../assets/images/imgIcon.png"),
     map: require("../assets/images/mapIcon.png"),
   };
-  const { activeSequence } = useSelector((state) => state.uploadReducer);
+  const { activeSequence, switchSelector } = useSelector((state) => state.uploadReducer);
   const { selectedImages } = useSelector((state) => state.imagesReducer);
   const dispatch = useDispatch();
 
@@ -146,7 +145,7 @@ const UserSequence = ({ navigation, route }) => {
             initial={0}
             options={options}
             onPress={(value) => {
-              setActive(value);
+              dispatch({ type: SWITCH_SELECTOR, payload: value });
             }}
             backgroundColor={"#F5F5F5"}
             borderColor={"#CBD1D9"}
@@ -168,7 +167,7 @@ const UserSequence = ({ navigation, route }) => {
             height={32}
           />
         </View>
-        {active === "image" ? (
+        {switchSelector === "image" ? (
           <ImageUpload navigation={navigation} sequence_uuid={activeSequence} />
         ) : (
           <MapView

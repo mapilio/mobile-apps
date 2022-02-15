@@ -2,6 +2,7 @@ import {
   ACTIVE_SEQUENCE,
   PROGRESS,
   SEQUENCE_IMAGES,
+  SWITCH_SELECTOR,
   UPLOAD_DATA
 } from "../../actionsName";
 
@@ -10,6 +11,7 @@ const INITIAL_STATE = {
   uploadData: [],
   activeSequence: '',
   sequenceImages: [],
+  switchSelector: 'image',
 };
 
 const uploadReducer = (state = INITIAL_STATE, action) => {
@@ -33,6 +35,11 @@ const uploadReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         sequenceImages: action.payload
+      }
+    case SWITCH_SELECTOR:
+      return {
+        ...state,
+        switchSelector: action.payload
       }
     default:
       return state;
