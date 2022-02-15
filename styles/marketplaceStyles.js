@@ -155,5 +155,22 @@ export const marketplaceReceivedStyles = StyleSheet.create({
   link: {
     color: '#00D878',
     textDecorationLine: 'underline',
+  },
+  button: {
+    backgroundColor: '#1AD971',
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginVertical: RFValue(20),
+    paddingHorizontal: RFValue(25),
+    paddingVertical: RFValue(6),
+    fontSize: RFValue(14),
+    color: '#FFF',
+    borderRadius: RFValue(15),
+    height: RFValue(30),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  or: {
+    fontSize: RFValue(14),
   }
 });

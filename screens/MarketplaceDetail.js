@@ -15,7 +15,7 @@ import { errorAlertStyles } from "../styles/alertStyles";
 import { SERVICE_URL } from "@env";
 
 const MarketplaceDetail = ({ navigation, route }) => {
- 
+
   const applyProject = () => {
     fetchHandler({
       url: `${SERVICE_URL}/api/function/projects/job/createJob`,
@@ -29,9 +29,11 @@ const MarketplaceDetail = ({ navigation, route }) => {
       },
     })
       .then(() => {
-        navigation.navigate(Routes.marketplaceReceived);
+        navigation.navigate(Routes.MarketplaceReady);
       })
       .catch((err) => {
+        navigation.navigate(Routes.MarketplaceReady);
+
         toastGenerator(
           `${err.response.data.message}`,
           require("../assets/images/Warning.png"),
