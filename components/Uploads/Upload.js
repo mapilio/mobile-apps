@@ -10,7 +10,7 @@ import { userUploadModalStyles } from "../../styles/userUploadStyle";
 import { fetchHandler, toastGenerator } from "../../helper/helper";
 import { Routes } from "../../navigator/Routes";
 import * as Progress from "react-native-progress";
-import { errorAlertStyles } from "../../styles/alertStyles";
+import { errorAlertStyles, successAlertStyles } from "../../styles/alertStyles";
 import axios from "axios";
 import { SERVICE_URL } from "@env";
 import RNFetchBlob from "rn-fetch-blob";
@@ -66,7 +66,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
 
   const getHash = () => {
     summerImages();
-    const sequences = getSequences();x
+    const sequences = getSequences();
     sequences.map((sequence) => {
       setModalVisible(true);
       db.query(
@@ -95,7 +95,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
                   formData.append("project_key", data.project_key);
                 }
                 await axios
-                  .post(process.env.CDN_URL, formData)
+                  .post(`${process.env.CDN_URL}/api/upload/mobile`, formData)
                   .then((response) => {
                     setSentCount((state) => state + 1);
                     db.query(
@@ -233,17 +233,17 @@ const Upload = ({ sequence_uuid, navigation }) => {
               setDeletedRows((state) => state + 1);
               dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
               navigation.navigate(Routes.upload);
+              toastGenerator(
+                "Upload success",
+                require("../../assets/images/Success.png"),
+                successAlertStyles.alertContainer,
+                successAlertStyles.alertTitle,
+                successAlertStyles.alertImage,
+                3000
+              );
               if (deletedRows === getSequences().length) {
                 setModalVisible(false);
                 setSentCount(0);
-                toastGenerator(
-                  "Upload success",
-                  require("../../assets/images/Success.png"),
-                  successAlertStyles.alertContainer,
-                  successAlertStyles.alertTitle,
-                  successAlertStyles.alertImage,
-                  3000
-                );
               }
             }
           );
@@ -252,23 +252,23 @@ const Upload = ({ sequence_uuid, navigation }) => {
     });
   };
 
+  const checkInternet = async () => {
+    if (uploadData.length) {
+      if (connection.connectionType === "wifi") {
+        await getHash();
+      } else {
+        Alert.alert(
+          "Are you sure?",
+          "Are you sure you want to send via cellular data?",
+          [{ text: "Yes", onPress: () => getHash() }, { text: "No" }]
+        );
+      }
+    }
+  };
+
   return (
     <View>
-      <TouchableOpacity
-        onPress={async () => {
-          if (uploadData.length) {
-            if (connection.connectionType === "wifi") {
-              await getHash();
-            } else {
-              Alert.alert(
-                "Are you sure?",
-                "Are you sure you want to send via cellular data?",
-                [{ text: "Yes", onPress: () => getHash() }, { text: "No" }]
-              );
-            }
-          }
-        }}
-      >
+      <TouchableOpacity onPress={checkInternet}>
         <UploadIcon />
       </TouchableOpacity>
       <Modal animationType="slide" transparent={false} visible={modalVisible}>

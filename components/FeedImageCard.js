@@ -7,18 +7,26 @@ import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const FeedImageCard = (props) => {
   const [imageLoad, setImageLoad] = useState(true);
+  const image = {
+    uri: `${props.path}/240`,
+  };
+
+  const loadEnd = () => setImageLoad(true);
 
   return (
     <TouchableOpacity
       activeOpacity={0.9}
       style={sequenceCardStyles.cardContainer}
-      onPress={() =>
+      onPress={() => {
         props.navigation.navigate(Routes.feedDetail, {
           id: props.id,
-          path: `${props.path}/480`,
+          sequenceUUID: props.sequenceUUID,
+          userID: props.userID,
+          path: `${props.path}/1080`,
+          points: props.imageList,
           base: true,
-        })
-      }
+        });
+      }}
     >
       <View style={sequenceCardStyles.imagePosition}>
         {imageLoad && (
@@ -30,21 +38,22 @@ const FeedImageCard = (props) => {
                 borderRadius: 8,
                 marginRight: RFValue(5),
                 marginBottom: RFValue(5),
+                zIndex: 99,
+                position: "absolute",
               }}
             />
           </SkeletonPlaceholder>
         )}
         <Image
-          source={{
+          style={{
             height: RFValue(78),
             borderRadius: 8,
             maxWidth: "100%",
             width: 120,
-            uri: `${props.path}/240`,
-            display: imageLoad ? "flex" : "none",
+            resizeMode: "cover",
           }}
-          onLoadEnd={() => setImageLoad(false)}
-          resizeMode={"cover"}
+          source={image}
+          onLoadEnd={loadEnd}
         />
       </View>
     </TouchableOpacity>

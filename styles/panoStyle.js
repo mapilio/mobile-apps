@@ -25,7 +25,7 @@ export const panoStyle = {
   minimize: {
     backgroundColor: "rgba(31,48,76,0.75)",
     padding: RFValue(4.5),
-    marginRight: Platform.OS === "ios" ? RFValue(65) : RFValue(30),
+    marginRight: Platform.OS === "ios" ? RFValue(80) : RFValue(30),
     borderRadius: RFValue(4),
   },
   playWrapper: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Platform } from "react-native";
+import { LogBox, Platform } from "react-native";
 import { useSelector } from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
@@ -7,15 +7,14 @@ import ManuelActionButton from "./ManuelActionButton";
 const CameraActionsButtons = ({ uuid, navigation }) => {
   const [disabled, setDisabled] = useState(true);
   const [waitGPS, setWaitGPS] = useState(true);
-  const { captureType } = useSelector((state) => state.settingsReducer);
   const {
     GPSStatus,
     GPSAccuracy,
     GPSStartAccuracy,
-    camera,
     batteryLevel,
     mocked,
     highSpeed,
+    isCharge,
   } = useSelector((state) => state.cameraReducer);
 
   useEffect(() => {
@@ -23,32 +22,34 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
     if (GPSStartAccuracy) {
       setWaitGPS(false);
       setDisabled(false);
+    } else {
+      setDisabled(true);
+      setWaitGPS(true);
     }
   }, [GPSStartAccuracy, waitGPS]);
 
   useEffect(() => {
     if (waitGPS) return;
-    const batteryError =
-      Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
-    if (
-      GPSStatus &&
-      GPSAccuracy &&
-      GPSStatus &&
-      batteryError &&
-      !highSpeed &&
-      !mocked
-    ) {
+    let batteryError = false;
+    if (isCharge) {
+      batteryError = false;
+    } else {
+      batteryError =
+        Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
+    }
+    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [GPSStatus, GPSAccuracy, waitGPS]);
+  }, [GPSAccuracy, waitGPS, isCharge, highSpeed, mocked, batteryLevel]);
 
   return (
     <>
       {/* <ManuelActionButton disabled={disabled} uuid={uuid} /> */}
       <AutoActionButton
         disabled={disabled}
+        setDisabled={setDisabled}
         uuid={uuid}
         navigation={navigation}
         GPSStatus={GPSStatus}

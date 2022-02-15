@@ -168,7 +168,7 @@ const AppMap = ({ navigation }) => {
         >
           <MapboxGL.UserLocation
             ref={(location) => location}
-            showsUserHeadingIndicator
+            showsUserHeadingIndicator={Platform.OS === "android"}
           />
 
           <MapboxGL.VectorSource

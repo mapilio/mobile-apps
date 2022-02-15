@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dimensions, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useSelector } from "react-redux";
@@ -10,14 +10,13 @@ import {
   FrameRightTop,
   GoodGPS,
 } from "../assets/svg/illustrations";
+import { Routes } from "../navigator/Routes";
 import BatteryLevel from "./BatteryLevel";
 import GPSLevel from "./GPSLevel";
 import PhotoAmounts from "./PhotoAmounts";
 import RecordStatus from "./RecordStatus";
 
 const CameraFrame = () => {
-  const { captureType } = useSelector((state) => state.settingsReducer);
-
   return (
     <View
       style={{

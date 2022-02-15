@@ -7,10 +7,11 @@ export const userSequenceStyles = StyleSheet.create({
     flexDirection: "row",
   },
   tabBar: {
-    width: 300,
+    width: "100%",
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 20,
+    zIndex: 999999999999999999999999999,
+    position: "absolute",
   },
   tabItem: {
     justifyContent: "center",
@@ -37,6 +38,8 @@ export const sequenceCardStyles = StyleSheet.create({
     maxWidth: "31%",
     marginRight: RFValue(5),
     marginBottom: RFValue(5),
+    borderRadius: 4,
+    overflow: "hidden",
   },
   imageContainer: {
     position: "relative",

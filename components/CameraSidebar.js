@@ -45,7 +45,7 @@ const CameraSidebar = ({
   const { keepUUID, photoAmount } = useSelector((state) => state.cameraReducer);
 
   useEffect(() => {
-    if (photoAmount === 500) {
+    if (photoAmount >= 500) {
       const sequenceUUID = uuid.v4();
       setUUID(sequenceUUID);
       dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
@@ -64,13 +64,14 @@ const CameraSidebar = ({
   }, [navigation]);
 
   useEffect(() => {
-    navigation.addListener("blur", () => {
+    let unsubscribe = navigation.addListener("blur", () => {
       dispatch({ type: UPDATE_UUID, payload: null });
       dispatch({
         type: UPDATE_SELECTED_PROJECT,
         payload: { type: "individual", key: 0, projectName: "lorem" },
       });
     });
+    return unsubscribe;
   }, [navigation]);
 
   useEffect(() => {
@@ -92,8 +93,8 @@ const CameraSidebar = ({
         Brightness.setSystemBrightnessAsync(0);
         setLowBrigthness(true);
       }
-    } catch (e) {
-      console.log("Something wrong with brightness permissions");
+    } catch (error) {
+      console.error(error);
     }
 
     if (permissionsGranted.current) {
@@ -142,6 +143,7 @@ const CameraSidebar = ({
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
+    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     navigation.navigate(Routes.profile);
     StatusBar.setHidden(false);
     dispatch({ type: CAMERA_REDUCER_RESET });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Image, Platform, View } from "react-native";
+import { ActivityIndicator, Image, View } from "react-native";
 import {
   CustomText,
   CustomTextBold,
@@ -158,7 +158,6 @@ const UserInfos = () => {
       <Image
         style={{
           ...userInfoStyles.imageStyle,
-          display: Platform.OS === "android" && avatarLoading ? "none" : "flex",
         }}
         source={showImage}
         onLoadEnd={finishLoad}
