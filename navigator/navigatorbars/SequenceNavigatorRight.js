@@ -15,7 +15,7 @@ const SequenceNavigatorRight = ({navigation}) => {
   const { allSelect, uploadedImages } = useSelector(
     (state) => state.imagesReducer
   );
-  const {activeSequence} = useSelector((state) => state.uploadReducer)
+  const {activeSequence, switchSelector} = useSelector((state) => state.uploadReducer)
 
   const allSelectHandler = () => {
     if (allSelect) {
@@ -30,11 +30,15 @@ const SequenceNavigatorRight = ({navigation}) => {
 
   return (
     <View style={sequenceRight.container}>
-      <TouchableOpacity onPress={allSelectHandler}>
-        <CustomTextMedium style={sequenceRight.title}>
-          {allSelect ? "Unselect" : "Select all"}
-        </CustomTextMedium>
-      </TouchableOpacity>
+      {
+        switchSelector === 'image' && (
+          <TouchableOpacity onPress={allSelectHandler}>
+            <CustomTextMedium style={sequenceRight.title}>
+              {allSelect ? "Unselect" : "Select"}
+            </CustomTextMedium>
+          </TouchableOpacity>
+        )
+      }
 
       <Upload sequence_uuid={activeSequence} navigation={navigation} />
     </View>

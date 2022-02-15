@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet} from "react-native";
+import {Dimensions, Platform, StyleSheet} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const userUploadStyles = StyleSheet.create({
@@ -38,14 +38,20 @@ export const userUploadStyles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: "#D33030",
-    height: 45,
-    width: 45,
+    height: RFValue(45),
+    width: RFValue(45),
     position: "absolute",
-    right: 30,
-    bottom: 30,
+    right: RFValue(30),
+    bottom: Platform.OS === "android"
+      ? RFValue(80)
+      : Dimensions.get("window").height > 1000
+        ? RFValue(85)
+        : Dimensions.get("window").height > 775
+          ? RFValue(120)
+          : RFValue(110),
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 45
+    borderRadius: RFValue(45)
   }
 });
 

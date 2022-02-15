@@ -22,12 +22,20 @@ export const sequenceRight = StyleSheet.create({
     marginRight: RFValue(10),
   },
   title: {
-    color: "#B9C0CF",
+    color: "#4A90E2",
     fontSize: RFValue(16),
-    marginRight: RFValue(16),
+    marginRight: RFValue(5),
     marginTop: Platform.OS === "ios" ? RFValue(-6) : 0,
   },
 });
+
+export const sequenceTitle = StyleSheet.create({
+  title: {
+    color: "#FFF",
+    fontSize: RFValue(16),
+    marginTop: Platform.OS === "ios" ? RFValue(-6) : 0,
+  },
+})
 
 export const deleteRight = StyleSheet.create({
   text: {
@@ -56,4 +64,14 @@ export const generalSettingsLeft = StyleSheet.create({
     marginBottom: Platform.OS === "ios" ? 0 : RFValue(-2),
     marginLeft: RFValue(3),
   },
+});
+
+export const sequenceDetailTitle = StyleSheet.create({
+  rank: {
+    color: '#FFF',
+    fontSize: RFValue(16),
+  },
+  active: {
+    color: '#1AD971',
+  }
 });
