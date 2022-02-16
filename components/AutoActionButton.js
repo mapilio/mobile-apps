@@ -43,7 +43,6 @@ const AutoActionButton = ({
   };
 
   useEffect(() => {
-    console.log(accuracy);
     let batteryError = false;
     if (isCharge) {
       batteryError = false;
@@ -51,7 +50,13 @@ const AutoActionButton = ({
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-    if (!GPSAccuracy || batteryError || highSpeed || mocked || accuracy) {
+    if (
+      !GPSAccuracy ||
+      batteryError ||
+      highSpeed ||
+      mocked ||
+      accuracy.isTrue
+    ) {
       return;
     } else {
       var location = null;
@@ -83,7 +88,7 @@ const AutoActionButton = ({
     mocked,
     highSpeed,
     batteryLevel,
-    accuracy
+    accuracy,
   ]);
 
   useEffect(() => {
@@ -97,6 +102,10 @@ const AutoActionButton = ({
     return ((a % b) + b) % b;
   };
 
+  const between = (x, min, max) => {
+    return x >= min && x <= max;
+  };
+
   // TODO ADD TO HELPER.JS
   const takePicture = async (location) => {
     const id = userInformation.id;
@@ -104,9 +113,14 @@ const AutoActionButton = ({
     const options = { quality: 0.6, base64: false, exif: true };
     if (!autoCaptureStart) return;
     const image = await camera.takePictureAsync(options);
+    const betweenPositiveLandscape = between(accuracy.degree, 175, 205);
     let heading = await Location.getHeadingAsync();
-    heading.trueHeading = getMode(heading.trueHeading - 90, 360);
-    heading.magHeading = getMode(heading.magHeading - 90, 360);
+    heading.trueHeading = betweenPositiveLandscape
+      ? getMode(heading.trueHeading - 90, 360)
+      : getMode(heading.trueHeading + 90, 360);
+    heading.magHeading = betweenPositiveLandscape
+      ? getMode(heading.trueHeading - 90, 360)
+      : getMode(heading.trueHeading + 90, 360);
     const imageUri = image.uri;
     if (!imageUri) return;
     const metaDataDir = await FileSystem.getInfoAsync(

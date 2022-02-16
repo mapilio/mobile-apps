@@ -181,7 +181,7 @@ const UserInfos = () => {
         <View style={userInfoStyles.infoGrid}>
           {infoGenerate(kFormatter(profileInfos.sequences), "sequences")}
           {infoGenerate(kFormatter(profileInfos.photos), "photos")}
-          {infoGenerate(kFormatter(profileInfos.meters), "meters")}
+          {/* {infoGenerate(kFormatter(profileInfos.meters), "meters")} */}
         </View>
       </View>
     </View>

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import SwipeLine from "../assets/svg/illustrations/SwipeLine";
 import { CustomText } from "../highordercomponents";
@@ -22,7 +23,13 @@ import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
 import { SEARCH_API } from "@env";
 
-const SearchbarSwipe = ({ setFly, panelRef, setOnScroll }) => {
+const SearchbarSwipe = ({
+  setFly,
+  panelRef,
+  flyLocation,
+  setOnScroll,
+  isKeyboardVisible,
+}) => {
   const [value, setInputValue] = useState("");
   const [valueAPI, setAPIValue] = useState("");
   const [locations, setLocations] = useState([]);
@@ -60,8 +67,8 @@ const SearchbarSwipe = ({ setFly, panelRef, setOnScroll }) => {
   }, [valueAPI]);
 
   const flyToCoordinate = (coord) => {
-    panelRef?.current.show(80);
     setFly(coord);
+    panelRef?.current?.show(80);
   };
 
   return (
@@ -125,9 +132,22 @@ const SearchbarSwipe = ({ setFly, panelRef, setOnScroll }) => {
         ) : (
           <FlatList
             data={locations}
-            onScrollBeginDrag={() => setOnScroll(true)}
+            onScrollBeginDrag={() => {
+              if (isKeyboardVisible) {
+                panelRef?.current?.show(10);
+                Keyboard.dismiss();
+              }
+              setOnScroll(true);
+              Keyboard.dismiss();
+            }}
             onScrollEndDrag={() => setOnScroll(false)}
-            onTouchStart={() => setOnScroll(true)}
+            onTouchStart={() => {
+              if (isKeyboardVisible) {
+                panelRef?.current?.show(10);
+                Keyboard.dismiss();
+              }
+              setOnScroll(true);
+            }}
             ListEmptyComponent={() => (
               <CustomText
                 style={{

@@ -19,6 +19,7 @@ const Marketplace = ({ navigation }) => {
   const dispatch = useDispatch();
   const [onScroll, setOnScroll] = useState(false);
   const { marketplaceData } = useSelector((status) => status.generalReducer);
+
   useEffect(() => {
     fetchHandler({
       url: `${SERVICE_URL}/api/get-marketplaces`,

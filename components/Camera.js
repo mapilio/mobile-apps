@@ -100,9 +100,9 @@ const Camera = ({
       const currentOrientation =
         await ScreenOrientation.getOrientationLockAsync();
       // 7 EQUAL TO LANDSCAPE_RIGHT
-      if (currentOrientation !== 7) {
+      if (currentOrientation !== 5) {
         await ScreenOrientation.lockAsync(
-          ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+          ScreenOrientation.OrientationLock.LANDSCAPE
         );
       }
     });
@@ -135,7 +135,7 @@ const Camera = ({
       }
     } else if (Platform.OS === "android") {
       if (!isCharge) {
-        batteryLevel <= 15
+        batteryLevel <= 105
           ? setBatteryAlert({
               svg: <BatteryLevelIcon />,
               title: "Battery level low",
@@ -227,7 +227,7 @@ const Camera = ({
   };
 
   const accuracyHandler = (accuracy) => {
-    if (accuracy >= 35) {
+    if (accuracy >= 25) {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
       setGPSAlert({
         svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,

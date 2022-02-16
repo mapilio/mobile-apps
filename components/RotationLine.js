@@ -16,7 +16,10 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
 
   useEffect(() => {
     if (Boolean(accuracy) !== Boolean(rotateAlert)) {
-      dispatch({ type: UPDATE_ACCURACY, payload: Boolean(rotateAlert) });
+      dispatch({
+        type: UPDATE_ACCURACY,
+        payload: { isTrue: Boolean(rotateAlert), degree: degree },
+      });
     }
   }, [rotateAlert]);
 

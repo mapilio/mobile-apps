@@ -13,6 +13,7 @@ export const Routes = {
   marketplace: "Marketplace",
   marketplaceDetail: "MarketplaceDetail",
   marketplaceReceived: "MarketplaceReceived",
+  MarketplaceReady: "MarketplaceReady",
   tabHome: "Home",
   walkthrough: "Walkthough",
   welcomeWalkthrough: "WelcomeWalkthrough",

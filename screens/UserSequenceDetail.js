@@ -13,8 +13,9 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { appMapStyle } from "../styles/appMapStyle";
 import database from "../db";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MapView } from "../highordercomponents";
+import { RANK } from "../store/actionsName";
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
@@ -22,9 +23,12 @@ const UserSequenceDetail = ({ navigation, route }) => {
   const [points, setPoints] = useState({});
   const [center, setCenter] = useState([30.8, 41.015137]);
   const [clickedPoint, setClickedPoint] = useState(null);
+  const dispatch = useDispatch();
   const [currentImage, setCurrentImage] = useState(null);
   const [width, setWidth] = useState(RFValue(33));
-  const { activeSequence } = useSelector((state) => state.uploadReducer);
+  const { activeSequence, sequenceImages } = useSelector(
+    (state) => state.uploadReducer
+  );
   const screenHeight = Dimensions.get("window").height - RFValue(110);
 
   useEffect(() => {
@@ -32,6 +36,22 @@ const UserSequenceDetail = ({ navigation, route }) => {
       setClickedPoint(null);
     });
   }, [navigation]);
+
+  useEffect(() => {
+    for (let i in sequenceImages) {
+      if (route.params.id === sequenceImages[i].id) {
+        dispatch({
+          type: RANK,
+          payload: {
+            id: sequenceImages[i].id,
+            total: sequenceImages.length,
+            active: ++i,
+          },
+        });
+        break;
+      }
+    }
+  }, [route.params]);
 
   const getCoordinates = () => {
     database.query(
@@ -173,7 +193,9 @@ const UserSequenceDetail = ({ navigation, route }) => {
                 zIndex: 100000000,
                 transform: [
                   {
-                    rotate: `${clickedPoint.heading}deg`,
+                    rotate: clickedPoint
+                      ? `${clickedPoint.heading}deg`
+                      : route.params.heading,
                   },
                 ],
                 width: clickedPoint ? width : RFValue(32),

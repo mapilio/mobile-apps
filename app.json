@@ -15,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "facebookAppId": "254795350007625",
     "facebookDisplayName": "Mapilio",
     "ios": {
@@ -44,9 +42,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "@react-native-mapbox-gl/maps",
-      "expo-facebook"
-    ]
+    "plugins": ["@react-native-mapbox-gl/maps", "expo-facebook"]
   }
 }

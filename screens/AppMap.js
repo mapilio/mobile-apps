@@ -7,6 +7,7 @@ import {
   Platform,
   Pressable,
   Keyboard,
+  Alert,
 } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
@@ -16,7 +17,7 @@ import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
-import SearhcbarSwipe from "../components/SearchbarSwipe";
+import SearchbarSwipe from "../components/SearchbarSwipe";
 import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { MapView } from "../highordercomponents";
@@ -65,6 +66,7 @@ const AppMap = ({ navigation }) => {
   const [clickedCoord, setClickedCoord] = useState(null);
   const [onScroll, setOnScroll] = useState(false);
   const [showPano, setShowPano] = useState(true);
+  const [userCoordinate, setUserCoordinate] = useState([10, 10]);
   const [visible, setVisible] = useState(true);
   const [hide, setHide] = useState(false);
   const headerHeight = useHeaderHeight();
@@ -94,7 +96,7 @@ const AppMap = ({ navigation }) => {
 
   useEffect(() => {
     if (isKeyboardVisible) {
-      panelRef?.current.show(1800);
+      panelRef?.current?.show(1800);
     }
   }, [isKeyboardVisible]);
 
@@ -115,7 +117,7 @@ const AppMap = ({ navigation }) => {
 
   useEffect(() => {
     if (openSearchbar) {
-      panelRef?.current.show(400);
+      panelRef?.current?.show(400);
     }
   }, [openSearchbar]);
 
@@ -133,7 +135,7 @@ const AppMap = ({ navigation }) => {
     });
     setShowPano(false);
   };
-
+  
   const willHide = async (e) => {
     const zoom = await mapRef.current.getZoom();
     if (Math.round(zoom) < 10) {
@@ -179,10 +181,12 @@ const AppMap = ({ navigation }) => {
             zIndex: 6,
           }}
         >
-          <SearhcbarSwipe
+          <SearchbarSwipe
             setFly={setFlyLocation}
             panelRef={panelRef}
+            flyLocation={flyLocation}
             setOnScroll={setOnScroll}
+            isKeyboardVisible={isKeyboardVisible}
           />
         </SlidingUpPanel>
       ) : null}
@@ -204,6 +208,7 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.UserLocation
             visible={visible}
             showsUserHeadingIndicator={Platform.OS === "android"}
+            ref={(location) => setUserCoordinate(location?.state.coordinates)}
           />
 
           <MapboxGL.VectorSource
@@ -257,7 +262,12 @@ const AppMap = ({ navigation }) => {
 
       <Pressable
         style={[appMapStyle.currentIcon]}
-        onPress={() => setVisible((prev) => !prev)}
+        onPress={() => {
+          setVisible((prev) => !prev);
+          if (!visible) {
+            setFlyLocation(userCoordinate);
+          }
+        }}
       >
         <CurrentLocationIcon />
       </Pressable>

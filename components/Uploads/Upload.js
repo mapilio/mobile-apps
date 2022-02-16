@@ -102,7 +102,18 @@ const Upload = ({ sequence_uuid, navigation }) => {
                       `UPDATE captures SET uploaded=1, hash="${response.data.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
                       () => {
                         if (i === results.rows._array.length - 1) {
-                          sendFile(sequence.sequence_uuid);
+                          try {
+                            sendFile(sequence.sequence_uuid);
+                          } catch (error) {
+                            toastGenerator(
+                              "An error occurred while uploading.",
+                              require("../../assets/images/Warning.png"),
+                              errorAlertStyles.alertContainer,
+                              errorAlertStyles.alertTitle,
+                              errorAlertStyles.alertImage,
+                              5000
+                            );
+                          }
                         }
                       }
                     );
@@ -203,11 +214,29 @@ const Upload = ({ sequence_uuid, navigation }) => {
             })
               .then((res) => {
                 if (res.status === true) {
-                  deleteSequence(sequence);
+                  try {
+                    deleteSequence(sequence);
+                  } catch (error) {
+                    toastGenerator(
+                      "An error occurred while uploading.",
+                      require("../../assets/images/Warning.png"),
+                      errorAlertStyles.alertContainer,
+                      errorAlertStyles.alertTitle,
+                      errorAlertStyles.alertImage,
+                      5000
+                    );
+                  }
                 }
               })
               .catch((err) => {
-                console.log(err);
+                toastGenerator(
+                  "An error occurred while uploading.",
+                  require("../../assets/images/Warning.png"),
+                  errorAlertStyles.alertContainer,
+                  errorAlertStyles.alertTitle,
+                  errorAlertStyles.alertImage,
+                  5000
+                );
               });
           }
         });
@@ -228,7 +257,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
         `DELETE FROM captures where sequence_uuid = '${sequence}'`,
         () => {
           db.query(
-            "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
+            "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
             (_, result) => {
               setDeletedRows((state) => state + 1);
               dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
@@ -242,6 +271,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
                 3000
               );
               if (deletedRows === getSequences().length) {
+                dispatch({ type: IS_UPLOADED, payload: true });
                 setModalVisible(false);
                 setSentCount(0);
               }

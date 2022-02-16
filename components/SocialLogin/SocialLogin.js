@@ -9,7 +9,7 @@ const SocialLogin = ({ navigation }) => {
   return (
     <View style={socialLoginStyles.container}>
       <View style={socialLoginStyles.topContainer}>
-        {Platform.OS === "android" && <FacebookLogin navigation={navigation} />}
+        <FacebookLogin navigation={navigation} />
         <GoogleLogin navigation={navigation} />
       </View>
       <View style={socialLoginStyles.bottomContainer}>

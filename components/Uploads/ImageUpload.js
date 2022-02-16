@@ -17,7 +17,7 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
   useEffect(() => {
     let unsubscribe = navigation.addListener("focus", () => {
       database.query(
-        `SELECT id, path, location FROM captures where sequence_uuid = '${sequence_uuid}'`,
+        `SELECT id, path,location FROM captures where sequence_uuid = '${sequence_uuid}' ORDER BY id ASC`,
         (_, result) => {
           dispatch({ type: SEQUENCE_IMAGES, payload: result.rows._array });
         }

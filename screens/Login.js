@@ -23,9 +23,9 @@ const Login = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [securePassword, setSecurePassword] = useState(true);
 
-  async function login(values) {
+  const login = async (values) => {
     await dispatch(getTokenAction(values, navigation.navigate));
-  }
+  };
 
   const loginValidationSchema = yup.object().shape({
     email: yup

@@ -24,6 +24,7 @@ import { HeaderTitle } from "../components/Marketplace";
 import MarketplaceReceived from "../screens/MarketplaceReceived";
 import TabNavigator from "./TabNavigator";
 import NonUserTabNavigator from "./NonUserTabNavigator";
+import MarketplaceReady from "../screens/MarketplaceReady";
 
 const Stack = createStackNavigator();
 
@@ -172,8 +173,8 @@ const MainNavigator = () => {
           })}
         />
         <Stack.Screen
-          component={MarketplaceReceived}
-          name={Routes.marketplaceReceived}
+          component={MarketplaceReady}
+          name={Routes.MarketplaceReady}
           options={{
             headerStyle: navigatorStyle.headerStyle,
             headerTitleAlign: navigatorStyle.headerTitleAlign,

@@ -30,7 +30,7 @@ const INITIAL_STATE = {
   mocked: false,
   highSpeed: false,
   keepUUID: null,
-  isCharge: false,
+  isCharge: true,
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {

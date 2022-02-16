@@ -89,7 +89,7 @@ const CameraSidebar = ({
 
       if (permissions.status === "granted") {
         permissionsGranted.current = true;
-        brightness.current = await Brightness.getBrightnessAsync();
+        Brightness.current = await Brightness.getBrightnessAsync();
         Brightness.setSystemBrightnessAsync(0);
         setLowBrigthness(true);
       }
@@ -106,7 +106,7 @@ const CameraSidebar = ({
   const exitFromCamera = async () => {
     if (photoAmount >= 5) {
       database.query(
-        "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid",
+        "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
         (_, result) => {
           dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
         }

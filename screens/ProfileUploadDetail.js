@@ -160,7 +160,9 @@ const ProfileUploadDetail = ({ navigation, route }) => {
               zIndex: 100000000,
               transform: [
                 {
-                  rotate: coord ? `${coord.heading}deg` : "20deg",
+                  rotate: coord
+                    ? `${coord.heading}deg`
+                    : `${route.params.heading}deg`,
                 },
               ],
               width: coord ? width : RFValue(32),

@@ -35,7 +35,7 @@ const List = ({ projects, navigation, setOnScroll }) => {
         </CustomText>
         <View>
           <TouchableOpacity
-            style={{ marginRight: RFValue(20) }}
+            style={{ marginRight: RFValue(20), marginBottom: RFValue(8) }}
             ref={touchable}
             onPress={() => setShowPopover(true)}
           >
