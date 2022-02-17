@@ -21,26 +21,11 @@ import SearchbarSwipe from "../components/SearchbarSwipe";
 import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { MapView } from "../highordercomponents";
+import { styles } from "../styles/circleStyles";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
 );
-
-const styles = {
-  circles: {
-    circleRadius: [
-      "interpolate",
-      ["exponential", 1.75],
-      ["zoom"],
-      12,
-      2,
-      22,
-      180,
-    ],
-
-    circleColor: "#49b5f8",
-  },
-};
 
 const { height } = Dimensions.get("window");
 
@@ -135,7 +120,7 @@ const AppMap = ({ navigation }) => {
     });
     setShowPano(false);
   };
-  
+
   const willHide = async (e) => {
     const zoom = await mapRef.current.getZoom();
     if (Math.round(zoom) < 10) {
@@ -253,7 +238,7 @@ const AppMap = ({ navigation }) => {
             ref={cameraRef}
             centerCoordinate={flyLocation}
             zoomLevel={7}
-            maxZoomLevel={16}
+            maxZoomLevel={18}
             animationMode={"flyTo"}
             animationDuration={1000}
           />

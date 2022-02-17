@@ -8,7 +8,9 @@ import MapboxGL from "@react-native-mapbox-gl/maps";
 import { appMapStyle } from "../styles/appMapStyle";
 import { MapView } from "../highordercomponents";
 import { IMAGE_API } from "@env";
-import { ScrollView } from "react-native-gesture-handler";
+import { styles } from "../styles/circleStyles";
+
+ 
 
 const ProfileUploadDetail = ({ navigation, route }) => {
   const screenHeight = Dimensions.get("window").height - RFValue(110);
@@ -129,16 +131,12 @@ const ProfileUploadDetail = ({ navigation, route }) => {
           >
             <MapboxGL.CircleLayer
               id={"circle2"}
-              style={{ circleColor: "#1AD971", circleRadius: 5 }}
+              style={styles.circles}
               layerIndex={60}
             />
             <MapboxGL.CircleLayer
               id={"circleBuffer2"}
-              style={{
-                circleColor: "#1AD971",
-                circleRadius: 8,
-                circleOpacity: 0.3,
-              }}
+              style={styles.circlesOpacity}
               layerIndex={30}
             />
           </MapboxGL.ShapeSource>
@@ -174,7 +172,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
           <MapboxGL.ShapeSource id={"uploadedShape"} shape={coordinates}>
             <MapboxGL.LineLayer
               id="linelayer2"
-              style={{ lineColor: "#1AD971", lineWidth: 3 }}
+              style={styles.lineStyles}
               layerIndex={22}
             />
           </MapboxGL.ShapeSource>

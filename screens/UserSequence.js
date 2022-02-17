@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import database from "../db";
 import * as FileSystem from "expo-file-system";
 import SwitchSelector from "react-native-switch-selector";
+import { styles } from "../styles/circleStyles";
 import {
-  SEQUENCE_IMAGES, SWITCH_SELECTOR,
+  SEQUENCE_IMAGES,
+  SWITCH_SELECTOR,
   UPDATE_SELECTED_IMAGES,
   UPLOAD_DATA,
 } from "../store/actionsName";
@@ -20,6 +22,8 @@ import { Routes } from "../navigator/Routes";
 import { MapView } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 
+ 
+
 const UserSequence = ({ navigation, route }) => {
   const [coordinates, setCoordinates] = useState({});
   const [points, setPoints] = useState({});
@@ -28,7 +32,9 @@ const UserSequence = ({ navigation, route }) => {
     image: require("../assets/images/imgIcon.png"),
     map: require("../assets/images/mapIcon.png"),
   };
-  const { activeSequence, switchSelector } = useSelector((state) => state.uploadReducer);
+  const { activeSequence, switchSelector } = useSelector(
+    (state) => state.uploadReducer
+  );
   const { selectedImages } = useSelector((state) => state.imagesReducer);
   const dispatch = useDispatch();
 
@@ -193,17 +199,10 @@ const UserSequence = ({ navigation, route }) => {
                   });
                 }}
               >
-                <MapboxGL.CircleLayer
-                  id={"circle"}
-                  style={{ circleColor: "#1AD971", circleRadius: 5 }}
-                />
+                <MapboxGL.CircleLayer id={"circle"} style={styles.circles} />
                 <MapboxGL.CircleLayer
                   id={"circleBuffer"}
-                  style={{
-                    circleColor: "#1AD971",
-                    circleRadius: 8,
-                    circleOpacity: 0.3,
-                  }}
+                  style={styles.circlesOpacity}
                 />
               </MapboxGL.ShapeSource>
             )}
@@ -212,7 +211,7 @@ const UserSequence = ({ navigation, route }) => {
               <MapboxGL.ShapeSource id={"marketplaceShape"} shape={coordinates}>
                 <MapboxGL.LineLayer
                   id="linelayer1"
-                  style={{ lineColor: "#1AD971", lineWidth: 3 }}
+                  style={styles.lineStyles}
                 />
               </MapboxGL.ShapeSource>
             )}

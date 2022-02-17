@@ -25,9 +25,14 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
 
   useEffect(() => {
     if (Platform.OS === "android") {
-      const betweenPositiveLandscape = between(degree, 175, 205);
+      const betweenPositiveLandscape = between(degree, 160, 205);
+      const betweenHighNegativeLandscape = between(degree, -190, -160);
       const betweenNegativeLandscape = between(degree, -25, 25);
-      if (!betweenNegativeLandscape && !betweenPositiveLandscape) {
+      if (
+        !betweenNegativeLandscape &&
+        !betweenPositiveLandscape &&
+        !betweenHighNegativeLandscape
+      ) {
         setAppear(true);
         setAlert({
           svg: <CameraRotate />,
@@ -35,7 +40,11 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
           content:
             "Shooting will continue when the GPS alert icon turns green.",
         });
-      } else if (betweenNegativeLandscape || betweenPositiveLandscape) {
+      } else if (
+        betweenNegativeLandscape ||
+        betweenPositiveLandscape ||
+        betweenHighNegativeLandscape
+      ) {
         setAppear(false);
         setAlert(null);
       }

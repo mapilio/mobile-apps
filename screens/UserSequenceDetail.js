@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Maximize from "../assets/svg/illustrations/Maximize";
 import { sequenceDetailStyles } from "../styles/userSequenceStyle";
+import { styles } from "../styles/circleStyles";
 import Minimize from "../assets/svg/illustrations/Minimize";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
@@ -16,6 +17,8 @@ import database from "../db";
 import { useDispatch, useSelector } from "react-redux";
 import { MapView } from "../highordercomponents";
 import { RANK } from "../store/actionsName";
+
+ 
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
@@ -165,16 +168,12 @@ const UserSequenceDetail = ({ navigation, route }) => {
           >
             <MapboxGL.CircleLayer
               id={"circle"}
-              style={{ circleColor: "#1AD971", circleRadius: 5 }}
+              style={styles.circles}
               layerIndex={60}
             />
             <MapboxGL.CircleLayer
               id={"circleBuffer"}
-              style={{
-                circleColor: "#1AD971",
-                circleRadius: 8,
-                circleOpacity: 0.3,
-              }}
+              style={styles.circlesOpacity}
               layerIndex={30}
             />
           </MapboxGL.ShapeSource>
@@ -208,7 +207,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
           <MapboxGL.ShapeSource id={"detailShape"} shape={lines}>
             <MapboxGL.LineLayer
               id="linelayer1"
-              style={{ lineColor: "#1AD971", lineWidth: 3 }}
+              style={styles.lineStyles}
               layerIndex={29}
             />
           </MapboxGL.ShapeSource>
