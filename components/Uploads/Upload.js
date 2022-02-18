@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as FileSystem from "expo-file-system";
-import { Alert, Modal, Platform, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  Modal,
+  Platform,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import db from "../../db";
 import { UPLOAD_DATA } from "../../store/actionsName";
 import { CloseIcon, UploadIcon } from "../../assets/svg/illustrations";
@@ -14,6 +21,7 @@ import { errorAlertStyles, successAlertStyles } from "../../styles/alertStyles";
 import axios from "axios";
 import { SERVICE_URL } from "@env";
 import RNFetchBlob from "rn-fetch-blob";
+import { RFValue } from "react-native-responsive-fontsize";
 const md5 = require("md5");
 const RNFS = require("react-native-fs");
 
@@ -22,6 +30,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
   const { uploadData } = useSelector((status) => status.uploadReducer);
   const [summerCount, setSummerCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
+  const [statusUpload, setStatusUpload] = useState(false);
   const { auth, userInformation } = useSelector(
     (status) => status.getTokenReducer
   );
@@ -296,6 +305,14 @@ const Upload = ({ sequence_uuid, navigation }) => {
     }
   };
 
+  useEffect(() => {
+    if (sentCount !== 0) {
+      if (summerCount === sentCount) {
+        setStatusUpload(true);
+      }
+    }
+  }, [sentCount, summerCount]);
+
   return (
     <View>
       <TouchableOpacity onPress={checkInternet}>
@@ -313,9 +330,27 @@ const Upload = ({ sequence_uuid, navigation }) => {
             <CloseIcon />
           </TouchableOpacity>
           <View style={{ alignItems: "center" }}>
-            <CustomText style={userUploadModalStyles.text}>
-              {sentCount + "/" + summerCount}
-            </CustomText>
+            {!statusUpload && (
+              <CustomText style={userUploadModalStyles.text}>
+                {sentCount + "/" + summerCount}
+              </CustomText>
+            )}
+            {statusUpload && (
+              <View style={{ marginBottom: RFValue(20) }}>
+                <ActivityIndicator color={"#FFFFFF"} />
+                <CustomText
+                  style={{
+                    color: "#FFFFFF",
+                    marginTop: RFValue(8),
+                    textAlign: "center",
+                    width: RFValue(300),
+                  }}
+                  lineCount={2}
+                >
+                  Your uploads sending. This process take a moment.
+                </CustomText>
+              </View>
+            )}
             <Progress.Bar
               progress={percentage(sentCount, summerCount)}
               width={200}

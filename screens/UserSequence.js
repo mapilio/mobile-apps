@@ -22,8 +22,6 @@ import { Routes } from "../navigator/Routes";
 import { MapView } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 
- 
-
 const UserSequence = ({ navigation, route }) => {
   const [coordinates, setCoordinates] = useState({});
   const [points, setPoints] = useState({});
@@ -102,6 +100,7 @@ const UserSequence = ({ navigation, route }) => {
           JSON.parse(result.rows._array[0].location).coords.longitude,
           JSON.parse(result.rows._array[0].location).coords.latitude,
         ]);
+        console.log(center);
         let line = { type: "FeatureCollection" };
         let points = { type: "FeatureCollection" };
 
@@ -181,7 +180,9 @@ const UserSequence = ({ navigation, route }) => {
             attributionPosition={{ bottom: 26, right: 8 }}
           >
             <MapboxGL.Camera
-              centerCoordinate={[center[0] + 0.0009, center[1]]}
+              centerCoordinate={
+                center.length !== 0 && [center[0] + 0.0009, center[1]]
+              }
               zoomLevel={16}
             />
             {!!Object.keys(points).length && (
@@ -209,10 +210,7 @@ const UserSequence = ({ navigation, route }) => {
 
             {!!Object.keys(coordinates).length && (
               <MapboxGL.ShapeSource id={"marketplaceShape"} shape={coordinates}>
-                <MapboxGL.LineLayer
-                  id="linelayer1"
-                  style={styles.lineStyles}
-                />
+                <MapboxGL.LineLayer id="linelayer1" style={styles.lineStyles} />
               </MapboxGL.ShapeSource>
             )}
           </MapView>

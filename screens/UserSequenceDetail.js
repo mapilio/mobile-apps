@@ -18,8 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { MapView } from "../highordercomponents";
 import { RANK } from "../store/actionsName";
 
- 
-
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
   const [lines, setLines] = useState({});
@@ -147,7 +145,9 @@ const UserSequenceDetail = ({ navigation, route }) => {
         attributionPosition={{ bottom: 26, right: 8 }}
       >
         <MapboxGL.Camera
-          centerCoordinate={[center[0] + 0.0009, center[1]]}
+          centerCoordinate={
+            center.length !== 0 && [center[0] + 0.0009, center[1]]
+          }
           zoomLevel={16}
           animationMode={"flyTo"}
           animationDuration={1000}
@@ -174,7 +174,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
             <MapboxGL.CircleLayer
               id={"circleBuffer"}
               style={styles.circlesOpacity}
-              layerIndex={30}
+              layerIndex={59}
             />
           </MapboxGL.ShapeSource>
         )}
@@ -208,7 +208,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
             <MapboxGL.LineLayer
               id="linelayer1"
               style={styles.lineStyles}
-              layerIndex={29}
+              layerIndex={58}
             />
           </MapboxGL.ShapeSource>
         )}

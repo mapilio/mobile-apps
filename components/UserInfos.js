@@ -24,10 +24,10 @@ const UserInfos = () => {
   const infoGenerate = (value, subtitle) => {
     return (
       <View style={userInfoStyles.infoContainer}>
-        <CustomTextBold style={userInfoStyles.infoValue}>
+        <CustomTextBold style={userInfoStyles.infoValue} lineCount={1}>
           {value}
         </CustomTextBold>
-        <CustomTextMedium style={userInfoStyles.infoTitle}>
+        <CustomTextMedium style={userInfoStyles.infoTitle} lineCount={1}>
           {subtitle}
         </CustomTextMedium>
       </View>

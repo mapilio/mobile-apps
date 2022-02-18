@@ -17,8 +17,6 @@ import { fetchHandler } from "../helper/helper";
 import { styles } from "../styles/circleStyles";
 import { Routes } from "../navigator/Routes";
 
- 
-
 const UserSequence = ({ navigation, route }) => {
   const [active, setActive] = useState("image");
   const dispatch = useDispatch();
@@ -155,7 +153,9 @@ const UserSequence = ({ navigation, route }) => {
             attributionPosition={{ bottom: 26, right: 8 }}
           >
             <MapboxGL.Camera
-              centerCoordinate={[center[0] + 0.0009, center[1]]}
+              centerCoordinate={
+                center.length !== 0 && [center[0] + 0.0009, center[1]]
+              }
               zoomLevel={16}
             />
             {!!Object.keys(points).length && (
@@ -182,10 +182,7 @@ const UserSequence = ({ navigation, route }) => {
             )}
             {!!Object.keys(coordinates).length && (
               <MapboxGL.ShapeSource id={"uploadedShape"} shape={coordinates}>
-                <MapboxGL.LineLayer
-                  id="linelayer2"
-                  style={styles.lineStyles}
-                />
+                <MapboxGL.LineLayer id="linelayer2" style={styles.lineStyles} />
               </MapboxGL.ShapeSource>
             )}
           </MapView>

@@ -13,6 +13,9 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
   const dispatch = useDispatch();
   const [imageLoad, setLoadImage] = useState(true);
   const { sequenceImages } = useSelector((state) => state.uploadReducer);
+  const { uploadedImages, selectedImages } = useSelector(
+    (state) => state.imagesReducer
+  );
 
   useEffect(() => {
     let unsubscribe = navigation.addListener("focus", () => {
@@ -32,10 +35,6 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
     });
     return unsubscribe;
   }, [navigation]);
-
-  const { uploadedImages, selectedImages } = useSelector(
-    (state) => state.imagesReducer
-  );
 
   return (
     <View style={globalStyles.container}>

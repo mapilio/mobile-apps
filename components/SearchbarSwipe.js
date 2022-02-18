@@ -68,7 +68,7 @@ const SearchbarSwipe = ({
 
   const flyToCoordinate = (coord) => {
     setFly(coord);
-    panelRef?.current?.show(80);
+    panelRef?.current?.show(10);
   };
 
   return (

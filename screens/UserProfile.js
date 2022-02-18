@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { ProfileFeed, UserInfos } from "../components";
 import { globalStyles } from "../styles/globalStyles";
-import { fetchHandler } from "../helper/helper";
+import { fetchHandler, toastGenerator } from "../helper/helper";
 import { useSelector } from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -14,6 +14,7 @@ import {
 import { SERVICE_URL } from "@env";
 import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
 import { Routes } from "../navigator/Routes";
+import { warningAlertStyles } from "../styles/alertStyles";
 
 const UserProfile = ({ navigation }) => {
   const [listData, setListData] = useState([]);
@@ -50,7 +51,14 @@ const UserProfile = ({ navigation }) => {
           setListData(res.data);
         })
         .catch((err) => {
-          console.log(err);
+          toastGenerator(
+            "There was a problem fetching your jobs. Please try again.",
+            require("../assets/images/Warning.png"),
+            warningAlertStyles.alertContainer,
+            warningAlertStyles.alertTitle,
+            warningAlertStyles.alertImage,
+            3000
+          );
         });
     }
   }, [isUploaded]);

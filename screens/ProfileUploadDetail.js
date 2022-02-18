@@ -10,8 +10,6 @@ import { MapView } from "../highordercomponents";
 import { IMAGE_API } from "@env";
 import { styles } from "../styles/circleStyles";
 
- 
-
 const ProfileUploadDetail = ({ navigation, route }) => {
   const screenHeight = Dimensions.get("window").height - RFValue(110);
   const [maximize, setMaximize] = useState(false);
@@ -137,7 +135,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
             <MapboxGL.CircleLayer
               id={"circleBuffer2"}
               style={styles.circlesOpacity}
-              layerIndex={30}
+              layerIndex={59}
             />
           </MapboxGL.ShapeSource>
         )}
@@ -173,7 +171,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
             <MapboxGL.LineLayer
               id="linelayer2"
               style={styles.lineStyles}
-              layerIndex={22}
+              layerIndex={58}
             />
           </MapboxGL.ShapeSource>
         )}

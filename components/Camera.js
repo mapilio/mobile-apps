@@ -122,7 +122,6 @@ const Camera = ({
   useEffect(() => {
     if (Platform.OS === "ios") {
       if (!isCharge) {
-        console.log(batteryLevel, "TEST");
         batteryLevel <= 20
           ? setBatteryAlert({
               svg: <BatteryLevelIcon />,

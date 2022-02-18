@@ -22,6 +22,7 @@ import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { MapView } from "../highordercomponents";
 import { styles } from "../styles/circleStyles";
+import Campus from "../assets/svg/illustrations/Campus";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -195,7 +196,6 @@ const AppMap = ({ navigation }) => {
             showsUserHeadingIndicator={Platform.OS === "android"}
             ref={(location) => setUserCoordinate(location?.state.coordinates)}
           />
-
           <MapboxGL.VectorSource
             id="road-points"
             url={MAPBOX_TILESET_URL}
@@ -208,7 +208,18 @@ const AppMap = ({ navigation }) => {
               layerIndex={60}
             />
           </MapboxGL.VectorSource>
-
+          {/* // TODO WAITING GEOJSON BECAUSE SHAPE JUST ACCEPT OBJECT TYPE */}
+          <MapboxGL.VectorSource
+            id={"road-shape"}
+            url={"mapbox://mapilio.ckywz582j0bp428qvup5uwg54-58mm8"}
+          >
+            <MapboxGL.LineLayer
+              id={"mapilio_road_v1"}
+              sourceLayerID={"mapilio_road_v1"}
+              style={styles.lineStyles}
+              layerIndex={55}
+            />
+          </MapboxGL.VectorSource>
           {clickedCoord && !hide ? (
             <MapboxGL.PointAnnotation
               key="pointAnnotation"
@@ -233,7 +244,6 @@ const AppMap = ({ navigation }) => {
               />
             </MapboxGL.PointAnnotation>
           ) : null}
-
           <MapboxGL.Camera
             ref={cameraRef}
             centerCoordinate={flyLocation}
