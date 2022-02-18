@@ -50,7 +50,7 @@ const ProjectListModal = ({ navigation, modalVisible, setModalVisible }) => {
         animationType={"fade"}
         visible={modalVisible}
         transparent={true}
-        supportedOrientations={["landscape-right"]}
+        supportedOrientations={["landscape"]}
       >
         <View
           style={{

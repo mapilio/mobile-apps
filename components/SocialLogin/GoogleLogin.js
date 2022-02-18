@@ -70,18 +70,29 @@ const GoogleLogin = ({ navigation }) => {
       },
     })
       .then((res) => {
-        dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
-        dispatch(getUserInformation(res));
-        Database.startDB(res.id);
-        toastGenerator(
-          `Login Success ${response.name}`,
-          require("../../assets/images/Success.png"),
-          successAlertStyles.alertContainer,
-          successAlertStyles.alertTitle,
-          successAlertStyles.alertImage,
-          3000
-        );
-        navigation.navigate(Routes.tabHome);
+        if (res.id) {
+          dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
+          dispatch(getUserInformation(res));
+          Database.startDB(res.id);
+          toastGenerator(
+            `Login Success ${response.name}`,
+            require("../../assets/images/Success.png"),
+            successAlertStyles.alertContainer,
+            successAlertStyles.alertTitle,
+            successAlertStyles.alertImage,
+            3000
+          );
+          navigation.navigate(Routes.tabHome);
+        } else {
+          toastGenerator(
+            "There was a problem registering. Please try a different method.",
+            require("../../assets/images/Warning.png"),
+            warningAlertStyles.alertContainer,
+            warningAlertStyles.alertTitle,
+            warningAlertStyles.alertImage,
+            3000
+          );
+        }
       })
       .catch((err) => console.error(err));
   };

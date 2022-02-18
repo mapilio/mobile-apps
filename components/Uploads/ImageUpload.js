@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { LogBox, View } from "react-native";
 import { globalStyles } from "../../styles/globalStyles";
 import { CustomText, CustomTextMedium } from "../../highordercomponents";
 import { userSequenceStyles } from "../../styles/userSequenceStyle";
@@ -13,11 +13,14 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
   const dispatch = useDispatch();
   const [imageLoad, setLoadImage] = useState(true);
   const { sequenceImages } = useSelector((state) => state.uploadReducer);
+  const { uploadedImages, selectedImages } = useSelector(
+    (state) => state.imagesReducer
+  );
 
   useEffect(() => {
     let unsubscribe = navigation.addListener("focus", () => {
       database.query(
-        `SELECT id, path FROM captures where sequence_uuid = '${sequence_uuid}' ORDER BY id ASC`,
+        `SELECT id, path,location FROM captures where sequence_uuid = '${sequence_uuid}' ORDER BY id ASC`,
         (_, result) => {
           dispatch({ type: SEQUENCE_IMAGES, payload: result.rows._array });
         }
@@ -32,10 +35,6 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
     });
     return unsubscribe;
   }, [navigation]);
-
-  const { uploadedImages, selectedImages } = useSelector(
-    (state) => state.imagesReducer
-  );
 
   return (
     <View style={globalStyles.container}>
@@ -57,6 +56,7 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
           <UploadImageCard
             key={image.id}
             path={image.path}
+            location={JSON.parse(image.location)}
             id={image.id}
             uploadedImages={uploadedImages}
             selectedImages={selectedImages}

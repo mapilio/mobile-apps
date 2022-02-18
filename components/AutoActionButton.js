@@ -24,7 +24,7 @@ const AutoActionButton = ({
   mocked,
   highSpeed,
 }) => {
-  const { cameraStatus, camera, photoAmount, isCharge } = useSelector(
+  const { cameraStatus, camera, photoAmount, isCharge, accuracy } = useSelector(
     (status) => status.cameraReducer
   );
   const { userInformation } = useSelector((state) => state.getTokenReducer);
@@ -50,7 +50,13 @@ const AutoActionButton = ({
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
+    if (
+      !GPSAccuracy ||
+      batteryError ||
+      highSpeed ||
+      mocked ||
+      accuracy.isTrue
+    ) {
       return;
     } else {
       var location = null;
@@ -82,6 +88,7 @@ const AutoActionButton = ({
     mocked,
     highSpeed,
     batteryLevel,
+    accuracy,
   ]);
 
   useEffect(() => {
@@ -91,6 +98,14 @@ const AutoActionButton = ({
     return unsubscribe;
   }, [navigation]);
 
+  const getMode = (a, b) => {
+    return ((a % b) + b) % b;
+  };
+
+  const between = (x, min, max) => {
+    return x >= min && x <= max;
+  };
+
   // TODO ADD TO HELPER.JS
   const takePicture = async (location) => {
     const id = userInformation.id;
@@ -98,7 +113,14 @@ const AutoActionButton = ({
     const options = { quality: 0.6, base64: false, exif: true };
     if (!autoCaptureStart) return;
     const image = await camera.takePictureAsync(options);
-    const heading = await Location.getHeadingAsync();
+    const betweenPositiveLandscape = between(accuracy.degree, 175, 205);
+    let heading = await Location.getHeadingAsync();
+    heading.trueHeading = betweenPositiveLandscape
+      ? getMode(heading.trueHeading + 90, 360)
+      : getMode(heading.trueHeading - 90, 360);
+    heading.magHeading = betweenPositiveLandscape
+      ? getMode(heading.trueHeading + 90, 360)
+      : getMode(heading.trueHeading - 90, 360);
     const imageUri = image.uri;
     if (!imageUri) return;
     const metaDataDir = await FileSystem.getInfoAsync(

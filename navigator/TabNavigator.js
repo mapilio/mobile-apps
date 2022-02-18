@@ -36,7 +36,8 @@ import {
   ProfileNavigatorRight,
   SequenceDetailTitle,
   SequenceNavigatorLeft,
-  SequenceNavigatorRight, SequenceNavigatorTitle,
+  SequenceNavigatorRight,
+  SequenceNavigatorTitle,
   UploadNavigatorRight,
 } from "./navigatorbars";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -146,7 +147,9 @@ const TabNavigator = ({ navigation, route }) => {
             height:
               Dimensions.get("window").height > 1100
                 ? RFValue(50)
-                : RFValue(70),
+                : Platform.OS === "ios"
+                ? RFValue(80)
+                : RFValue(55),
             backgroundColor: "#213348",
           },
         }}
@@ -213,7 +216,7 @@ const TabNavigator = ({ navigation, route }) => {
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,
-          tabBarBadge: uploadData.length,
+          tabBarBadge: uploadData.length !== 0 ? uploadData.length : null,
           tabBarIcon: ({ focused }) => (
             <View
               style={[

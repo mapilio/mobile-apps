@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  ActivityIndicator
+  ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import SwipeLine from "../assets/svg/illustrations/SwipeLine";
 import { CustomText } from "../highordercomponents";
@@ -22,7 +23,13 @@ import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
 import { SEARCH_API } from "@env";
 
-const SearchbarSwipe = ({ setFly, panelRef }) => {
+const SearchbarSwipe = ({
+  setFly,
+  panelRef,
+  flyLocation,
+  setOnScroll,
+  isKeyboardVisible,
+}) => {
   const [value, setInputValue] = useState("");
   const [valueAPI, setAPIValue] = useState("");
   const [locations, setLocations] = useState([]);
@@ -60,13 +67,18 @@ const SearchbarSwipe = ({ setFly, panelRef }) => {
   }, [valueAPI]);
 
   const flyToCoordinate = (coord) => {
-    panelRef.current.show(80);
     setFly(coord);
+    panelRef?.current?.show(10);
   };
 
   return (
-    <View style={marketplaceStyles.container}>
-      <View style={marketplaceStyles.panelHeader}>
+    <View
+      style={[{ ...marketplaceStyles.container, paddingBottom: RFValue(200) }]}
+    >
+      <View
+        style={marketplaceStyles.panelHeader}
+        onTouchStart={() => setOnScroll(false)}
+      >
         <SwipeLine />
       </View>
       <View>
@@ -120,6 +132,22 @@ const SearchbarSwipe = ({ setFly, panelRef }) => {
         ) : (
           <FlatList
             data={locations}
+            onScrollBeginDrag={() => {
+              if (isKeyboardVisible) {
+                panelRef?.current?.show(10);
+                Keyboard.dismiss();
+              }
+              setOnScroll(true);
+              Keyboard.dismiss();
+            }}
+            onScrollEndDrag={() => setOnScroll(false)}
+            onTouchStart={() => {
+              if (isKeyboardVisible) {
+                panelRef?.current?.show(10);
+                Keyboard.dismiss();
+              }
+              setOnScroll(true);
+            }}
             ListEmptyComponent={() => (
               <CustomText
                 style={{

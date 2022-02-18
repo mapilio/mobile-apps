@@ -130,14 +130,15 @@ const alertHandler = (status, cancelHandler) => {
   // }
 };
 
-const dateConvert = (datetime, format = 'MMM D, YYYY') => {
+const dateConvert = (datetime, format = "MMM D, YYYY") => {
   if (!Moment(datetime).isValid()) {
-    const parsedDatetime = datetime.split(' ').map((time, i) => i === 0 ? time.split(':').join('/') : time)
-    return Moment(new Date(parsedDatetime.join(' '))).format(format)
+    const parsedDatetime = datetime
+      .split(" ")
+      .map((time, i) => (i === 0 ? time.split(":").join("/") : time));
+    return Moment(new Date(parsedDatetime.join(" "))).format(format);
   }
-  return Moment(datetime).format(format)
-}
-
+  return Moment(datetime).format(format);
+};
 
 export {
   useFonts,
@@ -147,5 +148,5 @@ export {
   maxCharacterHandler,
   permissionHandler,
   kFormatter,
-  dateConvert
+  dateConvert,
 };

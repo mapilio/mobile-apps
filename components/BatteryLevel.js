@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText } from "../highordercomponents";
@@ -27,11 +27,21 @@ const BatteryLevel = () => {
     let batteryState = await Battery.getBatteryStateAsync();
     batteryLevel = Math.ceil(batteryLevel * 100);
     setBatteryLevel(batteryLevel);
-    subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
-      let roundedValue = Math.ceil(batteryLevel * 100);
-      setBatteryLevel(roundedValue);
-      dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
-    });
+    let interval = null;
+    if (Platform.OS === "android") {
+      subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
+        let roundedValue = Math.ceil(batteryLevel * 100);
+        setBatteryLevel(roundedValue);
+        dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
+      });
+    } else {
+      interval = setInterval(async () => {
+        let batteryLevel = await Battery.getBatteryLevelAsync();
+        let roundedValue = Math.ceil(batteryLevel * 100);
+        setBatteryLevel(roundedValue);
+        dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
+      }, 60000);
+    }
     subscriptionState = Battery.addBatteryStateListener(({ batteryState }) => {
       if (batteryState === 3 || batteryState === 2) {
         dispatch({ type: UPDATE_CHARGE_STATUS, payload: true });
@@ -39,6 +49,11 @@ const BatteryLevel = () => {
         dispatch({ type: UPDATE_CHARGE_STATUS, payload: false });
       }
     });
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   };
 
   const _unsubscribeBatteryLevel = () => {

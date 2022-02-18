@@ -1,12 +1,12 @@
 import React from "react";
-import {View, Image} from "react-native";
-import {CustomText, CustomTextMedium} from "../highordercomponents";
-import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
+import { View, Image } from "react-native";
+import { CustomText, CustomTextMedium } from "../highordercomponents";
+import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
 import Info from "../assets/svg/illustrations/Info";
-import {Routes} from "../navigator/Routes";
-import {RFValue} from "react-native-responsive-fontsize";
+import { Routes } from "../navigator/Routes";
+import { RFValue } from "react-native-responsive-fontsize";
 
-const MarketplaceReceived = ({navigation}) => {
+const MarketplaceReceived = ({ navigation }) => {
   return (
     <View style={marketplaceReceivedStyles.container}>
       <Image
@@ -14,22 +14,29 @@ const MarketplaceReceived = ({navigation}) => {
         resizeMode={"contain"}
         style={marketplaceReceivedStyles.image}
       />
-      <CustomTextMedium style={marketplaceReceivedStyles.title}>We received your request</CustomTextMedium>
-      <CustomText style={marketplaceReceivedStyles.description}>Subscriptions let you use the current imagery and map
-        data in your shapes.</CustomText>
-      <CustomText style={{marginBottom: RFValue(30)}}>
-        Go to {" "}
-        <CustomText style={marketplaceReceivedStyles.link} onPress={() => navigation.navigate(Routes.marketplace)}>
+      <CustomTextMedium style={marketplaceReceivedStyles.title}>
+        We received your request
+      </CustomTextMedium>
+      <CustomText style={marketplaceReceivedStyles.description}>
+        Subscriptions let you use the current imagery and map data in your
+        shapes.
+      </CustomText>
+      <CustomText style={{ marginBottom: RFValue(30) }}>
+        Go to{" "}
+        <CustomText
+          style={marketplaceReceivedStyles.link}
+          onPress={() => navigation.navigate(Routes.marketplace)}
+        >
           Marketplace.
         </CustomText>
       </CustomText>
-      <View>
+      {/* <View>
         <CustomText>
           <Info width={RFValue(12)} height={RFValue(12)}/>
           {" "}
           What do you need to do?
         </CustomText>
-      </View>
+      </View> */}
     </View>
   );
 };

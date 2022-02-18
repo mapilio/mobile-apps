@@ -1,19 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { CameraRotate } from "../assets/svg/illustrations";
+import { UPDATE_ACCURACY } from "../store/actionsName";
 
-const RotationLine = ({ degree, setAlert }) => {
+const RotationLine = ({ degree, setAlert, rotateAlert }) => {
   const [appear, setAppear] = useState(false);
+  const dispatch = useDispatch();
+  const { accuracy } = useSelector((state) => state.cameraReducer);
 
   const between = (x, min, max) => {
     return x >= min && x <= max;
   };
 
   useEffect(() => {
+    if (Boolean(accuracy) !== Boolean(rotateAlert)) {
+      dispatch({
+        type: UPDATE_ACCURACY,
+        payload: { isTrue: Boolean(rotateAlert), degree: degree },
+      });
+    }
+  }, [rotateAlert]);
+
+  useEffect(() => {
     if (Platform.OS === "android") {
-      const betweenPositiveLandscape = between(degree, 175, 205);
+      const betweenPositiveLandscape = between(degree, 160, 205);
+      const betweenHighNegativeLandscape = between(degree, -190, -160);
       const betweenNegativeLandscape = between(degree, -25, 25);
-      if (!betweenNegativeLandscape && !betweenPositiveLandscape) {
+      if (
+        !betweenNegativeLandscape &&
+        !betweenPositiveLandscape &&
+        !betweenHighNegativeLandscape
+      ) {
         setAppear(true);
         setAlert({
           svg: <CameraRotate />,
@@ -21,7 +40,11 @@ const RotationLine = ({ degree, setAlert }) => {
           content:
             "Shooting will continue when the GPS alert icon turns green.",
         });
-      } else if (betweenNegativeLandscape || betweenPositiveLandscape) {
+      } else if (
+        betweenNegativeLandscape ||
+        betweenPositiveLandscape ||
+        betweenHighNegativeLandscape
+      ) {
         setAppear(false);
         setAlert(null);
       }

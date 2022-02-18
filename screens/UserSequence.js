@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import database from "../db";
 import * as FileSystem from "expo-file-system";
 import SwitchSelector from "react-native-switch-selector";
+import { styles } from "../styles/circleStyles";
 import {
-  SEQUENCE_IMAGES, SWITCH_SELECTOR,
+  SEQUENCE_IMAGES,
+  SWITCH_SELECTOR,
   UPDATE_SELECTED_IMAGES,
   UPLOAD_DATA,
 } from "../store/actionsName";
@@ -28,7 +30,9 @@ const UserSequence = ({ navigation, route }) => {
     image: require("../assets/images/imgIcon.png"),
     map: require("../assets/images/mapIcon.png"),
   };
-  const { activeSequence, switchSelector } = useSelector((state) => state.uploadReducer);
+  const { activeSequence, switchSelector } = useSelector(
+    (state) => state.uploadReducer
+  );
   const { selectedImages } = useSelector((state) => state.imagesReducer);
   const dispatch = useDispatch();
 
@@ -96,6 +100,7 @@ const UserSequence = ({ navigation, route }) => {
           JSON.parse(result.rows._array[0].location).coords.longitude,
           JSON.parse(result.rows._array[0].location).coords.latitude,
         ]);
+        console.log(center);
         let line = { type: "FeatureCollection" };
         let points = { type: "FeatureCollection" };
 
@@ -174,7 +179,12 @@ const UserSequence = ({ navigation, route }) => {
             mapStyle={appMapStyle.map}
             attributionPosition={{ bottom: 26, right: 8 }}
           >
-            <MapboxGL.Camera centerCoordinate={center} zoomLevel={20} />
+            <MapboxGL.Camera
+              centerCoordinate={
+                center.length !== 0 && [center[0] + 0.0009, center[1]]
+              }
+              zoomLevel={16}
+            />
             {!!Object.keys(points).length && (
               <MapboxGL.ShapeSource
                 id={"pointsShape"}
@@ -184,30 +194,23 @@ const UserSequence = ({ navigation, route }) => {
                     id: point.features[0].properties.item.id,
                     path: point.features[0].properties.item.path,
                     coordinate: point.features[0].geometry.coordinates,
+                    heading: JSON.parse(
+                      point.features[0].properties.item.location
+                    ).coords.heading,
                   });
                 }}
               >
-                <MapboxGL.CircleLayer
-                  id={"circle"}
-                  style={{ circleColor: "#1AD971", circleRadius: 5 }}
-                />
+                <MapboxGL.CircleLayer id={"circle"} style={styles.circles} />
                 <MapboxGL.CircleLayer
                   id={"circleBuffer"}
-                  style={{
-                    circleColor: "#1AD971",
-                    circleRadius: 8,
-                    circleOpacity: 0.3,
-                  }}
+                  style={styles.circlesOpacity}
                 />
               </MapboxGL.ShapeSource>
             )}
 
             {!!Object.keys(coordinates).length && (
               <MapboxGL.ShapeSource id={"marketplaceShape"} shape={coordinates}>
-                <MapboxGL.LineLayer
-                  id="linelayer1"
-                  style={{ lineColor: "#1AD971", lineWidth: 3 }}
-                />
+                <MapboxGL.LineLayer id="linelayer1" style={styles.lineStyles} />
               </MapboxGL.ShapeSource>
             )}
           </MapView>

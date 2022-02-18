@@ -15,6 +15,7 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
     mocked,
     highSpeed,
     isCharge,
+    accuracy,
   } = useSelector((state) => state.cameraReducer);
 
   useEffect(() => {
@@ -37,12 +38,26 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
+    if (
+      !GPSAccuracy ||
+      batteryError ||
+      highSpeed ||
+      mocked ||
+      accuracy.isTrue
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [GPSAccuracy, waitGPS, isCharge, highSpeed, mocked, batteryLevel]);
+  }, [
+    GPSAccuracy,
+    waitGPS,
+    isCharge,
+    highSpeed,
+    mocked,
+    batteryLevel,
+    accuracy,
+  ]);
 
   return (
     <>

@@ -16,8 +16,8 @@ function App() {
     await useFonts();
   };
 
-
   useEffect(() => {
+
     if (isReady) {
       StatusBar.setBarStyle("light-content", true);
     }

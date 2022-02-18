@@ -6,20 +6,24 @@ import { List } from "../components/Uploads";
 import { userUploadStyles } from "../styles/userUploadStyle";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useKeepAwake } from "expo-keep-awake";
+import { useSelector } from "react-redux";
 
 const UserUpload = ({ navigation }) => {
+  const { uploadData } = useSelector((status) => status.uploadReducer);
   useKeepAwake();
 
   return (
     <View style={{ paddingBottom: RFValue(220) }}>
-      <View style={userUploadStyles.container}>
-        <CustomTextMedium style={globalStyles.screenTitle}>
-          Upload Photos
-        </CustomTextMedium>
-        <CustomText style={globalStyles.screenDescription}>
-          You can upload images from here.
-        </CustomText>
-      </View>
+      {uploadData.length !== 0 && (
+        <View style={userUploadStyles.container}>
+          <CustomTextMedium style={globalStyles.screenTitle}>
+            Upload Photos
+          </CustomTextMedium>
+          <CustomText style={globalStyles.screenDescription}>
+            You can upload images from here.
+          </CustomText>
+        </View>
+      )}
       <List navigation={navigation} />
     </View>
   );

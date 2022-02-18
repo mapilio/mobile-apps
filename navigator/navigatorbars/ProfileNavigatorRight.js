@@ -1,25 +1,39 @@
-import React from 'react'
-import {CustomText} from "../../highordercomponents";
-import {RFValue} from "react-native-responsive-fontsize";
-import {TouchableOpacity} from "react-native";
-import {useDispatch} from "react-redux";
-import {EXIT_USER} from "../../store/actionsName";
-import {Routes} from "../Routes";
+import React from "react";
+import { CustomText } from "../../highordercomponents";
+import { RFValue } from "react-native-responsive-fontsize";
+import { TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
+import { EXIT_USER } from "../../store/actionsName";
+import { Routes } from "../Routes";
 
-const ProfileNavigatorRight = ({navigation}) => {
-    const dispatch = useDispatch()
+const ProfileNavigatorRight = ({ navigation }) => {
+  const dispatch = useDispatch();
 
-    const exitHandler = () => {
-        dispatch({type: EXIT_USER})
-        navigation.navigate(Routes.map)
-    }
+  const exitHandler = () => {
+    dispatch({ type: EXIT_USER });
+    navigation.navigate(Routes.map);
+  };
 
-    return (<TouchableOpacity style={{flexDirection: "row", marginRight: RFValue(10), alignItems: "center"}}
-                              onPress={exitHandler}>
-            <CustomText style={{fontSize: RFValue(12), color: "#B9C0CF", marginLeft: RFValue(6)}}>
-                Sign out
-            </CustomText>
-        </TouchableOpacity>)
-}
+  return (
+    <TouchableOpacity
+      style={{
+        flexDirection: "row",
+        marginRight: RFValue(14),
+        alignItems: "center",
+      }}
+      onPress={exitHandler}
+    >
+      <CustomText
+        style={{
+          fontSize: RFValue(12),
+          color: "#B9C0CF",
+          marginLeft: RFValue(6),
+        }}
+      >
+        Sign out
+      </CustomText>
+    </TouchableOpacity>
+  );
+};
 
-export default ProfileNavigatorRight
+export default ProfileNavigatorRight;

@@ -20,6 +20,7 @@ const List = ({ navigation }) => {
     database.query(
       "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
       (_, result) => {
+        console.log(result.rows._array);
         dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
       }
     );
@@ -83,7 +84,7 @@ const List = ({ navigation }) => {
         flexDirection: "column",
         alignItems: "center",
         paddingHorizontal: RFValue(30),
-        marginTop: RFValue(20),
+        marginTop: RFValue(130),
       }}
     >
       <NoUpload />

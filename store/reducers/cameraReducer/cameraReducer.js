@@ -13,6 +13,7 @@ import {
   UPDATE_CHARGE_STATUS,
   UPDATE_UUID,
   CAMERA_REDUCER_RESET,
+  UPDATE_ACCURACY,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -25,10 +26,11 @@ const INITIAL_STATE = {
   phoneMemory: 0,
   photoAmount: 0,
   batteryLevel: 100,
+  accuracy: false,
   mocked: false,
   highSpeed: false,
   keepUUID: null,
-  isCharge: false,
+  isCharge: true,
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -102,6 +104,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isCharge: action.payload,
+      };
+    case UPDATE_ACCURACY:
+      return {
+        ...state,
+        accuracy: action.payload,
       };
     case CAMERA_REDUCER_RESET:
       return {

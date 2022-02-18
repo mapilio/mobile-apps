@@ -4,13 +4,7 @@ import { navigatorStyle } from "../styles/navigatorStyle";
 import { Routes } from "./Routes";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { AppMap, Login, Marketplace, NoInternetAccess } from "../screens";
-import {
-  Dimensions,
-  Platform,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -29,7 +23,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 const Tab = createBottomTabNavigator();
 
-const CaptureTabBarButton = ({ children, onPress, navigation }) => {
+const CaptureTabBarButton = ({ navigation }) => {
   return (
     <TouchableOpacity
       style={{
@@ -67,7 +61,6 @@ const NonUserTabNavigator = () => {
     <Tab.Navigator
       initialRouteName={Routes.map}
       screenOptions={({ navigation }) => ({
-         
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
         tabBarStyle: navigatorStyle.tabBarStyle,
@@ -118,7 +111,9 @@ const NonUserTabNavigator = () => {
             height:
               Dimensions.get("window").height > 1100
                 ? RFValue(50)
-                : RFValue(70),
+                : Platform.OS === "ios"
+                ? RFValue(80)
+                : RFValue(55),
             backgroundColor: "#213348",
           },
         }}

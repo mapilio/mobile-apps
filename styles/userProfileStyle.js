@@ -86,6 +86,6 @@ export const userInfoStyles = StyleSheet.create({
   },
   infoContainer: {
     flexDirection: "column",
-    marginRight: RFValue(16),
+    marginRight: RFValue(10),
   },
 });

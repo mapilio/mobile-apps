@@ -14,6 +14,7 @@ import SwitchSelector from "react-native-switch-selector";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SERVICE_URL, IMAGE_API } from "@env";
 import { fetchHandler } from "../helper/helper";
+import { styles } from "../styles/circleStyles";
 import { Routes } from "../navigator/Routes";
 
 const UserSequence = ({ navigation, route }) => {
@@ -151,7 +152,12 @@ const UserSequence = ({ navigation, route }) => {
             mapStyle={appMapStyle.map}
             attributionPosition={{ bottom: 26, right: 8 }}
           >
-            <MapboxGL.Camera centerCoordinate={center} zoomLevel={20} />
+            <MapboxGL.Camera
+              centerCoordinate={
+                center.length !== 0 && [center[0] + 0.0009, center[1]]
+              }
+              zoomLevel={16}
+            />
             {!!Object.keys(points).length && (
               <MapboxGL.ShapeSource
                 id={"pointsProfileShape"}
@@ -162,30 +168,21 @@ const UserSequence = ({ navigation, route }) => {
                     path: `${IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/1080`,
                     coordinate: point.features[0].geometry.coordinates,
                     points: imageList,
+                    heading: point.features[0].properties.item.heading,
                     base: true,
                   });
                 }}
               >
+                <MapboxGL.CircleLayer id={"circle5"} style={styles.circles} />
                 <MapboxGL.CircleLayer
-                  id={"circle2"}
-                  style={{ circleColor: "#1AD971", circleRadius: 5 }}
-                />
-                <MapboxGL.CircleLayer
-                  id={"circleBuffer2"}
-                  style={{
-                    circleColor: "#1AD971",
-                    circleRadius: 8,
-                    circleOpacity: 0.3,
-                  }}
+                  id={"circleBuffer5"}
+                  style={styles.circlesOpacity}
                 />
               </MapboxGL.ShapeSource>
             )}
             {!!Object.keys(coordinates).length && (
               <MapboxGL.ShapeSource id={"uploadedShape"} shape={coordinates}>
-                <MapboxGL.LineLayer
-                  id="linelayer2"
-                  style={{ lineColor: "#1AD971", lineWidth: 3 }}
-                />
+                <MapboxGL.LineLayer id="linelayer2" style={styles.lineStyles} />
               </MapboxGL.ShapeSource>
             )}
           </MapView>

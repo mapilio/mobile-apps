@@ -1,12 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, StatusBar, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  AppState,
+  StatusBar,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import {
   CustomText,
   CustomTextBold,
   CustomTextMedium,
 } from "../highordercomponents";
-import { convertHexToRGBA } from "../helper/helper";
+import { convertHexToRGBA, toastGenerator } from "../helper/helper";
 import {
   GoBackIcon,
   InformationIcon,
@@ -28,6 +34,7 @@ import {
   UPLOAD_DATA,
 } from "../store/actionsName";
 import * as Brightness from "expo-brightness";
+import { infoAlertStyles, warningAlertStyles } from "../styles/alertStyles";
 
 const CameraSidebar = ({
   navigation,
@@ -64,6 +71,16 @@ const CameraSidebar = ({
   }, [navigation]);
 
   useEffect(() => {
+    if (autoCaptureStart) {
+      const sequenceUUID = uuid.v4();
+      setUUID(sequenceUUID);
+    } else {
+      exitCapture();
+      setUUID(null);
+    }
+  }, [autoCaptureStart]);
+
+  useEffect(() => {
     let unsubscribe = navigation.addListener("blur", () => {
       dispatch({ type: UPDATE_UUID, payload: null });
       dispatch({
@@ -75,9 +92,27 @@ const CameraSidebar = ({
   }, [navigation]);
 
   useEffect(() => {
+    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     const sequenceUUID = uuid.v4();
     setUUID(sequenceUUID);
   }, [selectedProject]);
+
+  useEffect(() => {
+    let subscription = AppState.addEventListener("change", (state) => {
+      if (autoCaptureStart && state === "background") {
+        toastGenerator(
+          "Your new sequence has been started.",
+          require("../assets/images/Info.png"),
+          infoAlertStyles.alertContainer,
+          infoAlertStyles.alertTitle,
+          infoAlertStyles.alertImage
+        );
+        dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
+        exitCapture();
+      }
+    });
+    return () => subscription && subscription.remove();
+  }, [navigation]);
 
   const lowLightHandler = async () => {
     try {
@@ -89,7 +124,7 @@ const CameraSidebar = ({
 
       if (permissions.status === "granted") {
         permissionsGranted.current = true;
-        brightness.current = await Brightness.getBrightnessAsync();
+        Brightness.current = await Brightness.getBrightnessAsync();
         Brightness.setSystemBrightnessAsync(0);
         setLowBrigthness(true);
       }
@@ -103,7 +138,7 @@ const CameraSidebar = ({
     }
   };
 
-  const exitFromCamera = async () => {
+  const exitCapture = () => {
     if (photoAmount >= 5) {
       database.query(
         "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
@@ -112,29 +147,47 @@ const CameraSidebar = ({
         }
       );
       exitHandler();
-    } else if (photoAmount >= 1 && photoAmount <= 4) {
-      Alert.alert(
-        "Capture failed",
-        "For capture, you need to take at least 5 photos",
-        [
-          {
-            text: "Exit",
-            style: "cancel",
-            onPress: () => {
-              exitHandler();
-              database.deleteRow(uuidV4);
-            },
-          },
-          {
-            text: "Continue",
-            onPress: () => false,
-          },
-        ]
-      );
-    } else if (photoAmount === 0) {
-      navigation.navigate(Routes.map);
-      exitHandler();
+    } else if ((photoAmount >= 1 && photoAmount <= 4) || photoAmount === 0) {
+      dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
+      database.deleteRow(uuidV4);
     }
+  };
+
+  const exitFromCamera = async () => {
+    navigation.navigate(Routes.map);
+    exitHandler();
+    // THIS CODE BLOCK MAYBE LATER GONNA ADD
+    // if (photoAmount >= 5) {
+    //   database.query(
+    //     "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+    //     (_, result) => {
+    //       dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+    //     }
+    //   );
+    //   exitHandler();
+    // } else if (photoAmount >= 1 && photoAmount <= 4) {
+    //   Alert.alert(
+    //     "Capture failed",
+    //     "For capture, you need to take at least 5 photos",
+    //     [
+    //       {
+    //         text: "Exit",
+    //         style: "cancel",
+    //         onPress: () => {
+    //           exitHandler();
+    //           database.deleteRow(uuidV4);
+    //         },
+    //       },
+    //       {
+    //         text: "Continue",
+    //         onPress: () => false,
+    //       },
+    //     ]
+    //   );
+    // } else if (photoAmount === 0) {
+    //   navigation.navigate(Routes.map);
+    //   exitHandler();
+    // }
   };
 
   const exitHandler = async () => {

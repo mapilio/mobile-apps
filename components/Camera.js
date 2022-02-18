@@ -100,9 +100,9 @@ const Camera = ({
       const currentOrientation =
         await ScreenOrientation.getOrientationLockAsync();
       // 7 EQUAL TO LANDSCAPE_RIGHT
-      if (currentOrientation !== 7) {
+      if (currentOrientation !== 5) {
         await ScreenOrientation.lockAsync(
-          ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+          ScreenOrientation.OrientationLock.LANDSCAPE
         );
       }
     });
@@ -227,7 +227,7 @@ const Camera = ({
   };
 
   const accuracyHandler = (accuracy) => {
-    if (accuracy >= 35) {
+    if (accuracy >= 25) {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
       setGPSAlert({
         svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
@@ -312,7 +312,11 @@ const Camera = ({
         ref={cameraRef}
         onCameraReady={onCameraReady}
       >
-        <RotationLine degree={degree} setAlert={setRotateAlert} />
+        <RotationLine
+          degree={degree}
+          setAlert={setRotateAlert}
+          rotateAlert={rotateAlert}
+        />
         <CameraFrame navigation={navigation} />
         <CameraProjectInfo navigation={navigation} />
         {GPSAlert && !GPSStartAlert ? (

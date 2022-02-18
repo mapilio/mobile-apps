@@ -7,7 +7,7 @@ import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useDispatch } from "react-redux";
 import { ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES } from "../store/actionsName";
-import {dateConvert} from "../helper/helper";
+import { dateConvert } from "../helper/helper";
 
 const UserFeed = ({ navigation, data }) => {
   const [loading, setLoading] = useState(false);
@@ -31,12 +31,11 @@ const UserFeed = ({ navigation, data }) => {
     >
       <View style={userFeedStyles.viewStyle}>
         <CustomTextBold style={userFeedStyles.dateStyle}>
-          {
-            dateConvert(
-              JSON.parse(data.exif).DateTime || JSON.parse(data.exif).DateTimeOriginal,
-              'MMM D, YYYY - H:mm'
-            )
-          }
+          {dateConvert(
+            JSON.parse(data.exif).DateTime ||
+              JSON.parse(data.exif).DateTimeOriginal,
+            "MMM D, YYYY - H:mm"
+          )}
         </CustomTextBold>
         <CustomText style={userFeedStyles.descriptionStyle}>
           {data.count} images

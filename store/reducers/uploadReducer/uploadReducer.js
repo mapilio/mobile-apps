@@ -1,22 +1,25 @@
 import {
   ACTIVE_SEQUENCE,
-  PROGRESS, RANK,
+  PROGRESS,
+  RANK,
   SEQUENCE_IMAGES,
   SWITCH_SELECTOR,
-  UPLOAD_DATA
+  UPLOAD_DATA,
+  IS_UPLOADED,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   progress: 0,
   uploadData: [],
-  activeSequence: '',
+  activeSequence: "",
   sequenceImages: [],
-  switchSelector: 'image',
+  switchSelector: "image",
+  isUploaded: true,
   rank: {
     id: 0,
     total: 0,
-    active: 0
-  }
+    active: 0,
+  },
 };
 
 const uploadReducer = (state = INITIAL_STATE, action) => {
@@ -34,23 +37,28 @@ const uploadReducer = (state = INITIAL_STATE, action) => {
     case ACTIVE_SEQUENCE:
       return {
         ...state,
-        activeSequence: action.payload
-      }
+        activeSequence: action.payload,
+      };
     case SEQUENCE_IMAGES:
       return {
         ...state,
-        sequenceImages: action.payload
-      }
+        sequenceImages: action.payload,
+      };
     case SWITCH_SELECTOR:
       return {
         ...state,
-        switchSelector: action.payload
-      }
+        switchSelector: action.payload,
+      };
     case RANK:
       return {
         ...state,
-        rank: action.payload
-      }
+        rank: action.payload,
+      };
+    case IS_UPLOADED:
+      return {
+        ...state,
+        isUploaded: action.payload,
+      };
     default:
       return state;
   }
