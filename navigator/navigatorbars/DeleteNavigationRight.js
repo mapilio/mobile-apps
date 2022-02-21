@@ -25,11 +25,9 @@ const DeleteNavigationRight = (props) => {
                 text: "Yes",
                 onPress: () => {
                   try {
-                    console.log(33);
                     db.query(
                       `SELECT id, path FROM captures WHERE id=${rank.id}`,
                       (_, result) => {
-                        console.log("GIRDI");
                         FileSystem.deleteAsync(
                           Platform.OS === "ios"
                             ? result.rows._array[0].path.replace("file://", "")

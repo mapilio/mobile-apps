@@ -100,7 +100,6 @@ const UserSequence = ({ navigation, route }) => {
           JSON.parse(result.rows._array[0].location).coords.longitude,
           JSON.parse(result.rows._array[0].location).coords.latitude,
         ]);
-        console.log(center);
         let line = { type: "FeatureCollection" };
         let points = { type: "FeatureCollection" };
 

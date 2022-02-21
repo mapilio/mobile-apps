@@ -5,6 +5,7 @@ export const sequenceLeft = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginLeft: RFValue(16),
   },
   backTitle: {
@@ -35,7 +36,7 @@ export const sequenceTitle = StyleSheet.create({
     fontSize: RFValue(16),
     marginTop: Platform.OS === "ios" ? RFValue(-6) : 0,
   },
-})
+});
 
 export const deleteRight = StyleSheet.create({
   text: {
@@ -68,10 +69,10 @@ export const generalSettingsLeft = StyleSheet.create({
 
 export const sequenceDetailTitle = StyleSheet.create({
   rank: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: RFValue(16),
   },
   active: {
-    color: '#1AD971',
-  }
+    color: "#1AD971",
+  },
 });
