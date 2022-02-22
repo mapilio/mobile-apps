@@ -149,18 +149,17 @@ const Upload = ({ sequence_uuid, navigation }) => {
     let files = {
       options: {
         parameters: {
-          hash: {},
           organization_key: "",
           project_key: "",
           json_data: [],
           summary: {
             Information: {
               total_images: 0,
-              processed_images: 0,
-              failed_images: 0,
-              duplicated_images: 0,
+              count: 0,
+              anomaly_sequences: [],
+              sequence_uuid: '',
               size: {},
-              fails_sequence: [],
+              hash: '',
             },
           },
         },
@@ -183,9 +182,11 @@ const Upload = ({ sequence_uuid, navigation }) => {
             exif.FocalLength
           );
 
-          files.options.parameters.hash = {
-            [sequence]: file.hash,
-          };
+          if (file.project_key && file.organization_key) {
+            files.options.parameters.summary.Information.organization_key = file.organization_key;
+            files.options.parameters.summary.Information.project_key = file.project_key;
+          }
+
           files.options.parameters.json_data.push({
             Latitude: location.coords.latitude,
             Longitude: location.coords.longitude,
@@ -206,14 +207,11 @@ const Upload = ({ sequence_uuid, navigation }) => {
             ),
             anomaly: 0,
           });
-          files.options.parameters.summary.Information.total_images =
-            results.rows._array.length;
-          files.options.parameters.summary.Information.size = {
-            [sequence]: {
-              count: results.rows._array.length,
-              size: (filesize += fileInfo.size) / 1024 / 1024,
-            },
-          };
+          files.options.parameters.summary.Information.total_images = results.rows._array.length;
+          files.options.parameters.summary.Information.sequence_uuid = sequence;
+          files.options.parameters.summary.Information.count = results.rows._array.length;
+          files.options.parameters.summary.Information.size = (filesize += fileInfo.size) / 1024 / 1024;
+          files.options.parameters.summary.Information.hash = file.hash;
 
           if (i === results.rows._array.length - 1) {
             fetchHandler({
