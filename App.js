@@ -8,6 +8,13 @@ import { Provider } from "react-redux";
 import { permissionHandler, useFonts } from "./helper/helper";
 import { PersistGate } from "redux-persist/integration/react";
 import { NotifierWrapper } from "react-native-notifier";
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({ 
+  dsn: `${process.env.SENTRY_DSN}`,
+  tracesSampleRate: 1.0,
+});
+
 
 function App() {
   const [isReady, setIsReady] = useState(false);
