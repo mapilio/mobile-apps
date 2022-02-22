@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import db from "../../db";
-import { UPLOAD_DATA } from "../../store/actionsName";
+import {IS_UPLOADED, UPLOAD_DATA} from "../../store/actionsName";
 import { CloseIcon, UploadIcon } from "../../assets/svg/illustrations";
 import { CustomText } from "../../highordercomponents";
 import { userUploadModalStyles } from "../../styles/userUploadStyle";
@@ -279,8 +279,8 @@ const Upload = ({ sequence_uuid, navigation }) => {
                 successAlertStyles.alertImage,
                 3000
               );
-              if (deletedRows === getSequences().length) {
-                dispatch({ type: IS_UPLOADED, payload: true });
+              if (deletedRows === getSequences().length - 1) {
+                dispatch({type: IS_UPLOADED, payload: true});
                 setModalVisible(false);
                 setSentCount(0);
               }
@@ -306,10 +306,8 @@ const Upload = ({ sequence_uuid, navigation }) => {
   };
 
   useEffect(() => {
-    if (sentCount !== 0) {
-      if (summerCount === sentCount) {
-        setStatusUpload(true);
-      }
+    if (sentCount !== 0 && summerCount === sentCount) {
+      setStatusUpload(true);
     }
   }, [sentCount, summerCount]);
 
