@@ -28,18 +28,16 @@ const DeleteNavigationRight = (props) => {
                     db.query(
                       `SELECT id, path FROM captures WHERE id=${rank.id}`,
                       (_, result) => {
-                        FileSystem.deleteAsync(
-                          Platform.OS === "ios"
-                            ? result.rows._array[0].path.replace("file://", "")
-                            : result.rows._array[0].path
-                        ).then(() => {
-                          db.query(
-                            `DELETE FROM captures where id=${rank.id}`,
-                            () => {
-                              props.navigation.navigate(Routes.sequences);
-                            }
-                          );
-                        });
+                        FileSystem.deleteAsync(result.rows._array[0].path).then(
+                          () => {
+                            db.query(
+                              `DELETE FROM captures where id=${rank.id}`,
+                              () => {
+                                props.navigation.navigate(Routes.sequences);
+                              }
+                            );
+                          }
+                        );
                       }
                     );
                   } catch (e) {
