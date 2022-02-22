@@ -3,15 +3,18 @@ import { View, TouchableOpacity, Alert, Platform } from "react-native";
 import { Trash } from "../../assets/svg/illustrations";
 import { deleteRight } from "../../styles/navigatorBarStyles";
 import { CustomText } from "../../highordercomponents";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import db from "../../db";
 import * as FileSystem from "expo-file-system";
 import { Routes } from "../Routes";
 import { toastGenerator } from "../../helper/helper";
 import { errorAlertStyles } from "../../styles/alertStyles";
+import {UPLOAD_DATA} from "../../store/actionsName";
 
 const DeleteNavigationRight = (props) => {
   const { rank } = useSelector((state) => state.uploadReducer);
+  const {activeSequence} = useSelector((state) => state.uploadReducer)
+  const dispatch = useDispatch();
 
   return (
     <View>
@@ -25,11 +28,9 @@ const DeleteNavigationRight = (props) => {
                 text: "Yes",
                 onPress: () => {
                   try {
-                    console.log(33);
                     db.query(
                       `SELECT id, path FROM captures WHERE id=${rank.id}`,
                       (_, result) => {
-                        console.log("GIRDI");
                         FileSystem.deleteAsync(
                           Platform.OS === "ios"
                             ? result.rows._array[0].path.replace("file://", "")
@@ -38,7 +39,14 @@ const DeleteNavigationRight = (props) => {
                           db.query(
                             `DELETE FROM captures where id=${rank.id}`,
                             () => {
-                              props.navigation.navigate(Routes.sequences);
+                              db.query(
+                                "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+                                (_, result) => {
+                                  dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+                                  const isSequence = result.rows._array.map((item) => item.sequence_uuid === activeSequence);
+                                  isSequence.length ? props.navigation.navigate(Routes.sequences) : props.navigation.navigate(Routes.upload);
+                                }
+                              );
                             }
                           );
                         });
