@@ -17,14 +17,14 @@ import { Routes } from "../navigator/Routes";
 import { ActivityIndicator } from "react-native-paper";
 
 const UserProfile = ({ navigation }) => {
-  const [listData, setListData] = useState([]);
+  const [listData, setListData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [paginationLoading, setPaginationLoading] = useState(false);
   const { userInformation, isUploaded } = useSelector(
     (state) => state.getTokenReducer
   );
   const [paginationURL, setPaginationURL] = useState(
-    `/api/user-uploads?options[parameters][user_id]=${userInformation.id}&options[limit]=10&page=1`
+    `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=1`
   );
 
   useEffect(() => {
@@ -38,11 +38,21 @@ const UserProfile = ({ navigation }) => {
       url: `${SERVICE_URL}${paginationURL}`,
     })
       .then((res) => {
-        const newListData = [...listData, ...res.data];
-        setListData(res.data !== null ? newListData : []);
-        setLoading(false);
-        setPaginationLoading(false);
-        setPaginationURL(res.pagination.next_page_url);
+        if (res.data !== null) {
+          let newListData;
+          if (listData !== null) {
+            newListData = [...listData, ...res.data];
+          } else {
+            newListData = res.data;
+          }
+          setListData(newListData);
+          setLoading(false);
+          setPaginationLoading(false);
+          setPaginationURL(res.pagination.next_page_url);
+        } else {
+          setListData(null);
+          setLoading(false);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -92,12 +102,8 @@ const UserProfile = ({ navigation }) => {
             </SkeletonPlaceholder>
           ))
         ) : listData ? (
-          listData.map((data, index) => (
-            <ProfileFeed
-              key={`${data.id}${Math.random()}`}
-              data={data}
-              navigation={navigation}
-            />
+          listData.map((data) => (
+            <ProfileFeed key={data.id} data={data} navigation={navigation} />
           ))
         ) : (
           <View

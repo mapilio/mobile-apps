@@ -15,7 +15,6 @@ const ProfileFeed = ({ navigation, data }) => {
       activeOpacity={0.7}
       style={userFeedStyles.feedContainer}
       onPress={() => {
-        console.log(data.sequence_uuid);
         navigation.navigate(Routes.profileSequence, {
           id: data.sequence_uuid,
           user_id: userInformation.id,

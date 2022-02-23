@@ -42,8 +42,7 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
       !GPSAccuracy ||
       batteryError ||
       highSpeed ||
-      mocked ||
-      accuracy.isTrue
+      mocked
     ) {
       setDisabled(true);
     } else {
@@ -56,7 +55,6 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
     highSpeed,
     mocked,
     batteryLevel,
-    accuracy,
   ]);
 
   return (

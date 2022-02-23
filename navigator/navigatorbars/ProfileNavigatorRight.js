@@ -10,8 +10,8 @@ const ProfileNavigatorRight = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const exitHandler = () => {
-    dispatch({ type: EXIT_USER });
     navigation.navigate(Routes.map);
+    dispatch({ type: EXIT_USER });
   };
 
   return (
