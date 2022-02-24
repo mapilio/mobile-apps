@@ -14,14 +14,22 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
     return x >= min && x <= max;
   };
 
-  useEffect(() => {
-    if (Boolean(accuracy) !== Boolean(rotateAlert)) {
-      dispatch({
-        type: UPDATE_ACCURACY,
-        payload: { isTrue: Boolean(rotateAlert), degree: degree },
-      });
-    }
-  }, [rotateAlert]);
+  // useEffect(() => {
+  //   if (Boolean(accuracy) !== Boolean(rotateAlert)) {
+  //     console.log(Boolean(rotateAlert), "BOTTTOm");
+  //     dispatch({
+  //       type: UPDATE_ACCURACY,
+  //       payload: { isTrue: Boolean(rotateAlert), degree: degree },
+  //     });
+  //   } else {
+  //     if (!Boolean(rotateAlert)) {
+  //       dispatch({
+  //         type: UPDATE_ACCURACY,
+  //         payload: { isTrue: Boolean(rotateAlert), degree: degree },
+  //       });
+  //     }
+  //   }
+  // }, [rotateAlert]);
 
   useEffect(() => {
     if (Platform.OS === "android") {

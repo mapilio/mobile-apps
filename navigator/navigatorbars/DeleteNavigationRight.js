@@ -3,17 +3,17 @@ import { View, TouchableOpacity, Alert, Platform } from "react-native";
 import { Trash } from "../../assets/svg/illustrations";
 import { deleteRight } from "../../styles/navigatorBarStyles";
 import { CustomText } from "../../highordercomponents";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import db from "../../db";
 import * as FileSystem from "expo-file-system";
 import { Routes } from "../Routes";
 import { toastGenerator } from "../../helper/helper";
 import { errorAlertStyles } from "../../styles/alertStyles";
-import {UPLOAD_DATA} from "../../store/actionsName";
+import { UPLOAD_DATA } from "../../store/actionsName";
 
 const DeleteNavigationRight = (props) => {
   const { rank } = useSelector((state) => state.uploadReducer);
-  const {activeSequence} = useSelector((state) => state.uploadReducer)
+  const { activeSequence } = useSelector((state) => state.uploadReducer);
   const dispatch = useDispatch();
 
   return (
@@ -31,25 +31,35 @@ const DeleteNavigationRight = (props) => {
                     db.query(
                       `SELECT id, path FROM captures WHERE id=${rank.id}`,
                       (_, result) => {
-                        FileSystem.deleteAsync(
-                          Platform.OS === "ios"
-                            ? result.rows._array[0].path.replace("file://", "")
-                            : result.rows._array[0].path
-                        ).then(() => {
-                          db.query(
-                            `DELETE FROM captures where id=${rank.id}`,
-                            () => {
-                              db.query(
-                                "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-                                (_, result) => {
-                                  dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-                                  const isSequence = result.rows._array.map((item) => item.sequence_uuid === activeSequence);
-                                  isSequence.length ? props.navigation.navigate(Routes.sequences) : props.navigation.navigate(Routes.upload);
-                                }
-                              );
-                            }
-                          );
-                        });
+                        FileSystem.deleteAsync(result.rows._array[0].path).then(
+                          () => {
+                            db.query(
+                              `DELETE FROM captures where id=${rank.id}`,
+                              () => {
+                                db.query(
+                                  "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+                                  (_, result) => {
+                                    dispatch({
+                                      type: UPLOAD_DATA,
+                                      payload: result.rows._array,
+                                    });
+                                    const isSequence = result.rows._array.map(
+                                      (item) =>
+                                        item.sequence_uuid === activeSequence
+                                    );
+                                    isSequence.length
+                                      ? props.navigation.navigate(
+                                          Routes.sequences
+                                        )
+                                      : props.navigation.navigate(
+                                          Routes.upload
+                                        );
+                                  }
+                                );
+                              }
+                            );
+                          }
+                        );
                       }
                     );
                   } catch (e) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { Animated, ScrollView, View } from "react-native";
 import ListProfileUploads from "../components/ListProfileUploads";
 import { useDispatch } from "react-redux";
 import {
@@ -16,6 +16,7 @@ import { SERVICE_URL, IMAGE_API } from "@env";
 import { fetchHandler } from "../helper/helper";
 import { styles } from "../styles/circleStyles";
 import { Routes } from "../navigator/Routes";
+import { ActivityIndicator } from "react-native-paper";
 
 const UserSequence = ({ navigation, route }) => {
   const [active, setActive] = useState("image");
@@ -24,6 +25,10 @@ const UserSequence = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
   const [coordinates, setCoordinates] = useState({});
   const [imageList, setImagesList] = useState([]);
+  const [paginationLoading, setPaginationLoading] = useState(false);
+  const [paginationURL, setPaginationURL] = useState(
+    `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+  );
   const [center, setCenter] = useState([]);
   const icons = {
     image: require("../assets/images/imgIcon.png"),
@@ -46,28 +51,30 @@ const UserSequence = ({ navigation, route }) => {
       });
     });
     return unsubscribe;
-  }, []);
+  }, [navigation, route.params.id]);
 
   useEffect(() => {
-    let unsubscribe = navigation.addListener("focus", () => {
-      dispatch({
-        type: UPDATE_CURRENT_FEED_SEQUENCE,
-        payload: {
-          sequenceUUID: route.params.id,
-          userID: route.params.user_id,
-        },
-      });
-      fetchHandler({
-        url: `${SERVICE_URL}/api/user-uploads-detail?user_id=${route.params.user_id}&sequence_uuid=${route.params.id}`,
+    setPaginationURL(
+      `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+    );
+    fetchNext();
+  }, [route.params.id]);
+
+  const fetchNext = () => {
+    fetchHandler({
+      url: `${SERVICE_URL}${paginationURL}`,
+    })
+      .then((res) => {
+        setPaginationLoading(false);
+        if (res.pagination.next_page_url) {
+          setPaginationURL(res.pagination.next_page_url);
+        }
+        const newImageList = [...imageList, ...res.data];
+        setImagesList(newImageList);
+        setLoading(false);
       })
-        .then((res) => {
-          setImagesList(res.data);
-          setLoading(false);
-        })
-        .catch((err) => console.log(err));
-    });
-    return unsubscribe;
-  }, [navigation, route.params.id]);
+      .catch((err) => console.log(err));
+  };
 
   const getMap = () => {
     if (imageList.length) {
@@ -114,9 +121,33 @@ const UserSequence = ({ navigation, route }) => {
     getMap();
   }, [imageList]);
 
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView
+        onScroll={({ nativeEvent }) => {
+          if (
+            isCloseToBottom(nativeEvent) &&
+            paginationURL &&
+            active === "image"
+          ) {
+            setPaginationLoading(true);
+            fetchNext();
+          }
+        }}
+        scrollEventThrottle={400}
+      >
         <View style={userSequenceStyles.tabBar}>
           <SwitchSelector
             initial={0}
@@ -139,14 +170,17 @@ const UserSequence = ({ navigation, route }) => {
           />
         </View>
         {active === "image" ? (
-          <ListProfileUploads
-            navigation={navigation}
-            sequence_uuid={route.params.id}
-            user_id={route.params.user_id}
-            imageList={imageList}
-            setImagesList={setImagesList}
-            loading={loading}
-          />
+          <>
+            <ListProfileUploads
+              navigation={navigation}
+              sequence_uuid={route.params.id}
+              user_id={route.params.user_id}
+              imageList={imageList}
+              setImagesList={setImagesList}
+              loading={loading}
+              paginationLoading={paginationLoading}
+            />
+          </>
         ) : (
           <MapView
             mapStyle={appMapStyle.map}

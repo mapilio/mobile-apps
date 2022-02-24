@@ -50,13 +50,7 @@ const AutoActionButton = ({
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-    if (
-      !GPSAccuracy ||
-      batteryError ||
-      highSpeed ||
-      mocked ||
-      accuracy.isTrue
-    ) {
+    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
       return;
     } else {
       var location = null;
@@ -150,6 +144,7 @@ const AutoActionButton = ({
     location.coords.heading = newHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
+    if (!autoCaptureStart) return;
     Database.insertToDB({
       JSONExif,
       JSONLocation,

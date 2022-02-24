@@ -147,7 +147,7 @@ const CameraSidebar = ({
         }
       );
       exitHandler();
-    } else if ((photoAmount >= 1 && photoAmount <= 4) || photoAmount === 0) {
+    } else {
       dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
       database.deleteRow(uuidV4);
     }

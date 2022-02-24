@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { Animated, LogBox, ScrollView, View } from "react-native";
 import { ProfileFeed, UserInfos } from "../components";
 import { globalStyles } from "../styles/globalStyles";
 import { fetchHandler, toastGenerator } from "../helper/helper";
@@ -14,59 +14,81 @@ import {
 import { SERVICE_URL } from "@env";
 import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
 import { Routes } from "../navigator/Routes";
-import { warningAlertStyles } from "../styles/alertStyles";
+import { ActivityIndicator } from "react-native-paper";
 
 const UserProfile = ({ navigation }) => {
-  const [listData, setListData] = useState([]);
+  const [listData, setListData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [paginationLoading, setPaginationLoading] = useState(false);
   const { userInformation, isUploaded } = useSelector(
     (state) => state.getTokenReducer
+  );
+  const [paginationURL, setPaginationURL] = useState(
+    `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=1`
   );
 
   useEffect(() => {
     if (!isUploaded) {
-      fetchHandler({
-        url: `${SERVICE_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`,
-      })
-        .then((res) => {
-          setListData(res.data !== null ? res.data : []);
-          setLoading(false);
-          setListData(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      fetchNext();
     }
   }, []);
 
+  const fetchNext = () => {
+    fetchHandler({
+      url: `${SERVICE_URL}${paginationURL}`,
+    })
+      .then((res) => {
+        if (res.data !== null) {
+          let newListData;
+          if (listData !== null) {
+            newListData = [...listData, ...res.data];
+          } else {
+            newListData = res.data;
+          }
+          setListData(newListData);
+          setLoading(false);
+          setPaginationLoading(false);
+          setPaginationURL(res.pagination.next_page_url);
+        } else {
+          setListData(null);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     if (isUploaded) {
-      fetchHandler({
-        url: `${SERVICE_URL}/api/user-uploads?options[parameters][user_id]=${userInformation.id}`,
-      })
-        .then((res) => {
-          dispatch({ type: IS_UPLOADED, payload: false });
-          setListData(res.data !== null ? res.data : []);
-          setLoading(false);
-          setListData(res.data);
-        })
-        .catch((err) => {
-          toastGenerator(
-            "There was a problem fetching your jobs. Please try again.",
-            require("../assets/images/Warning.png"),
-            warningAlertStyles.alertContainer,
-            warningAlertStyles.alertTitle,
-            warningAlertStyles.alertImage,
-            3000
-          );
-        });
+      fetchNext();
     }
   }, [isUploaded]);
+
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
 
   return (
     <View style={globalStyles.container}>
       <UserInfos />
-      <ScrollView>
+      <ScrollView
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent) && paginationURL) {
+            setPaginationLoading(true);
+            fetchNext();
+          }
+        }}
+        scrollEventThrottle={400}
+      >
         {loading ? (
           [0, 1, 2, 3].map((i) => (
             <SkeletonPlaceholder key={i}>
@@ -80,8 +102,8 @@ const UserProfile = ({ navigation }) => {
             </SkeletonPlaceholder>
           ))
         ) : listData ? (
-          listData.map((data, index) => (
-            <ProfileFeed key={index} data={data} navigation={navigation} />
+          listData.map((data) => (
+            <ProfileFeed key={data.id} data={data} navigation={navigation} />
           ))
         ) : (
           <View
@@ -121,6 +143,16 @@ const UserProfile = ({ navigation }) => {
               Start Capture
             </CustomText>
           </View>
+        )}
+        {paginationLoading && (
+          <ActivityIndicator
+            style={{
+              alignSelf: "center",
+              textAlign: "center",
+              marginVertical: RFValue(10),
+            }}
+            color={"#213348"}
+          />
         )}
       </ScrollView>
     </View>

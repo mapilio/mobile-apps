@@ -7,6 +7,7 @@ import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { userSequenceStyles } from "../styles/userSequenceStyle";
 import { IMAGE_API } from "@env";
+import { ActivityIndicator } from "react-native-paper";
 
 const ListProfileUploads = ({
   navigation,
@@ -15,6 +16,7 @@ const ListProfileUploads = ({
   imageList,
   setImagesList,
   loading,
+  paginationLoading,
 }) => {
   useEffect(() => {
     let unsubscribe = navigation.addListener("blur", () => {
@@ -35,8 +37,11 @@ const ListProfileUploads = ({
       </View>
       <View
         style={[
-          userSequenceStyles.sequenceWrapper,
-          globalStyles.screenTextMargin,
+          {
+            ...userSequenceStyles.sequenceWrapper,
+            ...globalStyles.screenTextMargin,
+            justifyContent: "center",
+          },
         ]}
       >
         {loading
@@ -75,6 +80,17 @@ const ListProfileUploads = ({
                 coordinate={[image.longitude, image.latitude]}
               />
             ))}
+        {paginationLoading && (
+          <ActivityIndicator
+            style={{
+              alignSelf: "center",
+              textAlign: "center",
+              marginHorizontal: RFValue(50),
+              minWidth: "100%",
+            }}
+            color={"#213348"}
+          />
+        )}
       </View>
     </View>
   );
