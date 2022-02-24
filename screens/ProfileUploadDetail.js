@@ -9,6 +9,7 @@ import { appMapStyle } from "../styles/appMapStyle";
 import { MapView } from "../highordercomponents";
 import { IMAGE_API } from "@env";
 import { styles } from "../styles/circleStyles";
+import {Heading} from "../components/Map";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
   const screenHeight = Dimensions.get("window").height - RFValue(110);
@@ -139,33 +140,12 @@ const ProfileUploadDetail = ({ navigation, route }) => {
             />
           </MapboxGL.ShapeSource>
         )}
-        <MapboxGL.PointAnnotation
-          key="pointAnnotation2"
-          id="pointAnnotation2"
-          coordinate={
-            coord
-              ? [Number(coord.longitude), Number(coord.latitude)]
-              : route.params.coordinate
-          }
-          style={{ zIndex: 100000000 }}
-        >
-          <Image
-            source={require("../assets/images/heading.png")}
-            resizeMode={"cover"}
-            style={{
-              zIndex: 100000000,
-              transform: [
-                {
-                  rotate: coord
-                    ? `${coord.heading}deg`
-                    : `${route.params.heading}deg`,
-                },
-              ],
-              width: coord ? width : RFValue(32),
-              height: coord ? RFValue(35) : RFValue(32),
-            }}
-          />
-        </MapboxGL.PointAnnotation>
+
+        <Heading
+          heading={coord ? coord.heading : `${route.params.heading}deg`}
+          coordinates={coord ? [Number(coord.longitude), Number(coord.latitude)] : route.params.coordinate}
+          markerPath={require("../assets/images/heading.png")}
+        />
         {!!Object.keys(coordinates).length && (
           <MapboxGL.ShapeSource id={"uploadedShape"} shape={coordinates}>
             <MapboxGL.LineLayer
