@@ -144,6 +144,7 @@ const AutoActionButton = ({
     location.coords.heading = newHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
+    if (!autoCaptureStart) return;
     Database.insertToDB({
       JSONExif,
       JSONLocation,

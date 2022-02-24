@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import AppLoading from "expo-app-loading";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./navigator/MainNavigator";
-import { AppState, StatusBar, Dimensions } from "react-native";
+import { AppState, StatusBar, Dimensions, Platform } from "react-native";
 import { persistor, store } from "./store/store";
 import { Provider } from "react-redux";
 import { permissionHandler, useFonts } from "./helper/helper";
 import { PersistGate } from "redux-persist/integration/react";
 import { NotifierWrapper } from "react-native-notifier";
-import * as Sentry from '@sentry/react-native';
+import * as Sentry from "@sentry/react-native";
 
-Sentry.init({ 
-  dsn: `${process.env.SENTRY_DSN}`,
+Sentry.init({
+  dsn:
+    Platform.OS === "ios"
+      ? `${process.env.SENTRY_DSN_IOS}`
+      : `${process.env.SENTRY_DSN}`,
   tracesSampleRate: 1.0,
 });
-
 
 function App() {
   const [isReady, setIsReady] = useState(false);
@@ -24,7 +26,6 @@ function App() {
   };
 
   useEffect(() => {
-
     if (isReady) {
       StatusBar.setBarStyle("light-content", true);
     }
