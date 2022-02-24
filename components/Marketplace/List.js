@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
   Platform,
   ScrollView,
@@ -17,6 +17,12 @@ import { RFValue } from "react-native-responsive-fontsize";
 const List = ({ projects, navigation, setOnScroll }) => {
   const touchable = useRef();
   const [showPopover, setShowPopover] = useState(false);
+  const [projectList, setProjectList] = useState({});
+
+  useEffect(() => {
+    setProjectList(projects)
+  }, [projects]);
+
 
   return (
     <View style={marketplaceStyles.container}>
@@ -63,8 +69,8 @@ const List = ({ projects, navigation, setOnScroll }) => {
         onTouchStart={() => setOnScroll(true)}
         style={{ marginBottom: RFValue(190) }}
       >
-        {!!Object.keys(projects).length &&
-          projects.features.map((value, index) => {
+        {!!Object.keys(projectList).length > 0 &&
+          projectList.features.map((value, index) => {
             return (
               <View key={index}>
                 <ListItem data={value.properties} navigation={navigation} />
