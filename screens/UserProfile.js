@@ -88,7 +88,7 @@ const UserProfile = ({ navigation }) => {
   }, []);
 
   const fetchNext = (foreignUrl) => {
-    if (foreignUrl && items.length >= 2) {
+    if (foreignUrl &&  items.length >= 2) {
       setLoading(true);
     }
     fetchHandler({
@@ -139,17 +139,17 @@ const UserProfile = ({ navigation }) => {
   return (
     <View style={globalStyles.container}>
       <UserInfos />
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: RFValue(15),
-          marginTop: RFValue(-20),
-          zIndex: 9999999,
-        }}
-      >
-        {items.length >= 2 &&
-          (Platform.OS === "ios" ? (
+      {items.length >= 2 &&
+        (Platform.OS === "ios" ? (
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: RFValue(15),
+              marginTop: RFValue(-20),
+              zIndex: 9999999,
+            }}
+          >
             <DropDownPicker
               open={open}
               value={value}
@@ -199,7 +199,16 @@ const UserProfile = ({ navigation }) => {
               }}
               showArrowIcon={false}
             />
-          ) : (
+          </View>
+        ) : (
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: RFValue(15),
+              marginTop: RFValue(-20),
+            }}
+          >
             <DropDownPicker
               open={open}
               value={value}
@@ -232,8 +241,8 @@ const UserProfile = ({ navigation }) => {
               }}
               showArrowIcon={false}
             />
-          ))}
-      </View>
+          </View>
+        ))}
       <ScrollView
         onScroll={({ nativeEvent }) => {
           if (isCloseToBottom(nativeEvent) && paginationURL) {

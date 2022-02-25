@@ -84,7 +84,6 @@ const GoogleLogin = ({ navigation }) => {
           );
           navigation.navigate(Routes.tabHome);
         } else {
-          setLoading(false);
           toastGenerator(
             "There was a problem registering. Please try a different method.",
             require("../../assets/images/Warning.png"),
@@ -93,6 +92,7 @@ const GoogleLogin = ({ navigation }) => {
             warningAlertStyles.alertImage,
             3000
           );
+          setLoading(false);
         }
       })
       .catch((err) => console.error(err));

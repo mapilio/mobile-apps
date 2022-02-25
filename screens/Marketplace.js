@@ -65,12 +65,12 @@ const Marketplace = ({ navigation }) => {
       </MapView>
 
       <SlidingUpPanel
-        draggableRange={{
-          top: height - headerHeight * 2,
-          bottom: RFValue(60),
-        }}
         allowDragging={!onScroll}
         showBackdrop={false}
+        draggableRange={{
+          top: height - headerHeight *  2,
+          bottom: RFValue(60),
+        }}
         containerStyle={{
           marginBottom:
             Platform.OS === "android"

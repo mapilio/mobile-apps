@@ -40,6 +40,12 @@ const UserSequence = ({ navigation, route }) => {
   ];
 
   useEffect(() => {
+    navigation.addListener("blur", () => {
+      setImagesList([]);
+    });
+  }, [navigation]);
+
+  useEffect(() => {
     let subscribe = navigation.addListener("focus", () => {
       if (route.params.isIndividual) {
         setPaginationURL(

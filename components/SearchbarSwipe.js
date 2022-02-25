@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     padding: RFValue(10),
     paddingLeft: RFValue(42),
-    borderRadius: RFValue(10),
+    borderRadius: RFValue(30),
     backgroundColor: convertHexToRGBA("#7E86B0", 90),
     color: "#FFFFFF",
   },

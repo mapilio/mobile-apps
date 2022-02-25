@@ -56,7 +56,6 @@ const AppMap = ({ navigation }) => {
   const [userCoordinate, setUserCoordinate] = useState([10, 10]);
   const [visible, setVisible] = useState(true);
   const [hide, setHide] = useState(false);
-  const [value, setValue] = useState("");
   const headerHeight = useHeaderHeight();
   let cameraRef = useRef();
   let panelRef = useRef();
@@ -103,12 +102,14 @@ const AppMap = ({ navigation }) => {
     setShowPano(false);
   };
 
+
   useEffect(() => {
     if (openSearchbar) {
-      panelRef?.current?.show(220);
+      panelRef?.current?.show(225);
     }
   }, [openSearchbar]);
 
+  
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
     setClickedCoord([e.coordinates.longitude, e.coordinates.latitude]);
@@ -148,19 +149,7 @@ const AppMap = ({ navigation }) => {
             onPress={() => {
               setOpenSearchbar((state) => !state);
             }}
-            style={{
-              backgroundColor: "rgba(50, 66, 91, 0.9)",
-              padding: RFValue(8),
-              width: RFValue(35.5),
-              height: RFValue(35.5),
-              position: "absolute",
-              zIndex: 5,
-              top: 10.25,
-              right: 16.25,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: RFPercentage(50),
-            }}
+            style={appMapStyle.searchIcon}
           >
             <SearchIcon width={19.55} height={19.55} />
           </Pressable>
@@ -248,10 +237,10 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.Camera
             ref={cameraRef}
             centerCoordinate={flyLocation}
-            zoomLevel={13}
-            maxZoomLevel={20}
             animationMode={"flyTo"}
             animationDuration={1000}
+            zoomLevel={13}
+            maxZoomLevel={20}
           />
         </MapView>
       </View>
