@@ -89,7 +89,8 @@ const permissionHandler = async (
         await ExpoCamera.requestCameraPermissionsAsync();
       alertHandler(cameraStatus, cancelHandler);
     }
-    if (locationStatus !== "granted") {
+
+    if (locationStatus !== "granted" && from === "camera") {
       const { status: locationStatus } =
         await Location.requestForegroundPermissionsAsync();
       alertHandler(locationStatus, cancelHandler);
@@ -100,34 +101,34 @@ const permissionHandler = async (
 };
 
 const alertHandler = (status, cancelHandler) => {
-  // if (!isOpenOnce) {
-  //   isOpenOnce = true;
-  //   if (status !== "granted") {
-  //     Alert.alert(
-  //       "Your some permissions is turned off",
-  //       "If you do not allow permissions, you will not access to capture.",
-  //       [
-  //         {
-  //           text: "Continue",
-  //           style: "cancel",
-  //           onPress: () => {
-  //             cancelHandler();
-  //             isOpenOnce = false;
-  //           },
-  //         },
-  //         {
-  //           text: "Go to settings",
-  //           onPress: () => {
-  //             Platform.OS === "ios"
-  //               ? Linking.openURL("app-settings:")
-  //               : Linking.openSettings();
-  //             isOpenOnce = false;
-  //           },
-  //         },
-  //       ]
-  //     );
-  //   }
-  // }
+  if (!isOpenOnce) {
+    isOpenOnce = true;
+    if (status !== "granted") {
+      Alert.alert(
+        "No access to camera",
+        "Mapilio needs access to the camera and location before you can capture photos. Go to your settings to enable.",
+        [
+          {
+            text: "Go to settings",
+            style: "cancel",
+            onPress: () => {
+              isOpenOnce = false;
+              Platform.OS === "ios"
+                ? Linking.openURL("app-settings:")
+                : Linking.openSettings();
+            },
+          },
+          {
+            text: "Contınue",
+            onPress: () => {
+              isOpenOnce = false;
+              cancelHandler();
+            },
+          },
+        ]
+      );
+    }
+  }
 };
 
 const dateConvert = (datetime, format = "MMM D, YYYY") => {

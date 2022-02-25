@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Animated, ScrollView, View } from "react-native";
 import ListProfileUploads from "../components/ListProfileUploads";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   UPDATE_CURRENT_FEED_SEQUENCE,
   UPDATE_CURRENT_SEQUENCE,
@@ -16,11 +16,9 @@ import { SERVICE_URL, IMAGE_API } from "@env";
 import { fetchHandler } from "../helper/helper";
 import { styles } from "../styles/circleStyles";
 import { Routes } from "../navigator/Routes";
-import { ActivityIndicator } from "react-native-paper";
 
 const UserSequence = ({ navigation, route }) => {
   const [active, setActive] = useState("image");
-  const dispatch = useDispatch();
   const [points, setPoints] = useState({});
   const [loading, setLoading] = useState(true);
   const [coordinates, setCoordinates] = useState({});
@@ -29,6 +27,7 @@ const UserSequence = ({ navigation, route }) => {
   const [paginationURL, setPaginationURL] = useState(
     `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
   );
+
   const [center, setCenter] = useState([]);
   const icons = {
     image: require("../assets/images/imgIcon.png"),
@@ -41,28 +40,31 @@ const UserSequence = ({ navigation, route }) => {
   ];
 
   useEffect(() => {
-    let unsubscribe = navigation.addListener("focus", () => {
-      dispatch({
-        type: UPDATE_CURRENT_SEQUENCE,
-        payload: {
-          sequence_uuid: route.params.id,
-          user_id: route.params.user_id,
-        },
-      });
+    let subscribe = navigation.addListener("focus", () => {
+      if (route.params.isIndividual) {
+        setPaginationURL(
+          `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+        );
+        fetchNext(
+          `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+        );
+      } else {
+        setPaginationURL(
+          `/api/function/organizations/organization/feedDetail?options[parameters][organization_key]=${route.params.org_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+        );
+        fetchNext(
+          `/api/function/organizations/organization/feedDetail?options[parameters][organization_key]=${route.params.org_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+        );
+      }
     });
-    return unsubscribe;
+    return subscribe;
   }, [navigation, route.params.id]);
 
-  useEffect(() => {
-    setPaginationURL(
-      `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
-    );
-    fetchNext();
-  }, [route.params.id]);
-
-  const fetchNext = () => {
+  const fetchNext = (foreignURL) => {
     fetchHandler({
-      url: `${SERVICE_URL}${paginationURL}`,
+      url: foreignURL
+        ? `${SERVICE_URL}${foreignURL}`
+        : `${SERVICE_URL}${paginationURL}`,
     })
       .then((res) => {
         setPaginationLoading(false);
@@ -204,6 +206,8 @@ const UserSequence = ({ navigation, route }) => {
                     points: imageList,
                     heading: point.features[0].properties.item.heading,
                     base: true,
+                    sequence_uuid: route.params.sequence_uuid,
+                    user_id: route.params.user_id,
                   });
                 }}
               >

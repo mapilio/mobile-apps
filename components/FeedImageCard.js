@@ -20,8 +20,8 @@ const FeedImageCard = (props) => {
       onPress={() => {
         props.navigation.navigate(Routes.feedDetail, {
           id: props.id,
-          sequenceUUID: props.sequenceUUID,
-          userID: props.userID,
+          sequence_uuid: props.sequenceUUID,
+          user_id: props.userID,
           path: `${props.path}/1080`,
           points: props.imageList,
           heading: props.heading,

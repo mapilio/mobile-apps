@@ -9,8 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const SequenceNavigatorLeft = (props) => {
   const route = useRoute();
-  const { activeSequence } = useSelector((state) => state.uploadReducer);
-  const { currentFeedSequence } = useSelector((state) => state.generalReducer);
+  const { userInformation } = useSelector((state) => state.getTokenReducer);
 
   return (
     <TouchableOpacity
@@ -22,8 +21,8 @@ const SequenceNavigatorLeft = (props) => {
           props.navigation.navigate(props.backRoute);
         } else {
           props.navigation.navigate(Routes.profileSequence, {
-            id: currentFeedSequence.sequenceUUID,
-            user_id: currentFeedSequence.userID,
+            id: route.params.points[0].sequence_uuid,
+            user_id: userInformation.user_id,
           });
         }
       }}

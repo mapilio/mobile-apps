@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Dimensions, Platform, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  AppState,
+  Dimensions,
+  Platform,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { convertHexToRGBA } from "../helper/helper";
+import { convertHexToRGBA, toastGenerator } from "../helper/helper";
 import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
 import * as Location from "expo-location";
 import Database from "../db";
@@ -11,7 +17,10 @@ import {
   UPDATE_AUTOCAPTURE_START,
   UPDATE_IMAGE_SIZE,
   UPDATE_PHOTO_AMOUNT,
+  UPLOAD_DATA,
 } from "../store/actionsName";
+import { infoAlertStyles } from "../styles/alertStyles";
+import database from "../db";
 
 const AutoActionButton = ({
   disabled,
@@ -23,6 +32,7 @@ const AutoActionButton = ({
   batteryLevel,
   mocked,
   highSpeed,
+  exitCapture,
 }) => {
   const { cameraStatus, camera, photoAmount, isCharge, accuracy } = useSelector(
     (status) => status.cameraReducer
@@ -31,6 +41,10 @@ const AutoActionButton = ({
   const { selectedProject, distanceBetween, autoCaptureStart } = useSelector(
     (status) => status.settingsReducer
   );
+  let subscription = null;
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const [isNowCapture, setNowCapture] = useState(false);
   let photo = photoAmount;
   const dispatch = useDispatch();
 
@@ -85,8 +99,82 @@ const AutoActionButton = ({
     accuracy,
   ]);
 
+  // useEffect(() => {
+  //   let subscription = AppState.addEventListener("change", dene);
+  //   return () => subscription && subscription.remove();
+  // }, []);
+
+  // let dene = (state) => {
+  //   toastGenerator(
+  //     "Your new sequence has been started.",
+  //     require("../assets/images/Info.png"),
+  //     infoAlertStyles.alertContainer,
+  //     infoAlertStyles.alertTitle,
+  //     infoAlertStyles.alertImage
+  //   );
+  //   if (autoCaptureStart && state === "background") {
+  //     exitCapture();
+  //   } else {
+  //     setNowCapture(false);
+  //   }
+  // };
+
+  useEffect(() => {
+    let setTimeout = null;
+    AppState.addEventListener("change", deneme);
+
+    return () => {
+      AppState.removeEventListener("change", deneme);
+      if (setTimeout) {
+        clearTimeout(setTimeout);
+      }
+    };
+  }, []);
+
+  let deneme = (nextAppState) => {
+    let timeout = null;
+    if (autoCaptureStart) {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === "active"
+      ) {
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        setNowCapture(false);
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        toastGenerator(
+          "Your new sequence has been started.",
+          require("../assets/images/Info.png"),
+          infoAlertStyles.alertContainer,
+          infoAlertStyles.alertTitle,
+          infoAlertStyles.alertImage
+        );
+        timeout = setTimeout(() => {
+          if (photoAmount >= 5) {
+            Database.query(
+              "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+              (_, result) => {
+                dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+              }
+            );
+          } else {
+            Database.deleteRow(uuid);
+          }
+          dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
+        }, 1000);
+      } else {
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+      }
+    }
+  };
+
   useEffect(() => {
     let unsubscribe = navigation.addListener("blur", (e) => {
+      if (subscription) {
+        subscription.remove();
+      }
       dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
     });
     return unsubscribe;
@@ -106,6 +194,7 @@ const AutoActionButton = ({
     if (cameraStatus !== "READY") return;
     const options = { quality: 0.6, base64: false, exif: true };
     if (!autoCaptureStart) return;
+    setNowCapture(true);
     const image = await camera.takePictureAsync(options);
     const betweenPositiveLandscape = between(accuracy.degree, 175, 205);
     let heading = await Location.getHeadingAsync();
@@ -116,7 +205,10 @@ const AutoActionButton = ({
       ? getMode(heading.trueHeading + 90, 360)
       : getMode(heading.trueHeading - 90, 360);
     const imageUri = image.uri;
-    if (!imageUri) return;
+    if (!imageUri) {
+      setNowCapture(false);
+      return;
+    }
     const metaDataDir = await FileSystem.getInfoAsync(
       FileSystem.documentDirectory + `${id}/${uuid}`
     );
@@ -129,6 +221,7 @@ const AutoActionButton = ({
         );
       } catch (e) {
         console.info("ERROR", e);
+        setNowCapture(false);
       }
     }
     const newPath =
@@ -144,7 +237,6 @@ const AutoActionButton = ({
     location.coords.heading = newHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
-    if (!autoCaptureStart) return;
     Database.insertToDB({
       JSONExif,
       JSONLocation,
@@ -154,6 +246,7 @@ const AutoActionButton = ({
       uuid,
       path: newPath,
     });
+    setNowCapture(false);
     const fileInfo = await FileSystem.getInfoAsync(newPath);
     dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
     incrementAmount();
@@ -167,6 +260,7 @@ const AutoActionButton = ({
   if (autoCaptureStart) {
     return (
       <TouchableOpacity
+        disabled={isNowCapture}
         style={{
           width: RFValue(61),
           height: RFValue(61),

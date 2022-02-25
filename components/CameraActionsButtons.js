@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
 
-const CameraActionsButtons = ({ uuid, navigation }) => {
+const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
   const [disabled, setDisabled] = useState(true);
   const [waitGPS, setWaitGPS] = useState(true);
   const {
@@ -38,24 +38,12 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-    if (
-      !GPSAccuracy ||
-      batteryError ||
-      highSpeed ||
-      mocked
-    ) {
+    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [
-    GPSAccuracy,
-    waitGPS,
-    isCharge,
-    highSpeed,
-    mocked,
-    batteryLevel,
-  ]);
+  }, [GPSAccuracy, waitGPS, isCharge, highSpeed, mocked, batteryLevel]);
 
   return (
     <>
@@ -70,6 +58,7 @@ const CameraActionsButtons = ({ uuid, navigation }) => {
         batteryLevel={batteryLevel}
         mocked={mocked}
         highSpeed={highSpeed}
+        exitCapture={exitCapture}
       />
     </>
   );

@@ -9,6 +9,8 @@ import { appMapStyle } from "../styles/appMapStyle";
 import { MapView } from "../highordercomponents";
 import { IMAGE_API } from "@env";
 import { styles } from "../styles/circleStyles";
+import { useDispatch, useSelector } from "react-redux";
+import { UPDATE_CURRENT_SEQUENCE } from "../store/actionsName";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
   const screenHeight = Dimensions.get("window").height - RFValue(110);
@@ -18,6 +20,21 @@ const ProfileUploadDetail = ({ navigation, route }) => {
   const [coord, setCoord] = useState(null);
   const [width, setWidth] = useState(RFValue(33));
   const [currentImage, setCurrentImage] = useState(null);
+  const dispatch = useDispatch();
+  const { userInformation } = useSelector((state) => state.getTokenReducer);
+
+  useEffect(() => {
+    let subscribe = navigation.addListener("focus", () => {
+      dispatch({
+        type: UPDATE_CURRENT_SEQUENCE,
+        payload: {
+          sequence_uuid: route.params.points[0].sequence_uuid,
+          user_id: userInformation.id,
+        },
+      });
+    });
+    return subscribe;
+  }, [navigation]);
 
   const getMap = () => {
     let imageList = route.params.points;

@@ -49,6 +49,7 @@ const AppCamera = ({ navigation, route }) => {
           setCameraReady={setCameraReady}
           timeout={timeout}
           waitGPS={waitGPS}
+          route={route}
         />
       </View>
     </View>

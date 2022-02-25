@@ -263,12 +263,13 @@ const TabNavigator = ({ navigation, route }) => {
       <Tab.Screen
         component={ProfileSequence}
         name={Routes.profileSequence}
-        options={({ navigation }) => ({
+        options={({ navigation, route }) => ({
           headerLeft: (props) => (
             <SequenceNavigatorLeft
               {...props}
               navigation={navigation}
               backRoute={Routes.profile}
+              // route={route}
             />
           ),
           title: "Your uploads",
@@ -288,6 +289,7 @@ const TabNavigator = ({ navigation, route }) => {
             <SequenceNavigatorLeft
               {...props}
               navigation={navigation}
+              route
               backRoute={Routes.sequences}
             />
           ),

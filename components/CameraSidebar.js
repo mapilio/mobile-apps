@@ -34,7 +34,7 @@ import {
   UPLOAD_DATA,
 } from "../store/actionsName";
 import * as Brightness from "expo-brightness";
-import { infoAlertStyles, warningAlertStyles } from "../styles/alertStyles";
+import { infoAlertStyles } from "../styles/alertStyles";
 
 const CameraSidebar = ({
   navigation,
@@ -42,6 +42,7 @@ const CameraSidebar = ({
   setCameraReady,
   timeout,
   waitGPS,
+  route,
 }) => {
   const dispatch = useDispatch();
   const [uuidV4, setUUID] = useState("");
@@ -97,23 +98,6 @@ const CameraSidebar = ({
     setUUID(sequenceUUID);
   }, [selectedProject]);
 
-  useEffect(() => {
-    let subscription = AppState.addEventListener("change", (state) => {
-      if (autoCaptureStart && state === "background") {
-        toastGenerator(
-          "Your new sequence has been started.",
-          require("../assets/images/Info.png"),
-          infoAlertStyles.alertContainer,
-          infoAlertStyles.alertTitle,
-          infoAlertStyles.alertImage
-        );
-        dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-        exitCapture();
-      }
-    });
-    return () => subscription && subscription.remove();
-  }, [navigation]);
-
   const lowLightHandler = async () => {
     try {
       let permissions = await Brightness.getPermissionsAsync();
@@ -139,6 +123,7 @@ const CameraSidebar = ({
   };
 
   const exitCapture = () => {
+    console.log(99);
     if (photoAmount >= 5) {
       database.query(
         "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
@@ -148,9 +133,9 @@ const CameraSidebar = ({
       );
       exitHandler();
     } else {
-      dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
       database.deleteRow(uuidV4);
     }
+    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
   };
 
   const exitFromCamera = async () => {
@@ -298,7 +283,11 @@ const CameraSidebar = ({
               Advanced
             </CustomText>
           </TouchableOpacity>
-          <CameraActionsButtons uuid={uuidV4} navigation={navigation} />
+          <CameraActionsButtons
+            uuid={uuidV4}
+            navigation={navigation}
+            exitCapture={exitCapture}
+          />
           {/* <TouchableOpacity
             style={{ position: "absolute", bottom: 0, left: 0 }}
           >

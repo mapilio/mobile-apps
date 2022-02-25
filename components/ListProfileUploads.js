@@ -8,6 +8,8 @@ import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { userSequenceStyles } from "../styles/userSequenceStyle";
 import { IMAGE_API } from "@env";
 import { ActivityIndicator } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { UPDATE_CURRENT_SEQUENCE } from "../store/actionsName";
 
 const ListProfileUploads = ({
   navigation,
@@ -18,9 +20,15 @@ const ListProfileUploads = ({
   loading,
   paginationLoading,
 }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     let unsubscribe = navigation.addListener("blur", () => {
       setImagesList([]);
+      dispatch({
+        type: UPDATE_CURRENT_SEQUENCE,
+        payload: null,
+      });
     });
     return unsubscribe;
   }, [navigation]);

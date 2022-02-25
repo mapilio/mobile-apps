@@ -105,6 +105,7 @@ class Database {
   }
 
   deleteRow(sequenceUUID) {
+    console.log("HAHA");
     db.transaction((txn) => {
       txn.executeSql(
         `DELETE FROM captures WHERE sequence_uuid = '${sequenceUUID}'`,

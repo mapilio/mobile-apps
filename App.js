@@ -9,6 +9,7 @@ import { permissionHandler, useFonts } from "./helper/helper";
 import { PersistGate } from "redux-persist/integration/react";
 import { NotifierWrapper } from "react-native-notifier";
 import * as Sentry from "@sentry/react-native";
+import { Camera as ExpoCamera } from "expo-camera";
 
 Sentry.init({
   dsn:

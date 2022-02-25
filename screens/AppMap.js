@@ -198,12 +198,12 @@ const AppMap = ({ navigation }) => {
           />
           <MapboxGL.VectorSource
             id="road-points"
-            url={MAPBOX_TILESET_URL}
+            url={"mapbox://your_tileset_url"}
             onPress={touchPoint}
           >
             <MapboxGL.CircleLayer
-              id={MAPBOX_TILESET_ID}
-              sourceLayerID={MAPBOX_TILESET_ID}
+              id={"mapilio-point-v1"}
+              sourceLayerID={"mapilio-point-v1"}
               style={styles.circles}
               layerIndex={60}
             />
@@ -211,11 +211,11 @@ const AppMap = ({ navigation }) => {
           {/* // TODO WAITING GEOJSON BECAUSE SHAPE JUST ACCEPT OBJECT TYPE */}
           <MapboxGL.VectorSource
             id={"road-shape"}
-            url={"mapbox://mapilio.ckywz582j0bp428qvup5uwg54-58mm8"}
+            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-4duj0"}
           >
             <MapboxGL.LineLayer
-              id={"mapilio_road_v1"}
-              sourceLayerID={"mapilio_road_v1"}
+              id={"mapilio-road-v1"}
+              sourceLayerID={"mapilio-road-v1"}
               style={styles.lineStyles}
               layerIndex={55}
             />
