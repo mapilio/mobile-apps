@@ -55,7 +55,8 @@ const CaptureTabBarButton = ({ children, onPress }) => {
       () => false,
       () => false,
       onPress,
-      "camera"
+      "camera",
+      onPress
     );
   };
 

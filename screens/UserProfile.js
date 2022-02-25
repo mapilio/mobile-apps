@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Animated, LogBox, ScrollView, View } from "react-native";
+import { Animated, LogBox, Platform, ScrollView, View } from "react-native";
 import { ProfileFeed, UserInfos } from "../components";
 import { globalStyles } from "../styles/globalStyles";
 import { fetchHandler } from "../helper/helper";
@@ -18,7 +18,12 @@ const UserProfile = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [loadingOrganization, setOrganizationLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState({
+    organization_name: userInformation?.display_name,
+    organization_username: userInformation?.username,
+    id: userInformation?.id,
+    type: "individual",
+  });
   const { userInformation, isUploaded } = useSelector(
     (state) => state.getTokenReducer
   );
@@ -142,7 +147,57 @@ const UserProfile = ({ navigation }) => {
           marginTop: RFValue(-20),
         }}
       >
-        {items.length >= 2 && (
+        {items.length >= 2 && Platform.OS === "ios" ? (
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            placeholder={"Select organization"}
+            setOpen={setOpen}
+            setValue={setValue}
+            closeAfterSelecting
+            onSelectItem={(item) => {
+              setSelectedItem(item);
+            }}
+            loading={loadingOrganization}
+            setItems={setItems}
+            key={Math.random()}
+            dropDownContainerStyle={{ zIndex: -1 }}
+            CellRendererComponent={({ children, index, style, ...props }) => {
+              const cellStyle = [
+                style,
+                {
+                  zIndex: -1,
+                  elevation: -1,
+                },
+              ];
+
+              return (
+                <View style={cellStyle} index={index} {...props}>
+                  {children}
+                </View>
+              );
+            }}
+            schema={{
+              label: "organization_username",
+              value: "organization_name",
+              testID: "organization_key",
+            }}
+            style={{
+              height: RFValue(30),
+              backgroundColor: "#4A90E2",
+              borderWidth: 0,
+              zIndex: 999999999999,
+            }}
+            listItemLabelStyle={{
+              color: "#000",
+            }}
+            textStyle={{
+              color: "#FFFFFF",
+            }}
+            showArrowIcon={false}
+          />
+        ) : (
           <DropDownPicker
             open={open}
             value={value}

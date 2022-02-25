@@ -76,7 +76,8 @@ const permissionHandler = async (
   handler = () => {},
   cancelHandler = () => {},
   noAccessHandler = () => {},
-  from = "location"
+  from = "location",
+  onPress
 ) => {
   const { status: cameraStatus } = await ExpoCamera.getCameraPermissionsAsync();
 
@@ -87,12 +88,27 @@ const permissionHandler = async (
     if (cameraStatus !== "granted" && from === "camera") {
       const { status: cameraStatus } =
         await ExpoCamera.requestCameraPermissionsAsync();
+      if (cameraStatus === "granted") {
+        const { status: locStatus } =
+          await Location.getForegroundPermissionsAsync();
+        if (locStatus === "granted") {
+          onPress();
+        }
+      }
       alertHandler(cameraStatus, cancelHandler);
     }
 
     if (locationStatus !== "granted" && from === "camera") {
       const { status: locationStatus } =
         await Location.requestForegroundPermissionsAsync();
+      if (locationStatus === "granted") {
+        const { status: camStatus } =
+          await ExpoCamera.getCameraPermissionsAsync();
+
+        if (camStatus === "granted") {
+          onPress();
+        }
+      }
       alertHandler(locationStatus, cancelHandler);
     }
   } else {
@@ -141,6 +157,24 @@ const dateConvert = (datetime, format = "MMM D, YYYY") => {
   return Moment(datetime).format(format);
 };
 
+const headingPointGeoJson = (heading, coordinates) => {
+  return {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: {
+          rotate: Number(heading),
+        },
+        geometry: {
+          type: "Point",
+          coordinates: coordinates,
+        },
+      },
+    ],
+  };
+};
+
 export {
   useFonts,
   convertHexToRGBA,
@@ -150,4 +184,5 @@ export {
   permissionHandler,
   kFormatter,
   dateConvert,
+  headingPointGeoJson,
 };

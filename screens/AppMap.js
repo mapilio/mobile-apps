@@ -22,7 +22,7 @@ import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { MapView } from "../highordercomponents";
 import { styles } from "../styles/circleStyles";
-import Campus from "../assets/svg/illustrations/Campus";
+import { Heading } from "../components/Map";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -211,7 +211,7 @@ const AppMap = ({ navigation }) => {
           {/* // TODO WAITING GEOJSON BECAUSE SHAPE JUST ACCEPT OBJECT TYPE */}
           <MapboxGL.VectorSource
             id={"road-shape"}
-            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-4duj0"}
+            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-0usk2"}
           >
             <MapboxGL.LineLayer
               id={"mapilio-road-v1"}
@@ -221,28 +221,11 @@ const AppMap = ({ navigation }) => {
             />
           </MapboxGL.VectorSource>
           {clickedCoord && !hide ? (
-            <MapboxGL.PointAnnotation
-              key="pointAnnotation"
-              id="pointAnnotation"
-              coordinate={clickedCoord}
-              style={{ zIndex: 1000 }}
-            >
-              <Image
-                source={require("../assets/images/heading.png")}
-                resizeMode={"cover"}
-                style={{
-                  transform: [
-                    {
-                      rotate: imageInformations
-                        ? `${imageInformations.heading}deg`
-                        : "0deg",
-                    },
-                  ],
-                  width: Platform.OS === "android" ? RFValue(37) : RFValue(35),
-                  height: Platform.OS === "android" ? RFValue(37) : RFValue(35),
-                }}
-              />
-            </MapboxGL.PointAnnotation>
+            <Heading
+              heading={imageInformations ? imageInformations.heading : 0}
+              coordinates={clickedCoord}
+              markerPath={require("../assets/images/heading.png")}
+            />
           ) : null}
           <MapboxGL.Camera
             ref={cameraRef}
