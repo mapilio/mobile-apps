@@ -8,7 +8,7 @@ export const appMapStyle = StyleSheet.create({
     height: RFPercentage(100),
   },
   map: {
-    width: RFPercentage(100),
+    width: RFValue(Dimensions.get("window").width),
     height: RFPercentage(100),
     paddingBottom: RFValue(90),
   },
@@ -32,7 +32,7 @@ export const appMapStyle = StyleSheet.create({
     height: RFValue(26),
     position: "absolute",
     zIndex: 5,
-    bottom: RFValue(130),
+    bottom: RFValue(140),
     left: RFValue(16),
     alignItems: "center",
     justifyContent: "center",

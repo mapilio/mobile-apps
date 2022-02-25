@@ -66,7 +66,7 @@ const Marketplace = ({ navigation }) => {
 
       <SlidingUpPanel
         draggableRange={{
-          top: height - headerHeight - 80,
+          top: height - headerHeight * 2,
           bottom: RFValue(60),
         }}
         allowDragging={!onScroll}
