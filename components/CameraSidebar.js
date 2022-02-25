@@ -123,7 +123,6 @@ const CameraSidebar = ({
   };
 
   const exitCapture = () => {
-    console.log(99);
     if (photoAmount >= 5) {
       database.query(
         "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
