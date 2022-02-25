@@ -140,6 +140,25 @@ const dateConvert = (datetime, format = "MMM D, YYYY") => {
   return Moment(datetime).format(format);
 };
 
+const headingPointGeoJson = (heading, coordinates) => {
+  return {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "rotate": Number(heading)
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": coordinates
+        }
+      }
+    ]
+  }
+}
+
+
 export {
   useFonts,
   convertHexToRGBA,
@@ -149,4 +168,5 @@ export {
   permissionHandler,
   kFormatter,
   dateConvert,
+  headingPointGeoJson,
 };

@@ -3,13 +3,10 @@ import {
   Dimensions,
   Image,
   View,
-  TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Maximize from "../assets/svg/illustrations/Maximize";
 import { sequenceDetailStyles } from "../styles/userSequenceStyle";
 import { styles } from "../styles/circleStyles";
-import Minimize from "../assets/svg/illustrations/Minimize";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { appMapStyle } from "../styles/appMapStyle";
@@ -17,6 +14,7 @@ import database from "../db";
 import { useDispatch, useSelector } from "react-redux";
 import { MapView } from "../highordercomponents";
 import { RANK } from "../store/actionsName";
+import {Heading} from "../components/Map";
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
@@ -179,29 +177,11 @@ const UserSequenceDetail = ({ navigation, route }) => {
           </MapboxGL.ShapeSource>
         )}
         {clickedPoint && (
-          <MapboxGL.PointAnnotation
-            key="pointAnnotation3"
-            id="pointAnnotation3"
-            coordinate={[clickedPoint.longitude, clickedPoint.latitude]}
-            style={{ zIndex: 100000000 }}
-          >
-            <Image
-              source={require("../assets/images/heading.png")}
-              resizeMode={"cover"}
-              style={{
-                zIndex: 100000000,
-                transform: [
-                  {
-                    rotate: clickedPoint
-                      ? `${clickedPoint.heading}deg`
-                      : route.params.heading,
-                  },
-                ],
-                width: clickedPoint ? width : RFValue(32),
-                height: clickedPoint ? RFValue(35) : RFValue(32),
-              }}
-            />
-          </MapboxGL.PointAnnotation>
+          <Heading
+            heading={clickedPoint ? clickedPoint.heading : route.params.heading}
+            coordinates={[clickedPoint.longitude, clickedPoint.latitude]}
+            markerPath={require("../assets/images/heading.png")}
+          />
         )}
         {!!Object.keys(lines).length && (
           <MapboxGL.ShapeSource id={"detailShape"} shape={lines}>

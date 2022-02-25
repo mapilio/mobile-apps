@@ -16,7 +16,6 @@ import { SERVICE_URL, IMAGE_API } from "@env";
 import { fetchHandler } from "../helper/helper";
 import { styles } from "../styles/circleStyles";
 import { Routes } from "../navigator/Routes";
-import { ActivityIndicator } from "react-native-paper";
 
 const UserSequence = ({ navigation, route }) => {
   const [active, setActive] = useState("image");
@@ -42,6 +41,13 @@ const UserSequence = ({ navigation, route }) => {
 
   useEffect(() => {
     let unsubscribe = navigation.addListener("focus", () => {
+      dispatch({
+        type: UPDATE_CURRENT_FEED_SEQUENCE,
+        payload: {
+          sequenceUUID: route.params.id,
+          userID: route.params.user_id,
+        },
+      });
       dispatch({
         type: UPDATE_CURRENT_SEQUENCE,
         payload: {

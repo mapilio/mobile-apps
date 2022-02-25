@@ -22,7 +22,7 @@ import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { MapView } from "../highordercomponents";
 import { styles } from "../styles/circleStyles";
-import Campus from "../assets/svg/illustrations/Campus";
+import {Heading} from "../components/Map";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -221,28 +221,11 @@ const AppMap = ({ navigation }) => {
             />
           </MapboxGL.VectorSource>
           {clickedCoord && !hide ? (
-            <MapboxGL.PointAnnotation
-              key="pointAnnotation"
-              id="pointAnnotation"
-              coordinate={clickedCoord}
-              style={{ zIndex: 1000 }}
-            >
-              <Image
-                source={require("../assets/images/heading.png")}
-                resizeMode={"cover"}
-                style={{
-                  transform: [
-                    {
-                      rotate: imageInformations
-                        ? `${imageInformations.heading}deg`
-                        : "0deg",
-                    },
-                  ],
-                  width: Platform.OS === "android" ? RFValue(37) : RFValue(35),
-                  height: Platform.OS === "android" ? RFValue(37) : RFValue(35),
-                }}
-              />
-            </MapboxGL.PointAnnotation>
+            <Heading
+              heading={imageInformations ? imageInformations.heading : 0}
+              coordinates={clickedCoord}
+              markerPath={require("../assets/images/heading.png")}
+            />
           ) : null}
           <MapboxGL.Camera
             ref={cameraRef}
