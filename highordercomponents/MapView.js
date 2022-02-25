@@ -17,6 +17,7 @@ const MapView = ({
     onRegionDidChange={regionChange}
     logoEnabled={Platform.OS !== "android"}
     attributionEnabled={Platform.OS !== "android"}
+    logoPosition={{ bottom: 20, left: 25 }}
   >
     {children}
   </MapboxGL.MapView>

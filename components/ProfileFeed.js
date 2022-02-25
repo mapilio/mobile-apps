@@ -7,7 +7,12 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { IMAGE_API } from "@env";
 
-const ProfileFeed = ({ navigation, data }) => {
+const ProfileFeed = ({
+  navigation,
+  data,
+  selectedOrganization,
+  organizationKey,
+}) => {
   const { userInformation } = useSelector((state) => state.getTokenReducer);
 
   return (
@@ -18,6 +23,8 @@ const ProfileFeed = ({ navigation, data }) => {
         navigation.navigate(Routes.profileSequence, {
           id: data.sequence_uuid,
           user_id: userInformation.id,
+          isIndividual: selectedOrganization,
+          org_id: organizationKey,
         });
       }}
     >

@@ -76,7 +76,8 @@ const permissionHandler = async (
   handler = () => {},
   cancelHandler = () => {},
   noAccessHandler = () => {},
-  from = "location"
+  from = "location",
+  onPress
 ) => {
   const { status: cameraStatus } = await ExpoCamera.getCameraPermissionsAsync();
 
@@ -87,11 +88,27 @@ const permissionHandler = async (
     if (cameraStatus !== "granted" && from === "camera") {
       const { status: cameraStatus } =
         await ExpoCamera.requestCameraPermissionsAsync();
+      if (cameraStatus === "granted") {
+        const { status: locStatus } =
+          await Location.getForegroundPermissionsAsync();
+        if (locStatus === "granted") {
+          onPress();
+        }
+      }
       alertHandler(cameraStatus, cancelHandler);
     }
-    if (locationStatus !== "granted") {
+
+    if (locationStatus !== "granted" && from === "camera") {
       const { status: locationStatus } =
         await Location.requestForegroundPermissionsAsync();
+      if (locationStatus === "granted") {
+        const { status: camStatus } =
+          await ExpoCamera.getCameraPermissionsAsync();
+
+        if (camStatus === "granted") {
+          onPress();
+        }
+      }
       alertHandler(locationStatus, cancelHandler);
     }
   } else {
@@ -100,34 +117,34 @@ const permissionHandler = async (
 };
 
 const alertHandler = (status, cancelHandler) => {
-  // if (!isOpenOnce) {
-  //   isOpenOnce = true;
-  //   if (status !== "granted") {
-  //     Alert.alert(
-  //       "Your some permissions is turned off",
-  //       "If you do not allow permissions, you will not access to capture.",
-  //       [
-  //         {
-  //           text: "Continue",
-  //           style: "cancel",
-  //           onPress: () => {
-  //             cancelHandler();
-  //             isOpenOnce = false;
-  //           },
-  //         },
-  //         {
-  //           text: "Go to settings",
-  //           onPress: () => {
-  //             Platform.OS === "ios"
-  //               ? Linking.openURL("app-settings:")
-  //               : Linking.openSettings();
-  //             isOpenOnce = false;
-  //           },
-  //         },
-  //       ]
-  //     );
-  //   }
-  // }
+  if (!isOpenOnce) {
+    isOpenOnce = true;
+    if (status !== "granted") {
+      Alert.alert(
+        "No access to camera",
+        "Mapilio needs access to the camera and location before you can capture photos. Go to your settings to enable.",
+        [
+          {
+            text: "Go to settings",
+            style: "cancel",
+            onPress: () => {
+              isOpenOnce = false;
+              Platform.OS === "ios"
+                ? Linking.openURL("app-settings:")
+                : Linking.openSettings();
+            },
+          },
+          {
+            text: "Contınue",
+            onPress: () => {
+              isOpenOnce = false;
+              cancelHandler();
+            },
+          },
+        ]
+      );
+    }
+  }
 };
 
 const dateConvert = (datetime, format = "MMM D, YYYY") => {
@@ -142,22 +159,21 @@ const dateConvert = (datetime, format = "MMM D, YYYY") => {
 
 const headingPointGeoJson = (heading, coordinates) => {
   return {
-    "type": "FeatureCollection",
-    "features": [
+    type: "FeatureCollection",
+    features: [
       {
-        "type": "Feature",
-        "properties": {
-          "rotate": Number(heading)
+        type: "Feature",
+        properties: {
+          rotate: Number(heading),
         },
-        "geometry": {
-          "type": "Point",
-          "coordinates": coordinates
-        }
-      }
-    ]
-  }
-}
-
+        geometry: {
+          type: "Point",
+          coordinates: coordinates,
+        },
+      },
+    ],
+  };
+};
 
 export {
   useFonts,

@@ -1,28 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { Animated, LogBox, ScrollView, View } from "react-native";
+import { Animated, LogBox, Platform, ScrollView, View } from "react-native";
 import { ProfileFeed, UserInfos } from "../components";
 import { globalStyles } from "../styles/globalStyles";
-import { fetchHandler, toastGenerator } from "../helper/helper";
+import { fetchHandler } from "../helper/helper";
 import { useSelector } from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
-import {
-  CustomText,
-  CustomTextBold,
-  CustomTextMedium,
-} from "../highordercomponents";
+import { CustomText, CustomTextBold } from "../highordercomponents";
 import { SERVICE_URL } from "@env";
 import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
 import { Routes } from "../navigator/Routes";
 import { ActivityIndicator } from "react-native-paper";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const UserProfile = ({ navigation }) => {
   const [listData, setListData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [paginationLoading, setPaginationLoading] = useState(false);
+  const [loadingOrganization, setOrganizationLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState({
+    organization_name: userInformation?.display_name,
+    organization_username: userInformation?.username,
+    id: userInformation?.id,
+    type: "individual",
+  });
   const { userInformation, isUploaded } = useSelector(
     (state) => state.getTokenReducer
   );
+  const [selectedItem, setSelectedItem] = useState({
+    organization_name: userInformation?.display_name,
+    organization_username: userInformation?.username,
+    id: userInformation?.id,
+    type: "individual",
+  });
+  const [paginationLoading, setPaginationLoading] = useState(false);
+  const [items, setItems] = useState([
+    {
+      organization_name: userInformation?.display_name,
+      organization_username: userInformation?.username,
+      id: userInformation?.id,
+      type: "individual",
+    },
+  ]);
   const [paginationURL, setPaginationURL] = useState(
     `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=1`
   );
@@ -33,9 +52,49 @@ const UserProfile = ({ navigation }) => {
     }
   }, []);
 
-  const fetchNext = () => {
+  useEffect(() => {
+    if (selectedItem.type) {
+      fetchNext(
+        `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=1`
+      );
+    } else {
+      fetchNext(
+        `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedItem.organization_key}&options[limit]=10&page=1`
+      );
+    }
+  }, [selectedItem]);
+
+  useEffect(() => {
+    setLoading(true);
     fetchHandler({
-      url: `${SERVICE_URL}${paginationURL}`,
+      url: `${SERVICE_URL}/api/function/organizations/organization/myOrganizations`,
+    })
+      .then((res) => {
+        setLoading(false);
+        res.data ? setItems([...items, ...res.data]) : setItems([]);
+      })
+      .catch((err) => {
+        dispatch({
+          type: "ALERT_TOAST_TOGGLE",
+          payload: {
+            open: true,
+            text: "An error while fetching your organizations. Please try again.",
+            color: getTheme().palette.button,
+            cardcolor: "red",
+            type: "error",
+          },
+        });
+      });
+  }, []);
+
+  const fetchNext = (foreignUrl) => {
+    if (foreignUrl) {
+      setLoading(true);
+    }
+    fetchHandler({
+      url: foreignUrl
+        ? `${SERVICE_URL}${foreignUrl}`
+        : `${SERVICE_URL}${paginationURL}`,
     })
       .then((res) => {
         if (res.data !== null) {
@@ -80,6 +139,101 @@ const UserProfile = ({ navigation }) => {
   return (
     <View style={globalStyles.container}>
       <UserInfos />
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: RFValue(15),
+          marginTop: RFValue(-20),
+        }}
+      >
+        {items.length >= 2 && Platform.OS === "ios" ? (
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            placeholder={"Select organization"}
+            setOpen={setOpen}
+            setValue={setValue}
+            closeAfterSelecting
+            onSelectItem={(item) => {
+              setSelectedItem(item);
+            }}
+            loading={loadingOrganization}
+            setItems={setItems}
+            key={Math.random()}
+            dropDownContainerStyle={{ zIndex: -1 }}
+            CellRendererComponent={({ children, index, style, ...props }) => {
+              const cellStyle = [
+                style,
+                {
+                  zIndex: -1,
+                  elevation: -1,
+                },
+              ];
+
+              return (
+                <View style={cellStyle} index={index} {...props}>
+                  {children}
+                </View>
+              );
+            }}
+            schema={{
+              label: "organization_username",
+              value: "organization_name",
+              testID: "organization_key",
+            }}
+            style={{
+              height: RFValue(30),
+              backgroundColor: "#4A90E2",
+              borderWidth: 0,
+              zIndex: 999999999999,
+            }}
+            listItemLabelStyle={{
+              color: "#000",
+            }}
+            textStyle={{
+              color: "#FFFFFF",
+            }}
+            showArrowIcon={false}
+          />
+        ) : (
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            placeholder={"Select organization"}
+            setOpen={setOpen}
+            setValue={setValue}
+            closeAfterSelecting
+            onSelectItem={(item) => {
+              setSelectedItem(item);
+            }}
+            loading={loadingOrganization}
+            setItems={setItems}
+            key={Math.random()}
+            schema={{
+              label: "organization_username",
+              value: "organization_name",
+              testID: "organization_key",
+            }}
+            style={{
+              height: RFValue(30),
+              backgroundColor: "#4A90E2",
+              borderWidth: 0,
+            }}
+            listItemLabelStyle={{
+              color: "#000",
+              fontFamily: "Poppins-SemiBold, Poppins",
+            }}
+            textStyle={{
+              color: "#FFFFFF",
+              fontFamily: "Poppins-SemiBold, Poppins",
+            }}
+            showArrowIcon={false}
+          />
+        )}
+      </View>
       <ScrollView
         onScroll={({ nativeEvent }) => {
           if (isCloseToBottom(nativeEvent) && paginationURL) {
@@ -103,7 +257,17 @@ const UserProfile = ({ navigation }) => {
           ))
         ) : listData ? (
           listData.map((data) => (
-            <ProfileFeed key={data.id} data={data} navigation={navigation} />
+            <ProfileFeed
+              key={data.id}
+              data={data}
+              navigation={navigation}
+              selectedOrganization={selectedItem.type}
+              organizationKey={
+                selectedItem.organization_key
+                  ? selectedItem.organization_key
+                  : 0
+              }
+            />
           ))
         ) : (
           <View
