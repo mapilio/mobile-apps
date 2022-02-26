@@ -8,6 +8,7 @@ import {
   Pressable,
   Keyboard,
   Alert,
+  Animated,
 } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
@@ -16,7 +17,7 @@ import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 import SlidingUpPanel from "rn-sliding-up-panel";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import SearchbarSwipe from "../components/SearchbarSwipe";
 import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
@@ -101,12 +102,14 @@ const AppMap = ({ navigation }) => {
     setShowPano(false);
   };
 
+
   useEffect(() => {
     if (openSearchbar) {
-      panelRef?.current?.show(400);
+      panelRef?.current?.show(225);
     }
   }, [openSearchbar]);
 
+  
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
     setClickedCoord([e.coordinates.longitude, e.coordinates.latitude]);
@@ -141,12 +144,16 @@ const AppMap = ({ navigation }) => {
           navigation={navigation}
         />
       ) : (
-        <View
-          onStartShouldSetResponder={() => setOpenSearchbar((state) => !state)}
-          style={appMapStyle.searchIcon}
-        >
-          <SearchIcon width={19.55} height={19.55} />
-        </View>
+        <>
+          <Pressable
+            onPress={() => {
+              setOpenSearchbar((state) => !state);
+            }}
+            style={appMapStyle.searchIcon}
+          >
+            <SearchIcon width={19.55} height={19.55} />
+          </Pressable>
+        </>
       )}
       {openSearchbar ? (
         <SlidingUpPanel
@@ -230,10 +237,10 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.Camera
             ref={cameraRef}
             centerCoordinate={flyLocation}
-            zoomLevel={7}
-            maxZoomLevel={18}
             animationMode={"flyTo"}
             animationDuration={1000}
+            zoomLevel={13}
+            maxZoomLevel={20}
           />
         </MapView>
       </View>

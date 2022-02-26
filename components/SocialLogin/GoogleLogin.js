@@ -92,6 +92,7 @@ const GoogleLogin = ({ navigation }) => {
             warningAlertStyles.alertImage,
             3000
           );
+          setLoading(false);
         }
       })
       .catch((err) => console.error(err));

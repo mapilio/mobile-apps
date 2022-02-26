@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     padding: RFValue(10),
     paddingLeft: RFValue(42),
     borderRadius: RFValue(30),
-    backgroundColor: convertHexToRGBA("#CBD1D9", 90),
+    backgroundColor: convertHexToRGBA("#7E86B0", 90),
     color: "#FFFFFF",
   },
 });

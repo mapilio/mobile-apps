@@ -88,7 +88,7 @@ const UserProfile = ({ navigation }) => {
   }, []);
 
   const fetchNext = (foreignUrl) => {
-    if (foreignUrl) {
+    if (foreignUrl &&  items.length >= 2) {
       setLoading(true);
     }
     fetchHandler({
@@ -139,101 +139,110 @@ const UserProfile = ({ navigation }) => {
   return (
     <View style={globalStyles.container}>
       <UserInfos />
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: RFValue(15),
-          marginTop: RFValue(-20),
-        }}
-      >
-        {items.length >= 2 && Platform.OS === "ios" ? (
-          <DropDownPicker
-            open={open}
-            value={value}
-            items={items}
-            placeholder={"Select organization"}
-            setOpen={setOpen}
-            setValue={setValue}
-            closeAfterSelecting
-            onSelectItem={(item) => {
-              setSelectedItem(item);
+      {items.length >= 2 &&
+        (Platform.OS === "ios" ? (
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: RFValue(15),
+              marginTop: RFValue(-20),
+              zIndex: 9999999,
             }}
-            loading={loadingOrganization}
-            setItems={setItems}
-            key={Math.random()}
-            dropDownContainerStyle={{ zIndex: -1 }}
-            CellRendererComponent={({ children, index, style, ...props }) => {
-              const cellStyle = [
-                style,
-                {
-                  zIndex: -1,
-                  elevation: -1,
-                },
-              ];
+          >
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={items}
+              placeholder={"Select organization"}
+              setOpen={setOpen}
+              setValue={setValue}
+              closeAfterSelecting
+              onSelectItem={(item) => {
+                setSelectedItem(item);
+              }}
+              loading={loadingOrganization}
+              setItems={setItems}
+              key={Math.random()}
+              dropDownContainerStyle={{ zIndex: -1 }}
+              CellRendererComponent={({ children, index, style, ...props }) => {
+                const cellStyle = [
+                  style,
+                  {
+                    zIndex: -1,
+                    elevation: -1,
+                  },
+                ];
 
-              return (
-                <View style={cellStyle} index={index} {...props}>
-                  {children}
-                </View>
-              );
-            }}
-            schema={{
-              label: "organization_username",
-              value: "organization_name",
-              testID: "organization_key",
-            }}
-            style={{
-              height: RFValue(30),
-              backgroundColor: "#4A90E2",
-              borderWidth: 0,
-              zIndex: 999999999999,
-            }}
-            listItemLabelStyle={{
-              color: "#000",
-            }}
-            textStyle={{
-              color: "#FFFFFF",
-            }}
-            showArrowIcon={false}
-          />
+                return (
+                  <View style={cellStyle} index={index} {...props}>
+                    {children}
+                  </View>
+                );
+              }}
+              schema={{
+                label: "organization_username",
+                value: "organization_name",
+                testID: "organization_key",
+              }}
+              style={{
+                height: RFValue(30),
+                backgroundColor: "#4A90E2",
+                borderWidth: 0,
+                zIndex: 999999999999,
+              }}
+              listItemLabelStyle={{
+                color: "#000",
+              }}
+              textStyle={{
+                color: "#FFFFFF",
+              }}
+              showArrowIcon={false}
+            />
+          </View>
         ) : (
-          <DropDownPicker
-            open={open}
-            value={value}
-            items={items}
-            placeholder={"Select organization"}
-            setOpen={setOpen}
-            setValue={setValue}
-            closeAfterSelecting
-            onSelectItem={(item) => {
-              setSelectedItem(item);
-            }}
-            loading={loadingOrganization}
-            setItems={setItems}
-            key={Math.random()}
-            schema={{
-              label: "organization_username",
-              value: "organization_name",
-              testID: "organization_key",
-            }}
+          <View
             style={{
-              height: RFValue(30),
-              backgroundColor: "#4A90E2",
-              borderWidth: 0,
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: RFValue(15),
+              marginTop: RFValue(-20),
             }}
-            listItemLabelStyle={{
-              color: "#000",
-              fontFamily: "Poppins-SemiBold, Poppins",
-            }}
-            textStyle={{
-              color: "#FFFFFF",
-              fontFamily: "Poppins-SemiBold, Poppins",
-            }}
-            showArrowIcon={false}
-          />
-        )}
-      </View>
+          >
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={items}
+              placeholder={"Select organization"}
+              setOpen={setOpen}
+              setValue={setValue}
+              closeAfterSelecting
+              onSelectItem={(item) => {
+                setSelectedItem(item);
+              }}
+              loading={loadingOrganization}
+              setItems={setItems}
+              key={Math.random()}
+              schema={{
+                label: "organization_username",
+                value: "organization_name",
+                testID: "organization_key",
+              }}
+              style={{
+                height: RFValue(30),
+                backgroundColor: "#4A90E2",
+                borderWidth: 0,
+              }}
+              listItemLabelStyle={{
+                color: "#000",
+              }}
+              textStyle={{
+                color: "#FFFFFF",
+              }}
+              showArrowIcon={false}
+            />
+          </View>
+        ))}
       <ScrollView
         onScroll={({ nativeEvent }) => {
           if (isCloseToBottom(nativeEvent) && paginationURL) {
@@ -308,7 +317,7 @@ const UserProfile = ({ navigation }) => {
             </CustomText>
           </View>
         )}
-        {paginationLoading && (
+        {paginationLoading && items.length >= 2 ? (
           <ActivityIndicator
             style={{
               alignSelf: "center",
@@ -317,7 +326,7 @@ const UserProfile = ({ navigation }) => {
             }}
             color={"#213348"}
           />
-        )}
+        ) : null}
       </ScrollView>
     </View>
   );
