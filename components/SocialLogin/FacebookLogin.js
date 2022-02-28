@@ -45,7 +45,7 @@ const FacebookLogin = ({ navigation }) => {
             require("../../assets/images/Info.png"),
             errorAlertStyles.alertContainer,
             errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage
+            errorAlertStyles.alertImage,
           );
         } else {
           fetchHandler({

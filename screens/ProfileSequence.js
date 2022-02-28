@@ -74,9 +74,7 @@ const UserSequence = ({ navigation, route }) => {
     })
       .then((res) => {
         setPaginationLoading(false);
-        if (res.pagination.next_page_url) {
-          setPaginationURL(res.pagination.next_page_url);
-        }
+        setPaginationURL(res.pagination.next_page_url);
         const newImageList = [...imageList, ...res.data];
         setImagesList(newImageList);
         setLoading(false);

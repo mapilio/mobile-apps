@@ -43,7 +43,9 @@ const CaptureTabBarButton = ({ navigation }) => {
 };
 
 const NonUserTabNavigator = () => {
-  const { connection } = useSelector((state) => state.generalReducer);
+  const { connection, tabHeight } = useSelector(
+    (state) => state.generalReducer
+  );
   const [internetGoes, setInternetGoes] = useState(false);
 
   const connectionAlertHandler = (navigation) => {
@@ -63,7 +65,11 @@ const NonUserTabNavigator = () => {
       screenOptions={({ navigation }) => ({
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
-        tabBarStyle: navigatorStyle.tabBarStyle,
+        tabBarStyle: {
+          height: tabHeight,
+          position: "absolute",
+          bottom: 0,
+        },
         headerRight: () => <SignInNavigatorRight navigation={navigation} />,
       })}
       screenListeners={({ navigation, route }) => ({

@@ -8,6 +8,7 @@ import {
   View,
   ActivityIndicator,
   Keyboard,
+  Platform,
 } from "react-native";
 import SwipeLine from "../assets/svg/illustrations/SwipeLine";
 import { CustomText } from "../highordercomponents";
@@ -53,7 +54,8 @@ const SearchbarSwipe = ({
             require("../assets/images/Info.png"),
             errorAlertStyles.alertContainer,
             errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage
+            errorAlertStyles.alertImage,
+            1500
           );
         });
     } else {
@@ -86,6 +88,11 @@ const SearchbarSwipe = ({
           placeholder={"Search for street, city, country..."}
           placeholderTextColor={convertHexToRGBA("#FFFFFF", 70)}
           value={value}
+          onPressOut={() => {
+            if (Platform.OS === "android") {
+              panelRef?.current?.show(500);
+            }
+          }}
           onChangeText={(value) => {
             setInputValue(value);
             setLoading(true);

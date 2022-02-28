@@ -68,7 +68,8 @@ const DeleteNavigationRight = (props) => {
                       require("../../assets/images/Info.png"),
                       errorAlertStyles.alertContainer,
                       errorAlertStyles.alertTitle,
-                      errorAlertStyles.alertImage
+                      errorAlertStyles.alertImage,
+                      3000
                     );
                   }
                 },
