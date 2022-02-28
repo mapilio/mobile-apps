@@ -102,17 +102,15 @@ const AppMap = ({ navigation }) => {
     setShowPano(false);
   };
 
-
   useEffect(() => {
     if (openSearchbar) {
       panelRef?.current?.show(225);
     }
   }, [openSearchbar]);
 
-  
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
-    setClickedCoord([e.coordinates.longitude, e.coordinates.latitude]);
+    setClickedCoord(e.features[0].geometry.coordinates);
     setImageInformations({
       sequenceID: pointFeatures.SEQUENCE_UUID,
       date: pointFeatures.created_at,
