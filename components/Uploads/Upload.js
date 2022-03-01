@@ -176,9 +176,12 @@ const Upload = ({ sequence_uuid, navigation }) => {
           const fileInfo = await RNFetchBlob.fs.stat(
             Platform.OS === "ios" ? file.path.replace("file://", "") : file.path
           );
+
+          const horizontal = exif.ImageWidth || exif.PixelXDimension;
+          const vertical = exif.ImageLength || exif.PixelYDimension;
           const fov = await hFovCalculate(
-            exif.ImageWidth || exif.PixelXDimension,
-            exif.ImageLength || exif.PixelYDimension,
+            horizontal > vertical ? horizontal : vertical,
+            horizontal < vertical ? horizontal : vertical,
             exif.FocalLength
           );
 
@@ -213,6 +216,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
           files.options.parameters.summary.Information.size = (filesize += fileInfo.size) / 1024 / 1024;
           files.options.parameters.summary.Information.hash = file.hash;
 
+/*
           if (i === results.rows._array.length - 1) {
             fetchHandler({
               url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
@@ -246,6 +250,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
                 );
               });
           }
+*/
         });
       }
     );
