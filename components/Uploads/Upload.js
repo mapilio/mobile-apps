@@ -176,9 +176,12 @@ const Upload = ({ sequence_uuid, navigation }) => {
           const fileInfo = await RNFetchBlob.fs.stat(
             Platform.OS === "ios" ? file.path.replace("file://", "") : file.path
           );
+
+          const horizontal = exif.ImageWidth || exif.PixelXDimension;
+          const vertical = exif.ImageLength || exif.PixelYDimension;
           const fov = await hFovCalculate(
-            exif.ImageWidth || exif.PixelXDimension,
-            exif.ImageLength || exif.PixelYDimension,
+            horizontal > vertical ? horizontal : vertical,
+            horizontal < vertical ? horizontal : vertical,
             exif.FocalLength
           );
 
