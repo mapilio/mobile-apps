@@ -216,7 +216,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
           files.options.parameters.summary.Information.size = (filesize += fileInfo.size) / 1024 / 1024;
           files.options.parameters.summary.Information.hash = file.hash;
 
-/*
           if (i === results.rows._array.length - 1) {
             fetchHandler({
               url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
@@ -250,7 +249,6 @@ const Upload = ({ sequence_uuid, navigation }) => {
                 );
               });
           }
-*/
         });
       }
     );
