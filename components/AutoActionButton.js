@@ -148,7 +148,8 @@ const AutoActionButton = ({
           require("../assets/images/Info.png"),
           infoAlertStyles.alertContainer,
           infoAlertStyles.alertTitle,
-          infoAlertStyles.alertImage
+          infoAlertStyles.alertImage,
+          3000
         );
         timeout = setTimeout(() => {
           if (photoAmount >= 5) {

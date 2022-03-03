@@ -109,7 +109,11 @@ const Pano = (props) => {
                 : imageInformation.image,
             }}
             style={{
-              height: fullHeight ? RFValue(592) : RFValue(285),
+              height: fullHeight
+                ? RFValue(592)
+                : Dimensions.get("window").height > 1100
+                ? RFValue(285)
+                : RFValue(345),
               width: RFValue(Dimensions.get("window").width),
               resizeMode: "cover",
               aspectRatio: 3 / 2,

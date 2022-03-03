@@ -289,6 +289,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
                 dispatch({ type: IS_UPLOADED, payload: true });
                 setModalVisible(false);
                 setSentCount(0);
+                setStatusUpload(false);
               }
             }
           );

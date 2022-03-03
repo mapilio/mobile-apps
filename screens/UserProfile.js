@@ -88,7 +88,7 @@ const UserProfile = ({ navigation }) => {
   }, []);
 
   const fetchNext = (foreignUrl) => {
-    if (foreignUrl &&  items.length >= 2) {
+    if (foreignUrl && items.length >= 2) {
       setLoading(true);
     }
     fetchHandler({
@@ -105,9 +105,9 @@ const UserProfile = ({ navigation }) => {
             newListData = res.data;
           }
           setListData(newListData);
+          setPaginationURL(res.pagination.next_page_url);
           setLoading(false);
           setPaginationLoading(false);
-          setPaginationURL(res.pagination.next_page_url);
         } else {
           setListData(null);
           setLoading(false);

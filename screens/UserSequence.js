@@ -98,6 +98,12 @@ const UserSequence = ({ navigation, route }) => {
     ]);
   };
 
+  useEffect(() => {
+    navigation.addListener("blur", () => {
+      dispatch({ type: SWITCH_SELECTOR, payload: "image" });
+    });
+  }, [navigation]);
+
   const getCoordinates = () => {
     database.query(
       `SELECT * FROM captures WHERE sequence_uuid='${activeSequence}'`,

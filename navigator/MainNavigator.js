@@ -19,12 +19,17 @@ import NetInfo from "@react-native-community/netinfo";
 import { Routes } from "./Routes";
 import { useDispatch, useSelector } from "react-redux";
 import GeneralSettingsNavigatorLeft from "./navigatorbars/GeneralSettingsNavigatorLeft";
-import { UPDATE_CONNECTION_STATUS } from "../store/actionsName";
+import {
+  UPDATE_CONNECTION_STATUS,
+  UPDATE_TAB_HEIGHT,
+} from "../store/actionsName";
 import { HeaderTitle } from "../components/Marketplace";
 import MarketplaceReceived from "../screens/MarketplaceReceived";
 import TabNavigator from "./TabNavigator";
 import NonUserTabNavigator from "./NonUserTabNavigator";
 import MarketplaceReady from "../screens/MarketplaceReady";
+import { Dimensions } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Stack = createStackNavigator();
 
@@ -46,6 +51,20 @@ const MainNavigator = () => {
       setInternetConnection(state.isConnected);
     });
     return unsubcribe;
+  }, []);
+
+  useEffect(() => {
+    dispatch({
+      type: UPDATE_TAB_HEIGHT,
+      payload:
+        Platform.OS === "android"
+          ? RFValue(63)
+          : Dimensions.get("window").height > 1000
+          ? RFValue(56)
+          : Dimensions.get("window").height > 775
+          ? RFValue(83)
+          : RFValue(63),
+    });
   }, []);
 
   const noInternetHandler = (navigation, routeName) => {

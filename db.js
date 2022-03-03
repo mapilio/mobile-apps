@@ -54,7 +54,8 @@ class Database {
             require("./assets/images/Info.png"),
             errorAlertStyles.alertContainer,
             errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage
+            errorAlertStyles.alertImage,
+            1000
           );
           this.startDB(values.userID);
         }
@@ -76,7 +77,8 @@ class Database {
             require("./assets/images/Info.png"),
             errorAlertStyles.alertContainer,
             errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage
+            errorAlertStyles.alertImage,
+            2000
           );
           console.log(error);
 
@@ -97,7 +99,8 @@ class Database {
           require("./assets/images/Info.png"),
           errorAlertStyles.alertContainer,
           errorAlertStyles.alertTitle,
-          errorAlertStyles.alertImage
+          errorAlertStyles.alertImage,
+          1000
         );
         console.log(error);
       });
