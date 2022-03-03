@@ -16,6 +16,7 @@ const ListProfileUploads = ({
   sequence_uuid,
   user_id,
   imageList,
+  imageMapList,
   setImagesList,
   loading,
   paginationLoading,
@@ -85,6 +86,7 @@ const ListProfileUploads = ({
                 heading={image.heading}
                 userID={user_id}
                 imageList={imageList}
+                imageMapList={imageMapList}
                 coordinate={[image.longitude, image.latitude]}
               />
             ))}

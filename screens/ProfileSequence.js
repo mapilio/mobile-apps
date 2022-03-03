@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Animated, ScrollView, View } from "react-native";
+import { Animated, Dimensions, ScrollView, View } from "react-native";
 import ListProfileUploads from "../components/ListProfileUploads";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,7 +7,7 @@ import {
   UPDATE_CURRENT_SEQUENCE,
 } from "../store/actionsName";
 import { userSequenceStyles } from "../styles/userSequenceStyle";
-import { MapView } from "../highordercomponents";
+import { CustomText, MapView } from "../highordercomponents";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import SwitchSelector from "react-native-switch-selector";
@@ -16,13 +16,16 @@ import { SERVICE_URL, IMAGE_API } from "@env";
 import { fetchHandler } from "../helper/helper";
 import { styles } from "../styles/circleStyles";
 import { Routes } from "../navigator/Routes";
+import { ActivityIndicator } from "react-native-paper";
 
 const UserSequence = ({ navigation, route }) => {
   const [active, setActive] = useState("image");
   const [points, setPoints] = useState({});
   const [loading, setLoading] = useState(true);
+  const [mapLoading, setMapLoading] = useState(true);
   const [coordinates, setCoordinates] = useState({});
   const [imageList, setImagesList] = useState([]);
+  const [mapList, setMapList] = useState([]);
   const [paginationLoading, setPaginationLoading] = useState(false);
   const [paginationURL, setPaginationURL] = useState(
     `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
@@ -42,6 +45,9 @@ const UserSequence = ({ navigation, route }) => {
   useEffect(() => {
     navigation.addListener("blur", () => {
       setImagesList([]);
+      setMapList([]);
+      setMapLoading(true);
+      setActive("image");
     });
   }, [navigation]);
 
@@ -82,14 +88,24 @@ const UserSequence = ({ navigation, route }) => {
       .catch((err) => console.log(err));
   };
 
+  const fetchMapNext = (foreignURL) => {
+    setMapLoading(true);
+    fetchHandler({
+      url: `${SERVICE_URL}${foreignURL}`,
+    })
+      .then((res) => {
+        const newImageList = [...res.data];
+        setMapList(newImageList);
+        getMap();
+      })
+      .catch((err) => console.log(err));
+  };
+
   const getMap = () => {
-    if (imageList.length) {
-      setCenter([
-        Number(imageList[0].longitude),
-        Number(imageList[0].latitude),
-      ]);
+    if (mapList.length) {
+      setCenter([Number(mapList[0].longitude), Number(mapList[0].latitude)]);
     }
-    if (imageList.length) {
+    if (mapList.length) {
       let line = { type: "FeatureCollection" };
       let points = { type: "FeatureCollection" };
 
@@ -104,7 +120,7 @@ const UserSequence = ({ navigation, route }) => {
         },
       ];
       points.features = [];
-      imageList.map((item) => {
+      mapList.map((item) => {
         points.features.push({
           type: "Feature",
           properties: { item },
@@ -120,12 +136,21 @@ const UserSequence = ({ navigation, route }) => {
       });
       setCoordinates(line);
       setPoints(points);
+      setMapLoading(false);
     }
   };
 
   useEffect(() => {
-    getMap();
-  }, [imageList]);
+    if (route.params.isIndividual) {
+      fetchMapNext(
+        `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=1000&page=1`
+      );
+    } else {
+      fetchMapNext(
+        `/api/function/organizations/organization/feedDetail?options[parameters][organization_key]=${route.params.org_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=1000&page=1`
+      );
+    }
+  }, [active, imageList]);
 
   const isCloseToBottom = ({
     layoutMeasurement,
@@ -158,6 +183,7 @@ const UserSequence = ({ navigation, route }) => {
           <SwitchSelector
             initial={0}
             options={options}
+            value={active === "image" ? 0 : 1}
             onPress={(value) => setActive(value)}
             backgroundColor={"#F5F5F5"}
             borderColor={"#CBD1D9"}
@@ -182,11 +208,33 @@ const UserSequence = ({ navigation, route }) => {
               sequence_uuid={route.params.id}
               user_id={route.params.user_id}
               imageList={imageList}
+              imageMapList={mapList}
               setImagesList={setImagesList}
               loading={loading}
               paginationLoading={paginationLoading}
             />
           </>
+        ) : mapLoading ? (
+          <View
+            style={{
+              flex: 1,
+              height: Dimensions.get("window").height - RFValue(60),
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator color={"#32425B"} size={"large"} />
+            <CustomText
+              style={{
+                color: "#32425B",
+                fontSize: RFValue(15),
+                marginTop: RFValue(25),
+              }}
+            >
+              Map loading...
+            </CustomText>
+          </View>
         ) : (
           <MapView
             mapStyle={appMapStyle.map}
@@ -207,10 +255,10 @@ const UserSequence = ({ navigation, route }) => {
                     id: point.features[0].properties.item.id,
                     path: `${IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/1080`,
                     coordinate: point.features[0].geometry.coordinates,
-                    points: imageList,
+                    points: mapList,
                     heading: point.features[0].properties.item.heading,
                     base: true,
-                    sequence_uuid: route.params.sequence_uuid,
+                    sequence_uuid: route.params.id,
                     user_id: route.params.user_id,
                   });
                 }}
