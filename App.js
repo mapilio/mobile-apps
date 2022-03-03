@@ -11,13 +11,12 @@ import { NotifierWrapper } from "react-native-notifier";
 import * as Sentry from "@sentry/react-native";
 import { Camera as ExpoCamera } from "expo-camera";
 
-Sentry.init({
-  dsn:
-    Platform.OS === "ios"
-      ? `${process.env.SENTRY_DSN_IOS}`
-      : `${process.env.SENTRY_DSN}`,
-  tracesSampleRate: 1.0,
-});
+if (Platform.OS === "ios") {
+  Sentry.init({
+    dsn: `${process.env.SENTRY_DSN_IOS}`,
+    tracesSampleRate: 1.0,
+  });
+}
 
 function App() {
   const [isReady, setIsReady] = useState(false);

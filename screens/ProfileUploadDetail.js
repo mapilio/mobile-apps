@@ -11,7 +11,7 @@ import { IMAGE_API } from "@env";
 import { styles } from "../styles/circleStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_CURRENT_SEQUENCE } from "../store/actionsName";
-import {Heading} from "../components/Map";
+import { Heading } from "../components/Map";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
   const screenHeight = Dimensions.get("window").height - RFValue(110);
@@ -160,7 +160,11 @@ const ProfileUploadDetail = ({ navigation, route }) => {
 
         <Heading
           heading={coord ? coord.heading : `${route.params.heading}deg`}
-          coordinates={coord ? [Number(coord.longitude), Number(coord.latitude)] : route.params.coordinate}
+          coordinates={
+            coord
+              ? [Number(coord.longitude), Number(coord.latitude)]
+              : route.params.coordinate
+          }
           markerPath={require("../assets/images/heading.png")}
         />
         {!!Object.keys(coordinates).length && (

@@ -102,14 +102,12 @@ const AppMap = ({ navigation }) => {
     setShowPano(false);
   };
 
-
   useEffect(() => {
     if (openSearchbar) {
       panelRef?.current?.show(225);
     }
   }, [openSearchbar]);
 
-  
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
     setClickedCoord([e.coordinates.longitude, e.coordinates.latitude]);
@@ -205,7 +203,7 @@ const AppMap = ({ navigation }) => {
           />
           <MapboxGL.VectorSource
             id="road-points"
-            url={"mapbox://your_tileset_url"}
+            url={"mapbox://mapilio.ckzy904h607j827pbqjtx9n4d-3v9sn"}
             onPress={touchPoint}
           >
             <MapboxGL.CircleLayer
@@ -218,7 +216,7 @@ const AppMap = ({ navigation }) => {
           {/* // TODO WAITING GEOJSON BECAUSE SHAPE JUST ACCEPT OBJECT TYPE */}
           <MapboxGL.VectorSource
             id={"road-shape"}
-            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-0usk2"}
+            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-4ow72"}
           >
             <MapboxGL.LineLayer
               id={"mapilio-road-v1"}

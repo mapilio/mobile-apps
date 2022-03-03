@@ -123,18 +123,18 @@ const CameraSidebar = ({
   };
 
   const exitCapture = () => {
-    if (photoAmount >= 5) {
-      database.query(
-        "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-        (_, result) => {
-          dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-        }
-      );
-      exitHandler();
-    } else {
-      database.deleteRow(uuidV4);
-    }
-    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
+    // if (photoAmount >= 5) {
+    //   database.query(
+    //     "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+    //     (_, result) => {
+    //       dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+    //     }
+    //   );
+    //   exitHandler();
+    // } else {
+    //   database.deleteRow(uuidV4);
+    // }
+    // dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
   };
 
   const exitFromCamera = async () => {

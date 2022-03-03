@@ -41,6 +41,12 @@ const UserSequence = ({ navigation, route }) => {
     { label: "Map", value: "map", imageIcon: icons.map },
   ];
 
+  useEffect(() => {
+    navigation.addListener("blur", () => {
+      dispatch({ type: SWITCH_SELECTOR, payload: "image" });
+    });
+  }, [navigation]);
+
   const deletedImages = () => {
     Alert.alert("Are you sure?", "Are you sure you want to delete this image", [
       {
@@ -151,6 +157,7 @@ const UserSequence = ({ navigation, route }) => {
             onPress={(value) => {
               dispatch({ type: SWITCH_SELECTOR, payload: value });
             }}
+            value={switchSelector === "image" ? 0 : 1}
             backgroundColor={"#F5F5F5"}
             borderColor={"#CBD1D9"}
             buttonColor={"#32425B"}

@@ -198,12 +198,15 @@ const AutoActionButton = ({
     const image = await camera.takePictureAsync(options);
     const betweenPositiveLandscape = between(accuracy.degree, 175, 205);
     let heading = await Location.getHeadingAsync();
-    heading.trueHeading = betweenPositiveLandscape
+    const isLeft =
+      between(accuracy.degree, 152, 190) ||
+      between(accuracy.degree, -190, -160);
+    heading.trueHeading = isLeft
       ? getMode(heading.trueHeading + 90, 360)
       : getMode(heading.trueHeading - 90, 360);
-    heading.magHeading = betweenPositiveLandscape
-      ? getMode(heading.trueHeading + 90, 360)
-      : getMode(heading.trueHeading - 90, 360);
+    heading.magHeading = isLeft
+      ? getMode(heading.magHeading + 90, 360)
+      : getMode(heading.magHeading - 90, 360);
     const imageUri = image.uri;
     if (!imageUri) {
       setNowCapture(false);
