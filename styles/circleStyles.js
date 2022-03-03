@@ -1,9 +1,41 @@
 export const styles = {
-  circles: { circleColor: "#49b5f8", circleRadius: 5 },
-  circlesOpacity: {
-    circleColor: "#49b5f8",
-    circleRadius: 8,
-    circleOpacity: 0.3,
+  circles: {
+    circleRadius: [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      7.9,
+      4,
+      8,
+      0,
+      14,
+      0,
+      14.1,
+      5,
+    ],
+    circleBlur: ["interpolate", ["linear"], ["zoom"], 14, 0, 22, 0.5],
+    circleColor: "#146aff",
   },
-  lineStyles: { lineColor: "#49b5f8", lineWidth: 3 },
+  circlesOpacity: {
+    circleColor: "#146aff",
+    circleStrokeColor: "#146aff",
+    circleStrokeOpacity: 0.4,
+    circleStrokeWidth: [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      7,
+      1,
+      7.1,
+      0,
+      14,
+      0,
+      14.1,
+      2,
+    ],
+  },
+  lineStyles: {
+    lineColor: "#146aff",
+    lineWidth: ["interpolate", ["linear"], ["zoom"], 7, 0, 7.1, 0, 14.1, 2],
+  },
 };

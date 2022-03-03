@@ -4,7 +4,8 @@ import {
   UPDATE_CURRENT_DB,
   MARKETPLACE_DATA,
   UPDATE_CURRENT_FEED_SEQUENCE,
-  UPDATE_CAMERA_WALKTHROUGH_STATUS
+  UPDATE_CAMERA_WALKTHROUGH_STATUS,
+  UPDATE_TAB_HEIGHT
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -14,6 +15,7 @@ const INITIAL_STATE = {
   db: null,
   marketplaceData: {},
   currentFeedSequence: null,
+  tabHeight: 0,
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -47,6 +49,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentFeedSequence: action.payload,
+      };
+    case UPDATE_TAB_HEIGHT:
+      return {
+        ...state,
+        tabHeight: action.payload,
       };
     default:
       return state;

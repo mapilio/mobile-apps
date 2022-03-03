@@ -95,7 +95,11 @@ const permissionHandler = async (
           onPress();
         }
       }
-      alertHandler(cameraStatus, cancelHandler);
+      alertHandler(
+        cameraStatus,
+        cancelHandler,
+        "Mapilio needs access to the camera before you can capture photos. Go to your settings to enable."
+      );
     }
 
     if (locationStatus !== "granted" && from === "camera") {
@@ -109,40 +113,40 @@ const permissionHandler = async (
           onPress();
         }
       }
-      alertHandler(locationStatus, cancelHandler);
+      alertHandler(
+        locationStatus,
+        cancelHandler,
+        "Mapilio needs access to the location before you can capture photos. Go to your settings to enable."
+      );
     }
   } else {
     noAccessHandler();
   }
 };
 
-const alertHandler = (status, cancelHandler) => {
+const alertHandler = (status, cancelHandler, alertText) => {
   if (!isOpenOnce) {
     isOpenOnce = true;
     if (status !== "granted") {
-      Alert.alert(
-        "No access to camera",
-        "Mapilio needs access to the camera and location before you can capture photos. Go to your settings to enable.",
-        [
-          {
-            text: "Go to settings",
-            style: "cancel",
-            onPress: () => {
-              isOpenOnce = false;
-              Platform.OS === "ios"
-                ? Linking.openURL("app-settings:")
-                : Linking.openSettings();
-            },
+      Alert.alert("No access to camera", alertText, [
+        {
+          text: "Go to settings",
+          style: "cancel",
+          onPress: () => {
+            isOpenOnce = false;
+            Platform.OS === "ios"
+              ? Linking.openURL("app-settings:")
+              : Linking.openSettings();
           },
-          {
-            text: "Contınue",
-            onPress: () => {
-              isOpenOnce = false;
-              cancelHandler();
-            },
+        },
+        {
+          text: Platform.OS === "ios" ? "Continue" : "Contınue",
+          onPress: () => {
+            isOpenOnce = false;
+            cancelHandler();
           },
-        ]
-      );
+        },
+      ]);
     }
   }
 };

@@ -21,9 +21,13 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import SearchbarSwipe from "../components/SearchbarSwipe";
 import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { MapView } from "../highordercomponents";
+import { CustomText, MapView } from "../highordercomponents";
 import { styles } from "../styles/circleStyles";
 import { Heading } from "../components/Map";
+import * as Location from "expo-location";
+import { toastGenerator } from "../helper/helper";
+import { infoAlertStyles } from "../styles/alertStyles";
+import { CloseIcon } from "../assets/svg/illustrations";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -50,6 +54,7 @@ const AppMap = ({ navigation }) => {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [openSearchbar, setOpenSearchbar] = useState(false);
   const [minimizePano, setMinimizePano] = useState(false);
+  const [zoom, setCurrentZoom] = useState(0);
   const [clickedCoord, setClickedCoord] = useState(null);
   const [onScroll, setOnScroll] = useState(false);
   const [showPano, setShowPano] = useState(true);
@@ -102,17 +107,15 @@ const AppMap = ({ navigation }) => {
     setShowPano(false);
   };
 
-
   useEffect(() => {
     if (openSearchbar) {
       panelRef?.current?.show(225);
     }
   }, [openSearchbar]);
 
-  
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
-    setClickedCoord([e.coordinates.longitude, e.coordinates.latitude]);
+    setClickedCoord(e.features[0].geometry.coordinates);
     setImageInformations({
       sequenceID: pointFeatures.SEQUENCE_UUID,
       date: pointFeatures.created_at,
@@ -127,10 +130,17 @@ const AppMap = ({ navigation }) => {
 
   const willHide = async (e) => {
     const zoom = await mapRef.current.getZoom();
+    setCurrentZoom(Math.round(zoom));
     if (Math.round(zoom) < 10) {
       setHide(true);
     } else {
       setHide(false);
+    }
+  };
+
+  const touchFromAway = (e) => {
+    if (zoom < 16) {
+      setFlyLocation(e.geometry.coordinates);
     }
   };
 
@@ -151,7 +161,11 @@ const AppMap = ({ navigation }) => {
             }}
             style={appMapStyle.searchIcon}
           >
-            <SearchIcon width={19.55} height={19.55} />
+            {openSearchbar ? (
+              <CloseIcon color={"#FFFFFF"} />
+            ) : (
+              <SearchIcon width={19.55} height={19.55} />
+            )}
           </Pressable>
         </>
       )}
@@ -197,6 +211,7 @@ const AppMap = ({ navigation }) => {
           mapStyle={appMapStyle.map}
           regionChange={willHide}
           mapRef={mapRef}
+          onPress={touchFromAway}
         >
           <MapboxGL.UserLocation
             visible={visible}
@@ -209,16 +224,28 @@ const AppMap = ({ navigation }) => {
             onPress={touchPoint}
           >
             <MapboxGL.CircleLayer
+              minZoomLevel={14}
               id={"mapilio-point-v1"}
               sourceLayerID={"mapilio-point-v1"}
               style={styles.circles}
-              layerIndex={60}
+              layerIndex={80}
             />
           </MapboxGL.VectorSource>
-          {/* // TODO WAITING GEOJSON BECAUSE SHAPE JUST ACCEPT OBJECT TYPE */}
+          <MapboxGL.VectorSource
+            id="road-points-2"
+            url={"mapbox://your_tileset_url"}
+          >
+            <MapboxGL.CircleLayer
+              id={"mapilio-point-v1-stroke"}
+              sourceLayerID={"mapilio-point-v1"}
+              style={styles.circlesOpacity}
+              layerIndex={79}
+            />
+          </MapboxGL.VectorSource>
           <MapboxGL.VectorSource
             id={"road-shape"}
             url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-0usk2"}
+            maxZoomLevel={16}
           >
             <MapboxGL.LineLayer
               id={"mapilio-road-v1"}
@@ -239,7 +266,7 @@ const AppMap = ({ navigation }) => {
             centerCoordinate={flyLocation}
             animationMode={"flyTo"}
             animationDuration={1000}
-            zoomLevel={13}
+            zoomLevel={flyLocation[0] === 29.9081 ? 1 : 13}
             maxZoomLevel={20}
           />
         </MapView>
@@ -247,10 +274,25 @@ const AppMap = ({ navigation }) => {
 
       <Pressable
         style={[appMapStyle.currentIcon]}
-        onPress={() => {
+        onPress={async () => {
           setVisible((prev) => !prev);
-          if (!visible) {
+          let isEnabled = await Location.hasServicesEnabledAsync();
+          let permissionStatus = await Location.getForegroundPermissionsAsync();
+          if (
+            !visible &&
+            isEnabled &&
+            (await permissionStatus).status === "granted"
+          ) {
             setFlyLocation(userCoordinate);
+          } else {
+            toastGenerator(
+              "Your location was enabled. Please open and try again.",
+              require("../assets/images/Info.png"),
+              infoAlertStyles.alertContainer,
+              infoAlertStyles.alertTitle,
+              infoAlertStyles.alertImage,
+              2000
+            );
           }
         }}
       >

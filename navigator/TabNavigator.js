@@ -79,7 +79,9 @@ const CaptureTabBarButton = ({ children, onPress }) => {
 };
 
 const TabNavigator = ({ navigation, route }) => {
-  const { connection } = useSelector((state) => state.generalReducer);
+  const { connection, tabHeight } = useSelector(
+    (state) => state.generalReducer
+  );
   const [internetGoes, setInternetGoes] = useState(false);
   const { uploadData } = useSelector((state) => state.uploadReducer);
 
@@ -100,7 +102,11 @@ const TabNavigator = ({ navigation, route }) => {
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
-        tabBarStyle: navigatorStyle.tabBarStyle,
+        tabBarStyle: {
+          height: tabHeight,
+          position: "absolute",
+          bottom: 0,
+        },
       }}
       screenListeners={({ navigation, route }) => ({
         focus: (e) => {
@@ -139,7 +145,7 @@ const TabNavigator = ({ navigation, route }) => {
                 ellipsizeMode={"clip"}
               >
                 Map
-              </Text>
+          k    </Text>
             </View>
           ),
           title: <MapLogo fill={"#000"} />,
