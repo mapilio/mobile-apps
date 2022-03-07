@@ -3,7 +3,7 @@ import { Animated, LogBox, Platform, ScrollView, View } from "react-native";
 import { ProfileFeed, UserInfos } from "../components";
 import { globalStyles } from "../styles/globalStyles";
 import { fetchHandler } from "../helper/helper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CustomText, CustomTextBold } from "../highordercomponents";
@@ -24,6 +24,7 @@ const UserProfile = ({ navigation }) => {
     id: userInformation?.id,
     type: "individual",
   });
+  const dispatch = useDispatch();
   const { userInformation, isUploaded } = useSelector(
     (state) => state.getTokenReducer
   );
@@ -74,16 +75,16 @@ const UserProfile = ({ navigation }) => {
         res.data ? setItems([...items, ...res.data]) : setItems([]);
       })
       .catch((err) => {
-        dispatch({
-          type: "ALERT_TOAST_TOGGLE",
-          payload: {
-            open: true,
-            text: "An error while fetching your organizations. Please try again.",
-            color: getTheme().palette.button,
-            cardcolor: "red",
-            type: "error",
-          },
-        });
+        // dispatch({
+        //   type: "ALERT_TOAST_TOGGLE",
+        //   payload: {
+        //     open: true,
+        //     text: "An error while fetching your organizations. Please try again.",
+        //     color: getTheme().palette.button,
+        //     cardcolor: "red",
+        //     type: "error",
+        //   },
+        // });
       });
   }, []);
 

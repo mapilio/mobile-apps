@@ -233,7 +233,7 @@ const AppMap = ({ navigation }) => {
           </MapboxGL.VectorSource>
           <MapboxGL.VectorSource
             id="road-points-2"
-            url={"mapbox://your_tileset_url"}
+            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-4ow72"}
           >
             <MapboxGL.CircleLayer
               id={"mapilio-point-v1-stroke"}
@@ -275,23 +275,11 @@ const AppMap = ({ navigation }) => {
         style={[appMapStyle.currentIcon]}
         onPress={async () => {
           setVisible((prev) => !prev);
-          let isEnabled = await Location.hasServicesEnabledAsync();
-          let permissionStatus = await Location.getForegroundPermissionsAsync();
-          if (
-            !visible &&
-            isEnabled &&
-            (await permissionStatus).status === "granted"
-          ) {
+          // TODO INTEGRATE IF USER LOCATION WAS DISABLED
+          // let isEnabled = await Location.hasServicesEnabledAsync();
+          // let permissionStatus = await Location.getForegroundPermissionsAsync();
+          if (userCoordinate.length !== 0) {
             setFlyLocation(userCoordinate);
-          } else {
-            toastGenerator(
-              "Your location was enabled. Please open and try again.",
-              require("../assets/images/Info.png"),
-              infoAlertStyles.alertContainer,
-              infoAlertStyles.alertTitle,
-              infoAlertStyles.alertImage,
-              2000
-            );
           }
         }}
       >

@@ -145,7 +145,7 @@ const TabNavigator = ({ navigation, route }) => {
                 ellipsizeMode={"clip"}
               >
                 Map
-          k    </Text>
+              </Text>
             </View>
           ),
           title: <MapLogo fill={"#000"} />,
