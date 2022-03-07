@@ -227,7 +227,7 @@ const Camera = ({
   };
 
   const accuracyHandler = (accuracy) => {
-    if (accuracy >= 25) {
+    if (accuracy >= 205) {
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
       setGPSAlert({
         svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
@@ -270,7 +270,7 @@ const Camera = ({
   }, [gps]);
 
   const startAccuracyHandler = (accuracy) => {
-    if (accuracy > 15) {
+    if (accuracy > 105) {
       dispatch({ type: UPDATE_START_ACCURACY, payload: false });
       setGPSStartAlert({
         svg: <GPSSearch />,
@@ -278,7 +278,7 @@ const Camera = ({
         content:
           "Please be in the open area where the GPS will capture. This process can take up to 30 seconds.",
       });
-    } else if (accuracy <= 15) {
+    } else if (accuracy <= 105) {
       waitGPS.current = false;
       setGPS(false);
       dispatch({ type: UPDATE_START_ACCURACY, payload: true });

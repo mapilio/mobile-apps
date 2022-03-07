@@ -64,7 +64,7 @@ const AutoActionButton = ({
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
+    if (!GPSAccuracy || batteryError || highSpeed || mocked || !accuracy.isTrue) {
       return;
     } else {
       var location = null;

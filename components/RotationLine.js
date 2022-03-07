@@ -18,14 +18,13 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
     if (Boolean(accuracy) !== Boolean(rotateAlert)) {
       dispatch({
         type: UPDATE_ACCURACY,
-        payload: { isTrue: Boolean(rotateAlert), degree: degree },
+        payload: { isTrue: !Boolean(rotateAlert), degree: degree },
       });
     } else {
-      if (!Boolean(rotateAlert)) {
-        console.log(22);
+      if (accuracy.isTrue) {
         dispatch({
           type: UPDATE_ACCURACY,
-          payload: { isTrue: Boolean(rotateAlert), degree: degree },
+          payload: { isTrue: !Boolean(rotateAlert), degree: degree },
         });
       }
     }

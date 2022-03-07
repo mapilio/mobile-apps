@@ -38,12 +38,27 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-    if (!GPSAccuracy || batteryError || highSpeed || mocked) {
+    console.log(accuracy.isTrue);
+    if (
+      !GPSAccuracy ||
+      batteryError ||
+      highSpeed ||
+      mocked ||
+      !accuracy.isTrue
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [GPSAccuracy, waitGPS, isCharge, highSpeed, mocked, batteryLevel]);
+  }, [
+    GPSAccuracy,
+    waitGPS,
+    isCharge,
+    highSpeed,
+    mocked,
+    batteryLevel,
+    accuracy,
+  ]);
 
   return (
     <>
