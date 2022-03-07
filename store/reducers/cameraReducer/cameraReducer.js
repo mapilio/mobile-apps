@@ -121,7 +121,6 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         imageSize: 3145728,
         phoneMemory: 0,
         photoAmount: 0,
-        batteryLevel: 100,
       };
     default:
       return state;

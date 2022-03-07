@@ -37,8 +37,7 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
     } else {
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
-    }
-    console.log(accuracy.isTrue);
+    };
     if (
       !GPSAccuracy ||
       batteryError ||

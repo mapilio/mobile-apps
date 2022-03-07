@@ -28,6 +28,7 @@ const BatteryLevel = () => {
     batteryLevel = Math.ceil(batteryLevel * 100);
     setBatteryLevel(batteryLevel);
     let interval = null;
+    let timeout = null;
     if (Platform.OS === "android") {
       subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
         let roundedValue = Math.ceil(batteryLevel * 100);
@@ -41,6 +42,12 @@ const BatteryLevel = () => {
         setBatteryLevel(roundedValue);
         dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
       }, 60000);
+      timeout = setTimeout(async () => {
+        let batteryLevel = await Battery.getBatteryLevelAsync();
+        let roundedValue = Math.ceil(batteryLevel * 100);
+        setBatteryLevel(roundedValue);
+        dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
+      }, 10);
     }
     subscriptionState = Battery.addBatteryStateListener(({ batteryState }) => {
       if (batteryState === 3 || batteryState === 2) {
@@ -52,6 +59,9 @@ const BatteryLevel = () => {
     return () => {
       if (interval) {
         clearInterval(interval);
+      }
+      if (timeout) {
+        clearTimeout(timeout);
       }
     };
   };
