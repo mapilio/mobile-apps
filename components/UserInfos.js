@@ -17,9 +17,6 @@ const UserInfos = () => {
   const [avatarError, setAvatarError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [profileInfos, setProfileInfos] = useState({});
-  const showImage = avatarError
-    ? { uri: profileInfos.user_profile_photo }
-    : require("../assets/images/default_avatar.png");
 
   const infoGenerate = (value, subtitle) => {
     return (
@@ -159,7 +156,7 @@ const UserInfos = () => {
         style={{
           ...userInfoStyles.imageStyle,
         }}
-        source={showImage}
+        source={{ uri: profileInfos.user_profile_photo }}
         onLoadEnd={finishLoad}
         onError={setError}
       />

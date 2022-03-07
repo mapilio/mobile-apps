@@ -230,7 +230,7 @@ const AutoActionButton = ({
     }
     const newPath =
       FileSystem.documentDirectory +
-      `${id}/${uuid}/${Math.random().toString()}.${"jpeg"}`;
+      `${id}/${uuid}/${Math.round(new Date().getTime() / 1000).toString()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,

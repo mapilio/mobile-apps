@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { CustomText } from "../../highordercomponents";
 import FacebookIcon from "../../assets/svg/illustrations/FacebookIcon";
 import * as Facebook from "expo-facebook";
@@ -12,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import Database from "../../db";
 import { SERVICE_URL, FACEBOOK_APP_ID, FACEBOOK_REQUEST_URL } from "@env";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
@@ -35,9 +41,7 @@ const FacebookLogin = ({ navigation }) => {
           permissions: ["public_profile", "email"],
         });
       if (type === "success") {
-        const response = await fetch(
-          `${FACEBOOK_REQUEST_URL}${token}`
-        );
+        const response = await fetch(`${FACEBOOK_REQUEST_URL}${token}`);
         const json = await response.json();
         if (!json.email) {
           toastGenerator(
@@ -45,7 +49,7 @@ const FacebookLogin = ({ navigation }) => {
             require("../../assets/images/Info.png"),
             errorAlertStyles.alertContainer,
             errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage,
+            errorAlertStyles.alertImage
           );
         } else {
           fetchHandler({
@@ -100,8 +104,14 @@ const FacebookLogin = ({ navigation }) => {
           <View style={{ position: "absolute", left: 10 }}>
             <FacebookIcon />
           </View>
-          <CustomText style={{ textAlign: "center", color: "#FFF" }}>
-            Facebook
+          <CustomText
+            style={{
+              textAlign: "center",
+              color: "#FFF",
+              marginLeft: RFValue(3),
+            }}
+          >
+            {Dimensions.get("window").height > 1000 ? "Facebook" : "acebook"}
           </CustomText>
         </TouchableOpacity>
       )}
@@ -110,3 +120,20 @@ const FacebookLogin = ({ navigation }) => {
 };
 
 export default FacebookLogin;
+
+// Object {
+//   "authorizationCode": "cd0800e3c074a400fbbc13297c0e7a93d.0.rrquq.HUhoIKLq2qhegiDu30XoHw",
+//   "email": "5gmwfhb8hp@privaterelay.appleid.com",
+//   "fullName": Object {
+//     "familyName": "durak",
+//     "givenName": "ozcan",
+//     "middleName": null,
+//     "namePrefix": null,
+//     "nameSuffix": null,
+//     "nickname": null,
+//   },
+//   "identityToken": "***REMOVED***",
+//   "realUserStatus": 2,
+//   "state": null,
+//   "user": "001040.8b74c33410d1491d8f3b09b0ee1bff87.1441",
+// }

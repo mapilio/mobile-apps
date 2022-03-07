@@ -4,11 +4,13 @@ import { CustomText } from "../../highordercomponents";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import GoogleLogin from "./GoogleLogin";
 import FacebookLogin from "./FacebookLogin";
+import AppleLogin from "./AppleLogin";
 
 const SocialLogin = ({ navigation }) => {
   return (
     <View style={socialLoginStyles.container}>
       <View style={socialLoginStyles.topContainer}>
+        <AppleLogin navigation={navigation} />
         <FacebookLogin navigation={navigation} />
         <GoogleLogin navigation={navigation} />
       </View>
