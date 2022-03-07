@@ -20,9 +20,7 @@ const CameraSettings = ({ navigation }) => {
     { label: "Manuel", value: "manuel" },
     { label: "Automatic", value: "automatic" },
   ]);
-
-  console.log(batteryLevel);
-
+  
   useEffect(() => {
     StatusBar.setHidden(true);
     if (captureType) {

@@ -40,7 +40,6 @@ const AppleLogin = ({ navigation }) => {
         },
       })
         .then((res) => {
-          console.log(credential.user, "TOP");
           dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
           dispatch(getUserInformation(res));
           Database.startDB(res.id);
