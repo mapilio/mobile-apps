@@ -31,6 +31,26 @@ if (Platform.OS === "ios") {
   OneSignal.setNotificationOpenedHandler((notification) => {
     // TODO SOMETHING
   });
+} else {
+  OneSignal.setLogLevel(6, 0);
+  OneSignal.setAppId("6e28fa17-37de-47a5-b6ab-20b69ec0aa3a");
+  OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+    // TODO SOMETHING
+  });
+  //Method for handling notifications received while app in foreground
+  OneSignal.setNotificationWillShowInForegroundHandler(
+    (notificationReceivedEvent) => {
+      // TODO SOMETHING
+      let notification = notificationReceivedEvent.getNotification();
+      const data = notification.additionalData;
+      // Complete with null means don't show a notification.
+      notificationReceivedEvent.complete(notification);
+    }
+  );
+  //Method for handling notifications opened
+  OneSignal.setNotificationOpenedHandler((notification) => {
+    // TODO SOMETHING
+  });
 }
 
 if (Platform.OS === "ios") {

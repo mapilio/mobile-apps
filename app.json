@@ -37,8 +37,7 @@
         "xxhdpi": "./assets/splash/mapilio_splash_x3.png",
         "xxxhdpi": "./assets/splash/mapilio_splash_x4.png"
       },
-      "package": "com.mapilio.main",
-      "versionCode": 1
+      "package": "com.mapilio.main"
     },
     "web": {
       "favicon": "./assets/favicon.png"

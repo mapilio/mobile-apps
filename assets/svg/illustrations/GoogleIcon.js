@@ -2,7 +2,10 @@ import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 
-const GoogleIcon = ({ width = RFValue(10), height = RFValue(10) }) => (
+const GoogleIcon = ({
+  width = Platform.OS === "android" ? RFValue(19) : RFValue(10),
+  height = Platform.OS === "android" ? RFValue(19) : RFValue(10),
+}) => (
   <Svg
     width={width}
     height={height}

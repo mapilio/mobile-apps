@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
+  Platform,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -111,7 +112,11 @@ const FacebookLogin = ({ navigation }) => {
               marginLeft: RFValue(3),
             }}
           >
-            {Dimensions.get("window").height > 1000 ? "Facebook" : "acebook"}
+            {Platform.OS === "android"
+              ? "Facebook"
+              : Dimensions.get("window").height > 1000
+              ? "Facebook"
+              : "acebook"}
           </CustomText>
         </TouchableOpacity>
       )}
