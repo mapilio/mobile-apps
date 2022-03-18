@@ -64,7 +64,13 @@ const AutoActionButton = ({
       batteryError =
         Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
     }
-    if (!GPSAccuracy || batteryError || highSpeed || mocked || !accuracy.isTrue) {
+    if (
+      !GPSAccuracy ||
+      batteryError ||
+      highSpeed ||
+      mocked ||
+      !accuracy.isTrue
+    ) {
       return;
     } else {
       var location = null;
@@ -193,21 +199,25 @@ const AutoActionButton = ({
   const takePicture = async (location) => {
     const id = userInformation.id;
     if (cameraStatus !== "READY") return;
-    const options = { quality: 0.6, base64: false, exif: true };
+    const options = {
+      quality: 0.6,
+      base64: false,
+      exif: true,
+      skipProcessing: true,
+    };
     if (!autoCaptureStart) return;
     setNowCapture(true);
     const image = await camera.takePictureAsync(options);
-    const betweenPositiveLandscape = between(accuracy.degree, 175, 205);
     let heading = await Location.getHeadingAsync();
     const isLeft =
       between(accuracy.degree, 152, 190) ||
       between(accuracy.degree, -190, -160);
     heading.trueHeading = isLeft
-      ? getMode(heading.trueHeading + 90, 360)
-      : getMode(heading.trueHeading - 90, 360);
+      ? getMode(heading.trueHeading - 90, 360)
+      : getMode(heading.trueHeading + 90, 360);
     heading.magHeading = isLeft
-      ? getMode(heading.magHeading + 90, 360)
-      : getMode(heading.magHeading - 90, 360);
+      ? getMode(heading.magHeading - 90, 360)
+      : getMode(heading.magHeading + 90, 360);
     const imageUri = image.uri;
     if (!imageUri) {
       setNowCapture(false);
@@ -230,7 +240,9 @@ const AutoActionButton = ({
     }
     const newPath =
       FileSystem.documentDirectory +
-      `${id}/${uuid}/${Math.round(new Date().getTime() / 1000).toString()}.${"jpeg"}`;
+      `${id}/${uuid}/${Math.round(
+        new Date().getTime() / 1000
+      ).toString()}.${"jpeg"}`;
     await FileSystem.copyAsync({
       from: imageUri,
       to: newPath,
