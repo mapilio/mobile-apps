@@ -102,7 +102,14 @@ const FacebookLogin = ({ navigation }) => {
             justifyContent: "center",
           }}
         >
-          <View style={{ position: "absolute", left: 10 }}>
+          <View
+            style={{
+              position: "absolute",
+              left: 10,
+              marginLeft:
+                Dimensions.get("window").height > 1000 ? 0 : RFValue(-7),
+            }}
+          >
             <FacebookIcon />
           </View>
           <CustomText
@@ -112,11 +119,7 @@ const FacebookLogin = ({ navigation }) => {
               marginLeft: RFValue(3),
             }}
           >
-            {Platform.OS === "android"
-              ? "Facebook"
-              : Dimensions.get("window").height > 1000
-              ? "Facebook"
-              : "acebook"}
+            Facebook
           </CustomText>
         </TouchableOpacity>
       )}
