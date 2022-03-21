@@ -3,7 +3,7 @@
     "name": "Mapilio",
     "slug": "mapilio",
     "scheme": "mapilio",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/playstore.png",
     "userInterfaceStyle": "light",
@@ -24,6 +24,19 @@
       "bundleIdentifier": "com.mapilio.main"
     },
     "android": {
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "FOREGROUND_SERVICE",
+        "INTERNET",
+        "READ_EXTERNAL_STORAGE",
+        "RECORD_AUDIO",
+        "SYSTEM_ALERT_WINDOW",
+        "VIBRATE",
+        "WRITE_EXTERNAL_STORAGE",
+        "WRITE_SETTINGS"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/playstore.png",
         "backgroundColor": "#FFFFFF"
@@ -38,11 +51,15 @@
         "xxxhdpi": "./assets/splash/mapilio_splash_x4.png"
       },
       "package": "com.mapilio.main",
-      "versionCode": 1
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["@react-native-mapbox-gl/maps", "expo-facebook"]
+    "plugins": [
+      "@react-native-mapbox-gl/maps",
+      "expo-facebook",
+      ["expo-location", { "isAndroidBackgroundLocationEnabled": false }]
+    ]
   }
 }

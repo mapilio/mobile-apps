@@ -16,7 +16,9 @@ const Heading = ({heading, coordinates, markerPath}) => {
           iconAllowOverlap: true,
           iconRotate: ["get", "rotate"],
           iconRotationAlignment: 'map',
-        }}>
+        }}
+        layerIndex={90}
+        >
       </MapboxGL.SymbolLayer>
     </MapboxGL.ShapeSource>
   )

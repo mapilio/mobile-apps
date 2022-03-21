@@ -3,12 +3,9 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
-  Image,
   Platform,
   Pressable,
   Keyboard,
-  Alert,
-  Animated,
 } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
@@ -17,16 +14,13 @@ import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 import SlidingUpPanel from "rn-sliding-up-panel";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 import SearchbarSwipe from "../components/SearchbarSwipe";
-import { MAPBOX_TILESET_URL, MAPBOX_TILESET_ID, IMAGE_API } from "@env";
+import { IMAGE_API } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { CustomText, MapView } from "../highordercomponents";
+import { MapView } from "../highordercomponents";
 import { styles } from "../styles/circleStyles";
 import { Heading } from "../components/Map";
-import * as Location from "expo-location";
-import { toastGenerator } from "../helper/helper";
-import { infoAlertStyles } from "../styles/alertStyles";
 import { CloseIcon } from "../assets/svg/illustrations";
 
 MapboxGL.setAccessToken(
@@ -220,37 +214,37 @@ const AppMap = ({ navigation }) => {
           />
           <MapboxGL.VectorSource
             id="road-points"
-            url={"mapbox://mapilio.ckzy904h607j827pbqjtx9n4d-3v9sn"}
+            url={"mapbox://mapilio.ckzy904h607j827pbqjtx9n4d-3dges"}
             onPress={touchPoint}
           >
             <MapboxGL.CircleLayer
               minZoomLevel={14}
-              id={"mapilio-point-v1"}
-              sourceLayerID={"mapilio-point-v1"}
+              id={"mapilio_point"}
+              sourceLayerID={"mapilio_point"}
               style={styles.circles}
               layerIndex={80}
             />
           </MapboxGL.VectorSource>
           <MapboxGL.VectorSource
             id="road-points-2"
-            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-4ow72"}
+            url={"mapbox://mapilio.ckzy904h607j827pbqjtx9n4d-3dges"}
           >
             <MapboxGL.CircleLayer
               id={"mapilio-point-v1-stroke"}
-              sourceLayerID={"mapilio-point-v1"}
+              sourceLayerID={"mapilio_point"}
               style={styles.circlesOpacity}
               layerIndex={79}
             />
           </MapboxGL.VectorSource>
           <MapboxGL.VectorSource
             id={"road-shape"}
-            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-4ow72"}
+            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-7ugs8"}
           >
             <MapboxGL.LineLayer
               id={"mapilio-road-v1"}
-              sourceLayerID={"mapilio-road-v1"}
+              sourceLayerID={"mapilio_road"}
               style={styles.lineStyles}
-              layerIndex={55}
+              layerIndex={60}
             />
           </MapboxGL.VectorSource>
           {clickedCoord && !hide ? (
