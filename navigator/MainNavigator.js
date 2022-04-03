@@ -37,8 +37,7 @@ const MainNavigator = () => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const dispatch = useDispatch();
   const [internetConnection, setInternetConnection] = useState(true);
-  const Stack = createStackNavigator();
-
+  
   useEffect(() => {
     const unsubcribe = NetInfo.addEventListener((state) => {
       dispatch({
