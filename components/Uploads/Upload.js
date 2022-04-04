@@ -20,10 +20,8 @@ import * as Progress from "react-native-progress";
 import { errorAlertStyles, successAlertStyles } from "../../styles/alertStyles";
 import axios from "axios";
 import { SERVICE_URL } from "@env";
-import RNFetchBlob from "rn-fetch-blob";
 import { RFValue } from "react-native-responsive-fontsize";
 const md5 = require("md5");
-const RNFS = require("react-native-fs");
 
 const Upload = ({ sequence_uuid, navigation }) => {
   const dispatch = useDispatch();
@@ -82,17 +80,15 @@ const Upload = ({ sequence_uuid, navigation }) => {
         `SELECT * FROM captures WHERE sequence_uuid="${sequence.sequence_uuid}"`,
         (_, results) => {
           results.rows._array.map(async (data, i) => {
-            const filePath =
-              Platform.OS === "ios"
-                ? data.path.replace("file://", "")
-                : data.path;
-            const file = await RNFetchBlob.fs.stat(filePath);
-            RNFS.exists(filePath).then(async (fileExist) => {
-              if (fileExist) {
+            const filePath = Platform.OS === "ios" ? data.path.replace("file://", "") : data.path;
+            const fileName = filePath.split("/").pop();
+
+						FileSystem.getInfoAsync(filePath).then(async (fileInfo) => {
+              if (fileInfo.exists) {
                 const formData = new FormData();
                 formData.append("file", {
                   uri: filePath,
-                  name: file.filename,
+                  name: fileName,
                   type: "image/jpeg",
                 });
                 formData.append("email", userInformation.email);
@@ -173,87 +169,87 @@ const Upload = ({ sequence_uuid, navigation }) => {
         results.rows._array.map(async (file, i) => {
           const location = await JSON.parse(file.location);
           const exif = await JSON.parse(file.exif);
-          const fileInfo = await RNFetchBlob.fs.stat(
-            Platform.OS === "ios" ? file.path.replace("file://", "") : file.path
-          );
 
-          const horizontal = exif.ImageWidth || exif.PixelXDimension;
-          const vertical = exif.ImageLength || exif.PixelYDimension;
-          const fov = await hFovCalculate(
-            horizontal > vertical ? horizontal : vertical,
-            horizontal < vertical ? horizontal : vertical,
-            exif.FocalLength
-          );
+					FileSystem.getInfoAsync(Platform.OS === "ios" ? file.path.replace("file://", "") : file.path).then( async (fileInfo) => {
+						const fileName = file.path.split("/").pop();
+						const horizontal = exif.ImageWidth || exif.PixelXDimension;
+						const vertical = exif.ImageLength || exif.PixelYDimension;
+						const fov = await hFovCalculate(
+							horizontal > vertical ? horizontal : vertical,
+							horizontal < vertical ? horizontal : vertical,
+							exif.FocalLength
+						);
 
-          if (file.project_key && file.organization_key) {
-            files.options.parameters.summary.Information.organization_key =
-              file.organization_key;
-            files.options.parameters.summary.Information.project_key =
-              file.project_key;
-          }
+						if (file.project_key && file.organization_key) {
+							files.options.parameters.summary.Information.organization_key =
+								file.organization_key;
+							files.options.parameters.summary.Information.project_key =
+								file.project_key;
+						}
 
-          files.options.parameters.json_data.push({
-            Latitude: location.coords.latitude,
-            Longitude: location.coords.longitude,
-            Altitude: location.coords.altitude,
-            Heading: location.coords.heading,
-            CaptureTime: exif.DateTime || exif.DateTimeOriginal,
-            Orientation: exif.Orientation,
-            DeviceMake: exif.Make || exif.LensMake,
-            DeviceModel: exif.Model || exif.LensModel,
-            ImageSize: `${exif.ImageWidth || exif.PixelXDimension}x${
-              exif.ImageLength || exif.PixelYDimension
-            }`,
-            filename: fileInfo.filename,
-            SequenceUUID: file.sequence_uuid,
-            FoV: fov,
-            PhotoUUID: md5(
-              userInformation.email + (exif.DateTime || exif.DateTimeOriginal)
-            ),
-            anomaly: 0,
-          });
-          files.options.parameters.summary.Information.total_images =
-            results.rows._array.length;
-          files.options.parameters.summary.Information.sequence_uuid = sequence;
-          files.options.parameters.summary.Information.count =
-            results.rows._array.length;
-          files.options.parameters.summary.Information.size =
-            (filesize += fileInfo.size) / 1024 / 1024;
-          files.options.parameters.summary.Information.hash = file.hash;
+						files.options.parameters.json_data.push({
+							Latitude: location.coords.latitude,
+							Longitude: location.coords.longitude,
+							Altitude: location.coords.altitude,
+							Heading: location.coords.heading,
+							CaptureTime: exif.DateTime || exif.DateTimeOriginal,
+							Orientation: exif.Orientation,
+							DeviceMake: exif.Make || exif.LensMake,
+							DeviceModel: exif.Model || exif.LensModel,
+							ImageSize: `${exif.ImageWidth || exif.PixelXDimension}x${
+								exif.ImageLength || exif.PixelYDimension
+							}`,
+							filename: fileName,
+							SequenceUUID: file.sequence_uuid,
+							FoV: fov,
+							PhotoUUID: md5(
+								userInformation.email + (exif.DateTime || exif.DateTimeOriginal)
+							),
+							anomaly: 0,
+						});
+						files.options.parameters.summary.Information.total_images =
+							results.rows._array.length;
+						files.options.parameters.summary.Information.sequence_uuid = sequence;
+						files.options.parameters.summary.Information.count =
+							results.rows._array.length;
+						files.options.parameters.summary.Information.size =
+							(filesize += fileInfo.size) / 1024 / 1024;
+						files.options.parameters.summary.Information.hash = file.hash;
 
-          if (i === results.rows._array.length - 1) {
-            fetchHandler({
-              url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
-              method: "POST",
-              data: files,
-            })
-              .then((res) => {
-                if (res.status === true) {
-                  try {
-                    deleteSequence(sequence);
-                  } catch (error) {
-                    toastGenerator(
-                      "An error occurred while uploading.",
-                      require("../../assets/images/Warning.png"),
-                      errorAlertStyles.alertContainer,
-                      errorAlertStyles.alertTitle,
-                      errorAlertStyles.alertImage,
-                      5000
-                    );
-                  }
-                }
-              })
-              .catch((err) => {
-                toastGenerator(
-                  "An error occurred while uploading.",
-                  require("../../assets/images/Warning.png"),
-                  errorAlertStyles.alertContainer,
-                  errorAlertStyles.alertTitle,
-                  errorAlertStyles.alertImage,
-                  5000
-                );
-              });
-          }
+						if (i === results.rows._array.length - 1) {
+							fetchHandler({
+								url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
+								method: "POST",
+								data: files,
+							})
+								.then((res) => {
+									if (res.status === true) {
+										try {
+											deleteSequence(sequence);
+										} catch (error) {
+											toastGenerator(
+												"An error occurred while uploading.",
+												require("../../assets/images/Warning.png"),
+												errorAlertStyles.alertContainer,
+												errorAlertStyles.alertTitle,
+												errorAlertStyles.alertImage,
+												5000
+											);
+										}
+									}
+								})
+								.catch((err) => {
+									toastGenerator(
+										"An error occurred while uploading.",
+										require("../../assets/images/Warning.png"),
+										errorAlertStyles.alertContainer,
+										errorAlertStyles.alertTitle,
+										errorAlertStyles.alertImage,
+										5000
+									);
+								});
+						}
+					});
         });
       }
     );
