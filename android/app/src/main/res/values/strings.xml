@@ -1,0 +1,6 @@
+<resources>
+  <string name="app_name">Mapilio</string>
+  <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+  <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+  <string name="facebook_app_id">254795350007625</string>
+</resources>
