@@ -28,7 +28,7 @@ import MarketplaceReceived from "../screens/MarketplaceReceived";
 import TabNavigator from "./TabNavigator";
 import NonUserTabNavigator from "./NonUserTabNavigator";
 import MarketplaceReady from "../screens/MarketplaceReady";
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 const Stack = createStackNavigator();
@@ -37,7 +37,7 @@ const MainNavigator = () => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const dispatch = useDispatch();
   const [internetConnection, setInternetConnection] = useState(true);
-  
+
   useEffect(() => {
     const unsubcribe = NetInfo.addEventListener((state) => {
       dispatch({

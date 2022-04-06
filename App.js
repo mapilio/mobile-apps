@@ -14,9 +14,11 @@ import OneSignal from "react-native-onesignal";
 if (Platform.OS === "ios") {
   OneSignal.setLogLevel(6, 0);
   OneSignal.setAppId("2620c665-4554-41ac-b180-593e0d75c328");
-  OneSignal.promptForPushNotificationsWithUserResponse((response) => {
-    // TODO SOMETHING
-  });
+  if(Platform.OS === "ios"){
+    OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+      // TODO SOMETHING
+    });
+  }
   //Method for handling notifications received while app in foreground
   OneSignal.setNotificationWillShowInForegroundHandler(
     (notificationReceivedEvent) => {
@@ -34,9 +36,12 @@ if (Platform.OS === "ios") {
 } else {
   OneSignal.setLogLevel(6, 0);
   OneSignal.setAppId("6e28fa17-37de-47a5-b6ab-20b69ec0aa3a");
-  OneSignal.promptForPushNotificationsWithUserResponse((response) => {
-    // TODO SOMETHING
-  });
+  if(Platform.OS === "ios"){
+    OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+      // TODO SOMETHING
+    });
+  }
+
   //Method for handling notifications received while app in foreground
   OneSignal.setNotificationWillShowInForegroundHandler(
     (notificationReceivedEvent) => {
