@@ -14,8 +14,6 @@ package-lock.json
 
 android/*
 
-ios/*
-
 # macOS
 .DS_Store
 
