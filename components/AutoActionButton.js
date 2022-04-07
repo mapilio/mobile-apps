@@ -53,6 +53,7 @@ const AutoActionButton = ({
   };
 
   const stopHandler = () => {
+    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
   };
 
@@ -127,17 +128,17 @@ const AutoActionButton = ({
 
   useEffect(() => {
     let setTimeout = null;
-    AppState.addEventListener("change", deneme);
+    AppState.addEventListener("change", startNewSequence);
 
     return () => {
-      AppState.removeEventListener("change", deneme);
+      AppState.removeEventListener("change", startNewSequence);
       if (setTimeout) {
         clearTimeout(setTimeout);
       }
     };
   }, []);
 
-  let deneme = (nextAppState) => {
+  let startNewSequence = (nextAppState) => {
     let timeout = null;
     if (autoCaptureStart) {
       if (

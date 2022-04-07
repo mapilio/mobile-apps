@@ -16,6 +16,7 @@ import CameraProjectInfo from "./CameraProjectInfo";
 import { Accelerometer } from "expo-sensors";
 import RotationLine from "./RotationLine";
 import * as Location from "expo-location";
+import Database from "../db";
 import {
   UPDATE_CAMERA_REF,
   UPDATE_CAMERA_STATUS,
@@ -23,6 +24,8 @@ import {
   UPDATE_START_ACCURACY,
   UPDATE_MOCKED_STATUS,
   UPDATE_HIGHSPEED_STATUS,
+  UPLOAD_DATA,
+  UPDATE_PHOTO_AMOUNT,
 } from "../store/actionsName";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -58,7 +61,8 @@ const Camera = ({
   const [gps, setGPS] = useState(true);
   const fadeAnimation = useRef(new Animated.Value(0.7)).current;
   const dispatch = useDispatch();
-  const { batteryLevel, isCharge } = useSelector(
+  let timeoutGPS = null;
+  const { batteryLevel, isCharge, photoAmount, keepUUID } = useSelector(
     (state) => state.cameraReducer
   );
   const { connection, cameraWalkthroughStatus } = useSelector(
@@ -227,14 +231,33 @@ const Camera = ({
   };
 
   const accuracyHandler = (accuracy) => {
-    if (accuracy >= 20) {
-      dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
-      setGPSAlert({
-        svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
-        title: "GPS accuracy is too low",
-        content: "Shooting will continue when the GPS alert icon turns green.",
-      });
+    if (accuracy >= 1) {
+      if (!timeoutGPS) {
+        timeoutGPS = setTimeout(() => {
+          dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
+          setGPSAlert({
+            svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
+            title: "GPS accuracy is too low",
+            content:
+              "When the GPS alert icon turns green, shooting will continue and the new sequence will start.",
+          });
+          if (photoAmount >= 5) {
+            Database.query(
+              "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+              (_, result) => {
+                dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+              }
+            );
+          } else {
+            Database.deleteRow(keepUUID);
+          }
+          dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
+        }, 3000);
+      }
     } else {
+      if (timeoutGPS) {
+        clearTimeout(timeoutGPS);
+      }
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: true });
       setGPSAlert(null);
     }
