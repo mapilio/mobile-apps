@@ -19,6 +19,7 @@ import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import Database from "../../db";
 import { SERVICE_URL, FACEBOOK_APP_ID, FACEBOOK_REQUEST_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
+import OneSignal from "react-native-onesignal";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
@@ -66,6 +67,7 @@ const FacebookLogin = ({ navigation }) => {
               dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
               dispatch(getUserInformation(res));
               Database.startDB(res.id);
+              OneSignal.setExternalUserId(res.id.toLocaleString(), (results) => {});
               navigation.navigate(Routes.tabHome);
             })
             .catch((err) => console.error(err));

@@ -13,6 +13,7 @@ import { Routes } from "../../navigator/Routes";
 import { fetchHandler, toastGenerator } from "../../helper/helper";
 import { SERVICE_URL } from "@env";
 import { successAlertStyles } from "../../styles/alertStyles";
+import OneSignal from "react-native-onesignal";
 
 const AppleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -43,6 +44,7 @@ const AppleLogin = ({ navigation }) => {
           dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
           dispatch(getUserInformation(res));
           Database.startDB(res.id);
+          OneSignal.setExternalUserId(res.id.toLocaleString(), (results) => {});
           navigation.navigate(Routes.tabHome);
         })
         .catch((err) => console.error(err));
@@ -67,6 +69,7 @@ const AppleLogin = ({ navigation }) => {
           dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
           dispatch(getUserInformation(res));
           Database.startDB(res.id);
+          OneSignal.setExternalUserId(res.id, (results) => {});
           navigation.navigate(Routes.tabHome);
         })
         .catch((err) => console.error(err));
