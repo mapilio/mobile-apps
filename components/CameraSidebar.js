@@ -53,6 +53,10 @@ const CameraSidebar = ({
   const { keepUUID, photoAmount } = useSelector((state) => state.cameraReducer);
 
   useEffect(() => {
+    dispatch({ type: UPDATE_UUID, payload: uuidV4 });
+  }, [uuidV4]);
+
+  useEffect(() => {
     if (photoAmount >= 500) {
       const sequenceUUID = uuid.v4();
       setUUID(sequenceUUID);
@@ -133,8 +137,8 @@ const CameraSidebar = ({
       exitHandler();
     } else {
       database.deleteRow(uuidV4);
+      dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     }
-    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
   };
 
   const exitFromCamera = async () => {

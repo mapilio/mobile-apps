@@ -106,6 +106,7 @@ const TabNavigator = ({ navigation, route }) => {
           height: tabHeight,
           position: "absolute",
           bottom: 0,
+          width: "100%",
         },
       }}
       screenListeners={({ navigation, route }) => ({
