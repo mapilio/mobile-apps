@@ -22,6 +22,7 @@ import {
   GOOGLE_REQUEST_URL,
   SERVICE_URL,
 } from "@env";
+import OneSignal from "react-native-onesignal";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -71,6 +72,7 @@ const GoogleLogin = ({ navigation }) => {
     })
       .then((res) => {
         if (res.id) {
+          OneSignal.setExternalUserId(res.id.toLocaleString(), (results) => {});
           dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
           dispatch(getUserInformation(res));
           Database.startDB(res.id);

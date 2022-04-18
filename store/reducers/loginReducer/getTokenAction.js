@@ -4,6 +4,7 @@ import Database from "../../../db";
 import { fetchHandler, toastGenerator } from "../../../helper/helper";
 import { errorAlertStyles } from "../../../styles/alertStyles";
 import { SERVICE_URL } from "@env";
+import OneSignal from "react-native-onesignal";
 
 export const getTokenAction = (parameters, navigation) => (dispatch) => {
   dispatch({ type: GET_TOKEN_START });
@@ -20,6 +21,9 @@ export const getTokenAction = (parameters, navigation) => (dispatch) => {
       dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
       dispatch(getUserInformation(res));
       Database.startDB(res.id);
+      OneSignal.setExternalUserId(res.id.toLocaleString(), (results) => {
+        console.log("RESULTS: ", results);
+      });
     })
     .catch((err) => {
       toastGenerator(
