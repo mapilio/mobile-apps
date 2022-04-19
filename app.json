@@ -21,7 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true,
-      "bundleIdentifier": "com.mapilio.main"
+      "bundleIdentifier": "com.mapilio.app"
     },
     "android": {
       "permissions": [
@@ -50,7 +50,7 @@
         "xxhdpi": "./assets/splash/mapilio_splash_x3.png",
         "xxxhdpi": "./assets/splash/mapilio_splash_x4.png"
       },
-      "package": "com.mapilio.main",
+      "package": "com.mapilio.app",
       "versionCode": 4
     },
     "web": {
