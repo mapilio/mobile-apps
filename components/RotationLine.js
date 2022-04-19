@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { CameraRotate } from "../assets/svg/illustrations";
 import { UPDATE_ACCURACY } from "../store/actionsName";
 
-const RotationLine = ({ degree, setAlert, rotateAlert }) => {
+const RotationLine = ({ degree, lineDegree, setAlert, rotateAlert }) => {
   const [appear, setAppear] = useState(false);
   const dispatch = useDispatch();
   const { accuracy } = useSelector((state) => state.cameraReducer);
@@ -32,9 +32,9 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
 
   useEffect(() => {
     if (Platform.OS === "android") {
-      const betweenPositiveLandscape = between(degree, 160, 205);
-      const betweenHighNegativeLandscape = between(degree, -190, -160);
-      const betweenNegativeLandscape = between(degree, -25, 25);
+      const betweenPositiveLandscape = between(lineDegree, 160, 205);
+      const betweenHighNegativeLandscape = between(lineDegree, -190, -160);
+      const betweenNegativeLandscape = between(lineDegree, -25, 25);
       if (
         !betweenNegativeLandscape &&
         !betweenPositiveLandscape &&
@@ -44,8 +44,7 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
         setAlert({
           svg: <CameraRotate />,
           title: "Adjust your camera angle",
-          content:
-            "Shooting will continue when the GPS alert icon turns green.",
+          content: "Shooting will continue when the your rotation true.",
         });
       } else if (
         betweenNegativeLandscape ||
@@ -56,9 +55,9 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
         setAlert(null);
       }
     } else if (Platform.OS === "ios") {
-      const betweenPositiveLandscape = between(degree, 152, 190);
-      const betweenHighNegativeLandscape = between(degree, -190, -160);
-      const betweenNegativeLandscape = between(degree, -25, 25);
+      const betweenPositiveLandscape = between(lineDegree, 152, 190);
+      const betweenHighNegativeLandscape = between(lineDegree, -190, -160);
+      const betweenNegativeLandscape = between(lineDegree, -25, 25);
 
       if (
         !betweenNegativeLandscape &&
@@ -69,8 +68,7 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
         setAlert({
           svg: <CameraRotate />,
           title: "Adjust your camera angle",
-          content:
-            "Shooting will continue when the GPS alert icon turns green.",
+          content: "Shooting will continue when the your rotation true.",
         });
       } else if (
         betweenNegativeLandscape ||
@@ -102,9 +100,11 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
           transform: [
             {
               rotate:
-                degree < 0
-                  ? `${Math.abs(Math.round(Math.ceil(degree / 5) * 5))}deg`
-                  : `${-Math.abs(Math.round(Math.ceil(degree / 5) * 5))}deg`,
+                lineDegree < 0
+                  ? `${Math.abs(Math.round(Math.ceil(lineDegree / 5) * 5))}deg`
+                  : `${-Math.abs(
+                      Math.round(Math.ceil(lineDegree / 5) * 5)
+                    )}deg`,
             },
           ],
         }}

@@ -50,6 +50,7 @@ const Camera = ({
   waitGPS,
 }) => {
   const [degree, setDegree] = useState(0);
+  const [lineDegree, setLineDegree] = useState(0);
   const [batteryAlert, setBatteryAlert] = useState(null);
   const [subscription, setSubscription] = useState(null);
   const [mockedAlert, setMockedAlert] = useState(null);
@@ -172,7 +173,13 @@ const Camera = ({
         let x = accelerometerData.x;
         let y = accelerometerData.y;
         let degree = (Math.atan2(y, x) * 180) / Math.PI;
-        setDegree(degree);
+        setLineDegree(degree);
+        let angle = Math.atan2(y, x);
+        angle = angle * (180 / Math.PI);
+        angle = angle + 90;
+        angle = (angle + 360) % 360;
+
+        setDegree(angle);
         return accelerometerData;
       }
     );
@@ -231,7 +238,7 @@ const Camera = ({
   };
 
   const accuracyHandler = (accuracy) => {
-    if (accuracy >= 1) {
+    if (accuracy >= 25) {
       if (!timeoutGPS) {
         timeoutGPS = setTimeout(() => {
           dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
@@ -337,6 +344,7 @@ const Camera = ({
       >
         <RotationLine
           degree={degree}
+          lineDegree={lineDegree}
           setAlert={setRotateAlert}
           rotateAlert={rotateAlert}
         />

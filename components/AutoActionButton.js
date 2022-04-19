@@ -106,26 +106,6 @@ const AutoActionButton = ({
     accuracy,
   ]);
 
-  // useEffect(() => {
-  //   let subscription = AppState.addEventListener("change", dene);
-  //   return () => subscription && subscription.remove();
-  // }, []);
-
-  // let dene = (state) => {
-  //   toastGenerator(
-  //     "Your new sequence has been started.",
-  //     require("../assets/images/Info.png"),
-  //     infoAlertStyles.alertContainer,
-  //     infoAlertStyles.alertTitle,
-  //     infoAlertStyles.alertImage
-  //   );
-  //   if (autoCaptureStart && state === "background") {
-  //     exitCapture();
-  //   } else {
-  //     setNowCapture(false);
-  //   }
-  // };
-
   useEffect(() => {
     let setTimeout = null;
     AppState.addEventListener("change", startNewSequence);
@@ -207,18 +187,17 @@ const AutoActionButton = ({
       skipProcessing: true,
     };
     if (!autoCaptureStart) return;
+    if (!accuracy.degree) return;
     setNowCapture(true);
     const image = await camera.takePictureAsync(options);
     let heading = await Location.getHeadingAsync();
-    const isLeft =
-      between(accuracy.degree, 152, 190) ||
-      between(accuracy.degree, -190, -160);
+    const isLeft = between(accuracy.degree, 40, 190);
     heading.trueHeading = isLeft
-      ? getMode(heading.trueHeading - 90, 360)
-      : getMode(heading.trueHeading + 90, 360);
+      ? getMode(heading.trueHeading + 90, 360)
+      : getMode(heading.trueHeading - 90, 360);
     heading.magHeading = isLeft
-      ? getMode(heading.magHeading - 90, 360)
-      : getMode(heading.magHeading + 90, 360);
+      ? getMode(heading.magHeading + 90, 360)
+      : getMode(heading.magHeading - 90, 360);
     const imageUri = image.uri;
     if (!imageUri) {
       setNowCapture(false);
