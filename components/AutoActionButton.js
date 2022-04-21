@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA, toastGenerator } from "../helper/helper";
 import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
@@ -47,6 +48,16 @@ const AutoActionButton = ({
   const [isNowCapture, setNowCapture] = useState(false);
   let photo = photoAmount;
   const dispatch = useDispatch();
+  var location = null;
+
+  useEffect(() => {
+    let unsubscribe = navigation.addListener("blur", (e) => {
+      if (location) {
+        location.remove();
+      }
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const playHandler = () => {
     dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: true });
@@ -57,54 +68,55 @@ const AutoActionButton = ({
     dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
   };
 
-  useEffect(() => {
-    let batteryError = false;
-    if (isCharge) {
-      batteryError = false;
-    } else {
-      batteryError =
-        Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
-    }
-    if (
-      !GPSAccuracy ||
-      batteryError ||
-      highSpeed ||
-      mocked ||
-      !accuracy.isTrue
-    ) {
-      return;
-    } else {
-      var location = null;
-      const watchLocation = async () => {
-        location = await Location.watchPositionAsync(
-          {
-            accuracy: Location.Accuracy.High,
-            distanceInterval: distanceBetween,
-          },
-          (location) => {
-            if (disabled) {
-              return;
-            } else {
-              takePicture(location);
+  useFocusEffect(
+    React.useCallback(() => {
+      let batteryError = false;
+      if (isCharge) {
+        batteryError = false;
+      } else {
+        batteryError =
+          Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
+      }
+      if (
+        !GPSAccuracy ||
+        batteryError ||
+        highSpeed ||
+        mocked ||
+        !accuracy.isTrue
+      ) {
+        return;
+      } else {
+        const watchLocation = async () => {
+          location = await Location.watchPositionAsync(
+            {
+              accuracy: Location.Accuracy.High,
+              distanceInterval: distanceBetween,
+            },
+            (location) => {
+              if (disabled) {
+                return;
+              } else {
+                takePicture(location);
+              }
             }
-          }
-        );
-      };
-      watchLocation();
+          );
+        };
+        watchLocation();
+      }
       return () => {
         location?.remove();
       };
-    }
-  }, [
-    autoCaptureStart,
-    disabled,
-    distanceBetween,
-    isCharge,
-    mocked,
-    highSpeed,
-    batteryLevel,
-    accuracy,
-  ]);
+    }, [
+      autoCaptureStart,
+      disabled,
+      distanceBetween,
+      isCharge,
+      mocked,
+      highSpeed,
+      batteryLevel,
+      accuracy,
+    ])
+  );
 
   useEffect(() => {
     let setTimeout = null;
