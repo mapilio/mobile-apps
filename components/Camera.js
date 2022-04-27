@@ -98,7 +98,11 @@ const Camera = ({
     return () => unsubscribe();
   }, [navigation]);
 
-  const goProfile = () => navigation.navigate(Routes.profile);
+  const goProfile = () =>
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.profile }],
+    });
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async (e) => {
@@ -116,23 +120,24 @@ const Camera = ({
 
   useEffect(() => {
     _subscribeToAccelerometer();
-    return () => _removeAccelerometerSubscribe();
+    return _removeAccelerometerSubscribe();
   }, []);
 
   useEffect(() => {
     _subscribeProvider();
-    return () => _removeLocationProvider();
+    return _removeLocationProvider();
   }, []);
 
   useEffect(() => {
     if (!isCharge) {
-      (batteryLevel <= 20 && Platform.OS === "ios") || (batteryLevel <= 15 && Platform.OS === "android")
+      (batteryLevel <= 20 && Platform.OS === "ios") ||
+      (batteryLevel <= 15 && Platform.OS === "android")
         ? setBatteryAlert({
-          svg: <BatteryLevelIcon />,
-          title: "Battery level low",
-          content:
-            "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
-        })
+            svg: <BatteryLevelIcon />,
+            title: "Battery level low",
+            content:
+              "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
+          })
         : setBatteryAlert(null);
     } else {
       setBatteryAlert(null);
@@ -172,6 +177,7 @@ const Camera = ({
   };
 
   const _removeAccelerometerSubscribe = () => {
+    console.log("REMOVE ACCELEROMETER");
     subscription?.remove();
     accelerometerSubscription?.remove();
     setSubscription(null);
@@ -256,6 +262,7 @@ const Camera = ({
   };
 
   const _removeLocationProvider = async () => {
+    console.log("REMOVE LOCATIOB");
     await location?.remove();
   };
 

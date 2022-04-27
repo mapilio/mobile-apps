@@ -142,7 +142,10 @@ const CameraSidebar = ({
   };
 
   const exitFromCamera = async () => {
-    navigation.navigate(Routes.map);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.map }],
+    });
     exitHandler();
     // THIS CODE BLOCK MAYBE LATER GONNA ADD
     // if (photoAmount >= 5) {
@@ -185,7 +188,10 @@ const CameraSidebar = ({
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-    navigation.navigate(Routes.profile);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.profile }],
+    });
     StatusBar.setHidden(false);
     dispatch({ type: CAMERA_REDUCER_RESET });
     dispatch({

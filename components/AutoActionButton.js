@@ -1,15 +1,26 @@
-import React, {useEffect, useRef, useState} from "react";
-import {AppState, Dimensions, Platform, TouchableOpacity, View,} from "react-native";
-import {useFocusEffect} from "@react-navigation/native";
-import {RFValue} from "react-native-responsive-fontsize";
-import {convertHexToRGBA, toastGenerator} from "../helper/helper";
-import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  AppState,
+  Dimensions,
+  Platform,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { convertHexToRGBA, toastGenerator } from "../helper/helper";
+import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
 import * as Location from "expo-location";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
-import {useDispatch, useSelector} from "react-redux";
-import {UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT, UPLOAD_DATA,} from "../store/actionsName";
-import {infoAlertStyles} from "../styles/alertStyles";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  UPDATE_AUTOCAPTURE_START,
+  UPDATE_IMAGE_SIZE,
+  UPDATE_PHOTO_AMOUNT,
+  UPLOAD_DATA,
+} from "../store/actionsName";
+import { infoAlertStyles } from "../styles/alertStyles";
 
 const AutoActionButton = ({
   disabled,
@@ -36,11 +47,12 @@ const AutoActionButton = ({
   let location = null;
 
   useEffect(() => {
-    return navigation.addListener("blur", () => {
+    const unsubscribe = navigation.addListener("blur", () => {
       if (location) location.remove();
       if (subscription) subscription.remove();
       dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
     });
+    return unsubscribe;
   }, [navigation]);
 
   const playHandler = () => {
@@ -214,7 +226,8 @@ const AutoActionButton = ({
       to: newPath,
     });
     image.uri = newPath;
-    location.coords.heading = heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
+    location.coords.heading =
+      heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
     Database.insertToDB({
