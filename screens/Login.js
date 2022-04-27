@@ -19,7 +19,7 @@ import { Eye, EyeSlash } from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import { SocialLogin } from "../components";
 
-const Login = ({ navigation, route }) => {
+const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const [securePassword, setSecurePassword] = useState(true);
 
@@ -64,7 +64,6 @@ const Login = ({ navigation, route }) => {
               handleSubmit,
               values,
               errors,
-              isValid,
             }) => (
               <>
                 <View style={loginStyles.formGroup}>

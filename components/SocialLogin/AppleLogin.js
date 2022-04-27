@@ -21,8 +21,8 @@ const AppleLogin = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let isAvailable = async () => {
-      let status = AppleAuthentication.isAvailableAsync();
+    const isAvailable = async () => {
+      const status = await AppleAuthentication.isAvailableAsync();
       setAvailable(status);
     };
     isAvailable();

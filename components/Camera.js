@@ -125,32 +125,17 @@ const Camera = ({
   }, []);
 
   useEffect(() => {
-    if (Platform.OS === "ios") {
-      if (!isCharge) {
-        batteryLevel <= 20
-          ? setBatteryAlert({
-              svg: <BatteryLevelIcon />,
-              title: "Battery level low",
-              content:
-                "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
-            })
-          : setBatteryAlert(null);
-      } else {
-        setBatteryAlert(null);
-      }
-    } else if (Platform.OS === "android") {
-      if (!isCharge) {
-        batteryLevel <= 15
-          ? setBatteryAlert({
-              svg: <BatteryLevelIcon />,
-              title: "Battery level low",
-              content:
-                "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible.",
-            })
-          : setBatteryAlert(null);
-      } else {
-        setBatteryAlert(null);
-      }
+    if (!isCharge) {
+      (batteryLevel <= 20 && Platform.OS === "ios") || (batteryLevel <= 15 && Platform.OS === "android")
+        ? setBatteryAlert({
+          svg: <BatteryLevelIcon />,
+          title: "Battery level low",
+          content:
+            "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
+        })
+        : setBatteryAlert(null);
+    } else {
+      setBatteryAlert(null);
     }
   }, [batteryLevel, isCharge]);
 
@@ -294,9 +279,7 @@ const Camera = ({
       clearTimeout(timeout?.current);
       timeout = null;
     }
-    return () => {
-      clearTimeout(timeout?.current);
-    };
+    return () => clearTimeout(timeout?.current);
   }, [gps]);
 
   const startAccuracyHandler = (accuracy) => {

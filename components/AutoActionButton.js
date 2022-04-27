@@ -1,39 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  AppState,
-  Dimensions,
-  Platform,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { convertHexToRGBA, toastGenerator } from "../helper/helper";
-import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
+import React, {useEffect, useRef, useState} from "react";
+import {AppState, Dimensions, Platform, TouchableOpacity, View,} from "react-native";
+import {useFocusEffect} from "@react-navigation/native";
+import {RFValue} from "react-native-responsive-fontsize";
+import {convertHexToRGBA, toastGenerator} from "../helper/helper";
+import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import * as Location from "expo-location";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  UPDATE_AUTOCAPTURE_START,
-  UPDATE_IMAGE_SIZE,
-  UPDATE_PHOTO_AMOUNT,
-  UPLOAD_DATA,
-} from "../store/actionsName";
-import { infoAlertStyles } from "../styles/alertStyles";
-import database from "../db";
+import {useDispatch, useSelector} from "react-redux";
+import {UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT, UPLOAD_DATA,} from "../store/actionsName";
+import {infoAlertStyles} from "../styles/alertStyles";
 
 const AutoActionButton = ({
   disabled,
-  setDisabled,
   uuid,
   navigation,
-  GPSStatus,
   GPSAccuracy,
   batteryLevel,
   mocked,
   highSpeed,
-  exitCapture,
 }) => {
   const { cameraStatus, camera, photoAmount, isCharge, accuracy } = useSelector(
     (status) => status.cameraReducer
@@ -48,15 +33,14 @@ const AutoActionButton = ({
   const [isNowCapture, setNowCapture] = useState(false);
   let photo = photoAmount;
   const dispatch = useDispatch();
-  var location = null;
+  let location = null;
 
   useEffect(() => {
-    let unsubscribe = navigation.addListener("blur", (e) => {
-      if (location) {
-        location.remove();
-      }
+    return navigation.addListener("blur", () => {
+      if (location) location.remove();
+      if (subscription) subscription.remove();
+      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
     });
-    return unsubscribe;
   }, [navigation]);
 
   const playHandler = () => {
@@ -170,16 +154,6 @@ const AutoActionButton = ({
     }
   };
 
-  useEffect(() => {
-    let unsubscribe = navigation.addListener("blur", (e) => {
-      if (subscription) {
-        subscription.remove();
-      }
-      dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
-    });
-    return unsubscribe;
-  }, [navigation]);
-
   const getMode = (a, b) => {
     return ((a % b) + b) % b;
   };
@@ -240,9 +214,7 @@ const AutoActionButton = ({
       to: newPath,
     });
     image.uri = newPath;
-    let newHeading =
-      heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
-    location.coords.heading = newHeading;
+    location.coords.heading = heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
     Database.insertToDB({
@@ -310,7 +282,7 @@ const AutoActionButton = ({
                 Dimensions.get("window").width + Dimensions.get("window").height
               ) / 2,
           }}
-        ></View>
+        />
       </TouchableOpacity>
     );
   } else {
@@ -358,7 +330,7 @@ const AutoActionButton = ({
                 Dimensions.get("window").width + Dimensions.get("window").height
               ) / 2,
           }}
-        ></View>
+        />
       </TouchableOpacity>
     );
   }
