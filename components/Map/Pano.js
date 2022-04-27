@@ -13,17 +13,15 @@ import ReportIcon from "../../assets/svg/illustrations/ReportIcon";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 import SwitchMapPano from "../../assets/svg/illustrations/SwitchMapPano";
 import MinimizePano from "../../assets/svg/illustrations/MinimizePano";
-import ZoomIn from "../../assets/svg/illustrations/ZoomIn";
-import ZoomOut from "../../assets/svg/illustrations/ZoomOut";
 import Campus from "../../assets/svg/illustrations/Campus";
 import moment from "moment";
 import { Routes } from "../../navigator/Routes";
-import { fetchHandler, toastGenerator } from "../../helper/helper";
-import { errorAlertStyles, infoAlertStyles } from "../../styles/alertStyles";
+import { fetchHandler } from "../../helper/helper";
 import { useSelector } from "react-redux";
 import { RFValue } from "react-native-responsive-fontsize";
 import { NorthArrow } from "../../assets/svg/illustrations";
 import { SERVICE_URL } from "@env";
+import {errorToastMessage, infoToastMessage} from "../../helper/alerts";
 
 const Pano = (props) => {
   const { imageInformation, navigation } = props;
@@ -43,27 +41,11 @@ const Pano = (props) => {
             },
           },
         },
-      })
-        .then((res) => {
-          toastGenerator(
-            "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-            require("../../assets/images/Info.png"),
-            infoAlertStyles.alertContainer,
-            infoAlertStyles.alertTitle,
-            infoAlertStyles.alertImage,
-            5000
-          );
-        })
-        .catch((err) => {
-          toastGenerator(
-            "An error occurred while reporting. Try again.",
-            require("../../assets/images/Warning.png"),
-            errorAlertStyles.alertContainer,
-            errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage,
-            5000
-          );
-        });
+      }).then((res) => {
+        infoToastMessage("Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.")
+      }).catch(() => {
+        errorToastMessage("An error occurred while reporting. Try again.")
+      });
     } else {
       navigation.navigate(Routes.login);
     }

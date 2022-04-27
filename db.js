@@ -1,15 +1,14 @@
 import * as SQLite from "expo-sqlite";
-import { toastGenerator } from "./helper/helper";
 import { store } from "./store/store";
-import { errorAlertStyles } from "./styles/alertStyles";
 import * as FileSystem from "expo-file-system";
+import {errorToastMessage} from "./helper/alerts";
 
 const id = store.getState().generalReducer.id;
 
 let db = SQLite.openDatabase(`mapilio-test-${id}.db`);
 
 class Database {
-  async startDB(id) {
+  async startDB() {
     db.transaction((txn) => {
       txn.executeSql(
         `CREATE TABLE IF NOT EXISTS captures (
@@ -46,17 +45,10 @@ class Database {
           values.uuid,
           values.path,
         ],
-        (txn, rs) => null,
+        () => null,
         (_, error) => {
           console.log(error);
-          toastGenerator(
-            "An error occurred while shooting, please try again.",
-            require("./assets/images/Info.png"),
-            errorAlertStyles.alertContainer,
-            errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage,
-            1000
-          );
+          errorToastMessage("An error occurred while shooting, please try again.")
           this.startDB(values.userID);
         }
       );
@@ -68,18 +60,9 @@ class Database {
       txn.executeSql(
         "SELECT * FROM captures",
         [],
-        (_, result) => {
-          return;
-        },
+        () => {},
         (_, error) => {
-          toastGenerator(
-            "An error occurred while shooting, please try again.",
-            require("./assets/images/Info.png"),
-            errorAlertStyles.alertContainer,
-            errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage,
-            2000
-          );
+          errorToastMessage("An error occurred while shooting, please try again.")
           console.log(error);
 
           if (userID) {
@@ -94,14 +77,7 @@ class Database {
     this.startDB(id);
     db.transaction((txn) => {
       txn.executeSql(query, args, callback, (_, error) => {
-        toastGenerator(
-          "Something went wrong.",
-          require("./assets/images/Info.png"),
-          errorAlertStyles.alertContainer,
-          errorAlertStyles.alertTitle,
-          errorAlertStyles.alertImage,
-          1000
-        );
+        errorToastMessage("Something went wrong.")
         console.log(error);
       });
     });

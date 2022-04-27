@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
-  ScrollView,
   StyleSheet,
   TextInput,
   TouchableOpacity,
@@ -18,16 +17,15 @@ import {
   convertHexToRGBA,
   fetchHandler,
   maxCharacterHandler,
-  toastGenerator,
 } from "../helper/helper";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
 import { SEARCH_API } from "@env";
+import {errorToastMessage} from "../helper/alerts";
 
 const SearchbarSwipe = ({
   setFly,
   panelRef,
-  flyLocation,
   setOnScroll,
   isKeyboardVisible,
 }) => {
@@ -48,16 +46,7 @@ const SearchbarSwipe = ({
           setLocations(res.features);
           setLoading(false);
         })
-        .catch((err) => {
-          toastGenerator(
-            "An error occurred while find locations, please try again.",
-            require("../assets/images/Info.png"),
-            errorAlertStyles.alertContainer,
-            errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage,
-            1500
-          );
-        });
+        .catch(() => errorToastMessage("An error occurred while find locations, please try again."));
     } else {
       setLoading(false);
       setLocations([]);
@@ -174,7 +163,7 @@ const SearchbarSwipe = ({
                 <TouchableOpacity
                   key={index}
                   id={index}
-                  onPress={(r) => flyToCoordinate(item.geometry.coordinates)}
+                  onPress={() => flyToCoordinate(item.geometry.coordinates)}
                   style={{
                     borderBottomColor: convertHexToRGBA("#CBD1D9", 20),
                     borderBottomWidth: 1,

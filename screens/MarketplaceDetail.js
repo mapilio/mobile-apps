@@ -8,11 +8,11 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 import { globalStyles } from "../styles/globalStyles";
 import { marketplaceDetailStyles } from "../styles/marketplaceStyles";
-import { fetchHandler, toastGenerator } from "../helper/helper";
+import { fetchHandler } from "../helper/helper";
 import { Routes } from "../navigator/Routes";
 import Moment from "moment";
-import { errorAlertStyles } from "../styles/alertStyles";
 import { SERVICE_URL } from "@env";
+import {errorToastMessage} from "../helper/alerts";
 
 const MarketplaceDetail = ({ navigation, route }) => {
   const applyProject = () => {
@@ -33,14 +33,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
         });
       })
       .catch((err) => {
-        toastGenerator(
-          `${err.response.data.message}`,
-          require("../assets/images/Warning.png"),
-          errorAlertStyles.alertContainer,
-          errorAlertStyles.alertTitle,
-          errorAlertStyles.alertImage,
-          3000
-        );
+        errorToastMessage(`${err.response.data.message}`)
       });
   };
 

@@ -1,8 +1,7 @@
 import * as Font from "expo-font";
 import { store } from "../store/store";
-import { Notifier, NotifierComponents } from "react-native-notifier";
 import axios from "axios";
-import { Alert, Linking, Platform, StatusBar } from "react-native";
+import { Alert, Linking, Platform } from "react-native";
 import { Camera as ExpoCamera } from "expo-camera";
 import * as Location from "expo-location";
 import Moment from "moment";
@@ -42,29 +41,6 @@ const kFormatter = (num) => {
   return Math.abs(num) > 999
     ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
     : Math.sign(num) * Math.abs(num);
-};
-
-const toastGenerator = (
-  title,
-  image,
-  containerStyle,
-  titleStyle,
-  imageStyle,
-  duration = 0
-) => {
-  Notifier.showNotification({
-    title: title,
-    Component: NotifierComponents.Notification,
-    swipeEnabled: true,
-    duration: duration,
-    translucentStatusBar: StatusBar.currentHeight,
-    componentProps: {
-      imageSource: image,
-      imageStyle: imageStyle,
-      titleStyle: titleStyle,
-      containerStyle: containerStyle,
-    },
-  });
 };
 
 const maxCharacterHandler = (text, maxLength) => {
@@ -183,7 +159,6 @@ export {
   useFonts,
   convertHexToRGBA,
   fetchHandler,
-  toastGenerator,
   maxCharacterHandler,
   permissionHandler,
   kFormatter,

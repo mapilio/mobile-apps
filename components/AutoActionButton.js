@@ -2,14 +2,14 @@ import React, {useEffect, useRef, useState} from "react";
 import {AppState, Dimensions, Platform, TouchableOpacity, View,} from "react-native";
 import {useFocusEffect} from "@react-navigation/native";
 import {RFValue} from "react-native-responsive-fontsize";
-import {convertHexToRGBA, toastGenerator} from "../helper/helper";
+import {convertHexToRGBA} from "../helper/helper";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import * as Location from "expo-location";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT, UPLOAD_DATA,} from "../store/actionsName";
-import {infoAlertStyles} from "../styles/alertStyles";
+import {infoToastMessage} from "../helper/alerts";
 
 const AutoActionButton = ({
   disabled,
@@ -54,7 +54,7 @@ const AutoActionButton = ({
 
   useFocusEffect(
     React.useCallback(() => {
-      let batteryError = false;
+      let batteryError;
       if (isCharge) {
         batteryError = false;
       } else {
@@ -126,14 +126,7 @@ const AutoActionButton = ({
         setNowCapture(false);
         appState.current = nextAppState;
         setAppStateVisible(appState.current);
-        toastGenerator(
-          "Your new sequence has been started.",
-          require("../assets/images/Info.png"),
-          infoAlertStyles.alertContainer,
-          infoAlertStyles.alertTitle,
-          infoAlertStyles.alertImage,
-          3000
-        );
+        infoToastMessage("Your new sequence has been started.")
         timeout = setTimeout(() => {
           if (photoAmount >= 5) {
             Database.query(

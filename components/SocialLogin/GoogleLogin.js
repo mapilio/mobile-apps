@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Alert, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { CustomText } from "../../highordercomponents";
 import GoogleIcon from "../../assets/svg/illustrations/GoogleIcon";
 import * as Google from "expo-auth-session/providers/google";
-import { fetchHandler, toastGenerator } from "../../helper/helper";
+import { fetchHandler } from "../../helper/helper";
 import { Routes } from "../../navigator/Routes";
-import {
-  successAlertStyles,
-  warningAlertStyles,
-} from "../../styles/alertStyles";
 import { socialLoginStyles } from "../../styles/loginStyles";
 
 import axios from "axios";
@@ -23,6 +19,7 @@ import {
   SERVICE_URL,
 } from "@env";
 import OneSignal from "react-native-onesignal";
+import {successToastMessage, warningToastMessage} from "../../helper/alerts";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -37,7 +34,7 @@ const GoogleLogin = ({ navigation }) => {
   });
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async (e) => {
+    const unsubscribe = navigation.addListener("focus", async () => {
       fetchHandler({ url: `${SERVICE_URL}/oauth-api/generate-state` })
         .then((response) => setStateKey(response.data.state))
         .catch((err) => console.error(err));
@@ -72,28 +69,14 @@ const GoogleLogin = ({ navigation }) => {
     })
       .then((res) => {
         if (res.id) {
-          OneSignal.setExternalUserId(res.id.toLocaleString(), (results) => {});
+          OneSignal.setExternalUserId(res.id.toLocaleString(), () => {});
           dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
           dispatch(getUserInformation(res));
           Database.startDB(res.id);
-          toastGenerator(
-            `Login Success ${response.name}`,
-            require("../../assets/images/Success.png"),
-            successAlertStyles.alertContainer,
-            successAlertStyles.alertTitle,
-            successAlertStyles.alertImage,
-            3000
-          );
+          successToastMessage(`Login Success ${response.name}`)
           navigation.navigate(Routes.tabHome);
         } else {
-          toastGenerator(
-            "There was a problem registering. Please try a different method.",
-            require("../../assets/images/Warning.png"),
-            warningAlertStyles.alertContainer,
-            warningAlertStyles.alertTitle,
-            warningAlertStyles.alertImage,
-            3000
-          );
+          warningToastMessage("There was a problem registering. Please try a different method.")
           setLoading(false);
         }
       })
