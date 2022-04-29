@@ -1,17 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, Image, View, TouchableOpacity } from "react-native";
-import Maximize from "../assets/svg/illustrations/Maximize";
-import { sequenceDetailStyles } from "../styles/userSequenceStyle";
-import Minimize from "../assets/svg/illustrations/Minimize";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import React, {useEffect, useState} from "react";
+import {Dimensions, Image, View} from "react-native";
+import {sequenceDetailStyles} from "../styles/userSequenceStyle";
+import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
-import { appMapStyle } from "../styles/appMapStyle";
-import { MapView } from "../highordercomponents";
-import { IMAGE_API } from "@env";
-import { styles } from "../styles/circleStyles";
-import { useDispatch, useSelector } from "react-redux";
-import { UPDATE_CURRENT_SEQUENCE } from "../store/actionsName";
-import { Heading } from "../components/Map";
+import {appMapStyle} from "../styles/appMapStyle";
+import {MapView} from "../highordercomponents";
+import {IMAGE_API} from "@env";
+import {styles} from "../styles/circleStyles";
+import {useDispatch, useSelector} from "react-redux";
+import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
+import {Heading} from "../components/Map";
+import {setGeoJson} from "../helper/geojson";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
   const screenHeight = Dimensions.get("window").height - RFValue(110);
@@ -19,13 +18,12 @@ const ProfileUploadDetail = ({ navigation, route }) => {
   const [points, setPoints] = useState({});
   const [coordinates, setCoordinates] = useState({});
   const [coord, setCoord] = useState(null);
-  const [width, setWidth] = useState(RFValue(33));
   const [currentImage, setCurrentImage] = useState(null);
   const dispatch = useDispatch();
   const { userInformation } = useSelector((state) => state.getTokenReducer);
 
   useEffect(() => {
-    let subscribe = navigation.addListener("focus", () => {
+    return navigation.addListener("focus", () => {
       dispatch({
         type: UPDATE_CURRENT_SEQUENCE,
         payload: {
@@ -34,49 +32,17 @@ const ProfileUploadDetail = ({ navigation, route }) => {
         },
       });
     });
-    return subscribe;
   }, [navigation]);
 
   const getMap = () => {
-    let imageList = route.params.points;
-    let line = { type: "FeatureCollection" };
-    let points = { type: "FeatureCollection" };
+    setCoordinates(setGeoJson(route.params.points, "line"));
+    setPoints(setGeoJson(route.params.points, "point"));
 
-    line.features = [
-      {
-        type: "Feature",
-        geometry: {
-          type: "LineString",
-          coordinates: [],
-        },
-        properties: {},
-      },
-    ];
-    points.features = [];
-    imageList.map((item) => {
-      points.features.push({
-        type: "Feature",
-        properties: { item },
-        geometry: {
-          type: "Point",
-          coordinates: [Number(item.longitude), Number(item.latitude)],
-        },
-      });
-      line.features[0].geometry.coordinates.push([
-        Number(item.longitude),
-        Number(item.latitude),
-      ]);
-    });
-    setCoordinates(line);
-    setPoints(points);
     setCoord({
       heading: route.params.heading,
       longitude: Number(route.params.coordinate[0]),
       latitude: Number(route.params.coordinate[1]),
     });
-    setTimeout(() => {
-      setWidth(RFValue(35));
-    }, 1000);
   };
 
   useEffect(() => {

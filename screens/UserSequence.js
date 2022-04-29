@@ -21,8 +21,9 @@ import { appMapStyle } from "../styles/appMapStyle";
 import { Routes } from "../navigator/Routes";
 import { MapView } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
+import {setGeoJson} from "../helper/geojson";
 
-const UserSequence = ({ navigation, route }) => {
+const UserSequence = ({ navigation }) => {
   const [coordinates, setCoordinates] = useState({});
   const [points, setPoints] = useState({});
   const [center, setCenter] = useState([]);
@@ -112,46 +113,13 @@ const UserSequence = ({ navigation, route }) => {
           JSON.parse(result.rows._array[0].location).coords.longitude,
           JSON.parse(result.rows._array[0].location).coords.latitude,
         ]);
-        let line = { type: "FeatureCollection" };
-        let points = { type: "FeatureCollection" };
-
-        line.features = [
-          {
-            type: "Feature",
-            geometry: {
-              type: "LineString",
-              coordinates: [],
-            },
-            properties: {},
-          },
-        ];
-        points.features = [];
-        result.rows._array.map((item) => {
-          points.features.push({
-            type: "Feature",
-            properties: { item },
-            geometry: {
-              type: "Point",
-              coordinates: [
-                JSON.parse(item.location).coords.longitude,
-                JSON.parse(item.location).coords.latitude,
-              ],
-            },
-          });
-          line.features[0].geometry.coordinates.push([
-            JSON.parse(item.location).coords.longitude,
-            JSON.parse(item.location).coords.latitude,
-          ]);
-        });
-        setCoordinates(line);
-        setPoints(points);
+        setCoordinates(setGeoJson(result.rows._array, "line"));
+        setPoints(setGeoJson(result.rows._array, "point"));
       }
     );
   };
 
-  useEffect(() => {
-    getCoordinates();
-  }, [activeSequence]);
+  useEffect(() => getCoordinates(), [activeSequence]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -202,14 +170,17 @@ const UserSequence = ({ navigation, route }) => {
                 id={"pointsShape"}
                 shape={points}
                 onPress={(point) => {
-                  navigation.navigate(Routes.sequenceDetail, {
-                    id: point.features[0].properties.item.id,
-                    path: point.features[0].properties.item.path,
-                    coordinate: point.features[0].geometry.coordinates,
-                    heading: JSON.parse(
-                      point.features[0].properties.item.location
-                    ).coords.heading,
-                  });
+                  navigation.reset({
+                    index: 0,
+                    routes: [{ name: Routes.sequenceDetail, params: {
+                        id: point.features[0].properties.item.id,
+                        path: point.features[0].properties.item.path,
+                        coordinate: point.features[0].geometry.coordinates,
+                        heading: JSON.parse(
+                          point.features[0].properties.item.location
+                        ).coords.heading,
+                      }}]
+                  })
                 }}
               >
                 <MapboxGL.CircleLayer id={"circle"} style={styles.circles} />

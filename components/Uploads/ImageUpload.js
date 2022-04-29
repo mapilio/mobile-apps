@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { LogBox, View } from "react-native";
-import { globalStyles } from "../../styles/globalStyles";
-import { CustomText, CustomTextMedium } from "../../highordercomponents";
-import { userSequenceStyles } from "../../styles/userSequenceStyle";
-import { UploadImageCard } from "../index";
-import { useDispatch, useSelector } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {View} from "react-native";
+import {globalStyles} from "../../styles/globalStyles";
+import {CustomText, CustomTextMedium} from "../../highordercomponents";
+import {userSequenceStyles} from "../../styles/userSequenceStyle";
+import {UploadImageCard} from "../index";
+import {useDispatch, useSelector} from "react-redux";
 import database from "../../db";
-import { SEQUENCE_IMAGES } from "../../store/actionsName";
-import { RFValue } from "react-native-responsive-fontsize";
+import {SEQUENCE_IMAGES} from "../../store/actionsName";
+import {RFValue} from "react-native-responsive-fontsize";
 
 const ImageUpload = ({ navigation, sequence_uuid }) => {
   const dispatch = useDispatch();
@@ -18,22 +18,20 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
   );
 
   useEffect(() => {
-    let unsubscribe = navigation.addListener("focus", () => {
+    return navigation.addListener("focus", () => {
       database.query(
         `SELECT id, path,location FROM captures where sequence_uuid = '${sequence_uuid}' ORDER BY id ASC`,
         (_, result) => {
-          dispatch({ type: SEQUENCE_IMAGES, payload: result.rows._array });
+          dispatch({type: SEQUENCE_IMAGES, payload: result.rows._array});
         }
       );
     });
-    return unsubscribe;
   }, [sequence_uuid, navigation]);
 
   useEffect(() => {
-    let unsubscribe = navigation.addListener("blur", () => {
-      dispatch({ type: SEQUENCE_IMAGES, payload: [] });
+    return navigation.addListener("blur", () => {
+      dispatch({type: SEQUENCE_IMAGES, payload: []});
     });
-    return unsubscribe;
   }, [navigation]);
 
   return (

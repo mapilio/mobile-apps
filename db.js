@@ -74,11 +74,9 @@ class Database {
   }
 
   async query(query, callback, args = []) {
-    this.startDB(id);
     db.transaction((txn) => {
-      txn.executeSql(query, args, callback, (_, error) => {
+      txn.executeSql(query, args, callback, () => {
         errorToastMessage("Something went wrong.")
-        console.log(error);
       });
     });
   }
@@ -87,13 +85,33 @@ class Database {
     db.transaction((txn) => {
       txn.executeSql(
         `DELETE FROM captures WHERE sequence_uuid = '${sequenceUUID}'`,
-        () => {
-          FileSystem.deleteAsync(
+        async () => {
+          await FileSystem.deleteAsync(
             FileSystem.documentDirectory + `${id}/${sequenceUUID}`
           );
         }
       );
     });
+  }
+
+  getGroupByWithColumn(callback) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
+        [],
+        callback
+      )
+    })
+  }
+
+  deleteBySequenceId(sequence_uuid, callback) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
+        [],
+        callback
+      )
+    })
   }
 }
 

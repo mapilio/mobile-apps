@@ -9,7 +9,6 @@ import {
 } from "../store/actionsName";
 import { Routes } from "../navigator/Routes";
 import { RFValue } from "react-native-responsive-fontsize";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const UploadImageCard = (props) => {
   const dispatch = useDispatch();
@@ -32,13 +31,7 @@ const UploadImageCard = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (allSelect) {
-      setSelected(true);
-    } else {
-      setSelected(false);
-    }
-  }, [allSelect, setSelected]);
+  useEffect(() => setSelected(allSelect), [allSelect, setSelected]);
 
   useEffect(() => {
     if (selectedImages.length === 0) {
@@ -53,26 +46,28 @@ const UploadImageCard = (props) => {
       activeOpacity={0.9}
       style={sequenceCardStyles.cardContainer}
       onPress={() => {
-        props.navigation.navigate(Routes.sequenceDetail, {
-          id: id,
-          path: path,
-          sequence_uuid: props.sequence_uuid,
-          coordinate: [
-            props.location.coords.longitude,
-            props.location.coords.latitude,
-          ],
-          heading: props.location.coords.heading,
-        });
+        selectedImages.length ? addToSelectedImages() : (
+          props.navigation.reset({
+            index: 0, routes: [{
+              name: Routes.sequenceDetail, params: {
+                id: id,
+                path: path,
+                sequence_uuid: props.sequence_uuid,
+                coordinate: [
+                  props.location.coords.longitude,
+                  props.location.coords.latitude,
+                ],
+                heading: props.location.coords.heading,
+              }
+            }]
+          })
+        )
       }}
       onLongPress={addToSelectedImages}
     >
       <View style={sequenceCardStyles.imagePosition}>
         <Image
-          source={{
-            width: RFValue(200),
-            height: RFValue(78),
-            uri: `${path}`,
-          }}
+          source={{width: RFValue(200), height: RFValue(78), uri: `${path}`}}
           resizeMode={"cover"}
           style={{
             ...sequenceCardStyles.imageContainer,

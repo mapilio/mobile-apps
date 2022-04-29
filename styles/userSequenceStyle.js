@@ -35,8 +35,8 @@ export const userSequenceStyles = StyleSheet.create({
 
 export const sequenceCardStyles = StyleSheet.create({
   cardContainer: {
-    maxWidth: "31%",
-    marginRight: RFValue(5),
+    maxWidth: "33.3%",
+    paddingHorizontal: RFValue(2),
     marginBottom: RFValue(5),
     borderRadius: 4,
     overflow: "hidden",

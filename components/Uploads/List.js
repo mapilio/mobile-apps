@@ -17,17 +17,10 @@ const List = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const getData = () => {
-    database.query(
-      "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-      (_, result) => {
-        dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-      }
-    );
+    database.getGroupByWithColumn((_, result) => dispatch({type: UPLOAD_DATA, payload: result.rows._array}));
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  useEffect(() => getData(), []);
 
   const deleteRow = (rowMap, sequence_uuid) => {
     Alert.alert(
