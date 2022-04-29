@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Alert,
-  AppState,
   StatusBar,
   TouchableOpacity,
   View,
@@ -10,13 +8,11 @@ import { RFValue } from "react-native-responsive-fontsize";
 import {
   CustomText,
   CustomTextBold,
-  CustomTextMedium,
 } from "../highordercomponents";
-import { convertHexToRGBA, toastGenerator } from "../helper/helper";
+import { convertHexToRGBA } from "../helper/helper";
 import {
   GoBackIcon,
   InformationIcon,
-  MapIcon,
   SettingsIcon,
 } from "../assets/svg/illustrations";
 import uuid from "react-native-uuid";
@@ -34,7 +30,6 @@ import {
   UPLOAD_DATA,
 } from "../store/actionsName";
 import * as Brightness from "expo-brightness";
-import { infoAlertStyles } from "../styles/alertStyles";
 
 const CameraSidebar = ({
   navigation,
@@ -42,7 +37,6 @@ const CameraSidebar = ({
   setCameraReady,
   timeout,
   waitGPS,
-  route,
 }) => {
   const dispatch = useDispatch();
   const [uuidV4, setUUID] = useState("");
@@ -219,7 +213,6 @@ const CameraSidebar = ({
           <CustomTextBold
             style={{
               color: "#FFFFFF",
-              marginTop: RFValue(15),
               marginTop: RFValue(-50),
               textAlign: "center",
             }}

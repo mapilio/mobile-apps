@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   View,
   TextInput,
-  Pressable,
   TouchableOpacity,
   Linking, ActivityIndicator,
 } from "react-native";
@@ -12,14 +11,14 @@ import { Routes } from "../navigator/Routes";
 import { CustomText } from "../highordercomponents";
 import { globalStyles } from "../styles/globalStyles";
 import { RFValue } from "react-native-responsive-fontsize";
-import { fetchHandler, toastGenerator } from "../helper/helper";
+import { fetchHandler } from "../helper/helper";
 import { Eye, EyeSlash } from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
-import { errorAlertStyles, successAlertStyles } from "../styles/alertStyles";
 import { SERVICE_URL } from "@env";
 import { SocialLogin } from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
+import {errorToastMessage, successToastMessage} from "../helper/alerts";
 
 const registerValidationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -53,39 +52,18 @@ const Register = ({ navigation }) => {
     })
       .then(() => {
         navigation.navigate(Routes.login);
-        toastGenerator(
-          `Your account has been created, check your e-mail address.`,
-          require("../assets/images/Success.png"),
-          successAlertStyles.alertContainer,
-          successAlertStyles.alertTitle,
-          successAlertStyles.alertImage,
-          3000
-        );
+        successToastMessage(`Your account has been created, check your e-mail address.`)
       })
       .catch((err) => {
-        Object.values(err.response.data).map((item, i) => {
-          toastGenerator(
-            `${item[0]}`,
-            require("../assets/images/Warning.png"),
-            errorAlertStyles.alertContainer,
-            errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage,
-            3000
-          );
+        Object.values(err.response.data).map((item, _i) => {
+          errorToastMessage(`${item[0]}`)
         });
       });
   };
 
   const redirectBrowser = () => {
-    Linking.openURL("https://mapilio.com/privacy").catch((err) => {
-      toastGenerator(
-        "An error occurred while redirecting, please try again.",
-        require("../assets/images/Info.png"),
-        errorAlertStyles.alertContainer,
-        errorAlertStyles.alertTitle,
-        errorAlertStyles.alertImage,
-        3000
-      );
+    Linking.openURL("https://mapilio.com/privacy").catch(() => {
+      errorToastMessage("An error occurred while redirecting, please try again.")
     });
   };
 

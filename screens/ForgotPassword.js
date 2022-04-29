@@ -5,12 +5,12 @@ import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
 import {globalStyles} from "../styles/globalStyles";
 import {RFValue} from "react-native-responsive-fontsize";
-import {fetchHandler, toastGenerator} from "../helper/helper";
+import {fetchHandler} from "../helper/helper";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
-import {errorAlertStyles, successAlertStyles} from "../styles/alertStyles";
 import {SERVICE_URL, FORGOT_URL} from "@env";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
+import {errorToastMessage, successToastMessage} from "../helper/alerts";
 
 
 const forgotValidationSchema = yup.object().shape({
@@ -41,25 +41,9 @@ const ForgotPassword = ({navigation}) => {
 		})
 			.then(() => {
 				navigation.navigate(Routes.login);
-				toastGenerator(
-					`The reset request has been sent to the e-mail address.`,
-					require("../assets/images/Success.png"),
-					successAlertStyles.alertContainer,
-					successAlertStyles.alertTitle,
-					successAlertStyles.alertImage,
-					3000
-				);
+				successToastMessage(`The reset request has been sent to the e-mail address.`)
 			})
-			.catch((err) => {
-				toastGenerator(
-					`${err.response.data.message}`,
-					require("../assets/images/Warning.png"),
-					errorAlertStyles.alertContainer,
-					errorAlertStyles.alertTitle,
-					errorAlertStyles.alertImage,
-					3000
-				);
-			});
+			.catch((err) => errorToastMessage(err.response.data.message));
 	};
 
 	return (

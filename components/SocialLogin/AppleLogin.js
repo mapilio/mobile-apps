@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Alert, TouchableOpacity, View } from "react-native";
-import { AppleIcon } from "../../assets/svg/logos";
-import { CustomText } from "../../highordercomponents";
-import { socialLoginStyles } from "../../styles/loginStyles";
 import * as AppleAuthentication from "expo-apple-authentication";
-import { RFValue } from "react-native-responsive-fontsize";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { useDispatch } from "react-redux";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import Database from "../../db";
 import { Routes } from "../../navigator/Routes";
-import { fetchHandler, toastGenerator } from "../../helper/helper";
+import { fetchHandler } from "../../helper/helper";
 import { SERVICE_URL } from "@env";
-import { successAlertStyles } from "../../styles/alertStyles";
 import OneSignal from "react-native-onesignal";
+import {successToastMessage} from "../../helper/alerts";
 
 const AppleLogin = ({ navigation }) => {
-  const [loading, setLoading] = useState(false);
   const [available, setAvailable] = useState(false);
   const dispatch = useDispatch();
 
@@ -39,23 +33,15 @@ const AppleLogin = ({ navigation }) => {
           state: stateKey,
           token: credential.user,
         },
-      })
-        .then((res) => {
-          dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
-          dispatch(getUserInformation(res));
-          Database.startDB(res.id);
-          OneSignal.setExternalUserId(res.id.toLocaleString(), (results) => {});
-          navigation.navigate(Routes.tabHome);
-        })
-        .catch((err) => console.error(err));
-      toastGenerator(
-        `Login Success ${credential.fullName.familyName}`,
-        require("../../assets/images/Success.png"),
-        successAlertStyles.alertContainer,
-        successAlertStyles.alertTitle,
-        successAlertStyles.alertImage,
-        3000
-      );
+      }).then((res) => {
+        dispatch({type: GET_TOKEN_SUCCESS, payload: res});
+        dispatch(getUserInformation(res));
+        Database.startDB(res.id);
+        OneSignal.setExternalUserId(res.id.toLocaleString(), () => {});
+        navigation.navigate(Routes.tabHome);
+      }).catch((err) => console.error(err));
+
+      successToastMessage(`Login Success ${credential.fullName.familyName}`)
     } else {
       let params = {
         token: credential.user,
@@ -69,7 +55,7 @@ const AppleLogin = ({ navigation }) => {
           dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
           dispatch(getUserInformation(res));
           Database.startDB(res.id);
-          OneSignal.setExternalUserId(res.id, (results) => {});
+          OneSignal.setExternalUserId(res.id, () => {});
           navigation.navigate(Routes.tabHome);
         })
         .catch((err) => console.error(err));

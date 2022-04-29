@@ -1,12 +1,12 @@
 import { GET_TOKEN_START, GET_TOKEN_SUCCESS } from "../../actionsName";
 import { getUserInformation } from "./getUserInformation";
 import Database from "../../../db";
-import { fetchHandler, toastGenerator } from "../../../helper/helper";
-import { errorAlertStyles } from "../../../styles/alertStyles";
+import { fetchHandler } from "../../../helper/helper";
 import { SERVICE_URL } from "@env";
 import OneSignal from "react-native-onesignal";
+import {errorToastMessage} from "../../../helper/alerts";
 
-export const getTokenAction = (parameters, navigation) => (dispatch) => {
+export const getTokenAction = (parameters) => (dispatch) => {
   dispatch({ type: GET_TOKEN_START });
   const url = `${SERVICE_URL}/api/login`;
   fetchHandler({
@@ -26,13 +26,6 @@ export const getTokenAction = (parameters, navigation) => (dispatch) => {
       });
     })
     .catch((err) => {
-      toastGenerator(
-        `${err.response.data.message}`,
-        require("../../../assets/images/Warning.png"),
-        errorAlertStyles.alertContainer,
-        errorAlertStyles.alertTitle,
-        errorAlertStyles.alertImage,
-        3000
-      );
+      errorToastMessage(`${err.response.data.message}`)
     });
 };

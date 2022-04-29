@@ -10,15 +10,14 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { CloseIcon } from "../assets/svg/illustrations";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import ProjectList from "./ProjectList";
-import { fetchHandler, toastGenerator } from "../helper/helper";
-import { warningAlertStyles } from "../styles/alertStyles";
+import { fetchHandler } from "../helper/helper";
 import { Routes } from "../navigator/Routes";
 import { SERVICE_URL } from "@env";
+import {warningToastMessage} from "../helper/alerts";
 
 const ProjectListModal = ({ navigation, modalVisible, setModalVisible }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetchHandler({ url: `${SERVICE_URL}/api/function/projects/job/getMyJobs` })
@@ -26,15 +25,8 @@ const ProjectListModal = ({ navigation, modalVisible, setModalVisible }) => {
         setLoading(false);
         setProjects(res.data);
       })
-      .catch((err) => {
-        toastGenerator(
-          "There was a problem fetching your jobs. Please try again.",
-          require("../assets/images/Warning.png"),
-          warningAlertStyles.alertContainer,
-          warningAlertStyles.alertTitle,
-          warningAlertStyles.alertImage,
-          3000
-        );
+      .catch(() => {
+        warningToastMessage("There was a problem fetching your jobs. Please try again.")
       });
   }, []);
 

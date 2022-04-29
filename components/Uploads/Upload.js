@@ -14,13 +14,13 @@ import { IS_UPLOADED, UPLOAD_DATA } from "../../store/actionsName";
 import { CloseIcon, UploadIcon } from "../../assets/svg/illustrations";
 import { CustomText } from "../../highordercomponents";
 import { userUploadModalStyles } from "../../styles/userUploadStyle";
-import { fetchHandler, toastGenerator } from "../../helper/helper";
+import { fetchHandler } from "../../helper/helper";
 import { Routes } from "../../navigator/Routes";
 import * as Progress from "react-native-progress";
-import { errorAlertStyles, successAlertStyles } from "../../styles/alertStyles";
 import axios from "axios";
 import { SERVICE_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
+import {errorToastMessage, successToastMessage} from "../../helper/alerts";
 const md5 = require("md5");
 
 const Upload = ({ sequence_uuid, navigation }) => {
@@ -110,28 +110,14 @@ const Upload = ({ sequence_uuid, navigation }) => {
                           try {
                             sendFile(sequence.sequence_uuid);
                           } catch (error) {
-                            toastGenerator(
-                              "An error occurred while uploading.",
-                              require("../../assets/images/Warning.png"),
-                              errorAlertStyles.alertContainer,
-                              errorAlertStyles.alertTitle,
-                              errorAlertStyles.alertImage,
-                              5000
-                            );
+														errorToastMessage("An error occurred while uploading.")
                           }
                         }
                       }
                     );
                   })
                   .catch((err) => {
-                    toastGenerator(
-                      err,
-                      require("../../assets/images/Warning.png"),
-                      errorAlertStyles.alertContainer,
-                      errorAlertStyles.alertTitle,
-                      errorAlertStyles.alertImage,
-                      5000
-                    );
+										errorToastMessage(err)
                   });
               }
             });
@@ -227,26 +213,12 @@ const Upload = ({ sequence_uuid, navigation }) => {
 										try {
 											deleteSequence(sequence);
 										} catch (error) {
-											toastGenerator(
-												"An error occurred while uploading.",
-												require("../../assets/images/Warning.png"),
-												errorAlertStyles.alertContainer,
-												errorAlertStyles.alertTitle,
-												errorAlertStyles.alertImage,
-												5000
-											);
+											errorToastMessage("An error occurred while uploading.")
 										}
 									}
 								})
-								.catch((err) => {
-									toastGenerator(
-										"An error occurred while uploading.",
-										require("../../assets/images/Warning.png"),
-										errorAlertStyles.alertContainer,
-										errorAlertStyles.alertTitle,
-										errorAlertStyles.alertImage,
-										5000
-									);
+								.catch(() => {
+									errorToastMessage("An error occurred while uploading.")
 								});
 						}
 					});
@@ -273,14 +245,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
               setDeletedRows((state) => state + 1);
               dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
               navigation.navigate(Routes.upload);
-              toastGenerator(
-                "Upload success",
-                require("../../assets/images/Success.png"),
-                successAlertStyles.alertContainer,
-                successAlertStyles.alertTitle,
-                successAlertStyles.alertImage,
-                3000
-              );
+							successToastMessage("Upload success")
               if (deletedRows === getSequences().length - 1) {
                 dispatch({ type: IS_UPLOADED, payload: true });
                 setModalVisible(false);

@@ -6,11 +6,11 @@ import {
   CustomTextMedium,
 } from "../highordercomponents";
 import { userInfoStyles } from "../styles/userProfileStyle";
-import { fetchHandler, kFormatter, toastGenerator } from "../helper/helper";
-import { warningAlertStyles } from "../styles/alertStyles";
+import { fetchHandler, kFormatter } from "../helper/helper";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SERVICE_URL } from "@env";
+import {warningToastMessage} from "../helper/alerts";
 
 const UserInfos = () => {
   const [avatarLoading, setAvatarLoading] = useState(true);
@@ -47,16 +47,9 @@ const UserInfos = () => {
         setLoading(false);
         setProfileInfos(res.data[0]);
       })
-      .catch((err) => {
+      .catch(() => {
         setLoading(false);
-        toastGenerator(
-          "There was a problem fetching your information. Please try again.",
-          require("../assets/images/Warning.png"),
-          warningAlertStyles.alertContainer,
-          warningAlertStyles.alertTitle,
-          warningAlertStyles.alertImage,
-          3000
-        );
+        warningToastMessage("There was a problem fetching your information. Please try again.")
       });
   }, []);
 

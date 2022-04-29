@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
-  Platform,
   TouchableOpacity,
   View,
 } from "react-native";
 import { CustomText } from "../../highordercomponents";
 import FacebookIcon from "../../assets/svg/illustrations/FacebookIcon";
 import * as Facebook from "expo-facebook";
-import { fetchHandler, toastGenerator } from "../../helper/helper";
-import { errorAlertStyles, successAlertStyles } from "../../styles/alertStyles";
+import { fetchHandler } from "../../helper/helper";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import { Routes } from "../../navigator/Routes";
@@ -20,6 +18,7 @@ import Database from "../../db";
 import { SERVICE_URL, FACEBOOK_APP_ID, FACEBOOK_REQUEST_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
 import OneSignal from "react-native-onesignal";
+import {errorToastMessage, successToastMessage} from "../../helper/alerts";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
@@ -46,13 +45,7 @@ const FacebookLogin = ({ navigation }) => {
         const response = await fetch(`${FACEBOOK_REQUEST_URL}${token}`);
         const json = await response.json();
         if (!json.email) {
-          toastGenerator(
-            "You are not a member because I cannot access your e-mail address. Please give mail permission or register another way.",
-            require("../../assets/images/Info.png"),
-            errorAlertStyles.alertContainer,
-            errorAlertStyles.alertTitle,
-            errorAlertStyles.alertImage
-          );
+          errorToastMessage("You are not a member because I cannot access your e-mail address. Please give mail permission or register another way.");
         } else {
           fetchHandler({
             url: `${SERVICE_URL}/oauth-api/callback`,
@@ -67,18 +60,11 @@ const FacebookLogin = ({ navigation }) => {
               dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
               dispatch(getUserInformation(res));
               Database.startDB(res.id);
-              OneSignal.setExternalUserId(res.id.toLocaleString(), (results) => {});
+              OneSignal.setExternalUserId(res.id.toLocaleString(), () => {});
               navigation.navigate(Routes.tabHome);
             })
             .catch((err) => console.error(err));
-          toastGenerator(
-            `Login Success ${(await json).name}`,
-            require("../../assets/images/Success.png"),
-            successAlertStyles.alertContainer,
-            successAlertStyles.alertTitle,
-            successAlertStyles.alertImage,
-            3000
-          );
+          successToastMessage(`Login Success ${(await json).name}`)
         }
       }
       setLoading("");
