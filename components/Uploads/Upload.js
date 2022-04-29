@@ -20,7 +20,7 @@ import * as Progress from "react-native-progress";
 import axios from "axios";
 import { SERVICE_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
-import {errorToastMessage, successToastMessage} from "../../helper/alerts";
+import {toastMessage} from "../../helper/alerts";
 const md5 = require("md5");
 
 const Upload = ({ sequence_uuid, navigation }) => {
@@ -110,14 +110,14 @@ const Upload = ({ sequence_uuid, navigation }) => {
                           try {
                             sendFile(sequence.sequence_uuid);
                           } catch (error) {
-														errorToastMessage("An error occurred while uploading.")
+														toastMessage.error("An error occurred while uploading.")
                           }
                         }
                       }
                     );
                   })
                   .catch((err) => {
-										errorToastMessage(err)
+										toastMessage.error(err)
                   });
               }
             });
@@ -213,12 +213,12 @@ const Upload = ({ sequence_uuid, navigation }) => {
 										try {
 											deleteSequence(sequence);
 										} catch (error) {
-											errorToastMessage("An error occurred while uploading.")
+											toastMessage.error("An error occurred while uploading.")
 										}
 									}
 								})
 								.catch(() => {
-									errorToastMessage("An error occurred while uploading.")
+									toastMessage.error("An error occurred while uploading.")
 								});
 						}
 					});
@@ -245,7 +245,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
               setDeletedRows((state) => state + 1);
               dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
               navigation.navigate(Routes.upload);
-							successToastMessage("Upload success")
+							toastMessage.success("Upload success")
               if (deletedRows === getSequences().length - 1) {
                 dispatch({ type: IS_UPLOADED, payload: true });
                 setModalVisible(false);

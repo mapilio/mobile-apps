@@ -13,7 +13,7 @@ import ProjectList from "./ProjectList";
 import { fetchHandler } from "../helper/helper";
 import { Routes } from "../navigator/Routes";
 import { SERVICE_URL } from "@env";
-import {warningToastMessage} from "../helper/alerts";
+import {toastMessage} from "../helper/alerts";
 
 const ProjectListModal = ({ navigation, modalVisible, setModalVisible }) => {
   const [projects, setProjects] = useState([]);
@@ -26,7 +26,7 @@ const ProjectListModal = ({ navigation, modalVisible, setModalVisible }) => {
         setProjects(res.data);
       })
       .catch(() => {
-        warningToastMessage("There was a problem fetching your jobs. Please try again.")
+        toastMessage.warning("There was a problem fetching your jobs. Please try again.")
       });
   }, []);
 

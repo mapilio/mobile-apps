@@ -10,7 +10,7 @@ import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import {SERVICE_URL, FORGOT_URL} from "@env";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import {errorToastMessage, successToastMessage} from "../helper/alerts";
+import {toastMessage} from "../helper/alerts";
 
 
 const forgotValidationSchema = yup.object().shape({
@@ -40,10 +40,10 @@ const ForgotPassword = ({navigation}) => {
 			},
 		})
 			.then(() => {
-				navigation.navigate(Routes.login);
-				successToastMessage(`The reset request has been sent to the e-mail address.`)
+				navigation.reset({index: 0, routes: [{name: Routes.login}]})
+				toastMessage.success(`The reset request has been sent to the e-mail address.`)
 			})
-			.catch((err) => errorToastMessage(err.response.data.message));
+			.catch((err) => toastMessage.error(err.response.data.message));
 	};
 
 	return (

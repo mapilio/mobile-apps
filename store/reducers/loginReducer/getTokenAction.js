@@ -4,7 +4,7 @@ import Database from "../../../db";
 import { fetchHandler } from "../../../helper/helper";
 import { SERVICE_URL } from "@env";
 import OneSignal from "react-native-onesignal";
-import {errorToastMessage} from "../../../helper/alerts";
+import {toastMessage} from "../../../helper/alerts";
 
 export const getTokenAction = (parameters) => (dispatch) => {
   dispatch({ type: GET_TOKEN_START });
@@ -26,6 +26,6 @@ export const getTokenAction = (parameters) => (dispatch) => {
       });
     })
     .catch((err) => {
-      errorToastMessage(`${err.response.data.message}`)
+      toastMessage.error(`${err.response.data.message}`)
     });
 };

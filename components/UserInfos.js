@@ -10,7 +10,7 @@ import { fetchHandler, kFormatter } from "../helper/helper";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SERVICE_URL } from "@env";
-import {warningToastMessage} from "../helper/alerts";
+import {toastMessage} from "../helper/alerts";
 
 const UserInfos = () => {
   const [avatarLoading, setAvatarLoading] = useState(true);
@@ -49,7 +49,7 @@ const UserInfos = () => {
       })
       .catch(() => {
         setLoading(false);
-        warningToastMessage("There was a problem fetching your information. Please try again.")
+        toastMessage.warning("There was a problem fetching your information. Please try again.")
       });
   }, []);
 

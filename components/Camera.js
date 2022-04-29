@@ -38,7 +38,7 @@ import {
 } from "../assets/svg/illustrations";
 import { RFValue } from "react-native-responsive-fontsize";
 import {permissionHandler} from "../helper/helper";
-import {errorToastMessage} from "../helper/alerts";
+import {toastMessage} from "../helper/alerts";
 import {CustomTextMedium} from "../highordercomponents";
 
 const Camera = ({
@@ -262,8 +262,9 @@ const Camera = ({
   useEffect(() => {
     if (gps) {
       timeout.current = setTimeout(() => {
-        errorToastMessage("GPS accuracy is not enough. Please try again.")
-        navigation.navigate(Routes.profile);
+        toastMessage.error("GPS accuracy is not enough. Please try again.")
+        navigation.reset({index: 0, routes: [{name: Routes.profile}]})
+
         ScreenOrientation.lockAsync(
           ScreenOrientation.OrientationLock.PORTRAIT_UP
         );

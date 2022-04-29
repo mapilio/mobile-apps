@@ -21,7 +21,7 @@ import {
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
 import { SEARCH_API } from "@env";
-import {errorToastMessage} from "../helper/alerts";
+import {toastMessage} from "../helper/alerts";
 
 const SearchbarSwipe = ({
   setFly,
@@ -46,7 +46,7 @@ const SearchbarSwipe = ({
           setLocations(res.features);
           setLoading(false);
         })
-        .catch(() => errorToastMessage("An error occurred while find locations, please try again."));
+        .catch(() => toastMessage.error("An error occurred while find locations, please try again."));
     } else {
       setLoading(false);
       setLocations([]);

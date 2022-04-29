@@ -18,7 +18,7 @@ import Database from "../../db";
 import { SERVICE_URL, FACEBOOK_APP_ID, FACEBOOK_REQUEST_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
 import OneSignal from "react-native-onesignal";
-import {errorToastMessage, successToastMessage} from "../../helper/alerts";
+import {toastMessage} from "../../helper/alerts";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
@@ -45,7 +45,7 @@ const FacebookLogin = ({ navigation }) => {
         const response = await fetch(`${FACEBOOK_REQUEST_URL}${token}`);
         const json = await response.json();
         if (!json.email) {
-          errorToastMessage("You are not a member because I cannot access your e-mail address. Please give mail permission or register another way.");
+          toastMessage.error("You are not a member because I cannot access your e-mail address. Please give mail permission or register another way.")
         } else {
           fetchHandler({
             url: `${SERVICE_URL}/oauth-api/callback`,
@@ -64,7 +64,7 @@ const FacebookLogin = ({ navigation }) => {
               navigation.navigate(Routes.tabHome);
             })
             .catch((err) => console.error(err));
-          successToastMessage(`Login Success ${(await json).name}`)
+          toastMessage.success(`Login Success ${(await json).name}`)
         }
       }
       setLoading("");

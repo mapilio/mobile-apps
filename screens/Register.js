@@ -18,7 +18,7 @@ import { SERVICE_URL } from "@env";
 import { SocialLogin } from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import {errorToastMessage, successToastMessage} from "../helper/alerts";
+import {toastMessage} from "../helper/alerts";
 
 const registerValidationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -51,19 +51,19 @@ const Register = ({ navigation }) => {
       },
     })
       .then(() => {
-        navigation.navigate(Routes.login);
-        successToastMessage(`Your account has been created, check your e-mail address.`)
+        navigation.reset({index: 0, routes: [{name: Routes.login}]})
+        toastMessage.success(`Your account has been created, check your e-mail address.`)
       })
       .catch((err) => {
         Object.values(err.response.data).map((item, _i) => {
-          errorToastMessage(`${item[0]}`)
+          toastMessage.error(`${item[0]}`)
         });
       });
   };
 
   const redirectBrowser = () => {
     Linking.openURL("https://mapilio.com/privacy").catch(() => {
-      errorToastMessage("An error occurred while redirecting, please try again.")
+      toastMessage.error("An error occurred while redirecting, please try again.")
     });
   };
 

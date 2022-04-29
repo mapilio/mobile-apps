@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 import { store } from "./store/store";
 import * as FileSystem from "expo-file-system";
-import {errorToastMessage} from "./helper/alerts";
+import {toastMessage} from "./helper/alerts";
 
 const id = store.getState().generalReducer.id;
 
@@ -48,7 +48,7 @@ class Database {
         () => null,
         (_, error) => {
           console.log(error);
-          errorToastMessage("An error occurred while shooting, please try again.")
+          toastMessage.error("An error occurred while shooting, please try again.")
           this.startDB(values.userID);
         }
       );
@@ -62,7 +62,7 @@ class Database {
         [],
         () => {},
         (_, error) => {
-          errorToastMessage("An error occurred while shooting, please try again.")
+          toastMessage.error("An error occurred while shooting, please try again.")
           console.log(error);
 
           if (userID) {
@@ -76,7 +76,7 @@ class Database {
   async query(query, callback, args = []) {
     db.transaction((txn) => {
       txn.executeSql(query, args, callback, () => {
-        errorToastMessage("Something went wrong.")
+        toastMessage.error("Something went wrong.")
       });
     });
   }
