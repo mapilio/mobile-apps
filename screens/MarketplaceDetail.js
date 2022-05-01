@@ -12,7 +12,7 @@ import { fetchHandler } from "../helper/helper";
 import { Routes } from "../navigator/Routes";
 import Moment from "moment";
 import { SERVICE_URL } from "@env";
-import {errorToastMessage} from "../helper/alerts";
+import {toastMessage} from "../helper/alerts";
 
 const MarketplaceDetail = ({ navigation, route }) => {
   const applyProject = () => {
@@ -26,15 +26,17 @@ const MarketplaceDetail = ({ navigation, route }) => {
           },
         },
       },
-    })
-      .then(() => {
-        navigation.navigate(Routes.MarketplaceReady, {
-          data: route.params.data,
-        });
+    }).then(() => {
+      navigation.reset({
+        index: 0, routes: [{
+          name: Routes.MarketplaceReady, params: {
+            data: route.params.data
+          }
+        }]
       })
-      .catch((err) => {
-        errorToastMessage(`${err.response.data.message}`)
-      });
+    }).catch((err) => {
+      toastMessage.error(`${err.response.data.message}`)
+    });
   };
 
   return (

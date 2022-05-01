@@ -20,7 +20,8 @@ import * as Progress from "react-native-progress";
 import axios from "axios";
 import { SERVICE_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
-import {errorToastMessage, successToastMessage} from "../../helper/alerts";
+import {toastMessage} from "../../helper/alerts";
+import {fovCalculate} from "../../helper/fov";
 const md5 = require("md5");
 
 const Upload = ({ sequence_uuid, navigation }) => {
@@ -29,36 +30,11 @@ const Upload = ({ sequence_uuid, navigation }) => {
   const [summerCount, setSummerCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [statusUpload, setStatusUpload] = useState(false);
-  const { auth, userInformation } = useSelector(
-    (status) => status.getTokenReducer
-  );
+	const {auth, userInformation} = useSelector((status) => status.getTokenReducer);
   const [modalVisible, setModalVisible] = useState(false);
   const cancelToken = axios.CancelToken.source();
-  const { connection } = useSelector((state) => state.generalReducer);
+	const {connection} = useSelector((state) => state.generalReducer);
   const [deletedRows, setDeletedRows] = useState(0);
-
-  const hFov = (horizontal_pixel, pixel_pitch, focal_length) => {
-    return (
-      (360 / Math.PI) *
-      Math.atan(((horizontal_pixel / 2) * pixel_pitch) / 1e3 / focal_length)
-    );
-  };
-
-  const hFovCalculate = (horizontal_pixel, vertical_pixel, focal_length) => {
-    const pixel_pitch =
-      (Math.sqrt(
-        horizontal_pixel * horizontal_pixel + vertical_pixel * vertical_pixel
-      ) /
-        10) *
-      (25.4 /
-        Math.sqrt(
-          horizontal_pixel * horizontal_pixel + vertical_pixel * vertical_pixel
-        ));
-
-    return (
-      Math.round(10 * hFov(horizontal_pixel, pixel_pitch, focal_length)) / 10
-    );
-  };
 
   const getSequences = () =>
     sequence_uuid
@@ -110,14 +86,14 @@ const Upload = ({ sequence_uuid, navigation }) => {
                           try {
                             sendFile(sequence.sequence_uuid);
                           } catch (error) {
-														errorToastMessage("An error occurred while uploading.")
+														toastMessage.error("An error occurred while uploading.")
                           }
                         }
                       }
                     );
                   })
                   .catch((err) => {
-										errorToastMessage(err)
+										toastMessage.error(err)
                   });
               }
             });
@@ -160,10 +136,11 @@ const Upload = ({ sequence_uuid, navigation }) => {
 						const fileName = file.path.split("/").pop();
 						const horizontal = exif.ImageWidth || exif.PixelXDimension;
 						const vertical = exif.ImageLength || exif.PixelYDimension;
-						const fov = await hFovCalculate(
+						const fov = fovCalculate(
 							horizontal > vertical ? horizontal : vertical,
 							horizontal < vertical ? horizontal : vertical,
-							exif.FocalLength
+							exif.FocalLength,
+							"horizontal"
 						);
 
 						if (file.project_key && file.organization_key) {
@@ -213,12 +190,12 @@ const Upload = ({ sequence_uuid, navigation }) => {
 										try {
 											deleteSequence(sequence);
 										} catch (error) {
-											errorToastMessage("An error occurred while uploading.")
+											toastMessage.error("An error occurred while uploading.")
 										}
 									}
 								})
 								.catch(() => {
-									errorToastMessage("An error occurred while uploading.")
+									toastMessage.error("An error occurred while uploading.")
 								});
 						}
 					});
@@ -245,7 +222,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
               setDeletedRows((state) => state + 1);
               dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
               navigation.navigate(Routes.upload);
-							successToastMessage("Upload success")
+							toastMessage.success("Upload success")
               if (deletedRows === getSequences().length - 1) {
                 dispatch({ type: IS_UPLOADED, payload: true });
                 setModalVisible(false);

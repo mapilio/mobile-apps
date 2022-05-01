@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MapView } from "../highordercomponents";
 import { RANK } from "../store/actionsName";
 import {Heading} from "../components/Map";
+import {setGeoJson} from "../helper/geojson";
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
@@ -24,83 +25,39 @@ const UserSequenceDetail = ({ navigation, route }) => {
   const [clickedPoint, setClickedPoint] = useState(null);
   const dispatch = useDispatch();
   const [currentImage, setCurrentImage] = useState(null);
-  const [width, setWidth] = useState(RFValue(33));
   const { activeSequence, sequenceImages } = useSelector(
     (state) => state.uploadReducer
   );
   const screenHeight = Dimensions.get("window").height - RFValue(110);
 
-  useEffect(() => {
-    navigation.addListener("blur", () => {
-      setClickedPoint(null);
-    });
-  }, [navigation]);
+  useEffect(() => navigation.addListener("blur", () => setClickedPoint(null)), [navigation]);
 
   useEffect(() => {
-    for (let i in sequenceImages) {
-      if (route.params.id === sequenceImages[i].id) {
-        dispatch({
-          type: RANK,
-          payload: {
-            id: sequenceImages[i].id,
-            total: sequenceImages.length,
-            active: ++i,
-          },
-        });
-        break;
+    sequenceImages.filter((value, i) => {
+      if (value.id === route.params.id) {
+        dispatch({type: RANK, payload: {id: value.id, total: sequenceImages.length, active: ++i}});
       }
-    }
+    })
   }, [route.params]);
 
   const getCoordinates = () => {
     database.query(
       `SELECT * FROM captures WHERE sequence_uuid='${activeSequence}'`,
       (_, result) => {
+
+        setLines(setGeoJson(result.rows._array, "line"));
+        setPoints(setGeoJson(result.rows._array, "point"));
+
         setCenter([
           JSON.parse(result.rows._array[0].location).coords.longitude,
           JSON.parse(result.rows._array[0].location).coords.latitude,
         ]);
-        let line = { type: "FeatureCollection" };
-        let points = { type: "FeatureCollection" };
 
-        line.features = [
-          {
-            type: "Feature",
-            geometry: {
-              type: "LineString",
-              coordinates: [],
-            },
-            properties: {},
-          },
-        ];
-        points.features = [];
-        result.rows._array.map((item) => {
-          points.features.push({
-            type: "Feature",
-            properties: { item },
-            geometry: {
-              type: "Point",
-              coordinates: [
-                JSON.parse(item.location).coords.longitude,
-                JSON.parse(item.location).coords.latitude,
-              ],
-            },
-          });
-          line.features[0].geometry.coordinates.push([
-            JSON.parse(item.location).coords.longitude,
-            JSON.parse(item.location).coords.latitude,
-          ]);
-        });
-        setLines(line);
-        setPoints(points);
         setClickedPoint({
           heading: route.params.heading,
           longitude: route.params.coordinate[0],
-          latitude: route.params.coordinate[1],
+          latitude: route.params.coordinate[1]
         });
-        setTimeout(() => {
-          setWidth(RFValue(35));
-        }, 1000);
       }
     );
   };

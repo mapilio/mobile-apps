@@ -19,7 +19,7 @@ import {
   SERVICE_URL,
 } from "@env";
 import OneSignal from "react-native-onesignal";
-import {successToastMessage, warningToastMessage} from "../../helper/alerts";
+import {toastMessage} from "../../helper/alerts";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -73,10 +73,10 @@ const GoogleLogin = ({ navigation }) => {
           dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
           dispatch(getUserInformation(res));
           Database.startDB(res.id);
-          successToastMessage(`Login Success ${response.name}`)
-          navigation.navigate(Routes.tabHome);
+          toastMessage.success(`Login Success ${response.name}`)
+          navigation.reset({index: 0, routes: [{name: Routes.tabHome}]})
         } else {
-          warningToastMessage("There was a problem registering. Please try a different method.")
+          toastMessage.warning("There was a problem registering. Please try a different method.")
           setLoading(false);
         }
       })

@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Animated, Dimensions, ScrollView, View } from "react-native";
+import React, {useEffect, useState} from "react";
+import {Dimensions, ScrollView, View} from "react-native";
 import ListProfileUploads from "../components/ListProfileUploads";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  UPDATE_CURRENT_FEED_SEQUENCE,
-  UPDATE_CURRENT_SEQUENCE,
-} from "../store/actionsName";
-import { userSequenceStyles } from "../styles/userSequenceStyle";
-import { CustomText, MapView } from "../highordercomponents";
-import { appMapStyle } from "../styles/appMapStyle";
+import {userSequenceStyles} from "../styles/userSequenceStyle";
+import {CustomText, MapView} from "../highordercomponents";
+import {appMapStyle} from "../styles/appMapStyle";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import SwitchSelector from "react-native-switch-selector";
-import { RFValue } from "react-native-responsive-fontsize";
-import { SERVICE_URL, IMAGE_API } from "@env";
-import { fetchHandler } from "../helper/helper";
-import { styles } from "../styles/circleStyles";
-import { Routes } from "../navigator/Routes";
-import { ActivityIndicator } from "react-native-paper";
+import {RFValue} from "react-native-responsive-fontsize";
+import {IMAGE_API, SERVICE_URL} from "@env";
+import {fetchHandler} from "../helper/helper";
+import {styles} from "../styles/circleStyles";
+import {Routes} from "../navigator/Routes";
+import {ActivityIndicator} from "react-native-paper";
+import {setGeoJson} from "../helper/geojson";
 
 const UserSequence = ({ navigation, route }) => {
   const [active, setActive] = useState("image");
@@ -52,7 +48,7 @@ const UserSequence = ({ navigation, route }) => {
   }, [navigation]);
 
   useEffect(() => {
-    let subscribe = navigation.addListener("focus", () => {
+    return navigation.addListener("focus", () => {
       if (route.params.isIndividual) {
         setPaginationURL(
           `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
@@ -69,7 +65,6 @@ const UserSequence = ({ navigation, route }) => {
         );
       }
     });
-    return subscribe;
   }, [navigation, route.params.id]);
 
   const fetchNext = (foreignURL) => {
@@ -104,38 +99,8 @@ const UserSequence = ({ navigation, route }) => {
   const getMap = () => {
     if (mapList.length) {
       setCenter([Number(mapList[0].longitude), Number(mapList[0].latitude)]);
-    }
-    if (mapList.length) {
-      let line = { type: "FeatureCollection" };
-      let points = { type: "FeatureCollection" };
-
-      line.features = [
-        {
-          type: "Feature",
-          geometry: {
-            type: "LineString",
-            coordinates: [],
-          },
-          properties: {},
-        },
-      ];
-      points.features = [];
-      mapList.map((item) => {
-        points.features.push({
-          type: "Feature",
-          properties: { item },
-          geometry: {
-            type: "Point",
-            coordinates: [Number(item.longitude), Number(item.latitude)],
-          },
-        });
-        line.features[0].geometry.coordinates.push([
-          Number(item.longitude),
-          Number(item.latitude),
-        ]);
-      });
-      setCoordinates(line);
-      setPoints(points);
+      setCoordinates(setGeoJson(mapList, "line"));
+      setPoints(setGeoJson(mapList, "point"));
       setMapLoading(false);
     }
   };

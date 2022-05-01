@@ -8,7 +8,7 @@ import { Routes } from "../../navigator/Routes";
 import { fetchHandler } from "../../helper/helper";
 import { SERVICE_URL } from "@env";
 import OneSignal from "react-native-onesignal";
-import {successToastMessage} from "../../helper/alerts";
+import {toastMessage} from "../../helper/alerts";
 
 const AppleLogin = ({ navigation }) => {
   const [available, setAvailable] = useState(false);
@@ -40,8 +40,7 @@ const AppleLogin = ({ navigation }) => {
         OneSignal.setExternalUserId(res.id.toLocaleString(), () => {});
         navigation.navigate(Routes.tabHome);
       }).catch((err) => console.error(err));
-
-      successToastMessage(`Login Success ${credential.fullName.familyName}`)
+      toastMessage.success(`Login Success ${credential.fullName.familyName}`)
     } else {
       let params = {
         token: credential.user,

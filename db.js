@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 import { store } from "./store/store";
 import * as FileSystem from "expo-file-system";
-import {errorToastMessage} from "./helper/alerts";
+import {toastMessage} from "./helper/alerts";
 
 const id = store.getState().generalReducer.id;
 
@@ -48,7 +48,7 @@ class Database {
         () => null,
         (_, error) => {
           console.log(error);
-          errorToastMessage("An error occurred while shooting, please try again.")
+          toastMessage.error("An error occurred while shooting, please try again.")
           this.startDB(values.userID);
         }
       );
@@ -62,7 +62,7 @@ class Database {
         [],
         () => {},
         (_, error) => {
-          errorToastMessage("An error occurred while shooting, please try again.")
+          toastMessage.error("An error occurred while shooting, please try again.")
           console.log(error);
 
           if (userID) {
@@ -74,11 +74,9 @@ class Database {
   }
 
   async query(query, callback, args = []) {
-    this.startDB(id);
     db.transaction((txn) => {
-      txn.executeSql(query, args, callback, (_, error) => {
-        errorToastMessage("Something went wrong.")
-        console.log(error);
+      txn.executeSql(query, args, callback, () => {
+        toastMessage.error("Something went wrong.")
       });
     });
   }
@@ -87,13 +85,33 @@ class Database {
     db.transaction((txn) => {
       txn.executeSql(
         `DELETE FROM captures WHERE sequence_uuid = '${sequenceUUID}'`,
-        () => {
-          FileSystem.deleteAsync(
+        async () => {
+          await FileSystem.deleteAsync(
             FileSystem.documentDirectory + `${id}/${sequenceUUID}`
           );
         }
       );
     });
+  }
+
+  getGroupByWithColumn(callback) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
+        [],
+        callback
+      )
+    })
+  }
+
+  deleteBySequenceId(sequence_uuid, callback) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
+        [],
+        callback
+      )
+    })
   }
 }
 

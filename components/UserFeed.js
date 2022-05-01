@@ -26,14 +26,13 @@ const UserFeed = ({ navigation, data }) => {
       onPress={() => {
         dispatch({ type: ACTIVE_SEQUENCE, payload: data.sequence_uuid });
         dispatch({ type: UPDATE_SELECTED_IMAGES, payload: [] });
-        navigation.navigate(Routes.sequences, { id: data.sequence_uuid });
+        navigation.reset({index: 0, routes: [{name: Routes.sequences}]})
       }}
     >
       <View style={userFeedStyles.viewStyle}>
         <CustomTextBold style={userFeedStyles.dateStyle}>
           {dateConvert(
-            JSON.parse(data.exif).DateTime ||
-              JSON.parse(data.exif).DateTimeOriginal,
+            JSON.parse(data.exif).DateTime || JSON.parse(data.exif).DateTimeOriginal,
             "MMM D, YYYY - H:mm"
           )}
         </CustomTextBold>

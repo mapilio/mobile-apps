@@ -1,4 +1,3 @@
-import { connect } from "formik";
 import React, { useEffect } from "react";
 import { View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
