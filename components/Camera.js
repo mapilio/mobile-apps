@@ -37,9 +37,9 @@ import {
   MockedIcon,
 } from "../assets/svg/illustrations";
 import { RFValue } from "react-native-responsive-fontsize";
-import { permissionHandler, toastGenerator } from "../helper/helper";
-import { errorAlertStyles } from "../styles/alertStyles";
-import { CustomTextMedium } from "../highordercomponents";
+import {permissionHandler} from "../helper/helper";
+import {errorToastMessage} from "../helper/alerts";
+import {CustomTextMedium} from "../highordercomponents";
 
 const Camera = ({
   navigation,
@@ -81,7 +81,7 @@ const Camera = ({
   }, []);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async (e) => {
+    const unsubscribe = navigation.addListener("focus", async () => {
       setCameraReady(true);
       await permissionHandler(false, goProfile, () => false, "camera");
       await _startNetworkProvider();
@@ -91,7 +91,7 @@ const Camera = ({
   }, [navigation]);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", (e) => {
+    const unsubscribe = navigation.addListener("blur", () => {
       setCameraReady(false);
     });
     return () => unsubscribe();
@@ -104,7 +104,7 @@ const Camera = ({
     });
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async (e) => {
+    const unsubscribe = navigation.addListener("focus", async () => {
       const currentOrientation =
         await ScreenOrientation.getOrientationLockAsync();
       // 7 EQUAL TO LANDSCAPE_RIGHT
@@ -243,14 +243,7 @@ const Camera = ({
   useEffect(() => {
     if (gps) {
       timeout.current = setTimeout(() => {
-        toastGenerator(
-          "GPS accuracy is not enough. Please try again.",
-          require("../assets/images/Info.png"),
-          errorAlertStyles.alertContainer,
-          errorAlertStyles.alertTitle,
-          errorAlertStyles.alertImage,
-          5000
-        );
+        errorToastMessage("GPS accuracy is not enough. Please try again.")
         navigation.navigate(Routes.profile);
         ScreenOrientation.lockAsync(
           ScreenOrientation.OrientationLock.PORTRAIT_UP

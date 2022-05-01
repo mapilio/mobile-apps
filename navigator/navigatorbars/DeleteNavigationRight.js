@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Alert, Platform } from "react-native";
+import { View, TouchableOpacity, Alert } from "react-native";
 import { Trash } from "../../assets/svg/illustrations";
 import { deleteRight } from "../../styles/navigatorBarStyles";
 import { CustomText } from "../../highordercomponents";
@@ -7,9 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import db from "../../db";
 import * as FileSystem from "expo-file-system";
 import { Routes } from "../Routes";
-import { toastGenerator } from "../../helper/helper";
-import { errorAlertStyles } from "../../styles/alertStyles";
 import { UPLOAD_DATA } from "../../store/actionsName";
+import {errorToastMessage} from "../../helper/alerts";
 
 const DeleteNavigationRight = (props) => {
   const { rank } = useSelector((state) => state.uploadReducer);
@@ -63,14 +62,7 @@ const DeleteNavigationRight = (props) => {
                       }
                     );
                   } catch (e) {
-                    toastGenerator(
-                      "There was a problem while deleting! Try Again.",
-                      require("../../assets/images/Info.png"),
-                      errorAlertStyles.alertContainer,
-                      errorAlertStyles.alertTitle,
-                      errorAlertStyles.alertImage,
-                      3000
-                    );
+                    errorToastMessage("There was a problem while deleting! Try Again.")
                   }
                 },
               },
