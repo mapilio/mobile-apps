@@ -30,6 +30,7 @@ const PhotoAmounts = () => {
   }, [photoAmount]);
 
   useEffect(() => {
+    console.log(photoAmount, "TEST");
     setPhotoAmount(photoAmount);
   }, [photoAmount]);
 

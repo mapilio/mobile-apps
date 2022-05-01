@@ -46,11 +46,7 @@ const RotationLine = ({ degree, lineDegree, setAlert, rotateAlert }) => {
           title: "Adjust your camera angle",
           content: "Shooting will continue when the your rotation true.",
         });
-      } else if (
-        betweenNegativeLandscape ||
-        betweenPositiveLandscape ||
-        betweenHighNegativeLandscape
-      ) {
+      } else {
         setAppear(false);
         setAlert(null);
       }
@@ -79,7 +75,7 @@ const RotationLine = ({ degree, lineDegree, setAlert, rotateAlert }) => {
         setAlert(null);
       }
     }
-  }, [degree, setAppear]);
+  }, [lineDegree, setAppear]);
 
   return (
     <View

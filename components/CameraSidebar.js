@@ -57,7 +57,7 @@ const CameraSidebar = ({
   }, [uuidV4]);
 
   useEffect(() => {
-    if (photoAmount >= 500) {
+    if (photoAmount >= 250) {
       const sequenceUUID = uuid.v4();
       setUUID(sequenceUUID);
       dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
@@ -127,7 +127,7 @@ const CameraSidebar = ({
   };
 
   const exitCapture = () => {
-    if (photoAmount >= 5) {
+    if (photoAmount >= 1) {
       database.query(
         "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
         (_, result) => {
@@ -148,7 +148,7 @@ const CameraSidebar = ({
     });
     exitHandler();
     // THIS CODE BLOCK MAYBE LATER GONNA ADD
-    // if (photoAmount >= 5) {
+    // if (photoAmount >= 1) {
     //   database.query(
     //     "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
     //     (_, result) => {

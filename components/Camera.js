@@ -50,7 +50,6 @@ const Camera = ({
   waitGPS,
 }) => {
   const [degree, setDegree] = useState(0);
-  const [lineDegree, setLineDegree] = useState(0);
   const [batteryAlert, setBatteryAlert] = useState(null);
   const [subscription, setSubscription] = useState(null);
   const [mockedAlert, setMockedAlert] = useState(null);
@@ -162,25 +161,20 @@ const Camera = ({
       (accelerometerData) => {
         let x = accelerometerData.x;
         let y = accelerometerData.y;
-        let degree = (Math.atan2(y, x) * 180) / Math.PI;
-        setLineDegree(degree);
         let angle = Math.atan2(y, x);
         angle = angle * (180 / Math.PI);
         angle = angle + 90;
         angle = (angle + 360) % 360;
-
-        setDegree(angle);
-        return accelerometerData;
+        angle = Math.floor(angle);
+        if (angle !== degree) {
+          setDegree(angle);
+        }
       }
     );
-    setSubscription(accelerometerSubscription);
   };
 
-  const _removeAccelerometerSubscribe = () => {
-    console.log("REMOVE ACCELEROMETER");
-    subscription?.remove();
-    accelerometerSubscription?.remove();
-    setSubscription(null);
+  const _removeAccelerometerSubscribe = async () => {
+    await subscription?.remove();
   };
 
   const _startNetworkProvider = async () => {
@@ -229,40 +223,20 @@ const Camera = ({
   };
 
   const accuracyHandler = (accuracy) => {
-    if (accuracy >= 25) {
-      if (!timeoutGPS) {
-        timeoutGPS = setTimeout(() => {
-          dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
-          setGPSAlert({
-            svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
-            title: "GPS accuracy is too low",
-            content:
-              "When the GPS alert icon turns green, shooting will continue and the new sequence will start.",
-          });
-          if (photoAmount >= 5) {
-            Database.query(
-              "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-              (_, result) => {
-                dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-              }
-            );
-          } else {
-            Database.deleteRow(keepUUID);
-          }
-          dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-        }, 3000);
-      }
+    if (accuracy >= 20) {
+      dispatch({ type: UPDATE_GPS_ACCURACY, payload: false });
+      setGPSAlert({
+        svg: <BadGPS width={RFValue(34)} height={RFValue(30)} />,
+        title: "GPS accuracy is too low",
+        content: "Shooting will continue when the GPS alert icon turns green.",
+      });
     } else {
-      if (timeoutGPS) {
-        clearTimeout(timeoutGPS);
-      }
       dispatch({ type: UPDATE_GPS_ACCURACY, payload: true });
       setGPSAlert(null);
     }
   };
 
   const _removeLocationProvider = async () => {
-    console.log("REMOVE LOCATIOB");
     await location?.remove();
   };
 
@@ -334,7 +308,7 @@ const Camera = ({
       >
         <RotationLine
           degree={degree}
-          lineDegree={lineDegree}
+          lineDegree={degree - 90}
           setAlert={setRotateAlert}
           rotateAlert={rotateAlert}
         />
