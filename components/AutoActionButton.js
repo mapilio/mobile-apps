@@ -147,7 +147,7 @@ const AutoActionButton = ({
           3000
         );
         timeout = setTimeout(() => {
-          if (photoAmount >= 1) {
+          if (photoAmount >= 5) {
             Database.query(
               "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
               (_, result) => {
