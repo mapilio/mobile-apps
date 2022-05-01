@@ -1,15 +1,26 @@
-import React, {useEffect, useRef, useState} from "react";
-import {AppState, Dimensions, Platform, TouchableOpacity, View,} from "react-native";
-import {useFocusEffect} from "@react-navigation/native";
-import {RFValue} from "react-native-responsive-fontsize";
-import {convertHexToRGBA} from "../helper/helper";
-import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  AppState,
+  Dimensions,
+  Platform,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { convertHexToRGBA } from "../helper/helper";
+import { PlayIcon, StopIcon } from "../assets/svg/illustrations";
 import * as Location from "expo-location";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
-import {useDispatch, useSelector} from "react-redux";
-import {UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT, UPLOAD_DATA,} from "../store/actionsName";
-import {toastMessage} from "../helper/alerts";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  UPDATE_AUTOCAPTURE_START,
+  UPDATE_IMAGE_SIZE,
+  UPDATE_PHOTO_AMOUNT,
+  UPLOAD_DATA,
+} from "../store/actionsName";
+import { infoToastMessage } from "../helper/alerts";
 
 const AutoActionButton = ({
   disabled,
@@ -19,6 +30,7 @@ const AutoActionButton = ({
   batteryLevel,
   mocked,
   highSpeed,
+  exitCapture,
 }) => {
   const { cameraStatus, camera, photoAmount, isCharge, accuracy } = useSelector(
     (status) => status.cameraReducer
@@ -36,11 +48,12 @@ const AutoActionButton = ({
   let location = null;
 
   useEffect(() => {
-    return navigation.addListener("blur", () => {
+    const unsubscribe = navigation.addListener("blur", () => {
       if (location) location.remove();
       if (subscription) subscription.remove();
       dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
     });
+    return unsubscribe;
   }, [navigation]);
 
   const playHandler = () => {
@@ -48,7 +61,6 @@ const AutoActionButton = ({
   };
 
   const stopHandler = () => {
-    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
   };
 
@@ -126,7 +138,7 @@ const AutoActionButton = ({
         setNowCapture(false);
         appState.current = nextAppState;
         setAppStateVisible(appState.current);
-        toastMessage.info("Your new sequence has been started.")
+        infoToastMessage("Your new sequence has been started.");
         timeout = setTimeout(() => {
           if (photoAmount >= 5) {
             Database.query(
@@ -207,7 +219,8 @@ const AutoActionButton = ({
       to: newPath,
     });
     image.uri = newPath;
-    location.coords.heading = heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
+    location.coords.heading =
+      heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
     Database.insertToDB({

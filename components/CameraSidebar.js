@@ -1,14 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  StatusBar,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StatusBar, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import {
-  CustomText,
-  CustomTextBold,
-} from "../highordercomponents";
+import { CustomText, CustomTextBold } from "../highordercomponents";
 import { convertHexToRGBA } from "../helper/helper";
 import {
   GoBackIcon,
@@ -51,7 +44,7 @@ const CameraSidebar = ({
   }, [uuidV4]);
 
   useEffect(() => {
-    if (photoAmount >= 500) {
+    if (photoAmount >= 250) {
       const sequenceUUID = uuid.v4();
       setUUID(sequenceUUID);
       dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
@@ -70,6 +63,7 @@ const CameraSidebar = ({
   }, [navigation]);
 
   useEffect(() => {
+    console.log(autoCaptureStart);
     if (autoCaptureStart) {
       const sequenceUUID = uuid.v4();
       setUUID(sequenceUUID);
@@ -136,10 +130,13 @@ const CameraSidebar = ({
   };
 
   const exitFromCamera = async () => {
-    navigation.navigate(Routes.map);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.map }],
+    });
     exitHandler();
     // THIS CODE BLOCK MAYBE LATER GONNA ADD
-    // if (photoAmount >= 5) {
+    // if (photoAmount >= 1) {
     //   database.query(
     //     "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
     //     (_, result) => {
@@ -179,7 +176,10 @@ const CameraSidebar = ({
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-    navigation.navigate(Routes.profile);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.profile }],
+    });
     StatusBar.setHidden(false);
     dispatch({ type: CAMERA_REDUCER_RESET });
     dispatch({
