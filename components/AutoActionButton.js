@@ -20,7 +20,7 @@ import {
   UPDATE_PHOTO_AMOUNT,
   UPLOAD_DATA,
 } from "../store/actionsName";
-import { infoToastMessage } from "../helper/alerts";
+import { toastMessage } from "../helper/alerts";
 
 const AutoActionButton = ({
   disabled,
@@ -138,7 +138,7 @@ const AutoActionButton = ({
         setNowCapture(false);
         appState.current = nextAppState;
         setAppStateVisible(appState.current);
-        infoToastMessage("Your new sequence has been started.");
+        toastMessage.info("Your new sequence has been started.");
         timeout = setTimeout(() => {
           if (photoAmount >= 5) {
             Database.query(

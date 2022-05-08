@@ -63,7 +63,6 @@ const CameraSidebar = ({
   }, [navigation]);
 
   useEffect(() => {
-    console.log(autoCaptureStart);
     if (autoCaptureStart) {
       const sequenceUUID = uuid.v4();
       setUUID(sequenceUUID);
