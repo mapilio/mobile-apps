@@ -59,6 +59,7 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
     accuracy,
   ]);
 
+
   return (
     <>
       {/* <ManuelActionButton disabled={false} uuid={uuid} /> */}

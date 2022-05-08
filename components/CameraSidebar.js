@@ -1,14 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  StatusBar,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StatusBar, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import {
-  CustomText,
-  CustomTextBold,
-} from "../highordercomponents";
+import { CustomText, CustomTextBold } from "../highordercomponents";
 import { convertHexToRGBA } from "../helper/helper";
 import {
   GoBackIcon,
