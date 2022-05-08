@@ -36,11 +36,12 @@ const AutoActionButton = ({
   let location = null;
 
   useEffect(() => {
-    return navigation.addListener("blur", () => {
+    const unsubscribe = navigation.addListener("blur", () => {
       if (location) location.remove();
       if (subscription) subscription.remove();
       dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
     });
+    return unsubscribe;
   }, [navigation]);
 
   const playHandler = () => {
@@ -207,7 +208,8 @@ const AutoActionButton = ({
       to: newPath,
     });
     image.uri = newPath;
-    location.coords.heading = heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
+    location.coords.heading =
+      heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
     Database.insertToDB({

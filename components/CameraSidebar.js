@@ -51,7 +51,7 @@ const CameraSidebar = ({
   }, [uuidV4]);
 
   useEffect(() => {
-    if (photoAmount >= 500) {
+    if (photoAmount >= 250) {
       const sequenceUUID = uuid.v4();
       setUUID(sequenceUUID);
       dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
@@ -136,10 +136,13 @@ const CameraSidebar = ({
   };
 
   const exitFromCamera = async () => {
-    navigation.navigate(Routes.map);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.map }],
+    });
     exitHandler();
     // THIS CODE BLOCK MAYBE LATER GONNA ADD
-    // if (photoAmount >= 5) {
+    // if (photoAmount >= 1) {
     //   database.query(
     //     "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
     //     (_, result) => {
@@ -179,7 +182,10 @@ const CameraSidebar = ({
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-    navigation.navigate(Routes.profile);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.profile }],
+    });
     StatusBar.setHidden(false);
     dispatch({ type: CAMERA_REDUCER_RESET });
     dispatch({

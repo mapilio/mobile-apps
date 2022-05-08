@@ -38,7 +38,7 @@ const ProjectList = ({ project, setModalVisible }) => {
       }}
       id={project.projectKey}
     >
-      <View>
+      <View style={{ flex: 0.9 }}>
         <CustomTextMedium style={{ fontSize: RFValue(14), color: "#32425B" }}>
           {maxCharacterHandler(project.project_detail.marketplace_name, 40)}
         </CustomTextMedium>
