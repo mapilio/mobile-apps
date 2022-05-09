@@ -6,6 +6,7 @@ import {
   generalReducer,
   settingsReducer,
   uploadReducer,
+  marketplaceReducer,
 } from "./reducers";
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
   generalReducer,
   settingsReducer,
   uploadReducer,
+  marketplaceReducer,
 });

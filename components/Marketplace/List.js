@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {
   Platform,
   ScrollView,
@@ -13,15 +13,12 @@ import Popover from "react-native-popover-view";
 import { marketplaceStyles } from "../../styles/marketplaceStyles";
 import ListItem from "./ListItem";
 import { RFValue } from "react-native-responsive-fontsize";
+import {useSelector} from "react-redux";
 
-const List = ({ projects, navigation, setOnScroll }) => {
-  const touchable = useRef();
+const List = ({setOnScroll, slidePanel }) => {
+  const {marketplaceData} = useSelector((status) => status.marketplaceReducer);
   const [showPopover, setShowPopover] = useState(false);
-  const [projectList, setProjectList] = useState({});
-
-  useEffect(() => {
-    setProjectList(projects)
-  }, [projects]);
+  const touchable = useRef();
 
 
   return (
@@ -69,11 +66,11 @@ const List = ({ projects, navigation, setOnScroll }) => {
         onTouchStart={() => setOnScroll(true)}
         style={{ marginBottom: RFValue(190) }}
       >
-        {!!Object.keys(projectList).length > 0 &&
-          projectList.features.map((value, index) => {
+        {!!Object.keys(marketplaceData).length > 0 &&
+          marketplaceData.features.map((value, index) => {
             return (
               <View key={index}>
-                <ListItem data={value.properties} navigation={navigation} />
+                <ListItem data={value.properties} coordinates={value} slidePanel={slidePanel}/>
               </View>
             );
           })}

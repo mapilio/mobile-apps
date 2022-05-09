@@ -1,90 +1,59 @@
-import React, { useEffect, useState } from "react";
-import { Dimensions, ToastAndroid, View } from "react-native";
+import React, {useEffect, useState} from "react";
+import {Dimensions, Platform, View} from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
-import { List } from "../components/Marketplace";
-import MapboxGL from "@react-native-mapbox-gl/maps";
-import { appMapStyle } from "../styles/appMapStyle";
+import {List, MarketplaceMap} from "../components/Marketplace";
 import { fetchHandler } from "../helper/helper";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { MARKETPLACE_DATA } from "../store/actionsName";
-import { Routes } from "../navigator/Routes";
 import { SERVICE_URL } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 const { height } = Dimensions.get("window");
-import { MapView } from "../highordercomponents";
+import {toastMessage} from "../helper/alerts";
+import {centerCoordinatesByPolygons} from "../helper/geojson";
 
 const Marketplace = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
   const dispatch = useDispatch();
   const [onScroll, setOnScroll] = useState(false);
-  const { marketplaceData } = useSelector((status) => status.generalReducer);
+  const [centeredCoordinates, setCenteredCoordinates] = useState({})
+  const [slidePanel, setSlidePanel] = useState();
 
   useEffect(() => {
     fetchHandler({
       url: `${SERVICE_URL}/api/get-marketplaces`,
       method: "POST",
-    })
-      .then((res) => {
-        dispatch({
-          type: MARKETPLACE_DATA,
-          payload: JSON.parse(res.data.geojson),
-        });
-      })
-      .catch((err) => {
-        ToastAndroid.show(err.response.data.message, ToastAndroid.SHORT);
-      });
+    }).then((res) => {
+      setCenteredCoordinates(centerCoordinatesByPolygons(JSON.parse(res.data.geojson)))
+      dispatch({type: MARKETPLACE_DATA, payload: JSON.parse(res.data.geojson)});
+    }).catch((err) => {
+      toastMessage.error(err.response.data.message)
+    });
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
-      <MapView
-        mapStyle={appMapStyle.map}
-        attributionStyle={{ bottom: 41, right: 28 }}
-      >
-        <MapboxGL.Camera centerCoordinate={[30.8, 41.015137]} zoomLevel={6} />
-        {!!Object.keys(marketplaceData).length && (
-          <MapboxGL.ShapeSource
-            id={"marketplaceShape"}
-            shape={marketplaceData}
-            onPress={(project) => {
-              navigation.navigate(Routes.marketplaceDetail, {
-                data: project.features[0].properties,
-              });
-            }}
-          >
-            <MapboxGL.SymbolLayer
-              id={"marketplaceSymbol"}
-              style={{
-                iconImage: require("../assets/images/marketplaceMarker.png"),
-                iconSize: 0.2,
-              }}
-            />
-          </MapboxGL.ShapeSource>
-        )}
-      </MapView>
+    <View style={{flex: 1}}>
+      <MarketplaceMap
+        centeredPoints={centeredCoordinates}
+        navigation={navigation}
+      />
 
       <SlidingUpPanel
         allowDragging={!onScroll}
         showBackdrop={false}
+        ref={c => setSlidePanel(c)}
         draggableRange={{
           top: height - headerHeight *  2,
           bottom: RFValue(60),
         }}
         containerStyle={{
-          marginBottom:
-            Platform.OS === "android"
-              ? RFValue(63)
-              : Dimensions.get("window").height > 775
-              ? RFValue(83)
-              : RFValue(63),
+          marginBottom: Platform.OS !== "android" && Dimensions.get("window").height > 775 ? RFValue(83) : RFValue(63),
           zIndex: 6,
         }}
       >
         <List
-          navigation={navigation}
-          projects={marketplaceData}
           setOnScroll={setOnScroll}
+          slidePanel={slidePanel}
         />
       </SlidingUpPanel>
     </View>

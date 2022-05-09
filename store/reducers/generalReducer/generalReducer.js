@@ -2,7 +2,6 @@ import {
   UPDATE_CONNECTION_STATUS,
   UPDATE_WELCOME_WALKTHROUGH_STATUS,
   UPDATE_CURRENT_DB,
-  MARKETPLACE_DATA,
   UPDATE_CURRENT_FEED_SEQUENCE,
   UPDATE_CAMERA_WALKTHROUGH_STATUS,
   UPDATE_TAB_HEIGHT
@@ -13,7 +12,6 @@ const INITIAL_STATE = {
   welcomeWalkthroughStatus: false,
   cameraWalkthroughStatus: false,
   db: null,
-  marketplaceData: {},
   currentFeedSequence: null,
   tabHeight: 0,
 };
@@ -39,11 +37,6 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         db: action.payload,
-      };
-    case MARKETPLACE_DATA:
-      return {
-        ...state,
-        marketplaceData: action.payload,
       };
     case UPDATE_CURRENT_FEED_SEQUENCE:
       return {
