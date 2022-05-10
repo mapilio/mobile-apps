@@ -1,10 +1,10 @@
+import {toastMessage} from "./alerts";
+
 /**
  * @param horizontal_pixel
  * @param vertical_pixel
  * @returns {number}
  */
-import {toastMessage} from "./alerts";
-
 const pixelPitch = (horizontal_pixel, vertical_pixel) => {
 	return (Math.sqrt(horizontal_pixel * horizontal_pixel + vertical_pixel * vertical_pixel) / 10) *
 		(25.4 / Math.sqrt(horizontal_pixel * horizontal_pixel + vertical_pixel * vertical_pixel));

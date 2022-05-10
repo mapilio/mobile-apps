@@ -73,11 +73,9 @@ class Database {
     });
   }
 
-  async query(query, callback, args = []) {
+  async query(query, callback, args = [], errorCallback = (_, error) => toastMessage.error(`${error}`)) {
     db.transaction((txn) => {
-      txn.executeSql(query, args, callback, () => {
-        toastMessage.error("Something went wrong.")
-      });
+      txn.executeSql(query, args, callback, errorCallback)
     });
   }
 

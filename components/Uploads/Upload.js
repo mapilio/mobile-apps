@@ -18,7 +18,7 @@ import { fetchHandler } from "../../helper/helper";
 import { Routes } from "../../navigator/Routes";
 import * as Progress from "react-native-progress";
 import axios from "axios";
-import { SERVICE_URL } from "@env";
+import { SERVICE_URL, CDN_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
 import {toastMessage} from "../../helper/alerts";
 import {fovCalculate} from "../../helper/fov";
@@ -51,53 +51,53 @@ const Upload = ({ sequence_uuid, navigation }) => {
     summerImages();
     const sequences = getSequences();
     sequences.map((sequence) => {
-      setModalVisible(true);
       db.query(
         `SELECT * FROM captures WHERE sequence_uuid="${sequence.sequence_uuid}"`,
         (_, results) => {
-          results.rows._array.map(async (data, i) => {
+          results.rows._array.every(async (data, i) => {
+            setModalVisible(true);
+
             const filePath = Platform.OS === "ios" ? data.path.replace("file://", "") : data.path;
             const fileName = filePath.split("/").pop();
+            const fileInfo = await FileSystem.getInfoAsync(filePath)
 
-						FileSystem.getInfoAsync(filePath).then(async (fileInfo) => {
-              if (fileInfo.exists) {
-                const formData = new FormData();
-                formData.append("file", {
-                  uri: filePath,
-                  name: fileName,
-                  type: "image/jpeg",
-                });
-                formData.append("email", userInformation.email);
-                if (data.project_key && data.organization_key) {
-                  formData.append(
-                    "project_organization_key",
-                    data.organization_key
-                  );
-                  formData.append("project_key", data.project_key);
-                }
-                await axios
-                  .post(`${process.env.CDN_URL}/api/upload/mobile`, formData)
-                  .then((response) => {
-                    setSentCount((state) => state + 1);
-                    db.query(
-                      `UPDATE captures SET uploaded=1, hash="${response.data.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
-                      () => {
-                        if (i === results.rows._array.length - 1) {
-                          try {
-                            sendFile(sequence.sequence_uuid);
-                          } catch (error) {
-														toastMessage.error("An error occurred while uploading.")
-                          }
-                        }
-                      }
-                    );
-                  })
-                  .catch((err) => {
-										toastMessage.error(err)
-                  });
+            if (fileInfo.exists) {
+              const formData = new FormData();
+              formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
+              formData.append("email", userInformation.email);
+              if (data.project_key && data.organization_key) {
+                formData.append("project_organization_key", data.organization_key);
+                formData.append("project_key", data.project_key);
               }
-            });
-          });
+
+              fetchHandler({
+                url: `${CDN_URL}/api/upload/mobile`,
+                method: 'POST',
+                data: formData
+              }).then(() => {
+                setSentCount((state) => state + 1);
+              }).then((response) => {
+                db.query(
+                  `UPDATE captures SET uploaded=1, hash="${response.data.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
+                  () => {
+                    if (i === results.rows._array.length - 1) {
+                      sendFile(sequence.sequence_uuid);
+                    }
+                  }
+                );
+                return true;
+              }).catch((err) => {
+                toastMessage.error(`${err}`)
+                setModalVisible(false)
+                return false;
+              })
+            }
+          })
+        },
+        [],
+        (_, error) => {
+          toastMessage.error(`${error}`)
+          setModalVisible(false)
         }
       );
     });
@@ -237,16 +237,14 @@ const Upload = ({ sequence_uuid, navigation }) => {
   };
 
   const checkInternet = async () => {
-    if (uploadData.length) {
-      if (connection.connectionType === "wifi") {
-        await getHash();
-      } else {
-        Alert.alert(
-          "Are you sure?",
-          "Are you sure you want to send via cellular data?",
-          [{ text: "Yes", onPress: () => getHash() }, { text: "No" }]
-        );
-      }
+    if (uploadData.length && connection.connectionType === "wifi") {
+      await getHash();
+    } else {
+      Alert.alert(
+        "Are you sure?",
+        "Are you sure you want to send via cellular data?",
+        [{text: "Yes", onPress: () => getHash()}, {text: "No"}]
+      );
     }
   };
 
