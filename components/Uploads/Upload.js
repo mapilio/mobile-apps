@@ -14,11 +14,11 @@ import { IS_UPLOADED, UPLOAD_DATA } from "../../store/actionsName";
 import { CloseIcon, UploadIcon } from "../../assets/svg/illustrations";
 import { CustomText } from "../../highordercomponents";
 import { userUploadModalStyles } from "../../styles/userUploadStyle";
-import { fetchHandler } from "../../helper/helper";
+import {dateConvert, fetchHandler} from "../../helper/helper";
 import { Routes } from "../../navigator/Routes";
 import * as Progress from "react-native-progress";
 import axios from "axios";
-import { SERVICE_URL } from "@env";
+import { SERVICE_URL, CDN_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
 import {toastMessage} from "../../helper/alerts";
 import {fovCalculate} from "../../helper/fov";
@@ -41,6 +41,13 @@ const Upload = ({ sequence_uuid, navigation }) => {
       ? uploadData.filter((data) => data.sequence_uuid === sequence_uuid)
       : uploadData;
 
+  const _uploadBroken = (error) => {
+    setModalVisible(false);
+    setSentCount(0);
+    setStatusUpload(false);
+    toastMessage.error(`${error}`)
+  }
+
   const summerImages = () => {
     const sequences = getSequences();
     let summer = sequences.reduce((partialSum, a) => partialSum + a.count, 0);
@@ -51,55 +58,38 @@ const Upload = ({ sequence_uuid, navigation }) => {
     summerImages();
     const sequences = getSequences();
     sequences.map((sequence) => {
-      setModalVisible(true);
-      db.query(
-        `SELECT * FROM captures WHERE sequence_uuid="${sequence.sequence_uuid}"`,
-        (_, results) => {
-          results.rows._array.map(async (data, i) => {
-            const filePath = Platform.OS === "ios" ? data.path.replace("file://", "") : data.path;
-            const fileName = filePath.split("/").pop();
+      db.getCapturesBySequenceId(sequence.sequence_uuid, (_, results) => {
+        results.rows._array.map(async (data, i) => {
+          setModalVisible(true);
+          const filePath = Platform.OS === "ios" ? data.path.replace("file://", "") : data.path;
+          const fileName = filePath.split("/").pop();
+          const fileInfo = await FileSystem.getInfoAsync(filePath)
 
-						FileSystem.getInfoAsync(filePath).then(async (fileInfo) => {
-              if (fileInfo.exists) {
-                const formData = new FormData();
-                formData.append("file", {
-                  uri: filePath,
-                  name: fileName,
-                  type: "image/jpeg",
-                });
-                formData.append("email", userInformation.email);
-                if (data.project_key && data.organization_key) {
-                  formData.append(
-                    "project_organization_key",
-                    data.organization_key
-                  );
-                  formData.append("project_key", data.project_key);
+          if (fileInfo.exists) {
+            const formData = new FormData();
+            formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
+            formData.append("email", userInformation.email);
+            if (data.project_key && data.organization_key) {
+              formData.append("project_organization_key", data.organization_key);
+              formData.append("project_key", data.project_key);
+            }
+
+            fetchHandler({url: `${CDN_URL}/api/upload/mobile`, method: 'POST', data: formData}).then((response) => {
+              setSentCount((state) => state + 1);
+              db.query(
+                `UPDATE captures SET uploaded=1, hash="${response.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
+                () => {
+                  i === results.rows._array.length - 1 && sendFile(sequence.sequence_uuid)
                 }
-                await axios
-                  .post(`${process.env.CDN_URL}/api/upload/mobile`, formData)
-                  .then((response) => {
-                    setSentCount((state) => state + 1);
-                    db.query(
-                      `UPDATE captures SET uploaded=1, hash="${response.data.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
-                      () => {
-                        if (i === results.rows._array.length - 1) {
-                          try {
-                            sendFile(sequence.sequence_uuid);
-                          } catch (error) {
-														toastMessage.error("An error occurred while uploading.")
-                          }
-                        }
-                      }
-                    );
-                  })
-                  .catch((err) => {
-										toastMessage.error(err)
-                  });
-              }
-            });
-          });
-        }
-      );
+              );
+            }).catch((err) => {
+              _uploadBroken(err)
+            })
+          }
+        })
+      }, (error) => {
+        _uploadBroken(error)
+      })
     });
   };
 
@@ -155,7 +145,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
 							Longitude: location.coords.longitude,
 							Altitude: location.coords.altitude,
 							Heading: location.coords.heading,
-							CaptureTime: exif.DateTime || exif.DateTimeOriginal,
+							CaptureTime: dateConvert((exif.DateTime || exif.DateTimeOriginal), 'YYYY-MM-D HH:mm'),
 							Orientation: exif.Orientation,
 							DeviceMake: exif.Make || exif.LensMake,
 							DeviceModel: exif.Model || exif.LensModel,
@@ -165,9 +155,7 @@ const Upload = ({ sequence_uuid, navigation }) => {
 							filename: fileName,
 							SequenceUUID: file.sequence_uuid,
 							FoV: fov,
-							PhotoUUID: md5(
-								userInformation.email + (exif.DateTime || exif.DateTimeOriginal)
-							),
+              PhotoUUID: md5(userInformation.email + (exif.DateTime || exif.DateTimeOriginal)),
 							anomaly: 0,
 						});
 						files.options.parameters.summary.Information.total_images =
@@ -179,25 +167,19 @@ const Upload = ({ sequence_uuid, navigation }) => {
 							(filesize += fileInfo.size) / 1024 / 1024;
 						files.options.parameters.summary.Information.hash = file.hash;
 
-						if (i === results.rows._array.length - 1) {
-							fetchHandler({
-								url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
-								method: "POST",
-								data: files,
-							})
-								.then((res) => {
-									if (res.status === true) {
-										try {
-											deleteSequence(sequence);
-										} catch (error) {
-											toastMessage.error("An error occurred while uploading.")
-										}
-									}
-								})
-								.catch(() => {
-									toastMessage.error("An error occurred while uploading.")
-								});
-						}
+            if (i === results.rows._array.length - 1) {
+              fetchHandler({
+                url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
+                method: "POST",
+                data: files,
+              }).then((res) => {
+                if (res.status === true) {
+                  deleteSequence(sequence)
+                }
+              }).catch((error) => {
+                _uploadBroken(error)
+              });
+            }
 					});
         });
       }
@@ -210,43 +192,37 @@ const Upload = ({ sequence_uuid, navigation }) => {
   };
 
   const deleteSequence = (sequence) => {
-    FileSystem.deleteAsync(
-      FileSystem.documentDirectory + `${auth.id}/${sequence}`
-    ).then(() => {
-      db.query(
-        `DELETE FROM captures where sequence_uuid = '${sequence}'`,
-        () => {
-          db.query(
-            "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-            (_, result) => {
-              setDeletedRows((state) => state + 1);
-              dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-              navigation.navigate(Routes.upload);
-							toastMessage.success("Upload success")
-              if (deletedRows === getSequences().length - 1) {
-                dispatch({ type: IS_UPLOADED, payload: true });
-                setModalVisible(false);
-                setSentCount(0);
-                setStatusUpload(false);
-              }
-            }
-          );
-        }
-      );
+    FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence}`).then(() => {
+      db.deleteBySequenceId(sequence, () => {
+        db.getGroupByWithColumn((_, result) => {
+          setDeletedRows((state) => state + 1);
+          dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
+          navigation.navigate(Routes.upload);
+          toastMessage.success("Upload success")
+          if (deletedRows === getSequences().length - 1) {
+            dispatch({ type: IS_UPLOADED, payload: true });
+            setModalVisible(false);
+            setSentCount(0);
+            setStatusUpload(false);
+          }
+        })
+      }, (error) => {
+        _uploadBroken(error)
+      })
+    }).catch((error) => {
+      _uploadBroken(error)
     });
   };
 
   const checkInternet = async () => {
-    if (uploadData.length) {
-      if (connection.connectionType === "wifi") {
-        await getHash();
-      } else {
-        Alert.alert(
-          "Are you sure?",
-          "Are you sure you want to send via cellular data?",
-          [{ text: "Yes", onPress: () => getHash() }, { text: "No" }]
-        );
-      }
+    if (uploadData.length && connection.connectionType === "wifi") {
+      await getHash();
+    } else {
+      Alert.alert(
+        "Are you sure?",
+        "Are you sure you want to send via cellular data?",
+        [{text: "Yes", onPress: () => getHash()}, {text: "No"}]
+      );
     }
   };
 
@@ -268,6 +244,8 @@ const Upload = ({ sequence_uuid, navigation }) => {
             onPress={() => {
               cancelToken.cancel("Operation canceled by the user.");
               setModalVisible(false);
+              setSentCount(0);
+              setStatusUpload(false);
             }}
           >
             <CloseIcon />

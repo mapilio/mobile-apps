@@ -73,11 +73,9 @@ class Database {
     });
   }
 
-  async query(query, callback, args = []) {
+  async query(query, callback, args = [], errorCallback = (_, error) => toastMessage.error(`${error}`)) {
     db.transaction((txn) => {
-      txn.executeSql(query, args, callback, () => {
-        toastMessage.error("Something went wrong.")
-      });
+      txn.executeSql(query, args, callback, errorCallback)
     });
   }
 
@@ -94,6 +92,17 @@ class Database {
     });
   }
 
+  getCapturesBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toastMessage.error(`${error}`)) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}"`,
+        [],
+        callback,
+        errorCallback
+      )
+    })
+  }
+
   getGroupByWithColumn(callback) {
     db.transaction((txn) => {
       txn.executeSql(
@@ -104,12 +113,13 @@ class Database {
     })
   }
 
-  deleteBySequenceId(sequence_uuid, callback) {
+  deleteBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toastMessage.error(`${error}`)) {
     db.transaction((txn) => {
       txn.executeSql(
         `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
         [],
-        callback
+        callback,
+        errorCallback
       )
     })
   }
