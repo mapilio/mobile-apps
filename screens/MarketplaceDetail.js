@@ -16,27 +16,23 @@ import {toastMessage} from "../helper/alerts";
 
 const MarketplaceDetail = ({ navigation, route }) => {
   const applyProject = () => {
-    fetchHandler({
-      url: `${SERVICE_URL}/api/function/projects/job/createJob`,
-      method: "POST",
-      data: {
-        options: {
-          parameters: {
-            id: route.params.data.id,
+        fetchHandler({
+          url: `${SERVICE_URL}/api/function/projects/job/createJob`,
+          method: "POST",
+          data: {
+            options: {
+              parameters: {
+                id: route.params.data.id,
+              },
+            },
           },
-        },
-      },
-    }).then(() => {
-      navigation.reset({
-        index: 0, routes: [{
-          name: Routes.MarketplaceReady, params: {
-            data: route.params.data
-          }
-        }]
-      })
-    }).catch((err) => {
-      toastMessage.error(`${err.response.data.message}`)
-    });
+        }).then(() => {
+          navigation.navigate(Routes.MarketplaceReady, {
+            data: route.params.data,
+          });
+        }).catch((err) => {
+          toastMessage.error(`${err.response.data.message}`)
+        });
   };
 
   return (

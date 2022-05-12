@@ -1,3 +1,5 @@
+import {centroid} from "@turf/turf"
+
 const getCoordinate = (data) => {
 	if (data.location) {
 		return [JSON.parse(data.location).coords.longitude, JSON.parse(data.location).coords.latitude]
@@ -53,4 +55,16 @@ export const setGeoJson = (data, type) => {
 	}
 
 	return geoJson;
+}
+
+export const centerCoordinatesByPolygons = (geoJson) => {
+	let points = {type: "FeatureCollection", features: []};
+
+	geoJson.features.map((feature, _i) => {
+		let centeredPoint = centroid(feature);
+		centeredPoint.properties = feature.properties
+		points.features.push(centeredPoint)
+	})
+
+	return points;
 }

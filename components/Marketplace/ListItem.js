@@ -2,24 +2,24 @@ import React from "react";
 import { View, TouchableOpacity } from "react-native";
 import { CustomText } from "../../highordercomponents";
 import { marketplaceItemStyles } from "../../styles/marketplaceStyles";
-import { Routes } from "../../navigator/Routes";
-import { useSelector } from "react-redux";
+import {useDispatch} from "react-redux";
+import {centerOfMass, polygon} from "@turf/turf"
+import {MARKETPLACE_CENTER, ZOOM_LEVEL} from "../../store/actionsName";
 
-const ListItem = ({ data, navigation }) => {
-  const { auth } = useSelector((state) => state.getTokenReducer);
+const ListItem = ({ data, coordinates, slidePanel }) => {
+  const dispatch = useDispatch();
 
-  const loginRouteHandler = () => {
-    if (auth) {
-      navigation.navigate(Routes.marketplaceDetail, { data: data });
-    } else {
-      navigation.navigate(Routes.login);
-    }
+  const _showOnMap = () => {
+    const center = centerOfMass(polygon(coordinates.geometry.coordinates))
+    dispatch({ type: MARKETPLACE_CENTER, payload: center.geometry.coordinates})
+    dispatch({type: ZOOM_LEVEL, payload: 8})
+    slidePanel.hide()
   };
 
   return (
     <TouchableOpacity
       style={marketplaceItemStyles.container}
-      onPress={loginRouteHandler}
+      onPress={_showOnMap}
     >
       <View style={marketplaceItemStyles.topContainer}>
         <CustomText style={marketplaceItemStyles.owner}>
