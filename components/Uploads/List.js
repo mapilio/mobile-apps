@@ -16,34 +16,37 @@ const List = ({ navigation }) => {
   const { auth } = useSelector((status) => status.getTokenReducer);
   const dispatch = useDispatch();
 
+  const deleteSequence = (sequence_uuid) => {
+    database.deleteBySequenceId(sequence_uuid, async () => {
+      await FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence_uuid}`)
+      getData();
+    })
+  }
+
   const getData = () => {
-    database.getGroupByWithColumn((_, result) => dispatch({type: UPLOAD_DATA, payload: result.rows._array}));
+    database.getGroupByWithColumn((_, result) => {
+      const filteredData = result.rows._array.filter((data) => {
+        if (data.count >= 5) {
+          return data
+        } else {
+          deleteSequence(data.sequence_uuid)
+        }
+      })
+
+      dispatch({type: UPLOAD_DATA, payload: filteredData})
+    });
   };
 
   useEffect(() => getData(), []);
 
-  const deleteRow = (rowMap, sequence_uuid) => {
+  const deleteRow = (sequence_uuid) => {
     Alert.alert(
       "Are you sure?",
       "Are you sure you want to delete this project",
       [
         {
           text: "Yes",
-          onPress: () => {
-            database.query(
-              `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
-              () => {
-                FileSystem.deleteAsync(
-                  FileSystem.documentDirectory + `${auth.id}/${sequence_uuid}`
-                ).then(async () => {
-                  await FileSystem.readDirectoryAsync(
-                    FileSystem.documentDirectory + `${auth.id}`
-                  );
-                });
-                getData();
-              }
-            );
-          },
+          onPress: () => deleteSequence(sequence_uuid)
         },
         {
           text: "No",
@@ -52,23 +55,23 @@ const List = ({ navigation }) => {
     );
   };
 
-  const renderItem = (data) => (
-    <View style={userUploadStyles.listItem}>
-      <UserFeed key={data.index} data={data.item} navigation={navigation} />
-    </View>
-  );
+  const renderItem = (data) => {
+    return <View style={userUploadStyles.listItem}>
+      <UserFeed key={data.index} data={data.item} navigation={navigation}/>
+    </View>;
+  };
 
-  const renderHiddenItem = (data, rowMap) => (
-    <View style={userUploadStyles.listItem}>
+  const renderHiddenItem = (data) => {
+    return <View style={userUploadStyles.listItem}>
       <TouchableOpacity
         style={[userUploadStyles.backRightBtn]}
-        onPress={() => deleteRow(rowMap, data.item.sequence_uuid)}
+        onPress={() => deleteRow(data.item.sequence_uuid)}
       >
-        <Trash />
+        <Trash/>
         <CustomText style={userUploadStyles.textWhite}>Delete</CustomText>
       </TouchableOpacity>
-    </View>
-  );
+    </View>;
+  };
 
   return uploadData.length === 0 ? (
     <View
