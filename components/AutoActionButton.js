@@ -21,6 +21,7 @@ import {
   UPLOAD_DATA,
 } from "../store/actionsName";
 import { toastMessage } from "../helper/alerts";
+import {getHeading} from "../helper/heading";
 
 const AutoActionButton = ({
   disabled,
@@ -181,14 +182,6 @@ const AutoActionButton = ({
     if (!accuracy.degree) return;
     setNowCapture(true);
     const image = await camera.takePictureAsync(options);
-    let heading = await Location.getHeadingAsync();
-    const isLeft = between(accuracy.degree, 40, 190);
-    heading.trueHeading = isLeft
-      ? getMode(heading.trueHeading + 90, 360)
-      : getMode(heading.trueHeading - 90, 360);
-    heading.magHeading = isLeft
-      ? getMode(heading.magHeading + 90, 360)
-      : getMode(heading.magHeading - 90, 360);
     const imageUri = image.uri;
     if (!imageUri) {
       setNowCapture(false);
@@ -219,8 +212,7 @@ const AutoActionButton = ({
       to: newPath,
     });
     image.uri = newPath;
-    location.coords.heading =
-      heading.trueHeading === -1 ? heading.magHeading : heading.trueHeading;
+    location.coords.heading = await getHeading();
     const JSONExif = JSON.stringify(image.exif);
     const JSONLocation = JSON.stringify(location);
     Database.insertToDB({
