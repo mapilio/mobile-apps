@@ -36,10 +36,11 @@ const Upload = ({ sequence_uuid, navigation }) => {
 	const {connection} = useSelector((state) => state.generalReducer);
   const [deletedRows, setDeletedRows] = useState(0);
 
-  const getSequences = () =>
-    sequence_uuid
+  const getSequences = () => {
+    return sequence_uuid
       ? uploadData.filter((data) => data.sequence_uuid === sequence_uuid)
       : uploadData;
+  };
 
   const _uploadBroken = (error) => {
     setModalVisible(false);
