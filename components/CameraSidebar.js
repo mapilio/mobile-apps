@@ -115,57 +115,12 @@ const CameraSidebar = ({
 
   const exitCapture = () => {
     if (photoAmount >= 5) {
-      database.query(
-        "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-        (_, result) => {
-          dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-        }
-      );
+      database.getGroupByWithColumn((_, result) => dispatch({type: UPLOAD_DATA, payload: result.rows._array}))
       exitHandler();
     } else {
       database.deleteRow(uuidV4);
       dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     }
-  };
-
-  const exitFromCamera = async () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: Routes.map }],
-    });
-    exitHandler();
-    // THIS CODE BLOCK MAYBE LATER GONNA ADD
-    // if (photoAmount >= 1) {
-    //   database.query(
-    //     "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-    //     (_, result) => {
-    //       dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-    //     }
-    //   );
-    //   exitHandler();
-    // } else if (photoAmount >= 1 && photoAmount <= 4) {
-    //   Alert.alert(
-    //     "Capture failed",
-    //     "For capture, you need to take at least 5 photos",
-    //     [
-    //       {
-    //         text: "Exit",
-    //         style: "cancel",
-    //         onPress: () => {
-    //           exitHandler();
-    //           database.deleteRow(uuidV4);
-    //         },
-    //       },
-    //       {
-    //         text: "Continue",
-    //         onPress: () => false,
-    //       },
-    //     ]
-    //   );
-    // } else if (photoAmount === 0) {
-    //   navigation.navigate(Routes.map);
-    //   exitHandler();
-    // }
   };
 
   const exitHandler = async () => {
@@ -177,7 +132,7 @@ const CameraSidebar = ({
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     navigation.reset({
       index: 0,
-      routes: [{ name: Routes.profile }],
+      routes: [{ name: Routes.upload }],
     });
     StatusBar.setHidden(false);
     dispatch({ type: CAMERA_REDUCER_RESET });
@@ -259,7 +214,7 @@ const CameraSidebar = ({
           </TouchableOpacity>
           <TouchableOpacity
             style={{ position: "absolute", top: 0, right: 0 }}
-            onPress={exitFromCamera}
+            onPress={exitHandler}
           >
             <GoBackIcon />
           </TouchableOpacity>
