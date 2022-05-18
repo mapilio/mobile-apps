@@ -86,13 +86,13 @@ PODS:
     - ExpoModulesCore
     - UMAppLoader
     - UMTaskManagerInterface
-  - EXUpdates (0.11.6):
+  - EXUpdates (0.11.7):
     - EXManifests
     - ExpoModulesCore
     - EXStructuredHeaders
     - EXUpdatesInterface
     - React-Core
-  - EXUpdatesInterface (0.5.1)
+  - EXUpdatesInterface (0.5.2)
   - EXWebBrowser (10.1.1):
     - ExpoModulesCore
   - FacebookSDK/CoreKit (9.2.0):
@@ -177,7 +177,7 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
-  - OneSignalXCFramework (3.10.1)
+  - OneSignalXCFramework (3.10.3)
   - PromisesObjC (1.2.12)
   - Protobuf (3.19.4)
   - RCT-Folly (2020.01.13.00):
@@ -393,8 +393,8 @@ PODS:
     - React-Core
   - react-native-netinfo (7.1.3):
     - React-Core
-  - react-native-onesignal (4.3.7):
-    - OneSignalXCFramework (= 3.10.1)
+  - react-native-onesignal (4.3.9):
+    - OneSignalXCFramework (= 3.10.3)
     - React (< 1.0.0, >= 0.13.0)
   - react-native-safe-area-context (3.3.2):
     - React-Core
@@ -504,16 +504,16 @@ PODS:
   - RNScreens (3.10.2):
     - React-Core
     - React-RCTImage
-  - RNSentry (3.4.0):
+  - RNSentry (3.4.2):
     - React-Core
     - Sentry (= 7.11.0)
   - RNSVG (12.1.1):
     - React
-  - RNZipArchive (6.0.6):
+  - RNZipArchive (6.0.8):
     - React-Core
-    - RNZipArchive/Core (= 6.0.6)
+    - RNZipArchive/Core (= 6.0.8)
     - SSZipArchive (= 2.2.3)
-  - RNZipArchive/Core (6.0.6):
+  - RNZipArchive/Core (6.0.8):
     - React-Core
     - SSZipArchive (= 2.2.3)
   - Sentry (7.11.0):
@@ -836,12 +836,12 @@ SPEC CHECKSUMS:
   EXSQLite: 908e34753a9dcfbef6a0f3a543ad32a5a6ced452
   EXStructuredHeaders: 4993087b2010dbcc510f5d92555b36f523425e8d
   EXTaskManager: 889d62de7bae6b426f5656af836f8548f86eeae1
-  EXUpdates: bd5fa64f02685ed3e96be86b5ca350cdc2cd8d02
-  EXUpdatesInterface: a9814f422d3cd6e7cfd260d13c27786148ece20e
+  EXUpdates: a83e036243b0f6ece53a8c1cb883b6751c88a5f8
+  EXUpdatesInterface: 13270752afb8c61f83a09117e6b04a682b2db9eb
   EXWebBrowser: f1573262c5de753987ed526c630076eda130804d
   FacebookSDK: 4b9bb8e2824898b47f18c666dc145c09b40609e6
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
-  FBReactNativeSpec: 7c30647de4a7564acff8c4011ba7c86ed1feadc7
+  FBReactNativeSpec: 7c82d682f7668e6aa361797b6a551a729a33cecf
   FBSDKCoreKit: dace5abafc2fd9272733e6d027bcf18102712117
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
@@ -858,7 +858,7 @@ SPEC CHECKSUMS:
   MLKitFaceDetection: 5b92261dd6e4205e3dab0df62537ac3f4e90e5db
   MLKitVision: 51385878c9100024478971856510f9271ff555b5
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  OneSignalXCFramework: fe027712118f2862ab193b72270487f11450ea63
+  OneSignalXCFramework: 4efd7bd68c2b14920955b3f14b5b75bbf8fb662c
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Protobuf: 235750e4696ff59fb07d949a9dbbc92b3c0700fe
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
@@ -875,7 +875,7 @@ SPEC CHECKSUMS:
   react-native-config: 6502b1879f97ed5ac570a029961fc35ea606cd14
   react-native-mapbox-gl: 955d2c064b56ef058b9cc0fbbf6cf743b05c928e
   react-native-netinfo: 42c0965fca99069b92e3f7360ab2d425985e5104
-  react-native-onesignal: 7643517fe655b94cfda8e697ec16f9b9135648b8
+  react-native-onesignal: 88a38450ee225600da7fbcfcf844a8af487db919
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-slider: 6e9b86e76cce4b9e35b3403193a6432ed07e0c81
   React-perflogger: cc76a4254d19640f1d8ad1c66fdee800414b805c
@@ -896,9 +896,9 @@ SPEC CHECKSUMS:
   RNGoogleSignin: d7f8368b82d94f1dec964785d496387ca7f19092
   RNReanimated: 0e5ef4a7e4e79f84efbe5b40771c31044c51e7d0
   RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
-  RNSentry: ec3c033c13bcb65c79f19d54ca54c514d1832bb5
+  RNSentry: 2cd1daa124b0d9fd0dfc2cb6094fdd168cb579bc
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
-  RNZipArchive: 9e6af1bebc9c7ddb42893bc4e70804321227c3ec
+  RNZipArchive: 3f89b114cfeb89dac027fc5c7afd7e58d3dc4ebf
   Sentry: 0c5cd63d714187b4a39c331c1f0eb04ba7868341
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   UMAppLoader: 2ee9f1278d315672f4854c6a2310aa9988f61f72

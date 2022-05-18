@@ -15,13 +15,15 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "facebookAppId": "254795350007625",
     "facebookDisplayName": "Mapilio",
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true,
-      "bundleIdentifier": "com.mapilio.app"
+      "bundleIdentifier": "com.mapilio.main"
     },
     "android": {
       "permissions": [
@@ -59,7 +61,12 @@
     "plugins": [
       "@react-native-mapbox-gl/maps",
       "expo-facebook",
-      ["expo-location", { "isAndroidBackgroundLocationEnabled": false }]
+      [
+        "expo-location",
+        {
+          "isAndroidBackgroundLocationEnabled": false
+        }
+      ]
     ]
   }
 }
