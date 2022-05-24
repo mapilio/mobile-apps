@@ -109,6 +109,8 @@ const AppMap = ({ navigation }) => {
 
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
+    e.features[0].geometry.coordinates[1] =
+      e.features[0].geometry.coordinates[1] - 10;
     setClickedCoord(e.features[0].geometry.coordinates);
     setImageInformations({
       sequenceID: pointFeatures.SEQUENCE_UUID,
@@ -202,7 +204,7 @@ const AppMap = ({ navigation }) => {
 
       <View style={appMapStyle.mapWrapper}>
         <MapView
-          mapStyle={appMapStyle.map}
+          mapStyle={showPano ? appMapStyle.map : appMapStyle.mapSeperate}
           regionChange={willHide}
           mapRef={mapRef}
           onPress={touchFromAway}

@@ -12,6 +12,11 @@ export const appMapStyle = StyleSheet.create({
     height: RFPercentage(100),
     paddingBottom: RFValue(90),
   },
+  mapSeperate: {
+    width: RFValue(Dimensions.get("window").width ),
+    height: RFPercentage(45),
+    paddingBottom: RFValue(90),
+  },
   searchIcon: {
     backgroundColor: "rgba(50, 66, 91, 0.9)",
     padding: RFValue(8),
