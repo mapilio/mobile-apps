@@ -54,7 +54,6 @@ const Camera = ({
   const [subscription, setSubscription] = useState(null);
   const [mockedAlert, setMockedAlert] = useState(null);
   const [speedAlert, setSpeedAlert] = useState(null);
-  const [networkAlert, setNetworkAlert] = useState(null);
   const [GPSAlert, setGPSAlert] = useState(null);
   const [GPSStartAlert, setGPSStartAlert] = useState(null);
   const [rotateAlert, setRotateAlert] = useState(null);
@@ -142,19 +141,6 @@ const Camera = ({
       setBatteryAlert(null);
     }
   }, [batteryLevel, isCharge]);
-
-  useEffect(() => {
-    if (!connection.connectionStatus) {
-      setNetworkAlert({
-        svg: <InternetAccessIcon />,
-        title: "You do not have an internet connection",
-        content:
-          "You do not have an internet connection. Make sure mobile cellular data of wifi is turned on.",
-      });
-    } else {
-      setNetworkAlert(null);
-    }
-  }, [connection]);
 
   const _subscribeToAccelerometer = () => {
     accelerometerSubscription = Accelerometer.addListener(
@@ -334,13 +320,6 @@ const Camera = ({
             svg={batteryAlert.svg}
             title={batteryAlert.title}
             content={batteryAlert.content}
-          />
-        ) : null}
-        {networkAlert && !GPSStartAlert ? (
-          <CameraAlert
-            svg={networkAlert.svg}
-            title={networkAlert.title}
-            content={networkAlert.content}
           />
         ) : null}
         {mockedAlert && !GPSStartAlert ? (

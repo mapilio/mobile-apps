@@ -85,14 +85,16 @@ const TabNavigator = ({ navigation, route }) => {
   const [internetGoes, setInternetGoes] = useState(false);
   const { uploadData } = useSelector((state) => state.uploadReducer);
 
-  const connectionAlertHandler = (navigation) => {
-    if (connection.connectionStatus && internetGoes) {
-      Notifier.hideNotification();
-      navigation.goBack();
-      setInternetGoes(false);
-    } else if (!connection.connectionStatus) {
-      navigation.navigate(Routes.noInternetAccess);
-      setInternetGoes(true);
+  const connectionAlertHandler = (navigation, name) => {
+    if (name !== Routes.camera && name !== Routes.upload) {
+      if (connection.connectionStatus && internetGoes) {
+        Notifier.hideNotification();
+        navigation.goBack();
+        setInternetGoes(false);
+      } else if (!connection.connectionStatus) {
+        navigation.navigate(Routes.noInternetAccess);
+        setInternetGoes(true);
+      }
     }
   };
 
@@ -111,11 +113,15 @@ const TabNavigator = ({ navigation, route }) => {
       }}
       screenListeners={({ navigation, route }) => ({
         focus: (e) => {
-          if (!connection.connectionStatus && route.name !== Routes.camera) {
+          if (
+            !connection.connectionStatus &&
+            route.name !== Routes.camera &&
+            route.name !== Routes.upload
+          ) {
             navigation.navigate(Routes.noInternetAccess);
           }
         },
-        tabPress: () => connectionAlertHandler(navigation),
+        tabPress: () => connectionAlertHandler(navigation, route.name),
         state: () => {
           if (route.name !== Routes.camera) {
             ScreenOrientation.lockAsync(
