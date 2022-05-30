@@ -22,266 +22,306 @@ import { SERVICE_URL, CDN_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
 import {toastMessage} from "../../helper/alerts";
 import {fovCalculate} from "../../helper/fov";
+import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
+
 const md5 = require("md5");
 
-const Upload = ({ sequence_uuid, navigation }) => {
-  const dispatch = useDispatch();
-  const { uploadData } = useSelector((status) => status.uploadReducer);
-  const [summerCount, setSummerCount] = useState(0);
-  const [sentCount, setSentCount] = useState(0);
-  const [statusUpload, setStatusUpload] = useState(false);
-	const {auth, userInformation} = useSelector((status) => status.getTokenReducer);
-  const [modalVisible, setModalVisible] = useState(false);
-  const cancelToken = axios.CancelToken.source();
-	const {connection} = useSelector((state) => state.generalReducer);
-  const [deletedRows, setDeletedRows] = useState(0);
+const Upload = ({sequence_uuid, navigation}) => {
+    const dispatch = useDispatch();
+    const {uploadData} = useSelector((status) => status.uploadReducer);
+    const [summerCount, setSummerCount] = useState(0);
+    const [sentCount, setSentCount] = useState(0);
+    const [statusUpload, setStatusUpload] = useState(false);
+    const {auth, userInformation} = useSelector((status) => status.getTokenReducer);
+    const [modalVisible, setModalVisible] = useState(false);
+    const cancelToken = axios.CancelToken.source();
+    const {connection} = useSelector((state) => state.generalReducer);
+    let images = [];
 
-  const getSequences = () => {
-    return sequence_uuid
-      ? uploadData.filter((data) => data.sequence_uuid === sequence_uuid)
-      : uploadData;
-  };
+    const _uploadBroken = (error) => {
+        setModalVisible(false);
+        setSentCount(0);
+        setStatusUpload(false);
+        toastMessage.error(`${error}`)
+        dispatch({type: IS_UPLOADED, payload: true});
+        deactivateKeepAwake();
+    }
 
-  const _uploadBroken = (error) => {
-    setModalVisible(false);
-    setSentCount(0);
-    setStatusUpload(false);
-    toastMessage.error(`${error}`)
-  }
+    const sequenceFilter = () => {
+        return new Promise((resolve) => {
+            const sequences = sequence_uuid ?
+                uploadData.filter((data) => data.sequence_uuid === sequence_uuid).map((data) => data.sequence_uuid) :
+                uploadData.map((data) => data.sequence_uuid)
 
-  const summerImages = () => {
-    const sequences = getSequences();
-    let summer = sequences.reduce((partialSum, a) => partialSum + a.count, 0);
-    setSummerCount(summer);
-  };
-
-  const getHash = () => {
-    summerImages();
-    const sequences = getSequences();
-    sequences.map((sequence) => {
-      db.getCapturesBySequenceId(sequence.sequence_uuid, (_, results) => {
-        results.rows._array.map(async (data, i) => {
-          setModalVisible(true);
-          const filePath = Platform.OS === "ios" ? data.path.replace("file://", "") : data.path;
-          const fileName = filePath.split("/").pop();
-          const fileInfo = await FileSystem.getInfoAsync(filePath)
-
-          if (fileInfo.exists) {
-            const formData = new FormData();
-            formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
-            formData.append("email", userInformation.email);
-            if (data.project_key && data.organization_key) {
-              formData.append("project_organization_key", data.organization_key);
-              formData.append("project_key", data.project_key);
-            }
-
-            fetchHandler({url: `${CDN_URL}/api/upload/mobile`, method: 'POST', data: formData}).then((response) => {
-              setSentCount((state) => state + 1);
-              db.query(
-                `UPDATE captures SET uploaded=1, hash="${response.files[0].hash}" WHERE path="${data.path}" AND sequence_uuid="${sequence.sequence_uuid}"`,
-                () => {
-                  i === results.rows._array.length - 1 && sendFile(sequence.sequence_uuid)
-                }
-              );
-            }).catch((err) => {
-              _uploadBroken(err)
+            calcImageCount(sequences).then((count) => {
+                setSummerCount(count)
+                resolve(sequences)
             })
-          }
         })
-      }, (error) => {
-        _uploadBroken(error)
-      })
-    });
-  };
+    }
 
-  const sendFile = (sequence) => {
-    let files = {
-      options: {
-        parameters: {
-          organization_key: "",
-          project_key: "",
-          json_data: [],
-          summary: {
-            Information: {
-              total_images: 0,
-              count: 0,
-              anomaly_sequences: [],
-              sequence_uuid: "",
-              size: {},
-              hash: "",
-            },
-          },
-        },
-      },
+    const calcImageCount = (sequences) => {
+        return new Promise((resolve) => {
+            db.queryAsync(`SELECT COUNT(*) as count FROM captures WHERE sequence_uuid IN ('${sequences.join("', '")}')`).then((data) => {
+                resolve(data[0].count);
+            })
+        })
+    }
+
+    const getSequences = (sequences, index = 0) => {
+        activateKeepAwake();
+        setModalVisible(true);
+
+        if (sequences[index]) {
+            setImages(sequences[index]).then(() => {
+                getSequences(sequences, ++index)
+            })
+        } else {
+            sendImages(0, 0)
+        }
     };
-    let filesize = 0;
 
-    db.query(
-      `SELECT * FROM captures WHERE sequence_uuid="${sequence}"`,
-      (_, results) => {
-        results.rows._array.map(async (file, i) => {
-          const location = await JSON.parse(file.location);
-          const exif = await JSON.parse(file.exif);
+    const setImages = (sequence) => {
+        return new Promise(async (resolve) => {
+            images.push(await db.queryAsync(`SELECT * FROM captures WHERE sequence_uuid='${sequence}'`))
+            resolve()
+        })
+    }
 
-					FileSystem.getInfoAsync(Platform.OS === "ios" ? file.path.replace("file://", "") : file.path).then( async (fileInfo) => {
-						const fileName = file.path.split("/").pop();
-						const horizontal = exif.ImageWidth || exif.PixelXDimension;
-						const vertical = exif.ImageLength || exif.PixelYDimension;
-						const fov = fovCalculate(
-							horizontal > vertical ? horizontal : vertical,
-							horizontal < vertical ? horizontal : vertical,
-							exif.FocalLength,
-							"horizontal"
-						);
-
-						if (file.project_key && file.organization_key) {
-							files.options.parameters.summary.Information.organization_key =
-								file.organization_key;
-							files.options.parameters.summary.Information.project_key =
-								file.project_key;
-						}
-
-						files.options.parameters.json_data.push({
-							Latitude: location.coords.latitude,
-							Longitude: location.coords.longitude,
-							Altitude: location.coords.altitude,
-							Heading: location.coords.heading,
-							CaptureTime: dateConvert((exif.DateTime || exif.DateTimeOriginal), 'YYYY-MM-D HH:mm'),
-							Orientation: exif.Orientation,
-							DeviceMake: exif.Make || exif.LensMake,
-							DeviceModel: exif.Model || exif.LensModel,
-							ImageSize: `${exif.ImageWidth || exif.PixelXDimension}x${
-								exif.ImageLength || exif.PixelYDimension
-							}`,
-							filename: fileName,
-							SequenceUUID: file.sequence_uuid,
-							FoV: fov,
-              PhotoUUID: md5(userInformation.email + (exif.DateTime || exif.DateTimeOriginal)),
-							anomaly: 0,
-						});
-						files.options.parameters.summary.Information.total_images =
-							results.rows._array.length;
-						files.options.parameters.summary.Information.sequence_uuid = sequence;
-						files.options.parameters.summary.Information.count =
-							results.rows._array.length;
-						files.options.parameters.summary.Information.size =
-							(filesize += fileInfo.size) / 1024 / 1024;
-						files.options.parameters.summary.Information.hash = file.hash;
-
-            if (i === results.rows._array.length - 1) {
-              fetchHandler({
-                url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
-                method: "POST",
-                data: files,
-              }).then((res) => {
-                if (res.status === true) {
-                  deleteSequence(sequence)
-                }
-              }).catch((error) => {
-                _uploadBroken(error)
-              });
+    const sendImages = (i = 0, j = 0) => {
+        if (images[i]) {
+            if (images[i][j]) {
+                getHash(images[i][j]).then(() => {
+                    sendImages(i, ++j)
+                }).catch((err) => {
+                    _uploadBroken(err)
+                })
             }
-					});
-        });
-      }
-    );
-  };
-
-  const percentage = (partialValue, totalValue) => {
-    let number = (100 * partialValue) / totalValue;
-    return number / 100;
-  };
-
-  const deleteSequence = (sequence) => {
-    FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence}`).then(() => {
-      db.deleteBySequenceId(sequence, () => {
-        db.getGroupByWithColumn((_, result) => {
-          setDeletedRows((state) => state + 1);
-          dispatch({ type: UPLOAD_DATA, payload: result.rows._array });
-          navigation.navigate(Routes.upload);
-          toastMessage.success("Upload success")
-          if (deletedRows === getSequences().length - 1) {
-            dispatch({ type: IS_UPLOADED, payload: true });
+            else {
+                imageryUpload(i).then(() => {
+                    sendImages(++i)
+                }).catch((err) => {
+                    _uploadBroken(err)
+                })
+            }
+        } else {
+            toastMessage.success("Upload success")
+            dispatch({type: IS_UPLOADED, payload: true});
             setModalVisible(false);
             setSentCount(0);
             setStatusUpload(false);
-          }
+            deactivateKeepAwake();
+        }
+    }
+
+    const getHash = (image) => {
+        return new Promise(async (resolve, reject) => {
+            const filePath = Platform.OS === "ios" ? image.path.replace("file://", "") : image.path
+            const fileName = filePath.split("/").pop();
+            const fileInfo = await FileSystem.getInfoAsync(filePath)
+
+            if (fileInfo.exists) {
+                const formData = new FormData();
+                formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
+                formData.append("email", userInformation.email)
+                if (image.project_key && image.organization_key) {
+                    formData.append("project_organization_key", image.organization_key);
+                    formData.append("project_key", image.project_key);
+                }
+
+                fetchHandler({url: `${CDN_URL}/api/upload/mobile`, method: 'POST', data: formData}).then(async (response) => {
+                    await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
+                    setSentCount((state) => state + 1)
+                    resolve(response.files[0].hash)
+                }).catch(err => reject(err))
+            } else {
+                db.deleteById(image.id)
+                resolve()
+            }
         })
-      }, (error) => {
-        _uploadBroken(error)
-      })
-    }).catch((error) => {
-      _uploadBroken(error)
-    });
-  };
-
-  const checkInternet = async () => {
-    if (uploadData.length && connection.connectionType === "wifi") {
-      await getHash();
-    } else {
-      Alert.alert(
-        "Are you sure?",
-        "Are you sure you want to send via cellular data?",
-        [{text: "Yes", onPress: () => getHash()}, {text: "No"}]
-      );
     }
-  };
 
-  useEffect(() => {
-    if (sentCount !== 0 && summerCount === sentCount) {
-      setStatusUpload(true);
+    const imageryUpload = (index) => {
+        return new Promise((resolve, reject) => {
+            let files = {
+                options: {
+                    parameters: {
+                        organization_key: "",
+                        project_key: "",
+                        json_data: [],
+                        summary: {
+                            Information: {
+                                total_images: 0,
+                                count: 0,
+                                anomaly_sequences: [],
+                                sequence_uuid: "",
+                                size: {},
+                                hash: "",
+                            },
+                        }
+                    }
+                }
+            };
+            let filesize = 0;
+
+            images[index].forEach(async (image, i) => {
+                const location = await JSON.parse(image.location);
+                const exif = await JSON.parse(image.exif);
+
+                FileSystem.getInfoAsync(Platform.OS === "ios" ? image.path.replace("file://", "") : image.path).then(async (fileInfo) => {
+                    const fileName = image.path.split("/").pop()
+                    const horizontal = exif.ImageWidth || exif.PixelXDimension;
+                    const vertical = exif.ImageLength || exif.PixelYDimension;
+
+                    const fov = fovCalculate(
+                        horizontal > vertical ? horizontal : vertical,
+                        horizontal < vertical ? horizontal : vertical,
+                        exif.FocalLength,
+                        "horizontal"
+                    );
+
+                    if (image.project_key && image.organization_key) {
+                        files.options.parameters.summary.Information.organization_key =
+                            image.organization_key;
+                        files.options.parameters.summary.Information.project_key =
+                            image.project_key;
+                    }
+
+                    files.options.parameters.json_data.push({
+                        Latitude: location.coords.latitude,
+                        Longitude: location.coords.longitude,
+                        Altitude: location.coords.altitude,
+                        Heading: location.coords.heading,
+                        CaptureTime: dateConvert((exif.DateTime || exif.DateTimeOriginal), 'YYYY-MM-D HH:mm'),
+                        Orientation: exif.Orientation,
+                        DeviceMake: exif.Make || exif.LensMake,
+                        DeviceModel: exif.Model || exif.LensModel,
+                        ImageSize: `${exif.ImageWidth || exif.PixelXDimension}x${
+                            exif.ImageLength || exif.PixelYDimension
+                        }`,
+                        filename: fileName,
+                        SequenceUUID: image.sequence_uuid,
+                        FoV: fov,
+                        PhotoUUID: md5(userInformation.email + (exif.DateTime || exif.DateTimeOriginal)),
+                        anomaly: 0,
+                    });
+                    files.options.parameters.summary.Information.total_images =
+                        images[index].length;
+                    files.options.parameters.summary.Information.sequence_uuid = image.sequence_uuid;
+                    files.options.parameters.summary.Information.count =
+                        images[index].length;
+                    files.options.parameters.summary.Information.size =
+                        (filesize += fileInfo.size) / 1024 / 1024;
+                    files.options.parameters.summary.Information.hash = image.hash;
+
+                    if(i === images[index].length - 1) {
+                        fetchHandler({
+                            url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
+                            method: "POST",
+                            data: files,
+                        }).then((res) => {
+                            if (res.status === true) {
+                                deleteSequence(image.sequence_uuid).then(() => {
+                                    resolve()
+                                })
+                            }
+                        }).catch((err) => {
+                            reject(err)
+                        })
+                    }
+                })
+            })
+        })
     }
-  }, [sentCount, summerCount]);
 
-  return (
-    <View>
-      <TouchableOpacity onPress={checkInternet}>
-        <UploadIcon />
-      </TouchableOpacity>
-      <Modal animationType="slide" transparent={false} visible={modalVisible}>
-        <View style={userUploadModalStyles.container}>
-          <TouchableOpacity
-            style={userUploadModalStyles.close}
-            onPress={() => {
-              cancelToken.cancel("Operation canceled by the user.");
-              setModalVisible(false);
-              setSentCount(0);
-              setStatusUpload(false);
-            }}
-          >
-            <CloseIcon />
-          </TouchableOpacity>
-          <View style={{ alignItems: "center" }}>
-            {!statusUpload && (
-              <CustomText style={userUploadModalStyles.text}>
-                {sentCount + "/" + summerCount}
-              </CustomText>
-            )}
-            {statusUpload && (
-              <View style={{ marginBottom: RFValue(20) }}>
-                <ActivityIndicator color={"#FFFFFF"} />
-                <CustomText
-                  style={{
-                    color: "#FFFFFF",
-                    marginTop: RFValue(8),
-                    textAlign: "center",
-                    width: RFValue(300),
-                  }}
-                  lineCount={2}
-                >
-                  Your uploads sending. This process take a moment.
-                </CustomText>
-              </View>
-            )}
-            <Progress.Bar
-              progress={percentage(sentCount, summerCount)}
-              width={200}
-            />
-          </View>
+    const percentage = (partialValue, totalValue) => {
+        let number = (100 * partialValue) / totalValue;
+
+        return (number) ? number / 100 : 0;
+    };
+
+    const deleteSequence = (sequence) => {
+        return new Promise(async(resolve) => {
+            navigation.navigate(Routes.upload);
+            await FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence}`)
+            await db.queryAsync(`DELETE FROM captures WHERE sequence_uuid='${sequence}'`)
+            db.getGroupByWithColumn((_, result) => {
+                dispatch({type: UPLOAD_DATA, payload: result.rows._array});
+            })
+            resolve()
+        });
+    };
+
+    const checkInternet = () => {
+        if (uploadData.length && connection.connectionType === "wifi") {
+            sequenceFilter().then((sequences) => {
+                getSequences(sequences)
+            })
+        } else {
+            Alert.alert(
+                "Are you sure?",
+                "Are you sure you want to send via cellular data?",
+                [{text: "Yes", onPress: () => sequenceFilter().then(() => getSequences())}, {text: "No"}]
+            );
+        }
+    };
+
+    useEffect(() => {
+        if (sentCount !== 0 && summerCount === sentCount) {
+            setStatusUpload(true);
+        }
+    }, [sentCount, summerCount]);
+
+    return (
+        <View>
+            <TouchableOpacity onPress={checkInternet}>
+                <UploadIcon/>
+            </TouchableOpacity>
+            <Modal animationType="slide" transparent={false} visible={modalVisible}>
+                <View style={userUploadModalStyles.container}>
+                    <TouchableOpacity
+                        style={userUploadModalStyles.close}
+                        onPress={() => {
+                            cancelToken.cancel("Operation canceled by the user.");
+                            setModalVisible(false);
+                            setSentCount(0);
+                            setStatusUpload(false);
+                        }}
+                    >
+                        <CloseIcon/>
+                    </TouchableOpacity>
+                    <View style={{alignItems: "center"}}>
+                        {!statusUpload && (
+                            <CustomText style={userUploadModalStyles.text}>
+                                {sentCount + "/" + summerCount}
+                            </CustomText>
+                        )}
+                        {statusUpload && (
+                            <View style={{marginBottom: RFValue(20)}}>
+                                <ActivityIndicator color={"#FFFFFF"}/>
+                                <CustomText
+                                    style={{
+                                        color: "#FFFFFF",
+                                        marginTop: RFValue(8),
+                                        textAlign: "center",
+                                        width: RFValue(300),
+                                    }}
+                                    lineCount={2}
+                                >
+                                    Your uploads sending. This process take a moment.
+                                </CustomText>
+                            </View>
+                        )}
+
+                        <Progress.Bar
+                            progress={percentage(sentCount, summerCount)}
+                            width={200}
+                        />
+                    </View>
+                </View>
+            </Modal>
         </View>
-      </Modal>
-    </View>
-  );
+    );
 };
 
 export default Upload;

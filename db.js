@@ -73,11 +73,27 @@ class Database {
     });
   }
 
-  async query(query, callback, args = [], errorCallback = (_, error) => toastMessage.error(`${error}`)) {
-    db.transaction((txn) => {
-      txn.executeSql(query, args, callback, errorCallback)
-    });
-  }
+    async queryAsync(query) {
+        return new Promise((resolve, reject) => {
+            db.transaction((txn) => {
+                txn.executeSql(
+                    query,
+                    [],
+                    (_, results) => {
+                    resolve(results.rows._array)
+                },
+                    (error) => {
+                    reject(error)
+                })
+            });
+        })
+    }
+
+    async query(query, callback, args = [], errorCallback = (_, error) => toastMessage.error(`${error}`)) {
+        db.transaction((txn) => {
+            txn.executeSql(query, args, callback, errorCallback)
+        });
+    }
 
   deleteRow(sequenceUUID) {
     db.transaction((txn) => {
@@ -113,16 +129,22 @@ class Database {
     })
   }
 
-  deleteBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toastMessage.error(`${error}`)) {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
-        [],
-        callback,
-        errorCallback
-      )
-    })
-  }
+    deleteBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toastMessage.error(`${error}`)) {
+        db.transaction((txn) => {
+            txn.executeSql(
+                `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
+                [],
+                callback,
+                errorCallback
+            )
+        })
+    }
+
+    deleteById(id) {
+        db.transaction(txn => {
+            txn.executeSql(`DELETE FROM captures where id='${id}'`)
+        })
+    }
 }
 
 const database = new Database();
