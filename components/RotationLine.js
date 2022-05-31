@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import { CameraRotate } from "../assets/svg/illustrations";
 import { UPDATE_ACCURACY } from "../store/actionsName";
 
-const RotationLine = ({ degree, lineDegree, setAlert, rotateAlert }) => {
+const RotationLine = ({ degree, setAlert, rotateAlert }) => {
   const [appear, setAppear] = useState(false);
   const dispatch = useDispatch();
-  const { accuracy } = useSelector((state) => state.cameraReducer);
+  const {accuracy} = useSelector((state) => state.cameraReducer);
+  const lineDegree = degree - 90;
 
   const between = (x, min, max) => {
     return x >= min && x <= max;

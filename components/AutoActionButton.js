@@ -31,7 +31,6 @@ const AutoActionButton = ({
   batteryLevel,
   mocked,
   highSpeed,
-  exitCapture,
 }) => {
   const { cameraStatus, camera, photoAmount, isCharge, accuracy } = useSelector(
     (status) => status.cameraReducer
@@ -130,10 +129,7 @@ const AutoActionButton = ({
   let startNewSequence = (nextAppState) => {
     let timeout = null;
     if (autoCaptureStart) {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === "active"
-      ) {
+      if (appState.current.match(/inactive|background/) && nextAppState === "active") {
         appState.current = nextAppState;
         setAppStateVisible(appState.current);
         setNowCapture(false);
@@ -158,14 +154,6 @@ const AutoActionButton = ({
         setAppStateVisible(appState.current);
       }
     }
-  };
-
-  const getMode = (a, b) => {
-    return ((a % b) + b) % b;
-  };
-
-  const between = (x, min, max) => {
-    return x >= min && x <= max;
   };
 
   // TODO ADD TO HELPER.JS

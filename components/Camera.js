@@ -40,10 +40,10 @@ import { RFValue } from "react-native-responsive-fontsize";
 import {permissionHandler} from "../helper/helper";
 import {toastMessage} from "../helper/alerts";
 import {CustomTextMedium} from "../highordercomponents";
+import {cameraStyles} from "../styles/cameraStyles";
 
 const Camera = ({
   navigation,
-  route,
   cameraReady,
   setCameraReady,
   timeout,
@@ -51,7 +51,6 @@ const Camera = ({
 }) => {
   const [degree, setDegree] = useState(0);
   const [batteryAlert, setBatteryAlert] = useState(null);
-  const [subscription, setSubscription] = useState(null);
   const [mockedAlert, setMockedAlert] = useState(null);
   const [speedAlert, setSpeedAlert] = useState(null);
   const [GPSAlert, setGPSAlert] = useState(null);
@@ -60,87 +59,66 @@ const Camera = ({
   const [gps, setGPS] = useState(true);
   const fadeAnimation = useRef(new Animated.Value(0.7)).current;
   const dispatch = useDispatch();
-  let timeoutGPS = null;
-  const { batteryLevel, isCharge, photoAmount, keepUUID } = useSelector(
-    (state) => state.cameraReducer
-  );
-  const { connection, cameraWalkthroughStatus } = useSelector(
-    (state) => state.generalReducer
-  );
+  const { batteryLevel, isCharge } = useSelector((state) => state.cameraReducer);
+  const { cameraWalkthroughStatus } = useSelector((state) => state.generalReducer);
   const cameraRef = useRef(null);
   let location = null;
   let accelerometerSubscription = null;
 
   useEffect(() => {
-    if (route.name === "Camera") {
-      BackHandler.addEventListener("hardwareBackPress", () => true);
-    }
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", () => true);
+    BackHandler.addEventListener("hardwareBackPress", () => true);
+    _subscribeToAccelerometer();
+    _subscribeProvider();
+  }, [])
+
+  useEffect(() => () => {
+    BackHandler.removeEventListener("hardwareBackPress", () => true);
+    Accelerometer.removeAllListeners()
+    navigation.removeListener("focus");
+    navigation.removeListener("blur");
+    clearTimeout(timeout?.current)
+    location?.remove();
   }, []);
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async () => {
+    navigation.addListener("focus", async () => {
       setCameraReady(true);
       await permissionHandler(false, goProfile, () => false, "camera");
       await _startNetworkProvider();
       StatusBar.setHidden(true);
-    });
-    return () => unsubscribe();
-  }, [navigation]);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("blur", () => {
+      const currentOrientation = await ScreenOrientation.getOrientationLockAsync();
+      if (currentOrientation !== 5 || currentOrientation !== 6 || currentOrientation !== 7 ) {
+        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+      }
+    })
+
+    navigation.addListener("blur", () => {
       setCameraReady(false);
     });
-    return () => unsubscribe();
-  }, [navigation]);
-
-  const goProfile = () =>
-    navigation.reset({
-      index: 0,
-      routes: [{ name: Routes.profile }],
-    });
+  }, [navigation])
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async () => {
-      const currentOrientation =
-        await ScreenOrientation.getOrientationLockAsync();
-      // 7 EQUAL TO LANDSCAPE_RIGHT
-      if (currentOrientation !== 5) {
-        await ScreenOrientation.lockAsync(
-          ScreenOrientation.OrientationLock.LANDSCAPE
-        );
-      }
-    });
-    return () => unsubscribe();
-  }, [navigation]);
-
-  useEffect(() => {
-    _subscribeToAccelerometer();
-    return _removeAccelerometerSubscribe();
-  }, []);
-
-  useEffect(() => {
-    _subscribeProvider();
-    return _removeLocationProvider();
-  }, []);
-
-  useEffect(() => {
-    if (!isCharge) {
-      (batteryLevel <= 20 && Platform.OS === "ios") ||
-      (batteryLevel <= 15 && Platform.OS === "android")
-        ? setBatteryAlert({
-            svg: <BatteryLevelIcon />,
-            title: "Battery level low",
-            content:
-              "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
-          })
-        : setBatteryAlert(null);
+    if (!isCharge && ((batteryLevel <= 20 && Platform.OS === "ios") || (batteryLevel <= 15 && Platform.OS === "android"))) {
+      setBatteryAlert({
+        svg: <BatteryLevelIcon/>,
+        title: "Battery level low",
+        content: "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible.",
+      })
     } else {
       setBatteryAlert(null);
     }
   }, [batteryLevel, isCharge]);
+
+  useEffect(() => {
+    Animated.timing(fadeAnimation, {
+      toValue: 0,
+      duration: 1300,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnimation]);
+
+  const goProfile = () => navigation.reset({index: 0, routes: [{name: Routes.profile}]});
 
   const _subscribeToAccelerometer = () => {
     accelerometerSubscription = Accelerometer.addListener(
@@ -159,15 +137,7 @@ const Camera = ({
     );
   };
 
-  const _removeAccelerometerSubscribe = async () => {
-    await subscription?.remove();
-  };
-
-  const _startNetworkProvider = async () => {
-    await Location.enableNetworkProviderAsync()
-      .then((res) => res)
-      .catch((err) => err);
-  };
+  const _startNetworkProvider = async () => await Location.enableNetworkProviderAsync().then((res) => res).catch((err) => err);
 
   const _subscribeProvider = async () => {
     location = await Location.watchPositionAsync(
@@ -222,10 +192,6 @@ const Camera = ({
     }
   };
 
-  const _removeLocationProvider = async () => {
-    await location?.remove();
-  };
-
   useEffect(() => {
     if (gps) {
       timeout.current = setTimeout(() => {
@@ -240,7 +206,6 @@ const Camera = ({
       clearTimeout(timeout?.current);
       timeout = null;
     }
-    return () => clearTimeout(timeout?.current);
   }, [gps]);
 
   const startAccuracyHandler = (accuracy) => {
@@ -249,8 +214,7 @@ const Camera = ({
       setGPSStartAlert({
         svg: <GPSSearch />,
         title: "GPS Searching",
-        content:
-          "Please be in the open area where the GPS will capture. This process can take up to 30 seconds.",
+        content: "Please be in the open area where the GPS will capture. This process can take up to 30 seconds.",
       });
     } else if (accuracy <= 15) {
       waitGPS.current = false;
@@ -268,27 +232,15 @@ const Camera = ({
     }
   };
 
-  useEffect(() => {
-    Animated.timing(fadeAnimation, {
-      toValue: 0,
-      duration: 1300,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnimation]);
-
   if (cameraReady) {
     return (
       <ExpoCamera
-        style={{
-          flex: 1,
-          position: "relative",
-        }}
+        style={cameraStyles.camera}
         ref={cameraRef}
         onCameraReady={onCameraReady}
       >
         <RotationLine
           degree={degree}
-          lineDegree={degree - 90}
           setAlert={setRotateAlert}
           rotateAlert={rotateAlert}
         />
@@ -340,22 +292,9 @@ const Camera = ({
     );
   } else {
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#2E2E2E",
-        }}
-      >
+      <View style={cameraStyles.notReadyContainer}>
         <ActivityIndicator size={"large"} color={"#FFFFFF"} />
-        <CustomTextMedium
-          style={{
-            fontSize: RFValue(16),
-            marginTop: RFValue(30),
-            color: "#FFFFFF",
-          }}
-        >
+        <CustomTextMedium style={cameraStyles.notReadyText}>
           Camera is getting ready. Please wait.
         </CustomTextMedium>
       </View>
