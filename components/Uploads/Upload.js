@@ -261,7 +261,7 @@ const Upload = ({sequence_uuid, navigation}) => {
             Alert.alert(
                 "Are you sure?",
                 "Are you sure you want to send via cellular data?",
-                [{text: "Yes", onPress: () => sequenceFilter().then(() => getSequences())}, {text: "No"}]
+                [{text: "Yes", onPress: () => sequenceFilter().then((sequences) => getSequences(sequences))}, {text: "No"}]
             );
         }
     };
