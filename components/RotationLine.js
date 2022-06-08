@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Platform, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { CameraRotate } from "../assets/svg/illustrations";
-import { UPDATE_ACCURACY } from "../store/actionsName";
+import {UPDATE_ACCURACY, UPDATE_ROTATE_STATUS} from "../store/actionsName";
 
-const RotationLine = ({ degree, setAlert, rotateAlert }) => {
-  const [appear, setAppear] = useState(false);
+const RotationLine = ({ degree }) => {
   const dispatch = useDispatch();
-  const {accuracy} = useSelector((state) => state.cameraReducer);
+  const {accuracy, rotateStatus} = useSelector((state) => state.cameraReducer);
   const lineDegree = degree - 90;
 
   const between = (x, min, max) => {
@@ -16,67 +14,31 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
   };
 
   useEffect(() => {
-    if (Boolean(accuracy) !== Boolean(rotateAlert)) {
+    if (Boolean(accuracy) !== Boolean(rotateStatus)) {
       dispatch({
         type: UPDATE_ACCURACY,
-        payload: { isTrue: !Boolean(rotateAlert), degree: degree },
+        payload: { isTrue: !Boolean(rotateStatus), degree: degree },
       });
     } else {
       if (accuracy.isTrue) {
         dispatch({
           type: UPDATE_ACCURACY,
-          payload: { isTrue: !Boolean(rotateAlert), degree: degree },
+          payload: { isTrue: !Boolean(rotateStatus), degree: degree },
         });
       }
     }
-  }, [rotateAlert]);
+  }, [rotateStatus]);
 
   useEffect(() => {
-    if (Platform.OS === "android") {
-      const betweenPositiveLandscape = between(lineDegree, 160, 205);
-      const betweenHighNegativeLandscape = between(lineDegree, -190, -160);
-      const betweenNegativeLandscape = between(lineDegree, -25, 25);
-      if (
-        !betweenNegativeLandscape &&
-        !betweenPositiveLandscape &&
-        !betweenHighNegativeLandscape
-      ) {
-        setAppear(true);
-        setAlert({
-          svg: <CameraRotate />,
-          title: "Adjust your camera angle",
-          content: "Shooting will continue when the your rotation true.",
-        });
-      } else {
-        setAppear(false);
-        setAlert(null);
-      }
-    } else if (Platform.OS === "ios") {
-      const betweenPositiveLandscape = between(lineDegree, 152, 190);
-      const betweenHighNegativeLandscape = between(lineDegree, -190, -160);
-      const betweenNegativeLandscape = between(lineDegree, -25, 25);
+    const betweenPositiveLandscape = between(lineDegree, Platform.OS === "android" ? 160 : 152, Platform.OS === "android" ? 205 : 190);
+    const betweenHighNegativeLandscape = between(lineDegree, -190, -160);
+    const betweenNegativeLandscape = between(lineDegree, -25, 25);
 
-      if (
-        !betweenNegativeLandscape &&
-        !betweenPositiveLandscape &&
-        !betweenHighNegativeLandscape
-      ) {
-        setAppear(true);
-        setAlert({
-          svg: <CameraRotate />,
-          title: "Adjust your camera angle",
-          content: "Shooting will continue when the your rotation true.",
-        });
-      } else if (
-        betweenNegativeLandscape ||
-        betweenPositiveLandscape ||
-        betweenHighNegativeLandscape
-      ) {
-        setAppear(false);
-        setAlert(null);
-      }
-    }
-  }, [lineDegree, setAppear]);
+    dispatch({
+      type: UPDATE_ROTATE_STATUS,
+      payload: !betweenNegativeLandscape && !betweenPositiveLandscape && !betweenHighNegativeLandscape
+    })
+  }, [lineDegree]);
 
   return (
     <View
@@ -90,7 +52,7 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
     >
       <View
         style={{
-          display: appear ? "flex" : "none",
+          display: rotateStatus ? "flex" : "none",
           width: "90%",
           backgroundColor: "red",
           height: 2,
@@ -99,9 +61,7 @@ const RotationLine = ({ degree, setAlert, rotateAlert }) => {
               rotate:
                 lineDegree < 0
                   ? `${Math.abs(Math.round(Math.ceil(lineDegree / 5) * 5))}deg`
-                  : `${-Math.abs(
-                      Math.round(Math.ceil(lineDegree / 5) * 5)
-                    )}deg`,
+                  : `${-Math.abs(Math.round(Math.ceil(lineDegree / 5) * 5))}deg`,
             },
           ],
         }}

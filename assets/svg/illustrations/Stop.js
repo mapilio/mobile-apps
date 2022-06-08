@@ -2,7 +2,7 @@ import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Rect } from "react-native-svg";
 
-const Stop = ({ width = RFValue(18), height = RFValue(18) }) => (
+const Stop = ({ width = RFValue(18), height = RFValue(18), color="#e24a4a" }) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -15,7 +15,7 @@ const Stop = ({ width = RFValue(18), height = RFValue(18) }) => (
       width="18"
       height="18"
       rx="4"
-      fill="#e24a4a"
+      fill={color}
     />
   </Svg>
 );
