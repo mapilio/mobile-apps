@@ -128,7 +128,7 @@ const Camera = ({
         if (gps && waitGPS.current) {
           startAccuracyHandler(location.coords.accuracy);
         }
-        dispatch({ type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy <= 50 });
+        dispatch({ type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy <= 20 });
       }
     );
   };
@@ -147,7 +147,7 @@ const Camera = ({
   }, [gps]);
 
   const startAccuracyHandler = (accuracy) => {
-    if (accuracy > 50) {
+    if (accuracy > 20) {
       dispatch({ type: UPDATE_START_ACCURACY, payload: false });
     } else {
       dispatch({ type: UPDATE_START_ACCURACY, payload: true });

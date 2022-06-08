@@ -67,7 +67,10 @@ const AutoActionButton = ({navigation}) => {
 	}, [location]);
 
 	const watchLocation = async () => {
-		await Location.watchPositionAsync({accuracy: Location.Accuracy.Low, distanceInterval: 0}, (location) => {
+		await Location.watchPositionAsync({
+				accuracy: Location.Accuracy.High,
+				distanceInterval: distanceBetween
+			}, (location) => {
 				setLocation(location);
 			}
 		);
