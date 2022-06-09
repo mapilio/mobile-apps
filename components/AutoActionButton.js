@@ -131,7 +131,6 @@ const AutoActionButton = ({navigation}) => {
 			quality: 0.6,
 			base64: false,
 			exif: true,
-			skipProcessing: true,
 			onPictureSaved: (image) => savePicture(image, location)
 		}
 		if (!autoCaptureStart) return;

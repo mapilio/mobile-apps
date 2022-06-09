@@ -58,12 +58,7 @@ if (Platform.OS === "ios") {
   });
 }
 
-if (Platform.OS === "ios") {
-  Sentry.init({
-    dsn: `${process.env.SENTRY_DSN_IOS}`,
-    tracesSampleRate: 1.0,
-  });
-}
+Sentry.init({dsn: `${process.env.SENTRY_DSN_IOS}`, tracesSampleRate: 1.0});
 
 function App() {
   const [isReady, setIsReady] = useState(false);
@@ -108,4 +103,4 @@ function App() {
   );
 }
 
-export default App;
+export default Sentry.wrap(App);
