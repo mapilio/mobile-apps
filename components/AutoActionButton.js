@@ -1,7 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {AppState, Dimensions, TouchableOpacity, View} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-import {convertHexToRGBA} from "../helper/helper";
+import {AppState, TouchableOpacity, View} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import * as Location from "expo-location";
 import Database from "../db";
@@ -15,8 +13,8 @@ import {
 	UPLOAD_DATA
 } from "../store/actionsName";
 import {toastMessage} from "../helper/alerts";
-import {getHeading} from "../helper/heading";
 import uuid from "react-native-uuid";
+import {cameraActionButtonStyles} from "../styles/cameraStyles";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -45,26 +43,35 @@ const AutoActionButton = ({navigation}) => {
 	const dispatch = useDispatch();
 
 	const playHandler = () => {
-		dispatch({type: UPDATE_AUTOCAPTURE_START, payload: true});
-	};
-
-	const stopHandler = () => {
-		dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false});
+		dispatch({type: UPDATE_AUTOCAPTURE_START, payload: !autoCaptureStart});
 	};
 
 	useEffect(() => {
 		if (captureButtonStatus && !isAlert && autoCaptureStart && location?.coords) {
-			if (photo === 250) {
+			if (photo === 249) {
 				photo = 0;
 				currentUUID = uuid.v4();
 				dispatch({type: UPDATE_UUID, payload: currentUUID});
 				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
 			} else {
-				incrementAmount();
-				takePicture(location)
+				takePicture(location).catch((err) => console.log("take picture error ", err));
 			}
 		}
+
+		return () => {
+			setLocation(null);
+		}
 	}, [location]);
+
+	useEffect(() => {
+		navigation.addListener("blur", () => {
+			if (location) location.remove();
+			dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
+		});
+		return () => {
+			navigation.removeListener("blur");
+		};
+	}, [navigation]);
 
 	const watchLocation = async () => {
 		await Location.watchPositionAsync({
@@ -77,16 +84,12 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	useEffect(() => {
-		watchLocation();
-		let setTimeout = null;
+		watchLocation().catch((error) => console.log("watchLocation() err: " + error));
 		AppState.addEventListener("change", startNewSequence);
 
 		return () => {
 			AppState.removeEventListener("change", startNewSequence);
-			if (setTimeout) {
-				clearTimeout(setTimeout);
-			}
-		};
+		}
 	}, []);
 
 	let startNewSequence = (nextAppState) => {
@@ -126,24 +129,31 @@ const AutoActionButton = ({navigation}) => {
 
 	// TODO ADD TO HELPER.JS
 	const takePicture = async (location) => {
-		if (cameraStatus !== "READY") return;
+		if (cameraStatus !== "READY" || !autoCaptureStart || !accuracy.degree) {
+			calculateAmount("subtract");
+			return;
+		}
+
 		const options = {
-			quality: 0.6,
+			quality: 0.2,
 			base64: false,
 			exif: true,
+			skipProcessing: true,
+			fixOrientation: true,
 			onPictureSaved: (image) => savePicture(image, location)
 		}
-		if (!autoCaptureStart) return;
-		if (!accuracy.degree) return;
 		setNowCapture(true);
-		await camera.takePictureAsync(options)
+		camera.takePictureAsync(options).catch((error) => console.log(error))
 	};
 
 	const savePicture = async (image, location) => {
+		calculateAmount("add");
+
 		const id = userInformation.id;
 		const imageUri = image.uri;
 		if (!imageUri) {
 			setNowCapture(false);
+			calculateAmount("subtract");
 			return;
 		}
 		const metaDataDir = await FileSystem.getInfoAsync(FileSystem.documentDirectory + `${id}/${currentUUID}`);
@@ -154,6 +164,7 @@ const AutoActionButton = ({navigation}) => {
 				await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + `${id}/${currentUUID}`, {intermediates: true});
 			} catch (e) {
 				console.info("ERROR", e);
+				calculateAmount("subtract");
 				setNowCapture(false);
 			}
 		}
@@ -162,7 +173,6 @@ const AutoActionButton = ({navigation}) => {
 
 		await FileSystem.copyAsync({from: imageUri, to: newPath});
 		image.uri = newPath;
-		location.coords.heading = await getHeading();
 		const JSONExif = JSON.stringify(image.exif);
 		const JSONLocation = JSON.stringify(location);
 		Database.insertToDB({
@@ -179,111 +189,35 @@ const AutoActionButton = ({navigation}) => {
 		dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
 	}
 
+	/**@param operator {string ?: "add" | "subtract"}*/
+	const calculateAmount = (operator) => {
+		switch (operator) {
+			case "add":
+				photo = photo + 1;
+				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
+				break;
+			case "subtract":
+				photo = photo - 1;
+				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
+				break;
+			default:
+				break;
 
-	const incrementAmount = () => {
-		photo = photo + 1;
-		dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
-	};
-
-	const decrementAmount = () => {
-		photo = photo - 1;
-		dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
-	};
-
-	if (autoCaptureStart) {
-		return (
-			<TouchableOpacity
-				// disabled={isNowCapture}
-				style={{
-					width: RFValue(61),
-					height: RFValue(61),
-					marginBottom: RFValue(-55),
-					marginTop: RFValue(35),
-				}}
-				onPress={stopHandler}
-			>
-				<View
-					style={{
-						position: "absolute",
-						top: "12%",
-						left: "12%",
-						bottom: "12%",
-						right: "12%",
-						borderRadius: Math.round(Dimensions.get("window").width + Dimensions.get("window").height) / 2,
-						backgroundColor: "#ffffff",
-						alignItems: "center",
-						justifyContent: "center",
-					}}
-				>
-					<StopIcon/>
-				</View>
-				<View
-					style={{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						bottom: 0,
-						right: 0,
-						borderWidth: RFValue(5),
-						margin: RFValue(-2),
-						borderColor: convertHexToRGBA("#FFFFFF", 10),
-						borderRadius:
-							Math.round(
-								Dimensions.get("window").width + Dimensions.get("window").height
-							) / 2,
-					}}
-				/>
-			</TouchableOpacity>
-		);
-	} else {
-		return (
-			<TouchableOpacity
-				disabled={!captureButtonStatus}
-				style={{
-					width: RFValue(61),
-					height: RFValue(61),
-					marginBottom: RFValue(-55),
-					marginTop: RFValue(35),
-				}}
-				onPress={playHandler}
-			>
-				<View
-					style={{
-						position: "absolute",
-						top: "12%",
-						left: "12%",
-						bottom: "12%",
-						right: "12%",
-						borderRadius:
-							Math.round(
-								Dimensions.get("window").width + Dimensions.get("window").height
-							) / 2,
-						backgroundColor: "#ffffff",
-						alignItems: "center",
-						justifyContent: "center",
-					}}
-				>
-					<PlayIcon/>
-				</View>
-				<View
-					style={{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						bottom: 0,
-						right: 0,
-						borderWidth: RFValue(5),
-						margin: RFValue(-2),
-						borderColor: convertHexToRGBA("#FFFFFF", 10),
-						borderRadius:
-							Math.round(
-								Dimensions.get("window").width + Dimensions.get("window").height
-							) / 2,
-					}}
-				/>
-			</TouchableOpacity>
-		);
+		}
 	}
+
+	return (
+		<TouchableOpacity
+			disabled={(!captureButtonStatus && isAlert)}
+			style={cameraActionButtonStyles.container}
+			onPress={playHandler}
+		>
+			<View style={cameraActionButtonStyles.button}>
+				{autoCaptureStart ? <StopIcon/> : <PlayIcon/>}
+			</View>
+			<View style={cameraActionButtonStyles.buttonBuffer}/>
+		</TouchableOpacity>
+	)
 };
 
 export default AutoActionButton;

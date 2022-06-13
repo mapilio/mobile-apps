@@ -3,7 +3,6 @@ import { Camera as ExpoCamera } from "expo-camera";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {
   ActivityIndicator,
-  Animated,
   BackHandler,
   Platform,
   StatusBar,
@@ -11,12 +10,10 @@ import {
 } from "react-native";
 import { Routes } from "../navigator/Routes";
 import CameraFrame from "./CameraFrame";
-import CameraAlert from "./CameraAlert";
 import CameraProjectInfo from "./CameraProjectInfo";
 import { Accelerometer } from "expo-sensors";
 import RotationLine from "./RotationLine";
 import * as Location from "expo-location";
-import Database from "../db";
 import {
   UPDATE_CAMERA_REF,
   UPDATE_CAMERA_STATUS,
@@ -33,17 +30,9 @@ import {CustomTextMedium} from "../highordercomponents";
 import {cameraStyles} from "../styles/cameraStyles";
 import {cameraAlerts} from "../helper/camera";
 
-const Camera = ({
-  navigation,
-  route,
-  cameraReady,
-  setCameraReady,
-  timeout,
-  waitGPS,
-}) => {
+const Camera = ({navigation, route, cameraReady, setCameraReady, timeout, waitGPS}) => {
   const [degree, setDegree] = useState(0);
   const [gps, setGPS] = useState(true);
-  const fadeAnimation = useRef(new Animated.Value(0.7)).current;
   const dispatch = useDispatch();
   const { batteryLevel, isCharge, batteryStatus, mocked, highSpeed, GPSAccuracy, GPSStartAccuracy, rotateStatus } = useSelector((state) => state.cameraReducer);
   const { cameraWalkthroughStatus } = useSelector((state) => state.generalReducer);
@@ -84,6 +73,11 @@ const Camera = ({
     navigation.addListener("blur", () => {
       setCameraReady(false);
     });
+
+    return () => {
+      navigation.removeListener("focus");
+      navigation.removeListener("blur");
+    }
   }, [navigation])
 
   useEffect(() => {
@@ -91,15 +85,10 @@ const Camera = ({
       type: UPDATE_BATTERY_STATUS,
       payload: !isCharge && ((batteryLevel <= 20 && Platform.OS === "ios") || (batteryLevel <= 15 && Platform.OS === "android"))
     });
+    return () => {
+      dispatch({type: UPDATE_BATTERY_STATUS, payload: false});
+    }
   }, [batteryLevel, isCharge]);
-
-  useEffect(() => {
-    Animated.timing(fadeAnimation, {
-      toValue: 0,
-      duration: 1300,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnimation]);
 
   const goProfile = () => navigation.reset({index: 0, routes: [{name: Routes.profile}]});
 
@@ -121,14 +110,15 @@ const Camera = ({
   const _startNetworkProvider = async () => await Location.enableNetworkProviderAsync().then((res) => res).catch((err) => err);
 
   const _subscribeProvider = async () => {
-    location = await Location.watchPositionAsync({accuracy: Location.Accuracy.High, distanceInterval: 0},
-      (location) => {        dispatch({type: UPDATE_MOCKED_STATUS, payload: location.mocked});
-        dispatch({ type: UPDATE_HIGHSPEED_STATUS, payload: location.coords.speed >= 70 });
+    await Location.watchPositionAsync({accuracy: Location.Accuracy.High, distanceInterval: 0},
+      (location) => {
+        dispatch({type: UPDATE_MOCKED_STATUS, payload: location.mocked});
+        dispatch({type: UPDATE_HIGHSPEED_STATUS, payload: location.coords.speed >= 70});
 
         if (gps && waitGPS.current) {
           startAccuracyHandler(location.coords.accuracy);
         }
-        dispatch({ type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy <= 20 });
+        dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy <= 15});
       }
     );
   };
@@ -144,10 +134,15 @@ const Camera = ({
       clearTimeout(timeout?.current);
       timeout = null;
     }
+
+    return () => {
+      clearTimeout(timeout?.current);
+      timeout = null;
+    }
   }, [gps]);
 
   const startAccuracyHandler = (accuracy) => {
-    if (accuracy > 20) {
+    if (accuracy > 15) {
       dispatch({ type: UPDATE_START_ACCURACY, payload: false });
     } else {
       dispatch({ type: UPDATE_START_ACCURACY, payload: true });
