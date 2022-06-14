@@ -130,6 +130,7 @@ const Upload = ({sequence_uuid, navigation}) => {
                 }
 
                 fetchHandler({url: `${CDN_URL}/api/upload/mobile`, method: 'POST', data: formData}).then(async (response) => {
+                    images.hash = response.files[0].hash
                     await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
                     setSentCount((state) => state + 1)
                     resolve(response.files[0].hash)
