@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { LogBox, Platform } from "react-native";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import ManuelActionButton from "./ManuelActionButton";
+import {CAPTURE_BUTTON_STATUS} from "../store/actionsName";
 
 const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
-  const [disabled, setDisabled] = useState(true);
   const [waitGPS, setWaitGPS] = useState(true);
   const {
-    GPSStatus,
     GPSAccuracy,
     GPSStartAccuracy,
     batteryLevel,
@@ -16,65 +14,28 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
     highSpeed,
     isCharge,
     accuracy,
+    batteryStatus
   } = useSelector((state) => state.cameraReducer);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!waitGPS) return;
-    if (GPSStartAccuracy) {
-      setWaitGPS(false);
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-      setWaitGPS(true);
+    if (waitGPS) {
+      setWaitGPS(!GPSStartAccuracy);
+      dispatch({type: CAPTURE_BUTTON_STATUS, payload: !GPSStartAccuracy});
     }
   }, [GPSStartAccuracy, waitGPS]);
 
   useEffect(() => {
-    if (waitGPS) return;
-    let batteryError = false;
-    if (isCharge) {
-      batteryError = false;
-    } else {
-      batteryError =
-        Platform.OS === "android" ? batteryLevel <= 15 : batteryLevel <= 20;
+    if (!waitGPS) {
+      dispatch({type: CAPTURE_BUTTON_STATUS, payload: (GPSAccuracy || !batteryStatus || !highSpeed || !mocked || accuracy.isTrue)});
     }
-    if (
-      !GPSAccuracy ||
-      batteryError ||
-      highSpeed ||
-      mocked ||
-      !accuracy.isTrue
-    ) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
-  }, [
-    GPSAccuracy,
-    waitGPS,
-    isCharge,
-    highSpeed,
-    mocked,
-    batteryLevel,
-    accuracy,
-  ]);
+  }, [GPSAccuracy, waitGPS, isCharge, highSpeed, mocked, batteryLevel, accuracy]);
 
 
   return (
     <>
       {/* <ManuelActionButton disabled={false} uuid={uuid} /> */}
-      <AutoActionButton
-        disabled={disabled}
-        setDisabled={setDisabled}
-        uuid={uuid}
-        navigation={navigation}
-        GPSStatus={GPSStatus}
-        GPSAccuracy={GPSAccuracy}
-        batteryLevel={batteryLevel}
-        mocked={mocked}
-        highSpeed={highSpeed}
-        exitCapture={exitCapture}
-      />
+      <AutoActionButton navigation={navigation}/>
     </>
   );
 };

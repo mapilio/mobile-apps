@@ -7,6 +7,7 @@ import {
   UPDATE_PHONE_MEMORY,
   UPDATE_PHOTO_AMOUNT,
   UPDATE_BATTERY_LEVEL,
+  UPDATE_BATTERY_STATUS,
   UPDATE_START_ACCURACY,
   UPDATE_MOCKED_STATUS,
   UPDATE_HIGHSPEED_STATUS,
@@ -14,6 +15,8 @@ import {
   UPDATE_UUID,
   CAMERA_REDUCER_RESET,
   UPDATE_ACCURACY,
+  CAPTURE_BUTTON_STATUS,
+  UPDATE_ROTATE_STATUS
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -26,11 +29,14 @@ const INITIAL_STATE = {
   phoneMemory: 0,
   photoAmount: 0,
   batteryLevel: 100,
+  batteryStatus: false,
   accuracy: false,
   mocked: false,
   highSpeed: false,
   keepUUID: null,
   isCharge: true,
+  captureButtonStatus: false,
+  rotateStatus: false,
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -49,11 +55,6 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cameraStatus: action.payload,
-      };
-    case UPDATE_CAMERA_REF:
-      return {
-        ...state,
-        camera: action.payload,
       };
     case UPDATE_CAMERA_REF:
       return {
@@ -79,6 +80,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         batteryLevel: action.payload,
+      };
+    case UPDATE_BATTERY_STATUS:
+      return {
+        ...state,
+        batteryStatus: action.payload,
       };
     case UPDATE_START_ACCURACY:
       return {
@@ -121,6 +127,16 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         imageSize: 3145728,
         phoneMemory: 0,
         photoAmount: 0,
+      };
+    case CAPTURE_BUTTON_STATUS:
+      return {
+        ...state,
+        captureButtonStatus: action.payload,
+      };
+    case UPDATE_ROTATE_STATUS:
+      return {
+        ...state,
+        rotateStatus: action.payload,
       };
     default:
       return state;
