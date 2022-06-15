@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, Platform, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const loginStyles = StyleSheet.create({
@@ -89,6 +89,8 @@ export const loginStyles = StyleSheet.create({
 export const socialLoginStyles = StyleSheet.create({
   container: {
     marginBottom: RFValue(20),
+    justifyContent: "center",
+    alignItems: "center",
   },
   topContainer: {
     flexDirection: "row",
@@ -110,15 +112,17 @@ export const socialLoginStyles = StyleSheet.create({
     color: "#B9C0CF",
   },
   googleButton: {
-    flex: 1,
     padding: Dimensions.get("window").height > 1100 ? 20 : 10,
-    borderRadius: 20,
+    borderRadius: 1000,
     marginLeft: 6,
     backgroundColor: "#FFF",
     justifyContent: "center",
+    alignItems: "center",
+    width: 50,
+    height: 50,
   },
   appleButton: {
-    backgroundColor: "#000000",
+    backgroundColor: "#fff",
     color: "#FFFFFF",
     flex: 1,
     padding: 10,
@@ -127,11 +131,14 @@ export const socialLoginStyles = StyleSheet.create({
     justifyContent: "center",
   },
   facebookButton: {
-    backgroundColor: "#3B5998",
-    flex: 1,
+    backgroundColor: "#fff",
     padding: 10,
-    borderRadius: 20,
-    marginRight: 6,
+    borderRadius: 1000,
+    marginRight: 20,
+    marginLeft: Platform.OS === "android" ? 0 : 20,
+    alignItems: "center",
     justifyContent: "center",
+    width: 50,
+    height: 50,
   },
 });

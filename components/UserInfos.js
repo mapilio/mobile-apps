@@ -10,9 +10,9 @@ import { fetchHandler, kFormatter } from "../helper/helper";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SERVICE_URL } from "@env";
-import {toastMessage} from "../helper/alerts";
+import { toastMessage } from "../helper/alerts";
 
-const UserInfos = () => {
+const UserInfos = ({ isOrganization, selectedItem }) => {
   const [avatarLoading, setAvatarLoading] = useState(true);
   const [avatarError, setAvatarError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -49,7 +49,9 @@ const UserInfos = () => {
       })
       .catch(() => {
         setLoading(false);
-        toastMessage.warning("There was a problem fetching your information. Please try again.")
+        toastMessage.warning(
+          "There was a problem fetching your information. Please try again."
+        );
       });
   }, []);
 
@@ -149,7 +151,11 @@ const UserInfos = () => {
         style={{
           ...userInfoStyles.imageStyle,
         }}
-        source={{ uri: profileInfos.user_profile_photo }}
+        source={{
+          uri: isOrganization
+            ? profileInfos.user_profile_photo
+            : selectedItem.organization_profile_picture,
+        }}
         onLoadEnd={finishLoad}
         onError={setError}
       />
@@ -162,15 +168,27 @@ const UserInfos = () => {
       <View style={userInfoStyles.infoContainer}>
         <View>
           <CustomTextMedium style={userInfoStyles.username}>
-            {profileInfos.username}
+            {isOrganization
+              ? profileInfos.username
+              : selectedItem.organization_username}
           </CustomTextMedium>
           <CustomText style={userInfoStyles.accountType}>
-            Individual Account
+            {isOrganization ? " Individual Account" : "Organization account"}
           </CustomText>
         </View>
         <View style={userInfoStyles.infoGrid}>
-          {infoGenerate(kFormatter(profileInfos.sequences), "sequences")}
-          {infoGenerate(kFormatter(profileInfos.photos), "photos")}
+          {infoGenerate(
+            kFormatter(
+              isOrganization ? profileInfos.sequences : selectedItem.sequences
+            ),
+            "sequences"
+          )}
+          {infoGenerate(
+            kFormatter(
+              isOrganization ? profileInfos.photos : selectedItem.photos
+            ),
+            "photos"
+          )}
           {/* {infoGenerate(kFormatter(profileInfos.meters), "meters")} */}
         </View>
       </View>

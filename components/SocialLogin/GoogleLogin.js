@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
-import { CustomText } from "../../highordercomponents";
-import GoogleIcon from "../../assets/svg/illustrations/GoogleIcon";
+import GoogleLogo from "../../assets/svg/logos/GoogleLogo";
 import * as Google from "expo-auth-session/providers/google";
 import { fetchHandler } from "../../helper/helper";
 import { Routes } from "../../navigator/Routes";
@@ -19,7 +18,7 @@ import {
   SERVICE_URL,
 } from "@env";
 import OneSignal from "react-native-onesignal";
-import {toastMessage} from "../../helper/alerts";
+import { toastMessage } from "../../helper/alerts";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -73,10 +72,12 @@ const GoogleLogin = ({ navigation }) => {
           dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
           dispatch(getUserInformation(res));
           Database.startDB(res.id);
-          toastMessage.success(`Login Success ${response.name}`)
-          navigation.reset({index: 0, routes: [{name: Routes.tabHome}]})
+          toastMessage.success(`Login Success ${response.name}`);
+          navigation.reset({ index: 0, routes: [{ name: Routes.tabHome }] });
         } else {
-          toastMessage.warning("There was a problem registering. Please try a different method.")
+          toastMessage.warning(
+            "There was a problem registering. Please try a different method."
+          );
           setLoading(false);
         }
       })
@@ -100,10 +101,9 @@ const GoogleLogin = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <View style={{ position: "absolute", left: 10 }}>
-            <GoogleIcon />
+          <View>
+            <GoogleLogo />
           </View>
-          <CustomText style={{ textAlign: "center" }}>Google</CustomText>
         </TouchableOpacity>
       )}
     </View>

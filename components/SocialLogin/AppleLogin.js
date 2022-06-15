@@ -8,7 +8,7 @@ import { Routes } from "../../navigator/Routes";
 import { fetchHandler } from "../../helper/helper";
 import { SERVICE_URL } from "@env";
 import OneSignal from "react-native-onesignal";
-import {toastMessage} from "../../helper/alerts";
+import { toastMessage } from "../../helper/alerts";
 
 const AppleLogin = ({ navigation }) => {
   const [available, setAvailable] = useState(false);
@@ -33,14 +33,16 @@ const AppleLogin = ({ navigation }) => {
           state: stateKey,
           token: credential.user,
         },
-      }).then((res) => {
-        dispatch({type: GET_TOKEN_SUCCESS, payload: res});
-        dispatch(getUserInformation(res));
-        Database.startDB(res.id);
-        OneSignal.setExternalUserId(res.id.toLocaleString(), () => {});
-        navigation.navigate(Routes.tabHome);
-      }).catch((err) => console.error(err));
-      toastMessage.success(`Login Success ${credential.fullName.familyName}`)
+      })
+        .then((res) => {
+          dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
+          dispatch(getUserInformation(res));
+          Database.startDB(res.id);
+          OneSignal.setExternalUserId(res.id.toLocaleString(), () => {});
+          navigation.navigate(Routes.tabHome);
+        })
+        .catch((err) => console.error(err));
+      toastMessage.success(`Login Success ${credential.fullName.familyName}`);
     } else {
       let params = {
         token: credential.user,
@@ -66,14 +68,15 @@ const AppleLogin = ({ navigation }) => {
       <AppleAuthentication.AppleAuthenticationButton
         buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
         buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
-        cornerRadius={16}
+        cornerRadius={1000}
         style={{
-          color: "#FFFFFF",
-          flex: 1,
+          color: "#657488",
           padding: 10,
           borderRadius: 20,
           marginRight: 6,
           justifyContent: "center",
+          width: 50,
+          height: 50,
         }}
         onPress={async () => {
           const credential = await AppleAuthentication.signInAsync({

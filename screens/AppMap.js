@@ -17,11 +17,13 @@ import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
 import SearchbarSwipe from "../components/SearchbarSwipe";
 import { IMAGE_API } from "@env";
+import * as Location from "expo-location";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { MapView } from "../highordercomponents";
 import { styles } from "../styles/circleStyles";
 import { Heading } from "../components/Map";
 import { CloseIcon } from "../assets/svg/illustrations";
+import { toastMessage } from "../helper/alerts";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -271,10 +273,12 @@ const AppMap = ({ navigation }) => {
         style={[appMapStyle.currentIcon]}
         onPress={async () => {
           setVisible((prev) => !prev);
-          // TODO INTEGRATE IF USER LOCATION WAS DISABLED
-          // let isEnabled = await Location.hasServicesEnabledAsync();
-          // let permissionStatus = await Location.getForegroundPermissionsAsync();
-          if (userCoordinate.length !== 0) {
+          let isEnabled = await Location.hasServicesEnabledAsync();
+          let permissionStatus = await Location.getForegroundPermissionsAsync();
+          if (!isEnabled || !permissionStatus.granted) {
+            toastMessage.error("Your GPS is disabled.");
+          }
+          if (userCoordinate && isEnabled) {
             setFlyLocation(userCoordinate);
           }
         }}
