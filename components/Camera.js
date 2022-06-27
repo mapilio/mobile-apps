@@ -107,7 +107,7 @@ const Camera = ({navigation, route, cameraReady, setCameraReady, timeout, waitGP
     );
   };
 
-  const _startNetworkProvider = async () => await Location.enableNetworkProviderAsync().then((res) => res).catch((err) => err);
+  const _startNetworkProvider = async () => await Location.enableNetworkProviderAsync().catch((err) => err);
 
   const _subscribeProvider = async () => {
     await Location.watchPositionAsync({accuracy: Location.Accuracy.High, distanceInterval: 0},
