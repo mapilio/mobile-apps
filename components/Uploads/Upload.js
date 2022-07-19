@@ -213,7 +213,7 @@ const Upload = ({sequence_uuid, navigation}) => {
                         images[index].length;
                     files.options.parameters.summary.Information.size =
                         (filesize += fileInfo.size) / 1024 / 1024;
-                    files.options.parameters.summary.Information.hash = image.hash;
+                    files.options.parameters.summary.Information.hash = images.hash;
 
                     if(i === images[index].length - 1) {
                         fetchHandler({
