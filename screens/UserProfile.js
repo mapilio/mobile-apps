@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Animated, LogBox, Platform, ScrollView, View } from "react-native";
+import { Platform, ScrollView, View } from "react-native";
 import { ProfileFeed, UserInfos } from "../components";
 import { globalStyles } from "../styles/globalStyles";
 import { fetchHandler } from "../helper/helper";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CustomText, CustomTextBold } from "../highordercomponents";
@@ -24,7 +24,7 @@ const UserProfile = ({ navigation }) => {
     id: userInformation?.id,
     type: "individual",
   });
-  const dispatch = useDispatch();
+  const [isOrganization, setOrganization] = useState(true);
   const { userInformation, isUploaded } = useSelector(
     (state) => state.getTokenReducer
   );
@@ -139,7 +139,7 @@ const UserProfile = ({ navigation }) => {
 
   return (
     <View style={globalStyles.container}>
-      <UserInfos />
+      <UserInfos isOrganization={isOrganization} selectedItem={selectedItem} />
       {items.length >= 2 &&
         (Platform.OS === "ios" ? (
           <View
@@ -160,6 +160,11 @@ const UserProfile = ({ navigation }) => {
               setValue={setValue}
               closeAfterSelecting
               onSelectItem={(item) => {
+                if (item.type === "individual") {
+                  setOrganization(true);
+                } else {
+                  setOrganization(false);
+                }
                 setSelectedItem(item);
               }}
               loading={loadingOrganization}
@@ -265,7 +270,7 @@ const UserProfile = ({ navigation }) => {
               />
             </SkeletonPlaceholder>
           ))
-        ) : listData ? (
+        ) : listData?.length === 0 ? (
           listData.map((data) => (
             <ProfileFeed
               key={data.id}
