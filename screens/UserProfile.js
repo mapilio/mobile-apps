@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CustomText, CustomTextBold } from "../highordercomponents";
-import { SERVICE_URL } from "@env";
 import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
 import { Routes } from "../navigator/Routes";
 import { ActivityIndicator } from "react-native-paper";
 import DropDownPicker from "react-native-dropdown-picker";
+import Config from "react-native-config";
 
 const UserProfile = ({ navigation }) => {
   const [listData, setListData] = useState(null);
@@ -68,7 +68,7 @@ const UserProfile = ({ navigation }) => {
   useEffect(() => {
     setLoading(true);
     fetchHandler({
-      url: `${SERVICE_URL}/api/function/organizations/organization/myOrganizations`,
+      url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`,
     })
       .then((res) => {
         setLoading(false);
@@ -94,8 +94,8 @@ const UserProfile = ({ navigation }) => {
     }
     fetchHandler({
       url: foreignUrl
-        ? `${SERVICE_URL}${foreignUrl}`
-        : `${SERVICE_URL}${paginationURL}`,
+        ? `${Config.SERVICE_URL}${foreignUrl}`
+        : `${Config.SERVICE_URL}${paginationURL}`,
     })
       .then((res) => {
         if (res.data !== null) {

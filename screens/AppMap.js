@@ -16,7 +16,6 @@ import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
 import SearchbarSwipe from "../components/SearchbarSwipe";
-import { IMAGE_API } from "@env";
 import * as Location from "expo-location";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { MapView } from "../highordercomponents";
@@ -24,6 +23,7 @@ import { styles } from "../styles/circleStyles";
 import { Heading } from "../components/Map";
 import { CloseIcon } from "../assets/svg/illustrations";
 import { toastMessage } from "../helper/alerts";
+import Config from "react-native-config";
 
 MapboxGL.setAccessToken(
   "pk.your_mapbox_public_token"
@@ -120,8 +120,8 @@ const AppMap = ({ navigation }) => {
       user: pointFeatures.created_by_id,
       pointID: pointFeatures.id,
       heading: pointFeatures.heading,
-      image: `${IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
-      highResImage: `${IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/1080`,
+      image: `${Config.IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/480`,
+      highResImage: `${Config.IMAGE_API}/${pointFeatures.img_code}/${pointFeatures.filename}/1080`,
     });
     setShowPano(false);
   };

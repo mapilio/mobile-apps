@@ -7,10 +7,10 @@ import {globalStyles} from "../styles/globalStyles";
 import {RFValue} from "react-native-responsive-fontsize";
 import {fetchHandler} from "../helper/helper";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
-import {SERVICE_URL, FORGOT_URL} from "@env";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import {toastMessage} from "../helper/alerts";
+import Config from "react-native-config";
 
 
 const forgotValidationSchema = yup.object().shape({
@@ -30,11 +30,11 @@ const ForgotPassword = ({navigation}) => {
 
 	const forgotPassword = (values) => {
 		fetchHandler({
-			url: `${SERVICE_URL}/api/forgot-password`,
+			url: `${Config.SERVICE_URL}/api/forgot-password`,
 			method: "POST",
 			data: {
 				email: values.email,
-				callback: FORGOT_URL,
+				callback: Config.FORGOT_URL,
 				"success-params": "tverification=true",
 				"error-params": "tverification=false",
 			},

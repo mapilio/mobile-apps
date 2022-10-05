@@ -11,30 +11,25 @@ import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import Database from "../../db";
-import {
-  GOOGLE_ANDROID_CLIENT_ID,
-  GOOGLE_IOS_CLIENT_ID,
-  GOOGLE_REQUEST_URL,
-  SERVICE_URL,
-} from "@env";
 import OneSignal from "react-native-onesignal";
 import { toastMessage } from "../../helper/alerts";
+import Config from "react-native-config";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [stateKey, setStateKey] = useState("");
   const [request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId: GOOGLE_IOS_CLIENT_ID,
-    androidClientId: GOOGLE_ANDROID_CLIENT_ID,
-    expoClientId: GOOGLE_ANDROID_CLIENT_ID,
+    iosClientId: Config.GOOGLE_IOS_CLIENT_ID,
+    androidClientId: Config.GOOGLE_ANDROID_CLIENT_ID,
+    expoClientId: Config.GOOGLE_ANDROID_CLIENT_ID,
     scopes: ["profile", "email"],
     permissions: ["public_profile", "email"],
   });
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
-      fetchHandler({ url: `${SERVICE_URL}/oauth-api/generate-state` })
+      fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` })
         .then((response) => setStateKey(response.data.state))
         .catch((err) => console.error(err));
     });
@@ -48,7 +43,7 @@ const GoogleLogin = ({ navigation }) => {
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      axios.get(GOOGLE_REQUEST_URL + authentication.accessToken).then((res) => {
+      axios.get(Config.GOOGLE_REQUEST_URL + authentication.accessToken).then((res) => {
         loginToMapilio(res.data);
       });
     } else {
@@ -58,7 +53,7 @@ const GoogleLogin = ({ navigation }) => {
 
   const loginToMapilio = (response) => {
     fetchHandler({
-      url: `${SERVICE_URL}/oauth-api/callback`,
+      url: `${Config.SERVICE_URL}/oauth-api/callback`,
       method: "POST",
       data: {
         email: response.email,

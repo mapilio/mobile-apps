@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { NotifierWrapper } from "react-native-notifier";
 import * as Sentry from "@sentry/react-native";
 import OneSignal from "react-native-onesignal";
+import Config from "react-native-config";
 
 if (Platform.OS === "ios") {
   OneSignal.setLogLevel(6, 0);
@@ -58,7 +59,7 @@ if (Platform.OS === "ios") {
   });
 }
 
-Sentry.init({dsn: `${process.env.SENTRY_DSN_IOS}`, tracesSampleRate: 1.0});
+Sentry.init({dsn: `${Config.SENTRY_DSN}`, tracesSampleRate: 1.0});
 
 function App() {
   const [isReady, setIsReady] = useState(false);

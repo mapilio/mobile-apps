@@ -11,13 +11,13 @@ import { marketplaceDetailStyles } from "../styles/marketplaceStyles";
 import { fetchHandler } from "../helper/helper";
 import { Routes } from "../navigator/Routes";
 import Moment from "moment";
-import { SERVICE_URL } from "@env";
 import {toastMessage} from "../helper/alerts";
+import Config from "react-native-config";
 
 const MarketplaceDetail = ({ navigation, route }) => {
   const applyProject = () => {
         fetchHandler({
-          url: `${SERVICE_URL}/api/function/projects/job/createJob`,
+          url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
           method: "POST",
           data: {
             options: {

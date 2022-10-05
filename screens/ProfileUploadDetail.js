@@ -5,12 +5,12 @@ import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import {appMapStyle} from "../styles/appMapStyle";
 import {MapView} from "../highordercomponents";
-import {IMAGE_API} from "@env";
 import {styles} from "../styles/circleStyles";
 import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
 import {Heading} from "../components/Map";
 import {setGeoJson} from "../helper/geojson";
+import Config from "react-native-config";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
   const screenHeight = Dimensions.get("window").height - RFValue(110);
@@ -107,7 +107,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
                 longitude: Number(point.features[0].properties.item.longitude),
               });
               setCurrentImage(
-                `${IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/480`
+                `${Config.IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/480`
               );
             }}
           >

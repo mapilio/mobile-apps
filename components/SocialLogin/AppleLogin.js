@@ -6,9 +6,9 @@ import { getUserInformation } from "../../store/reducers/loginReducer/getUserInf
 import Database from "../../db";
 import { Routes } from "../../navigator/Routes";
 import { fetchHandler } from "../../helper/helper";
-import { SERVICE_URL } from "@env";
 import OneSignal from "react-native-onesignal";
 import { toastMessage } from "../../helper/alerts";
+import Config from "react-native-config";
 
 const AppleLogin = ({ navigation }) => {
   const [available, setAvailable] = useState(false);
@@ -25,7 +25,7 @@ const AppleLogin = ({ navigation }) => {
   const signInToApple = async (credential, stateKey) => {
     if (credential.email) {
       fetchHandler({
-        url: `${SERVICE_URL}/oauth-api/callback`,
+        url: `${Config.SERVICE_URL}/oauth-api/callback`,
         method: "POST",
         data: {
           email: credential.email,
@@ -49,7 +49,7 @@ const AppleLogin = ({ navigation }) => {
         state: stateKey,
       };
       fetchHandler({
-        url: `${SERVICE_URL}/oauth-api/w-token`,
+        url: `${Config.SERVICE_URL}/oauth-api/w-token`,
         params: params,
       })
         .then((res) => {
@@ -85,7 +85,7 @@ const AppleLogin = ({ navigation }) => {
               AppleAuthentication.AppleAuthenticationScope.EMAIL,
             ],
           });
-          fetchHandler({ url: `${SERVICE_URL}/oauth-api/generate-state` })
+          fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` })
             .then((response) => {
               signInToApple(credential, response.data.state);
             })
