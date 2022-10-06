@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
-import {AppState, TouchableOpacity, View} from "react-native";
+import {AppState, Platform, TouchableOpacity, View} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
-import * as Location from "expo-location";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,6 +14,7 @@ import {
 import {toastMessage} from "../helper/alerts";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
+import Geolocation from 'react-native-geolocation-service';
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -74,13 +74,14 @@ const AutoActionButton = ({navigation}) => {
 	}, [navigation]);
 
 	const watchLocation = async () => {
-		await Location.watchPositionAsync({
-				accuracy: Location.Accuracy.High,
-				distanceInterval: distanceBetween
-			}, (location) => {
-				setLocation(location);
-			}
-		);
+		Geolocation.watchPosition(position => {
+			console.log(position)
+			setLocation(position)
+		}, () => null, {
+			distanceFilter: 5,
+			enableHighAccuracy: true,
+			accuracy: Platform.OS === 'android' ? 'high' : 'best',
+		});
 	};
 
 	useEffect(() => {
