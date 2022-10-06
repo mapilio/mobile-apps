@@ -118,27 +118,54 @@ const Upload = ({sequence_uuid, navigation}) => {
         return new Promise(async (resolve, reject) => {
             const filePath = Platform.OS === "ios" ? image.path.replace("file://", "") : image.path
             const fileName = filePath.split("/").pop();
-            const fileInfo = await FileSystem.getInfoAsync(filePath)
 
-            if (fileInfo.exists) {
-                const formData = new FormData();
-                formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
-                formData.append("email", userInformation.email)
-                if (image.project_key && image.organization_key) {
-                    formData.append("project_organization_key", image.organization_key);
-                    formData.append("project_key", image.project_key);
+            FileSystem.getInfoAsync(filePath + '1').then(fileInfo => {
+                if (fileInfo.exists) {
+                    const formData = new FormData();
+                    formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
+                    formData.append("email", userInformation.email)
+
+                    if (image.project_key && image.organization_key) {
+                        formData.append("project_organization_key", image.organization_key);
+                        formData.append("project_key", image.project_key);
+                    }
+
+                    fetchHandler({
+                        url: `${Config.CDN_URL}/api/upload/mobile`,
+                        method: 'POST',
+                        data: formData
+                    }).then(async (response) => {
+                        images.hash = response.files[0].hash
+                        await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
+                        setSentCount((state) => state + 1)
+                        resolve(response.files[0].hash)
+                    }).catch(err => reject(err))
+                } else {
+                    db.deleteById(image.id)
+
+                    db.query(
+                      "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+                      (_, result) => {
+                          dispatch({type: UPLOAD_DATA, payload: result.rows._array});
+                          navigation.navigate(Routes.upload);
+                      }
+                    );
+
+                    reject(`Oops! I can't read the ${fileName}. Deleting!`)
                 }
-
-                fetchHandler({url: `${Config.CDN_URL}/api/upload/mobile`, method: 'POST', data: formData}).then(async (response) => {
-                    images.hash = response.files[0].hash
-                    await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
-                    setSentCount((state) => state + 1)
-                    resolve(response.files[0].hash)
-                }).catch(err => reject(err))
-            } else {
+            }).catch(() => {
                 db.deleteById(image.id)
-                resolve()
-            }
+
+                db.query(
+                  "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+                  (_, result) => {
+                      dispatch({type: UPLOAD_DATA, payload: result.rows._array,});
+                      navigation.navigate(Routes.upload);
+                  }
+                );
+
+                reject(`Oops! I can't read the ${fileName}. Deleting!`)
+            })
         })
     }
 

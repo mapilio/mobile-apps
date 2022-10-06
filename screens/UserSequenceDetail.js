@@ -25,9 +25,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
   const [clickedPoint, setClickedPoint] = useState(null);
   const dispatch = useDispatch();
   const [currentImage, setCurrentImage] = useState(null);
-  const { activeSequence, sequenceImages } = useSelector(
-    (state) => state.uploadReducer
-  );
+  const {activeSequence, sequenceImages} = useSelector((state) => state.uploadReducer);
   const screenHeight = Dimensions.get("window").height - RFValue(110);
 
   useEffect(() => navigation.addListener("blur", () => setClickedPoint(null)), [navigation]);
