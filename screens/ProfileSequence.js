@@ -7,12 +7,12 @@ import {appMapStyle} from "../styles/appMapStyle";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import SwitchSelector from "react-native-switch-selector";
 import {RFValue} from "react-native-responsive-fontsize";
-import {IMAGE_API, SERVICE_URL} from "@env";
 import {fetchHandler} from "../helper/helper";
 import {styles} from "../styles/circleStyles";
 import {Routes} from "../navigator/Routes";
 import {ActivityIndicator} from "react-native-paper";
 import {setGeoJson} from "../helper/geojson";
+import Config from "react-native-config";
 
 const UserSequence = ({ navigation, route }) => {
   const [active, setActive] = useState("image");
@@ -70,8 +70,8 @@ const UserSequence = ({ navigation, route }) => {
   const fetchNext = (foreignURL) => {
     fetchHandler({
       url: foreignURL
-        ? `${SERVICE_URL}${foreignURL}`
-        : `${SERVICE_URL}${paginationURL}`,
+        ? `${Config.SERVICE_URL}${foreignURL}`
+        : `${Config.SERVICE_URL}${paginationURL}`,
     })
       .then((res) => {
         setPaginationLoading(false);
@@ -86,7 +86,7 @@ const UserSequence = ({ navigation, route }) => {
   const fetchMapNext = (foreignURL) => {
     setMapLoading(true);
     fetchHandler({
-      url: `${SERVICE_URL}${foreignURL}`,
+      url: `${Config.SERVICE_URL}${foreignURL}`,
     })
       .then((res) => {
         const newImageList = [...res.data];
@@ -218,7 +218,7 @@ const UserSequence = ({ navigation, route }) => {
                 onPress={(point) => {
                   navigation.navigate(Routes.feedDetail, {
                     id: point.features[0].properties.item.id,
-                    path: `${IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/1080`,
+                    path: `${Config.IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/1080`,
                     coordinate: point.features[0].geometry.coordinates,
                     points: mapList,
                     heading: point.features[0].properties.item.heading,

@@ -12,16 +12,16 @@ import {CustomText, CustomTextMedium} from "../highordercomponents";
 import ProjectList from "./ProjectList";
 import {fetchHandler} from "../helper/helper";
 import {Routes} from "../navigator/Routes";
-import {SERVICE_URL} from "@env";
 import {toastMessage} from "../helper/alerts";
 import {cameraProjectModalStyles} from "../styles/cameraStyles";
+import Config from "react-native-config";
 
 const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
 	const [projects, setProjects] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		fetchHandler({url: `${SERVICE_URL}/api/function/projects/job/getMyJobs`})
+		fetchHandler({url: `${Config.SERVICE_URL}/api/function/projects/job/getMyJobs`})
 			.then((res) => {
 				setLoading(false);
 				setProjects(res.data);

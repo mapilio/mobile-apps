@@ -9,16 +9,16 @@ import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import Database from "../../db";
-import { SERVICE_URL, FACEBOOK_APP_ID, FACEBOOK_REQUEST_URL } from "@env";
 import OneSignal from "react-native-onesignal";
 import { toastMessage } from "../../helper/alerts";
+import Config from "react-native-config";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState("");
   const dispatch = useDispatch();
 
   const login = async () => {
-    fetchHandler({ url: `${SERVICE_URL}/oauth-api/generate-state` })
+    fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` })
       .then((response) => {
         facebookAccess(response.data.state);
       })
@@ -28,14 +28,14 @@ const FacebookLogin = ({ navigation }) => {
   const facebookAccess = async (stateKey) => {
     try {
       await Facebook.initializeAsync({
-        appId: FACEBOOK_APP_ID,
+        appId: Config.FACEBOOK_APP_ID,
       });
       const { type, token, expirationDate, permissions, declinedPermissions } =
         await Facebook.logInWithReadPermissionsAsync({
           permissions: ["public_profile", "email"],
         });
       if (type === "success") {
-        const response = await fetch(`${FACEBOOK_REQUEST_URL}${token}`);
+        const response = await fetch(`${Config.FACEBOOK_REQUEST_URL}${token}`);
         const json = await response.json();
         if (!json.email) {
           toastMessage.error(
@@ -43,7 +43,7 @@ const FacebookLogin = ({ navigation }) => {
           );
         } else {
           fetchHandler({
-            url: `${SERVICE_URL}/oauth-api/callback`,
+            url: `${Config.SERVICE_URL}/oauth-api/callback`,
             method: "POST",
             data: {
               email: json.email,

@@ -18,11 +18,11 @@ import {dateConvert, fetchHandler} from "../../helper/helper";
 import { Routes } from "../../navigator/Routes";
 import * as Progress from "react-native-progress";
 import axios from "axios";
-import { SERVICE_URL, CDN_URL } from "@env";
 import { RFValue } from "react-native-responsive-fontsize";
 import {toastMessage} from "../../helper/alerts";
 import {fovCalculate} from "../../helper/fov";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
+import Config from "react-native-config";
 
 const md5 = require("md5");
 
@@ -129,7 +129,7 @@ const Upload = ({sequence_uuid, navigation}) => {
                     formData.append("project_key", image.project_key);
                 }
 
-                fetchHandler({url: `${CDN_URL}/api/upload/mobile`, method: 'POST', data: formData}).then(async (response) => {
+                fetchHandler({url: `${Config.CDN_URL}/api/upload/mobile`, method: 'POST', data: formData}).then(async (response) => {
                     images.hash = response.files[0].hash
                     await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
                     setSentCount((state) => state + 1)
@@ -217,7 +217,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 
                     if(i === images[index].length - 1) {
                         fetchHandler({
-                            url: `${SERVICE_URL}/api/function/mapilio/imagery/upload`,
+                            url: `${Config.SERVICE_URL}/api/function/mapilio/imagery/upload`,
                             method: "POST",
                             data: files,
                         }).then((res) => {

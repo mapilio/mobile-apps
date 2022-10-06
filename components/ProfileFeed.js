@@ -5,7 +5,7 @@ import { Routes } from "../navigator/Routes";
 import { userFeedStyles } from "../styles/userProfileStyle";
 import moment from "moment";
 import { useSelector } from "react-redux";
-import { IMAGE_API } from "@env";
+import Config from "react-native-config";
 
 const ProfileFeed = ({
   navigation,
@@ -40,7 +40,7 @@ const ProfileFeed = ({
         <Image
           style={userFeedStyles.imageStyle}
           source={{
-            uri: `${IMAGE_API}/${data.img_code}/${data.cover_photo}/480`,
+            uri: `${Config.IMAGE_API}/${data.img_code}/${data.cover_photo}/480`,
           }}
         />
       </View>

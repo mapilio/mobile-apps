@@ -14,11 +14,11 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { fetchHandler } from "../helper/helper";
 import { Eye, EyeSlash } from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
-import { SERVICE_URL } from "@env";
 import { SocialLogin } from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import {toastMessage} from "../helper/alerts";
+import Config from "react-native-config";
 
 const registerValidationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -38,14 +38,14 @@ const Register = ({ navigation }) => {
 
   const register = (values) => {
     fetchHandler({
-      url: `${SERVICE_URL}/api/register`,
+      url: `${Config.SERVICE_URL}/api/register`,
       method: "POST",
       data: {
         name: values.name,
         username: values.name,
         email: values.email,
         password: values.password,
-        callback: `${SERVICE_URL}`,
+        callback: `${Config.SERVICE_URL}`,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },

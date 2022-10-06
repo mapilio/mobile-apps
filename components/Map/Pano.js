@@ -20,8 +20,8 @@ import { fetchHandler } from "../../helper/helper";
 import { useSelector } from "react-redux";
 import { RFValue } from "react-native-responsive-fontsize";
 import { NorthArrow } from "../../assets/svg/illustrations";
-import { SERVICE_URL } from "@env";
 import {toastMessage} from "../../helper/alerts";
+import Config from "react-native-config";
 
 const Pano = (props) => {
   const { imageInformation, navigation } = props;
@@ -31,7 +31,7 @@ const Pano = (props) => {
   const reportImage = () => {
     if (auth) {
       fetchHandler({
-        url: `${SERVICE_URL}/api/function/image_complaint/complaint/report`,
+        url: `${Config.SERVICE_URL}/api/function/image_complaint/complaint/report`,
         method: "POST",
         data: {
           options: {

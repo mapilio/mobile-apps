@@ -20,8 +20,8 @@ import {
 } from "../helper/helper";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
-import { SEARCH_API } from "@env";
 import {toastMessage} from "../helper/alerts";
+import Config from "react-native-config";
 
 const SearchbarSwipe = ({
   setFly,
@@ -40,7 +40,7 @@ const SearchbarSwipe = ({
 
     if (valueAPI.length !== 0) {
       fetchHandler({
-        url: `${SEARCH_API}${valueAPI}`,
+        url: `${Config.SEARCH_API}${valueAPI}`,
       })
         .then((res) => {
           setLocations(res.features);

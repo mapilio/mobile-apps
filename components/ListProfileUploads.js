@@ -6,10 +6,10 @@ import { FeedImageCard } from "./index";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { userSequenceStyles } from "../styles/userSequenceStyle";
-import { IMAGE_API } from "@env";
 import { ActivityIndicator } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { UPDATE_CURRENT_SEQUENCE } from "../store/actionsName";
+import Config from "react-native-config";
 
 const ListProfileUploads = ({
   navigation,
@@ -79,7 +79,7 @@ const ListProfileUploads = ({
           : imageList.map((image) => (
               <FeedImageCard
                 key={image.id}
-                path={`${IMAGE_API}/${image.img_code}/${image.filename}`}
+                path={`${Config.IMAGE_API}/${image.img_code}/${image.filename}`}
                 id={image.id}
                 navigation={navigation}
                 sequenceUUID={sequence_uuid}

@@ -6,11 +6,11 @@ import {List, MarketplaceMap} from "../components/Marketplace";
 import { fetchHandler } from "../helper/helper";
 import { useDispatch } from "react-redux";
 import { MARKETPLACE_DATA } from "../store/actionsName";
-import { SERVICE_URL } from "@env";
 import { useHeaderHeight } from "@react-navigation/elements";
 const { height } = Dimensions.get("window");
 import {toastMessage} from "../helper/alerts";
 import {centerCoordinatesByPolygons} from "../helper/geojson";
+import Config from "react-native-config";
 
 const Marketplace = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
@@ -21,7 +21,7 @@ const Marketplace = ({ navigation }) => {
 
   useEffect(() => {
     fetchHandler({
-      url: `${SERVICE_URL}/api/get-marketplaces`,
+      url: `${Config.SERVICE_URL}/api/get-marketplaces`,
       method: "POST",
     }).then((res) => {
       setCenteredCoordinates(centerCoordinatesByPolygons(JSON.parse(res.data.geojson)))

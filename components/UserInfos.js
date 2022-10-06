@@ -9,8 +9,8 @@ import { userInfoStyles } from "../styles/userProfileStyle";
 import { fetchHandler, kFormatter } from "../helper/helper";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
-import { SERVICE_URL } from "@env";
 import { toastMessage } from "../helper/alerts";
+import Config from "react-native-config";
 
 const UserInfos = ({ isOrganization, selectedItem }) => {
   const [avatarLoading, setAvatarLoading] = useState(true);
@@ -41,7 +41,7 @@ const UserInfos = ({ isOrganization, selectedItem }) => {
 
   useEffect(() => {
     fetchHandler({
-      url: `${SERVICE_URL}/api/function/user_profile/profile/getProfile`,
+      url: `${Config.SERVICE_URL}/api/function/user_profile/profile/getProfile`,
     })
       .then((res) => {
         setLoading(false);
