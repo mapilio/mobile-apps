@@ -119,7 +119,7 @@ const Upload = ({sequence_uuid, navigation}) => {
             const filePath = Platform.OS === "ios" ? image.path.replace("file://", "") : image.path
             const fileName = filePath.split("/").pop();
 
-            FileSystem.getInfoAsync(filePath + '1').then(fileInfo => {
+            FileSystem.getInfoAsync(filePath).then(fileInfo => {
                 if (fileInfo.exists) {
                     const formData = new FormData();
                     formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
