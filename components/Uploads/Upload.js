@@ -116,8 +116,8 @@ const Upload = ({sequence_uuid, navigation}) => {
 
     const getHash = (image) => {
         return new Promise(async (resolve, reject) => {
-            const filePath = Platform.OS === "ios" ? image.path.replace("file://", "") : image.path
-            const fileName = filePath.split("/").pop();
+            const fileName = image.path.split("/").pop();
+            const filePath = FileSystem.documentDirectory + `${userInformation.id}/${image.sequence_uuid}/${fileName}`;
 
             FileSystem.getInfoAsync(filePath).then(fileInfo => {
                 if (fileInfo.exists) {
@@ -196,7 +196,10 @@ const Upload = ({sequence_uuid, navigation}) => {
                 const location = await JSON.parse(image.location);
                 const exif = await JSON.parse(image.exif);
 
-                FileSystem.getInfoAsync(Platform.OS === "ios" ? image.path.replace("file://", "") : image.path).then(async (fileInfo) => {
+                const fileName = image.path.split("/").pop();
+                const filePath = FileSystem.documentDirectory + `${userInformation.id}/${image.sequence_uuid}/${fileName}`;
+
+                FileSystem.getInfoAsync(filePath).then(async (fileInfo) => {
                     const fileName = image.path.split("/").pop()
                     const horizontal = exif.ImageWidth || exif.PixelXDimension;
                     const vertical = exif.ImageLength || exif.PixelYDimension;
