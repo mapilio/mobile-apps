@@ -116,29 +116,56 @@ const Upload = ({sequence_uuid, navigation}) => {
 
     const getHash = (image) => {
         return new Promise(async (resolve, reject) => {
-            const filePath = Platform.OS === "ios" ? image.path.replace("file://", "") : image.path
-            const fileName = filePath.split("/").pop();
-            const fileInfo = await FileSystem.getInfoAsync(filePath)
+            const fileName = image.path.split("/").pop();
+            const filePath = FileSystem.documentDirectory + `${userInformation.id}/${image.sequence_uuid}/${fileName}`;
 
-            if (fileInfo.exists) {
-                const formData = new FormData();
-                formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
-                formData.append("email", userInformation.email)
-                if (image.project_key && image.organization_key) {
-                    formData.append("project_organization_key", image.organization_key);
-                    formData.append("project_key", image.project_key);
+            FileSystem.getInfoAsync(filePath).then(fileInfo => {
+                if (fileInfo.exists) {
+                    const formData = new FormData();
+                    formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
+                    formData.append("email", userInformation.email)
+
+                    if (image.project_key && image.organization_key) {
+                        formData.append("project_organization_key", image.organization_key);
+                        formData.append("project_key", image.project_key);
+                    }
+
+                    fetchHandler({
+                        url: `${Config.CDN_URL}/api/upload/mobile`,
+                        method: 'POST',
+                        data: formData
+                    }).then(async (response) => {
+                        images.hash = response.files[0].hash
+                        await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
+                        setSentCount((state) => state + 1)
+                        resolve(response.files[0].hash)
+                    }).catch(err => reject(err))
+                } else {
+                    db.deleteById(image.id)
+
+                    db.query(
+                      "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+                      (_, result) => {
+                          dispatch({type: UPLOAD_DATA, payload: result.rows._array});
+                          navigation.navigate(Routes.upload);
+                      }
+                    );
+
+                    reject(`Oops! I can't read the ${fileName}. Deleting!`)
                 }
-
-                fetchHandler({url: `${Config.CDN_URL}/api/upload/mobile`, method: 'POST', data: formData}).then(async (response) => {
-                    images.hash = response.files[0].hash
-                    await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
-                    setSentCount((state) => state + 1)
-                    resolve(response.files[0].hash)
-                }).catch(err => reject(err))
-            } else {
+            }).catch(() => {
                 db.deleteById(image.id)
-                resolve()
-            }
+
+                db.query(
+                  "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
+                  (_, result) => {
+                      dispatch({type: UPLOAD_DATA, payload: result.rows._array,});
+                      navigation.navigate(Routes.upload);
+                  }
+                );
+
+                reject(`Oops! I can't read the ${fileName}. Deleting!`)
+            })
         })
     }
 
@@ -169,7 +196,10 @@ const Upload = ({sequence_uuid, navigation}) => {
                 const location = await JSON.parse(image.location);
                 const exif = await JSON.parse(image.exif);
 
-                FileSystem.getInfoAsync(Platform.OS === "ios" ? image.path.replace("file://", "") : image.path).then(async (fileInfo) => {
+                const fileName = image.path.split("/").pop();
+                const filePath = FileSystem.documentDirectory + `${userInformation.id}/${image.sequence_uuid}/${fileName}`;
+
+                FileSystem.getInfoAsync(filePath).then(async (fileInfo) => {
                     const fileName = image.path.split("/").pop()
                     const horizontal = exif.ImageWidth || exif.PixelXDimension;
                     const vertical = exif.ImageLength || exif.PixelYDimension;
