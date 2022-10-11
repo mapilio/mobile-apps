@@ -48,7 +48,7 @@ const AutoActionButton = ({navigation}) => {
 
 	useEffect(() => {
 		if (captureButtonStatus && !isAlert && autoCaptureStart && location?.coords) {
-			if (photo === 249) {
+			if (photo === 250) {
 				photo = 0;
 				currentUUID = uuid.v4();
 				dispatch({type: UPDATE_UUID, payload: currentUUID});
