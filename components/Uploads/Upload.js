@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
-  Platform,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -219,10 +218,10 @@ const Upload = ({sequence_uuid, navigation}) => {
                     }
 
                     files.options.parameters.json_data.push({
-                        Latitude: location.coords.latitude,
-                        Longitude: location.coords.longitude,
-                        Altitude: location.coords.altitude,
-                        Heading: location.coords.heading,
+                        Latitude: location.latitude,
+                        Longitude: location.longitude,
+                        Altitude: location.altitude,
+                        Heading: location.heading,
                         CaptureTime: dateConvert((exif.DateTime || exif.DateTimeOriginal), 'YYYY-MM-D HH:mm'),
                         Orientation: exif.Orientation,
                         DeviceMake: exif.Make || exif.LensMake,
@@ -236,13 +235,10 @@ const Upload = ({sequence_uuid, navigation}) => {
                         PhotoUUID: md5(userInformation.email + (exif.DateTime || exif.DateTimeOriginal)),
                         anomaly: 0,
                     });
-                    files.options.parameters.summary.Information.total_images =
-                        images[index].length;
+                    files.options.parameters.summary.Information.total_images = images[index].length;
                     files.options.parameters.summary.Information.sequence_uuid = image.sequence_uuid;
-                    files.options.parameters.summary.Information.count =
-                        images[index].length;
-                    files.options.parameters.summary.Information.size =
-                        (filesize += fileInfo.size) / 1024 / 1024;
+                    files.options.parameters.summary.Information.count = images[index].length;
+                    files.options.parameters.summary.Information.size = (filesize += fileInfo.size) / 1024 / 1024;
                     files.options.parameters.summary.Information.hash = images.hash;
 
                     if(i === images[index].length - 1) {

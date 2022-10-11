@@ -31,10 +31,8 @@ const UserSequence = ({ navigation }) => {
     image: require("../assets/images/imgIcon.png"),
     map: require("../assets/images/mapIcon.png"),
   };
-  const { activeSequence, switchSelector } = useSelector(
-    (state) => state.uploadReducer
-  );
-  const { selectedImages } = useSelector((state) => state.imagesReducer);
+  const {activeSequence, switchSelector} = useSelector((state) => state.uploadReducer);
+  const {selectedImages} = useSelector((state) => state.imagesReducer);
   const dispatch = useDispatch();
 
   const options = [
@@ -110,8 +108,8 @@ const UserSequence = ({ navigation }) => {
       `SELECT * FROM captures WHERE sequence_uuid='${activeSequence}'`,
       (_, result) => {
         setCenter([
-          JSON.parse(result.rows._array[0].location).coords.longitude,
-          JSON.parse(result.rows._array[0].location).coords.latitude,
+          JSON.parse(result.rows._array[0].location).longitude,
+          JSON.parse(result.rows._array[0].location).latitude,
         ]);
         setCoordinates(setGeoJson(result.rows._array, "line"));
         setPoints(setGeoJson(result.rows._array, "point"));
@@ -178,7 +176,7 @@ const UserSequence = ({ navigation }) => {
                         coordinate: point.features[0].geometry.coordinates,
                         heading: JSON.parse(
                           point.features[0].properties.item.location
-                        ).coords.heading,
+                        ).heading,
                       }}]
                   })
                 }}

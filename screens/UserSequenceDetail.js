@@ -16,6 +16,7 @@ import { MapView } from "../highordercomponents";
 import { RANK } from "../store/actionsName";
 import {Heading} from "../components/Map";
 import {setGeoJson} from "../helper/geojson";
+import * as FileSystem from "expo-file-system";
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [maximize, setMaximize] = useState(false);
@@ -27,6 +28,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
   const [currentImage, setCurrentImage] = useState(null);
   const {activeSequence, sequenceImages} = useSelector((state) => state.uploadReducer);
   const screenHeight = Dimensions.get("window").height - RFValue(110);
+  const {userInformation} = useSelector((state) => state.getTokenReducer);
 
   useEffect(() => navigation.addListener("blur", () => setClickedPoint(null)), [navigation]);
 
@@ -47,8 +49,8 @@ const UserSequenceDetail = ({ navigation, route }) => {
         setPoints(setGeoJson(result.rows._array, "point"));
 
         setCenter([
-          JSON.parse(result.rows._array[0].location).coords.longitude,
-          JSON.parse(result.rows._array[0].location).coords.latitude,
+          JSON.parse(result.rows._array[0].location).longitude,
+          JSON.parse(result.rows._array[0].location).latitude,
         ]);
 
         setClickedPoint({
@@ -110,10 +112,10 @@ const UserSequenceDetail = ({ navigation, route }) => {
             id={"pointsShape"}
             shape={points}
             onPress={(point) => {
-              setCurrentImage(point.features[0].properties.item.path);
+              const properties = point.features[0].properties.item
+              setCurrentImage(FileSystem.documentDirectory + `${userInformation.id}/${properties.sequence_uuid}/${properties.path.split('/').pop()}`);
               setClickedPoint({
-                heading: JSON.parse(point.features[0].properties.item.location)
-                  .coords.heading,
+                heading: JSON.parse(properties.location).heading,
                 longitude: Number(point.features[0].geometry.coordinates[0]),
                 latitude: Number(point.features[0].geometry.coordinates[1]),
               });

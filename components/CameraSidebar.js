@@ -1,252 +1,150 @@
-import React, { useEffect, useRef, useState } from "react";
-import { StatusBar, TouchableOpacity, View } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { CustomText, CustomTextBold } from "../highordercomponents";
-import { convertHexToRGBA } from "../helper/helper";
+import React, {useEffect, useRef, useState} from "react";
+import {StatusBar, StyleSheet, TouchableOpacity, View} from "react-native";
+import {RFValue} from "react-native-responsive-fontsize";
+import {CustomText, CustomTextBold} from "../highordercomponents";
+import {convertHexToRGBA} from "../helper/helper";
 import {
   GoBackIcon,
   InformationIcon,
   SettingsIcon,
 } from "../assets/svg/illustrations";
-import uuid from "react-native-uuid";
 import CameraActionsButtons from "./CameraActionsButtons";
-import { Routes } from "../navigator/Routes";
-import database from "../db";
-import * as ScreenOrientation from "expo-screen-orientation";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  CAMERA_REDUCER_RESET,
-  UPDATE_AUTOCAPTURE_START,
-  UPDATE_PHOTO_AMOUNT,
-  UPDATE_SELECTED_PROJECT,
-  UPDATE_UUID,
-  UPLOAD_DATA,
-} from "../store/actionsName";
+import {Routes} from "../navigator/Routes";
+import {useDispatch, useSelector} from "react-redux";
+import {UPDATE_UUID} from "../store/actionsName";
 import * as Brightness from "expo-brightness";
+import {toastMessage} from "../helper/alerts";
+import {exitCapture} from "../helper/camera";
 
-const CameraSidebar = ({
-  navigation,
-  setLowBrigthness,
-  setCameraReady,
-  timeout,
-  waitGPS,
-}) => {
-  const dispatch = useDispatch();
-  const [uuidV4, setUUID] = useState("");
+const CapturedComponent = ({navigation, setLowBrightness}) => {
   const permissionsGranted = useRef(false);
-  const { selectedProject, autoCaptureStart } = useSelector(
-    (state) => state.settingsReducer
-  );
-  const { keepUUID, photoAmount } = useSelector((state) => state.cameraReducer);
 
-  useEffect(() => {
-    dispatch({ type: UPDATE_UUID, payload: uuidV4 });
-  }, [uuidV4]);
-
-  useEffect(() => {
-    if (photoAmount >= 250) {
-      const sequenceUUID = uuid.v4();
-      setUUID(sequenceUUID);
-      dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-    }
-  }, [photoAmount]);
-
-  useEffect(() => {
-    navigation.addListener("focus", () => {
-      if (keepUUID) {
-        setUUID(keepUUID);
-      } else {
-        const sequenceUUID = uuid.v4();
-        setUUID(sequenceUUID);
-      }
-    });
-  }, [navigation]);
-
-  useEffect(() => {
-    if (autoCaptureStart) {
-      const sequenceUUID = uuid.v4();
-      setUUID(sequenceUUID);
-    } else {
-      exitCapture();
-      setUUID(null);
-    }
-  }, [autoCaptureStart]);
-
-  useEffect(() => {
-    let unsubscribe = navigation.addListener("blur", () => {
-      dispatch({ type: UPDATE_UUID, payload: null });
-      dispatch({
-        type: UPDATE_SELECTED_PROJECT,
-        payload: { type: "individual", key: 0, projectName: "lorem" },
-      });
-    });
-    return unsubscribe;
-  }, [navigation]);
-
-  useEffect(() => {
-    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-    const sequenceUUID = uuid.v4();
-    setUUID(sequenceUUID);
-  }, [selectedProject]);
-
-  const lowLightHandler = async () => {
+  const lowLightHandler = () => {
     try {
-      let permissions = await Brightness.getPermissionsAsync();
+      Brightness.getPermissionsAsync().then(async permissions => {
+        if (permissions.status !== Brightness.PermissionStatus.GRANTED && permissions.canAskAgain) {
+          permissions = await Brightness.requestPermissionsAsync();
+        }
 
-      if (permissions.status !== "granted" && permissions.canAskAgain) {
-        permissions = await Brightness.requestPermissionsAsync();
-      }
-
-      if (permissions.status === "granted") {
-        permissionsGranted.current = true;
-        Brightness.current = await Brightness.getBrightnessAsync();
-        Brightness.setSystemBrightnessAsync(0);
-        setLowBrigthness(true);
-      }
-    } catch (error) {
-      console.error(error);
+        if (permissions.status === Brightness.PermissionStatus.GRANTED) {
+          permissionsGranted.current = true;
+          Brightness.getBrightnessAsync().then(brightness => {
+            Brightness.setSystemBrightnessAsync(0).then(() => setLowBrightness(true))
+          })
+        }
+      })
+    } catch (e) {
+      toastMessage.error(`${e}`)
     }
-
-    if (permissionsGranted.current) {
-      Brightness.setSystemBrightnessAsync(0);
-      setLowBrigthness(true);
-    }
-  };
-
-  const exitCapture = () => {
-    if (photoAmount >= 5) {
-      database.getGroupByWithColumn((_, result) => dispatch({type: UPLOAD_DATA, payload: result.rows._array}))
-      exitHandler();
-    } else {
-      database.deleteRow(uuidV4);
-      dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-    }
-  };
-
-  const exitHandler = async () => {
-    await ScreenOrientation.unlockAsync();
-    setCameraReady(false);
-    await ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.PORTRAIT_UP
-    );
-    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
-    navigation.reset({
-      index: 0,
-      routes: [{ name: Routes.upload }],
-    });
-    StatusBar.setHidden(false);
-    dispatch({ type: CAMERA_REDUCER_RESET });
-    dispatch({
-      type: UPDATE_SELECTED_PROJECT,
-      payload: { type: "individual", key: 0 },
-    });
-    setCameraReady(false);
-    waitGPS.current = true;
-    clearTimeout(timeout?.current);
-    dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
-    timeout.current = null;
-  };
+  }
 
   return (
-    <View
-      style={{
-        position: "relative",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-      }}
-    >
-      {autoCaptureStart ? (
-        <View
-          style={{
-            justifyContent: "center",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <CustomTextBold
-            style={{
-              color: "#FFFFFF",
-              marginTop: RFValue(-50),
-              textAlign: "center",
-            }}
-          >
-            Capture has started
-          </CustomTextBold>
-          <CustomText
-            style={{
-              textAlign: "center",
-              color: "#FFFFFF",
-              fontSize: RFValue(12),
-            }}
-          >
-            In the meantime, make sure that the angle of your camera is correct
-            and stable.
-          </CustomText>
-          <CameraActionsButtons uuid={uuidV4} navigation={navigation} />
-          <CustomTextBold
-            style={{
-              color: "#ffc231",
-              textAlign: "center",
-              bottom: RFValue(-80),
-            }}
-            onPress={lowLightHandler}
-          >
-            Power safe mode
-          </CustomTextBold>
-        </View>
-      ) : (
-        <>
-          <TouchableOpacity
-            style={{ position: "absolute", top: 0, left: 0 }}
-            onPress={() => {
-              navigation.navigate(Routes.generalSettings);
-              dispatch({ type: UPDATE_UUID, payload: uuidV4 });
-            }}
-          >
-            <SettingsIcon />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ position: "absolute", top: RFValue(40), left: RFValue(2) }}
-            onPress={() => navigation.navigate(Routes.walkthrough)}
-          >
-            <InformationIcon />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ position: "absolute", top: 0, right: 0 }}
-            onPress={exitHandler}
-          >
-            <GoBackIcon />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(Routes.cameraSettings);
-              dispatch({ type: UPDATE_UUID, payload: uuidV4 });
-            }}
-          >
-            <CustomText
-              style={{
-                color: convertHexToRGBA("#FFFFFF", 75),
-                fontSize: RFValue(14),
-              }}
-            >
-              Advanced
-            </CustomText>
-          </TouchableOpacity>
-          <CameraActionsButtons
-            uuid={uuidV4}
-            navigation={navigation}
-            exitCapture={exitCapture}
-          />
-          {/* <TouchableOpacity
-            style={{ position: "absolute", bottom: 0, left: 0 }}
-          >
-            <MapIcon />
-          </TouchableOpacity> */}
-        </>
-      )}
+    <View>
+      <CustomTextBold style={styles.title}>{texts.title}</CustomTextBold>
+      <CustomText style={styles.description}>{texts.description}</CustomText>
+      <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
+      <CustomTextBold style={styles.safeMode} onPress={lowLightHandler}>{texts.safeMode}</CustomTextBold>
+    </View>
+  )
+}
+
+const CaptureComponent = ({navigation, exitHandler}) => {
+  const dispatch = useDispatch();
+
+  const changeRoute = (route) => {
+    navigation.navigate(route);
+    dispatch({type: UPDATE_UUID, payload: 'uuidV4'});
+  }
+
+  return (
+    <>
+      <TouchableOpacity style={styles.settings} onPress={() => changeRoute(Routes.generalSettings)}>
+        <SettingsIcon/>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.info} onPress={() => navigation.navigate(Routes.walkthrough)}>
+        <InformationIcon/>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.exit} onPress={exitHandler}>
+        <GoBackIcon/>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => changeRoute(Routes.cameraSettings)}>
+        <CustomText style={styles.advanced}>{texts.advanced}</CustomText>
+      </TouchableOpacity>
+
+      <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
+    </>
+  )
+}
+
+const CameraSidebar = ({navigation, setLowBrightness, timeout, waitGPS}) => {
+  const {autoCaptureStart} = useSelector((state) => state.settingsReducer);
+
+  const exitHandler = () => {
+    navigation.reset({index: 0, routes: [{name: Routes.upload}]});
+    exitCapture();
+  }
+
+  return (
+    <View style={styles.wrapper}>
+      {autoCaptureStart
+        ? <CapturedComponent navigation={navigation} setLowBrightness={setLowBrightness} exitHandler={exitHandler}/>
+        : <CaptureComponent navigation={navigation} exitHandler={exitHandler}/>
+      }
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%"
+  },
+  title: {
+    color: "#FFFFFF",
+    marginTop: RFValue(-50),
+    textAlign: "center",
+  },
+  description: {
+    textAlign: "center",
+    color: "#FFFFFF",
+    fontSize: RFValue(12),
+  },
+  safeMode: {
+    color: "#ffc231",
+    textAlign: "center",
+    bottom: RFValue(-80),
+  },
+  settings: {
+    position: "absolute",
+    top: 0,
+    left: 0
+  },
+  info: {
+    position: "absolute",
+    top: RFValue(40),
+    left: RFValue(2)
+  },
+  exit: {
+    position: "absolute",
+    top: 0,
+    right: 0
+  },
+  advanced: {
+    color: convertHexToRGBA("#FFFFFF", 75),
+    fontSize: RFValue(14),
+  }
+})
+
+const texts = {
+  title: 'Capture has started',
+  description: 'In the meantime, make sure that the angle of your camera is correct and stable.',
+  safeMode: 'Power safe mode',
+  advanced: 'Advanced',
+}
 
 export default CameraSidebar;

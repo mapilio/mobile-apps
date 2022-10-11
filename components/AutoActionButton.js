@@ -14,29 +14,26 @@ import {
 import {toastMessage} from "../helper/alerts";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
-import Geolocation from 'react-native-geolocation-service';
 
 const AutoActionButton = ({navigation}) => {
 	const {
-		cameraStatus,
 		camera,
 		photoAmount,
 		accuracy,
 		keepUUID,
-		GPSStartAccuracy,
 		GPSAccuracy,
 		rotateStatus,
 		batteryStatus,
 		mocked,
 		highSpeed,
-		captureButtonStatus
+		captureButtonStatus,
+		cameraLocation
 	} = useSelector((status) => status.cameraReducer);
 	const {userInformation} = useSelector((state) => state.getTokenReducer);
-	const {selectedProject, distanceBetween, autoCaptureStart} = useSelector((status) => status.settingsReducer);
+	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
 	const appState = useRef(AppState.currentState);
 	const [appStateVisible, setAppStateVisible] = useState(appState.current);
 	const [isNowCapture, setNowCapture] = useState(false);
-	const [location, setLocation] = useState(null);
 	const [isAlert, setIsAlert] = useState(null);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
@@ -47,45 +44,29 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	useEffect(() => {
-		if (captureButtonStatus && !isAlert && autoCaptureStart && location?.coords) {
+		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
 			if (photo === 250) {
 				photo = 0;
 				currentUUID = uuid.v4();
 				dispatch({type: UPDATE_UUID, payload: currentUUID});
 				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
 			} else {
-				takePicture(location).catch((err) => console.log("take picture error ", err));
+				takePicture(cameraLocation).catch((err) => console.log("take picture error ", err));
 			}
 		}
-
-		return () => {
-			setLocation(null);
-		}
-	}, [location]);
+	}, [cameraLocation]);
 
 	useEffect(() => {
 		navigation.addListener("blur", () => {
-			if (location) location.remove();
 			dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
 		});
+
 		return () => {
 			navigation.removeListener("blur");
 		};
 	}, [navigation]);
 
-	const watchLocation = async () => {
-		Geolocation.watchPosition(position => {
-			console.log(position)
-			setLocation(position)
-		}, () => null, {
-			distanceFilter: 5,
-			enableHighAccuracy: true,
-			accuracy: Platform.OS === 'android' ? 'high' : 'best',
-		});
-	};
-
 	useEffect(() => {
-		watchLocation().catch((error) => console.log("watchLocation() err: " + error));
 		AppState.addEventListener("change", startNewSequence);
 
 		return () => {
@@ -124,13 +105,13 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	useEffect(() => {
-		setIsAlert(!(GPSStartAccuracy && GPSAccuracy && !rotateStatus && !batteryStatus && !mocked && !highSpeed))
-	}, [GPSStartAccuracy, GPSAccuracy, rotateStatus, batteryStatus, mocked, highSpeed]);
+		setIsAlert(!(GPSAccuracy && !rotateStatus && !batteryStatus && !mocked && !highSpeed))
+	}, [GPSAccuracy, rotateStatus, batteryStatus, mocked, highSpeed]);
 
 
 	// TODO ADD TO HELPER.JS
 	const takePicture = async (location) => {
-		if (cameraStatus !== "READY" || !autoCaptureStart || !accuracy.degree) {
+		if (!autoCaptureStart || !accuracy.degree) {
 			calculateAmount("subtract");
 			return;
 		}

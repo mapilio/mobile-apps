@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   distanceBetween: 5,
   captureType: true,
   autoCaptureStart: false,
-  selectedProject: { type: "individual", key: 0, projectName: "lorem" },
+  selectedProject: { type: "individual", key: 0, projectName: "" },
 };
 
 const settingsReducer = (state = INITIAL_STATE, action) => {
