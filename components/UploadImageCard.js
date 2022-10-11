@@ -13,7 +13,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 const UploadImageCard = (props) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(false);
-  const { id, selectedImages, uploadedImages, path } = props;
+  const { id, selectedImages, uploadedImages, path, setLoadImage } = props;
   const { allSelect } = useSelector((state) => state.imagesReducer);
 
   const addToSelectedImages = () => {
@@ -54,10 +54,10 @@ const UploadImageCard = (props) => {
                 path: path,
                 sequence_uuid: props.sequence_uuid,
                 coordinate: [
-                  props.location.coords.longitude,
-                  props.location.coords.latitude,
+                  props.location.longitude,
+                  props.location.latitude,
                 ],
-                heading: props.location.coords.heading,
+                heading: props.location.heading,
               }
             }]
           })
@@ -74,7 +74,7 @@ const UploadImageCard = (props) => {
             borderWidth: selected ? 1 : 0,
             borderColor: selected ? "#1AD971" : "#000000",
           }}
-          onLoadEnd={() => props.setLoadImage(false)}
+          onLoadEnd={() => setLoadImage(false)}
         />
         {selected && (
           <View style={sequenceCardStyles.iconStyle}>

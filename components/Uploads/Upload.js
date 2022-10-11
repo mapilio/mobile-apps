@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
-  Platform,
   TouchableOpacity,
   View,
 } from "react-native";

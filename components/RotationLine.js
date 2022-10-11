@@ -3,11 +3,30 @@ import { Platform, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {UPDATE_ACCURACY, UPDATE_ROTATE_STATUS} from "../store/actionsName";
+import {Accelerometer} from "expo-sensors";
+import {degreeCalculate} from "../helper/camera";
 
-const RotationLine = ({ degree }) => {
+const RotationLine = () => {
   const dispatch = useDispatch();
   const {accuracy, rotateStatus} = useSelector((state) => state.cameraReducer);
-  const lineDegree = degree - 90;
+  const [degree, setDegree] = useState(0);
+  const [lineDegree, setLineDegree] = useState(-90);
+
+  const accelerometerSubscription = () => {
+    return Accelerometer.addListener(accelerometerData => {
+      const calculatedDegree = degreeCalculate(accelerometerData.x, accelerometerData.y)
+      setDegree(calculatedDegree)
+      setLineDegree(calculatedDegree - 90)
+    })
+  }
+
+  useEffect(() => {
+    const accelerometer = accelerometerSubscription()
+
+    return (() => {
+      accelerometer.remove()
+    })
+  }, [])
 
   const between = (x, min, max) => {
     return x >= min && x <= max;

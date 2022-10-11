@@ -1,76 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Platform, View } from "react-native";
+import {Platform, View} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText } from "../highordercomponents";
 import * as Battery from "expo-battery";
-import {
-  UPDATE_BATTERY_LEVEL,
-  UPDATE_CHARGE_STATUS,
-} from "../store/actionsName";
-import { useDispatch } from "react-redux";
+import {UPDATE_BATTERY_LEVEL, UPDATE_BATTERY_STATUS, UPDATE_CHARGE_STATUS} from "../store/actionsName";
+import {useDispatch, useSelector} from "react-redux";
 
 const BatteryLevel = () => {
   const dispatch = useDispatch();
-  const [batteryLevel, setBatteryLevel] = useState(0);
-  let subscription = null;
-  let subscriptionState = null;
+
+  const { batteryLevel, isCharge } = useSelector((state) => state.cameraReducer);
 
   useEffect(() => {
     _subscribeBatteryLevel();
+  }, []);
 
-    return _unsubscribeBatteryLevel;
-  }, [batteryLevel]);
+  useEffect(() => {
+    const alertLevel = Platform.OS === "ios" ? 101 : 15
 
-  const _subscribeBatteryLevel = async () => {
-    let batteryLevel = await Battery.getBatteryLevelAsync();
-    let batteryState = await Battery.getBatteryStateAsync();
-    batteryLevel = Math.ceil(batteryLevel * 100);
-    setBatteryLevel(batteryLevel);
-    let interval = null;
-    let timeout = null;
-    if (Platform.OS === "android") {
-      subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
-        let roundedValue = Math.ceil(batteryLevel * 100);
-        setBatteryLevel(roundedValue);
-        dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
-      });
-    } else {
-      interval = setInterval(async () => {
-        let batteryLevel = await Battery.getBatteryLevelAsync();
-        let roundedValue = Math.ceil(batteryLevel * 100);
-        setBatteryLevel(roundedValue);
-        dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
-      }, 60000);
-      timeout = setTimeout(async () => {
-        let batteryLevel = await Battery.getBatteryLevelAsync();
-        let roundedValue = Math.ceil(batteryLevel * 100);
-        setBatteryLevel(roundedValue);
-        dispatch({ type: UPDATE_BATTERY_LEVEL, payload: roundedValue });
-      }, 10);
-    }
-    subscriptionState = Battery.addBatteryStateListener(({ batteryState }) => {
-      if (batteryState === 3 || batteryState === 2) {
-        dispatch({ type: UPDATE_CHARGE_STATUS, payload: true });
-      } else {
-        dispatch({ type: UPDATE_CHARGE_STATUS, payload: false });
-      }
+    dispatch({
+      type: UPDATE_BATTERY_STATUS,
+      payload: !isCharge && (batteryLevel <= alertLevel)
+    })
+  }, [batteryLevel, isCharge])
+
+  const _subscribeBatteryLevel = () => {
+    const subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
+      console.log({batteryLevel})
+      dispatch({ type: UPDATE_BATTERY_LEVEL, payload: Math.ceil(batteryLevel * 100) });
     });
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    };
-  };
 
-  const _unsubscribeBatteryLevel = () => {
-    subscription && subscription.remove();
-    subscriptionState && subscriptionState.remove();
-    subscription = null;
-    subscriptionState = null;
+    const subscriptionState = Battery.addBatteryStateListener(({batteryState}) => {
+      console.log({batteryState})
+      dispatch({type: UPDATE_CHARGE_STATUS, payload: (batteryState === 3 || batteryState === 2)});
+    });
+
+    return () => {
+      subscription.remove()
+      subscriptionState.remove()
+    };
   };
 
   return (

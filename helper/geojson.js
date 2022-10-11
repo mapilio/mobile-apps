@@ -2,7 +2,7 @@ import {centroid} from "@turf/turf"
 
 const getCoordinate = (data) => {
 	if (data.location) {
-		return [JSON.parse(data.location).coords.longitude, JSON.parse(data.location).coords.latitude]
+		return [JSON.parse(data.location).longitude, JSON.parse(data.location).latitude]
 	}
 	return [Number(data.longitude), Number(data.latitude)]
 }
