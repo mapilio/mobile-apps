@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Platform, ScrollView, View } from "react-native";
-import { ProfileFeed, UserInfos } from "../components";
-import { globalStyles } from "../styles/globalStyles";
-import { fetchHandler } from "../helper/helper";
-import { useSelector } from "react-redux";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { RFValue } from "react-native-responsive-fontsize";
-import { CustomText, CustomTextBold } from "../highordercomponents";
-import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
-import { Routes } from "../navigator/Routes";
-import { ActivityIndicator } from "react-native-paper";
+import React, {useEffect, useState} from "react";
+import {Platform, ScrollView, View} from "react-native";
+import {ProfileFeed, UserInfos} from "../components";
+import {globalStyles} from "../styles/globalStyles";
+import {fetchHandler} from "../helper/helper";
+import {useSelector} from "react-redux";
+import {RFValue} from "react-native-responsive-fontsize";
+import {CustomText, CustomTextBold} from "../highordercomponents";
+import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
+import {Routes} from "../navigator/Routes";
+import {ActivityIndicator} from "react-native-paper";
 import DropDownPicker from "react-native-dropdown-picker";
 import Config from "react-native-config";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
-const UserProfile = ({ navigation }) => {
-  const [listData, setListData] = useState(null);
+const UserProfile = ({navigation}) => {
+  const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingOrganization, setOrganizationLoading] = useState(true);
   const [open, setOpen] = useState(false);
@@ -25,14 +25,12 @@ const UserProfile = ({ navigation }) => {
     type: "individual",
   });
   const [isOrganization, setOrganization] = useState(true);
-  const { userInformation, isUploaded } = useSelector(
-    (state) => state.getTokenReducer
-  );
+  const {userInformation, isUploaded} = useSelector((state) => state.getTokenReducer);
   const [selectedItem, setSelectedItem] = useState({
     organization_name: userInformation?.display_name,
     organization_username: userInformation?.username,
     id: userInformation?.id,
-    type: "individual",
+    type: "individual"
   });
   const [paginationLoading, setPaginationLoading] = useState(false);
   const [items, setItems] = useState([
@@ -69,26 +67,14 @@ const UserProfile = ({ navigation }) => {
     setLoading(true);
     fetchHandler({
       url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`,
+    }).then((res) => {
+      setLoading(false);
+      res ? setItems([...items, ...res.data]) : setItems([]);
     })
-      .then((res) => {
-        setLoading(false);
-        res.data ? setItems([...items, ...res.data]) : setItems([]);
-      })
-      .catch((err) => {
-        // dispatch({
-        //   type: "ALERT_TOAST_TOGGLE",
-        //   payload: {
-        //     open: true,
-        //     text: "An error while fetching your organizations. Please try again.",
-        //     color: getTheme().palette.button,
-        //     cardcolor: "red",
-        //     type: "error",
-        //   },
-        // });
-      });
   }, []);
 
   const fetchNext = (foreignUrl) => {
+    console.log('--->', 1)
     if (foreignUrl && items.length >= 2) {
       setLoading(true);
     }
@@ -96,27 +82,19 @@ const UserProfile = ({ navigation }) => {
       url: foreignUrl
         ? `${Config.SERVICE_URL}${foreignUrl}`
         : `${Config.SERVICE_URL}${paginationURL}`,
-    })
-      .then((res) => {
-        if (res.data !== null) {
-          let newListData;
-          if (listData !== null) {
-            newListData = [...listData, ...res.data];
-          } else {
-            newListData = res.data;
-          }
-          setListData(newListData);
-          setPaginationURL(res.pagination.next_page_url);
-          setLoading(false);
-          setPaginationLoading(false);
-        } else {
-          setListData(null);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      if (res.data !== null) {
+        setListData(prev => prev.length > 0 ? [...prev, ...res.data] : res.data)
+        setPaginationURL(res.pagination.next_page_url);
+        setLoading(false);
+        setPaginationLoading(false);
+      } else {
+        setListData(null);
+        setLoading(false);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
   useEffect(() => {
@@ -125,11 +103,7 @@ const UserProfile = ({ navigation }) => {
     }
   }, [isUploaded]);
 
-  const isCloseToBottom = ({
-    layoutMeasurement,
-    contentOffset,
-    contentSize,
-  }) => {
+  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
     const paddingToBottom = 20;
     return (
       layoutMeasurement.height + contentOffset.y >=
@@ -139,7 +113,7 @@ const UserProfile = ({ navigation }) => {
 
   return (
     <View style={globalStyles.container}>
-      <UserInfos isOrganization={isOrganization} selectedItem={selectedItem} />
+      <UserInfos isOrganization={isOrganization} selectedItem={selectedItem}/>
       {items.length >= 2 &&
         (Platform.OS === "ios" ? (
           <View
@@ -170,8 +144,8 @@ const UserProfile = ({ navigation }) => {
               loading={loadingOrganization}
               setItems={setItems}
               key={Math.random()}
-              dropDownContainerStyle={{ zIndex: -1 }}
-              CellRendererComponent={({ children, index, style, ...props }) => {
+              dropDownContainerStyle={{zIndex: -1}}
+              CellRendererComponent={({children, index, style, ...props}) => {
                 const cellStyle = [
                   style,
                   {
@@ -250,7 +224,7 @@ const UserProfile = ({ navigation }) => {
           </View>
         ))}
       <ScrollView
-        onScroll={({ nativeEvent }) => {
+        onScroll={({nativeEvent}) => {
           if (isCloseToBottom(nativeEvent) && paginationURL) {
             setPaginationLoading(true);
             fetchNext();
@@ -270,7 +244,7 @@ const UserProfile = ({ navigation }) => {
               />
             </SkeletonPlaceholder>
           ))
-        ) : listData?.length === 0 ? (
+        ) : listData.length ? (
           listData.map((data) => (
             <ProfileFeed
               key={data.id}
@@ -323,7 +297,8 @@ const UserProfile = ({ navigation }) => {
             </CustomText>
           </View>
         )}
-        {paginationLoading && items.length >= 2 ? (
+
+        {paginationLoading && items.length >= 2 && (
           <ActivityIndicator
             style={{
               alignSelf: "center",
@@ -332,7 +307,7 @@ const UserProfile = ({ navigation }) => {
             }}
             color={"#213348"}
           />
-        ) : null}
+        )}
       </ScrollView>
     </View>
   );

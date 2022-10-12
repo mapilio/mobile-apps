@@ -52,6 +52,8 @@ export const cameraActionButtonStyles = StyleSheet.create({
 		height: RFValue(61),
 		marginBottom: RFValue(-55),
 		marginTop: RFValue(35),
+		marginLeft: 'auto',
+		marginRight: 'auto',
 	},
 	button: {
 		position: "absolute",
