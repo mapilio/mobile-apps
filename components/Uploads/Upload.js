@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {View, TouchableOpacity, Modal, ActivityIndicator} from "react-native";
 import {CloseIcon, UploadIcon} from "../../assets/svg/illustrations";
 import {calculateToSequence, getHash, getImagesBySequence, imageryUpload, percentage} from "../../helper/upload";
