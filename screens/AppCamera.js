@@ -20,8 +20,13 @@ import {exitCapture, setNewUUID} from "../helper/camera";
 import {Routes} from "../navigator/Routes";
 
 const AppCamera = ({ navigation, route }) => {
-  const { distanceBetween, selectedProject, autoCaptureStart } = useSelector((state) => state.settingsReducer);
-  const { photoAmount } = useSelector((state) => state.cameraReducer);
+  const {
+    distanceBetween,
+    selectedProject,
+    autoCaptureStart,
+    accuracyLevel
+  } = useSelector((state) => state.settingsReducer);
+  const {photoAmount} = useSelector((state) => state.cameraReducer);
   const [lowBrightness, setLowBrightness] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const timeout = useRef(null);
@@ -53,7 +58,7 @@ const AppCamera = ({ navigation, route }) => {
     return Geolocation.watchPosition((location) => {
       dispatch({type: UPDATE_MOCKED_STATUS, payload: location.mocked})
       dispatch({type: SET_CAMERA_LOCATION, payload: location.coords})
-      dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy < 15})
+      dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy < accuracyLevel})
       dispatch({type: UPDATE_HIGHSPEED_STATUS, payload: location.coords.speed >= (70 / 3.36)})
     }, (error) => {
       toastMessage.error(`${error.message}`)

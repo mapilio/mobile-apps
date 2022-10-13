@@ -2,7 +2,8 @@ import {
   UPDATE_CAPTURE_TYPE,
   UPDATE_DISTANCE_BETWEEN,
   UPDATE_SELECTED_PROJECT,
-  UPDATE_AUTOCAPTURE_START
+  UPDATE_AUTOCAPTURE_START,
+  UPDATE_ACCURACY_LEVEL
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -10,6 +11,7 @@ const INITIAL_STATE = {
   captureType: true,
   autoCaptureStart: false,
   selectedProject: { type: "individual", key: 0, projectName: "" },
+  accuracyLevel: 15,
 };
 
 const settingsReducer = (state = INITIAL_STATE, action) => {
@@ -33,6 +35,11 @@ const settingsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         autoCaptureStart: action.payload,
+      };
+    case UPDATE_ACCURACY_LEVEL:
+      return {
+        ...state,
+        accuracyLevel: action.payload,
       };
     default:
       return state;
