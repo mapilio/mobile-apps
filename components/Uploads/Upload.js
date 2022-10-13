@@ -1,7 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {View, TouchableOpacity, Modal, ActivityIndicator} from "react-native";
 import {CloseIcon, UploadIcon} from "../../assets/svg/illustrations";
-import {calculateToSequence, getHash, getImagesBySequence, imageryUpload, percentage} from "../../helper/upload";
+import {
+  calculateToSequence,
+  closeRequest,
+  getHash,
+  getImagesBySequence,
+  imageryUpload,
+  percentage
+} from "../../helper/upload";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
 import {toastMessage} from "../../helper/alerts";
 import db from "../../db";
@@ -88,6 +95,7 @@ const Upload = ({sequence_uuid, navigation}) => {
           <TouchableOpacity
             style={userUploadModalStyles.close}
             onPress={() => {
+              closeRequest();
               setModalVisible(false);
               setSentCount(0);
             }}
@@ -97,9 +105,7 @@ const Upload = ({sequence_uuid, navigation}) => {
           <View style={{alignItems: "center"}}>
             <View style={{flexDirection: 'row'}}>
               <ActivityIndicator color={"#FFFFFF"} style={{marginRight: RFValue(5)}}/>
-              <CustomText style={userUploadModalStyles.text}>
-                {status}
-              </CustomText>
+              <CustomText style={userUploadModalStyles.text}>{status}</CustomText>
             </View>
 
             <CustomText style={userUploadModalStyles.text}>
