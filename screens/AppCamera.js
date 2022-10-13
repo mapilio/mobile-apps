@@ -40,16 +40,9 @@ const AppCamera = ({ navigation, route }) => {
     }
   }, [autoCaptureStart]);
 
+  useEffect(() => setNewUUID(), [selectedProject]);
 
-  useEffect(() => {
-    setNewUUID();
-  }, [selectedProject]);
-
-  useEffect(() => {
-    if (photoAmount >= 250) {
-      setNewUUID();
-    }
-  }, [photoAmount]);
+  useEffect(() => photoAmount >= 250 && setNewUUID(), [photoAmount]);
 
 
   const breakBrightness = () => {

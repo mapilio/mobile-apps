@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {AppState, Platform, TouchableOpacity, View} from "react-native";
+import {AppState, TouchableOpacity, View} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
@@ -9,11 +9,11 @@ import {
 	UPDATE_IMAGE_SIZE,
 	UPDATE_PHOTO_AMOUNT,
 	UPDATE_UUID,
-	UPLOAD_DATA
 } from "../store/actionsName";
-import {toastMessage} from "../helper/alerts";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
+import {setNewUUID} from "../helper/camera";
+import {toastMessage} from "../helper/alerts";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -32,18 +32,25 @@ const AutoActionButton = ({navigation}) => {
 	const {userInformation} = useSelector((state) => state.getTokenReducer);
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
 	const appState = useRef(AppState.currentState);
-	const [appStateVisible, setAppStateVisible] = useState(appState.current);
-	const [isNowCapture, setNowCapture] = useState(false);
 	const [isAlert, setIsAlert] = useState(null);
+	const [accuracyErrorCount, setAccuracyErrorCount] = useState(0);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
 
 	const playHandler = () => {
-		dispatch({type: UPDATE_AUTOCAPTURE_START, payload: !autoCaptureStart});
+		if (!isAlert) {
+			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: !autoCaptureStart})
+		}
 	};
 
 	useEffect(() => {
+		if (!GPSAccuracy) {
+			setAccuracyErrorCount(prev => prev + 1)
+		} else if (accuracyErrorCount > 0) {
+			setAccuracyErrorCount(0)
+		}
+
 		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
 			if (photo === 250) {
 				photo = 0;
@@ -55,6 +62,11 @@ const AutoActionButton = ({navigation}) => {
 			}
 		}
 	}, [cameraLocation]);
+
+	useEffect(() => {
+		accuracyErrorCount === 2 && setNewUUID();
+	}, [accuracyErrorCount]);
+
 
 	useEffect(() => {
 		navigation.addListener("blur", () => {
@@ -79,10 +91,6 @@ const AutoActionButton = ({navigation}) => {
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
-				setAppStateVisible(appState.current);
-				setNowCapture(false);
-				appState.current = nextAppState;
-				setAppStateVisible(appState.current);
 				toastMessage.info("Your new sequence has been started.");
 				timeout = setTimeout(() => {
 					if (photoAmount >= 5) {
@@ -99,7 +107,6 @@ const AutoActionButton = ({navigation}) => {
 				}, 1000);
 			} else {
 				appState.current = nextAppState;
-				setAppStateVisible(appState.current);
 			}
 		}
 	};
@@ -124,7 +131,6 @@ const AutoActionButton = ({navigation}) => {
 			fixOrientation: true,
 			onPictureSaved: (image) => savePicture(image, location)
 		}
-		setNowCapture(true);
 		camera.takePictureAsync(options).catch((error) => console.log(error))
 	};
 
@@ -134,7 +140,6 @@ const AutoActionButton = ({navigation}) => {
 		const id = userInformation.id;
 		const imageUri = image.uri;
 		if (!imageUri) {
-			setNowCapture(false);
 			calculateAmount("subtract");
 			return;
 		}
@@ -147,7 +152,6 @@ const AutoActionButton = ({navigation}) => {
 			} catch (e) {
 				console.info("ERROR", e);
 				calculateAmount("subtract");
-				setNowCapture(false);
 			}
 		}
 
@@ -166,7 +170,6 @@ const AutoActionButton = ({navigation}) => {
 			uuid: currentUUID,
 			path: newPath,
 		});
-		setNowCapture(false);
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
 	}
