@@ -24,10 +24,9 @@ import { Heading } from "../components/Map";
 import { CloseIcon } from "../assets/svg/illustrations";
 import { toastMessage } from "../helper/alerts";
 import Config from "react-native-config";
+import SafeAreaView from "react-native-safe-area-view";
 
-MapboxGL.setAccessToken(
-  "pk.your_mapbox_public_token"
-);
+MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
 const { height } = Dimensions.get("window");
 
@@ -35,13 +34,8 @@ Logger.setLogCallback((log) => {
   const { message } = log;
 
   // expected warnings - see https://github.com/mapbox/mapbox-gl-native/issues/15341#issuecomment-522889062
-  if (
-    message.match("Request failed due to a permanent error: Canceled") ||
-    message.match("Request failed due to a permanent error: Socket Closed")
-  ) {
-    return true;
-  }
-  return false;
+  return !!(message.match("Request failed due to a permanent error: Canceled") ||
+    message.match("Request failed due to a permanent error: Socket Closed"));
 });
 
 const AppMap = ({ navigation }) => {
@@ -143,7 +137,7 @@ const AppMap = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <SafeAreaView>
       {!showPano ? (
         <Pano
           hidePano={hidePano}
@@ -167,7 +161,7 @@ const AppMap = ({ navigation }) => {
           </Pressable>
         </>
       )}
-      {openSearchbar ? (
+      {openSearchbar && (
         <SlidingUpPanel
           draggableRange={{
             top: height - headerHeight * 2,
@@ -194,7 +188,7 @@ const AppMap = ({ navigation }) => {
             isKeyboardVisible={isKeyboardVisible}
           />
         </SlidingUpPanel>
-      ) : null}
+      )}
       {showPano && imageInformations ? (
         <TouchableOpacity
           style={appMapStyle.minimizePano}
@@ -251,13 +245,13 @@ const AppMap = ({ navigation }) => {
               layerIndex={60}
             />
           </MapboxGL.VectorSource>
-          {clickedCoord && !hide ? (
+          {(clickedCoord && !hide) && (
             <Heading
               heading={imageInformations ? imageInformations.heading : 0}
               coordinates={clickedCoord}
               markerPath={require("../assets/images/heading.png")}
             />
-          ) : null}
+          )}
           <MapboxGL.Camera
             ref={cameraRef}
             centerCoordinate={flyLocation}
@@ -285,7 +279,7 @@ const AppMap = ({ navigation }) => {
       >
         <CurrentLocationIcon />
       </Pressable>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -3,6 +3,8 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 export const loginStyles = StyleSheet.create({
   container: {
+    flex: 1,
+    paddingHorizontal: RFValue(16),
     backgroundColor: "#213348",
     justifyContent: "center",
   },

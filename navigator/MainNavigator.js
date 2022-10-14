@@ -24,7 +24,6 @@ import {
   UPDATE_TAB_HEIGHT,
 } from "../store/actionsName";
 import { HeaderTitle } from "../components/Marketplace";
-import MarketplaceReceived from "../screens/MarketplaceReceived";
 import TabNavigator from "./TabNavigator";
 import NonUserTabNavigator from "./NonUserTabNavigator";
 import MarketplaceReady from "../screens/MarketplaceReady";

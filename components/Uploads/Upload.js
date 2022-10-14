@@ -68,20 +68,27 @@ const Upload = ({sequence_uuid, navigation}) => {
               pictures.hash = hash;
               setSentCount(prev => prev + 1)
               await sendImages(i, ++j)
-            })
+            }).catch(requestBroken)
           }
         } else {
           imageryUpload(i, pictures).then(async () => {
             navigation.navigate(Routes.upload);
             db.getGroupByWithColumn((_, result) => {dispatch({type: UPLOAD_DATA, payload: result.rows._array})})
             await sendImages(++i)
-          })
+          }).catch(requestBroken)
         }
       } else {
         setModalVisible(false)
         toastMessage.success('Upload is successfully 🥰')
       }
     })
+  }
+
+  const requestBroken = (error) => {
+    closeRequest();
+    setModalVisible(false);
+    setSentCount(0);
+    toastMessage.error(`${error} 🤯`)
   }
 
   return (

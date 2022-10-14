@@ -40,19 +40,11 @@ const UserInfos = ({ isOrganization, selectedItem }) => {
   };
 
   useEffect(() => {
-    fetchHandler({
-      url: `${Config.SERVICE_URL}/api/function/user_profile/profile/getProfile`,
-    })
-      .then((res) => {
-        setLoading(false);
-        setProfileInfos(res.data[0]);
-      })
-      .catch(() => {
-        setLoading(false);
-        toastMessage.warning(
-          "There was a problem fetching your information. Please try again."
-        );
-      });
+    fetchHandler({url: `${Config.SERVICE_URL}/api/function/user_profile/profile/getProfile`,}).then((res) => {
+      setProfileInfos(res.data[0]);
+    }).catch(() => {
+      toastMessage.warning("There was a problem fetching your information. Please try again.");
+    }).finally(() => setLoading(false));
   }, []);
 
   return loading ? (
