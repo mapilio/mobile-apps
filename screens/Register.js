@@ -9,7 +9,6 @@ import * as yup from "yup";
 import { loginStyles } from "../styles/loginStyles";
 import { Routes } from "../navigator/Routes";
 import { CustomText } from "../highordercomponents";
-import { globalStyles } from "../styles/globalStyles";
 import { RFValue } from "react-native-responsive-fontsize";
 import { fetchHandler } from "../helper/helper";
 import { Eye, EyeSlash } from "../assets/svg/illustrations";
@@ -75,7 +74,7 @@ const Register = ({ navigation }) => {
   React.useEffect(() => setLoading(isSubmitting), [isSubmitting]);
 
   return (
-    <View style={[globalStyles.container, loginStyles.container]}>
+    <View style={loginStyles.container}>
       <View style={loginStyles.logo}>
         <MapilioLogo width={RFValue(150)} height={RFValue(50)} />
       </View>

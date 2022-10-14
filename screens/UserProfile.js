@@ -1,108 +1,135 @@
 import React, {useEffect, useState} from "react";
-import {Platform, ScrollView, View} from "react-native";
-import {ProfileFeed, UserInfos} from "../components";
+import {StyleSheet, View, ScrollView, ActivityIndicator} from "react-native";
 import {globalStyles} from "../styles/globalStyles";
-import {fetchHandler} from "../helper/helper";
+import {ProfileFeed, UserInfos} from "../components";
 import {useSelector} from "react-redux";
+import {fetchHandler} from "../helper/helper";
+import Config from "react-native-config";
 import {RFValue} from "react-native-responsive-fontsize";
+import DropDownPicker from "react-native-dropdown-picker";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
 import {Routes} from "../navigator/Routes";
-import {ActivityIndicator} from "react-native-paper";
-import DropDownPicker from "react-native-dropdown-picker";
-import Config from "react-native-config";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const UserProfile = ({navigation}) => {
-  const [listData, setListData] = useState([]);
+  const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [loading, setLoading] = useState(true);
-  const [loadingOrganization, setOrganizationLoading] = useState(true);
+  const [isOrganization, setOrganization] = useState(true);
+  const [organizations, setOrganizations] = useState([]);
+  const [selectedOrganization, setSelectedOrganization] = useState({});
+  const [feedData, setFeedData] = useState([]);
+  const [gettingData, setGettingData] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+
+  useEffect(() => {
+    const initialOrganization = {
+      organization_name: userInformation?.display_name,
+      organization_username: userInformation?.username,
+      id: userInformation?.id,
+      type: "individual",
+    };
+
+    fetchHandler({url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`}).then(({data}) => {
+      setSelectedOrganization(initialOrganization)
+      setOrganizations([initialOrganization, ...data])
+    }).then(() => getData()).finally(() => setLoading(false))
+  }, []);
+
+  const getData = () => {
+    const url = selectedOrganization.type
+      ? `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
+      : `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedOrganization.organization_key}&options[limit]=10&page=${page}`
+
+    if (page <= totalPage && !gettingData) {
+      fetchHandler({url: `${Config.SERVICE_URL}${url}`,}).then(({data, pagination}) => {
+        if (data) {
+          setTotalPage(pagination ? pagination.last_page : 1)
+          setFeedData(prev => page === 1 ? [...data] : [...prev, ...data])
+        }
+      }).finally(() => {
+        setPage(prev => prev + 1)
+        setGettingData(false)
+        setLoading(false)
+      })
+
+      setGettingData(true)
+    }
+  }
+
+  useEffect(() => {
+    if (Object.entries(selectedOrganization).length) {
+      setPage(1)
+      setLoading(true)
+      setOrganization(selectedOrganization.type === "individual")
+      setFeedData([])
+    }
+  }, [selectedOrganization])
+
+  useEffect(() => {
+    page === 1 && getData()
+  }, [page]);
+
+
+  return (
+    <View style={globalStyles.container}>
+      <UserInfos isOrganization={isOrganization} selectedItem={selectedOrganization}/>
+      {
+        organizations.length >= 2 &&
+        <OrganizationSelector items={organizations} onSelectItem={setSelectedOrganization}/>
+      }
+      <FeedList
+        data={feedData}
+        navigation={navigation}
+        selectedOrganization={selectedOrganization}
+        loading={loading}
+        isLoadingData={gettingData}
+        onLoad={getData}
+      />
+    </View>
+  )
+};
+
+const OrganizationSelector = ({items, onSelectItem}) => {
+  const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [open, setOpen] = useState(false);
+
   const [value, setValue] = useState({
     organization_name: userInformation?.display_name,
     organization_username: userInformation?.username,
     id: userInformation?.id,
     type: "individual",
   });
-  const [isOrganization, setOrganization] = useState(true);
-  const {userInformation, isUploaded} = useSelector((state) => state.getTokenReducer);
-  const [selectedItem, setSelectedItem] = useState({
-    organization_name: userInformation?.display_name,
-    organization_username: userInformation?.username,
-    id: userInformation?.id,
-    type: "individual"
-  });
-  const [paginationLoading, setPaginationLoading] = useState(false);
-  const [items, setItems] = useState([
-    {
-      organization_name: userInformation?.display_name,
-      organization_username: userInformation?.username,
-      id: userInformation?.id,
-      type: "individual",
-    },
-  ]);
-  const [paginationURL, setPaginationURL] = useState(
-    `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=1`
-  );
 
-  useEffect(() => {
-    if (!isUploaded) {
-      fetchNext();
-    }
-  }, []);
+  return (
+    <View style={styles.dropdownWrapper}>
+      <DropDownPicker
+        open={open}
+        setOpen={setOpen}
+        value={value}
+        setValue={setValue}
+        showArrowIcon={false}
+        items={items}
+        placeholder={"Select organization"}
+        closeAfterSelecting
+        style={styles.dropdown}
+        listItemLabelStyle={styles.listItemLabelStyle}
+        textStyle={styles.dropdownTextStyle}
+        dropDownContainerStyle={styles.dropDownContainerStyle}
+        schema={{label: "organization_username", value: "organization_name", testID: "organization_key"}}
+        onSelectItem={(item) => onSelectItem(item)}
+        CellRendererComponent={({children, index, style, ...props}) => {
+          const cellStyle = [style, {zIndex: -1, elevation: -1},];
+          return <View style={cellStyle} index={index} {...props}>{children}</View>;
+        }}
+      >
+      </DropDownPicker>
+    </View>
+  )
+}
 
-  useEffect(() => {
-    if (selectedItem.type) {
-      fetchNext(
-        `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=1`
-      );
-    } else {
-      fetchNext(
-        `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedItem.organization_key}&options[limit]=10&page=1`
-      );
-    }
-  }, [selectedItem]);
-
-  useEffect(() => {
-    setLoading(true);
-    fetchHandler({
-      url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`,
-    }).then((res) => {
-      setLoading(false);
-      res ? setItems([...items, ...res.data]) : setItems([]);
-    })
-  }, []);
-
-  const fetchNext = (foreignUrl) => {
-    console.log('--->', 1)
-    if (foreignUrl && items.length >= 2) {
-      setLoading(true);
-    }
-    fetchHandler({
-      url: foreignUrl
-        ? `${Config.SERVICE_URL}${foreignUrl}`
-        : `${Config.SERVICE_URL}${paginationURL}`,
-    }).then((res) => {
-      if (res.data !== null) {
-        setListData(prev => prev.length > 0 ? [...prev, ...res.data] : res.data)
-        setPaginationURL(res.pagination.next_page_url);
-        setLoading(false);
-        setPaginationLoading(false);
-      } else {
-        setListData(null);
-        setLoading(false);
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
-  };
-
-  useEffect(() => {
-    if (isUploaded) {
-      fetchNext();
-    }
-  }, [isUploaded]);
-
+const FeedList = ({data, navigation, selectedOrganization, loading, isLoadingData, onLoad}) => {
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
     const paddingToBottom = 20;
     return (
@@ -110,207 +137,86 @@ const UserProfile = ({navigation}) => {
       contentSize.height - paddingToBottom
     );
   };
+  const scrollHandle = ({nativeEvent}) => {
+    if (isCloseToBottom(nativeEvent)) {onLoad()}
+  }
 
-  return (
-    <View style={globalStyles.container}>
-      <UserInfos isOrganization={isOrganization} selectedItem={selectedItem}/>
-      {items.length >= 2 &&
-        (Platform.OS === "ios" ? (
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: RFValue(15),
-              marginTop: RFValue(-20),
-              zIndex: 9999999,
-            }}
-          >
-            <DropDownPicker
-              open={open}
-              value={value}
-              items={items}
-              placeholder={"Select organization"}
-              setOpen={setOpen}
-              setValue={setValue}
-              closeAfterSelecting
-              onSelectItem={(item) => {
-                if (item.type === "individual") {
-                  setOrganization(true);
-                } else {
-                  setOrganization(false);
-                }
-                setSelectedItem(item);
-              }}
-              loading={loadingOrganization}
-              setItems={setItems}
-              key={Math.random()}
-              dropDownContainerStyle={{zIndex: -1}}
-              CellRendererComponent={({children, index, style, ...props}) => {
-                const cellStyle = [
-                  style,
-                  {
-                    zIndex: -1,
-                    elevation: -1,
-                  },
-                ];
-
-                return (
-                  <View style={cellStyle} index={index} {...props}>
-                    {children}
-                  </View>
-                );
-              }}
-              schema={{
-                label: "organization_username",
-                value: "organization_name",
-                testID: "organization_key",
-              }}
-              style={{
-                height: RFValue(30),
-                backgroundColor: "#4A90E2",
-                borderWidth: 0,
-                zIndex: 999999999999,
-              }}
-              listItemLabelStyle={{
-                color: "#000",
-              }}
-              textStyle={{
-                color: "#FFFFFF",
-              }}
-              showArrowIcon={false}
-            />
-          </View>
-        ) : (
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: RFValue(15),
-              marginTop: RFValue(-20),
-            }}
-          >
-            <DropDownPicker
-              open={open}
-              value={value}
-              items={items}
-              placeholder={"Select organization"}
-              setOpen={setOpen}
-              setValue={setValue}
-              closeAfterSelecting
-              onSelectItem={(item) => {
-                setSelectedItem(item);
-              }}
-              loading={loadingOrganization}
-              setItems={setItems}
-              key={Math.random()}
-              schema={{
-                label: "organization_username",
-                value: "organization_name",
-                testID: "organization_key",
-              }}
-              style={{
-                height: RFValue(30),
-                backgroundColor: "#4A90E2",
-                borderWidth: 0,
-              }}
-              listItemLabelStyle={{
-                color: "#000",
-              }}
-              textStyle={{
-                color: "#FFFFFF",
-              }}
-              showArrowIcon={false}
-            />
-          </View>
-        ))}
-      <ScrollView
-        onScroll={({nativeEvent}) => {
-          if (isCloseToBottom(nativeEvent) && paginationURL) {
-            setPaginationLoading(true);
-            fetchNext();
-          }
-        }}
-        scrollEventThrottle={400}
-      >
-        {loading ? (
-          [0, 1, 2, 3].map((i) => (
-            <SkeletonPlaceholder key={i}>
-              <View
-                style={{
-                  height: RFValue(70),
-                  width: "100%",
-                  marginTop: RFValue(10),
-                }}
-              />
-            </SkeletonPlaceholder>
-          ))
-        ) : listData.length ? (
-          listData.map((data) => (
+  return loading ? (
+    [0, 1, 2, 3].map((i) => <SkeletonPlaceholder key={i}><View style={styles.skeletonItem}/></SkeletonPlaceholder>)
+  ) : (
+    <ScrollView onScroll={scrollHandle} scrollEventThrottle={400}>
+      {data.length ? (
+        data.map(item => {
+          return (
             <ProfileFeed
-              key={data.id}
-              data={data}
+              key={item.id}
+              data={item}
               navigation={navigation}
-              selectedOrganization={selectedItem.type}
-              organizationKey={
-                selectedItem.organization_key
-                  ? selectedItem.organization_key
-                  : 0
-              }
+              selectedOrganization={selectedOrganization.type}
+              organizationKey={selectedOrganization.organization_key ? selectedOrganization.organization_key : 0}
             />
-          ))
-        ) : (
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              marginTop: RFValue(60),
-            }}
-          >
-            <CustomTextBold
-              style={{
-                fontSize: RFValue(16),
-                color: "#000000",
-                textAlign: "center",
-              }}
-            >
-              No feed
-            </CustomTextBold>
-            <CustomText
-              style={{
-                fontSize: RFValue(14),
-                color: "#4A4A4A",
-                marginVertical: RFValue(10),
-                textAlign: "center",
-              }}
-            >
-              There are no feeds to display. You can contribute by starting the
-              catch now.
-            </CustomText>
-            <CustomText
-              style={marketplaceReceivedStyles.button}
-              onPress={() => {
-                navigation.navigate(Routes.camera);
-              }}
-            >
-              Start Capture
-            </CustomText>
-          </View>
-        )}
+          )
+        })
+      ) : (
+        <View style={styles.noFeedWrapper}>
+          <CustomTextBold style={styles.noFeedTitle}>
+            No feed
+          </CustomTextBold>
+          <CustomText style={styles.noFeedDescription}>
+            There are no feeds to display. You can contribute by starting the catch now.
+          </CustomText>
+          <CustomText
+            style={marketplaceReceivedStyles.button}
+            onPress={() => navigation.navigate(Routes.camera)}>
+            Start Capture
+          </CustomText>
+        </View>
+      )}
 
-        {paginationLoading && items.length >= 2 && (
-          <ActivityIndicator
-            style={{
-              alignSelf: "center",
-              textAlign: "center",
-              marginVertical: RFValue(10),
-            }}
-            color={"#213348"}
-          />
-        )}
-      </ScrollView>
-    </View>
-  );
-};
+      <ActivityIndicator animating={isLoadingData} size={"large"}/>
+    </ScrollView>
+  )
+}
+
+const styles = StyleSheet.create({
+  dropdownWrapper: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: RFValue(15),
+    marginTop: RFValue(-20),
+    zIndex: 9999999
+  },
+  dropdown: {
+    height: RFValue(30),
+    backgroundColor: "#4A90E2",
+    borderWidth: 0,
+    zIndex: 999999999999
+  },
+  listItemLabelStyle: {color: "#000"},
+  dropdownTextStyle: {color: '#FFF'},
+  dropDownContainerStyle: {zIndex: -1},
+  noFeedWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    marginTop: RFValue(60),
+  },
+  noFeedTitle: {
+    fontSize: RFValue(16),
+    color: "#000000",
+    textAlign: "center",
+  },
+  noFeedDescription: {
+    fontSize: RFValue(14),
+    color: "#4A4A4A",
+    marginVertical: RFValue(10),
+    textAlign: "center"
+  },
+  skeletonItem: {
+    height: RFValue(70),
+    width: "100%",
+    marginTop: RFValue(10)
+  }
+})
 
 export default UserProfile;

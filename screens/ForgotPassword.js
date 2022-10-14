@@ -3,7 +3,6 @@ import {Text, View, TextInput, TouchableOpacity, ActivityIndicator} from "react-
 import * as yup from "yup";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
-import {globalStyles} from "../styles/globalStyles";
 import {RFValue} from "react-native-responsive-fontsize";
 import {fetchHandler} from "../helper/helper";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
@@ -47,7 +46,7 @@ const ForgotPassword = ({navigation}) => {
 	};
 
 	return (
-		<View style={[globalStyles.container, loginStyles.container]}>
+		<View style={loginStyles.container}>
 			<View style={loginStyles.logo}>
 				<MapilioLogo width={RFValue(150)} height={RFValue(50)}/>
 			</View>

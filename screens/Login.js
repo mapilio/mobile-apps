@@ -19,6 +19,7 @@ import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import {SocialLogin} from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
+import SafeAreaView from "react-native-safe-area-view";
 
 const loginValidationSchema = yup.object().shape({
 	email: yup
@@ -41,9 +42,8 @@ const Login = ({navigation}) => {
 	React.useEffect(() => setLoading(isSubmitting), [isSubmitting]);
 
 	return (
-		<View style={[globalStyles.container, loginStyles.container]}>
+		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
 			<View>
-
 				<View style={loginStyles.logo}>
 					<MapilioLogo width={RFValue(150)} height={RFValue(50)}/>
 				</View>
@@ -135,7 +135,7 @@ const Login = ({navigation}) => {
 					</TouchableOpacity>
 				</ScrollView>
 			</View>
-		</View>
+		</SafeAreaView>
 	);
 };
 export default Login;
