@@ -102,9 +102,11 @@ const Upload = ({sequence_uuid, navigation}) => {
           <TouchableOpacity
             style={userUploadModalStyles.close}
             onPress={() => {
-              closeRequest();
-              setModalVisible(false);
-              setSentCount(0);
+              if (sentCount <= totalImageCount - 1) {
+                closeRequest();
+                setModalVisible(false);
+                setSentCount(0);
+              }
             }}
           >
             <CloseIcon/>
