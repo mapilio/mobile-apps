@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, View, ScrollView, ActivityIndicator} from "react-native";
+import {StyleSheet, View, ScrollView, ActivityIndicator, Platform} from "react-native";
 import {globalStyles} from "../styles/globalStyles";
 import {ProfileFeed, UserInfos} from "../components";
 import {useSelector} from "react-redux";
@@ -103,7 +103,7 @@ const OrganizationSelector = ({items, onSelectItem}) => {
   });
 
   return (
-    <View style={styles.dropdownWrapper}>
+    <View style={[styles.dropdownWrapper, Platform.OS === "ios" && styles.iosDropdownWrapper]}>
       <DropDownPicker
         open={open}
         setOpen={setOpen}
@@ -182,19 +182,18 @@ const styles = StyleSheet.create({
   dropdownWrapper: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: RFValue(15),
+    marginBottom: RFValue(20),
     marginTop: RFValue(-20),
-    zIndex: 9999999
   },
+  iosDropdownWrapper: {zIndex: 1},
   dropdown: {
     height: RFValue(30),
     backgroundColor: "#4A90E2",
     borderWidth: 0,
-    zIndex: 999999999999
   },
   listItemLabelStyle: {color: "#000"},
   dropdownTextStyle: {color: '#FFF'},
-  dropDownContainerStyle: {zIndex: -1},
+  dropDownContainerStyle: {zIndex: 1},
   noFeedWrapper: {
     alignItems: "center",
     justifyContent: "center",
