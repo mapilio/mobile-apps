@@ -81,7 +81,7 @@ export const getHash = (image) => {
     controller = new AbortController();
 
     if (image.hash) {
-      resolve({status: 'success'})
+      resolve({status: 'success', hash: image.hash})
     }
 
     const {userInformation} = store.getState().getTokenReducer
@@ -197,6 +197,8 @@ export const imageryUpload = (index, pictures) => {
               deleteSequence(picture.sequence_uuid).then(() => {
                 resolve()
               })
+            } else {
+              reject()
             }
           }).catch((err) => {
             reject(err)
