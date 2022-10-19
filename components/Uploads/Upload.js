@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {View, TouchableOpacity, Modal, ActivityIndicator} from "react-native";
 import {CloseIcon, UploadIcon} from "../../assets/svg/illustrations";
 import {
@@ -22,25 +22,26 @@ import {RFValue} from "react-native-responsive-fontsize";
 
 const Upload = ({sequence_uuid, navigation}) => {
   const dispatch = useDispatch();
-  const [status, setStatus] = useState('Calculating...');
+  const [status, setStatus] = useState('Calculating... 🧮');
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const pictures = []
 
   const upload = () => {
+    activateKeepAwake('upload')
     setModalVisible(true)
-    setStatus('Checking your files... 🔎')
-    activateKeepAwake();
 
     calculateToSequence(sequence_uuid).then(({status, data}) => {
+      setStatus('Checking your files... 🔎')
+
       if (status === 'success') {
         setTotalImageCount(data.count)
         getSequences(data.sequences)
       }
     }).finally(() => {
-      setStatus('Checking your files... 🔎')
-      deactivateKeepAwake()
+      deactivateKeepAwake('upload');
+      setStatus('Calculating... 🧮');
     })
   }
 

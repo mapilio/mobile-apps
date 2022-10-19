@@ -11,7 +11,6 @@ import SafeAreaView from 'react-native-safe-area-view';
 import {
   SET_CAMERA_LOCATION,
   UPDATE_GPS_ACCURACY,
-  UPDATE_HIGHSPEED_STATUS,
   UPDATE_MOCKED_STATUS
 } from "../store/actionsName";
 import {toastMessage} from "../helper/alerts";
@@ -59,7 +58,6 @@ const AppCamera = ({ navigation, route }) => {
       dispatch({type: UPDATE_MOCKED_STATUS, payload: location.mocked})
       dispatch({type: SET_CAMERA_LOCATION, payload: location.coords})
       dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy < accuracyLevel})
-      dispatch({type: UPDATE_HIGHSPEED_STATUS, payload: location.coords.speed >= (70 / 3.36)})
     }, (error) => {
       toastMessage.error(`${error.message}`)
     }, {
