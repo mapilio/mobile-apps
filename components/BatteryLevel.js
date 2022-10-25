@@ -27,12 +27,10 @@ const BatteryLevel = () => {
 
   const _subscribeBatteryLevel = () => {
     const subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
-      console.log({batteryLevel})
       dispatch({ type: UPDATE_BATTERY_LEVEL, payload: Math.ceil(batteryLevel * 100) });
     });
 
     const subscriptionState = Battery.addBatteryStateListener(({batteryState}) => {
-      console.log({batteryState})
       dispatch({type: UPDATE_CHARGE_STATUS, payload: (batteryState === 3 || batteryState === 2)});
     });
 
