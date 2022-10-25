@@ -62,6 +62,7 @@ const Upload = ({sequence_uuid, navigation}) => {
       if (pictures[i]) {
         if (pictures[i][j]) {
           if (pictures[i][j].hash) {
+            pictures.hash = pictures[i][j].hash
             sendImages(i, ++j)
           } else {
             getHash(pictures[i][j]).then(async ({hash}) => {
