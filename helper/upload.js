@@ -6,8 +6,7 @@ import {dateConvert, fetchHandler} from "./helper";
 import Config from "react-native-config";
 import {fovCalculate} from "./fov";
 import md5 from "md5";
-import axios from "axios";
-let token = null;
+let controller = {};
 
 const isWifi = () => {
   const {connection} = store.getState().generalReducer
@@ -79,11 +78,10 @@ export const getImagesBySequence = (sequence) => {
 
 export const getHash = (image) => {
   return new Promise((resolve, reject) => {
-    const CancelToken = axios.CancelToken;
-    token = CancelToken.source();
+    controller = new AbortController();
 
     if (image.hash) {
-      resolve({status: 'success', })
+      resolve({status: 'success'})
     }
 
     const {userInformation} = store.getState().getTokenReducer
@@ -105,7 +103,7 @@ export const getHash = (image) => {
         url: `${Config.CDN_URL}/api/upload/mobile`,
         method: 'POST',
         data: formData,
-        cancelToken: token.token,
+        signal: controller.signal
       }).then(async (response) => {
         await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
         resolve({status: 'success', hash: response.files[0].hash})
@@ -193,7 +191,7 @@ export const imageryUpload = (index, pictures) => {
             url: `${Config.SERVICE_URL}/api/function/mapilio/imagery/upload`,
             method: "POST",
             data: files,
-            cancelToken: token.token
+            signal: controller.signal
           }).then((res) => {
             if (res.status === true) {
               deleteSequence(picture.sequence_uuid).then(() => {
@@ -225,5 +223,5 @@ export const percentage = (partialValue, totalValue) => {
 };
 
 export const closeRequest = () => {
-  token.cancel('Operation canceled by the user.');
+  controller.abort()
 }
