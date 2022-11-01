@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
-
+import './resolver/react-native/rn-polyfill-depricated-proptypes'
 import App from './App';
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
