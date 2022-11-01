@@ -1,4 +1,3 @@
-import * as Font from "expo-font";
 import { store } from "../store/store";
 import axios from "axios";
 import { Alert, Linking, Platform } from "react-native";
@@ -7,13 +6,6 @@ import * as Location from "expo-location";
 import Moment from "moment";
 let isOpenOnce = false;
 Moment.suppressDeprecationWarnings = true;
-
-const useFonts = async () =>
-  await Font.loadAsync({
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-    "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
-    "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
-  });
 
 const convertHexToRGBA = (hexCode, opacity) => {
   let hex = hexCode.replace("#", "");
@@ -55,17 +47,13 @@ const permissionHandler = async (
   onPress
 ) => {
   const { status: cameraStatus } = await ExpoCamera.getCameraPermissionsAsync();
-
-  const { status: locationStatus } =
-    await Location.getForegroundPermissionsAsync();
+  const { status: locationStatus } = await Location.getForegroundPermissionsAsync();
 
   if (cameraStatus !== "granted" || locationStatus !== "granted") {
     if (cameraStatus !== "granted" && from === "camera") {
-      const { status: cameraStatus } =
-        await ExpoCamera.requestCameraPermissionsAsync();
+      const {status: cameraStatus} = await ExpoCamera.requestCameraPermissionsAsync();
       if (cameraStatus === "granted") {
-        const { status: locStatus } =
-          await Location.getForegroundPermissionsAsync();
+        const {status: locStatus} = await Location.getForegroundPermissionsAsync();
         if (locStatus === "granted") {
           onPress();
         }
@@ -155,7 +143,6 @@ const headingPointGeoJson = (heading, coordinates) => {
 };
 
 export {
-  useFonts,
   convertHexToRGBA,
   fetchHandler,
   maxCharacterHandler,
