@@ -2,11 +2,12 @@
   "name": "mapilio-platform-react-native",
   "version": "1.0.0",
   "scripts": {
-    "start": "react-native start",
+    "start": "expo start --dev-client",
     "android:debug": "react-native run-android",
     "android:release": "react-native run-android --variant=release",
     "ios": "react-native run-ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "android": "expo run:android"
   },
   "dependencies": {
     "@expo/configure-splash-screen": "^0.6.0",
