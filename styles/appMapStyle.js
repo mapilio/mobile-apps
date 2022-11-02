@@ -2,14 +2,9 @@ import { StyleSheet, Dimensions } from "react-native";
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 
 export const appMapStyle = StyleSheet.create({
-  mapWrapper: {
-    width: RFValue(Dimensions.get("window").width),
-    // width: RFPercentage(100),
-    height: RFPercentage(100),
-  },
   map: {
-    width: RFValue(Dimensions.get("window").width ),
-    height: RFPercentage(100),
+    width: Dimensions.get("screen").width,
+    height: Dimensions.get("screen").height,
     paddingBottom: RFValue(90),
   },
   mapSeperate: {
