@@ -25,6 +25,7 @@ import { CloseIcon } from "../assets/svg/illustrations";
 import { toastMessage } from "../helper/alerts";
 import Config from "react-native-config";
 import SafeAreaView from "react-native-safe-area-view";
+import Geolocation from "react-native-geolocation-service";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -39,12 +40,12 @@ Logger.setLogCallback((log) => {
 });
 
 const AppMap = ({ navigation }) => {
-  const [flyLocation, setFlyLocation] = useState([29.9081, 40.8793]);
+  const [centerCoordinate, setCenterCoordinate] = useState([29.9081, 40.8793]);
   const [imageInformations, setImageInformations] = useState(null);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [openSearchbar, setOpenSearchbar] = useState(false);
   const [minimizePano, setMinimizePano] = useState(false);
-  const [zoom, setCurrentZoom] = useState(0);
+  const [zoom, setCurrentZoom] = useState(16);
   const [clickedCoord, setClickedCoord] = useState(null);
   const [onScroll, setOnScroll] = useState(false);
   const [showPano, setShowPano] = useState(true);
@@ -57,18 +58,16 @@ const AppMap = ({ navigation }) => {
   let mapRef = useRef();
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
+    const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
         setKeyboardVisible(true);
       }
     );
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
+    const keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () => {
         setKeyboardVisible(false);
       }
     );
+
+    Geolocation.getCurrentPosition(({coords}) => setCenterCoordinate([coords.longitude, coords.latitude]))
 
     return () => {
       keyboardDidShowListener.remove();
@@ -120,6 +119,11 @@ const AppMap = ({ navigation }) => {
     setShowPano(false);
   };
 
+  const zoomPoint = (e) => {
+    setCurrentZoom(prev => prev + 5)
+    setCenterCoordinate([e.coordinates.longitude, e.coordinates.latitude]);
+  }
+
   const willHide = async (e) => {
     const zoom = await mapRef.current.getZoom();
     setCurrentZoom(Math.round(zoom));
@@ -127,12 +131,6 @@ const AppMap = ({ navigation }) => {
       setHide(true);
     } else {
       setHide(false);
-    }
-  };
-
-  const touchFromAway = (e) => {
-    if (zoom < 16) {
-      setFlyLocation(e.geometry.coordinates);
     }
   };
 
@@ -175,15 +173,15 @@ const AppMap = ({ navigation }) => {
               Platform.OS === "android"
                 ? RFValue(63)
                 : Dimensions.get("window").height > 775
-                ? RFValue(83)
-                : RFValue(63),
+                  ? RFValue(83)
+                  : RFValue(63),
             zIndex: 6,
           }}
         >
           <SearchbarSwipe
-            setFly={setFlyLocation}
+            setFly={setCenterCoordinate}
             panelRef={panelRef}
-            flyLocation={flyLocation}
+            flyLocation={centerCoordinate}
             setOnScroll={setOnScroll}
             isKeyboardVisible={isKeyboardVisible}
           />
@@ -198,12 +196,11 @@ const AppMap = ({ navigation }) => {
         </TouchableOpacity>
       ) : null}
 
-      <View style={appMapStyle.mapWrapper}>
+      <View>
         <MapView
           mapStyle={showPano ? appMapStyle.map : appMapStyle.mapSeperate}
           regionChange={willHide}
           mapRef={mapRef}
-          onPress={touchFromAway}
         >
           <MapboxGL.UserLocation
             visible={visible}
@@ -226,6 +223,8 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.VectorSource
             id="road-points-2"
             url={"mapbox://mapilio.ckzy904h607j827pbqjtx9n4d-3dges"}
+            onPress={zoomPoint}
+            hitbox={{width: 5, height: 5}}
           >
             <MapboxGL.CircleLayer
               id={"mapilio-point-v1-stroke"}
@@ -254,10 +253,10 @@ const AppMap = ({ navigation }) => {
           )}
           <MapboxGL.Camera
             ref={cameraRef}
-            centerCoordinate={flyLocation}
-            animationMode={"flyTo"}
+            centerCoordinate={centerCoordinate}
+            animationMode={"easeTo"}
             animationDuration={1000}
-            zoomLevel={flyLocation[0] === 29.9081 ? 1 : 13}
+            zoomLevel={zoom}
             maxZoomLevel={20}
           />
         </MapView>
@@ -273,7 +272,7 @@ const AppMap = ({ navigation }) => {
             toastMessage.error("Your GPS is disabled.");
           }
           if (userCoordinate && isEnabled) {
-            setFlyLocation(userCoordinate);
+            setCenterCoordinate(userCoordinate);
           }
         }}
       >
