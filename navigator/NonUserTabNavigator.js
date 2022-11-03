@@ -20,6 +20,7 @@ import {
 } from "../assets/svg/illustrations";
 import SignInNavigatorRight from "./navigatorbars/SignInNavigatorRight";
 import { RFValue } from "react-native-responsive-fontsize";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,10 +44,9 @@ const CaptureTabBarButton = ({ navigation }) => {
 };
 
 const NonUserTabNavigator = () => {
-  const { connection, tabHeight } = useSelector(
-    (state) => state.generalReducer
-  );
+  const {connection} = useSelector((state) => state.generalReducer);
   const [internetGoes, setInternetGoes] = useState(false);
+  const {bottom} = useSafeAreaInsets();
 
   const connectionAlertHandler = (navigation) => {
     if (connection.connectionStatus && internetGoes) {
@@ -66,7 +66,7 @@ const NonUserTabNavigator = () => {
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: tabHeight,
+          height: RFValue(63) + bottom,
           position: "absolute",
           bottom: 0,
         },

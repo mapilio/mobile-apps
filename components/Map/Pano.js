@@ -22,11 +22,13 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { NorthArrow } from "../../assets/svg/illustrations";
 import {toastMessage} from "../../helper/alerts";
 import Config from "react-native-config";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const Pano = (props) => {
-  const { imageInformation, navigation } = props;
-  const { auth } = useSelector((state) => state.getTokenReducer);
+  const {imageInformation, navigation} = props;
+  const {auth} = useSelector((state) => state.getTokenReducer);
   const [fullHeight, setFullHeight] = useState(false);
+  const {top, bottom}  = useSafeAreaInsets();
 
   const reportImage = () => {
     if (auth) {
@@ -51,16 +53,6 @@ const Pano = (props) => {
     }
   };
 
-  const getImageHeight = () => {
-    if (fullHeight) {
-      return RFValue(592)
-    }
-    if (Dimensions.get("window").height > 1100) {
-      return RFValue(285)
-    }
-    return RFValue(345)
-  }
-
   return (
     <View>
       <View style={panoStyle.topBar}>
@@ -75,12 +67,10 @@ const Pano = (props) => {
       <ScrollView horizontal={true}>
         <ScrollView>
           <Image
-            source={{uri: fullHeight ? imageInformation.highResImage : imageInformation.image,}}
+            source={{uri: imageInformation.highResImage}}
             style={{
-              height: getImageHeight(),
-              width: RFValue(Dimensions.get("window").width),
-              resizeMode: "cover",
-              aspectRatio: 3 / 2,
+              height: Dimensions.get("window").height / 2 - RFValue(63) - bottom,
+              aspectRatio: 16/9
             }}
           />
         </ScrollView>
@@ -93,11 +83,7 @@ const Pano = (props) => {
         <View>
           <NorthArrow />
         </View>
-        <View
-          style={{
-            transform: [{ rotate: `${imageInformation.heading}deg` }],
-          }}
-        >
+        <View style={{transform: [{rotate: `${imageInformation.heading}deg`}]}}>
           <Campus />
         </View>
       </View>
@@ -109,7 +95,6 @@ const Pano = (props) => {
         </Pressable>
 
         <View style={panoStyle.capturerWrapper}>
-          {/* <Text style={panoStyle.capturerName}>@M.CanVarer</Text> */}
           <Text style={panoStyle.captureDate}>
             {moment(imageInformation.date).format("DD.MM.YYYY")}
           </Text>

@@ -46,6 +46,7 @@ import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
 import { permissionHandler } from "../helper/helper";
 import { RFValue } from "react-native-responsive-fontsize";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
@@ -79,11 +80,10 @@ const CaptureTabBarButton = ({ children, onPress }) => {
 };
 
 const TabNavigator = ({ navigation, route }) => {
-  const { connection, tabHeight } = useSelector(
-    (state) => state.generalReducer
-  );
+  const {connection} = useSelector((state) => state.generalReducer);
   const [internetGoes, setInternetGoes] = useState(false);
-  const { uploadData } = useSelector((state) => state.uploadReducer);
+  const {uploadData} = useSelector((state) => state.uploadReducer);
+  const {bottom} = useSafeAreaInsets();
 
   const connectionAlertHandler = (navigation, name) => {
     if (name !== Routes.camera && name !== Routes.upload) {
@@ -105,7 +105,7 @@ const TabNavigator = ({ navigation, route }) => {
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: tabHeight,
+          height: RFValue(63) + bottom,
           position: "absolute",
           bottom: 0,
           width: "100%",
