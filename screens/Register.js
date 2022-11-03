@@ -44,7 +44,7 @@ const Register = ({ navigation }) => {
         username: values.name,
         email: values.email,
         password: values.password,
-        callback: `${Config.SERVICE_URL}`,
+        callback: `https://mapilio.com?deeplink=mapilio://`,
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },
