@@ -2,6 +2,8 @@ require File.join(File.dirname(`node --print "require.resolve('expo/package.json
 require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
 require File.join(File.dirname(`node --print "require.resolve('@react-native-community/cli-platform-ios/package.json')"`), "native_modules")
 
+$RNMapboxMapsImpl = 'mapbox'
+
 require 'json'
 podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}
 
@@ -21,7 +23,7 @@ target 'Mapilio' do
 # @generated begin pre_installer - expo prebuild (DO NOT MODIFY) sync-c8812095000d6054b846ce74840f0ffb540c2757
   pre_install do |installer|
 # @generated begin @react-native-mapbox-gl/maps-pre_installer - expo prebuild (DO NOT MODIFY) sync-5a7ed0a20d5aff2d61639bc5bb4fd5551233d57c
-    $RNMBGL.pre_install(installer)
+    $RNMapboxMaps.pre_install(installer)
 # @generated end @react-native-mapbox-gl/maps-pre_installer
   end
 # @generated end pre_installer
@@ -41,6 +43,7 @@ target 'Mapilio' do
   # end
 
   post_install do |installer|
+    $RNMapboxMaps.post_install(installer)
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
 

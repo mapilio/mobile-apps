@@ -59,8 +59,14 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "@react-native-mapbox-gl/maps",
       "expo-facebook",
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsImpl": "mapbox",
+          "RNMapboxMapsDownloadToken": "***REMOVED***"
+        }
+      ],
       [
         "expo-location",
         {

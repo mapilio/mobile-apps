@@ -1,6 +1,6 @@
 import React from "react";
 import {headingPointGeoJson} from "../../helper/helper";
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import MapboxGL from "@rnmapbox/maps";
 
 const Heading = ({heading, coordinates, markerPath}) => {
   return (
@@ -18,8 +18,7 @@ const Heading = ({heading, coordinates, markerPath}) => {
           iconRotationAlignment: 'map',
         }}
         layerIndex={90}
-        >
-      </MapboxGL.SymbolLayer>
+        />
     </MapboxGL.ShapeSource>
   )
 };
