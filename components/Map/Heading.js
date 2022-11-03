@@ -8,7 +8,8 @@ const Heading = ({heading, coordinates, markerPath}) => {
       id={"headingShape"}
       shape={headingPointGeoJson(heading, coordinates)}
     >
-      <MapboxGL.SymbolLayer
+      // TODO this icon image crashes on ios
+      {/*<MapboxGL.SymbolLayer
         id='headingSymbol'
         style={{
           iconImage: markerPath,
@@ -18,7 +19,7 @@ const Heading = ({heading, coordinates, markerPath}) => {
           iconRotationAlignment: 'map',
         }}
         layerIndex={90}
-        />
+        />*/}
     </MapboxGL.ShapeSource>
   )
 };
