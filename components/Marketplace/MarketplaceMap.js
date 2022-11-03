@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {MapView} from "../../highordercomponents";
 import {appMapStyle} from "../../styles/appMapStyle";
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import MapboxGL from "@rnmapbox/maps";
 import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {MARKETPLACE_CENTER, ZOOM_LEVEL} from "../../store/actionsName";

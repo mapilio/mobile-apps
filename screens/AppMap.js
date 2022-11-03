@@ -8,7 +8,7 @@ import {
   Keyboard,
 } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
-import MapboxGL, { Logger } from "@react-native-mapbox-gl/maps";
+import MapboxGL, { Logger } from "@rnmapbox/maps";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
@@ -104,8 +104,7 @@ const AppMap = ({ navigation }) => {
 
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
-    e.features[0].geometry.coordinates[1] =
-      e.features[0].geometry.coordinates[1] - 10;
+    e.features[0].geometry.coordinates[1] = e.features[0].geometry.coordinates[1] - 10;
     setClickedCoord(e.features[0].geometry.coordinates);
     setImageInformations({
       sequenceID: pointFeatures.SEQUENCE_UUID,
@@ -187,14 +186,14 @@ const AppMap = ({ navigation }) => {
           />
         </SlidingUpPanel>
       )}
-      {showPano && imageInformations ? (
+      {showPano && imageInformations && (
         <TouchableOpacity
           style={appMapStyle.minimizePano}
           onPress={unminimizePano}
         >
           <PanoMinimize />
         </TouchableOpacity>
-      ) : null}
+      )}
 
       <View>
         <MapView
@@ -254,7 +253,7 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.Camera
             ref={cameraRef}
             centerCoordinate={centerCoordinate}
-            animationMode={"easeTo"}
+            animationMode={"flyTo"}
             animationDuration={1000}
             zoomLevel={zoom}
             maxZoomLevel={20}

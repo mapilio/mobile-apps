@@ -1,4 +1,4 @@
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import MapboxGL from "@rnmapbox/maps";
 import React, { memo } from "react";
 import { Platform } from "react-native";
 
@@ -18,6 +18,7 @@ const MapView = ({
     onRegionDidChange={regionChange}
     logoEnabled={Platform.OS !== "android"}
     attributionEnabled={Platform.OS !== "android"}
+    scaleBarEnabled={false}
     logoPosition={{ bottom: 20, left: 25 }}
     rotateEnabled={false}
     onPress={onPress}

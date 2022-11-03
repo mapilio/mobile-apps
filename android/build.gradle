@@ -20,18 +20,6 @@ buildscript {
             // Otherwise we default to the side-by-side NDK version from AGP.
             ndkVersion = '21.4.7075529'
         }
-        rnmbglMapboxLibs = {
-            implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.1'
-            implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.8.0'
-            implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.8.0'
-            implementation 'com.mapbox.mapboxsdk:mapbox-android-gestures:0.7.0'
-        }
-
-        rnmbglMapboxPlugins = {
-            implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.8.0'
-            implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-localization-v9:0.14.0'
-            implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0'
-        }
     }
     repositories {
         google()
@@ -48,6 +36,16 @@ buildscript {
 
 allprojects {
     repositories {
+// @generated begin @rnmapbox/maps-v2-maven - expo prebuild (DO NOT MODIFY) sync-cb5ce5d6dd5aff6f68a082fbcf1a84c114ee0ce9
+maven {
+      url 'https://api.mapbox.com/downloads/v2/releases/maven'
+      authentication { basic(BasicAuthentication) }
+      credentials {
+        username = 'mapbox'
+        password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+      }
+    }
+// @generated end @rnmapbox/maps-v2-maven
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -67,21 +65,6 @@ allprojects {
             }
         }
         maven { url 'https://www.jitpack.io' }
-
-        maven {
-            url 'https://api.mapbox.com/downloads/v2/releases/maven'
-            authentication {
-                basic(BasicAuthentication)
-            }
-            credentials {
-                // Do not change the username below.
-                // This should always be `mapbox` (not your username).
-                username = 'mapbox'
-                // Use the secret token you stored in gradle.properties as the password
-                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: "pk.your_mapbox_public_token"
-            }
-        }
-
     }
 }
 // @generated begin expo-camera-import - expo prebuild (DO NOT MODIFY) sync-f244f4f3d8bf7229102e8f992b525b8602c74770
