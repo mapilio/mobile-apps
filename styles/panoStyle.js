@@ -1,32 +1,24 @@
 import { RFValue } from "react-native-responsive-fontsize";
-import { Dimensions, Platform } from "react-native";
 
 export const panoStyle = {
   topBar: {
-    paddingTop: RFValue(10),
-    paddingBottom: RFValue(10),
-    paddingLeft: RFValue(16),
-    paddingRight: RFValue(16),
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    position: "absolute",
-    top: RFValue(0),
-    left: RFValue(0),
-    width: RFValue(Dimensions.get("window").width),
-    alignSelf: "stretch",
     zIndex: RFValue(1),
   },
   switch: {
     backgroundColor: "rgba(31,48,76,0.75)",
     padding: RFValue(5),
     borderRadius: RFValue(4),
+    position: "absolute",
+    top: RFValue(10),
+    left: RFValue(16),
   },
   minimize: {
     backgroundColor: "rgba(31,48,76,0.75)",
     padding: RFValue(4.5),
-    marginRight: Platform.OS === "ios" ? RFValue(80) : RFValue(30),
     borderRadius: RFValue(4),
+    position: "absolute",
+    top: RFValue(10),
+    right: RFValue(16),
   },
   playWrapper: {
     flexDirection: "row",

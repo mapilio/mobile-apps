@@ -22,11 +22,13 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { NorthArrow } from "../../assets/svg/illustrations";
 import {toastMessage} from "../../helper/alerts";
 import Config from "react-native-config";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const Pano = (props) => {
-  const { imageInformation, navigation } = props;
-  const { auth } = useSelector((state) => state.getTokenReducer);
+  const {imageInformation, navigation} = props;
+  const {auth} = useSelector((state) => state.getTokenReducer);
   const [fullHeight, setFullHeight] = useState(false);
+  const {top, bottom}  = useSafeAreaInsets();
 
   const reportImage = () => {
     if (auth) {
@@ -54,29 +56,9 @@ const Pano = (props) => {
   return (
     <View>
       <View style={panoStyle.topBar}>
-        <TouchableOpacity
-          style={panoStyle.switch}
-          onPress={() => setFullHeight(!fullHeight)}
-        >
+        <TouchableOpacity style={panoStyle.switch} onPress={() => setFullHeight(!fullHeight)}>
           <SwitchMapPano />
         </TouchableOpacity>
-        <View style={panoStyle.frameWrapper}>
-          {/* <View style={panoStyle.playWrapper}>
-            <View style={{ marginRight: RFValue(9.5) }}>
-              <PlayArrowLeft />
-            </View>
-            <View>
-              <PanoPlayBtn />
-            </View>
-            <View style={{ marginLeft: RFValue(9.5) }}>
-              <PlayArrowRight />
-            </View>
-          </View> */}
-          {/* <Text style={panoStyle.frameText}>
-            (frame 120/{" "}
-            <Text style={{ fontFamily: "Poppins-SemiBold" }}>45</Text>)
-          </Text> */}
-        </View>
 
         <TouchableOpacity style={panoStyle.minimize} onPress={props.hidePano}>
           <MinimizePano />
@@ -85,20 +67,10 @@ const Pano = (props) => {
       <ScrollView horizontal={true}>
         <ScrollView>
           <Image
-            source={{
-              uri: fullHeight
-                ? imageInformation.highResImage
-                : imageInformation.image,
-            }}
+            source={{uri: imageInformation.highResImage}}
             style={{
-              height: fullHeight
-                ? RFValue(592)
-                : Dimensions.get("window").height > 1100
-                ? RFValue(285)
-                : RFValue(345),
-              width: RFValue(Dimensions.get("window").width),
-              resizeMode: "cover",
-              aspectRatio: 3 / 2,
+              height: Dimensions.get("window").height / 2 - RFValue(63) - bottom,
+              aspectRatio: 16/9
             }}
           />
         </ScrollView>
@@ -108,22 +80,10 @@ const Pano = (props) => {
       </View>
 
       <View style={panoStyle.userActionWrapper}>
-        {/* <View style={panoStyle.zoomWrapper}>
-          <View style={panoStyle.zoomIn}>
-            <ZoomIn />
-          </View>
-          <View style={panoStyle.zoomOut}>
-            <ZoomOut />
-          </View>
-        </View> */}
         <View>
           <NorthArrow />
         </View>
-        <View
-          style={{
-            transform: [{ rotate: `${imageInformation.heading}deg` }],
-          }}
-        >
+        <View style={{transform: [{rotate: `${imageInformation.heading}deg`}]}}>
           <Campus />
         </View>
       </View>
@@ -135,7 +95,6 @@ const Pano = (props) => {
         </Pressable>
 
         <View style={panoStyle.capturerWrapper}>
-          {/* <Text style={panoStyle.capturerName}>@M.CanVarer</Text> */}
           <Text style={panoStyle.captureDate}>
             {moment(imageInformation.date).format("DD.MM.YYYY")}
           </Text>

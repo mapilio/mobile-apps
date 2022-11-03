@@ -13,6 +13,7 @@ import {useFonts} from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
 import {toastMessage} from "./helper/alerts";
 import {permissionHandler} from "./helper/helper";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 if (Platform.OS === "ios") {
   OneSignal.setLogLevel(6, 0);
@@ -93,7 +94,9 @@ function App() {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <NotifierWrapper>
-            <MainNavigator/>
+            <SafeAreaProvider>
+              <MainNavigator/>
+            </SafeAreaProvider>
           </NotifierWrapper>
         </NavigationContainer>
       </PersistGate>

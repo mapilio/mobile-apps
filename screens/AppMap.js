@@ -26,6 +26,7 @@ import { toastMessage } from "../helper/alerts";
 import Config from "react-native-config";
 import SafeAreaView from "react-native-safe-area-view";
 import Geolocation from "react-native-geolocation-service";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -56,6 +57,7 @@ const AppMap = ({ navigation }) => {
   let cameraRef = useRef();
   let panelRef = useRef();
   let mapRef = useRef();
+  const {top, bottom} = useSafeAreaInsets();
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -104,8 +106,7 @@ const AppMap = ({ navigation }) => {
 
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
-    e.features[0].geometry.coordinates[1] = e.features[0].geometry.coordinates[1] - 10;
-    setClickedCoord(e.features[0].geometry.coordinates);
+    setClickedCoord(pointFeatures.coordinates);
     setImageInformations({
       sequenceID: pointFeatures.SEQUENCE_UUID,
       date: pointFeatures.created_at,
@@ -168,12 +169,7 @@ const AppMap = ({ navigation }) => {
           showBackdrop={false}
           ref={panelRef}
           containerStyle={{
-            marginBottom:
-              Platform.OS === "android"
-                ? RFValue(63)
-                : Dimensions.get("window").height > 775
-                  ? RFValue(83)
-                  : RFValue(63),
+            marginBottom: RFValue(63) + bottom,
             zIndex: 6,
           }}
         >
@@ -188,7 +184,7 @@ const AppMap = ({ navigation }) => {
       )}
       {showPano && imageInformations && (
         <TouchableOpacity
-          style={appMapStyle.minimizePano}
+          style={{...appMapStyle.minimizePano, bottom: RFValue(113) + bottom }}
           onPress={unminimizePano}
         >
           <PanoMinimize />
@@ -197,7 +193,7 @@ const AppMap = ({ navigation }) => {
 
       <View>
         <MapView
-          mapStyle={showPano ? appMapStyle.map : appMapStyle.mapSeperate}
+          mapStyle={{...appMapStyle.map, height: showPano ? height - top - bottom : height - top - bottom / 2 }}
           regionChange={willHide}
           mapRef={mapRef}
         >

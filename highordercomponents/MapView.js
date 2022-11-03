@@ -16,8 +16,8 @@ const MapView = ({
     ref={mapRef}
     attributionPosition={attributionStyle}
     onRegionDidChange={regionChange}
-    logoEnabled={Platform.OS !== "android"}
-    attributionEnabled={Platform.OS !== "android"}
+    logoEnabled={false}
+    attributionEnabled={false}
     scaleBarEnabled={false}
     logoPosition={{ bottom: 20, left: 25 }}
     rotateEnabled={false}
