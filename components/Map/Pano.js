@@ -51,32 +51,22 @@ const Pano = (props) => {
     }
   };
 
+  const getImageHeight = () => {
+    if (fullHeight) {
+      return RFValue(592)
+    }
+    if (Dimensions.get("window").height > 1100) {
+      return RFValue(285)
+    }
+    return RFValue(345)
+  }
+
   return (
     <View>
       <View style={panoStyle.topBar}>
-        <TouchableOpacity
-          style={panoStyle.switch}
-          onPress={() => setFullHeight(!fullHeight)}
-        >
+        <TouchableOpacity style={panoStyle.switch} onPress={() => setFullHeight(!fullHeight)}>
           <SwitchMapPano />
         </TouchableOpacity>
-        <View style={panoStyle.frameWrapper}>
-          {/* <View style={panoStyle.playWrapper}>
-            <View style={{ marginRight: RFValue(9.5) }}>
-              <PlayArrowLeft />
-            </View>
-            <View>
-              <PanoPlayBtn />
-            </View>
-            <View style={{ marginLeft: RFValue(9.5) }}>
-              <PlayArrowRight />
-            </View>
-          </View> */}
-          {/* <Text style={panoStyle.frameText}>
-            (frame 120/{" "}
-            <Text style={{ fontFamily: "Poppins-SemiBold" }}>45</Text>)
-          </Text> */}
-        </View>
 
         <TouchableOpacity style={panoStyle.minimize} onPress={props.hidePano}>
           <MinimizePano />
@@ -85,17 +75,9 @@ const Pano = (props) => {
       <ScrollView horizontal={true}>
         <ScrollView>
           <Image
-            source={{
-              uri: fullHeight
-                ? imageInformation.highResImage
-                : imageInformation.image,
-            }}
+            source={{uri: fullHeight ? imageInformation.highResImage : imageInformation.image,}}
             style={{
-              height: fullHeight
-                ? RFValue(592)
-                : Dimensions.get("window").height > 1100
-                ? RFValue(285)
-                : RFValue(345),
+              height: getImageHeight(),
               width: RFValue(Dimensions.get("window").width),
               resizeMode: "cover",
               aspectRatio: 3 / 2,
@@ -108,14 +90,6 @@ const Pano = (props) => {
       </View>
 
       <View style={panoStyle.userActionWrapper}>
-        {/* <View style={panoStyle.zoomWrapper}>
-          <View style={panoStyle.zoomIn}>
-            <ZoomIn />
-          </View>
-          <View style={panoStyle.zoomOut}>
-            <ZoomOut />
-          </View>
-        </View> */}
         <View>
           <NorthArrow />
         </View>
