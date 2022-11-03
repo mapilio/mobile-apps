@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Dimensions, Image, View} from "react-native";
 import {sequenceDetailStyles} from "../styles/userSequenceStyle";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import MapboxGL from "@rnmapbox/maps";
 import {appMapStyle} from "../styles/appMapStyle";
 import {MapView} from "../highordercomponents";
 import {styles} from "../styles/circleStyles";

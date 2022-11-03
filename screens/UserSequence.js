@@ -16,7 +16,7 @@ import {
   UPDATE_SELECTED_IMAGES,
   UPLOAD_DATA,
 } from "../store/actionsName";
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import MapboxGL from "@rnmapbox/maps";
 import { appMapStyle } from "../styles/appMapStyle";
 import { Routes } from "../navigator/Routes";
 import { MapView } from "../highordercomponents";

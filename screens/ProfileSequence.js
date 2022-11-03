@@ -4,7 +4,7 @@ import ListProfileUploads from "../components/ListProfileUploads";
 import {userSequenceStyles} from "../styles/userSequenceStyle";
 import {CustomText, MapView} from "../highordercomponents";
 import {appMapStyle} from "../styles/appMapStyle";
-import MapboxGL from "@react-native-mapbox-gl/maps";
+import MapboxGL from "@rnmapbox/maps";
 import SwitchSelector from "react-native-switch-selector";
 import {RFValue} from "react-native-responsive-fontsize";
 import {fetchHandler} from "../helper/helper";
