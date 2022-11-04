@@ -39,7 +39,7 @@ const AutoActionButton = ({navigation}) => {
 	const dispatch = useDispatch();
 
 	const playHandler = () => {
-		if (!isAlert) {
+		if (autoCaptureStart || !isAlert) {
 			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: !autoCaptureStart})
 		}
 	};
@@ -79,20 +79,19 @@ const AutoActionButton = ({navigation}) => {
 	}, [navigation]);
 
 	useEffect(() => {
-		AppState.addEventListener("change", startNewSequence);
+		const listener = AppState.addEventListener("change", startNewSequence);
 
 		return () => {
-			AppState.removeEventListener("change", startNewSequence);
+			listener.remove()
 		}
 	}, []);
 
 	let startNewSequence = (nextAppState) => {
-		let timeout = null;
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
 				toastMessage.info("Your new sequence has been started.");
-				timeout = setTimeout(() => {
+				setTimeout(() => {
 					if (photoAmount >= 5) {
 						Database.query(
 							"SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
@@ -193,7 +192,7 @@ const AutoActionButton = ({navigation}) => {
 
 	return (
 		<TouchableOpacity
-			disabled={(!captureButtonStatus && isAlert)}
+			disabled={!captureButtonStatus}
 			style={cameraActionButtonStyles.container}
 			onPress={playHandler}
 		>
