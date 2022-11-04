@@ -45,11 +45,7 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
         </CustomText>
       </View>
       <View
-        style={[
-          userSequenceStyles.sequenceWrapper,
-          globalStyles.screenTextMargin,
-        ]}
-      >
+        style={[userSequenceStyles.sequenceWrapper, globalStyles.screenTextMargin]}>
         {sequenceImages.map((image) => (
           <UploadImageCard
             key={image.id}

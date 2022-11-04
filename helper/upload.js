@@ -4,7 +4,7 @@ import db from "../db";
 import * as FileSystem from "expo-file-system";
 import {dateConvert, fetchHandler} from "./helper";
 import Config from "react-native-config";
-import {fovCalculate} from "./fov";
+import {calculate} from "./calculator";
 import md5 from "md5";
 let controller = {};
 
@@ -149,7 +149,7 @@ export const imageryUpload = (index, pictures) => {
         const horizontal = exif.ImageWidth || exif.PixelXDimension;
         const vertical = exif.ImageLength || exif.PixelYDimension;
 
-        const fov = fovCalculate(
+        const fov = calculate.fov(
           horizontal > vertical ? horizontal : vertical,
           horizontal < vertical ? horizontal : vertical,
           exif.FocalLength,
@@ -162,21 +162,25 @@ export const imageryUpload = (index, pictures) => {
         }
 
         files.options.parameters.json_data.push({
-          Latitude: location.latitude,
-          Longitude: location.longitude,
-          Altitude: location.altitude,
-          Heading: location.heading,
-          CaptureTime: dateConvert((exif.DateTime || exif.DateTimeOriginal), 'YYYY-MM-D HH:mm'),
-          Orientation: exif.Orientation,
-          DeviceMake: exif.Make || exif.LensMake,
-          DeviceModel: exif.Model || exif.LensModel,
-          ImageSize: `${exif.ImageWidth || exif.PixelXDimension}x${
-            exif.ImageLength || exif.PixelYDimension
-          }`,
+          latitude: location.latitude,
+          longitude: location.longitude,
+          captureTime: dateConvert((exif.DateTime || exif.DateTimeOriginal), 'YYYY-MM-D HH:mm'),
+          altitude: location.altitude,
+          heading: location.heading,
+          orientation: exif.Orientation,
+          deviceMake: exif.Make || exif.LensMake,
+          deviceModel: exif.Model || exif.LensModel,
+          imageSize: `${exif.ImageWidth || exif.PixelXDimension}x${exif.ImageLength || exif.PixelYDimension}`,
+          fov: fov,
+          sequenceUuid: picture.sequence_uuid,
+          photoUuid: md5(userInformation.email + (exif.DateTime || exif.DateTimeOriginal)),
           filename: fileName,
-          SequenceUUID: picture.sequence_uuid,
-          FoV: fov,
-          PhotoUUID: md5(userInformation.email + (exif.DateTime || exif.DateTimeOriginal)),
+          roll: calculate.roll(exif.accelerometer),
+          yaw: calculate.yaw(exif.accelerometer),
+          pitch: calculate.pitch(exif.accelerometer),
+          speed: location.speed * 3.6,
+          gyroscope: exif.gyroscope,
+          acceleration: exif.accelerometer,
           anomaly: 0,
         });
 
