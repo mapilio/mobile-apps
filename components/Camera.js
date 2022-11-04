@@ -34,7 +34,7 @@ const Camera = ({navigation}) => {
         style={cameraStyles.camera}
         ref={cameraRef}
         onCameraReady={handleCameraReady}
-        autoFocus={"off"}
+        autoFocus={false}
         focusDepth={.85}
       >
         <RotationLine/>

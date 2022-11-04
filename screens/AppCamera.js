@@ -46,8 +46,9 @@ const AppCamera = ({ navigation, route }) => {
 
   useEffect(() => setNewUUID(), [selectedProject]);
 
-  useEffect(() => photoAmount >= 250 && setNewUUID(), [photoAmount]);
-
+  useEffect(() => {
+    if(photoAmount >= 250) {setNewUUID()}
+  }, [photoAmount]);
 
   const breakBrightness = () => {
     lowBrightness && Brightness.setSystemBrightnessAsync(0.7).then(() => setLowBrightness(false));
