@@ -14,6 +14,7 @@ import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {setNewUUID} from "../helper/camera";
 import {toastMessage} from "../helper/alerts";
+import {Accelerometer, Gyroscope} from "expo-sensors";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -34,6 +35,8 @@ const AutoActionButton = ({navigation}) => {
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
 	const [accuracyErrorCount, setAccuracyErrorCount] = useState(0);
+	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
+	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
@@ -69,20 +72,19 @@ const AutoActionButton = ({navigation}) => {
 
 
 	useEffect(() => {
-		navigation.addListener("blur", () => {
-			dispatch({ type: UPDATE_AUTOCAPTURE_START, payload: false });
-		});
-
-		return () => {
-			navigation.removeListener("blur");
-		};
+		navigation.addListener("blur", () => dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false}));
+		return () => navigation.removeListener("blur");
 	}, [navigation]);
 
 	useEffect(() => {
 		const listener = AppState.addEventListener("change", startNewSequence);
+		const accelerometer = Accelerometer.addListener(data => setAccelerometerData(data))
+		const gyroscope = Gyroscope.addListener(data => setGyroscopeData(data))
 
 		return () => {
-			listener.remove()
+			accelerometer.remove();
+			gyroscope.remove();
+			listener.remove();
 		}
 	}, []);
 
@@ -154,20 +156,20 @@ const AutoActionButton = ({navigation}) => {
 			}
 		}
 
-		const newPath = FileSystem.documentDirectory + `${id}/${currentUUID}/${Math.round(new Date().getTime() / 1000).toString()}.${"jpeg"}`;
+		const filename = Math.round(new Date().getTime() / 1000).toString();
+		const newPath = FileSystem.documentDirectory + `${id}/${currentUUID}/${filename}.${"jpeg"}`;
 
 		await FileSystem.copyAsync({from: imageUri, to: newPath});
 		image.uri = newPath;
-		const JSONExif = JSON.stringify(image.exif);
-		const JSONLocation = JSON.stringify(location);
 		Database.insertToDB({
-			JSONExif,
-			JSONLocation,
+			exif: JSON.stringify({...image.exif, accelerometer: accelerometerData, gyroscope: gyroscopeData}),
+			location: JSON.stringify(location),
 			projectKey: selectedProject.projectKey,
 			organizationName: selectedProject.projectName,
 			organizationKey: selectedProject.organizationKey,
 			uuid: currentUUID,
 			path: newPath,
+			filename,
 		});
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
@@ -186,7 +188,6 @@ const AutoActionButton = ({navigation}) => {
 				break;
 			default:
 				break;
-
 		}
 	}
 

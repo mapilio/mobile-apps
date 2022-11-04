@@ -21,7 +21,8 @@ class Database {
                                 sequence_uuid TEXT NOT NULL, 
                                 path TEXT NOT NULL, 
                                 hash TEXT DEFAULT NULL,
-                                uploaded BOOLEAN DEFAULT 0
+                                uploaded BOOLEAN DEFAULT 0,
+                                filename TEXT NOT NULL
                                 )`,
         []
       );
@@ -32,24 +33,16 @@ class Database {
     return db;
   }
 
-  insertToDB(values) {
+  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename}) {
     db.transaction((txn) => {
       txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [
-          values.JSONExif,
-          values.JSONLocation,
-          values.projectKey,
-          values.organizationName,
-          values.organizationKey,
-          values.uuid,
-          values.path,
-        ],
+        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename],
         () => null,
         (_, error) => {
           console.log(error);
           toastMessage.error("An error occurred while shooting, please try again.")
-          this.startDB(values.userID);
+          this.startDB(id);
         }
       );
     });

@@ -81,18 +81,6 @@ const UserSequenceDetail = ({ navigation, route }) => {
             height: maximize ? screenHeight : screenHeight / 2,
           }}
         />
-        {/* <View
-          style={[
-            sequenceDetailStyles.resizeButton,
-            maximize
-              ? sequenceDetailStyles.maximizeButton
-              : sequenceDetailStyles.minimizeButton,
-          ]}
-        >
-          <TouchableOpacity onPress={() => setMaximize(!maximize)}>
-            {maximize ? <Minimize /> : <Maximize />}
-          </TouchableOpacity>
-        </View> */}
       </ScrollView>
 
       <MapView
