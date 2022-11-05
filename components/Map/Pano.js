@@ -15,11 +15,11 @@ import SwitchMapPano from "../../assets/svg/illustrations/SwitchMapPano";
 import MinimizePano from "../../assets/svg/illustrations/MinimizePano";
 import Campus from "../../assets/svg/illustrations/Campus";
 import moment from "moment";
-import { Routes } from "../../navigator/Routes";
-import { fetchHandler } from "../../helper/helper";
-import { useSelector } from "react-redux";
-import { RFValue } from "react-native-responsive-fontsize";
-import { NorthArrow } from "../../assets/svg/illustrations";
+import {Routes} from "../../navigator/Routes";
+import {fetchHandler} from "../../helper/helper";
+import {useSelector} from "react-redux";
+import {RFValue} from "react-native-responsive-fontsize";
+import {NorthArrow} from "../../assets/svg/illustrations";
 import {toastMessage} from "../../helper/alerts";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -28,7 +28,16 @@ const Pano = (props) => {
   const {imageInformation, navigation} = props;
   const {auth} = useSelector((state) => state.getTokenReducer);
   const [fullHeight, setFullHeight] = useState(false);
-  const {top, bottom}  = useSafeAreaInsets();
+  const {top, bottom} = useSafeAreaInsets();
+  const {height} = Dimensions.get("screen")
+
+  const imageHeight = () => {
+    if (fullHeight) {
+      return height - RFValue(63 + bottom + top)
+    }
+
+    return (height - RFValue(63 + bottom + top)) / 2
+  }
 
   const reportImage = () => {
     if (auth) {
@@ -69,8 +78,8 @@ const Pano = (props) => {
           <Image
             source={{uri: imageInformation.highResImage}}
             style={{
-              height: Dimensions.get("window").height / 2 - RFValue(63) - bottom,
-              aspectRatio: 16/9
+              height: imageHeight(),
+              aspectRatio: 21/9,
             }}
           />
         </ScrollView>
