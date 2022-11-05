@@ -124,13 +124,13 @@ export const socialLoginStyles = StyleSheet.create({
     height: 50,
   },
   appleButton: {
-    backgroundColor: "#fff",
-    color: "#FFFFFF",
-    flex: 1,
+    color: "#657488",
     padding: 10,
     borderRadius: 20,
     marginRight: 6,
     justifyContent: "center",
+    width: 50,
+    height: 50,
   },
   facebookButton: {
     backgroundColor: "#fff",

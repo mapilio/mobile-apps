@@ -9,20 +9,17 @@ import { fetchHandler } from "../../helper/helper";
 import OneSignal from "react-native-onesignal";
 import { toastMessage } from "../../helper/alerts";
 import Config from "react-native-config";
+import {socialLoginStyles} from "../../styles/loginStyles";
 
 const AppleLogin = ({ navigation }) => {
-  const [available, setAvailable] = useState(false);
   const dispatch = useDispatch();
+  const [available, setAvailable] = useState(false);
 
   useEffect(() => {
-    const isAvailable = async () => {
-      const status = await AppleAuthentication.isAvailableAsync();
-      setAvailable(status);
-    };
-    isAvailable();
+    AppleAuthentication.isAvailableAsync().then(status => setAvailable(status))
   }, []);
 
-  const signInToApple = async (credential, stateKey) => {
+  const signInToApple = (credential, stateKey) => {
     if (credential.email) {
       fetchHandler({
         url: `${Config.SERVICE_URL}/oauth-api/callback`,
@@ -33,35 +30,45 @@ const AppleLogin = ({ navigation }) => {
           state: stateKey,
           token: credential.user,
         },
-      })
-        .then((res) => {
-          dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
-          dispatch(getUserInformation(res));
-          Database.startDB(res.id);
-          OneSignal.setExternalUserId(res.id.toLocaleString(), () => {});
-          navigation.navigate(Routes.tabHome);
-        })
-        .catch((err) => console.error(err));
+      }).then((res) => {
+        dispatch({type: GET_TOKEN_SUCCESS, payload: res});
+        dispatch(getUserInformation(res));
+        Database.startDB(res.id);
+        OneSignal.setExternalUserId(res.id.toLocaleString(), () => null);
+        navigation.navigate(Routes.tabHome);
+      }).catch((err) => console.error(err));
       toastMessage.success(`Login Success ${credential.fullName.familyName}`);
     } else {
-      let params = {
-        token: credential.user,
-        state: stateKey,
-      };
-      fetchHandler({
-        url: `${Config.SERVICE_URL}/oauth-api/w-token`,
-        params: params,
-      })
-        .then((res) => {
-          dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
+      let params = {token: credential.user, state: stateKey};
+
+      fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/w-token`, params: params}).then((res) => {
+        if (res.status) {
+          dispatch({type: GET_TOKEN_SUCCESS, payload: res});
           dispatch(getUserInformation(res));
           Database.startDB(res.id);
-          OneSignal.setExternalUserId(res.id, () => {});
+          OneSignal.setExternalUserId(res.id, () => null);
           navigation.navigate(Routes.tabHome);
-        })
-        .catch((err) => console.error(err));
+        } else {
+          toastMessage.error(res.message)
+        }
+      }).catch((err) => console.error(err));
     }
   };
+
+  const loginHandler = () => {
+    const options = {
+      requestedScopes: [
+        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+        AppleAuthentication.AppleAuthenticationScope.EMAIL,
+      ]
+    }
+
+    AppleAuthentication.signInAsync(options).then((credential) => {
+      fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` }).then(({data}) => {
+        signInToApple(credential, data.state)
+      }).catch(err => toastMessage.error(`${err}`));
+    })
+  }
 
   if (available) {
     return (
@@ -69,28 +76,8 @@ const AppleLogin = ({ navigation }) => {
         buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
         buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
         cornerRadius={1000}
-        style={{
-          color: "#657488",
-          padding: 10,
-          borderRadius: 20,
-          marginRight: 6,
-          justifyContent: "center",
-          width: 50,
-          height: 50,
-        }}
-        onPress={async () => {
-          const credential = await AppleAuthentication.signInAsync({
-            requestedScopes: [
-              AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-              AppleAuthentication.AppleAuthenticationScope.EMAIL,
-            ],
-          });
-          fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` })
-            .then((response) => {
-              signInToApple(credential, response.data.state);
-            })
-            .catch((err) => console.error(err));
-        }}
+        style={socialLoginStyles.appleButton}
+        onPress={loginHandler}
       />
     );
   } else {
