@@ -17,7 +17,7 @@ const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [stateKey, setStateKey] = useState("");
-  const [response, promptAsync] = Google.useAuthRequest({
+  const [_request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: Config.GOOGLE_IOS_CLIENT_ID,
     androidClientId: Config.GOOGLE_ANDROID_CLIENT_ID,
     expoClientId: Config.GOOGLE_ANDROID_CLIENT_ID,
