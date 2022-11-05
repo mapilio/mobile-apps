@@ -5,8 +5,6 @@ import * as Google from "expo-auth-session/providers/google";
 import { fetchHandler } from "../../helper/helper";
 import { Routes } from "../../navigator/Routes";
 import { socialLoginStyles } from "../../styles/loginStyles";
-
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
@@ -19,7 +17,7 @@ const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [stateKey, setStateKey] = useState("");
-  const [request, response, promptAsync] = Google.useAuthRequest({
+  const [response, promptAsync] = Google.useAuthRequest({
     iosClientId: Config.GOOGLE_IOS_CLIENT_ID,
     androidClientId: Config.GOOGLE_ANDROID_CLIENT_ID,
     expoClientId: Config.GOOGLE_ANDROID_CLIENT_ID,
@@ -36,47 +34,37 @@ const GoogleLogin = ({ navigation }) => {
     return () => unsubscribe();
   }, [navigation]);
 
-  const login = async () => {
+  const handleLogin = async () => {
+    setLoading(true);
     await promptAsync();
   };
 
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      axios.get(Config.GOOGLE_REQUEST_URL + authentication.accessToken).then((res) => {
-        loginToMapilio(res.data);
-      });
+      fetchHandler({url: Config.GOOGLE_REQUEST_URL + authentication.accessToken}).then(data => {
+        loginToMapilio(data);
+      })
     } else {
       setLoading(false);
     }
   }, [response]);
 
   const loginToMapilio = (response) => {
-    fetchHandler({
-      url: `${Config.SERVICE_URL}/oauth-api/callback`,
-      method: "POST",
-      data: {
-        email: response.email,
-        name: response.name,
-        state: stateKey,
-      },
-    })
-      .then((res) => {
-        if (res.id) {
-          OneSignal.setExternalUserId(res.id.toLocaleString(), () => {});
-          dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
-          dispatch(getUserInformation(res));
-          Database.startDB(res.id);
-          toastMessage.success(`Login Success ${response.name}`);
-          navigation.reset({ index: 0, routes: [{ name: Routes.tabHome }] });
-        } else {
-          toastMessage.warning(
-            "There was a problem registering. Please try a different method."
-          );
-          setLoading(false);
-        }
-      })
-      .catch((err) => console.error(err));
+    const data = {email: response.email, name: response.name, state: stateKey}
+    fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/callback`, method: "POST", data: data,}).then((res) => {
+      if (res.id) {
+        OneSignal.setExternalUserId(res.id.toLocaleString(), () => null);
+        dispatch({type: GET_TOKEN_SUCCESS, payload: res});
+        dispatch(getUserInformation(res));
+        Database.startDB(res.id);
+        toastMessage.success(`Login Success ${response.name}`);
+        navigation.reset({index: 0, routes: [{name: Routes.tabHome}]});
+      } else {
+        toastMessage.warning("There was a problem registering. Please try a different method.");
+        setLoading(false);
+      }
+    }).catch((err) => console.error(err));
   };
 
   return (
@@ -86,16 +74,7 @@ const GoogleLogin = ({ navigation }) => {
           <ActivityIndicator size="small" color="#000" />
         </View>
       ) : (
-        <TouchableOpacity
-          onPress={() => {
-            setLoading(true);
-            login();
-          }}
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <TouchableOpacity onPress={handleLogin} style={{justifyContent: "center", alignItems: "center"}}>
           <View>
             <GoogleLogo />
           </View>
