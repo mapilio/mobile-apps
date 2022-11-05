@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, TouchableOpacity, Alert } from "react-native";
+import {ScrollView, View, TouchableOpacity, Alert, Dimensions} from "react-native";
 import Map from "../assets/svg/illustrations/Map";
 import { ImageUpload } from "../components/Uploads";
 import { userSequenceStyles } from "../styles/userSequenceStyle";
@@ -22,6 +22,7 @@ import { Routes } from "../navigator/Routes";
 import { MapView } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import {setGeoJson} from "../helper/geojson";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const UserSequence = ({ navigation }) => {
   const [coordinates, setCoordinates] = useState({});
@@ -34,6 +35,7 @@ const UserSequence = ({ navigation }) => {
   const {activeSequence, switchSelector} = useSelector((state) => state.uploadReducer);
   const {selectedImages} = useSelector((state) => state.imagesReducer);
   const dispatch = useDispatch();
+  const {bottom} = useSafeAreaInsets();
 
   const options = [
     { label: "Image", value: "image", imageIcon: icons.image },
@@ -41,9 +43,7 @@ const UserSequence = ({ navigation }) => {
   ];
 
   useEffect(() => {
-    navigation.addListener("blur", () => {
-      dispatch({ type: SWITCH_SELECTOR, payload: "image" });
-    });
+    navigation.addListener("blur", () => dispatch({type: SWITCH_SELECTOR, payload: "image"}));
   }, [navigation]);
 
   const deletedImages = () => {
@@ -154,7 +154,7 @@ const UserSequence = ({ navigation }) => {
           <ImageUpload navigation={navigation} sequence_uuid={activeSequence} />
         ) : (
           <MapView
-            mapStyle={appMapStyle.map}
+            mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}
             attributionPosition={{ bottom: 26, right: 8 }}
           >
             <MapboxGL.Camera

@@ -65,7 +65,7 @@ const MarketplaceMap = ({centeredPoints, navigation}) => {
 
   return (
     <MapView
-      mapStyle={appMapStyle.map}
+      mapStyle={{...appMapStyle.map, flex: 1}}
       attributionStyle={{bottom: 41, right: 28}}
     >
       <MapboxGL.Camera centerCoordinate={marketplaceCenter} zoomLevel={zoomLevel}/>
