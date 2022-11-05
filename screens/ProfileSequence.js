@@ -13,6 +13,7 @@ import {Routes} from "../navigator/Routes";
 import {ActivityIndicator} from "react-native-paper";
 import {setGeoJson} from "../helper/geojson";
 import Config from "react-native-config";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const UserSequence = ({ navigation, route }) => {
   const [active, setActive] = useState("image");
@@ -23,9 +24,9 @@ const UserSequence = ({ navigation, route }) => {
   const [imageList, setImagesList] = useState([]);
   const [mapList, setMapList] = useState([]);
   const [paginationLoading, setPaginationLoading] = useState(false);
-  const [paginationURL, setPaginationURL] = useState(
-    `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
-  );
+  const [paginationURL, setPaginationURL] = useState(`/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`);
+  const {bottom}  = useSafeAreaInsets();
+
 
   const [center, setCenter] = useState([]);
   const icons = {
@@ -202,7 +203,7 @@ const UserSequence = ({ navigation, route }) => {
           </View>
         ) : (
           <MapView
-            mapStyle={appMapStyle.map}
+            mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}
             attributionPosition={{ bottom: 26, right: 8 }}
           >
             <MapboxGL.Camera
