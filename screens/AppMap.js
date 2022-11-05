@@ -106,7 +106,7 @@ const AppMap = ({ navigation }) => {
 
   const touchPoint = (e) => {
     const pointFeatures = e.features[0].properties;
-    setClickedCoord(pointFeatures.coordinates);
+    setClickedCoord(e.features[0].geometry.coordinates);
     setImageInformations({
       sequenceID: pointFeatures.SEQUENCE_UUID,
       date: pointFeatures.created_at,
@@ -124,7 +124,7 @@ const AppMap = ({ navigation }) => {
     setCenterCoordinate([e.coordinates.longitude, e.coordinates.latitude]);
   }
 
-  const willHide = async (e) => {
+  const willHide = async () => {
     const zoom = await mapRef.current.getZoom();
     setCurrentZoom(Math.round(zoom));
     if (Math.round(zoom) < 10) {
