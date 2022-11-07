@@ -8,7 +8,8 @@ const MapView = ({
   attributionStyle,
   regionChange,
   mapStyle,
-  onPress
+  onPress,
+  ...props
 }) => (
   <MapboxGL.MapView
     styleURL={MapboxGL.StyleURL.Light}
@@ -22,6 +23,7 @@ const MapView = ({
     logoPosition={{ bottom: 20, left: 25 }}
     rotateEnabled={false}
     onPress={onPress}
+    {...props}
   >
     {children}
   </MapboxGL.MapView>

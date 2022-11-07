@@ -39,14 +39,10 @@ const SearchbarSwipe = ({
     setLoading(true);
 
     if (valueAPI.length !== 0) {
-      fetchHandler({
-        url: `${Config.SEARCH_API}${valueAPI}`,
-      })
-        .then((res) => {
-          setLocations(res.features);
-          setLoading(false);
-        })
-        .catch(() => toastMessage.error("An error occurred while find locations, please try again."));
+      fetchHandler({url: `${Config.SEARCH_API}${valueAPI}`}).then((res) => {
+        setLocations(res.features);
+        setLoading(false);
+      }).catch(() => toastMessage.error("An error occurred while find locations, please try again."));
     } else {
       setLoading(false);
       setLocations([]);
@@ -66,10 +62,7 @@ const SearchbarSwipe = ({
     <View
       style={[{ ...marketplaceStyles.container, paddingBottom: RFValue(200) }]}
     >
-      <View
-        style={marketplaceStyles.panelHeader}
-        onTouchStart={() => setOnScroll(false)}
-      >
+      <View style={marketplaceStyles.panelHeader} onTouchStart={() => setOnScroll(false)}>
         <SwipeLine />
       </View>
       <View>
@@ -77,11 +70,7 @@ const SearchbarSwipe = ({
           placeholder={"Search for street, city, country..."}
           placeholderTextColor={convertHexToRGBA("#FFFFFF", 70)}
           value={value}
-          onPressOut={() => {
-            if (Platform.OS === "android") {
-              panelRef?.current?.show(500);
-            }
-          }}
+          onPressOut={() => Platform.OS === "android" && panelRef?.current?.show(500)}
           onChangeText={(value) => {
             setInputValue(value);
             setLoading(true);
