@@ -1,10 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import { CustomText, CustomTextBold } from "../highordercomponents";
 import { Routes } from "../navigator/Routes";
 import { userFeedStyles } from "../styles/userProfileStyle";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { RFValue } from "react-native-responsive-fontsize";
 import {useDispatch, useSelector} from "react-redux";
 import { ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES } from "../store/actionsName";
 import { dateConvert } from "../helper/helper";
@@ -12,16 +10,9 @@ import * as FileSystem from "expo-file-system";
 
 const UserFeed = ({ navigation, data }) => {
   const {userInformation} = useSelector((state) => state.getTokenReducer);
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  return loading ? (
-    <SkeletonPlaceholder>
-      <View
-        style={{ width: "100%", height: RFValue(95), marginBottom: RFValue(5) }}
-      />
-    </SkeletonPlaceholder>
-  ) : (
+  return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={userFeedStyles.feedContainer}
@@ -45,9 +36,7 @@ const UserFeed = ({ navigation, data }) => {
       <View>
         <Image
           style={userFeedStyles.imageStyle}
-          source={{
-            uri: `${FileSystem.documentDirectory + `${userInformation.id}/${data.sequence_uuid}/${data.path.split("/").pop()}`}`,
-          }}
+          source={{uri: `${FileSystem.documentDirectory + `${userInformation?.id}/${data.sequence_uuid}/${data.path.split("/").pop()}`}`}}
         />
       </View>
     </TouchableOpacity>
