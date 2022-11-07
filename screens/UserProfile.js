@@ -24,22 +24,24 @@ const UserProfile = ({navigation}) => {
   const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
-    const initialOrganization = {
-      organization_name: userInformation?.display_name,
-      organization_username: userInformation?.username,
-      id: userInformation?.id,
-      type: "individual",
-    };
+    if (!!userInformation.id) {
+      const initialOrganization = {
+        organization_name: userInformation?.display_name,
+        organization_username: userInformation?.username,
+        id: userInformation?.id,
+        type: "individual",
+      };
 
-    fetchHandler({url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`}).then(({data}) => {
-      setSelectedOrganization(initialOrganization)
-      setOrganizations([initialOrganization, ...data])
-    }).then(() => getData()).finally(() => setLoading(false))
-  }, []);
+      fetchHandler({url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`}).then(({data}) => {
+        setSelectedOrganization(initialOrganization)
+        setOrganizations([initialOrganization, ...data])
+      }).then(() => getData()).finally(() => setLoading(false))
+    }
+  }, [userInformation]);
 
   const getData = () => {
     const url = selectedOrganization.type
-      ? `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
+      ? `/api/user-uploads?options[parameters][user_id]=${userInformation.id}&options[limit]=10&page=${page}`
       : `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedOrganization.organization_key}&options[limit]=10&page=${page}`
 
     if (page <= totalPage && !gettingData) {

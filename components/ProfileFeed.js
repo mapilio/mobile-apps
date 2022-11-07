@@ -39,9 +39,7 @@ const ProfileFeed = ({
       <View>
         <Image
           style={userFeedStyles.imageStyle}
-          source={{
-            uri: `${Config.IMAGE_API}/${data.img_code}/${data.cover_photo}/480`,
-          }}
+          source={{uri: `${Config.IMAGE_API}/${data.img_code}/${data.cover_photo}/480`}}
         />
       </View>
     </TouchableOpacity>
