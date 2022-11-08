@@ -33,7 +33,7 @@ const MainNavigator = () => {
   const [internetConnection, setInternetConnection] = useState(true);
 
   useEffect(() => {
-    const unsubcribe = NetInfo.addEventListener((state) => {
+    const removeListener = NetInfo.addEventListener((state) => {
       dispatch({
         type: UPDATE_CONNECTION_STATUS,
         payload: {
@@ -43,7 +43,7 @@ const MainNavigator = () => {
       });
       setInternetConnection(state.isConnected);
     });
-    return unsubcribe;
+    return () => removeListener();
   }, []);
 
   const noInternetHandler = (navigation, routeName) => {
@@ -136,6 +136,7 @@ const MainNavigator = () => {
           name={Routes.cameraSettings}
           options={{
             headerShown: false,
+            gestureEnabled: false,
           }}
         />
         <Stack.Screen
@@ -145,6 +146,7 @@ const MainNavigator = () => {
             headerLeft: (props) => <GeneralSettingsNavigatorLeft {...props} />,
             headerStyle: navigatorStyle.headerSettingsStyle,
             title: null,
+            gestureEnabled: false,
           }}
         />
         <Stack.Screen
