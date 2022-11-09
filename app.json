@@ -3,7 +3,7 @@
     "name": "Mapilio",
     "slug": "mapilio",
     "scheme": "mapilio",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/playstore.png",
     "userInterfaceStyle": "light",
@@ -23,7 +23,8 @@
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true,
-      "bundleIdentifier": "com.mapilio.main"
+      "bundleIdentifier": "com.mapilio.main",
+      "buildNumber": "6"
     },
     "android": {
       "permissions": [
@@ -53,7 +54,7 @@
         "xxxhdpi": "./assets/splash/mapilio_splash_x4.png"
       },
       "package": "com.mapilio.app",
-      "versionCode": 4
+      "versionCode": 5
     },
     "web": {
       "favicon": "./assets/favicon.png"

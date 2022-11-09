@@ -1,5 +1,3 @@
-import org.apache.tools.ant.taskdefs.condition.Os
-
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
@@ -26,7 +24,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath('com.android.tools.build:gradle:7.1.1')
+        classpath('com.android.tools.build:gradle:7.2.1')
         classpath('com.facebook.react:react-native-gradle-plugin')
         classpath('de.undercouch:gradle-download-task:5.0.1')
         // NOTE: Do not place your application dependencies here; they belong
@@ -34,18 +32,28 @@ buildscript {
     }
 }
 
+def REACT_NATIVE_VERSION = new File(['node', '--print', "JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
+
 allprojects {
-    repositories {
-// @generated begin @rnmapbox/maps-v2-maven - expo prebuild (DO NOT MODIFY) sync-cb5ce5d6dd5aff6f68a082fbcf1a84c114ee0ce9
-maven {
-      url 'https://api.mapbox.com/downloads/v2/releases/maven'
-      authentication { basic(BasicAuthentication) }
-      credentials {
-        username = 'mapbox'
-        password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
-      }
-    }
+// @generated begin @rnmapbox/maps-v2-maven - expo prebuild (DO NOT MODIFY) sync-43175c12a833aaeb1073f48b8ddb3719ac9ceb1e
+repositories {
+    maven {
+  url 'https://api.mapbox.com/downloads/v2/releases/maven'
+  authentication { basic(BasicAuthentication) }
+  credentials {
+    username = 'mapbox'
+    password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+  }
+}
+}
 // @generated end @rnmapbox/maps-v2-maven
+    configurations.all {
+        resolutionStrategy {
+            force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION
+        }
+    }
+
+    repositories {
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
