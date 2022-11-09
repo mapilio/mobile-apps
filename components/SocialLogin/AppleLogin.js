@@ -6,7 +6,6 @@ import { getUserInformation } from "../../store/reducers/loginReducer/getUserInf
 import Database from "../../db";
 import { Routes } from "../../navigator/Routes";
 import { fetchHandler } from "../../helper/helper";
-import OneSignal from "react-native-onesignal";
 import { toastMessage } from "../../helper/alerts";
 import Config from "react-native-config";
 import {socialLoginStyles} from "../../styles/loginStyles";
@@ -34,24 +33,18 @@ const AppleLogin = ({ navigation }) => {
         dispatch({type: GET_TOKEN_SUCCESS, payload: res});
         dispatch(getUserInformation(res));
         Database.startDB(res.id);
-        OneSignal.setExternalUserId(res.id.toLocaleString(), () => null);
         navigation.navigate(Routes.tabHome);
-      }).catch((err) => console.error(err));
+      }).catch((err) => toastMessage.error(`${err}`));
       toastMessage.success(`Login Success ${credential.fullName.familyName}`);
     } else {
       let params = {token: credential.user, state: stateKey};
 
       fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/w-token`, params: params}).then((res) => {
-        if (res.status) {
-          dispatch({type: GET_TOKEN_SUCCESS, payload: res});
-          dispatch(getUserInformation(res));
-          Database.startDB(res.id);
-          OneSignal.setExternalUserId(res.id, () => null);
-          navigation.navigate(Routes.tabHome);
-        } else {
-          toastMessage.error(res.message)
-        }
-      }).catch((err) => console.error(err));
+        dispatch({type: GET_TOKEN_SUCCESS, payload: res});
+        dispatch(getUserInformation(res));
+        Database.startDB(res.id);
+        navigation.navigate(Routes.tabHome);
+      }).catch(({response}) => toastMessage.error(response.data.message));
     }
   };
 

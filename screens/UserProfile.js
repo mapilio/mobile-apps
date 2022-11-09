@@ -24,7 +24,7 @@ const UserProfile = ({navigation}) => {
   const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
-    if (!!userInformation.id) {
+    if (!!userInformation?.id) {
       const initialOrganization = {
         organization_name: userInformation?.display_name,
         organization_username: userInformation?.username,
