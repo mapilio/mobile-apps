@@ -9,7 +9,6 @@ import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import Database from "../../db";
-import OneSignal from "react-native-onesignal";
 import { toastMessage } from "../../helper/alerts";
 import Config from "react-native-config";
 
@@ -47,7 +46,6 @@ const FacebookLogin = ({ navigation }) => {
               dispatch({type: GET_TOKEN_SUCCESS, payload: res});
               dispatch(getUserInformation(res));
               Database.startDB(res.id);
-              OneSignal.setExternalUserId(res.id.toLocaleString(), () => null);
               navigation.navigate(Routes.tabHome);
               toastMessage.success(`Login Success ${(json).name}`);
             }).catch((err) => console.error(err));

@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import Database from "../../db";
-import OneSignal from "react-native-onesignal";
 import { toastMessage } from "../../helper/alerts";
 import Config from "react-native-config";
 
