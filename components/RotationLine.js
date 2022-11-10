@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Platform, View } from "react-native";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {Platform, View} from "react-native";
+import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_ACCURACY, UPDATE_ROTATE_STATUS} from "../store/actionsName";
 import {Accelerometer} from "expo-sensors";
 import {degreeCalculate} from "../helper/camera";
@@ -34,16 +33,10 @@ const RotationLine = () => {
 
   useEffect(() => {
     if (Boolean(accuracy) !== Boolean(rotateStatus)) {
-      dispatch({
-        type: UPDATE_ACCURACY,
-        payload: { isTrue: !Boolean(rotateStatus), degree: degree },
-      });
+      dispatch({type: UPDATE_ACCURACY, payload: {isTrue: !Boolean(rotateStatus), degree: degree}});
     } else {
       if (accuracy.isTrue) {
-        dispatch({
-          type: UPDATE_ACCURACY,
-          payload: { isTrue: !Boolean(rotateStatus), degree: degree },
-        });
+        dispatch({type: UPDATE_ACCURACY, payload: {isTrue: !Boolean(rotateStatus), degree: degree}});
       }
     }
   }, [rotateStatus]);
@@ -53,10 +46,12 @@ const RotationLine = () => {
     const betweenHighNegativeLandscape = between(lineDegree, -190, -160);
     const betweenNegativeLandscape = between(lineDegree, -25, 25);
 
-    dispatch({
-      type: UPDATE_ROTATE_STATUS,
-      payload: !betweenNegativeLandscape && !betweenPositiveLandscape && !betweenHighNegativeLandscape
-    })
+    const status = !betweenNegativeLandscape && !betweenPositiveLandscape && !betweenHighNegativeLandscape
+
+    setTimeout(() => {
+      dispatch({type: UPDATE_ROTATE_STATUS, payload: status})
+    }, 500)
+
   }, [lineDegree]);
 
   return (
