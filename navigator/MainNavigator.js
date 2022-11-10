@@ -154,6 +154,7 @@ const MainNavigator = () => {
           name={Routes.walkthrough}
           options={{
             headerShown: false,
+            gestureEnabled: false,
           }}
         />
       </Stack.Group>

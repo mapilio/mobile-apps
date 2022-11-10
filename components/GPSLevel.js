@@ -10,20 +10,31 @@ const GPSLevel = () => {
 
   return (
     <View style={styles.wrapper}>
-      {GPSAccuracy ? <GoodGPS/> : <BadGPS/>}
-      <CustomTextMedium style={styles.statusText}>
-        {GPSAccuracy ? 'Good GPS' : 'Bad GPS'}
-      </CustomTextMedium>
+      <View style={styles.gpsInfo}>
+        {GPSAccuracy ? <GoodGPS/> : <BadGPS/>}
+        <CustomTextMedium style={styles.statusText}>
+          {GPSAccuracy ? 'Good GPS' : 'Bad GPS'}
+        </CustomTextMedium>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: RFValue(-40),
-    marginLeft: RFValue(-19),
+    borderColor: "#FFF",
+    borderRightWidth: 1.2,
+    borderBottomWidth: 1.2,
+    position: "relative",
+    height: RFValue(55),
+    width: RFValue(105)
+  },
+  gpsInfo: {
     flexDirection: "row",
     alignItems: "center",
+    position: "absolute",
+    bottom: RFValue(10),
+    right: RFValue(10),
   },
   statusText: {
     color: "#FFFFFF",
