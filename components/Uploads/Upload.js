@@ -39,6 +39,8 @@ const Upload = ({sequence_uuid, navigation}) => {
         setTotalImageCount(data.count)
         getSequences(data.sequences)
       }
+    }).catch(() => {
+      setModalVisible(false)
     }).finally(() => {
       deactivateKeepAwake('upload');
       setStatus('Calculating... 🧮');
