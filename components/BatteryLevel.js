@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import {Platform, View} from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { convertHexToRGBA } from "../helper/helper";
-import { CustomText } from "../highordercomponents";
+import React, {useEffect} from "react";
+import {Platform, StyleSheet, View} from "react-native";
+import {RFValue} from "react-native-responsive-fontsize";
+import {convertHexToRGBA} from "../helper/helper";
+import {CustomText} from "../highordercomponents";
 import * as Battery from "expo-battery";
 import {UPDATE_BATTERY_LEVEL, UPDATE_BATTERY_STATUS, UPDATE_CHARGE_STATUS} from "../store/actionsName";
 import {useDispatch, useSelector} from "react-redux";
@@ -41,58 +41,49 @@ const BatteryLevel = () => {
   };
 
   return (
-    <View
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        marginTop: RFValue(17),
-        marginLeft: RFValue(18),
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
-      <CustomText
-        style={{
-          color: "#FFFFFF",
-          fontSize: RFValue(12),
-          marginRight: RFValue(8),
-          marginBottom: RFValue(-3),
-        }}
-      >
-        {batteryLevel}%
-      </CustomText>
-      <View
-        style={{
-          maxWidth: RFValue(48),
-          width: RFValue(24),
-          height: RFValue(10),
-          borderWidth: RFValue(1),
-          borderColor: convertHexToRGBA("#FFFFFF", 40),
-          borderRadius: 2,
-          position: "relative",
-          cursor: "pointer",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            width: RFValue(20),
-            background: "rgb(236, 39, 72)",
-          }}
-        >
-          <View
-            style={{
-              width: `${batteryLevel}%`,
-              backgroundColor: "#FFFFFF",
-              height: RFValue(6),
-            }}
-          ></View>
+    <View style={styles.wrapper}>
+      <View style={styles.batteryInfo}>
+        <CustomText style={{color: "#FFFFFF", fontSize: RFValue(12)}}>
+          {batteryLevel}%
+        </CustomText>
+        <View style={styles.batteryIcon}>
+          <View style={{width: RFValue(20)}}>
+            <View style={{width: `${batteryLevel}%`, backgroundColor: "#FFFFFF", height: RFValue(6)}}/>
+          </View>
         </View>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    position: "relative",
+    borderLeftWidth: 1.2,
+    borderTopWidth: 1.2,
+    borderColor: '#FFF',
+    height: RFValue(55),
+    width: RFValue(105)
+  },
+  batteryInfo: {
+    flexDirection: "row",
+    alignItems:"center",
+    position: "absolute",
+    top: RFValue(10),
+    left: RFValue(10)
+  },
+  batteryIcon: {
+    maxWidth: RFValue(48),
+    width: RFValue(24),
+    height: RFValue(10),
+    borderWidth: RFValue(1),
+    borderColor: convertHexToRGBA("#FFFFFF", 40),
+    borderRadius: 2,
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: RFValue(5)
+  }
+})
 
 export default BatteryLevel;

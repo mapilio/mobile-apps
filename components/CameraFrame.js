@@ -1,16 +1,7 @@
-import React, { useEffect } from "react";
-import { Dimensions, View } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { useSelector } from "react-redux";
-import {
-  CameraCenter,
-  FrameLeftBottom,
-  FrameLeftTop,
-  FrameRightBottom,
-  FrameRightTop,
-  GoodGPS,
-} from "../assets/svg/illustrations";
-import { Routes } from "../navigator/Routes";
+import React from "react";
+import {StyleSheet, View} from "react-native";
+import {RFValue} from "react-native-responsive-fontsize";
+import {CameraCenter} from "../assets/svg/illustrations";
 import BatteryLevel from "./BatteryLevel";
 import GPSLevel from "./GPSLevel";
 import PhotoAmounts from "./PhotoAmounts";
@@ -18,34 +9,53 @@ import RecordStatus from "./RecordStatus";
 
 const CameraFrame = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        marginVertical: RFValue(25),
-        marginHorizontal: RFValue(20),
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <View style={styles.wrapper}>
       <CameraCenter />
-      <View style={{ position: "absolute", top: 0, left: 0 }}>
-        <FrameLeftTop />
+      <View style={styles.battery}>
         <BatteryLevel />
       </View>
-      <View style={{ position: "absolute", top: 0, right: 0 }}>
-        <FrameRightTop />
+      <View style={styles.record}>
         <RecordStatus />
       </View>
-      <View style={{ position: "absolute", bottom: 0, left: 0 }}>
+      <View style={styles.amount}>
         <PhotoAmounts />
-        <FrameLeftBottom />
       </View>
-      <View style={{ position: "absolute", bottom: 0, right: 0 }}>
+      <View style={styles.gps}>
         <GPSLevel />
-        <FrameRightBottom />
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    position: "relative",
+    flex: 1,
+    marginVertical: RFValue(25),
+    marginHorizontal: RFValue(20),
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  battery: {
+    position: "absolute",
+    top: 0,
+    left: 0
+  },
+  record: {
+    position: "absolute",
+    top: 0,
+    right: 0
+  },
+  amount: {
+    position: "absolute",
+    bottom: 0,
+    left: 0
+  },
+  gps: {
+    position: "absolute",
+    bottom: 0,
+    right: 0
+  }
+})
 
 export default CameraFrame;
