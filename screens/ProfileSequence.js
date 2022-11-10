@@ -118,6 +118,13 @@ const UserSequence = ({ navigation, route }) => {
     }
   }, [active, imageList]);
 
+  const scrollHandler = ({ nativeEvent }) => {
+    if (isCloseToBottom(nativeEvent) && paginationURL && active === "image") {
+      setPaginationLoading(true);
+      fetchNext();
+    }
+  }
+
   const isCloseToBottom = ({
     layoutMeasurement,
     contentOffset,
@@ -131,20 +138,8 @@ const UserSequence = ({ navigation, route }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView
-        onScroll={({ nativeEvent }) => {
-          if (
-            isCloseToBottom(nativeEvent) &&
-            paginationURL &&
-            active === "image"
-          ) {
-            setPaginationLoading(true);
-            fetchNext();
-          }
-        }}
-        scrollEventThrottle={400}
-      >
+    <View style={{ flex: 1, height: Dimensions.get("screen").height }}>
+      <ScrollView onScroll={scrollHandler} scrollEventThrottle={400} scrollEnabled={active === "image"}>
         <View style={userSequenceStyles.tabBar}>
           <SwitchSelector
             initial={0}
@@ -202,16 +197,8 @@ const UserSequence = ({ navigation, route }) => {
             </CustomText>
           </View>
         ) : (
-          <MapView
-            mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}
-            attributionPosition={{ bottom: 26, right: 8 }}
-          >
-            <MapboxGL.Camera
-              centerCoordinate={
-                center.length !== 0 && [center[0] + 0.0009, center[1]]
-              }
-              zoomLevel={16}
-            />
+          <MapView mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}>
+            <MapboxGL.Camera centerCoordinate={center.length !== 0 && [center[0] + 0.0009, center[1]]} zoomLevel={16}/>
             {!!Object.keys(points).length && (
               <MapboxGL.ShapeSource
                 id={"pointsProfileShape"}

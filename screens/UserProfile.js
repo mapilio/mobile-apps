@@ -41,7 +41,7 @@ const UserProfile = ({navigation}) => {
 
   const getData = () => {
     const url = selectedOrganization.type
-      ? `/api/user-uploads?options[parameters][user_id]=${userInformation.id}&options[limit]=10&page=${page}`
+      ? `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
       : `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedOrganization.organization_key}&options[limit]=10&page=${page}`
 
     if (page <= totalPage && !gettingData) {
