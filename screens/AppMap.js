@@ -1,7 +1,7 @@
 import React, {memo, useEffect, useRef, useState} from "react";
 import {Dimensions, TouchableOpacity, View, Platform, Pressable, Keyboard} from "react-native";
 import {appMapStyle} from "../styles/appMapStyle";
-import MapboxGL, {Logger, Camera} from "@rnmapbox/maps";
+import MapboxGL, {Camera} from "@rnmapbox/maps";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
@@ -40,12 +40,12 @@ const AppMap = ({ navigation }) => {
   const {bottom} = useSafeAreaInsets();
 
   useEffect(() => {
-    Keyboard.addListener("keyboardDidShow", () => setKeyboardVisible(true));
-    Keyboard.addListener("keyboardDidHide", () => setKeyboardVisible(false));
+    const didShow = Keyboard.addListener("keyboardDidShow", () => setKeyboardVisible(true));
+    const didHide = Keyboard.addListener("keyboardDidHide", () => setKeyboardVisible(false));
 
     return () => {
-      Keyboard.removeAllListeners("keyboardDidShow");
-      Keyboard.removeAllListeners("keyboardDidHide");
+      didShow.remove();
+      didHide.remove()
     };
   }, []);
 
