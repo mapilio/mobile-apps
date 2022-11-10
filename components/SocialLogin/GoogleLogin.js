@@ -53,7 +53,6 @@ const GoogleLogin = ({ navigation }) => {
     const data = {email: response.email, name: response.name, state: stateKey}
     fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/callback`, method: "POST", data: data,}).then((res) => {
       if (res.id) {
-        OneSignal.setExternalUserId(res.id.toLocaleString(), () => null);
         dispatch({type: GET_TOKEN_SUCCESS, payload: res});
         dispatch(getUserInformation(res));
         Database.startDB(res.id);

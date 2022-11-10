@@ -34,7 +34,7 @@ const AppleLogin = ({ navigation }) => {
         dispatch(getUserInformation(res));
         Database.startDB(res.id);
         navigation.navigate(Routes.tabHome);
-      }).catch((err) => toastMessage.error(`${err}`));
+      }).catch(({response}) => toastMessage.error(response.data.message));
       toastMessage.success(`Login Success ${credential.fullName.familyName}`);
     } else {
       let params = {token: credential.user, state: stateKey};
@@ -59,7 +59,7 @@ const AppleLogin = ({ navigation }) => {
     AppleAuthentication.signInAsync(options).then((credential) => {
       fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` }).then(({data}) => {
         signInToApple(credential, data.state)
-      }).catch(err => toastMessage.error(`${err}`));
+      }).catch(({response}) => toastMessage.error(`${response.data.message}`));
     })
   }
 

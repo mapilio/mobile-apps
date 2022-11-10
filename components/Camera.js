@@ -9,7 +9,7 @@ import CameraProjectInfo from "./CameraProjectInfo";
 import {UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS} from "../store/actionsName";
 import {useDispatch, useSelector} from "react-redux";
 import {Routes} from "../navigator/Routes";
-import {View, ActivityIndicator} from "react-native";
+import {View, ActivityIndicator, Platform} from "react-native";
 import {CustomTextMedium} from "../highordercomponents";
 
 const Camera = ({navigation}) => {
@@ -34,8 +34,9 @@ const Camera = ({navigation}) => {
         style={cameraStyles.camera}
         ref={cameraRef}
         onCameraReady={handleCameraReady}
-        autoFocus={false}
-        focusDepth={.85}
+        autoFocus={Platform.OS === 'ios' ? ExpoCamera.Constants.AutoFocus.on : ExpoCamera.Constants.AutoFocus.off}
+        focusDepth={0}
+        ratio={'16:9'}
       >
         <RotationLine/>
         <CameraFrame navigation={navigation}/>
