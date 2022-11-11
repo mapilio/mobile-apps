@@ -121,7 +121,7 @@ const UserSequence = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView scrollEnabled={switchSelector === "image"}>
         <View style={userSequenceStyles.tabBar}>
           <SwitchSelector
             initial={0}

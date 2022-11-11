@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, View, ScrollView, ActivityIndicator, Platform} from "react-native";
+import {StyleSheet, View, ScrollView, ActivityIndicator, Platform, RefreshControl} from "react-native";
 import {globalStyles} from "../styles/globalStyles";
 import {ProfileFeed, UserInfos} from "../components";
 import {useSelector} from "react-redux";
@@ -22,9 +22,10 @@ const UserProfile = ({navigation}) => {
   const [gettingData, setGettingData] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    if (!!userInformation?.id) {
+    if (!!userInformation) {
       const initialOrganization = {
         organization_name: userInformation?.display_name,
         organization_username: userInformation?.username,
@@ -40,24 +41,27 @@ const UserProfile = ({navigation}) => {
   }, [userInformation]);
 
   const getData = () => {
-    const url = selectedOrganization.type
-      ? `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
-      : `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedOrganization.organization_key}&options[limit]=10&page=${page}`
+    return new Promise((resolve) => {
+      const url = selectedOrganization.type
+        ? `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
+        : `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedOrganization.organization_key}&options[limit]=10&page=${page}`
 
-    if (page <= totalPage && !gettingData) {
-      fetchHandler({url: `${Config.SERVICE_URL}${url}`,}).then(({data, pagination}) => {
-        if (data) {
-          setTotalPage(pagination ? pagination.last_page : 1)
-          setFeedData(prev => page === 1 ? [...data] : [...prev, ...data])
-        }
-      }).finally(() => {
-        setPage(prev => prev + 1)
-        setGettingData(false)
-        setLoading(false)
-      })
+      if (page <= totalPage && !gettingData) {
+        fetchHandler({url: `${Config.SERVICE_URL}${url}`,}).then(({data, pagination}) => {
+          if (data) {
+            setTotalPage(pagination ? pagination.last_page : 1)
+            setFeedData(prev => page === 1 ? [...data] : [...prev, ...data])
+          }
+        }).finally(() => {
+          setPage(prev => prev + 1)
+          setGettingData(false)
+        })
 
-      setGettingData(true)
-    }
+        setGettingData(true)
+      } else {
+        resolve()
+      }
+    })
   }
 
   useEffect(() => {
@@ -73,6 +77,10 @@ const UserProfile = ({navigation}) => {
     page === 1 && getData()
   }, [page]);
 
+  const handleRefresh = () => {
+    setRefreshing(true)
+    getData().finally(() => setRefreshing(false))
+  }
 
   return (
     <View style={globalStyles.container}>
@@ -81,14 +89,16 @@ const UserProfile = ({navigation}) => {
         organizations.length >= 2 &&
         <OrganizationSelector items={organizations} onSelectItem={setSelectedOrganization}/>
       }
-      <FeedList
-        data={feedData}
-        navigation={navigation}
-        selectedOrganization={selectedOrganization}
-        loading={loading}
-        isLoadingData={gettingData}
-        onLoad={getData}
-      />
+      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh}/>}>
+        <FeedList
+          data={feedData}
+          navigation={navigation}
+          selectedOrganization={selectedOrganization}
+          loading={loading}
+          isLoadingData={gettingData}
+          onLoad={getData}
+        />
+      </ScrollView>
     </View>
   )
 };
