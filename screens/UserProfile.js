@@ -17,7 +17,7 @@ const UserProfile = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [isOrganization, setOrganization] = useState(true);
   const [organizations, setOrganizations] = useState([]);
-  const [selectedOrganization, setSelectedOrganization] = useState({});
+  const [selectedOrganization, setSelectedOrganization] = useState({type: "individual"});
   const [feedData, setFeedData] = useState([]);
   const [gettingData, setGettingData] = useState(false);
   const [page, setPage] = useState(1);
@@ -26,18 +26,25 @@ const UserProfile = ({navigation}) => {
 
   useEffect(() => {
     if (!!userInformation) {
+      const {id, display_name, username} = userInformation;
+
       const initialOrganization = {
-        organization_name: userInformation?.display_name,
-        organization_username: userInformation?.username,
-        id: userInformation?.id,
-        type: "individual",
+        id: id,
+        organization_name: display_name,
+        organization_username: username,
+        type: "individual"
       };
 
-      fetchHandler({url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`}).then(({data}) => {
-        setSelectedOrganization(initialOrganization)
-        setOrganizations([initialOrganization, ...data])
-      }).then(() => getData()).finally(() => setLoading(false))
+      setOrganizations([initialOrganization])
+      setSelectedOrganization(initialOrganization)
     }
+  }, []);
+
+
+  useEffect(() => {
+    fetchHandler({url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`}).then(({data}) => {
+      data !== null && setOrganizations(prev => [...prev, ...data])
+    })
   }, [userInformation]);
 
   const getData = () => {
@@ -55,8 +62,8 @@ const UserProfile = ({navigation}) => {
         }).finally(() => {
           setPage(prev => prev + 1)
           setGettingData(false)
+          resolve()
         })
-
         setGettingData(true)
       } else {
         resolve()
@@ -66,10 +73,12 @@ const UserProfile = ({navigation}) => {
 
   useEffect(() => {
     if (Object.entries(selectedOrganization).length) {
+      setLoading(true)
       setPage(1)
       setLoading(true)
       setOrganization(selectedOrganization.type === "individual")
       setFeedData([])
+      getData().then(() => setLoading(false))
     }
   }, [selectedOrganization])
 
