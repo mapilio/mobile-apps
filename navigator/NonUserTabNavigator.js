@@ -4,7 +4,7 @@ import { navigatorStyle } from "../styles/navigatorStyle";
 import { Routes } from "./Routes";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { AppMap, Login, Marketplace, NoInternetAccess } from "../screens";
-import { Dimensions, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import MapLogo from "../assets/svg/illustrations/MapLogo";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -46,7 +46,7 @@ const CaptureTabBarButton = ({ navigation }) => {
 const NonUserTabNavigator = () => {
   const {connection} = useSelector((state) => state.generalReducer);
   const [internetGoes, setInternetGoes] = useState(false);
-  const {bottom} = useSafeAreaInsets();
+  const {bottom, top} = useSafeAreaInsets();
 
   const connectionAlertHandler = (navigation) => {
     if (connection.connectionStatus && internetGoes) {
@@ -114,12 +114,7 @@ const NonUserTabNavigator = () => {
           title: <MapLogo fill={"#000"} />,
           headerTitleAlign: "center",
           headerStyle: {
-            height:
-              Dimensions.get("window").height > 1100
-                ? RFValue(50)
-                : Platform.OS === "ios"
-                ? RFValue(80)
-                : RFValue(55),
+            height: top + RFValue(55),
             backgroundColor: "#130C47",
           },
         }}
@@ -128,7 +123,7 @@ const NonUserTabNavigator = () => {
         component={Marketplace}
         name={Routes.marketplace}
         options={() => ({
-          headerStyle: navigatorStyle.headerStyle,
+          headerStyle: {...navigatorStyle.headerStyle, height: top + RFValue(55)},
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,
