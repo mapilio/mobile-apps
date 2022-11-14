@@ -135,11 +135,11 @@ const TabNavigator = ({ navigation }) => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <TabMap fill={focused ? "#32425B" : undefined} />
+              <TabMap fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}
@@ -172,11 +172,11 @@ const TabNavigator = ({ navigation }) => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <MarketplaceIcon fill={focused ? "#32425B" : undefined} />
+              <MarketplaceIcon fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}
@@ -226,11 +226,11 @@ const TabNavigator = ({ navigation }) => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <Upload fill={focused ? "#32425B" : undefined} />
+              <Upload fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}
@@ -343,11 +343,11 @@ const TabNavigator = ({ navigation }) => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <Profile fill={focused ? "#32425B" : undefined} />
+              <Profile fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}

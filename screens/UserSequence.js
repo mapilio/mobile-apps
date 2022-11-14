@@ -132,9 +132,9 @@ const UserSequence = ({ navigation }) => {
             value={switchSelector === "image" ? 0 : 1}
             backgroundColor={"#F5F5F5"}
             borderColor={"#CBD1D9"}
-            buttonColor={"#32425B"}
+            buttonColor={"#130C47"}
             borderRadius={5}
-            textColor={"#32425B"}
+            textColor={"#130C47"}
             hasPadding
             imageStyle={{
               width: 18,

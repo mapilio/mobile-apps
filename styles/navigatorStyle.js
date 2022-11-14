@@ -9,7 +9,7 @@ export const navigatorStyle = {
         : Platform.OS === "ios"
         ? RFValue(80)
         : RFValue(55),
-    backgroundColor: "#213348",
+    backgroundColor: "#130C47",
   },
   headerSettingsStyle: {
     height: RFValue(50),
@@ -51,7 +51,7 @@ export const navigatorStyle = {
     width: RFValue(65),
     height: RFValue(65),
     borderRadius: RFValue(35),
-    backgroundColor: "#32425B",
+    backgroundColor: "#130C47",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -69,7 +69,7 @@ export const navigatorStyle = {
     flex: 1,
   },
   borderStyle: {
-    borderColor: "#32425B",
+    borderColor: "#130C47",
   },
   tabTextStyle: {
     fontSize: 12,

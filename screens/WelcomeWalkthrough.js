@@ -4,7 +4,6 @@ import Carousel, { Pagination } from "react-native-snap-carousel";
 import { StreetLevel, UploadCapture } from "../assets/svg/illustrations";
 import {
   Next,
-  Prev,
   Start,
 } from "../components/Walkthrough/WelcomeWalkthrough";
 import { UPDATE_WELCOME_WALKTHROUGH_STATUS } from "../store/actionsName";
@@ -51,7 +50,7 @@ const WelcomeWalkthrough = ({ navigation }) => {
     }
   }, []);
 
-  const _renderItem = ({ item, i }) => (
+  const _renderItem = ({ item }) => (
     <View
       style={{
         justifyContent: "center",
@@ -88,7 +87,7 @@ const WelcomeWalkthrough = ({ navigation }) => {
           style={{
             marginBottom: RFValue(5),
             fontSize: RFValue(34),
-            color: "#213348",
+            color: "#130C47",
           }}
         >
           {item.title}

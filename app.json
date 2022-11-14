@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash/mapilio_splash.png",
-      "backgroundColor": "#213348",
+      "backgroundColor": "#130C47",
       "resizeMode": "contain"
     },
     "updates": {
@@ -45,7 +45,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "splash": {
-        "backgroundColor": "#213348",
+        "backgroundColor": "#130C47",
         "resizeMode": "contain",
         "mdpi": "./assets/splash/mapilio_splash.png",
         "hdpi": "./assets/splash/mapilio_splash_x1.5.png",

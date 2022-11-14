@@ -24,6 +24,8 @@ import { HeaderTitle } from "../components/Marketplace";
 import TabNavigator from "./TabNavigator";
 import NonUserTabNavigator from "./NonUserTabNavigator";
 import MarketplaceReady from "../screens/MarketplaceReady";
+import {loginStyles} from "../styles/loginStyles";
+import {Back, SignUpButton} from "../components/Login";
 
 const Stack = createStackNavigator();
 
@@ -36,10 +38,7 @@ const MainNavigator = () => {
     const removeListener = NetInfo.addEventListener((state) => {
       dispatch({
         type: UPDATE_CONNECTION_STATUS,
-        payload: {
-          connectionStatus: state.isConnected,
-          connectionType: state.type,
-        },
+        payload: {connectionStatus: state.isConnected, connectionType: state.type},
       });
       setInternetConnection(state.isConnected);
     });
@@ -56,34 +55,29 @@ const MainNavigator = () => {
     !internetConnection ? (
       <Stack.Navigator
         initialRouteName={Routes.noInternetAccess}
-        screenOptions={{
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        screenOptions={{cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid}}
       >
         <Stack.Screen
           component={NoInternetAccess}
           name={Routes.noInternetAccess}
-          options={{
-            headerShown: false,
-          }}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     ) : (
       <Stack.Navigator
         initialRouteName={Routes.welcomeWalkthrough}
-        screenOptions={{
-          cardStyleInterpolator:
-            CardStyleInterpolators.forFadeFromBottomAndroid,
-        }}
+        screenOptions={{cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid}}
       >
         <Stack.Group>
           <Stack.Screen
             component={Login}
             name={Routes.login}
-            options={{
-              headerShown: false,
-            }}
+            options={({navigation}) => ({
+              title: false,
+              headerStyle: loginStyles.headerStyle,
+              headerLeft: () => <Back navigation={navigation}/>,
+              headerRight: () => <SignUpButton navigation={navigation}/>,
+            })}
           />
           <Stack.Screen
             component={Register}

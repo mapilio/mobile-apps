@@ -148,9 +148,9 @@ const UserSequence = ({ navigation, route }) => {
             onPress={(value) => setActive(value)}
             backgroundColor={"#F5F5F5"}
             borderColor={"#CBD1D9"}
-            buttonColor={"#32425B"}
+            buttonColor={"#130C47"}
             borderRadius={5}
-            textColor={"#32425B"}
+            textColor={"#130C47"}
             hasPadding
             style={{
               top: RFValue(15),
@@ -185,10 +185,10 @@ const UserSequence = ({ navigation, route }) => {
               alignItems: "center",
             }}
           >
-            <ActivityIndicator color={"#32425B"} size={"large"} />
+            <ActivityIndicator color={"#130C47"} size={"large"} />
             <CustomText
               style={{
-                color: "#32425B",
+                color: "#130C47",
                 fontSize: RFValue(15),
                 marginTop: RFValue(25),
               }}

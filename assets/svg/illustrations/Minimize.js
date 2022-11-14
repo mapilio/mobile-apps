@@ -8,7 +8,7 @@ const Minimize = ({width = 57, height = 57}) => (
         <G id="Group_48329" data-name="Group 48329" transform="translate(19.896 -252.539)" opacity="0.6">
           <G id="Group_47447" data-name="Group 47447" transform="translate(294.187 527.622)">
             <G transform="matrix(1, 0, 0, 1, -6.08, -4.08)" filter="url(#Ellipse_445)">
-              <Circle id="Ellipse_445-2" data-name="Ellipse 445" cx="22.5" cy="22.5" r="22.5" transform="translate(6 4)" fill="#32425b"/>
+              <Circle id="Ellipse_445-2" data-name="Ellipse 445" cx="22.5" cy="22.5" r="22.5" transform="translate(6 4)" fill="#130C47"/>
             </G>
           </G>
         </G>

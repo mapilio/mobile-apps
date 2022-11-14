@@ -22,11 +22,11 @@ export const userSequenceStyles = StyleSheet.create({
     width: 150,
   },
   tabItemActive: {
-    backgroundColor: "#32425B",
+    backgroundColor: "#130C47",
     borderRadius: 5,
   },
   tabText: {
-    color: "#32425B",
+    color: "#130C47",
   },
   tabTextActive: {
     color: "#FFF",
