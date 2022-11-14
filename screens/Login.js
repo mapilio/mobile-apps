@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
 	ActivityIndicator,
-	ScrollView,
 	TextInput,
 	TouchableOpacity,
 	View,
@@ -14,7 +13,7 @@ import {globalStyles} from "../styles/globalStyles";
 import {useDispatch} from "react-redux";
 import {getTokenAction} from "../store/reducers/loginReducer/getTokenAction";
 import {RFValue} from "react-native-responsive-fontsize";
-import {Eye, EyeSlash} from "../assets/svg/illustrations";
+import {Eye} from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import {SocialLogin} from "../components";
 import {useForm, Controller} from "react-hook-form";
@@ -22,8 +21,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import SafeAreaView from "react-native-safe-area-view";
 
 const loginValidationSchema = yup.object().shape({
-	email: yup
-		.string()
+	email: yup.string()
 		.email("You have entered an invalid username and password")
 		.required("Email Address is Required"),
 	password: yup.string().required("Password is required"),
@@ -32,6 +30,7 @@ const loginValidationSchema = yup.object().shape({
 const Login = ({navigation}) => {
 	const dispatch = useDispatch();
 	const [securePassword, setSecurePassword] = useState(true);
+	const [toggleEye, setToggleEye] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const {control, handleSubmit, formState: {errors, isSubmitting}} = useForm({
@@ -39,7 +38,7 @@ const Login = ({navigation}) => {
 		resolver: yupResolver(loginValidationSchema),
 	});
 
-	React.useEffect(() => setLoading(isSubmitting), [isSubmitting]);
+	useEffect(() => setLoading(isSubmitting), [isSubmitting]);
 
 	return (
 		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
@@ -54,86 +53,65 @@ const Login = ({navigation}) => {
 					</CustomText>
 				</View>
 
-				<ScrollView>
-					<SocialLogin navigation={navigation}/>
+				<Controller name={"email"} control={control} render={({field: {onChange, onBlur, value}}) => (
+					<View style={loginStyles.formGroup}>
+						{errors.email && <CustomText style={loginStyles.errorText}>{errors.email.message} </CustomText>}
+						<TextInput
+							name="email"
+							placeholder="Email or Username"
+							onChangeText={onChange}
+							onBlur={onBlur}
+							value={value}
+							keyboardType="email-address"
+							autoCapitalize="none"
+							style={errors.email ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
+						/>
+					</View>
+				)}/>
 
-					<Controller name={"email"} control={control} render={({field: {onChange, onBlur, value}}) => (
-						<View style={loginStyles.formGroup}>
-							<TextInput
-								name="email"
-								placeholder="Email or Username"
-								onChangeText={onChange}
-								onBlur={onBlur}
-								value={value}
-								keyboardType="email-address"
-								autoCapitalize="none"
-								style={errors.email ? {...loginStyles.errorInput, ...loginStyles.input} : loginStyles.input}
-							/>
-							{errors.email && <CustomText style={loginStyles.errorText}>{errors.email.message} </CustomText>}
-						</View>
-					)}
-					/>
-
-					<Controller name={"password"} control={control} render={({field: {onChange, onBlur, value}}) => (
-						<View style={loginStyles.formGroup}>
-							<CustomText
-								onPress={() => navigation.navigate(Routes.forgotPassword)}
-								style={{...loginStyles.link, textAlign: "right"}}
-							>
-								Forgot your password?
-							</CustomText>
-							<View style={{justifyContent: "center"}}>
-								<TextInput
-									name="password"
-									placeholder="Password"
-									onChangeText={onChange}
-									onBlur={onBlur}
-									value={value}
-									style={errors.password ? {...loginStyles.errorInput, ...loginStyles.input} : loginStyles.input}
-									secureTextEntry={securePassword}
-								/>
-								<TouchableOpacity
-									style={loginStyles.passwordIcon}
-									onPress={() => setSecurePassword(!securePassword)}
-								>
-									{securePassword ? <Eye/> : <EyeSlash/>}
-								</TouchableOpacity>
-							</View>
-							{errors.password && <CustomText style={loginStyles.errorText}>{errors.password.message}</CustomText>}
-						</View>
-					)}
-					/>
-					<CustomText style={loginStyles.smallText}>
-						Don't have an account yet?
-						<CustomText
-							style={{...loginStyles.link, fontSize: RFValue(14)}}
-							onPress={() => navigation.navigate(Routes.register)}
+				<Controller name={"password"} control={control} render={({field: {onChange, onBlur, value}}) => (
+					<View style={loginStyles.formGroup}>
+						{errors.password && <CustomText style={loginStyles.errorText}>{errors.password.message}</CustomText>}
+						<TextInput
+							name="password"
+							placeholder="Password"
+							onChangeText={(e) => {
+								setToggleEye(!!e.length)
+								onChange(e)
+							}}
+							onBlur={onBlur}
+							value={value}
+							style={errors.password ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
+							secureTextEntry={securePassword}
+						/>
+						<TouchableOpacity
+							style={loginStyles.passwordIcon}
+							onPressIn={() => setSecurePassword(false)}
+							onPressOut={() => setSecurePassword(true)}
 						>
-							{" "}
-							Sign up here
-						</CustomText>
+							{toggleEye && <Eye/>}
+						</TouchableOpacity>
+					</View>
+				)}/>
+
+				<TouchableOpacity
+					style={loginStyles.button}
+					onPress={handleSubmit((values) => dispatch(getTokenAction(values, navigation.navigate)))}
+					disabled={loading}
+				>
+					<CustomText style={{...loginStyles.secondaryText, color: "#fff"}}>
+						{loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : "Log In"}
 					</CustomText>
-					<TouchableOpacity
-						style={loginStyles.button}
-						onPress={handleSubmit((values) => dispatch(getTokenAction(values, navigation.navigate)))}
-						disabled={loading}
-					>
-						<CustomText style={{...loginStyles.secondaryText, color: "#fff"}}>
-							{loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : "Log In"}
-						</CustomText>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => {
-							navigation.navigate(Routes.nonUserTab);
-						}}
-					>
-						<CustomText
-              style={{fontSize: RFValue(14), color: "#22CC69", marginTop: RFValue(15), textAlign: "center"}}
-						>
-							Continue without a member
-						</CustomText>
-					</TouchableOpacity>
-				</ScrollView>
+				</TouchableOpacity>
+				<CustomText
+					onPress={() => navigation.navigate(Routes.forgotPassword)}
+					style={{...loginStyles.privacyText}}
+				>
+					Forgot your password?
+				</CustomText>
+
+				<SocialLogin navigation={navigation}/>
+
 			</View>
 		</SafeAreaView>
 	);

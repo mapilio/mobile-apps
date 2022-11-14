@@ -66,7 +66,7 @@ const FacebookLogin = ({ navigation }) => {
           <ActivityIndicator size="small" color="#000" />
         </View>
       ) : (
-        <TouchableOpacity onPress={handleLogin} style={{justifyContent: "center", top: -3}}>
+        <TouchableOpacity onPress={handleLogin}>
           <FacebookLogo/>
         </TouchableOpacity>
       )}

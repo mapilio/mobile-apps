@@ -2,17 +2,20 @@ import { Dimensions, Platform, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const loginStyles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: '#130C47',
+    shadowOpacity: 0,
+  },
   container: {
     flex: 1,
-    paddingHorizontal: RFValue(16),
-    backgroundColor: "#213348",
-    justifyContent: "center",
+    paddingHorizontal: RFValue(28),
+    backgroundColor: "#130C47",
   },
   logo: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: RFValue(30),
+    marginVertical: RFValue(10),
   },
   primaryText: {
     fontSize: RFValue(26),
@@ -25,7 +28,8 @@ export const loginStyles = StyleSheet.create({
   },
   headerText: {
     color: "#FFFFFF",
-    fontSize: RFValue(24),
+    fontSize: RFValue(16),
+    textAlign: "center"
   },
   secondaryText: {
     fontSize: RFValue(16),
@@ -34,21 +38,22 @@ export const loginStyles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#FFF",
-    borderRadius: RFValue(4),
+    borderRadius: RFValue(24),
     height: RFValue(44),
     paddingHorizontal: RFValue(21),
+    fontSize: RFValue(15)
   },
   errorInput: {
     borderWidth: 1,
+    backgroundColor: '#FBEDEC',
     borderColor: "#ed535a",
   },
   button: {
-    borderRadius: RFValue(4),
-    backgroundColor: "#22CC69",
+    borderRadius: RFValue(24),
+    backgroundColor: "#3F8BE9",
     display: "flex",
     alignItems: "center",
     padding: RFValue(11),
-    marginTop: RFValue(12),
   },
   buttonOutline: {
     borderRadius: RFValue(4),
@@ -63,9 +68,10 @@ export const loginStyles = StyleSheet.create({
     fontSize: RFValue(16),
   },
   errorText: {
+    textAlign: "right",
     fontSize: RFValue(10),
-    color: "#ed535a",
-    marginTop: RFValue(2),
+    color: "#EC6A56",
+    paddingRight: RFValue(20)
   },
   formGroup: {
     marginBottom: RFValue(18),
@@ -77,7 +83,7 @@ export const loginStyles = StyleSheet.create({
     textAlign: "center",
   },
   privacyText: {
-    marginTop: RFValue(39),
+    marginVertical: RFValue(21),
     textAlign: "center",
     color: "#fff",
     fontSize: RFValue(12),
@@ -85,18 +91,19 @@ export const loginStyles = StyleSheet.create({
   passwordIcon: {
     position: "absolute",
     right: RFValue(20),
+    bottom: RFValue(14),
   },
 });
 
 export const socialLoginStyles = StyleSheet.create({
   container: {
-    marginBottom: RFValue(20),
     justifyContent: "center",
     alignItems: "center",
   },
   topContainer: {
     flexDirection: "row",
-    marginBottom: 20,
+    alignItems: "center",
+    marginBottom: RFValue(21)
   },
   bottomContainer: {
     flexDirection: "row",
@@ -125,7 +132,6 @@ export const socialLoginStyles = StyleSheet.create({
   },
   appleButton: {
     color: "#657488",
-    padding: 10,
     borderRadius: 20,
     marginRight: 6,
     justifyContent: "center",

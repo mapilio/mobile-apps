@@ -1,19 +1,19 @@
 import React from "react";
-import Svg, { Path } from "react-native-svg";
+import Svg, {G, Path} from "react-native-svg";
 
-const AppleLogo = () => {
+const GoogleLogo = ({width = 25, height = 25}) => {
   return (
-    <Svg
-      width="20"
-      height="20"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-      class="icon"
-      fill={"#000"}
-    >
-      <Path d="M881 442.4H519.7v148.5h206.4c-8.9 48-35.9 88.6-76.6 115.8-34.4 23-78.3 36.6-129.9 36.6-99.9 0-184.4-67.5-214.6-158.2-7.6-23-12-47.6-12-72.9s4.4-49.9 12-72.9c30.3-90.6 114.8-158.1 214.7-158.1 56.3 0 106.8 19.4 146.6 57.4l110-110.1c-66.5-62-153.2-100-256.6-100-149.9 0-279.6 86-342.7 211.4-26 51.8-40.8 110.4-40.8 172.4S151 632.8 177 684.6C240.1 810 369.8 896 519.7 896c103.6 0 190.4-34.4 253.8-93 72.5-66.8 114.4-165.2 114.4-282.1 0-27.2-2.4-53.3-6.9-78.5z" />
+    <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 25.205 25.205">
+      <G id="gmail" transform="translate(0)">
+        <G id="Group_70527" data-name="Group 70527" transform="translate(0 0)">
+          <Path id="Path_2140" data-name="Path 2140" d="M5.586,146.693l-.877,3.275-3.207.068a12.625,12.625,0,0,1-.093-11.768h0l2.855.523,1.251,2.838a7.521,7.521,0,0,0,.071,5.064Z" transform="translate(0 -131.461)" fill="#fbbb00"/>
+          <Path id="Path_2141" data-name="Path 2141" d="M273.733,208.176a12.6,12.6,0,0,1-4.493,12.182h0l-3.6-.183L265.135,217a7.51,7.51,0,0,0,3.232-3.835h-6.739v-4.986h12.105Z" transform="translate(-248.749 -197.928)" fill="#518ef8"/>
+          <Path id="Path_2142" data-name="Path 2142" d="M49.5,316.607h0a12.606,12.606,0,0,1-18.99-3.856l4.084-3.343a7.5,7.5,0,0,0,10.8,3.838Z" transform="translate(-29.007 -294.177)" fill="#28b446"/>
+          <Path id="Path_2143" data-name="Path 2143" d="M47.861,2.9,43.779,6.244A7.494,7.494,0,0,0,32.73,10.168L28.625,6.807h0A12.6,12.6,0,0,1,47.861,2.9Z" transform="translate(-27.215)" fill="#f14336"/>
+        </G>
+      </G>
     </Svg>
   );
 };
 
-export default AppleLogo;
+export default GoogleLogo;

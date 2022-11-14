@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, View } from "react-native";
+import { View } from "react-native";
 import { CustomText } from "../../highordercomponents";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import GoogleLogin from "./GoogleLogin";
@@ -10,14 +10,15 @@ const SocialLogin = ({ navigation }) => {
   return (
     <View style={socialLoginStyles.container}>
       <View style={socialLoginStyles.topContainer}>
-        <AppleLogin navigation={navigation} />
-        <FacebookLogin navigation={navigation} />
-        <GoogleLogin navigation={navigation} />
-      </View>
-      <View style={socialLoginStyles.bottomContainer}>
         <View style={socialLoginStyles.line} />
         <CustomText style={socialLoginStyles.bottomText}>or</CustomText>
         <View style={socialLoginStyles.line} />
+      </View>
+
+      <View style={socialLoginStyles.bottomContainer}>
+        <AppleLogin navigation={navigation} />
+        <FacebookLogin navigation={navigation} />
+        <GoogleLogin navigation={navigation} />
       </View>
     </View>
   );
