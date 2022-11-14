@@ -1,4 +1,5 @@
 import { RFValue } from "react-native-responsive-fontsize";
+import {Dimensions} from "react-native";
 
 export const panoStyle = {
   topBar: {
@@ -46,8 +47,9 @@ export const panoStyle = {
     backgroundColor: "#213348",
     flexDirection: "row",
     justifyContent: "space-between",
-    borderBottomLeftRadius: RFValue(5),
-    borderBottomRightRadius: RFValue(5),
+    position: "absolute",
+    bottom: 0,
+    width: Dimensions.get("window").width
   },
   report: {
     flexDirection: "row",

@@ -33,10 +33,10 @@ const Pano = (props) => {
 
   const imageHeight = () => {
     if (fullHeight) {
-      return height - RFValue(63 + bottom + top)
+      return height - RFValue(63) - RFValue(50) - bottom - top
     }
 
-    return (height - RFValue(63 + bottom + top)) / 2
+    return (height - RFValue(63) - RFValue(50) - bottom - top) / 2
   }
 
   const reportImage = () => {
