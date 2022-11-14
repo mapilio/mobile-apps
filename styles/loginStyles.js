@@ -85,7 +85,7 @@ export const loginStyles = StyleSheet.create({
     width: Dimensions.get("window").width,
     position: "absolute",
     bottom: 0,
-    paddingBottom: 60,
+    paddingBottom: RFValue(10),
   },
   privacyText: {
     textAlign: "center",
