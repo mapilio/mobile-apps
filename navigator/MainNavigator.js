@@ -25,7 +25,7 @@ import TabNavigator from "./TabNavigator";
 import NonUserTabNavigator from "./NonUserTabNavigator";
 import MarketplaceReady from "../screens/MarketplaceReady";
 import {loginStyles} from "../styles/loginStyles";
-import {Back, SignUpButton} from "../components/Login";
+import {Back, SignInButton, SignUpButton} from "../components/Login";
 
 const Stack = createStackNavigator();
 
@@ -82,9 +82,12 @@ const MainNavigator = () => {
           <Stack.Screen
             component={Register}
             name={Routes.register}
-            options={{
-              headerShown: false,
-            }}
+            options={({navigation}) => ({
+              title: false,
+              headerStyle: loginStyles.headerStyle,
+              headerLeft: () => <Back navigation={navigation}/>,
+              headerRight: () => <SignInButton navigation={navigation}/>,
+            })}
           />
           <Stack.Screen
             component={ForgotPassword}

@@ -105,7 +105,7 @@ const Login = ({navigation}) => {
 				</TouchableOpacity>
 				<CustomText
 					onPress={() => navigation.navigate(Routes.forgotPassword)}
-					style={{...loginStyles.privacyText}}
+					style={{...loginStyles.privacyText, marginVertical: RFValue(21)}}
 				>
 					Forgot your password?
 				</CustomText>
