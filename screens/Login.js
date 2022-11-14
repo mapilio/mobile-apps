@@ -49,7 +49,7 @@ const Login = ({navigation}) => {
 
 				<View style={{marginBottom: RFValue(30)}}>
 					<CustomText style={loginStyles.headerText}>
-						Login to manage your account
+						Sign in to see what's on your map.
 					</CustomText>
 				</View>
 

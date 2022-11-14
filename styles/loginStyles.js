@@ -28,7 +28,7 @@ export const loginStyles = StyleSheet.create({
   },
   headerText: {
     color: "#FFFFFF",
-    fontSize: RFValue(16),
+    fontSize: RFValue(14),
     textAlign: "center"
   },
   secondaryText: {
