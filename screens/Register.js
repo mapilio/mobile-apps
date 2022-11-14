@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   TextInput,
@@ -11,13 +11,15 @@ import { Routes } from "../navigator/Routes";
 import { CustomText } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import { fetchHandler } from "../helper/helper";
-import { Eye, EyeSlash } from "../assets/svg/illustrations";
+import { Eye } from "../assets/svg/illustrations";
 import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import { SocialLogin } from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
+import {globalStyles} from "../styles/globalStyles";
+import SafeAreaView from "react-native-safe-area-view";
 
 const registerValidationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -33,6 +35,7 @@ const registerValidationSchema = yup.object().shape({
 
 const Register = ({ navigation }) => {
   const [securePassword, setSecurePassword] = useState(true);
+  const [toggleEye, setToggleEye] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const register = (values) => {
@@ -48,16 +51,14 @@ const Register = ({ navigation }) => {
         "success-params": "tverification=true",
         "error-params": "tverification=false",
       },
-    })
-      .then(() => {
-        navigation.reset({index: 0, routes: [{name: Routes.login}]})
-        toastMessage.success(`Your account has been created, check your e-mail address.`)
-      })
-      .catch((err) => {
-        Object.values(err.response.data).map((item, _i) => {
-          toastMessage.error(`${item[0]}`)
-        });
+    }).then(() => {
+      navigation.reset({index: 0, routes: [{name: Routes.login}]})
+      toastMessage.success(`Your account has been created, check your e-mail address.`)
+    }).catch((err) => {
+      Object.values(err.response.data).map((item, _i) => {
+        toastMessage.error(`${item[0]}`)
       });
+    });
   };
 
   const redirectBrowser = () => {
@@ -71,132 +72,101 @@ const Register = ({ navigation }) => {
     resolver: yupResolver(registerValidationSchema),
   });
 
-  React.useEffect(() => setLoading(isSubmitting), [isSubmitting]);
+  useEffect(() => setLoading(isSubmitting), [isSubmitting]);
 
   return (
-    <View style={loginStyles.container}>
-      <View style={loginStyles.logo}>
-        <MapilioLogo width={RFValue(150)} height={RFValue(50)} />
-      </View>
-      <View style={{ marginBottom: RFValue(30) }}>
-        <CustomText style={loginStyles.primaryText}>
-          Create an account
-        </CustomText>
-        <CustomText style={loginStyles.secondaryText}>
-          Fill out the form to get started.
-        </CustomText>
-      </View>
-      <SocialLogin navigation={navigation} />
-
-      <Controller name={"name"} control={control} render={({field: {onChange, onBlur, value}}) => (        <View style={loginStyles.formGroup}>
-          <TextInput
-            name="name"
-            placeholder="Name"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            keyboardType="default"
-            style={
-              errors.name
-                ? { ...loginStyles.errorInput, ...loginStyles.input }
-                : loginStyles.input
-            }
-          />
-          {errors.name && (
-            <CustomText style={loginStyles.errorText}>
-              {errors.name.message}
-            </CustomText>
-          )}
+    <SafeAreaView style={[globalStyles.container, loginStyles.container]}>
+      <View>
+        <View style={loginStyles.logo}>
+          <MapilioLogo width={RFValue(150)} height={RFValue(50)}/>
         </View>
-      )}
-      />
-
-      <Controller name={"email"} control={control} render={({field: {onChange, onBlur, value}}) => (
-        <View style={loginStyles.formGroup}>
-          <TextInput
-            name="email"
-            placeholder="Email Address"
-            onChangeText={onChange}
-            onBlur={onBlur}
-            value={value}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            style={
-              errors.email
-                ? { ...loginStyles.errorInput, ...loginStyles.input }
-                : loginStyles.input
-            }
-          />
-          {errors.email && (
-            <CustomText style={loginStyles.errorText}>
-              {errors.email.message}
-            </CustomText>
-          )}
+        <View style={{marginBottom: RFValue(30)}}>
+          <CustomText style={loginStyles.headerText}>
+            Sign up to see what's on your map.
+          </CustomText>
         </View>
-      )}
-      />
 
-      <Controller name={"password"} control={control} render={({field: {onChange, onBlur, value}}) => (
-        <View style={loginStyles.formGroup}>
-          <View style={{ justifyContent: "center" }}>
+        <Controller name={"name"} control={control} render={({field: {onChange, onBlur, value}}) => (
+          <View style={loginStyles.formGroup}>
+            {errors.name && <CustomText style={loginStyles.errorText}>{errors.name.message}</CustomText>}
             <TextInput
-              name="password"
-              placeholder="Password"
+              name="name"
+              placeholder="Name"
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
-              style={
-                errors.password
-                  ? { ...loginStyles.errorInput, ...loginStyles.input }
-                  : loginStyles.input
-              }
-              secureTextEntry={securePassword}
+              keyboardType="default"
+              style={errors.name ? {...loginStyles.input,...loginStyles.errorInput} : loginStyles.input}
             />
-            <TouchableOpacity
-              style={loginStyles.passwordIcon}
-              onPress={() => setSecurePassword(!securePassword)}
-            >
-              {securePassword ? <Eye /> : <EyeSlash />}
-            </TouchableOpacity>
           </View>
-          {errors.password && (
-            <CustomText style={loginStyles.errorText}>
-              {errors.password.message}
-            </CustomText>
-          )}
+        )}/>
+        <Controller name={"email"} control={control} render={({field: {onChange, onBlur, value}}) => (
+          <View style={loginStyles.formGroup}>
+            {errors.email && <CustomText style={loginStyles.errorText}>{errors.email.message}</CustomText>}
+            <TextInput
+              name="email"
+              placeholder="Email Address"
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              style={errors.email ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
+            />
+          </View>
+        )}/>
+        <Controller name={"password"} control={control} render={({field: {onChange, onBlur, value}}) => (
+          <View style={loginStyles.formGroup}>
+            <View style={{ justifyContent: "center" }}>
+              {errors.password && <CustomText style={loginStyles.errorText}>{errors.password.message}</CustomText>}
+
+              <TextInput
+                name="password"
+                placeholder="Password"
+                onChangeText={(e) => {
+                  setToggleEye(!!e.length)
+                  onChange(e)
+                }}
+                onBlur={onBlur}
+                value={value}
+                style={errors.password ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
+                secureTextEntry={securePassword}
+              />
+              <TouchableOpacity
+                style={loginStyles.passwordIcon}
+                onPressIn={() => setSecurePassword(false)}
+                onPressOut={() => setSecurePassword(true)}
+              >
+                {toggleEye && <Eye/>}
+              </TouchableOpacity>
+            </View>
+          </View>
+        )} />
+        <TouchableOpacity
+          style={loginStyles.button}
+          disabled={loading}
+          onPress={handleSubmit((values) => register(values))}
+        >
+          <CustomText
+            style={{ ...loginStyles.secondaryText, color: "#fff" }}
+          >
+            {loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : "Sign up"}
+          </CustomText>
+        </TouchableOpacity>
+        <View style={{marginTop: RFValue(21)}}>
+          <SocialLogin navigation={navigation} />
         </View>
-      )} />
-
-
-      <CustomText style={loginStyles.smallText}>
-        Already have an account?
-        <CustomText
-          style={{ ...loginStyles.link, fontSize: RFValue(14) }}
-          onPress={() => navigation.navigate(Routes.login)}
-        >
-          {" "}
-          Log In
+      </View>
+      <View style={loginStyles.policy}>
+        <CustomText style={loginStyles.privacyText}>
+          By clicking "Sign up" button you agree with our
         </CustomText>
-        .
-      </CustomText>
-      <TouchableOpacity
-        style={loginStyles.button}
-        disabled={loading}
-        onPress={handleSubmit((values) => register(values))}
-      >
-        <CustomText
-          style={{ ...loginStyles.secondaryText, color: "#fff" }}
-        >
-          {loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : "Sign up"}
+        <CustomText style={loginStyles.link} onPress={redirectBrowser}>
+          Privacy policy
         </CustomText>
-      </TouchableOpacity>
-      <CustomText style={loginStyles.privacyText}>
-        By clicking "Sign up" button you agree with our
-      </CustomText>
-      <CustomText style={loginStyles.link} onPress={redirectBrowser}>
-        Privacy policy
-      </CustomText>
-    </View>
+      </View>
+
+    </SafeAreaView>
   );
 };
 export default Register;

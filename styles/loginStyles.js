@@ -15,7 +15,6 @@ export const loginStyles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: RFValue(10),
   },
   primaryText: {
     fontSize: RFValue(26),
@@ -71,22 +70,27 @@ export const loginStyles = StyleSheet.create({
     textAlign: "right",
     fontSize: RFValue(10),
     color: "#EC6A56",
-    paddingRight: RFValue(20)
+    paddingRight: RFValue(15)
   },
   formGroup: {
     marginBottom: RFValue(18),
   },
   link: {
     color: "#4A90E2",
-    fontSize: RFValue(12),
+    fontSize: RFValue(10),
     marginBottom: RFValue(8),
     textAlign: "center",
   },
+  policy: {
+    width: Dimensions.get("window").width,
+    position: "absolute",
+    bottom: 0,
+    paddingBottom: 60,
+  },
   privacyText: {
-    marginVertical: RFValue(21),
     textAlign: "center",
     color: "#fff",
-    fontSize: RFValue(12),
+    fontSize: RFValue(10),
   },
   passwordIcon: {
     position: "absolute",
