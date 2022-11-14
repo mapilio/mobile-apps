@@ -73,7 +73,7 @@ const NonUserTabNavigator = () => {
         headerRight: () => <SignInNavigatorRight navigation={navigation} />,
       })}
       screenListeners={({ navigation, route }) => ({
-        focus: (e) => {
+        focus: () => {
           if (!connection.connectionStatus && route.name !== Routes.camera) {
             navigation.navigate(Routes.noInternetAccess);
           }
@@ -99,11 +99,11 @@ const NonUserTabNavigator = () => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <TabMap fill={focused ? "#32425B" : undefined} />
+              <TabMap fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
               >
                 Map
@@ -120,14 +120,14 @@ const NonUserTabNavigator = () => {
                 : Platform.OS === "ios"
                 ? RFValue(80)
                 : RFValue(55),
-            backgroundColor: "#213348",
+            backgroundColor: "#130C47",
           },
         }}
       />
       <Tab.Screen
         component={Marketplace}
         name={Routes.marketplace}
-        options={({ navigation }) => ({
+        options={() => ({
           headerStyle: navigatorStyle.headerStyle,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
@@ -140,11 +140,11 @@ const NonUserTabNavigator = () => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <MarketplaceIcon fill={focused ? "#32425B" : undefined} />
+              <MarketplaceIcon fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}
@@ -163,7 +163,7 @@ const NonUserTabNavigator = () => {
           tabBarStyle: {
             display: "none",
           },
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: () => (
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <CaptureIcon height={37.26} width={37.26} />
               <Text style={navigatorStyle.captureTextStyle}>Capture</Text>
@@ -190,11 +190,11 @@ const NonUserTabNavigator = () => {
               ]}
               onPress={() => navigation.navigate(Routes.login)}
             >
-              <Upload fill={focused ? "#32425B" : undefined} />
+              <Upload fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}
@@ -221,11 +221,11 @@ const NonUserTabNavigator = () => {
               ]}
               onPress={() => navigation.navigate(Routes.login)}
             >
-              <Profile fill={focused ? "#32425B" : undefined} />
+              <Profile fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}

@@ -17,7 +17,7 @@ const CameraAlert = ({svg, title, content}) => {
                 style={{
                     width: RFValue(365),
                     height: RFValue(155),
-                    backgroundColor: convertHexToRGBA("#213348", 90),
+                    backgroundColor: convertHexToRGBA("#130C47", 90),
                     paddingHorizontal: RFValue(18),
                     paddingVertical: RFValue(25),
                     borderRadius: 8,

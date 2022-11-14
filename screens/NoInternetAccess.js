@@ -23,7 +23,7 @@ const NoInternetAccess = ({ navigation }) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#32425B",
+        backgroundColor: "#130C47",
         justifyContent: "center",
         alignItems: "center",
       }}

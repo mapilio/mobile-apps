@@ -1,6 +1,5 @@
 import React from "react";
 import { Pressable, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA, maxCharacterHandler } from "../helper/helper";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
@@ -39,7 +38,7 @@ const ProjectList = ({ project, setModalVisible }) => {
       id={project.projectKey}
     >
       <View style={{ flex: 0.9 }}>
-        <CustomTextMedium style={{ fontSize: RFValue(14), color: "#32425B" }}>
+        <CustomTextMedium style={{ fontSize: RFValue(14), color: "#130C47" }}>
           {maxCharacterHandler(project.project_detail.marketplace_name, 40)}
         </CustomTextMedium>
         <CustomText

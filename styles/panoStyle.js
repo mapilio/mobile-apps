@@ -43,7 +43,7 @@ export const panoStyle = {
     paddingRight: RFValue(13),
     paddingTop: RFValue(6),
     paddingBottom: RFValue(6),
-    backgroundColor: "#213348",
+    backgroundColor: "#130C47",
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomLeftRadius: RFValue(5),

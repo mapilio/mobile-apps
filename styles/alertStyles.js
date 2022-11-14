@@ -10,7 +10,7 @@ export const infoAlertStyles = StyleSheet.create({
   alertContainer: {
     backgroundColor: convertHexToRGBA("#488BDA", 90),
     borderLeftWidth: RFValue(15),
-    borderLeftColor: "#213348",
+    borderLeftColor: "#130C47",
   },
   alertImage: {
     width: RFValue(33),

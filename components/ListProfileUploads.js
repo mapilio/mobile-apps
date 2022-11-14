@@ -31,7 +31,7 @@ const ListProfileUploads = ({
         payload: null,
       });
     });
-    return unsubscribe;
+    return () => unsubscribe();
   }, [navigation]);
 
   return (
@@ -98,7 +98,7 @@ const ListProfileUploads = ({
               marginHorizontal: RFValue(50),
               minWidth: "100%",
             }}
-            color={"#213348"}
+            color={"#130C47"}
           />
         )}
       </View>

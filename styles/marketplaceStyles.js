@@ -8,14 +8,14 @@ export const marketplaceStyles = StyleSheet.create({
     position: "relative",
     flex: 1,
     paddingHorizontal: RFValue(16),
-    backgroundColor: "#32425B",
+    backgroundColor: "#130C47",
     overflow: "hidden",
     borderTopRightRadius: RFValue(10),
     borderTopLeftRadius: RFValue(10),
   },
   panelHeader: {
     height: RFValue(30),
-    backgroundColor: "#32425B",
+    backgroundColor: "#130C47",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -28,7 +28,7 @@ export const marketplaceStyles = StyleSheet.create({
   },
   panel: {
     flex: 1,
-    backgroundColor: "#32425B",
+    backgroundColor: "#130C47",
     position: "relative",
   },
   title: {
@@ -90,7 +90,7 @@ export const marketplaceDetailStyles = StyleSheet.create({
   smallText: { fontSize: RFValue(12) },
   title: {
     fontSize: RFValue(18),
-    color: "#32425B",
+    color: "#130C47",
   },
   imageArea: {
     flexDirection: "row",

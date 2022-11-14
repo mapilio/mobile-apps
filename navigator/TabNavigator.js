@@ -18,7 +18,6 @@ import {
 } from "../screens";
 import { HeaderTitle } from "../components/Marketplace";
 import {
-  AppState,
   Dimensions,
   Text,
   TouchableOpacity,
@@ -50,7 +49,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
-const CaptureTabBarButton = ({ children, onPress }) => {
+const CaptureTabBarButton = ({ onPress }) => {
   const screenListen = async () => {
     await permissionHandler(
       () => false,
@@ -79,7 +78,7 @@ const CaptureTabBarButton = ({ children, onPress }) => {
   );
 };
 
-const TabNavigator = ({ navigation, route }) => {
+const TabNavigator = ({ navigation }) => {
   const {connection} = useSelector((state) => state.generalReducer);
   const [internetGoes, setInternetGoes] = useState(false);
   const {uploadData} = useSelector((state) => state.uploadReducer);
@@ -112,7 +111,7 @@ const TabNavigator = ({ navigation, route }) => {
         },
       }}
       screenListeners={({ navigation, route }) => ({
-        focus: (e) => {
+        focus: () => {
           if (
             !connection.connectionStatus &&
             route.name !== Routes.camera &&
@@ -142,11 +141,11 @@ const TabNavigator = ({ navigation, route }) => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <TabMap fill={focused ? "#32425B" : undefined} />
+              <TabMap fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}
@@ -164,14 +163,14 @@ const TabNavigator = ({ navigation, route }) => {
                 : Platform.OS === "ios"
                 ? RFValue(80)
                 : RFValue(55),
-            backgroundColor: "#213348",
+            backgroundColor: "#130C47",
           },
         }}
       />
       <Tab.Screen
         component={Marketplace}
         name={Routes.marketplace}
-        options={({ navigation }) => ({
+        options={() => ({
           headerStyle: navigatorStyle.headerStyle,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
@@ -184,11 +183,11 @@ const TabNavigator = ({ navigation, route }) => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <MarketplaceIcon fill={focused ? "#32425B" : undefined} />
+              <MarketplaceIcon fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}
@@ -202,14 +201,14 @@ const TabNavigator = ({ navigation, route }) => {
       <Tab.Screen
         component={AppCamera}
         name={Routes.camera}
-        options={({ navigation }) => ({
+        options={() => ({
           headerShown: false,
           headerRight: () => <UploadNavigatorRight />,
           headerStyle: navigatorStyle.headerStyle,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: () => (
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <CaptureIcon height={37.26} width={37.26} />
               <Text style={navigatorStyle.captureTextStyle}>Capture</Text>
@@ -238,11 +237,11 @@ const TabNavigator = ({ navigation, route }) => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <Upload fill={focused ? "#32425B" : undefined} />
+              <Upload fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}
@@ -277,7 +276,7 @@ const TabNavigator = ({ navigation, route }) => {
       <Tab.Screen
         component={ProfileSequence}
         name={Routes.profileSequence}
-        options={({ navigation, route }) => ({
+        options={({ navigation }) => ({
           headerLeft: (props) => (
             <SequenceNavigatorLeft
               {...props}
@@ -355,11 +354,11 @@ const TabNavigator = ({ navigation, route }) => {
                 focused ? navigatorStyle.borderStyle : {},
               ]}
             >
-              <Profile fill={focused ? "#32425B" : undefined} />
+              <Profile fill={focused ? "#130C47" : undefined} />
               <Text
                 style={[
                   navigatorStyle.tabTextStyle,
-                  focused ? { color: "#32425B" } : {},
+                  focused ? { color: "#130C47" } : {},
                 ]}
                 numberOfLines={1}
                 ellipsizeMode={"clip"}

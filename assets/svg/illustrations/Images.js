@@ -1,7 +1,7 @@
 import React from "react";
 import Svg, {G, Path} from "react-native-svg";
 
-const Images = ({width = 15.712, height = 18.9, color = '#32425b'}) => (
+const Images = ({width = 15.712, height = 18.9, color = '#130C47'}) => (
   <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 15.712 18.9">
     <G id="Group_48358" data-name="Group 48358" transform="translate(12378.372 -16216.35)">
       <Path id="upload_images"
