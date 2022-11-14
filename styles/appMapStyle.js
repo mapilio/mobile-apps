@@ -4,7 +4,7 @@ import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 export const appMapStyle = StyleSheet.create({
   map: {
     width: Dimensions.get("screen").width,
-    paddingBottom: RFValue(90),
+    position: "relative"
   },
   searchIcon: {
     backgroundColor: "rgba(50, 66, 91, 0.9)",
@@ -26,14 +26,16 @@ export const appMapStyle = StyleSheet.create({
     height: RFValue(26),
     position: "absolute",
     zIndex: 5,
-    left: RFValue(16),
+    left: RFValue(15),
+    bottom: RFValue(15),
     alignItems: "center",
     justifyContent: "center",
     borderRadius: RFPercentage(0.5),
   },
   minimizePano: {
     position: "absolute",
-    right: RFValue(16),
+    right: RFValue(15),
     zIndex: 1,
+    bottom: RFValue(15)
   },
 });

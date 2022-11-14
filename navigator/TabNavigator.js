@@ -18,8 +18,6 @@ import {
 } from "../screens";
 import { HeaderTitle } from "../components/Marketplace";
 import {
-  AppState,
-  Dimensions,
   Text,
   TouchableOpacity,
   View,
@@ -50,7 +48,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
-const CaptureTabBarButton = ({ children, onPress }) => {
+const CaptureTabBarButton = ({ onPress }) => {
   const screenListen = async () => {
     await permissionHandler(
       () => false,
@@ -79,11 +77,11 @@ const CaptureTabBarButton = ({ children, onPress }) => {
   );
 };
 
-const TabNavigator = ({ navigation, route }) => {
+const TabNavigator = ({ navigation }) => {
   const {connection} = useSelector((state) => state.generalReducer);
   const [internetGoes, setInternetGoes] = useState(false);
   const {uploadData} = useSelector((state) => state.uploadReducer);
-  const {bottom} = useSafeAreaInsets();
+  const {bottom, top} = useSafeAreaInsets();
 
   const connectionAlertHandler = (navigation, name) => {
     if (name !== Routes.camera && name !== Routes.upload) {
@@ -104,15 +102,10 @@ const TabNavigator = ({ navigation, route }) => {
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
-        tabBarStyle: {
-          height: RFValue(63) + bottom,
-          position: "absolute",
-          bottom: 0,
-          width: "100%",
-        },
+        tabBarStyle: {height: RFValue(63) + bottom},
       }}
       screenListeners={({ navigation, route }) => ({
-        focus: (e) => {
+        focus: () => {
           if (
             !connection.connectionStatus &&
             route.name !== Routes.camera &&
@@ -158,12 +151,7 @@ const TabNavigator = ({ navigation, route }) => {
           title: <MapLogo fill={"#000"} />,
           headerTitleAlign: "center",
           headerStyle: {
-            height:
-              Dimensions.get("window").height > 1100
-                ? RFValue(50)
-                : Platform.OS === "ios"
-                ? RFValue(80)
-                : RFValue(55),
+            height: top + RFValue(50),
             backgroundColor: "#213348",
           },
         }}
@@ -171,7 +159,7 @@ const TabNavigator = ({ navigation, route }) => {
       <Tab.Screen
         component={Marketplace}
         name={Routes.marketplace}
-        options={({ navigation }) => ({
+        options={() => ({
           headerStyle: navigatorStyle.headerStyle,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
@@ -202,14 +190,14 @@ const TabNavigator = ({ navigation, route }) => {
       <Tab.Screen
         component={AppCamera}
         name={Routes.camera}
-        options={({ navigation }) => ({
+        options={() => ({
           headerShown: false,
           headerRight: () => <UploadNavigatorRight />,
           headerStyle: navigatorStyle.headerStyle,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: () => (
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <CaptureIcon height={37.26} width={37.26} />
               <Text style={navigatorStyle.captureTextStyle}>Capture</Text>
@@ -277,7 +265,7 @@ const TabNavigator = ({ navigation, route }) => {
       <Tab.Screen
         component={ProfileSequence}
         name={Routes.profileSequence}
-        options={({ navigation, route }) => ({
+        options={({ navigation }) => ({
           headerLeft: (props) => (
             <SequenceNavigatorLeft
               {...props}
