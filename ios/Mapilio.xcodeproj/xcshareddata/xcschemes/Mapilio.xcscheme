@@ -60,10 +60,6 @@
             ReferencedContainer = "container:Mapilio.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <LocationScenarioReference
-         identifier = "../../../mapilio-mobile-apps/ios/Atlanta_To_SandySprings.gpx"
-         referenceType = "0">
-      </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
