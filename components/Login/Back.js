@@ -1,10 +1,14 @@
 import {StyleSheet, TouchableOpacity} from "react-native";
 import {ArrowLeft} from "../../assets/svg/illustrations";
 import {RFValue} from "react-native-responsive-fontsize";
+import {Routes} from "../../navigator/Routes";
 
 const Back = ({navigation}) => {
   return (
-    <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+    <TouchableOpacity
+      style={styles.backButton}
+      onPress={() => navigation.canGoBack() ? navigation.goBack() : navigation.navigate(Routes.map)}
+    >
       <ArrowLeft color={'#FFFFFF'} width={RFValue(7)} height={RFValue(13)}/>
     </TouchableOpacity>
   )
