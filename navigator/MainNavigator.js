@@ -92,9 +92,11 @@ const MainNavigator = () => {
           <Stack.Screen
             component={ForgotPassword}
             name={Routes.forgotPassword}
-            options={{
-              headerShown: false,
-            }}
+            options={({navigation}) => ({
+              title: false,
+              headerStyle: loginStyles.headerStyle,
+              headerLeft: () => <Back navigation={navigation}/>,
+            })}
           />
           <Stack.Screen
             component={NonUserTabNavigator}
