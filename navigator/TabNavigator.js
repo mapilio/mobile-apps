@@ -18,7 +18,6 @@ import {
 } from "../screens";
 import { HeaderTitle } from "../components/Marketplace";
 import {
-  Dimensions,
   Text,
   TouchableOpacity,
   View,
@@ -82,7 +81,7 @@ const TabNavigator = ({ navigation }) => {
   const {connection} = useSelector((state) => state.generalReducer);
   const [internetGoes, setInternetGoes] = useState(false);
   const {uploadData} = useSelector((state) => state.uploadReducer);
-  const {bottom} = useSafeAreaInsets();
+  const {bottom, top} = useSafeAreaInsets();
 
   const connectionAlertHandler = (navigation, name) => {
     if (name !== Routes.camera && name !== Routes.upload) {
@@ -103,12 +102,7 @@ const TabNavigator = ({ navigation }) => {
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
-        tabBarStyle: {
-          height: RFValue(63) + bottom,
-          position: "absolute",
-          bottom: 0,
-          width: "100%",
-        },
+        tabBarStyle: {height: RFValue(63) + bottom},
       }}
       screenListeners={({ navigation, route }) => ({
         focus: () => {
@@ -157,13 +151,8 @@ const TabNavigator = ({ navigation }) => {
           title: <MapLogo fill={"#000"} />,
           headerTitleAlign: "center",
           headerStyle: {
-            height:
-              Dimensions.get("window").height > 1100
-                ? RFValue(50)
-                : Platform.OS === "ios"
-                ? RFValue(80)
-                : RFValue(55),
-            backgroundColor: "#130C47",
+            height: top + RFValue(50),
+            backgroundColor: "#213348",
           },
         }}
       />

@@ -65,11 +65,7 @@ const NonUserTabNavigator = () => {
       screenOptions={({ navigation }) => ({
         cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
         tabBarShowLabel: false,
-        tabBarStyle: {
-          height: RFValue(63) + bottom,
-          position: "absolute",
-          bottom: 0,
-        },
+        tabBarStyle: {height: RFValue(63) + bottom},
         headerRight: () => <SignInNavigatorRight navigation={navigation} />,
       })}
       screenListeners={({ navigation, route }) => ({
@@ -114,8 +110,8 @@ const NonUserTabNavigator = () => {
           title: <MapLogo fill={"#000"} />,
           headerTitleAlign: "center",
           headerStyle: {
-            height: top + RFValue(55),
-            backgroundColor: "#130C47",
+            height: top + RFValue(50),
+            backgroundColor: "#213348",
           },
         }}
       />
@@ -123,7 +119,7 @@ const NonUserTabNavigator = () => {
         component={Marketplace}
         name={Routes.marketplace}
         options={() => ({
-          headerStyle: {...navigatorStyle.headerStyle, height: top + RFValue(55)},
+          headerStyle: navigatorStyle.headerStyle,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,

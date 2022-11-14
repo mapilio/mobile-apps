@@ -37,7 +37,7 @@ const AppMap = ({ navigation }) => {
   let panelRef = useRef();
   let mapRef = useRef();
   const {height} = Dimensions.get("window");
-  const {bottom} = useSafeAreaInsets();
+  const {bottom, top} = useSafeAreaInsets();
 
   useEffect(() => {
     const didShow = Keyboard.addListener("keyboardDidShow", () => setKeyboardVisible(true));
@@ -59,9 +59,7 @@ const AppMap = ({ navigation }) => {
     })
   }, [cameraRef.current]);
 
-
-
-  const contentHeight = height - bottom - useHeaderHeight() + RFValue(28)
+  const contentHeight = height - RFValue(63) - RFValue(50) - bottom - top
 
   const zoomPoint = async (coordinate) => {
     const zoomLevel = await mapRef.current?.getZoom()
@@ -134,7 +132,7 @@ const AppMap = ({ navigation }) => {
 
       {!showPano && imageInformations && (
         <TouchableOpacity
-          style={{...appMapStyle.minimizePano, bottom: RFValue(100) + bottom }}
+          style={appMapStyle.minimizePano}
           onPress={() => setShowPano(true)}
         >
           <PanoMinimize />
@@ -143,7 +141,7 @@ const AppMap = ({ navigation }) => {
 
       <View>
         <MapView
-          mapStyle={{...appMapStyle.map, height: showPano ? contentHeight / 2 - 25 : contentHeight }}
+          mapStyle={{...appMapStyle.map, height: showPano ? (contentHeight / 2) : contentHeight}}
           mapRef={mapRef}
         >
           <MapboxGL.UserLocation
@@ -195,17 +193,16 @@ const AppMap = ({ navigation }) => {
               markerPath={require("../assets/images/heading.png")}
             />
           )}
-
           <Camera ref={cameraRef} />
         </MapView>
+        <Pressable
+          style={appMapStyle.currentIcon}
+          onPress={handleSetCenter}
+          onLongPress={() => setUserLocation(prev => !prev)}
+        >
+          <CurrentLocationIcon />
+        </Pressable>
       </View>
-      <Pressable
-        style={{...appMapStyle.currentIcon, bottom: bottom + RFValue(100)}}
-        onPress={handleSetCenter}
-        onLongPress={() => setUserLocation(prev => !prev)}
-      >
-        <CurrentLocationIcon />
-      </Pressable>
     </SafeAreaView>
   );
 };
