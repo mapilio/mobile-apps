@@ -1,57 +1,34 @@
 import React, {memo, useEffect, useRef, useState} from "react";
-import {Dimensions, TouchableOpacity, View, Platform, Pressable, Keyboard} from "react-native";
+import {Dimensions, TouchableOpacity, View, Platform, Pressable} from "react-native";
 import {appMapStyle} from "../styles/appMapStyle";
 import MapboxGL, {Camera} from "@rnmapbox/maps";
-import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
-import SlidingUpPanel from "rn-sliding-up-panel";
 import { RFValue } from "react-native-responsive-fontsize";
-import SearchbarSwipe from "../components/SearchbarSwipe";
 import * as Location from "expo-location";
-import {useHeaderHeight} from "@react-navigation/elements";
 import {MapView} from "../highordercomponents";
 import {styles} from "../styles/circleStyles";
 import {Heading} from "../components/Map";
-import {CloseIcon} from "../assets/svg/illustrations";
 import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
 import SafeAreaView from "react-native-safe-area-view";
 import Geolocation from "react-native-geolocation-service";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Search} from "../components/Search";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
 const AppMap = ({ navigation }) => {
   const [imageInformations, setImageInformations] = useState(null);
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-  const [openSearchbar, setOpenSearchbar] = useState(false);
   const [clickedCoord, setClickedCoord] = useState(null);
-  const [onScroll, setOnScroll] = useState(false);
   const [showPano, setShowPano] = useState(false);
   const [userCoordinate, setUserCoordinate] = useState([10, 10]);
   const [userLocation, setUserLocation] = useState(true);
-  const headerHeight = useHeaderHeight();
   let cameraRef = useRef();
-  let panelRef = useRef();
   let mapRef = useRef();
   const {height} = Dimensions.get("window");
   const {bottom, top} = useSafeAreaInsets();
-
-  useEffect(() => {
-    const didShow = Keyboard.addListener("keyboardDidShow", () => setKeyboardVisible(true));
-    const didHide = Keyboard.addListener("keyboardDidHide", () => setKeyboardVisible(false));
-
-    return () => {
-      didShow.remove();
-      didHide.remove()
-    };
-  }, []);
-
-  useEffect(() => {
-    isKeyboardVisible && panelRef?.current?.show(1800)
-  }, [isKeyboardVisible]);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(({coords}) => {
@@ -63,11 +40,7 @@ const AppMap = ({ navigation }) => {
 
   const zoomPoint = async (coordinate) => {
     const zoomLevel = await mapRef.current?.getZoom()
-
-    cameraRef.current?.setCamera({
-      centerCoordinate: coordinate,
-      zoomLevel: zoomLevel + 5,
-    })
+    cameraRef.current?.setCamera({centerCoordinate: coordinate, zoomLevel: zoomLevel + 5})
   }
 
   const touchPoint = (e) => {
@@ -89,7 +62,6 @@ const AppMap = ({ navigation }) => {
   const handleSetCenter = async () => {
     const isEnabled = await Location.hasServicesEnabledAsync();
     const {granted}  = await Location.getForegroundPermissionsAsync();
-
     if (!isEnabled || !granted) {
       toastMessage.error("Your GPS is disabled.")
     }
@@ -99,35 +71,12 @@ const AppMap = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    if (openSearchbar) {panelRef?.current?.show(225)}
-  }, [openSearchbar]);
-
   return (
     <SafeAreaView>
       {showPano ? (
         <Pano hidePano={() => setShowPano(false)} imageInformation={imageInformations} navigation={navigation}/>
       ) : (
-        <Pressable onPress={() => setOpenSearchbar((state) => !state)} style={appMapStyle.searchIcon}>
-          {openSearchbar ? <CloseIcon color={"#FFFFFF"}/> : <SearchIcon width={19.55} height={19.55}/>}
-        </Pressable>
-      )}
-
-      {openSearchbar && (
-        <SlidingUpPanel
-          draggableRange={{top: height - headerHeight * 2, bottom: RFValue(120)}}
-          allowDragging={!onScroll}
-          showBackdrop={false}
-          ref={panelRef}
-          containerStyle={{marginBottom: RFValue(63) + bottom, zIndex: 6}}
-        >
-          <SearchbarSwipe
-            setFly={(coordinate) => zoomPoint(coordinate)}
-            panelRef={panelRef}
-            setOnScroll={setOnScroll}
-            isKeyboardVisible={isKeyboardVisible}
-          />
-        </SlidingUpPanel>
+        <Search camera={cameraRef}/>
       )}
 
       {!showPano && imageInformations && (
@@ -147,7 +96,9 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.UserLocation
             visible={userLocation}
             showsUserHeadingIndicator={Platform.OS === "android"}
-            ref={(location) => setUserCoordinate(location?.state.coordinates)}
+            onUpdate={({coords}) => {
+              setUserCoordinate([coords.longitude, coords.latitude])
+            }}
           />
 
           <MapboxGL.VectorSource

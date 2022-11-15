@@ -7,7 +7,7 @@ export const appMapStyle = StyleSheet.create({
     position: "relative"
   },
   searchIcon: {
-    backgroundColor: "rgba(50, 66, 91, 0.9)",
+    backgroundColor: "rgba(19, 12, 71, 1)",
     padding: RFValue(8),
     width: RFValue(35.5),
     height: RFValue(35.5),

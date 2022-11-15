@@ -42,4 +42,6 @@ export { default as Road } from "./Road";
 export { default as CleanRoad } from "./CleanRoad";
 export { default as Orientation } from "./Orientation";
 export { default as CaptureText } from "./Capture";
+export { default as SearchIcon } from "./SearchIcon";
+export {default as NoLocation} from "./NoLocation";
 export { default as NoUpload } from "./NoUpload";
