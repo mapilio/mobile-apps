@@ -10,7 +10,7 @@ export const sequenceLeft = StyleSheet.create({
   },
   backTitle: {
     fontSize: RFValue(16),
-    color: "#B9C0CF",
+    color: "#D8D8D8",
     marginBottom: Platform.OS === "ios" ? 0 : RFValue(-2),
     marginLeft: RFValue(3),
   },
