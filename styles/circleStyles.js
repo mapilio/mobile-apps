@@ -36,6 +36,5 @@ export const styles = {
   },
   lineStyles: {
     lineColor: "#146aff",
-    lineWidth: ["interpolate", ["linear"], ["zoom"], 7, 0, 7.1, 0, 14.1, 2],
   },
 };
