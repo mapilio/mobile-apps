@@ -6,15 +6,14 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { AppMap, Login, Marketplace, NoInternetAccess } from "../screens";
 import { Text, TouchableOpacity, View } from "react-native";
 import TabMap from "../assets/svg/illustrations/TabMap";
-import MapLogo from "../assets/svg/illustrations/MapLogo";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector } from "react-redux";
 import { Notifier } from "react-native-notifier";
-import { HeaderTitle } from "../components/Marketplace";
 import {CaptureIcon, CaptureText, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
 import SignInNavigatorRight from "./navigatorbars/SignInNavigatorRight";
 import { RFValue } from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {MapilioLogoBeta} from "../assets/svg/logos";
 
 const Tab = createBottomTabNavigator();
 
@@ -100,9 +99,7 @@ const NonUserTabNavigator = () => {
               </Text>
             </View>
           ),
-          // headerShown: false,
-          title: <MapLogo fill={"#000"} />,
-          headerTitleAlign: "center",
+          title: <MapilioLogoBeta />,
           headerStyle: {
             height: top + RFValue(50),
             backgroundColor: "#130C47",
@@ -113,11 +110,11 @@ const NonUserTabNavigator = () => {
         component={Marketplace}
         name={Routes.marketplace}
         options={() => ({
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
-          headerTitle: () => <HeaderTitle />,
+          title: <MapilioLogoBeta />,
+          headerStyle: {
+            height: top + RFValue(50),
+            backgroundColor: "#130C47",
+          },
           tabBarIcon: ({ focused }) => (
             <View
               style={[

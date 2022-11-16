@@ -14,11 +14,11 @@ import {useDispatch} from "react-redux";
 import {getTokenAction} from "../store/reducers/loginReducer/getTokenAction";
 import {RFValue} from "react-native-responsive-fontsize";
 import {Eye} from "../assets/svg/illustrations";
-import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import {SocialLogin} from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import SafeAreaView from "react-native-safe-area-view";
+import {MapilioLogoBeta} from "../assets/svg/logos";
 
 const loginValidationSchema = yup.object().shape({
 	email: yup.string()
@@ -44,7 +44,7 @@ const Login = ({navigation}) => {
 		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
 			<View>
 				<View style={loginStyles.logo}>
-					<MapilioLogo width={RFValue(150)} height={RFValue(50)}/>
+					<MapilioLogoBeta width={RFValue(248)} height={RFValue(50)}/>
 				</View>
 
 				<View style={{marginBottom: RFValue(30)}}>
