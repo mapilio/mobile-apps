@@ -103,12 +103,12 @@ const AppMap = ({ navigation }) => {
 
           <MapboxGL.VectorSource
             id="road-points"
-            url={"mapbox://mapilio.ckzy904h607j827pbqjtx9n4d-3dges"}
+            url={Config.MAPBOX_POINT_URL}
             onPress={touchPoint}
           >
             <MapboxGL.CircleLayer
-              id={"mapilio_point"}
-              sourceLayerID={"mapilio_point"}
+              id={"mapilio_point_new"}
+              sourceLayerID={Config.MAPBOX_POINT_ID}
               style={styles.circles}
               minZoomLevel={14}
             />
@@ -116,12 +116,11 @@ const AppMap = ({ navigation }) => {
 
           <MapboxGL.VectorSource
             id="road-points-2"
-            url={"mapbox://mapilio.ckzy904h607j827pbqjtx9n4d-3dges"}
-            onPress={(e) => zoomPoint(e.features[0].geometry.coordinates)}
+            url={Config.MAPBOX_POINT_URL}
           >
             <MapboxGL.CircleLayer
               id={"mapilio-point-v1-stroke"}
-              sourceLayerID={"mapilio_point"}
+              sourceLayerID={Config.MAPBOX_POINT_ID}
               style={styles.circlesOpacity}
               maxZoomLevel={15}
             />
@@ -129,11 +128,12 @@ const AppMap = ({ navigation }) => {
 
           <MapboxGL.VectorSource
             id={"road-shape"}
-            url={"mapbox://mapilio.ckzy90tfh0fdy27mvc11qnz23-7ugs8"}
+            url={Config.MAPBOX_ROAD_URL}
+            onPress={(e) => zoomPoint(e.features[0].geometry.coordinates[0])}
           >
             <MapboxGL.LineLayer
               id={"mapilio-road-v1"}
-              sourceLayerID={"mapilio_road"}
+              sourceLayerID={Config.MAPBOX_ROAD_ID}
               style={styles.lineStyles}
             />
           </MapboxGL.VectorSource>
