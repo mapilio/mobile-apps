@@ -1,39 +1,27 @@
 import React from "react";
-import { CustomText } from "../../highordercomponents";
-import { RFValue } from "react-native-responsive-fontsize";
-import { TouchableOpacity } from "react-native";
-import { useDispatch } from "react-redux";
-import { EXIT_USER } from "../../store/actionsName";
-import { Routes } from "../Routes";
+import {RFValue} from "react-native-responsive-fontsize";
+import {StyleSheet, TouchableOpacity} from "react-native";
+import {Routes} from "../Routes";
+import {SettingsDots} from "../../assets/svg/illustrations";
 
 const ProfileNavigatorRight = ({ navigation }) => {
-  const dispatch = useDispatch();
-
-  const exitHandler = () => {
-    navigation.navigate(Routes.map);
-    dispatch({ type: EXIT_USER });
-  };
-
   return (
-    <TouchableOpacity
-      style={{
-        flexDirection: "row",
-        marginRight: RFValue(14),
-        alignItems: "center",
-      }}
-      onPress={exitHandler}
-    >
-      <CustomText
-        style={{
-          fontSize: RFValue(12),
-          color: "#B9C0CF",
-          marginLeft: RFValue(6),
-        }}
-      >
-        Sign out
-      </CustomText>
+    <TouchableOpacity style={styles.settingsButton} onPress={() => navigation.navigate(Routes.profileSettings)}>
+      <SettingsDots width={RFValue(12)}/>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  settingsButton: {
+    backgroundColor: '#FFFFFF1A',
+    borderRadius: RFValue(20),
+    width: RFValue(24),
+    height: RFValue(24),
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: RFValue(28),
+  }
+})
 
 export default ProfileNavigatorRight;

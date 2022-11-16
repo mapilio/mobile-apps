@@ -10,6 +10,8 @@ import {
   Login,
   MarketplaceDetail,
   NoInternetAccess,
+  ProfileSettings,
+  WebviewScreen,
   Register,
   Walkthrough,
   WelcomeWalkthrough,
@@ -27,6 +29,7 @@ import MarketplaceReady from "../screens/MarketplaceReady";
 import {loginStyles} from "../styles/loginStyles";
 import {Back, SignInButton, SignUpButton} from "../components/Login";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import ProfileSettingsNavigatorLeft from "./navigatorbars/ProfileSettingsNavigatorLeft";
 
 const Stack = createStackNavigator();
 
@@ -188,6 +191,36 @@ const MainNavigator = () => {
           })}
         />
       </Stack.Group>
+      <Stack.Screen
+        name={Routes.profileSettings}
+        component={ProfileSettings}
+        options={({navigation}) => ({
+          headerStyle: {
+            backgroundColor: '#FFF',
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+          },
+          cardStyle: {backgroundColor: '#FFF'},
+          headerLeft: () => <ProfileSettingsNavigatorLeft navigation={navigation}/>,
+          title: false
+        })}
+      />
+      <Stack.Screen
+        name={Routes.webview}
+        component={WebviewScreen}
+        options={({navigation}) => ({
+          headerStyle: {
+            backgroundColor: '#FFF',
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+          },
+          cardStyle: {backgroundColor: '#FFF'},
+          headerLeft: () => <ProfileSettingsNavigatorLeft navigation={navigation}/>,
+          title: false
+        })}
+      />
     </Stack.Navigator>
   );
 };

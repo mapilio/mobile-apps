@@ -21,4 +21,6 @@ export const Routes = {
   map: "map",
   nonUserTab: "NonUserTab",
   profileSequence: "ProfileSequence",
+  webview: "WebviewScreen",
+  profileSettings: "ProfileSettings",
 };
