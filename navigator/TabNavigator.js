@@ -152,7 +152,7 @@ const TabNavigator = ({ navigation }) => {
           headerTitleAlign: "center",
           headerStyle: {
             height: top + RFValue(50),
-            backgroundColor: "#213348",
+            backgroundColor: "#130C47",
           },
         }}
       />

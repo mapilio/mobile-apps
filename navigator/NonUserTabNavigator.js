@@ -11,13 +11,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector } from "react-redux";
 import { Notifier } from "react-native-notifier";
 import { HeaderTitle } from "../components/Marketplace";
-import {
-  CaptureIcon,
-  CaptureText,
-  MarketplaceIcon,
-  Profile,
-  Upload,
-} from "../assets/svg/illustrations";
+import {CaptureIcon, CaptureText, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
 import SignInNavigatorRight from "./navigatorbars/SignInNavigatorRight";
 import { RFValue } from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -111,7 +105,7 @@ const NonUserTabNavigator = () => {
           headerTitleAlign: "center",
           headerStyle: {
             height: top + RFValue(50),
-            backgroundColor: "#213348",
+            backgroundColor: "#130C47",
           },
         }}
       />

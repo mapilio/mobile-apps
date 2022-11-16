@@ -26,7 +26,6 @@ import NonUserTabNavigator from "./NonUserTabNavigator";
 import MarketplaceReady from "../screens/MarketplaceReady";
 import {loginStyles} from "../styles/loginStyles";
 import {Back, SignInButton, SignUpButton} from "../components/Login";
-import {RFValue} from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const Stack = createStackNavigator();
@@ -77,7 +76,7 @@ const MainNavigator = () => {
             name={Routes.login}
             options={({navigation}) => ({
               title: false,
-              headerStyle: {...loginStyles.headerStyle, height: top + RFValue(55)},
+              headerStyle: {...loginStyles.headerStyle, height: top + 50},
               headerLeft: () => <Back navigation={navigation}/>,
               headerRight: () => <SignUpButton navigation={navigation}/>,
             })}
@@ -87,7 +86,7 @@ const MainNavigator = () => {
             name={Routes.register}
             options={({navigation}) => ({
               title: false,
-              headerStyle: {...loginStyles.headerStyle, height: top + RFValue(55)},
+              headerStyle: {...loginStyles.headerStyle, height: top + 50},
               headerLeft: () => <Back navigation={navigation}/>,
               headerRight: () => <SignInButton navigation={navigation}/>,
             })}
@@ -97,7 +96,7 @@ const MainNavigator = () => {
             name={Routes.forgotPassword}
             options={({navigation}) => ({
               title: false,
-              headerStyle: {...loginStyles.headerStyle, height: top + RFValue(55)},
+              headerStyle: {...loginStyles.headerStyle, height: top + 50},
               headerLeft: () => <Back navigation={navigation}/>,
             })}
           />
