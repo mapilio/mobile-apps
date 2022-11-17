@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {
-	ActivityIndicator,
+	ActivityIndicator, FlatList,
 	Modal,
-	Pressable,
-	ScrollView,
+	Pressable, TouchableOpacity,
 	View,
 } from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
@@ -21,15 +20,35 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		fetchHandler({url: `${Config.SERVICE_URL}/api/function/projects/job/getMyJobs`})
-			.then((res) => {
-				setLoading(false);
-				setProjects(res.data);
-			})
-			.catch(() => {
-				toastMessage.warning("There was a problem fetching your jobs. Please try again.")
-			});
+		fetchHandler({url: `${Config.SERVICE_URL}/api/function/projects/job/getMyJobs`}).then((res) => {
+			setLoading(false);
+			setProjects(res.data);
+		}).catch(() => {
+			toastMessage.warning("There was a problem fetching your jobs. Please try again.")
+		});
 	}, []);
+
+
+	const EmptyList = () => {
+
+		const goMarketplace = () => {
+			setModalVisible(false)
+			navigation.reset({index: 0, routes: [{name: Routes.marketplace}]})
+		}
+
+		return (
+			<CustomText style={{flexDirection: "row"}}>
+				<CustomTextMedium style={cameraProjectModalStyles.projectList.paragraph}>
+					There is no project you are involved in. You can browse projects on{" "}
+				</CustomTextMedium>
+				<TouchableOpacity onPress={goMarketplace}>
+					<CustomTextMedium style={cameraProjectModalStyles.projectList.link}>
+						Marketplace.
+					</CustomTextMedium>
+				</TouchableOpacity>
+			</CustomText>
+		)
+	}
 
 	return (
 		<View style={cameraProjectModalStyles.projectList.outline}>
@@ -42,32 +61,18 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
 						<CustomTextMedium style={cameraProjectModalStyles.projectList.title}>
 							Select mission
 						</CustomTextMedium>
-						<ScrollView style={{width: "100%"}}>
-							{loading ? (
-								<View style={{marginVertical: RFValue(40)}}>
-									<ActivityIndicator color={"#4A90E2"} size={"large"}/>
-								</View>
-							) : projects ? (
-								projects.map((item, index) => (
-									<ProjectList key={index} project={item} setModalVisible={setModalVisible}/>
-								))
-							) : (
-								<CustomText style={{flexDirection: "row"}}>
-									<CustomTextMedium
-										style={cameraProjectModalStyles.projectList.paragraph}
-									>
-										There is no project you are involved in. You can browse
-										projects on{" "}
-									</CustomTextMedium>
-									<CustomTextMedium
-										style={cameraProjectModalStyles.projectList.link}
-										onPress={() => navigation.navigate(Routes.marketplace)}
-									>
-										Marketplace.
-									</CustomTextMedium>
-								</CustomText>
-							)}
-						</ScrollView>
+						{loading ? (
+							<View style={{marginVertical: RFValue(40)}}>
+								<ActivityIndicator color={"#4A90E2"} size={"large"}/>
+							</View>
+						) : (
+							<FlatList
+								style={{width: '100%'}}
+								data={projects}
+								renderItem={({item}) => <ProjectList project={item} setModalVisible={setModalVisible}/>}
+								ListEmptyComponent={() => <EmptyList/>}
+							/>
+						)}
 					</View>
 				</View>
 			</Modal>
