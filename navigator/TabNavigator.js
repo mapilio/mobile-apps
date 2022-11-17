@@ -16,7 +16,6 @@ import {
   UserSequenceDetail,
   UserUpload,
 } from "../screens";
-import { HeaderTitle } from "../components/Marketplace";
 import {
   Text,
   TouchableOpacity,
@@ -41,10 +40,10 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as ScreenOrientation from "expo-screen-orientation";
 import TabMap from "../assets/svg/illustrations/TabMap";
-import MapLogo from "../assets/svg/illustrations/MapLogo";
 import { permissionHandler } from "../helper/helper";
 import { RFValue } from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {MapilioLogoBeta} from "../assets/svg/logos";
 
 const Tab = createBottomTabNavigator();
 
@@ -148,8 +147,7 @@ const TabNavigator = ({ navigation }) => {
               </Text>
             </View>
           ),
-          title: <MapLogo fill={"#000"} />,
-          headerTitleAlign: "center",
+          title: <MapilioLogoBeta />,
           headerStyle: {
             height: top + RFValue(50),
             backgroundColor: "#130C47",
@@ -160,11 +158,11 @@ const TabNavigator = ({ navigation }) => {
         component={Marketplace}
         name={Routes.marketplace}
         options={() => ({
-          headerStyle: navigatorStyle.headerStyle,
-          headerTitleStyle: navigatorStyle.headerTitleStyle,
-          headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
-          headerTitle: () => <HeaderTitle />,
+          title: <MapilioLogoBeta />,
+          headerStyle: {
+            height: top + RFValue(50),
+            backgroundColor: "#130C47",
+          },
           tabBarIcon: ({ focused }) => (
             <View
               style={[
@@ -214,7 +212,10 @@ const TabNavigator = ({ navigation }) => {
         name={Routes.upload}
         options={({ navigation }) => ({
           headerRight: () => <UploadNavigatorRight navigation={navigation} />,
-          headerStyle: navigatorStyle.headerStyle,
+          headerStyle: {
+            height: top + RFValue(50),
+            backgroundColor: "#130C47",
+          },
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,
@@ -331,7 +332,10 @@ const TabNavigator = ({ navigation }) => {
         component={UserProfile}
         name={Routes.profile}
         options={({ navigation }) => ({
-          headerStyle: navigatorStyle.headerStyle,
+          headerStyle: {
+            height: top + RFValue(50),
+            backgroundColor: "#130C47",
+          },
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,

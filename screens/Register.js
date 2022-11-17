@@ -12,7 +12,6 @@ import { CustomText } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import { fetchHandler } from "../helper/helper";
 import { Eye } from "../assets/svg/illustrations";
-import MapilioLogo from "../assets/svg/logos/MapilioLogo";
 import { SocialLogin } from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
@@ -20,6 +19,7 @@ import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
 import {globalStyles} from "../styles/globalStyles";
 import SafeAreaView from "react-native-safe-area-view";
+import {MapilioLogoBeta} from "../assets/svg/logos";
 
 const registerValidationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -78,7 +78,7 @@ const Register = ({ navigation }) => {
     <SafeAreaView style={[globalStyles.container, loginStyles.container]}>
       <View>
         <View style={loginStyles.logo}>
-          <MapilioLogo width={RFValue(150)} height={RFValue(50)}/>
+          <MapilioLogoBeta width={RFValue(248)} height={RFValue(50)}/>
         </View>
         <View style={{marginBottom: RFValue(30)}}>
           <CustomText style={loginStyles.headerText}>

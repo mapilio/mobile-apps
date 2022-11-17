@@ -3,12 +3,6 @@ import { Dimensions, Platform } from "react-native";
 
 export const navigatorStyle = {
   headerStyle: {
-    height:
-      Dimensions.get("window").height > 1100
-        ? RFValue(50)
-        : Platform.OS === "ios"
-        ? RFValue(80)
-        : RFValue(55),
     backgroundColor: "#130C47",
   },
   headerSettingsStyle: {
