@@ -22,7 +22,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 
 const Upload = ({sequence_uuid, navigation}) => {
   const dispatch = useDispatch();
-  const [status, setStatus] = useState('Calculating... 🧮');
+  const [status, setStatus] = useState('Calculating...');
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +33,7 @@ const Upload = ({sequence_uuid, navigation}) => {
     setModalVisible(true)
 
     calculateToSequence(sequence_uuid).then(({status, data}) => {
-      setStatus('Checking your files... 🔎')
+      setStatus('Checking your files...')
 
       if (status === 'success') {
         setTotalImageCount(data.count)
@@ -43,7 +43,7 @@ const Upload = ({sequence_uuid, navigation}) => {
       setModalVisible(false)
     }).finally(() => {
       deactivateKeepAwake('upload');
-      setStatus('Calculating... 🧮');
+      setStatus('Calculating...');
     })
   }
 
@@ -61,7 +61,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 
   const sendImages= (i = 0, j = 0) => {
     return new Promise(() => {
-      setStatus('Sending your pictures... 📨')
+      setStatus('Sending your pictures...')
       if (pictures[i]) {
         if (pictures[i][j]) {
           if (pictures[i][j].hash) {
@@ -83,7 +83,7 @@ const Upload = ({sequence_uuid, navigation}) => {
         }
       } else {
         setModalVisible(false)
-        toastMessage.success('Upload is successfully 🥰')
+        toastMessage.success('Upload is successfully')
       }
     })
   }
@@ -92,7 +92,7 @@ const Upload = ({sequence_uuid, navigation}) => {
     closeRequest();
     setModalVisible(false);
     setSentCount(0);
-    toastMessage.error(`${error} 🤯`)
+    toastMessage.error(`${error}`)
   }
 
   return (
