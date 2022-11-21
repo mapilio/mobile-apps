@@ -46,3 +46,4 @@ export { default as SearchIcon } from "./SearchIcon";
 export {default as NoLocation} from "./NoLocation";
 export { default as NoUpload } from "./NoUpload";
 export { default as SettingsDots } from "./SettingsDots";
+export { default as Document } from "./Document";

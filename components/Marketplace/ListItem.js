@@ -1,12 +1,12 @@
 import React from "react";
 import { View, TouchableOpacity } from "react-native";
-import { CustomText } from "../../highordercomponents";
+import {CustomText, CustomTextBold} from "../../highordercomponents";
 import { marketplaceItemStyles } from "../../styles/marketplaceStyles";
 import {useDispatch} from "react-redux";
 import {centerOfMass, polygon} from "@turf/turf"
 import {MARKETPLACE_CENTER, ZOOM_LEVEL} from "../../store/actionsName";
 
-const ListItem = ({ data, coordinates, slidePanel }) => {
+const ListItem = ({data, coordinates, slidePanel}) => {
   const dispatch = useDispatch();
 
   const _showOnMap = () => {
@@ -16,27 +16,21 @@ const ListItem = ({ data, coordinates, slidePanel }) => {
     slidePanel.hide()
   };
 
+  const {owner, marketplace_description, project_camera_type} = data
+
   return (
-    <TouchableOpacity
-      style={marketplaceItemStyles.container}
-      onPress={_showOnMap}
-    >
+    <TouchableOpacity style={marketplaceItemStyles.container} onPress={_showOnMap}>
       <View style={marketplaceItemStyles.topContainer}>
-        <CustomText style={marketplaceItemStyles.owner}>
-          {data.owner}
-        </CustomText>
-        <CustomText style={marketplaceItemStyles.job}>
-          Imagery Capture
-        </CustomText>
+        <CustomTextBold style={marketplaceItemStyles.owner}>
+          {owner}
+        </CustomTextBold>
       </View>
-      <CustomText style={marketplaceItemStyles.title}>
-        {data.marketplace_name}
-      </CustomText>
       <CustomText style={marketplaceItemStyles.description} lineCount={2}>
-        {data.marketplace_description}
+        {marketplace_description}
       </CustomText>
-      <CustomText style={marketplaceItemStyles.equipment}>
-        CAPTURE EQUIPMENT: {data.project_camera_type}
+      <CustomText style={marketplaceItemStyles.equipmentInfo}>
+        EQUIPMENT:
+        <CustomText style={marketplaceItemStyles.equipment}>{project_camera_type}</CustomText>
       </CustomText>
     </TouchableOpacity>
   );

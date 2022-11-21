@@ -1,5 +1,5 @@
-import { Dimensions, StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import {Dimensions, StyleSheet} from "react-native";
+import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -8,34 +8,40 @@ export const marketplaceStyles = StyleSheet.create({
     position: "relative",
     flex: 1,
     paddingHorizontal: RFValue(16),
-    backgroundColor: "#130C47",
+    backgroundColor: "#FFFFFF",
     overflow: "hidden",
     borderTopRightRadius: RFValue(10),
     borderTopLeftRadius: RFValue(10),
   },
   panelHeader: {
     height: RFValue(30),
-    backgroundColor: "#130C47",
     alignItems: "center",
     justifyContent: "center",
   },
   listHeader: {
-    borderBottomWidth: RFValue(1),
-    borderBottomColor: "#CBD1D9",
     marginBottom: RFValue(7.5),
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center"
   },
   panel: {
     flex: 1,
     backgroundColor: "#130C47",
     position: "relative",
   },
+  closeIcon: {
+    backgroundColor: "#CBD1D9A2",
+    position: "absolute",
+    right: RFValue(30),
+    top: RFValue(30),
+    borderRadius: RFPercentage(50),
+    zIndex: 10
+  },
   title: {
-    color: "#FFF",
+    color: "#130C47",
     fontWeight: "500",
-    fontSize: RFValue(16),
-    marginRight: RFValue(10),
+    fontSize: RFValue(20),
+    marginLeft: RFValue(5),
+    marginRight: RFValue(10)
   },
   popoverText: {
     paddingVertical: RFValue(5),
@@ -56,9 +62,8 @@ export const marketplaceItemStyles = StyleSheet.create({
     marginBottom: RFValue(5),
   },
   owner: {
-    color: "#4A90E2",
-    fontSize: RFValue(16),
-    fontWeight: "400",
+    color: "#130C47",
+    fontSize: RFValue(14),
   },
   job: {
     color: "#FFC231",
@@ -72,22 +77,27 @@ export const marketplaceItemStyles = StyleSheet.create({
     marginBottom: RFValue(15),
   },
   description: {
-    color: "#FFF",
+    color: "#666666",
     fontSize: RFValue(14),
     marginBottom: RFValue(5),
   },
-  equipment: {
-    color: "#FFF",
+  equipmentInfo: {
+    color: "#666666",
     fontSize: RFValue(14),
+  },
+  equipment: {
+    color: "#130C47",
+    fontSize: RFValue(14),
+    textTransform: "capitalize"
   },
 });
 
 export const marketplaceDetailStyles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FFF" },
-  primaryText: { color: "#4A4A4A" },
-  secondaryTextColor: { color: "#A0AABE" },
-  blueTextColor: { color: "#3D90DD" },
-  smallText: { fontSize: RFValue(12) },
+  container: {flex: 1, backgroundColor: "#FFF"},
+  primaryText: {color: "#4A4A4A"},
+  secondaryTextColor: {color: "#A0AABE"},
+  blueTextColor: {color: "#3D90DD"},
+  smallText: {fontSize: RFValue(12)},
   title: {
     fontSize: RFValue(18),
     color: "#130C47",
