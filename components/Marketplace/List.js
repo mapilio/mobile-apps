@@ -8,8 +8,7 @@ import {marketplaceStyles} from "../../styles/marketplaceStyles";
 import ListItem from "./ListItem";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useSelector} from "react-redux";
-import Marketplace from "../../assets/svg/illustrations/Marketplace";
-import {CloseIcon} from "../../assets/svg/illustrations";
+import {CloseIcon, Marketplace} from "../../assets/svg/illustrations";
 
 const List = ({setOnScroll, slidePanel, setToggleSlidePanel }) => {
   const {marketplaceData} = useSelector((status) => status.marketplaceReducer);

@@ -5,9 +5,12 @@ import { marketplaceItemStyles } from "../../styles/marketplaceStyles";
 import {useDispatch} from "react-redux";
 import {centerOfMass, polygon} from "@turf/turf"
 import {MARKETPLACE_CENTER, ZOOM_LEVEL} from "../../store/actionsName";
+import {getEquipment} from "../../helper/marketplace";
 
 const ListItem = ({data, coordinates, slidePanel}) => {
   const dispatch = useDispatch();
+  const {owner, marketplace_description, project_camera_type} = data
+  const {icon, name} = getEquipment(project_camera_type);
 
   const _showOnMap = () => {
     const center = centerOfMass(polygon(coordinates.geometry.coordinates))
@@ -15,8 +18,6 @@ const ListItem = ({data, coordinates, slidePanel}) => {
     dispatch({type: ZOOM_LEVEL, payload: 8})
     slidePanel.hide()
   };
-
-  const {owner, marketplace_description, project_camera_type} = data
 
   return (
     <TouchableOpacity style={marketplaceItemStyles.container} onPress={_showOnMap}>
@@ -30,7 +31,8 @@ const ListItem = ({data, coordinates, slidePanel}) => {
       </CustomText>
       <CustomText style={marketplaceItemStyles.equipmentInfo}>
         EQUIPMENT:
-        <CustomText style={marketplaceItemStyles.equipment}>{project_camera_type}</CustomText>
+        {" "}{icon}{" "}
+        <CustomText style={marketplaceItemStyles.equipment}>{name}</CustomText>
       </CustomText>
     </TouchableOpacity>
   );

@@ -84,11 +84,12 @@ export const marketplaceItemStyles = StyleSheet.create({
   equipmentInfo: {
     color: "#666666",
     fontSize: RFValue(14),
+    alignItems: "center",
+    justifyContent: "center"
   },
   equipment: {
     color: "#130C47",
     fontSize: RFValue(14),
-    textTransform: "capitalize"
   },
 });
 
