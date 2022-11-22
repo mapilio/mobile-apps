@@ -67,7 +67,7 @@ const Marketplace = ({ navigation }) => {
         <CustomText style={{color: '#FFF'}}>Market List</CustomText>
       </TouchableOpacity>
 
-     <SlidingUpPanel
+      <SlidingUpPanel
         allowDragging={!onScroll}
         showBackdrop={false}
         ref={c => setSlidePanel(c)}

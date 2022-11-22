@@ -8,27 +8,36 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {useDispatch, useSelector} from "react-redux";
 import {CloseIcon, Marketplace} from "../../assets/svg/illustrations";
 import MarketplacePopover from "./MarketplacePopover";
-import {centerOfMass, polygon} from "@turf/turf";
+import {centerOfMass, centroid, polygon} from "@turf/turf";
 import {MARKETPLACE_CENTER, ZOOM_LEVEL} from "../../store/actionsName";
-import {getEquipment} from "../../helper/marketplace";
-import {fetchHandler} from "../../helper/helper";
-import Config from "react-native-config";
+import {getEquipment, isNear} from "../../helper/marketplace";
 import {Routes} from "../../navigator/Routes";
+import {setGeoJson} from "../../helper/geojson";
 import {toastMessage} from "../../helper/alerts";
+import {fetchHandler} from "../../helper/helper";
 
 const Detail = ({project, onClose, setOnScroll, navigation}) => {
   useEffect(() => setOnScroll(false), []);
 
-  const {properties: {id, owner, marketplace_name, marketplace_description, project_camera_type}} = project
+  const {properties: {id, owner, marketplace_name, marketplace_description, project_camera_type}, geometry} = project
 
   const acceptProject = () => {
-    fetchHandler({
-      url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
-      method: "POST",
-      data: {options: {parameters: {id: id}}},
-    }).then(() => {
-      navigation.navigate(Routes.MarketplaceReady, {data: project.properties,});
-    }).catch(err => toastMessage.error(`${err.response.data.message}`))
+    const polygon = setGeoJson(geometry.coordinates, "polygon")
+    const targetPoint = centroid(polygon);
+
+    isNear(targetPoint).then((distance) => {
+      if (distance > 5) {
+        toastMessage.error('Your location is too far from the project area.')
+      } else {
+        fetchHandler({
+          url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
+          method: "POST",
+          data: {options: {parameters: {id: id}}},
+        }).then(() => {
+          navigation.navigate(Routes.MarketplaceReady, {data: project.properties,});
+        }).catch(err => toastMessage.error(`${err.response.data.message}`))
+      }
+    }).catch((err) => toastMessage.error(`${err}`))
   }
 
   return (
