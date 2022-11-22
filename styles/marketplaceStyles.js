@@ -1,41 +1,45 @@
-import { Dimensions, StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-
-const windowWidth = Dimensions.get("window").width;
+import {StyleSheet} from "react-native";
+import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 
 export const marketplaceStyles = StyleSheet.create({
   container: {
     position: "relative",
     flex: 1,
     paddingHorizontal: RFValue(16),
-    backgroundColor: "#130C47",
+    backgroundColor: "#FFFFFF",
     overflow: "hidden",
     borderTopRightRadius: RFValue(10),
     borderTopLeftRadius: RFValue(10),
   },
   panelHeader: {
     height: RFValue(30),
-    backgroundColor: "#130C47",
     alignItems: "center",
     justifyContent: "center",
   },
   listHeader: {
-    borderBottomWidth: RFValue(1),
-    borderBottomColor: "#CBD1D9",
     marginBottom: RFValue(7.5),
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center"
   },
   panel: {
     flex: 1,
     backgroundColor: "#130C47",
     position: "relative",
   },
+  closeIcon: {
+    backgroundColor: "#CBD1D9A2",
+    position: "absolute",
+    right: RFValue(30),
+    top: RFValue(30),
+    borderRadius: RFPercentage(50),
+    zIndex: 10
+  },
   title: {
-    color: "#FFF",
+    color: "#130C47",
     fontWeight: "500",
-    fontSize: RFValue(16),
-    marginRight: RFValue(10),
+    fontSize: RFValue(20),
+    marginLeft: RFValue(5),
+    marginRight: RFValue(10)
   },
   popoverText: {
     paddingVertical: RFValue(5),
@@ -56,9 +60,8 @@ export const marketplaceItemStyles = StyleSheet.create({
     marginBottom: RFValue(5),
   },
   owner: {
-    color: "#4A90E2",
-    fontSize: RFValue(16),
-    fontWeight: "400",
+    color: "#130C47",
+    fontSize: RFValue(14),
   },
   job: {
     color: "#FFC231",
@@ -72,62 +75,55 @@ export const marketplaceItemStyles = StyleSheet.create({
     marginBottom: RFValue(15),
   },
   description: {
-    color: "#FFF",
+    color: "#666666",
     fontSize: RFValue(14),
     marginBottom: RFValue(5),
   },
+  equipmentInfo: {
+    color: "#666666",
+    fontSize: RFValue(14),
+    alignItems: "center",
+    justifyContent: "center"
+  },
   equipment: {
-    color: "#FFF",
+    color: "#130C47",
     fontSize: RFValue(14),
   },
 });
 
 export const marketplaceDetailStyles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FFF" },
-  primaryText: { color: "#4A4A4A" },
-  secondaryTextColor: { color: "#A0AABE" },
-  blueTextColor: { color: "#3D90DD" },
-  smallText: { fontSize: RFValue(12) },
-  title: {
-    fontSize: RFValue(18),
-    color: "#130C47",
-  },
-  imageArea: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: RFValue(20),
-    marginBottom: RFValue(30),
-  },
-  image: {
-    width: RFValue(windowWidth / 2 - 40),
-    height: RFValue(115),
-  },
-  bottomSection: {
-    backgroundColor: "#FBFBFD",
-    paddingVertical: RFValue(15),
-    borderTopWidth: RFValue(1),
-    borderColor: "#d9dbe1",
-    justifyContent: "center",
-  },
-  captureZoneText: {
-    marginBottom: RFValue(20),
+  marketplace_name: {
+    color: "#D8D8D8",
     fontSize: RFValue(14),
-    textAlign: "center",
+  },
+  owner: {
+    color: "#130C47",
+    fontSize: RFValue(14),
+    paddingVertical: RFValue(5)
+  },
+  description: {
+    color: "#666666",
+    fontSize: RFValue(14),
+  },
+  equipmentInfo: {
+    color: "#666666",
+    fontSize: RFValue(13)
+  },
+  equipment: {
+    color: "#130C47",
+    fontSize: RFValue(13)
   },
   button: {
-    backgroundColor: "#1AD971",
-    marginLeft: "auto",
-    marginRight: "auto",
-    paddingHorizontal: RFValue(25),
-    paddingVertical: RFValue(6),
-    fontSize: RFValue(12),
-    color: "#FFF",
-    borderRadius: RFValue(15),
-    height: RFValue(30),
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#3F8BE9",
+    paddingVertical: RFValue(10),
+    marginTop: RFValue(24),
+    borderRadius: RFValue(24),
+    alignItems: "center"
   },
+  buttonText: {
+    color: "#FFF",
+    fontSize: RFValue(14)
+  }
 });
 
 export const marketplaceReceivedStyles = StyleSheet.create({

@@ -1,82 +1,151 @@
-import React, {useRef, useState} from "react";
-import {
-  Platform,
-  ScrollView,
-  StatusBar,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React, {useEffect, useState} from "react";
+import {ScrollView, TouchableOpacity, View} from "react-native";
 import SwipeLine from "../../assets/svg/illustrations/SwipeLine";
-import { CustomText } from "../../highordercomponents";
-import Info from "../../assets/svg/illustrations/Info";
-import Popover from "react-native-popover-view";
-import { marketplaceStyles } from "../../styles/marketplaceStyles";
+import {CustomText, CustomTextBold} from "../../highordercomponents";
+import {marketplaceDetailStyles, marketplaceStyles} from "../../styles/marketplaceStyles";
 import ListItem from "./ListItem";
-import { RFValue } from "react-native-responsive-fontsize";
-import {useSelector} from "react-redux";
+import {RFValue} from "react-native-responsive-fontsize";
+import {useDispatch, useSelector} from "react-redux";
+import {CloseIcon, Marketplace} from "../../assets/svg/illustrations";
+import MarketplacePopover from "./MarketplacePopover";
+import {centerOfMass, centroid, polygon} from "@turf/turf";
+import {MARKETPLACE_CENTER, ZOOM_LEVEL} from "../../store/actionsName";
+import {getEquipment, isNear} from "../../helper/marketplace";
+import {Routes} from "../../navigator/Routes";
+import {setGeoJson} from "../../helper/geojson";
+import {toastMessage} from "../../helper/alerts";
+import {fetchHandler} from "../../helper/helper";
 
-const List = ({setOnScroll, slidePanel }) => {
-  const {marketplaceData} = useSelector((status) => status.marketplaceReducer);
-  const [showPopover, setShowPopover] = useState(false);
-  const touchable = useRef();
+const Detail = ({project, onClose, setOnScroll, navigation}) => {
+  useEffect(() => setOnScroll(false), []);
 
+  const {properties: {id, owner, marketplace_name, marketplace_description, project_camera_type}, geometry} = project
+
+  const acceptProject = () => {
+    const polygon = setGeoJson(geometry.coordinates, "polygon")
+    const targetPoint = centroid(polygon);
+
+    isNear(targetPoint).then((distance) => {
+      if (distance > 5) {
+        toastMessage.error('Your location is too far from the project area.')
+      } else {
+        fetchHandler({
+          url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
+          method: "POST",
+          data: {options: {parameters: {id: id}}},
+        }).then(() => {
+          navigation.navigate(Routes.MarketplaceReady, {data: project.properties,});
+        }).catch(err => toastMessage.error(`${err.response.data.message}`))
+      }
+    }).catch((err) => toastMessage.error(`${err}`))
+  }
 
   return (
     <View style={marketplaceStyles.container}>
-      <View
-        style={marketplaceStyles.panelHeader}
-        onTouchStart={() => setOnScroll(false)}
-      >
-        <SwipeLine />
+      <TouchableOpacity style={marketplaceStyles.closeIcon} onPress={onClose}>
+        <CloseIcon/>
+      </TouchableOpacity>
+      <View style={marketplaceStyles.panelHeader}>
+        <SwipeLine/>
       </View>
-      <View
-        style={marketplaceStyles.listHeader}
-        onTouchStart={() => setOnScroll(false)}
-      >
-        <CustomText style={marketplaceStyles.title}>
-          Join a project now.
+
+      <CustomText style={marketplaceDetailStyles.marketplace_name}>{marketplace_name}</CustomText>
+      <CustomTextBold style={marketplaceDetailStyles.owner}>{owner}</CustomTextBold>
+      <CustomText style={marketplaceDetailStyles.description}>{marketplace_description}</CustomText>
+
+      <CustomText style={marketplaceDetailStyles.equipmentInfo}>EQUIPMENT :
+        {'\u00A0'}{getEquipment(project_camera_type).icon}{'\u00A0'}
+        <CustomTextBold style={marketplaceDetailStyles.equipment}>{getEquipment(project_camera_type).name}</CustomTextBold>
+      </CustomText>
+
+      <TouchableOpacity style={marketplaceDetailStyles.button} onPress={acceptProject}>
+        <CustomText style={marketplaceDetailStyles.buttonText}>
+          Apply to this project
         </CustomText>
-        <View>
-          <TouchableOpacity
-            style={{ marginRight: RFValue(20), marginBottom: RFValue(8) }}
-            ref={touchable}
-            onPress={() => setShowPopover(true)}
-          >
-            <Info />
-          </TouchableOpacity>
-          <Popover
-            placement={"bottom"}
-            from={touchable}
-            isVisible={showPopover}
-            onRequestClose={() => setShowPopover(false)}
-            verticalOffset={
-              Platform.OS === "android" ? -StatusBar.currentHeight : 0
-            }
-          >
-            <CustomText style={marketplaceStyles.popoverText}>
-              Find or offer help on image collection and data verification
-              projects to create fresh map data in locations where it’s needed.
-            </CustomText>
-          </Popover>
-        </View>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+const Projects = ({setToggleSlidePanel, setOnScroll, onSelectedItem, navigation}) => {
+  const dispatch = useDispatch();
+  const {auth} = useSelector((status) => status.getTokenReducer)
+  const {marketplaceData} = useSelector((status) => status.marketplaceReducer);
+
+  const handleItemClick = (clickedItem) => {
+    const center = centerOfMass(polygon(clickedItem.geometry.coordinates))
+    dispatch({type: MARKETPLACE_CENTER, payload: center.geometry.coordinates})
+    dispatch({type: ZOOM_LEVEL, payload: 8})
+
+    if (auth) {
+      onSelectedItem(clickedItem)
+    } else {
+      navigation.reset({index: 0, routes: [{name: Routes.login}]})
+    }
+  }
+
+  return (
+    <View style={marketplaceStyles.container}>
+      <TouchableOpacity style={marketplaceStyles.closeIcon} onPress={() => setToggleSlidePanel(prev => !prev)}>
+        <CloseIcon/>
+      </TouchableOpacity>
+      <View style={marketplaceStyles.panelHeader} onTouchStart={() => setOnScroll(false)}>
+        <SwipeLine/>
+      </View>
+      <View style={marketplaceStyles.listHeader} onTouchStart={() => setOnScroll(false)}>
+        <Marketplace width={RFValue(25)} height={RFValue(25)} color={'#3F8BE9'} style={{marginRight: 10}}/>
+        <CustomText style={marketplaceStyles.title}>
+          Marketplace
+        </CustomText>
+        <MarketplacePopover/>
       </View>
       <ScrollView
         onScrollBeginDrag={() => setOnScroll(true)}
         onScrollEndDrag={() => setOnScroll(false)}
         onTouchStart={() => setOnScroll(true)}
-        style={{ marginBottom: RFValue(190) }}
+        style={{marginBottom: RFValue(190)}}
       >
         {!!Object.keys(marketplaceData).length > 0 &&
           marketplaceData.features.map((value, index) => {
             return (
-              <View key={index}>
-                <ListItem data={value.properties} coordinates={value} slidePanel={slidePanel}/>
-              </View>
+              <ListItem
+                key={index}
+                data={value.properties}
+                onClick={() => handleItemClick(value)}
+              />
             );
           })}
       </ScrollView>
     </View>
-  );
+  )
+}
+
+const List = ({navigation, setOnScroll, setToggleSlidePanel}) => {
+  const [projectDetail, setProjectDetail] = useState(null);
+
+  const handleSelectedItem = (selectedItem) => {
+    setProjectDetail(selectedItem)
+  }
+
+  if (projectDetail) {
+    return (
+      <Detail
+        navigation={navigation}
+        project={projectDetail}
+        setOnScroll={setOnScroll}
+        onClose={() => setProjectDetail(null)}
+      />
+    )
+  } else {
+    return (
+      <Projects
+        navigation={navigation}
+        setOnScroll={setOnScroll}
+        onSelectedItem={handleSelectedItem}
+        setToggleSlidePanel={setToggleSlidePanel}
+      />
+    )
+  }
 };
 
 export default List;

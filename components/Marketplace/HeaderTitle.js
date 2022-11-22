@@ -1,8 +1,8 @@
 import React from "react";
-import { Dimensions, View } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import Marketplace from "../../assets/svg/illustrations/Marketplace";
-import { CustomTextMedium } from "../../highordercomponents";
+import {View} from "react-native";
+import {RFValue} from "react-native-responsive-fontsize";
+import {CustomTextMedium} from "../../highordercomponents";
+import {Marketplace} from "../../assets/svg/illustrations";
 
 const HeaderTitle = () => {
   return (

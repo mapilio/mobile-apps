@@ -7,8 +7,6 @@ const CustomTextBold = ({ style, lineCount = null, children, onPress }) => (
       style={[
         {
           fontFamily: "Poppins-SemiBold",
-          flex: 1,
-          flexWrap: "wrap",
           ...style,
         },
       ]}

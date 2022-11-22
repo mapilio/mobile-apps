@@ -1,8 +1,9 @@
 import { store } from "../store/store";
 import axios from "axios";
-import { Alert, Linking, Platform } from "react-native";
+import {Alert, Dimensions, Linking, Platform} from "react-native";
 import { Camera as ExpoCamera } from "expo-camera";
 import * as Location from "expo-location";
+import {RFValue} from "react-native-responsive-fontsize";
 import Moment from "moment";
 let isOpenOnce = false;
 Moment.suppressDeprecationWarnings = true;
@@ -142,6 +143,17 @@ const headingPointGeoJson = (heading, coordinates) => {
   };
 };
 
+/**
+ *
+ * Getting area height outside bottom bar and top bar
+ *
+ * @param top {number} Tob bar height
+ * @param bottom {number} Bottom bar height
+ * @returns {number} content height
+ */
+const getContentAreaHeight = (top, bottom) => Dimensions.get('window').height - RFValue(63) - RFValue(50) - top - bottom
+
+
 export {
   convertHexToRGBA,
   fetchHandler,
@@ -150,4 +162,5 @@ export {
   kFormatter,
   dateConvert,
   headingPointGeoJson,
+  getContentAreaHeight
 };

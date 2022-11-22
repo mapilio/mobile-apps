@@ -1,4 +1,4 @@
-import {centroid} from "@turf/turf"
+import {centroid, polygon} from "@turf/turf"
 
 const getCoordinate = (data) => {
 	if (data.location) {
@@ -34,10 +34,14 @@ const setPointGeoJson = (data) => {
 	return points;
 }
 
+const setPolygonGeoJson = (data) => {
+	return polygon(data)
+}
+
 
 /**
  * @param data {array}
- * @param type {string ?: "line" | "point"}
+ * @param type {string ?: "line" | "point" | "polygon"}
  * @returns {object}
  */
 export const setGeoJson = (data, type) => {
@@ -50,6 +54,9 @@ export const setGeoJson = (data, type) => {
 		case "point":
 			geoJson = setPointGeoJson(data)
 			break
+		case "polygon":
+			geoJson = setPolygonGeoJson(data)
+			break
 		default:
 			break
 	}
@@ -60,7 +67,7 @@ export const setGeoJson = (data, type) => {
 export const centerCoordinatesByPolygons = (geoJson) => {
 	let points = {type: "FeatureCollection", features: []};
 
-	geoJson.features.map((feature, _i) => {
+	geoJson.features?.map((feature, _i) => {
 		let centeredPoint = centroid(feature);
 		centeredPoint.properties = feature.properties
 		points.features.push(centeredPoint)
