@@ -89,7 +89,7 @@ export const getHash = (image) => {
     const fileName = image.path.split("/").pop();
     const filePath = FileSystem.documentDirectory + `${userInformation.id}/${image.sequence_uuid}/${fileName}`;
 
-    FileSystem.getInfoAsync(filePath).then(fileInfo => {
+    FileSystem.getInfoAsync(filePath).then(() => {
       const formData = new FormData();
       formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
       formData.append("email", userInformation.email)
@@ -178,7 +178,7 @@ export const imageryUpload = (index, pictures) => {
           roll: calculate.roll(exif.accelerometer),
           yaw: calculate.yaw(exif.accelerometer),
           pitch: calculate.pitch(exif.accelerometer),
-          speed: location.speed * 3.6,
+          car_speed: location.speed * 3.6,
           gyroscope: exif.gyroscope,
           acceleration: exif.accelerometer,
           anomaly: 0,
