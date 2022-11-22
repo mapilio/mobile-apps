@@ -2,14 +2,12 @@ import React, {useEffect, useRef} from 'react';
 import {MapView} from "../../highordercomponents";
 import {appMapStyle} from "../../styles/appMapStyle";
 import MapboxGL from "@rnmapbox/maps";
-import {Routes} from "../../navigator/Routes";
 import {useSelector} from "react-redux";
 import {getContentAreaHeight} from "../../helper/helper";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const MarketplaceMap = ({navigation}) => {
   const {top, bottom} = useSafeAreaInsets();
-  const {auth} = useSelector((status) => status.getTokenReducer)
   const {marketplaceCenter, zoomLevel, marketplaceData} = useSelector((status) => status.marketplaceReducer);
   const camera = useRef();
 
@@ -17,19 +15,10 @@ const MarketplaceMap = ({navigation}) => {
     camera.current?.setCamera({centerCoordinate: marketplaceCenter, zoomLevel: zoomLevel})
   }, [marketplaceCenter, zoomLevel]);
 
-  const _drawPolygon = (geoJson, navigation) => {
+  const _drawPolygon = (geoJson) => {
     if (Object.keys(geoJson).length) {
       return (
-        <MapboxGL.ShapeSource id={"marketplacePolygon"} shape={geoJson} onPress={(project) => {
-            if (auth) {
-              navigation.navigate(Routes.marketplaceDetail, {
-                data: project.features[0].properties,
-              });
-            } else {
-              navigation.reset({index: 0, routes: [{name: Routes.login}]})
-            }
-          }}
-        >
+        <MapboxGL.ShapeSource id={"marketplacePolygon"} shape={geoJson}>
           <MapboxGL.FillLayer
             id={"marketplaceFillLayer"}
             style={{fillColor: "rgba(74, 144, 226, 0.4)", fillOutlineColor: "rgba(74, 144, 226, 1)"}}

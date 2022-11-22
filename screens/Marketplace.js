@@ -58,6 +58,7 @@ const Marketplace = ({ navigation }) => {
         containerStyle={{display: toggleSlidePanel ? 'none' : 'flex', zIndex: 6}}
       >
         <List
+          navigation={navigation}
           setOnScroll={setOnScroll}
           slidePanel={slidePanel}
           setToggleSlidePanel={setToggleSlidePanel}
