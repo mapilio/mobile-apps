@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import Database from "../../db";
-import { toastMessage } from "../../helper/alerts";
 import Config from "react-native-config";
 
 const GoogleLogin = ({ navigation }) => {
@@ -56,10 +55,10 @@ const GoogleLogin = ({ navigation }) => {
         dispatch({type: GET_TOKEN_SUCCESS, payload: res});
         dispatch(getUserInformation(res));
         Database.startDB(res.id);
-        toastMessage.success(`Login Success ${response.name}`);
+        toast.show(`Login Success ${response.name}`, {type: 'success'})
         navigation.reset({index: 0, routes: [{name: Routes.tabHome}]});
       } else {
-        toastMessage.warning("There was a problem registering. Please try a different method.");
+        toast.show(`There was a problem registering. Please try a different method.`, {type: 'warning'})
         setLoading(false);
       }
     }).catch((err) => console.error(err));

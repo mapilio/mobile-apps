@@ -1,5 +1,3 @@
-import {toastMessage} from "./alerts";
-
 /**
  * @param horizontal_pixel
  * @param vertical_pixel
@@ -30,7 +28,7 @@ export const calculate = {
 				fov = (Math.round(10 * (360 / Math.PI) * Math.atan(((vertical_pixel / 2) * pixel_pitch) / 1e3 / focal_length)) / 10)
 				break
 			default:
-				toastMessage.warning("You sent wrong parameter!")
+				toast.show("You sent wrong parameter!", {type: "warning"})
 				break
 		}
 

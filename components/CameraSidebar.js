@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
-import {StatusBar, StyleSheet, TouchableOpacity, View} from "react-native";
+import React, {useRef} from "react";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import {convertHexToRGBA} from "../helper/helper";
@@ -13,7 +13,6 @@ import {Routes} from "../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_UUID} from "../store/actionsName";
 import * as Brightness from "expo-brightness";
-import {toastMessage} from "../helper/alerts";
 import {exitCapture} from "../helper/camera";
 
 const CapturedComponent = ({navigation, setLowBrightness}) => {
@@ -28,13 +27,13 @@ const CapturedComponent = ({navigation, setLowBrightness}) => {
 
         if (permissions.status === Brightness.PermissionStatus.GRANTED) {
           permissionsGranted.current = true;
-          Brightness.getBrightnessAsync().then(brightness => {
+          Brightness.getBrightnessAsync().then(() => {
             Brightness.setSystemBrightnessAsync(0).then(() => setLowBrightness(true))
           })
         }
       })
     } catch (e) {
-      toastMessage.error(`${e}`)
+      toast.show(`${e}`, {type: 'error'})
     }
   }
 
@@ -79,7 +78,7 @@ const CaptureComponent = ({navigation, exitHandler}) => {
   )
 }
 
-const CameraSidebar = ({navigation, setLowBrightness, timeout, waitGPS}) => {
+const CameraSidebar = ({navigation, setLowBrightness}) => {
   const {autoCaptureStart} = useSelector((state) => state.settingsReducer);
 
   const exitHandler = () => {

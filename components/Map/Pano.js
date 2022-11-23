@@ -20,7 +20,6 @@ import {fetchHandler} from "../../helper/helper";
 import {useSelector} from "react-redux";
 import {RFValue} from "react-native-responsive-fontsize";
 import {NorthArrow} from "../../assets/svg/illustrations";
-import {toastMessage} from "../../helper/alerts";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
@@ -53,9 +52,9 @@ const Pano = (props) => {
           },
         },
       }).then(() => {
-        toastMessage.info("Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.")
+        toast.show('Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.', {type: 'info'})
       }).catch(() => {
-        toastMessage.error("An error occurred while reporting. Try again.")
+        toast.show('An error occurred while reporting. Try again.', {type: 'error'})
       });
     } else {
       navigation.reset({index: 0, routes: [{name: Routes.login}]})

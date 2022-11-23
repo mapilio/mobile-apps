@@ -13,7 +13,6 @@ import {MARKETPLACE_CENTER, ZOOM_LEVEL} from "../../store/actionsName";
 import {getEquipment, isNear} from "../../helper/marketplace";
 import {Routes} from "../../navigator/Routes";
 import {setGeoJson} from "../../helper/geojson";
-import {toastMessage} from "../../helper/alerts";
 import {fetchHandler} from "../../helper/helper";
 
 const Detail = ({project, onClose, setOnScroll, navigation}) => {
@@ -27,7 +26,7 @@ const Detail = ({project, onClose, setOnScroll, navigation}) => {
 
     isNear(targetPoint).then((distance) => {
       if (distance > 5) {
-        toastMessage.error('Your location is too far from the project area.')
+        toast.show('Your location is too far from the project area.', {type: 'error'})
       } else {
         fetchHandler({
           url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
@@ -35,9 +34,9 @@ const Detail = ({project, onClose, setOnScroll, navigation}) => {
           data: {options: {parameters: {id: id}}},
         }).then(() => {
           navigation.navigate(Routes.MarketplaceReady, {data: project.properties,});
-        }).catch(err => toastMessage.error(`${err.response.data.message}`))
+        }).catch(err => toast.show(`${err.response.data.message}`, {type: 'error'}))
       }
-    }).catch((err) => toastMessage.error(`${err}`))
+    }).catch((err) => toast.show(`${err}`, {type: 'error'}))
   }
 
   return (

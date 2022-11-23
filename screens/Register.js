@@ -15,7 +15,6 @@ import { Eye } from "../assets/svg/illustrations";
 import { SocialLogin } from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
 import {globalStyles} from "../styles/globalStyles";
 import SafeAreaView from "react-native-safe-area-view";
@@ -53,17 +52,17 @@ const Register = ({ navigation }) => {
       },
     }).then(() => {
       navigation.reset({index: 0, routes: [{name: Routes.login}]})
-      toastMessage.success(`Your account has been created, check your e-mail address.`)
+      toast.show(`Your account has been created, check your e-mail address.`, {type: "success"})
     }).catch((err) => {
       Object.values(err.response.data).map((item, _i) => {
-        toastMessage.error(`${item[0]}`)
+        toast.show(`${item[0]}`, {type: "error"})
       });
     });
   };
 
   const redirectBrowser = () => {
     Linking.openURL("https://mapilio.com/privacy").catch(() => {
-      toastMessage.error("An error occurred while redirecting, please try again.")
+      toast.show(`An error occurred while redirecting, please try again.`, {type: "error"})
     });
   };
 

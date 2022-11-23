@@ -11,7 +11,6 @@ import { marketplaceDetailStyles } from "../styles/marketplaceStyles";
 import { fetchHandler } from "../helper/helper";
 import { Routes } from "../navigator/Routes";
 import Moment from "moment";
-import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
 
 const MarketplaceDetail = ({ navigation, route }) => {
@@ -31,7 +30,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
             data: route.params.data,
           });
         }).catch((err) => {
-          toastMessage.error(`${err.response.data.message}`)
+          toast.show(`${err.response.data.message}`, {type: "error"})
         });
   };
 

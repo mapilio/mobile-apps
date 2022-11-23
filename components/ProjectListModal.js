@@ -11,7 +11,6 @@ import {CustomText, CustomTextMedium} from "../highordercomponents";
 import ProjectList from "./ProjectList";
 import {fetchHandler} from "../helper/helper";
 import {Routes} from "../navigator/Routes";
-import {toastMessage} from "../helper/alerts";
 import {cameraProjectModalStyles} from "../styles/cameraStyles";
 import Config from "react-native-config";
 
@@ -24,7 +23,7 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
 			setLoading(false);
 			setProjects(res.data);
 		}).catch(() => {
-			toastMessage.warning("There was a problem fetching your jobs. Please try again.")
+			toast.show(`There was a problem fetching your jobs. Please try again.`, {type: "warning"})
 		});
 	}, []);
 

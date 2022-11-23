@@ -4,14 +4,14 @@ import MainNavigator from "./navigator/MainNavigator";
 import {persistor, store} from "./store/store";
 import {Provider} from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
-import {NotifierWrapper} from "react-native-notifier";
 import * as Sentry from "@sentry/react-native";
 import Config from "react-native-config";
 import {useFonts} from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
-import {toastMessage} from "./helper/alerts";
 import {permissionHandler} from "./helper/helper";
 import {SafeAreaProvider} from "react-native-safe-area-context";
+import Toast from "react-native-toast-notifications";
+import ToastMessage from "./components/ToastMessage";
 
 Sentry.init({dsn: `${Config.SENTRY_DSN}`, tracesSampleRate: 1.0});
 
@@ -32,7 +32,7 @@ function App() {
     if (fontsLoaded) {
       SplashScreen.hideAsync().then(async () => {
         await permissionHandler();
-      }).catch((err) => toastMessage.error(`${err}`));
+      }).catch((err) => toast.show(`${err}`, {type: "error"}));
     }
   }, [fontsLoaded]);
 
@@ -44,11 +44,14 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <NotifierWrapper>
-            <SafeAreaProvider>
-              <MainNavigator/>
-            </SafeAreaProvider>
-          </NotifierWrapper>
+          <SafeAreaProvider>
+            <MainNavigator/>
+            <Toast
+              ref={(ref) => global['toast'] = ref}
+              duration={3000}
+              renderToast={(options) => <ToastMessage options={options}/>}
+            />
+          </SafeAreaProvider>
         </NavigationContainer>
       </PersistGate>
     </Provider>

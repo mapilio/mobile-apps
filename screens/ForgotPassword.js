@@ -7,7 +7,6 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {fetchHandler} from "../helper/helper";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 
@@ -39,8 +38,8 @@ const ForgotPassword = ({navigation}) => {
 			},
 		}).then(() => {
 			navigation.reset({index: 0, routes: [{name: Routes.login}]})
-			toastMessage.success(`The reset request has been sent to the e-mail address.`)
-		}).catch((err) => toastMessage.error(err.response.data.message));
+			toast.show(`The reset request has been sent to the e-mail address.`, {type: "success"})
+		}).catch((err) => toast.show(`${err.response.data.message}`, {type: "error"}));
 	};
 
 	return (

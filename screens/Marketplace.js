@@ -6,7 +6,6 @@ import {List, MarketplaceMap} from "../components/Marketplace";
 import {fetchHandler, getContentAreaHeight} from "../helper/helper";
 import { useDispatch } from "react-redux";
 import { MARKETPLACE_DATA } from "../store/actionsName";
-import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {CustomText} from "../highordercomponents";
@@ -38,7 +37,7 @@ const Marketplace = ({ navigation }) => {
     fetchHandler({url: url}).then(({data: {geojson}}) => {
       dispatch({type: MARKETPLACE_DATA, payload: JSON.parse(geojson)});
     }).catch(({response: {data: {message}}}) => {
-      toastMessage.error(message)
+      toast.show(`${message}`, {type: "error"})
     });
 
   }, [currentCoordinate]);

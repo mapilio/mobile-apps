@@ -13,7 +13,6 @@ import {
   UPDATE_GPS_ACCURACY,
   UPDATE_MOCKED_STATUS
 } from "../store/actionsName";
-import {toastMessage} from "../helper/alerts";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {exitCapture, setNewUUID} from "../helper/camera";
 import {Routes} from "../navigator/Routes";
@@ -60,7 +59,7 @@ const AppCamera = ({ navigation, route }) => {
       dispatch({type: SET_CAMERA_LOCATION, payload: location.coords})
       dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy < accuracyLevel})
     }, (error) => {
-      toastMessage.error(`${error.message}`)
+      toast.show(`${error.message}`, {type: "error"})
     }, {
       distanceFilter: distanceBetween,
       enableHighAccuracy: true,
@@ -79,7 +78,7 @@ const AppCamera = ({ navigation, route }) => {
         currentOrientation !== ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
       ) {
         ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE).catch((error) => {
-          toastMessage.error(`${error}`)
+          toast.show(`${error}`, {type: "error"})
         });
       }
     })

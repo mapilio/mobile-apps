@@ -8,7 +8,6 @@ import { Text, TouchableOpacity, View } from "react-native";
 import TabMap from "../assets/svg/illustrations/TabMap";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector } from "react-redux";
-import { Notifier } from "react-native-notifier";
 import {CaptureIcon, CaptureText, MarketplaceIcon, Profile, Upload} from "../assets/svg/illustrations";
 import SignInNavigatorRight from "./navigatorbars/SignInNavigatorRight";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -43,7 +42,6 @@ const NonUserTabNavigator = () => {
 
   const connectionAlertHandler = (navigation) => {
     if (connection.connectionStatus && internetGoes) {
-      Notifier.hideNotification();
       navigation.goBack();
       setInternetGoes(false);
     } else if (!connection.connectionStatus) {
