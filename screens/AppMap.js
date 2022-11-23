@@ -10,7 +10,6 @@ import * as Location from "expo-location";
 import {MapView} from "../highordercomponents";
 import {styles} from "../styles/circleStyles";
 import {Heading} from "../components/Map";
-import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
 import SafeAreaView from "react-native-safe-area-view";
 import Geolocation from "react-native-geolocation-service";
@@ -63,7 +62,7 @@ const AppMap = ({ navigation }) => {
     const isEnabled = await Location.hasServicesEnabledAsync();
     const {granted}  = await Location.getForegroundPermissionsAsync();
     if (!isEnabled || !granted) {
-      toastMessage.error("Your GPS is disabled.")
+      toast.show(`Your GPS is disabled.`, {type: "error"})
     }
 
     if (userCoordinate && isEnabled) {

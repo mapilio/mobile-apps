@@ -8,7 +8,6 @@ import db from "../../db";
 import * as FileSystem from "expo-file-system";
 import { Routes } from "../Routes";
 import { UPLOAD_DATA } from "../../store/actionsName";
-import {toastMessage} from "../../helper/alerts";
 
 const DeleteNavigationRight = (props) => {
   const { rank } = useSelector((state) => state.uploadReducer);
@@ -62,7 +61,7 @@ const DeleteNavigationRight = (props) => {
                       }
                     );
                   } catch (e) {
-                    toastMessage.error("There was a problem while deleting! Try Again.")
+                    toast.show("There was a problem while deleting! Try Again.", {type: "error"})
                   }
                 },
               },

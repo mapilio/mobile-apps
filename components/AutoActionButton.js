@@ -13,7 +13,6 @@ import {
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {setNewUUID} from "../helper/camera";
-import {toastMessage} from "../helper/alerts";
 import {Accelerometer, Gyroscope} from "expo-sensors";
 
 const AutoActionButton = ({navigation}) => {
@@ -92,7 +91,7 @@ const AutoActionButton = ({navigation}) => {
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
-				toastMessage.info("Your new sequence has been started.");
+				toast.show("Your new sequence has been started.", {type: "info"})
 				setTimeout(() => {
 					if (photoAmount >= 5) {
 						Database.query(

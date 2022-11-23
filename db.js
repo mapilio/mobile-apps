@@ -1,7 +1,6 @@
 import * as SQLite from "expo-sqlite";
 import { store } from "./store/store";
 import * as FileSystem from "expo-file-system";
-import {toastMessage} from "./helper/alerts";
 
 const id = store.getState().generalReducer.id;
 
@@ -41,7 +40,7 @@ class Database {
         () => null,
         (_, error) => {
           console.log(error);
-          toastMessage.error("An error occurred while shooting, please try again.")
+          toast.show(`An error occurred while shooting, please try again.`, {type: "error"})
           this.startDB(id);
         }
       );
@@ -54,10 +53,8 @@ class Database {
         "SELECT * FROM captures",
         [],
         () => {},
-        (_, error) => {
-          toastMessage.error("An error occurred while shooting, please try again.")
-          console.log(error);
-
+        (_, _error) => {
+          toast.show(`An error occurred while shooting, please try again.`, {type: "error"})
           if (userID) {
             this.startDB(userID);
           }
@@ -82,7 +79,7 @@ class Database {
         })
     }
 
-    async query(query, callback, args = [], errorCallback = (_, error) => toastMessage.error(`${error}`)) {
+  async query(query, callback, args = [], errorCallback = (_, error) => toast.show(`${error}`, {type: "error"})) {
         db.transaction((txn) => {
             txn.executeSql(query, args, callback, errorCallback)
         });
@@ -101,7 +98,7 @@ class Database {
     });
   }
 
-  getCapturesBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toastMessage.error(`${error}`)) {
+  getCapturesBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
     db.transaction((txn) => {
       txn.executeSql(
         `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}"`,
@@ -122,7 +119,7 @@ class Database {
     })
   }
 
-    deleteBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toastMessage.error(`${error}`)) {
+  deleteBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
         db.transaction((txn) => {
             txn.executeSql(
                 `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,

@@ -51,3 +51,7 @@ export { default as Marketplace } from "./Marketplace";
 export { default as PhoneCamera } from "./PhoneCamera";
 export { default as ActionCamera } from "./ActionCamera";
 export { default as Camera } from "./Camera";
+export { default as ErrorIcon } from "./ErrorIcon";
+export { default as SuccessIcon } from "./SuccessIcon";
+export { default as WarningIcon } from "./WarningIcon";
+export { default as Icon } from "./Icon";

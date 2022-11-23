@@ -10,7 +10,6 @@ import {
   percentage
 } from "../../helper/upload";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
-import {toastMessage} from "../../helper/alerts";
 import db from "../../db";
 import {UPLOAD_DATA} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
@@ -83,7 +82,7 @@ const Upload = ({sequence_uuid, navigation}) => {
         }
       } else {
         setModalVisible(false)
-        toastMessage.success('Upload is successfully')
+        toast.show("Upload is successfully", {type: "success"})
       }
     })
   }
@@ -92,7 +91,7 @@ const Upload = ({sequence_uuid, navigation}) => {
     closeRequest();
     setModalVisible(false);
     setSentCount(0);
-    toastMessage.error(`${error}`)
+    toast.show(`${error}`, {type: "error"})
   }
 
   return (

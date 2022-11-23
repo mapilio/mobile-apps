@@ -9,7 +9,6 @@ import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import Database from "../../db";
-import { toastMessage } from "../../helper/alerts";
 import Config from "react-native-config";
 
 const FacebookLogin = ({ navigation }) => {
@@ -32,7 +31,7 @@ const FacebookLogin = ({ navigation }) => {
           const response = await fetch(`${Config.FACEBOOK_REQUEST_URL}${token}`);
           const json = await response.json();
           if (!json.email) {
-            toastMessage.error("You are not a member because I cannot access your e-mail address. Please give mail permission or register another way.");
+            toast.show("You are not a member because I cannot access your e-mail address. Please give mail permission or register another way.", {type: 'error'})
           } else {
             fetchHandler({
               url: `${Config.SERVICE_URL}/oauth-api/callback`,
@@ -47,7 +46,7 @@ const FacebookLogin = ({ navigation }) => {
               dispatch(getUserInformation(res));
               Database.startDB(res.id);
               navigation.navigate(Routes.tabHome);
-              toastMessage.success(`Login Success ${(json).name}`);
+              toast.show(`Login Success ${(json).name}`, {type: "success"})
             }).catch((err) => console.error(err));
           }
         }

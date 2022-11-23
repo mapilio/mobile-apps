@@ -2,7 +2,6 @@ import { GET_TOKEN_START, GET_TOKEN_SUCCESS } from "../../actionsName";
 import { getUserInformation } from "./getUserInformation";
 import Database from "../../../db";
 import { fetchHandler } from "../../../helper/helper";
-import {toastMessage} from "../../../helper/alerts";
 import Config from "react-native-config";
 
 export const getTokenAction = (parameters) => (dispatch) => {
@@ -22,6 +21,6 @@ export const getTokenAction = (parameters) => (dispatch) => {
       Database.startDB(res.id);
     })
     .catch((err) => {
-      toastMessage.error(`${err.response.data.message}`)
+      toast.show(`${err.response.data.message}`, {type: "error"})
     });
 };

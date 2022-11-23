@@ -20,7 +20,6 @@ import {
 } from "../helper/helper";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
-import {toastMessage} from "../helper/alerts";
 import Config from "react-native-config";
 
 const SearchbarSwipe = ({
@@ -42,7 +41,7 @@ const SearchbarSwipe = ({
       fetchHandler({url: `${Config.SEARCH_API}${valueAPI}`}).then((res) => {
         setLocations(res.features);
         setLoading(false);
-      }).catch(() => toastMessage.error("An error occurred while find locations, please try again."));
+      }).catch(() => toast.show("An error occurred while find locations, please try again.", {type: "error"}));
     } else {
       setLoading(false);
       setLocations([]);

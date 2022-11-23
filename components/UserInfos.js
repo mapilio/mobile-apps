@@ -9,7 +9,6 @@ import { userInfoStyles } from "../styles/userProfileStyle";
 import { fetchHandler, kFormatter } from "../helper/helper";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { RFValue } from "react-native-responsive-fontsize";
-import { toastMessage } from "../helper/alerts";
 import Config from "react-native-config";
 
 const UserInfos = ({ isOrganization, selectedItem }) => {
@@ -43,7 +42,7 @@ const UserInfos = ({ isOrganization, selectedItem }) => {
     fetchHandler({url: `${Config.SERVICE_URL}/api/function/user_profile/profile/getProfile`,}).then((res) => {
       setProfileInfos(res.data[0]);
     }).catch(() => {
-      toastMessage.warning("There was a problem fetching your information. Please try again.");
+      toast.show("There was a problem fetching your information. Please try again.", {type: "warning"})
     }).finally(() => setLoading(false));
   }, []);
 

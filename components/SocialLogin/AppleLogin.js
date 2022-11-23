@@ -6,7 +6,6 @@ import { getUserInformation } from "../../store/reducers/loginReducer/getUserInf
 import Database from "../../db";
 import { Routes } from "../../navigator/Routes";
 import { fetchHandler } from "../../helper/helper";
-import { toastMessage } from "../../helper/alerts";
 import Config from "react-native-config";
 import {socialLoginStyles} from "../../styles/loginStyles";
 
@@ -34,8 +33,8 @@ const AppleLogin = ({ navigation }) => {
         dispatch(getUserInformation(res));
         Database.startDB(res.id);
         navigation.navigate(Routes.tabHome);
-      }).catch(({response}) => toastMessage.error(response.data.message));
-      toastMessage.success(`Login Success ${credential.fullName.familyName}`);
+      }).catch(({response}) => toast.show(response.data.message, {type: 'error'}));
+      toast.show(`Login Success ${credential.fullName.familyName}`, {type: 'success'})
     } else {
       let params = {token: credential.user, state: stateKey};
 
@@ -44,7 +43,7 @@ const AppleLogin = ({ navigation }) => {
         dispatch(getUserInformation(res));
         Database.startDB(res.id);
         navigation.navigate(Routes.tabHome);
-      }).catch(({response}) => toastMessage.error(response.data.message));
+      }).catch(({response}) => toast.show(response.data.message, {type: 'error'}));
     }
   };
 
@@ -59,7 +58,7 @@ const AppleLogin = ({ navigation }) => {
     AppleAuthentication.signInAsync(options).then((credential) => {
       fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` }).then(({data}) => {
         signInToApple(credential, data.state)
-      }).catch(({response}) => toastMessage.error(`${response.data.message}`));
+      }).catch(({response}) => toast.show(`${response.data.message}`, {type: 'error'}));
     })
   }
 

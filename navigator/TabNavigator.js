@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Notifier } from "react-native-notifier";
 import { Routes } from "./Routes";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { navigatorStyle } from "../styles/navigatorStyle";
@@ -85,7 +84,6 @@ const TabNavigator = ({ navigation }) => {
   const connectionAlertHandler = (navigation, name) => {
     if (name !== Routes.camera && name !== Routes.upload) {
       if (connection.connectionStatus && internetGoes) {
-        Notifier.hideNotification();
         navigation.goBack();
         setInternetGoes(false);
       } else if (!connection.connectionStatus) {
