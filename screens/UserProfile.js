@@ -11,6 +11,7 @@ import {CustomText, CustomTextBold} from "../highordercomponents";
 import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
 import {Routes} from "../navigator/Routes";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const UserProfile = ({navigation}) => {
   const {userInformation} = useSelector((state) => state.getTokenReducer);
@@ -23,6 +24,7 @@ const UserProfile = ({navigation}) => {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
+  const {bottom} = useSafeAreaInsets();
 
   useEffect(() => {
     if (!!userInformation) {
@@ -92,7 +94,7 @@ const UserProfile = ({navigation}) => {
   }
 
   return (
-    <View style={globalStyles.container}>
+    <View style={{...globalStyles.container, paddingBottom: bottom}}>
       <UserInfos isOrganization={isOrganization} selectedItem={selectedOrganization}/>
       {
         organizations.length >= 2 &&
