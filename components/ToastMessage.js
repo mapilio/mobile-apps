@@ -17,11 +17,11 @@ const ToastMessage = ({options: {id, type, message}}) => {
 
   return (
     <View style={{...styles.wrapper, ...styles[type + 'Bg'], marginBottom: bottom}}>
-      <View style={{...styles.messageInfo}}>
-        {icons[type]}
-        <Text style={styles[type + 'Text']}>{'\u00A0'} {message}</Text>
+      <View>
+        <View style={styles.statusIcon}>{icons[type]}</View>
+        <Text style={{...styles[type + 'Text'], ...styles.text}}>{message}</Text>
       </View>
-      <Pressable onPress={handleClose}>
+      <Pressable onPress={handleClose} style={styles.closeIcon}>
         <CloseIcon color={'#D8D8D8'}/>
       </Pressable>
     </View>
@@ -30,17 +30,32 @@ const ToastMessage = ({options: {id, type, message}}) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    width: Dimensions.get("screen").width - RFValue(26),
+    width: Dimensions.get("window").width - RFValue(26),
     paddingVertical: RFValue(10),
     paddingHorizontal: RFValue(8),
     borderRadius: RFValue(24),
     borderWidth: .5,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    position: "relative",
+    minHeight: RFValue(50),
   },
-  messageInfo: {
-    flexDirection: "row",
+  closeIcon: {
+    position: "absolute",
+    right: 0,
+    top:RFValue(12),
+    width: RFValue(40),
     alignItems: "center",
+    justifyContent: "center"
+  },
+  text: {
+    marginHorizontal: RFValue(30),
+  },
+  statusIcon: {
+    position: "absolute",
+    left: 0,
+    top:0,
+    alignItems: "center",
+    justifyContent: "center"
+
   },
   successBg: {
     backgroundColor: '#F4F2F6',
