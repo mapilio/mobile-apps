@@ -118,6 +118,13 @@ export const CameraWarnings = () => {
   return setAlert() ?? <></>
 }
 
+/**
+ * This function calculates the degree of the device to the ground.
+ *
+ * @param x {number} position of X accelerometer
+ * @param y {number} position of Y accelerometer
+ * @returns {number}
+ */
 export const degreeCalculate = (x, y) => {
   return Math.floor(((Math.atan2(y, x) * (180 / Math.PI) + 90 + 360) % 360));
 }
