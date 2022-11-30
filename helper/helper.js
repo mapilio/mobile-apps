@@ -41,19 +41,25 @@ const maxCharacterHandler = (text, maxLength) => {
 };
 
 const initialPermissions = () => {
-  check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE).then((status) => {
+  const permission = Platform.OS === "ios" ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+
+  check(permission).then((status) => {
     console.log(status)
     if (status !== RESULTS.GRANTED) {
-      request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+      request(permission)
     }
   })
 }
 
 const cameraPermission = (onPress) => {
-  requestMultiple([PERMISSIONS.IOS.LOCATION_WHEN_IN_USE, PERMISSIONS.IOS.CAMERA]).then((stat) => {
-    if (stat["ios.permission.CAMERA"] !== RESULTS.GRANTED) {
+  const permissions = Platform.OS === 'ios' ?
+    [PERMISSIONS.IOS.LOCATION_WHEN_IN_USE, PERMISSIONS.IOS.CAMERA] :
+    [PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION, PERMISSIONS.ANDROID.CAMERA]
+
+  requestMultiple(permissions).then((stat) => {
+    if (stat[permissions[0]] !== RESULTS.GRANTED) {
       alertHandler("Mapilio needs access to the camera before you can capture photos. Go to your settings to enable.");
-    } else if (stat["ios.permission.LOCATION_WHEN_IN_USE"] !== RESULTS.GRANTED) {
+    } else if (stat[permissions[1]] !== RESULTS.GRANTED) {
       alertHandler("Mapilio needs access to the location before you can capture photos. Go to your settings to enable.");
     } else {
       onPress()
