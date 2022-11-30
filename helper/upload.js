@@ -103,7 +103,10 @@ export const getHash = (image) => {
         url: `${Config.CDN_URL}/api/upload/mobile`,
         method: 'POST',
         data: formData,
-        signal: controller.signal
+        signal: controller.signal,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }).then(async (response) => {
         await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
         resolve({status: 'success', hash: response.files[0].hash})
@@ -205,7 +208,7 @@ export const imageryUpload = (index, pictures) => {
               reject()
             }
           }).catch((err) => {
-            reject(err)
+            reject(err.response.data.message || err)
           })
         }
       })
