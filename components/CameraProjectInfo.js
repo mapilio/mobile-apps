@@ -8,7 +8,9 @@ import SelectProjectButton from "./SelectProjectButton";
 
 const CameraProjectInfo = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const {selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
+  const { selectedProject, autoCaptureStart } = useSelector(
+    (state) => state.settingsReducer
+  );
 
   return (
     <View
@@ -24,9 +26,15 @@ const CameraProjectInfo = ({ navigation }) => {
         right: 0,
       }}
     >
-      <ProjectListModal modalVisible={modalVisible} setModalVisible={setModalVisible} navigation={navigation}/>
+      <ProjectListModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        navigation={navigation}
+      />
       {selectedProject.type === "individual" ? (
-        !autoCaptureStart ? (<SelectProjectButton setModalVisible={setModalVisible}/>) : null
+        !autoCaptureStart ? (
+          <SelectProjectButton setModalVisible={setModalVisible} />
+        ) : null
       ) : (
         <SelectedProject projectName={selectedProject.projectName} />
       )}

@@ -11,9 +11,10 @@ const SelectProjectButton = ({ setModalVisible, dene }) => {
             style={{
                 width: RFValue(200),
                 height: RFValue(30),
+                backgroundColor: "#4A90E2",
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "space-around",
                 borderRadius: RFValue(15),
                 paddingHorizontal: RFValue(5),
             }}
@@ -25,6 +26,7 @@ const SelectProjectButton = ({ setModalVisible, dene }) => {
                     alignItems: "center",
                 }}
             >
+                <TaskIcon />
                 <CustomTextMedium
                     style={{
                         fontSize: RFValue(14),

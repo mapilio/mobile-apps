@@ -4,7 +4,12 @@ import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
-import {UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT, UPDATE_UUID} from "../store/actionsName";
+import {
+	UPDATE_AUTOCAPTURE_START,
+	UPDATE_IMAGE_SIZE,
+	UPDATE_PHOTO_AMOUNT,
+	UPDATE_UUID,
+} from "../store/actionsName";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {setNewUUID} from "../helper/camera";
@@ -119,19 +124,21 @@ const AutoActionButton = ({navigation}) => {
 		}
 
 		const options = {
-			qualityPrioritization: 'speed',
-			flash: "off",
+			quality: 0.2,
+			base64: false,
+			exif: true,
+			skipProcessing: true,
+			fixOrientation: true,
+			onPictureSaved: (image) => savePicture(image, location)
 		}
-
-		camera.takePhoto(options).then((image) => savePicture(image, location))
+		camera.takePictureAsync(options).catch((error) => console.log(error))
 	};
 
 	const savePicture = async (image, location) => {
 		calculateAmount("add");
 
 		const id = userInformation.id;
-		const imageUri = image.path;
-
+		const imageUri = image.uri;
 		if (!imageUri) {
 			calculateAmount("subtract");
 			return;
@@ -151,15 +158,10 @@ const AutoActionButton = ({navigation}) => {
 		const filename = Math.round(new Date().getTime() / 1000).toString();
 		const newPath = FileSystem.documentDirectory + `${id}/${currentUUID}/${filename}.${"jpeg"}`;
 
-		await FileSystem.copyAsync({from: `file://${imageUri}`, to: newPath});
+		await FileSystem.copyAsync({from: imageUri, to: newPath});
 		image.uri = newPath;
 		Database.insertToDB({
-			exif: JSON.stringify({
-				...image.metadata,
-				...image.metadata["{Exif}"],
-				accelerometer: accelerometerData,
-				gyroscope: gyroscopeData
-			}),
+			exif: JSON.stringify({...image.exif, accelerometer: accelerometerData, gyroscope: gyroscopeData}),
 			location: JSON.stringify(location),
 			projectKey: selectedProject.projectKey,
 			organizationName: selectedProject.projectName,
@@ -169,7 +171,7 @@ const AutoActionButton = ({navigation}) => {
 			filename,
 		});
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
-		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
+		dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
 	}
 
 	/**@param operator {string ?: "add" | "subtract"}*/
