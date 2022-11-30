@@ -6,6 +6,7 @@ export const cameraStyles = StyleSheet.create({
 	camera: {
 		flex: 1,
 		position: "relative",
+		zIndex: 1,
 	},
 	notReadyContainer: {
 		flex: 1,

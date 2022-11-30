@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import {Platform, View} from "react-native";
-import { Camera, CameraSidebar } from "../components";
+import {Camera, CameraSidebar} from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
 import * as Brightness from "expo-brightness";
 import Geolocation from "react-native-geolocation-service";
 import {useDispatch, useSelector} from "react-redux";
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
 import {SET_CAMERA_LOCATION, UPDATE_GPS_ACCURACY, UPDATE_MOCKED_STATUS} from "../store/actionsName";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {exitCapture, setNewUUID} from "../helper/camera";
 import {Routes} from "../navigator/Routes";
+import LinearGradient from "react-native-linear-gradient";
 
 const AppCamera = ({ navigation, route }) => {
   const {
@@ -92,14 +93,21 @@ const AppCamera = ({ navigation, route }) => {
         style={{flex: 1, flexDirection: "row"}}
         onTouchEndCapture={breakBrightness}
       >
-        <View style={{flex: 0.78}}>
+        <View style={{flex: 1, position: "relative"}}>
           <Camera navigation={navigation}/>
         </View>
-        <View
+        <LinearGradient
+          colors={['#11111100', '#111111']}
+          angle={90}
+          useAngle={true}
           style={{
-            flex: 0.22,
-            backgroundColor: "#2E2E2E",
             padding: RFValue(22),
+            backgroundColor: "transparent",
+            position: "absolute",
+            right: 0,
+            height: "100%",
+            width: RFValue(180),
+            zIndex: 2,
           }}
         >
           <CameraSidebar
@@ -109,7 +117,7 @@ const AppCamera = ({ navigation, route }) => {
             waitGPS={waitGPS}
             route={route}
           />
-        </View>
+        </LinearGradient>
       </SafeAreaView>
     </SafeAreaProvider>
   );

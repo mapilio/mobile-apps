@@ -35,17 +35,18 @@ buildscript {
 def REACT_NATIVE_VERSION = new File(['node', '--print', "JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
 
 allprojects {
-// @generated begin @rnmapbox/maps-v2-maven - expo prebuild (DO NOT MODIFY) sync-43175c12a833aaeb1073f48b8ddb3719ac9ceb1e
-repositories {
-    maven {
-  url 'https://api.mapbox.com/downloads/v2/releases/maven'
-  authentication { basic(BasicAuthentication) }
-  credentials {
-    username = 'mapbox'
-    password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
-  }
-}
-}
+// @generated begin @rnmapbox/maps-v2-maven - expo prebuild (DO NOT MODIFY) sync-0e526367eddae0ed29455795568b1e03640a4087
+    repositories {
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication { basic(BasicAuthentication) }
+            credentials {
+                username = 'mapbox'
+                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+            }
+        }
+    }
+
 // @generated end @rnmapbox/maps-v2-maven
     configurations.all {
         resolutionStrategy {
