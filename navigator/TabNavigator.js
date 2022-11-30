@@ -39,7 +39,7 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as ScreenOrientation from "expo-screen-orientation";
 import TabMap from "../assets/svg/illustrations/TabMap";
-import { permissionHandler } from "../helper/helper";
+import {cameraPermission} from "../helper/helper";
 import { RFValue } from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {MapilioLogoBeta} from "../assets/svg/logos";
@@ -47,15 +47,7 @@ import {MapilioLogoBeta} from "../assets/svg/logos";
 const Tab = createBottomTabNavigator();
 
 const CaptureTabBarButton = ({ onPress }) => {
-  const screenListen = async () => {
-    await permissionHandler(
-      () => false,
-      () => false,
-      onPress,
-      "camera",
-      onPress
-    );
-  };
+  const screenListen = () => cameraPermission(onPress)
 
   return (
     <TouchableOpacity
