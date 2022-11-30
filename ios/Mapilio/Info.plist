@@ -83,10 +83,6 @@
 	<string>We need to access your location so we can put the photos in the correct location and also show your location on the map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need to access your location so we can put the photos in the correct location and also show your location on the map.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your microphone</string>
-	<key>NSMotionUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your device motion</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>REVERSE_CLIENT_ID</key>

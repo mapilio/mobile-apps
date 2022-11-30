@@ -1,10 +1,10 @@
-import { store } from "../store/store";
+import {store} from "../store/store";
 import axios from "axios";
 import {Alert, Dimensions, Linking, Platform} from "react-native";
-import { Camera as ExpoCamera } from "expo-camera";
-import * as Location from "expo-location";
 import {RFValue} from "react-native-responsive-fontsize";
 import Moment from "moment";
+import {check, PERMISSIONS, request, requestMultiple, RESULTS} from "react-native-permissions";
+
 let isOpenOnce = false;
 Moment.suppressDeprecationWarnings = true;
 
@@ -40,78 +40,51 @@ const maxCharacterHandler = (text, maxLength) => {
   return text;
 };
 
-const permissionHandler = async (
-  handler = () => {},
-  cancelHandler = () => {},
-  noAccessHandler = () => {},
-  from = "location",
-  onPress
-) => {
-  const { status: cameraStatus } = await ExpoCamera.getCameraPermissionsAsync();
-  const { status: locationStatus } = await Location.getForegroundPermissionsAsync();
+const initialPermissions = () => {
+  const permission = Platform.OS === "ios" ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
 
-  if (cameraStatus !== "granted" || locationStatus !== "granted") {
-    if (cameraStatus !== "granted" && from === "camera") {
-      const {status: cameraStatus} = await ExpoCamera.requestCameraPermissionsAsync();
-      if (cameraStatus === "granted") {
-        const {status: locStatus} = await Location.getForegroundPermissionsAsync();
-        if (locStatus === "granted") {
-          onPress();
-        }
-      }
-      alertHandler(
-        cameraStatus,
-        cancelHandler,
-        "Mapilio needs access to the camera before you can capture photos. Go to your settings to enable."
-      );
+  check(permission).then((status) => {
+    if (status !== RESULTS.GRANTED) {
+      request(permission)
     }
+  })
+}
 
-    if (locationStatus !== "granted" && from === "camera") {
-      const { status: locationStatus } =
-        await Location.requestForegroundPermissionsAsync();
-      if (locationStatus === "granted") {
-        const { status: camStatus } =
-          await ExpoCamera.getCameraPermissionsAsync();
+const cameraPermission = (onPress) => {
+  const permissions = Platform.OS === 'ios' ?
+    [PERMISSIONS.IOS.LOCATION_WHEN_IN_USE, PERMISSIONS.IOS.CAMERA] :
+    [PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION, PERMISSIONS.ANDROID.CAMERA]
 
-        if (camStatus === "granted") {
-          onPress();
-        }
-      }
-      alertHandler(
-        locationStatus,
-        cancelHandler,
-        "Mapilio needs access to the location before you can capture photos. Go to your settings to enable."
-      );
+  requestMultiple(permissions).then((stat) => {
+    if (stat[permissions[0]] !== RESULTS.GRANTED) {
+      alertHandler("Mapilio needs access to the camera before you can capture photos. Go to your settings to enable.");
+    } else if (stat[permissions[1]] !== RESULTS.GRANTED) {
+      alertHandler("Mapilio needs access to the location before you can capture photos. Go to your settings to enable.");
+    } else {
+      onPress()
     }
-  } else {
-    noAccessHandler();
-  }
-};
+  })
+}
 
-const alertHandler = (status, cancelHandler, alertText) => {
+const alertHandler = (alertText) => {
   if (!isOpenOnce) {
     isOpenOnce = true;
-    if (status !== "granted") {
-      Alert.alert("No access to camera", alertText, [
-        {
-          text: "Go to settings",
-          style: "cancel",
-          onPress: () => {
-            isOpenOnce = false;
-            Platform.OS === "ios"
-              ? Linking.openURL("app-settings:")
-              : Linking.openSettings();
-          },
+    Alert.alert("No access to camera", alertText, [
+      {
+        text: "Go to settings",
+        style: "cancel",
+        onPress: () => {
+          isOpenOnce = false;
+          Platform.OS === "ios" ? Linking.openURL("app-settings:") : Linking.openSettings();
         },
-        {
-          text: Platform.OS === "ios" ? "Continue" : "Contınue",
-          onPress: () => {
-            isOpenOnce = false;
-            cancelHandler();
-          },
+      },
+      {
+        text: Platform.OS === "ios" ? "Continue" : "Contınue",
+        onPress: () => {
+          isOpenOnce = false;
         },
-      ]);
-    }
+      },
+    ]);
   }
 };
 
@@ -158,9 +131,10 @@ export {
   convertHexToRGBA,
   fetchHandler,
   maxCharacterHandler,
-  permissionHandler,
   kFormatter,
   dateConvert,
   headingPointGeoJson,
-  getContentAreaHeight
+  getContentAreaHeight,
+  initialPermissions,
+  cameraPermission
 };
