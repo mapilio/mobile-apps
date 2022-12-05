@@ -3,9 +3,9 @@ import {Platform, StyleSheet, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {convertHexToRGBA} from "../helper/helper";
 import {CustomText} from "../highordercomponents";
-import * as Battery from "expo-battery";
 import {UPDATE_BATTERY_LEVEL, UPDATE_BATTERY_STATUS, UPDATE_CHARGE_STATUS} from "../store/actionsName";
 import {useDispatch, useSelector} from "react-redux";
+import {addBatteryLevelListener, addBatteryStateListener, getBatteryLevelAsync} from "expo-battery";
 
 const BatteryLevel = () => {
   const dispatch = useDispatch();
@@ -18,19 +18,19 @@ const BatteryLevel = () => {
 
   useEffect(() => {
     const alertLevel = Platform.OS === "ios" ? 101 : 15
-
-    dispatch({
-      type: UPDATE_BATTERY_STATUS,
-      payload: !isCharge && (batteryLevel <= alertLevel)
-    })
+    dispatch({type: UPDATE_BATTERY_STATUS, payload: !isCharge && (batteryLevel <= alertLevel)})
   }, [batteryLevel, isCharge])
 
   const _subscribeBatteryLevel = () => {
-    const subscription = Battery.addBatteryLevelListener(({ batteryLevel }) => {
-      dispatch({ type: UPDATE_BATTERY_LEVEL, payload: Math.ceil(batteryLevel * 100) });
+    getBatteryLevelAsync().then((batteryLevel) => {
+      dispatch({type: UPDATE_BATTERY_LEVEL, payload: Math.round(batteryLevel * 100)});
+    })
+
+    const subscription = addBatteryLevelListener(({batteryLevel}) => {
+      dispatch({type: UPDATE_BATTERY_LEVEL, payload: Math.ceil(batteryLevel * 100)});
     });
 
-    const subscriptionState = Battery.addBatteryStateListener(({batteryState}) => {
+    const subscriptionState = addBatteryStateListener(({batteryState}) => {
       dispatch({type: UPDATE_CHARGE_STATUS, payload: (batteryState === 3 || batteryState === 2)});
     });
 

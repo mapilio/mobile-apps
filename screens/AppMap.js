@@ -6,7 +6,6 @@ import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as Location from "expo-location";
 import {MapView} from "../highordercomponents";
 import {styles} from "../styles/circleStyles";
 import {Heading} from "../components/Map";
@@ -15,6 +14,8 @@ import SafeAreaView from "react-native-safe-area-view";
 import Geolocation from "react-native-geolocation-service";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Search} from "../components/Search";
+import {RESULTS} from "react-native-permissions";
+import {initialPermissions} from "../helper/helper";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -22,7 +23,7 @@ const AppMap = ({ navigation }) => {
   const [imageInformations, setImageInformations] = useState(null);
   const [clickedCoord, setClickedCoord] = useState(null);
   const [showPano, setShowPano] = useState(false);
-  const [userCoordinate, setUserCoordinate] = useState([10, 10]);
+  const [userCoordinate, setUserCoordinate] = useState([]);
   const [userLocation, setUserLocation] = useState(true);
   let cameraRef = useRef();
   let mapRef = useRef();
@@ -37,9 +38,10 @@ const AppMap = ({ navigation }) => {
 
   const contentHeight = height - RFValue(63) - RFValue(50) - bottom - top
 
-  const zoomPoint = async (coordinate) => {
-    const zoomLevel = await mapRef.current?.getZoom()
-    cameraRef.current?.setCamera({centerCoordinate: coordinate, zoomLevel: zoomLevel + 5})
+  const zoomPoint = (coordinate) => {
+    mapRef.current?.getZoom().then((zoomLevel) => {
+      cameraRef.current?.setCamera({centerCoordinate: coordinate, zoomLevel: zoomLevel + 5})
+    })
   }
 
   const touchPoint = (e) => {
@@ -59,15 +61,13 @@ const AppMap = ({ navigation }) => {
   }
 
   const handleSetCenter = async () => {
-    const isEnabled = await Location.hasServicesEnabledAsync();
-    const {granted}  = await Location.getForegroundPermissionsAsync();
-    if (!isEnabled || !granted) {
-      toast.show(`Your GPS is disabled.`, {type: "error"})
-    }
-
-    if (userCoordinate && isEnabled) {
-      cameraRef.current?.setCamera({centerCoordinate: userCoordinate, zoomLevel: 10});
-    }
+    initialPermissions().then((res) => {
+      if (res !== RESULTS.GRANTED) {
+        toast.show(`Your GPS is disabled.`, {type: "error"})
+      } else {
+        cameraRef.current?.setCamera({centerCoordinate: userCoordinate, zoomLevel: 10});
+      }
+    })
   }
 
   return (
@@ -116,6 +116,7 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.VectorSource
             id="road-points-2"
             url={Config.MAPBOX_POINT_URL}
+            onPress={(e) => zoomPoint(e.features[0].geometry.coordinates)}
           >
             <MapboxGL.CircleLayer
               id={"mapilio-point-v1-stroke"}
@@ -130,11 +131,7 @@ const AppMap = ({ navigation }) => {
             url={Config.MAPBOX_ROAD_URL}
             onPress={(e) => zoomPoint(e.features[0].geometry.coordinates[0])}
           >
-            <MapboxGL.LineLayer
-              id={"mapilio-road-v1"}
-              sourceLayerID={Config.MAPBOX_ROAD_ID}
-              style={styles.lineStyles}
-            />
+            <MapboxGL.LineLayer id={"mapilio-road-v1"} sourceLayerID={Config.MAPBOX_ROAD_ID} style={styles.lineStyles}/>
           </MapboxGL.VectorSource>
           {(clickedCoord && showPano) && (
             <Heading

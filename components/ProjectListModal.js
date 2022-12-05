@@ -2,12 +2,12 @@ import React, {useEffect, useState} from "react";
 import {
 	ActivityIndicator, FlatList,
 	Modal,
-	Pressable, TouchableOpacity,
+	Pressable,
 	View,
 } from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {CloseIcon} from "../assets/svg/illustrations";
-import {CustomText, CustomTextMedium} from "../highordercomponents";
+import {CustomTextMedium} from "../highordercomponents";
 import ProjectList from "./ProjectList";
 import {fetchHandler} from "../helper/helper";
 import {Routes} from "../navigator/Routes";
@@ -36,16 +36,16 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
 		}
 
 		return (
-			<CustomText style={{flexDirection: "row"}}>
+			<View>
 				<CustomTextMedium style={cameraProjectModalStyles.projectList.paragraph}>
 					There is no project you are involved in. You can browse projects on{" "}
 				</CustomTextMedium>
-				<TouchableOpacity onPress={goMarketplace}>
+				<Pressable onPress={goMarketplace}>
 					<CustomTextMedium style={cameraProjectModalStyles.projectList.link}>
 						Marketplace.
 					</CustomTextMedium>
-				</TouchableOpacity>
-			</CustomText>
+				</Pressable>
+			</View>
 		)
 	}
 

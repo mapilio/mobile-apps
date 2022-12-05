@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {TouchableOpacity, View} from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import {RFValue} from "react-native-responsive-fontsize";
@@ -15,8 +15,7 @@ import Geolocation from "react-native-geolocation-service";
 const Marketplace = ({ navigation }) => {
   const dispatch = useDispatch();
   const [onScroll, setOnScroll] = useState(false);
-  const [slidePanel, setSlidePanel] = useState();
-  const [toggleSlidePanel, setToggleSlidePanel] = useState(true);
+  const slidePanel = useRef();
   const {top, bottom} = useSafeAreaInsets();
   const [currentCoordinate, setCurrentCoordinate] = useState({latitude: 0, longitude: 0});
 
@@ -48,7 +47,7 @@ const Marketplace = ({ navigation }) => {
       <MarketplaceMap navigation={navigation}/>
 
       <TouchableOpacity
-        onPress={() => setToggleSlidePanel(prev => !prev)}
+        onPress={() => slidePanel.current?.show(RFValue(400))}
         style={{
         backgroundColor: '#130C47',
         marginTop: "auto",
@@ -69,15 +68,14 @@ const Marketplace = ({ navigation }) => {
       <SlidingUpPanel
         allowDragging={!onScroll}
         showBackdrop={false}
-        ref={c => setSlidePanel(c)}
-        draggableRange={{top: getContentAreaHeight(top, bottom) - top, bottom: bottom + RFValue(50)}}
-        containerStyle={{display: toggleSlidePanel ? 'none' : 'flex', zIndex: 6}}
+        ref={slidePanel}
+        draggableRange={{top: getContentAreaHeight(top, bottom) - top, bottom: 0}}
+        containerStyle={{zIndex: 6}}
       >
         <List
           navigation={navigation}
           setOnScroll={setOnScroll}
-          slidePanel={slidePanel}
-          setToggleSlidePanel={setToggleSlidePanel}
+          slidePanel={slidePanel.current}
         />
       </SlidingUpPanel>
     </View>
