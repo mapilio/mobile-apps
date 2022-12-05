@@ -7,7 +7,7 @@ const Back = ({navigation}) => {
   return (
     <TouchableOpacity
       style={styles.backButton}
-      onPress={() => navigation.canGoBack() ? navigation.goBack() : navigation.navigate(Routes.map)}
+      onPress={() => navigation.canGoBack() ? navigation.goBack() : navigation.navigate(Routes.nonUserTab)}
     >
       <ArrowLeft color={'#FFFFFF'} width={RFValue(7)} height={RFValue(13)}/>
     </TouchableOpacity>
