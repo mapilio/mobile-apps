@@ -18,11 +18,7 @@ const BatteryLevel = () => {
 
   useEffect(() => {
     const alertLevel = Platform.OS === "ios" ? 101 : 15
-
-    dispatch({
-      type: UPDATE_BATTERY_STATUS,
-      payload: !isCharge && (batteryLevel <= alertLevel)
-    })
+    dispatch({type: UPDATE_BATTERY_STATUS, payload: !isCharge && (batteryLevel <= alertLevel)})
   }, [batteryLevel, isCharge])
 
   const _subscribeBatteryLevel = () => {

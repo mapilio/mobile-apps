@@ -37,9 +37,10 @@ const AppMap = ({ navigation }) => {
 
   const contentHeight = height - RFValue(63) - RFValue(50) - bottom - top
 
-  const zoomPoint = async (coordinate) => {
-    const zoomLevel = await mapRef.current?.getZoom()
-    cameraRef.current?.setCamera({centerCoordinate: coordinate, zoomLevel: zoomLevel + 5})
+  const zoomPoint = (coordinate) => {
+    mapRef.current?.getZoom().then((zoomLevel) => {
+      cameraRef.current?.setCamera({centerCoordinate: coordinate, zoomLevel: zoomLevel + 5})
+    })
   }
 
   const touchPoint = (e) => {
@@ -116,6 +117,7 @@ const AppMap = ({ navigation }) => {
           <MapboxGL.VectorSource
             id="road-points-2"
             url={Config.MAPBOX_POINT_URL}
+            onPress={(e) => zoomPoint(e.features[0].geometry.coordinates)}
           >
             <MapboxGL.CircleLayer
               id={"mapilio-point-v1-stroke"}
@@ -130,11 +132,7 @@ const AppMap = ({ navigation }) => {
             url={Config.MAPBOX_ROAD_URL}
             onPress={(e) => zoomPoint(e.features[0].geometry.coordinates[0])}
           >
-            <MapboxGL.LineLayer
-              id={"mapilio-road-v1"}
-              sourceLayerID={Config.MAPBOX_ROAD_ID}
-              style={styles.lineStyles}
-            />
+            <MapboxGL.LineLayer id={"mapilio-road-v1"} sourceLayerID={Config.MAPBOX_ROAD_ID} style={styles.lineStyles}/>
           </MapboxGL.VectorSource>
           {(clickedCoord && showPano) && (
             <Heading
