@@ -66,7 +66,7 @@ const Detail = ({project, onClose, setOnScroll, navigation}) => {
   )
 }
 
-const Projects = ({setToggleSlidePanel, setOnScroll, onSelectedItem, navigation}) => {
+const Projects = ({slidePanel, setOnScroll, onSelectedItem, navigation}) => {
   const dispatch = useDispatch();
   const {auth} = useSelector((status) => status.getTokenReducer)
   const {marketplaceData} = useSelector((status) => status.marketplaceReducer);
@@ -78,6 +78,7 @@ const Projects = ({setToggleSlidePanel, setOnScroll, onSelectedItem, navigation}
 
     if (auth) {
       onSelectedItem(clickedItem)
+      slidePanel.show(RFValue(250))
     } else {
       navigation.reset({index: 0, routes: [{name: Routes.login}]})
     }
@@ -85,7 +86,7 @@ const Projects = ({setToggleSlidePanel, setOnScroll, onSelectedItem, navigation}
 
   return (
     <View style={marketplaceStyles.container}>
-      <TouchableOpacity style={marketplaceStyles.closeIcon} onPress={() => setToggleSlidePanel(prev => !prev)}>
+      <TouchableOpacity style={marketplaceStyles.closeIcon} onPress={() => slidePanel.hide()}>
         <CloseIcon/>
       </TouchableOpacity>
       <View style={marketplaceStyles.panelHeader} onTouchStart={() => setOnScroll(false)}>
@@ -119,11 +120,16 @@ const Projects = ({setToggleSlidePanel, setOnScroll, onSelectedItem, navigation}
   )
 }
 
-const List = ({navigation, setOnScroll, setToggleSlidePanel}) => {
+const List = ({navigation, setOnScroll, slidePanel}) => {
   const [projectDetail, setProjectDetail] = useState(null);
 
   const handleSelectedItem = (selectedItem) => {
     setProjectDetail(selectedItem)
+  }
+
+  const closeHandle = () => {
+    setProjectDetail(null)
+    slidePanel.show(RFValue(400))
   }
 
   if (projectDetail) {
@@ -132,7 +138,7 @@ const List = ({navigation, setOnScroll, setToggleSlidePanel}) => {
         navigation={navigation}
         project={projectDetail}
         setOnScroll={setOnScroll}
-        onClose={() => setProjectDetail(null)}
+        onClose={closeHandle}
       />
     )
   } else {
@@ -141,7 +147,7 @@ const List = ({navigation, setOnScroll, setToggleSlidePanel}) => {
         navigation={navigation}
         setOnScroll={setOnScroll}
         onSelectedItem={handleSelectedItem}
-        setToggleSlidePanel={setToggleSlidePanel}
+        slidePanel={slidePanel}
       />
     )
   }
