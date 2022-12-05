@@ -184,6 +184,7 @@ export const imageryUpload = (index, pictures) => {
           car_speed: location.speed * 3.6,
           gyroscope: exif.gyroscope,
           acceleration: exif.accelerometer,
+          accuracyLevel: location.accuracy,
           anomaly: 0,
         });
 
