@@ -15,12 +15,7 @@ import {Routes} from "../navigator/Routes";
 import LinearGradient from "react-native-linear-gradient";
 
 const AppCamera = ({ navigation, route }) => {
-  const {
-    distanceBetween,
-    selectedProject,
-    autoCaptureStart,
-    accuracyLevel
-  } = useSelector((state) => state.settingsReducer);
+  const {distanceBetween, selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
   const {photoAmount} = useSelector((state) => state.cameraReducer);
   const [lowBrightness, setLowBrightness] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
@@ -54,13 +49,13 @@ const AppCamera = ({ navigation, route }) => {
     return Geolocation.watchPosition((location) => {
       dispatch({type: UPDATE_MOCKED_STATUS, payload: location.mocked})
       dispatch({type: SET_CAMERA_LOCATION, payload: location.coords})
-      dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy < accuracyLevel})
+      dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy < 20})
     }, (error) => {
       toast.show(`${error.message}`, {type: "error"})
     }, {
       distanceFilter: distanceBetween,
       enableHighAccuracy: true,
-      accuracy: Platform.OS === 'android' ? 'high' : 'best',
+      accuracy: Platform.OS === 'android' ? 'high' : 'bestForNavigation',
     })
   }
 

@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Slider from "@react-native-community/slider";
 import {Platform, ScrollView, StatusBar, StyleSheet, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
-import {UPDATE_ACCURACY_LEVEL, UPDATE_DISTANCE_BETWEEN} from "../store/actionsName";
+import {UPDATE_DISTANCE_BETWEEN} from "../store/actionsName";
 import {SettingsIcon} from "../assets/svg/illustrations";
 import {convertHexToRGBA} from "../helper/helper";
 import {CustomText, CustomTextMedium} from "../highordercomponents";
@@ -10,10 +10,9 @@ import {useDispatch, useSelector} from "react-redux";
 
 const GeneralSettings = ({ navigation }) => {
   const dispatch = useDispatch();
-  const {distanceBetween, accuracyLevel} = useSelector((state) => state.settingsReducer);
+  const {distanceBetween} = useSelector((state) => state.settingsReducer);
 
   const changeDistanceValue = (value) => dispatch({type: UPDATE_DISTANCE_BETWEEN, payload: value});
-  const handleAccuracy = (value) => dispatch({type: UPDATE_ACCURACY_LEVEL, payload: value});
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -51,27 +50,6 @@ const GeneralSettings = ({ navigation }) => {
             </ScrollView>
             <CustomTextMedium style={{...styles.name, marginLeft: RFValue(7)}}>
               {distanceBetween} m
-            </CustomTextMedium>
-          </View>
-        </View>
-        <View style={styles.item}>
-          <CustomText style={{...styles.name, marginBottom: 4}}>GPS Accuracy</CustomText>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <ScrollView>
-              <Slider
-                style={{ width: "100%", height: RFValue(40) }}
-                minimumValue={5}
-                maximumValue={50}
-                value={accuracyLevel}
-                step={5}
-                onValueChange={handleAccuracy}
-                minimumTrackTintColor={"#007AFF"}
-                maximumTrackTintColor={"#C7C7CC"}
-                thumbTintColor={"#FFFFFF"}
-              />
-            </ScrollView>
-            <CustomTextMedium style={{...styles.name, marginLeft: RFValue(7)}}>
-              {accuracyLevel} m
             </CustomTextMedium>
           </View>
         </View>
