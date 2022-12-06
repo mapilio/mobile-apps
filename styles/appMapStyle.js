@@ -6,15 +6,18 @@ export const appMapStyle = StyleSheet.create({
     width: Dimensions.get("screen").width,
     position: "relative"
   },
-  searchIcon: {
-    backgroundColor: "rgba(19, 12, 71, 1)",
-    padding: RFValue(8),
-    width: RFValue(35.5),
-    height: RFValue(35.5),
+  search: {
     position: "absolute",
+    top: RFValue(10.25),
     zIndex: 5,
-    top: 10.25,
-    right: 16.25,
+    width: Dimensions.get("screen").width,
+    alignItems: "center"
+  },
+  searchIcon: {
+    backgroundColor: "#FFFFFF",
+    padding: RFValue(8),
+    width: RFValue(68),
+    height: RFValue(36),
     alignItems: "center",
     justifyContent: "center",
     borderRadius: RFPercentage(50),
