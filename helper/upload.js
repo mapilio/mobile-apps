@@ -184,7 +184,7 @@ export const imageryUpload = (index, pictures) => {
           car_speed: location.speed * 3.6,
           gyroscope: exif.gyroscope,
           acceleration: exif.accelerometer,
-          accuracyLevel: location.accuracy,
+          accuracy_level: location.accuracy,
           anomaly: 0,
         });
 
@@ -202,9 +202,7 @@ export const imageryUpload = (index, pictures) => {
             signal: controller.signal
           }).then((res) => {
             if (res.status === true) {
-              deleteSequence(picture.sequence_uuid).then(() => {
-                resolve()
-              })
+              deleteSequence(picture.sequence_uuid).then(() => resolve())
             } else {
               reject()
             }
@@ -229,7 +227,7 @@ const deleteSequence = (sequence) => {
 export const percentage = (partialValue, totalValue) => {
   let number = (100 * partialValue) / totalValue;
 
-  return (number) ? number / 100 : 0;
+  return (number) ? number : 0;
 };
 
 export const closeRequest = () => {
