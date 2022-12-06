@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {StyleSheet, TouchableOpacity, View} from "react-native";
+import {Dimensions, StyleSheet, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import {convertHexToRGBA} from "../helper/helper";
@@ -101,12 +101,14 @@ const styles = StyleSheet.create({
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%"
+    height: Dimensions.get("window").height
   },
   title: {
     color: "#FFFFFF",
     marginTop: RFValue(-50),
     textAlign: "center",
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   description: {
     textAlign: "center",
@@ -117,6 +119,8 @@ const styles = StyleSheet.create({
     color: "#ffc231",
     textAlign: "center",
     bottom: RFValue(-80),
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   settings: {
     position: "absolute",

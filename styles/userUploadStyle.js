@@ -59,21 +59,80 @@ export const userUploadStyles = StyleSheet.create({
 export const userUploadModalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#4D4D4D",
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: RFValue(12),
+    paddingVertical: RFValue(78),
+  },
+  header: {
+    alignItems: "center",
+    textAlign: "center",
+  },
+  title: {
+    textAlign: "center",
+    marginBottom: RFValue(10),
+    fontSize: RFValue(20),
+    color: "#130C47",
+  },
+  subtitle: {
+    textAlign: "center",
+    paddingBottom: RFValue(20),
+    fontSize: RFValue(14),
+    color: "#666666",
   },
   text: {
     color: "#FFF",
     marginVertical: RFValue(5),
   },
+  sequenceInfo: {
+    backgroundColor: "rgba(63,139,233,0.1)",
+    height: RFValue(127),
+    borderRadius: RFValue(20),
+    paddingHorizontal: RFValue(15),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
+  sequenceInfoSide: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+  sequenceInfoText: {
+    fontSize: RFValue(14),
+    color: '#666666'
+  },
+  sequenceInfoTextBold: {
+    fontSize: RFValue(20),
+    color: '#130C47'
+  },
   progressBar: {
     borderRadius: RFValue(4),
     width: Dimensions.get("window").width - RFValue(100),
   },
-  close: {
-    position: "absolute",
-    top: RFValue(40),
-    right: RFValue(15),
+  separator: {
+    borderLeftColor: "#D8D8D8",
+    height: RFValue(35),
+    borderLeftWidth: 1
   },
+  bottomBar: {
+    width: Dimensions.get("window").width,
+    alignItems:"center",
+    paddingBottom: RFValue(80)
+  },
+  close: {
+    color: "#666666",
+    fontSize: RFValue(16)
+  },
+  closeIcon: {
+    width: RFValue(24),
+    height: RFValue(24),
+    borderRadius: RFValue(24),
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#D8D8D8",
+    marginTop: RFValue(10),
+  }
 });

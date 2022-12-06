@@ -96,7 +96,7 @@ const AppCamera = ({ navigation, route }) => {
           angle={90}
           useAngle={true}
           style={{
-            padding: RFValue(22),
+            paddingLeft: RFValue(22),
             backgroundColor: "transparent",
             position: "absolute",
             right: 0,
