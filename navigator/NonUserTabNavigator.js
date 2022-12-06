@@ -12,7 +12,6 @@ import {CaptureIcon, CaptureText, MarketplaceIcon, Profile, Upload} from "../ass
 import SignInNavigatorRight from "./navigatorbars/SignInNavigatorRight";
 import { RFValue } from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {MapilioLogoBeta} from "../assets/svg/logos";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,7 +37,7 @@ const CaptureTabBarButton = ({ navigation }) => {
 const NonUserTabNavigator = () => {
   const {connection} = useSelector((state) => state.generalReducer);
   const [internetGoes, setInternetGoes] = useState(false);
-  const {bottom, top} = useSafeAreaInsets();
+  const {bottom} = useSafeAreaInsets();
 
   const connectionAlertHandler = (navigation) => {
     if (connection.connectionStatus && internetGoes) {
@@ -79,6 +78,7 @@ const NonUserTabNavigator = () => {
         component={AppMap}
         name={Routes.map}
         options={{
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={[
@@ -97,22 +97,13 @@ const NonUserTabNavigator = () => {
               </Text>
             </View>
           ),
-          title: <MapilioLogoBeta />,
-          headerStyle: {
-            height: top + RFValue(50),
-            backgroundColor: "#130C47",
-          },
         }}
       />
       <Tab.Screen
         component={Marketplace}
         name={Routes.marketplace}
         options={() => ({
-          title: <MapilioLogoBeta />,
-          headerStyle: {
-            height: top + RFValue(50),
-            backgroundColor: "#130C47",
-          },
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={[

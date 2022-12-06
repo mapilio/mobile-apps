@@ -42,7 +42,6 @@ import TabMap from "../assets/svg/illustrations/TabMap";
 import {cameraPermission} from "../helper/helper";
 import { RFValue } from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {MapilioLogoBeta} from "../assets/svg/logos";
 
 const Tab = createBottomTabNavigator();
 
@@ -106,9 +105,7 @@ const TabNavigator = ({ navigation }) => {
         tabPress: () => connectionAlertHandler(navigation, route.name),
         state: () => {
           if (route.name !== Routes.camera) {
-            ScreenOrientation.lockAsync(
-              ScreenOrientation.OrientationLock.PORTRAIT_UP
-            );
+            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
           }
         },
       })}
@@ -137,22 +134,14 @@ const TabNavigator = ({ navigation }) => {
               </Text>
             </View>
           ),
-          title: <MapilioLogoBeta />,
-          headerStyle: {
-            height: top + RFValue(50),
-            backgroundColor: "#130C47",
-          },
+          headerShown: false,
         }}
       />
       <Tab.Screen
         component={Marketplace}
         name={Routes.marketplace}
         options={() => ({
-          title: <MapilioLogoBeta />,
-          headerStyle: {
-            height: top + RFValue(50),
-            backgroundColor: "#130C47",
-          },
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View
               style={[

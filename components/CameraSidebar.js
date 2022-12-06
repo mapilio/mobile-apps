@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {Dimensions, StyleSheet, TouchableOpacity, View} from "react-native";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import {convertHexToRGBA} from "../helper/helper";
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
-    height: Dimensions.get("window").height
+    height: "100%",
   },
   title: {
     color: "#FFFFFF",

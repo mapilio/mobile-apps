@@ -10,12 +10,11 @@ import {MapView} from "../highordercomponents";
 import {styles} from "../styles/circleStyles";
 import {Heading} from "../components/Map";
 import Config from "react-native-config";
-import SafeAreaView from "react-native-safe-area-view";
 import Geolocation from "react-native-geolocation-service";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Search} from "../components/Search";
-import {RESULTS} from "react-native-permissions";
 import {initialPermissions} from "../helper/helper";
+import {RESULTS} from "react-native-permissions";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -28,7 +27,7 @@ const AppMap = ({ navigation }) => {
   let cameraRef = useRef();
   let mapRef = useRef();
   const {height} = Dimensions.get("window");
-  const {bottom, top} = useSafeAreaInsets();
+  const {bottom} = useSafeAreaInsets();
 
   useEffect(() => {
     Geolocation.getCurrentPosition(({coords}) => {
@@ -36,7 +35,7 @@ const AppMap = ({ navigation }) => {
     })
   }, [cameraRef.current]);
 
-  const contentHeight = height - RFValue(63) - RFValue(50) - bottom - top
+  const contentHeight = height - bottom - RFValue(63)
 
   const zoomPoint = (coordinate) => {
     mapRef.current?.getZoom().then((zoomLevel) => {
@@ -71,7 +70,7 @@ const AppMap = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       {showPano ? (
         <Pano hidePano={() => setShowPano(false)} imageInformation={imageInformations} navigation={navigation}/>
       ) : (
@@ -150,7 +149,7 @@ const AppMap = ({ navigation }) => {
           <CurrentLocationIcon />
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
