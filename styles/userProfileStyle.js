@@ -13,19 +13,23 @@ export const userFeedStyles = StyleSheet.create({
     marginBottom: RFValue(5),
   },
   viewStyle: {
-    flexDirection: "column",
     flex: 1,
     marginRight: RFValue(20),
+    justifyContent: "space-between"
   },
   dateStyle: {
     fontSize: RFValue(14),
     color: "#4A4A4A",
-    marginBottom: RFValue(9),
   },
   descriptionStyle: {
     fontSize: RFValue(14),
     color: "#4A4A4A",
     flexWrap: "nowrap",
+  },
+  statusStyle: {
+    fontSize: RFValue(10),
+    color: "rgba(74,74,74,0.54)",
+    textTransform: "capitalize",
   },
   imageStyle: {
     width: RFValue(130),

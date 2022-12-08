@@ -15,6 +15,8 @@ const ProfileFeed = ({
 }) => {
   const { userInformation } = useSelector((state) => state.getTokenReducer);
 
+  const statusName = (status) => status ? status.replace('uploaded', 'added queue') : 'failed'
+
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -34,6 +36,9 @@ const ProfileFeed = ({
         </CustomTextBold>
         <CustomText style={userFeedStyles.descriptionStyle}>
           {data.total_images} images
+        </CustomText>
+        <CustomText style={userFeedStyles.statusStyle}>
+          {statusName(data.last_status)}
         </CustomText>
       </View>
       <View>
