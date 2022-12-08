@@ -12,8 +12,12 @@ import {initialPermissions} from "./helper/helper";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import Toast from "react-native-toast-notifications";
 import ToastMessage from "./components/ToastMessage";
+import OneSignal from "react-native-onesignal";
 
 Sentry.init({dsn: `${Config.SENTRY_DSN}`, tracesSampleRate: 1.0});
+
+OneSignal.setAppId(Config.ONESIGNAL_APP_ID);
+OneSignal.promptForPushNotificationsWithUserResponse();
 
 function App() {
   const [fontsLoaded] = useFonts({
