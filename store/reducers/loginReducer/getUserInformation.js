@@ -1,6 +1,7 @@
 import axios from "axios";
 import { GET_USER_INDEX_TYPE, GET_USER_INFORMATION } from "../../actionsName";
 import Config from "react-native-config";
+import OneSignal from "react-native-onesignal";
 
 export const getUserInformation = (auth) => (dispatch) => {
   const token = auth.token;
@@ -28,6 +29,8 @@ export const getUserInformation = (auth) => (dispatch) => {
         },
       });
       dispatch({ type: GET_USER_INFORMATION, payload: userInfo });
+      OneSignal.setExternalUserId(userInfo.id.toString())
+      OneSignal.setEmail(userInfo.email)
     })
     .catch((err) => console.log(err));
 };

@@ -62,7 +62,7 @@
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-linear-gradient": "^2.6.2",
-    "react-native-onesignal": "^4.4.1",
+    "react-native-onesignal": "^4.5.0",
     "react-native-paper": "^4.12.5",
     "react-native-permissions": "^3.6.1",
     "react-native-popover-view": "^5.1.6",

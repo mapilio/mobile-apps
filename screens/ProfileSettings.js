@@ -5,6 +5,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {useDispatch} from "react-redux";
 import {EXIT_USER} from "../store/actionsName";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import OneSignal from "react-native-onesignal";
 
 const ListItem = ({name, onPress}) => {
   return (
@@ -32,6 +33,7 @@ const ProfileSettings = ({navigation}) => {
   const exitHandle = () => {
     navigation.navigate(Routes.map);
     dispatch({type: EXIT_USER});
+    OneSignal.removeExternalUserId();
   }
 
   return (
