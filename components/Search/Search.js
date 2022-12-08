@@ -19,7 +19,6 @@ const Search = ({camera}) => {
     return () => timeout?.remove()
   }, []);
 
-
   return (
     <View style={{...appMapStyle.search, marginTop: top}}>
       <TouchableOpacity onPress={() => setOpenSearchbar(true)}>

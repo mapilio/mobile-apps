@@ -31,12 +31,11 @@ const Pano = (props) => {
   const {height} = Dimensions.get("screen")
 
   const imageHeight = () => {
-    if (fullHeight) {
-      return height - RFValue(63) - RFValue(50) - bottom - top
-    }
+    const _imageHeight = height - RFValue(63) - bottom
 
-    return (height - RFValue(63) - RFValue(50) - bottom - top) / 2
+    return fullHeight ? _imageHeight : (_imageHeight + top) / 2
   }
+
 
   const reportImage = () => {
     if (auth) {
@@ -64,11 +63,11 @@ const Pano = (props) => {
   return (
     <View>
       <View style={panoStyle.topBar}>
-        <TouchableOpacity style={panoStyle.switch} onPress={() => setFullHeight(!fullHeight)}>
+        <TouchableOpacity style={{...panoStyle.switch, top: top}} onPress={() => setFullHeight(!fullHeight)}>
           <SwitchMapPano />
         </TouchableOpacity>
 
-        <TouchableOpacity style={panoStyle.minimize} onPress={props.hidePano}>
+        <TouchableOpacity style={{...panoStyle.minimize, top: top}} onPress={props.hidePano}>
           <MinimizePano />
         </TouchableOpacity>
       </View>
