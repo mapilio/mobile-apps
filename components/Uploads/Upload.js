@@ -86,10 +86,14 @@ const Upload = ({sequence_uuid, navigation}) => {
             pictures.hash = pictures[i][j].hash
             sendImages(i, ++j)
           } else {
-            getHash(pictures[i][j]).then(async ({hash}) => {
-              pictures.hash = hash;
-              setSentCount(prev => prev + 1)
-              await sendImages(i, ++j)
+            getHash(pictures[i][j]).then(async (res) => {
+              if (res.status === 'success') {
+                pictures.hash = res.hash;
+                setSentCount(prev => prev + 1)
+                await sendImages(i, ++j)
+              } else {
+                toast.show(res.message, {type: res.status})
+              }
             }).catch(requestBroken)
           }
         } else {

@@ -111,9 +111,15 @@ export const getHash = (image) => {
         await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
         resolve({status: 'success', hash: response.files[0].hash})
       }).catch((err) => {
+        if (err.name === 'CanceledError') {
+          resolve({status: 'warning', message: 'You cancelled upload'})
+        }
+
         reject(err)
       })
-    }).catch((err) => reject(err))
+    }).catch((err) => {
+      return reject(err)
+    })
   })
 }
 

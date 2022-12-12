@@ -18,7 +18,7 @@ const SearchModal = ({open, closeHandler, onClick}) => {
   }, [searchText]);
 
   return (
-    <Modal visible={open}>
+    <Modal visible={open} animationType={"slide"}>
       <SearchHeader closeHandler={closeHandler} setSearchText={handleSearchText}/>
       <SearchList search={searchText} lists={locations} onClick={onClick}/>
     </Modal>

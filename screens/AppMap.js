@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useRef, useState} from "react";
-import {Dimensions, TouchableOpacity, View, Platform, Pressable} from "react-native";
+import {Dimensions, TouchableOpacity, View, Pressable} from "react-native";
 import {appMapStyle} from "../styles/appMapStyle";
 import MapboxGL, {Camera} from "@rnmapbox/maps";
 import Pano from "../components/Map/Pano";
@@ -93,7 +93,7 @@ const AppMap = ({ navigation }) => {
         >
           <MapboxGL.UserLocation
             visible={userLocation}
-            showsUserHeadingIndicator={Platform.OS === "android"}
+            showsUserHeadingIndicator={true}
             onUpdate={({coords}) => {
               setUserCoordinate([coords.longitude, coords.latitude])
             }}
