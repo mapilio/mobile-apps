@@ -41,13 +41,14 @@ const styles = StyleSheet.create({
   closeIcon: {
     position: "absolute",
     right: 0,
-    top:RFValue(12),
+    top: RFValue(12),
     width: RFValue(40),
     alignItems: "center",
     justifyContent: "center"
   },
   text: {
     marginHorizontal: RFValue(30),
+    marginVertical: RFValue(5),
   },
   statusIcon: {
     position: "absolute",
