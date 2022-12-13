@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   Image,
   View,
@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Pressable,
   Dimensions,
-  ScrollView,
 } from "react-native";
 import { panoStyle } from "../../styles/panoStyle";
 import ReportIcon from "../../assets/svg/illustrations/ReportIcon";
@@ -15,20 +14,32 @@ import SwitchMapPano from "../../assets/svg/illustrations/SwitchMapPano";
 import MinimizePano from "../../assets/svg/illustrations/MinimizePano";
 import Campus from "../../assets/svg/illustrations/Campus";
 import moment from "moment";
-import {Routes} from "../../navigator/Routes";
 import {fetchHandler} from "../../helper/helper";
-import {useSelector} from "react-redux";
 import {RFValue} from "react-native-responsive-fontsize";
 import {NorthArrow} from "../../assets/svg/illustrations";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
-const Pano = (props) => {
-  const {imageInformation, navigation} = props;
-  const {auth} = useSelector((state) => state.getTokenReducer);
+const Pano = ({imageInformation, hidePano}) => {
   const [fullHeight, setFullHeight] = useState(false);
+  const [username, setUsername] = useState(null);
   const {top, bottom} = useSafeAreaInsets();
   const {height} = Dimensions.get("screen")
+
+  useEffect(() => {
+    fetchHandler({
+      url: `${Config.SERVICE_URL}/api/search-user?options[parameters][id]=${imageInformation.user}`
+    }).then(({data}) => {
+      if (data && data.length) {
+        setUsername('@' + data[0].username)
+      } else {
+        setUsername(null)
+      }
+    }).catch((err) => {
+      setUsername(null)
+      toast.show(err.response.data.message, {type: "error"})
+    })
+  }, [])
 
   const imageHeight = () => {
     const _imageHeight = height - RFValue(63) - bottom
@@ -38,50 +49,42 @@ const Pano = (props) => {
 
 
   const reportImage = () => {
-    if (auth) {
-      fetchHandler({
-        url: `${Config.SERVICE_URL}/api/function/image_complaint/complaint/report`,
-        method: "POST",
-        data: {
-          options: {
-            parameters: {
-              imagery_id: imageInformation.pointID,
-              message: "",
-            },
+    fetchHandler({
+      url: `${Config.SERVICE_URL}/api/function/image_complaint/complaint/report`,
+      method: "POST",
+      data: {
+        options: {
+          parameters: {
+            imagery_id: imageInformation.pointID,
+            message: "",
           },
         },
-      }).then(() => {
-        toast.show('Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.', {type: 'info'})
-      }).catch(() => {
-        toast.show('An error occurred while reporting. Try again.', {type: 'error'})
-      });
-    } else {
-      navigation.reset({index: 0, routes: [{name: Routes.login}]})
-    }
+      },
+    }).then(() => {
+      toast.show('Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.', {type: 'info'})
+    }).catch(() => {
+      toast.show('An error occurred while reporting. Try again.', {type: 'error'})
+    });
   };
 
   return (
     <View>
       <View style={panoStyle.topBar}>
         <TouchableOpacity style={{...panoStyle.switch, top: top}} onPress={() => setFullHeight(!fullHeight)}>
-          <SwitchMapPano />
+          <SwitchMapPano/>
         </TouchableOpacity>
-
-        <TouchableOpacity style={{...panoStyle.minimize, top: top}} onPress={props.hidePano}>
-          <MinimizePano />
+        <TouchableOpacity style={{...panoStyle.minimize, top: top}} onPress={hidePano}>
+          <MinimizePano/>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true}>
-        <ScrollView>
-          <Image
-            source={{uri: imageInformation.highResImage}}
-            style={{
-              height: imageHeight(),
-              aspectRatio: 21/9,
-            }}
-          />
-        </ScrollView>
-      </ScrollView>
+      <Image
+        source={{uri: imageInformation.highResImage}}
+        style={{
+          height: imageHeight(),
+          resizeMode: "cover",
+          transform: [{translateY: -top}]
+        }}
+      />
       <View style={panoStyle.watermark}>
         <LogoWatermark />
       </View>
@@ -102,6 +105,7 @@ const Pano = (props) => {
         </Pressable>
 
         <View style={panoStyle.capturerWrapper}>
+          <Text style={panoStyle.capturerName}>{username}</Text>
           <Text style={panoStyle.captureDate}>
             {moment(imageInformation.date).format("DD.MM.YYYY")}
           </Text>
