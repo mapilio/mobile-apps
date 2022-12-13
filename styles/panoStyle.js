@@ -69,7 +69,7 @@ export const panoStyle = {
     color: "#B9C0CF",
     marginRight: RFValue(6.64),
     fontSize: RFValue(14),
-    fontFamily: "Poppins-SemiBold",
+    fontFamily: "Poppins-Medium",
     top: RFValue(1),
   },
   captureDate: {
