@@ -1,35 +1,32 @@
 import React, {useEffect, useState} from "react";
-import {View, TouchableOpacity, Modal, Pressable} from "react-native";
-import {CloseIcon, UploadIcon} from "../../assets/svg/illustrations";
+import {View, TouchableOpacity} from "react-native";
+import {UploadIcon} from "../../assets/svg/illustrations";
 import {
   calculateToSequence,
   closeRequest,
   getHash,
   getImagesBySequence,
   imageryUpload,
-  percentage
 } from "../../helper/upload";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
 import db from "../../db";
 import {UPLOAD_DATA} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
-import {userUploadModalStyles} from "../../styles/userUploadStyle";
-import {CustomText, CustomTextBold} from "../../highordercomponents";
-import CircularProgress from "react-native-circular-progress-indicator";
-import {RFValue} from "react-native-responsive-fontsize";
-import Lottie from 'lottie-react-native';
 import * as FileSystem from "expo-file-system";
+import CompletedModal from "./CompletedModal";
+import UploadModal from "./UploadModal";
 
 const Upload = ({sequence_uuid, navigation}) => {
   const dispatch = useDispatch();
+  const { uploadData } = useSelector((state) => state.uploadReducer);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+  const [completedModalVisible, setCompletedModalVisible] = useState(false);
   const [sequenceLength, setSequenceLength] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
-  const [percentageValue, setPercentageValue] = useState(0);
   const pictures = []
 
   useEffect(() => {
@@ -43,17 +40,11 @@ const Upload = ({sequence_uuid, navigation}) => {
     return () => setTotalSize(0)
   }, []);
 
-  useEffect(() => {
-    setPercentageValue(percentage(sentCount, totalImageCount))
-  }, [sentCount]);
-
-
   const upload = () => {
     activateKeepAwake('upload')
     setModalVisible(true)
 
     calculateToSequence(sequence_uuid).then(({status, data}) => {
-
       if (status === 'success') {
         setTotalImageCount(data.count)
         getSequences(data.sequences)
@@ -106,8 +97,8 @@ const Upload = ({sequence_uuid, navigation}) => {
           }).catch(requestBroken)
         }
       } else {
+        setCompletedModalVisible(true)
         setModalVisible(false)
-        toast.show("Upload is successfully", {type: "success"})
       }
     })
   }
@@ -119,79 +110,33 @@ const Upload = ({sequence_uuid, navigation}) => {
     toast.show(`${error}`, {type: "error"})
   }
 
+  const handleStop = () => {
+    closeRequest();
+    setModalVisible(false);
+    setSentCount(0);
+  }
+
   return (
     <View>
-      <TouchableOpacity onPress={upload}>
-        <UploadIcon/>
-      </TouchableOpacity>
+      {uploadData.length > 0 && <TouchableOpacity onPress={upload}><UploadIcon/></TouchableOpacity>}
 
-      <Modal animationType="slide" transparent={false} visible={modalVisible}>
-        <View style={userUploadModalStyles.container}>
-          <View style={userUploadModalStyles.header}>
-            <CustomTextBold style={userUploadModalStyles.title}>
-              Together We Create More Up-To-Date Maps
-            </CustomTextBold>
-            <CustomText style={userUploadModalStyles.subtitle}>
-              You can shoot more and compete in the leaderboard to be the most contributing participant in your region.
-            </CustomText>
-          </View>
-          <View style={userUploadModalStyles.sequenceInfo}>
-            <CircularProgress
-              initialValue={0}
-              value={percentageValue}
-              rotation={270}
-              valueSuffix={"%"}
-              progressValueColor={'#000'}
-              activeStrokeColor={'#3F8BE9'}
-              circleBackgroundColor={'#FFF'}
-              progressValueFontSize={RFValue(20)}
-              valueSuffixStyle={{fontSize: RFValue(10), transform: [{translateY: RFValue(-5)}]}}
-            />
-            <View style={userUploadModalStyles.sequenceInfoSide}>
-              <View style={{alignItems: "center"}}>
-                <CustomTextBold style={userUploadModalStyles.sequenceInfoTextBold}>{sequenceLength}</CustomTextBold>
-                <CustomText style={userUploadModalStyles.sequenceInfoText}>Sequences</CustomText>
-              </View>
-              <View style={userUploadModalStyles.separator}/>
-              <View style={{alignItems: "center"}}>
-                <CustomTextBold style={userUploadModalStyles.sequenceInfoTextBold}>
-                  {totalImageCount - sentCount}
-                </CustomTextBold>
-                <CustomText style={userUploadModalStyles.sequenceInfoText}>Images</CustomText>
-              </View>
-            </View>
-          </View>
+      <UploadModal
+        visible={modalVisible}
+        sentCount={sentCount}
+        sequenceLength={sequenceLength}
+        totalImageCount={totalImageCount}
+        handleStop={handleStop}
+        totalSize={totalSize}
+      />
 
-          <View style={{flexDirection: "row", alignItems: "center", marginTop: RFValue(35)}}>
-            <Lottie
-              source={require('../../assets/animations/upload.json')}
-              style={{width: RFValue(30), height: RFValue(30)}}
-              autoPlay={true}
-              loop={true}
-            />
-
-            <View style={{flexDirection: "row", alignItems: "center", marginLeft: RFValue(10)}}>
-              <CustomTextBold style={{fontSize: RFValue(16)}}>{totalImageCount} images</CustomTextBold>
-              <CustomText style={{fontSize: RFValue(16)}}> / {totalSize}MB</CustomText>
-            </View>
-          </View>
-        </View>
-
-        <View style={userUploadModalStyles.bottomBar}>
-          <CustomText style={userUploadModalStyles.close}>Stop Uploading</CustomText>
-          <Pressable
-            onPress={() => {
-              if (sentCount <= totalImageCount - 1) {
-                closeRequest();
-                setModalVisible(false);
-                setSentCount(0);
-              }
-            }}
-            style={userUploadModalStyles.closeIcon}>
-            <CloseIcon/>
-          </Pressable>
-        </View>
-      </Modal>
+      <CompletedModal
+        navigation={navigation}
+        visible={completedModalVisible}
+        onPressButton={() => {
+          setCompletedModalVisible(false)
+          navigation.navigate(Routes.map)
+        }}
+      />
     </View>
   );
 };
