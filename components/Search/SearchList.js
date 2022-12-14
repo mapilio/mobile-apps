@@ -6,18 +6,24 @@ import React from "react";
 import {NoLocation} from "../../assets/svg/illustrations";
 
 const LocationList = ({index, location, onClick}) => {
+  const { properties, geometry } = location
+
+
   return (
     <TouchableOpacity
       key={index}
       id={index}
       style={styles.listItem}
-      onPress={() => onClick(location.geometry.coordinates)}
+      onPress={() => onClick(properties.extent || geometry.coordinates)}
     >
       <CustomText style={styles.address}>
-        {`${maxCharacterHandler(location.properties.name, 45)}${location.properties.city ? "," + " " + location.properties.city : ""}`}
+        {`${maxCharacterHandler(properties.name, 45)}${properties.city ? "," + " " + properties.city : ""}`}
       </CustomText>
       <CustomText style={styles.country}>
-        {location.properties.country}
+        {properties.district && properties.district + ' '}
+        {properties.city && properties.city + ' '}
+        {properties.state && properties.state + ' '}
+        {properties.country}
       </CustomText>
     </TouchableOpacity>
   )
