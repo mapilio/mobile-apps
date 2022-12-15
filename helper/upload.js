@@ -213,7 +213,7 @@ export const imageryUpload = (index, pictures) => {
               reject()
             }
           }).catch((err) => {
-            reject(err.response.data.message || err)
+            reject(err?.response?.data?.message || err)
           })
         }
       })

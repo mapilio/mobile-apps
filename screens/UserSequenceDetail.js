@@ -19,7 +19,6 @@ import {setGeoJson} from "../helper/geojson";
 import * as FileSystem from "expo-file-system";
 
 const UserSequenceDetail = ({ navigation, route }) => {
-  const [maximize, setMaximize] = useState(false);
   const [lines, setLines] = useState({});
   const [points, setPoints] = useState({});
   const [center, setCenter] = useState([30.8, 41.015137]);
@@ -29,6 +28,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
   const {activeSequence, sequenceImages} = useSelector((state) => state.uploadReducer);
   const screenHeight = Dimensions.get("window").height - RFValue(110);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
+  const {rank} = useSelector((state) => state.uploadReducer)
 
   useEffect(() => navigation.addListener("blur", () => setClickedPoint(null)), [navigation]);
 
@@ -78,7 +78,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
           resizeMode={"cover"}
           style={{
             ...sequenceDetailStyles.image,
-            height: maximize ? screenHeight : screenHeight / 2,
+            height: screenHeight / 2,
           }}
         />
       </ScrollView>
@@ -101,6 +101,15 @@ const UserSequenceDetail = ({ navigation, route }) => {
             shape={points}
             onPress={(point) => {
               const properties = point.features[0].properties.item
+
+              dispatch({type: RANK,
+                payload: {
+                  id: properties.id,
+                  total: rank.total,
+                  active: properties.count
+                }
+              });
+
               setCurrentImage(FileSystem.documentDirectory + `${userInformation.id}/${properties.sequence_uuid}/${properties.path.split('/').pop()}`);
               setClickedPoint({
                 heading: JSON.parse(properties.location).heading,
