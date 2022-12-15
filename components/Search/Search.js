@@ -12,7 +12,13 @@ const Search = ({camera}) => {
 
   const handleClick = (coordinate) => {
     setOpenSearchbar(false)
-    timeout = setTimeout(() => camera.current.setCamera({centerCoordinate: coordinate, zoomLevel: 10}), 200)
+    timeout = setTimeout(() => {
+      coordinate.length === 4 &&
+        camera.current.fitBounds([coordinate[0], coordinate[1]], [coordinate[2], coordinate[3]], [20, 20], 1000)
+
+      coordinate.length === 2 &&
+        camera.current.setCamera({centerCoordinate: coordinate, zoomLevel: 10, animationDuration: 1000})
+    }, 200)
   }
 
   useEffect(() => {
