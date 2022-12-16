@@ -23,7 +23,9 @@ const setLineGeoJson = (data = []) => {
 const setPointGeoJson = (data) => {
 	let points = {type: "FeatureCollection", features: []};
 
-	data.map((item) => {
+	data.map((item, index) => {
+		item.count = ++index;
+
 		points.features.push({
 			type: "Feature",
 			properties: {item},
