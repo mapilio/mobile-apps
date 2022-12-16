@@ -5,9 +5,8 @@ import MapboxGL, {Camera} from "@rnmapbox/maps";
 import Pano from "../components/Map/Pano";
 import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
 import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
-import { RFValue } from "react-native-responsive-fontsize";
+import {RFValue} from "react-native-responsive-fontsize";
 import {MapView} from "../highordercomponents";
-import {styles} from "../styles/circleStyles";
 import {Heading} from "../components/Map";
 import Config from "react-native-config";
 import Geolocation from "react-native-geolocation-service";
@@ -15,6 +14,8 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Search} from "../components/Search";
 import {initialPermissions} from "../helper/helper";
 import {RESULTS} from "react-native-permissions";
+import {point} from "@turf/turf";
+import {styles} from "../styles/circleStyles";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -22,7 +23,7 @@ const AppMap = ({ navigation }) => {
   const [imageInformations, setImageInformations] = useState(null);
   const [clickedCoord, setClickedCoord] = useState(null);
   const [showPano, setShowPano] = useState(false);
-  const [userCoordinate, setUserCoordinate] = useState([]);
+  const [userCoordinate, setUserCoordinate] = useState(undefined);
   const [userLocation, setUserLocation] = useState(true);
   let cameraRef = useRef();
   let mapRef = useRef();
@@ -30,9 +31,15 @@ const AppMap = ({ navigation }) => {
   const {bottom} = useSafeAreaInsets();
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(({coords}) => {
-      cameraRef.current?.flyTo([coords.longitude, coords.latitude], 0)
+    const watchId = Geolocation.watchPosition(({coords}) => {
+      setUserCoordinate(point([coords.longitude, coords.latitude], coords))
     })
+
+    return () => Geolocation.clearWatch(watchId)
+  }, []);
+
+  useEffect(() => {
+    cameraRef.current?.flyTo(userCoordinate.geometry.coordinates, 0)
   }, [cameraRef.current]);
 
   const contentHeight = height - bottom - RFValue(63)
@@ -64,7 +71,7 @@ const AppMap = ({ navigation }) => {
       if (res !== RESULTS.GRANTED) {
         toast.show(`Your GPS is disabled.`, {type: "error"})
       } else {
-        cameraRef.current?.setCamera({centerCoordinate: userCoordinate, zoomLevel: 10});
+        userCoordinate && cameraRef.current?.setCamera({centerCoordinate: userCoordinate.geometry.coordinates, zoomLevel: 15});
       }
     })
   }
@@ -78,10 +85,7 @@ const AppMap = ({ navigation }) => {
       )}
 
       {!showPano && imageInformations && (
-        <TouchableOpacity
-          style={appMapStyle.minimizePano}
-          onPress={() => setShowPano(true)}
-        >
+        <TouchableOpacity style={appMapStyle.minimizePano} onPress={() => setShowPano(true)}>
           <PanoMinimize />
         </TouchableOpacity>
       )}
@@ -91,14 +95,23 @@ const AppMap = ({ navigation }) => {
           mapStyle={{...appMapStyle.map, height: showPano ? (contentHeight / 2) : contentHeight}}
           mapRef={mapRef}
         >
-          <MapboxGL.UserLocation
-            visible={userLocation}
-            showsUserHeadingIndicator={true}
-            onUpdate={({coords}) => {
-              setUserCoordinate([coords.longitude, coords.latitude])
-            }}
-          />
 
+          {
+            (userCoordinate?.geometry && userLocation) && (
+              <MapboxGL.ShapeSource id={"userLocationHeadingShape"} shape={userCoordinate}>
+                <MapboxGL.SymbolLayer
+                  id={"userLocationHeading"}
+                  style={{
+                    iconImage: require("../assets/images/userLocation.png"),
+                    iconSize: 1,
+                    iconAllowOverlap: true,
+                    iconRotate: ["get", "heading"],
+                    iconRotationAlignment: 'map',
+                  }}
+                />
+              </MapboxGL.ShapeSource>
+            )
+          }
           <MapboxGL.VectorSource
             id="road-points"
             url={Config.MAPBOX_POINT_URL}
