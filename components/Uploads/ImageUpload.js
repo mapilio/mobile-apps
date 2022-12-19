@@ -13,8 +13,8 @@ import * as FileSystem from "expo-file-system";
 const ImageUpload = ({ navigation, sequence_uuid }) => {
   const dispatch = useDispatch();
   const [imageLoad, setLoadImage] = useState(true);
-  const { sequenceImages } = useSelector((state) => state.uploadReducer);
-  const { uploadedImages, selectedImages } = useSelector((state) => state.imagesReducer);
+  const {sequenceImages} = useSelector((state) => state.uploadReducer);
+  const {uploadedImages, selectedImages} = useSelector((state) => state.imagesReducer);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
 
   useEffect(() => {

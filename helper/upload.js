@@ -9,10 +9,10 @@ import md5 from "md5";
 let controller = {};
 
 const isWifi = () => {
-  const {connection} = store.getState().generalReducer
-  const {uploadData} = store.getState().uploadReducer
-
   return new Promise((resolve, reject) => {
+    const {connection} = store.getState().generalReducer
+    const {uploadData} = store.getState().uploadReducer
+
     if (uploadData.length && connection.connectionType === 'wifi') {
       resolve({status: 'success'})
     } else {
