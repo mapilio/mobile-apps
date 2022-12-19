@@ -42,12 +42,12 @@ const Upload = ({sequence_uuid, navigation}) => {
 
   const upload = () => {
     activateKeepAwake('upload')
-    setModalVisible(true)
 
     calculateToSequence(sequence_uuid).then(({status, data}) => {
       if (status === 'success') {
         setTotalImageCount(data.count)
         getSequences(data.sequences)
+        setModalVisible(true)
       }
     }).catch(() => {
       setModalVisible(false)

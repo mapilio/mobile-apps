@@ -104,17 +104,15 @@ const UserSequence = ({ navigation }) => {
   }, [navigation]);
 
   const getCoordinates = () => {
-    database.query(
-      `SELECT * FROM captures WHERE sequence_uuid='${activeSequence}'`,
-      (_, result) => {
-        setCenter([
-          JSON.parse(result.rows._array[0].location).longitude,
-          JSON.parse(result.rows._array[0].location).latitude,
-        ]);
-        setCoordinates(setGeoJson(result.rows._array, "line"));
-        setPoints(setGeoJson(result.rows._array, "point"));
-      }
-    );
+    database.getCaptures(activeSequence).then((result) => {
+      setCenter([
+        JSON.parse(result[0].location)?.longitude,
+        JSON.parse(result[0].location)?.latitude,
+      ]);
+
+      setCoordinates(setGeoJson(result, "line"));
+      setPoints(setGeoJson(result, "point"));
+    })
   };
 
   useEffect(() => getCoordinates(), [activeSequence]);

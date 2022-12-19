@@ -1,5 +1,5 @@
 import * as SQLite from "expo-sqlite";
-import { store } from "./store/store";
+import {store} from "./store/store";
 import * as FileSystem from "expo-file-system";
 
 const id = store.getState().generalReducer.id;
@@ -63,27 +63,27 @@ class Database {
     });
   }
 
-    async queryAsync(query) {
-        return new Promise((resolve, reject) => {
-            db.transaction((txn) => {
-                txn.executeSql(
-                    query,
-                    [],
-                    (_, results) => {
-                    resolve(results.rows._array)
-                },
-                    (error) => {
-                    reject(error)
-                })
-            });
-        })
-    }
+  async queryAsync(query) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          query,
+          [],
+          (_, results) => {
+            resolve(results.rows._array)
+          },
+          (error) => {
+            reject(error)
+          })
+      });
+    })
+  }
 
   async query(query, callback, args = [], errorCallback = (_, error) => toast.show(`${error}`, {type: "error"})) {
-        db.transaction((txn) => {
-            txn.executeSql(query, args, callback, errorCallback)
-        });
-    }
+    db.transaction((txn) => {
+      txn.executeSql(query, args, callback, errorCallback)
+    });
+  }
 
   deleteRow(sequenceUUID) {
     db.transaction((txn) => {
@@ -98,7 +98,16 @@ class Database {
     });
   }
 
+  /**
+   * getCapturesBySequenceId() is deprecated. You can change getCaptures()
+   *
+   * @param sequence_uuid
+   * @param callback
+   * @param errorCallback
+   */
   getCapturesBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
+    console.warn('getCapturesBySequenceId() is deprecated. You can change getCaptures()')
+
     db.transaction((txn) => {
       txn.executeSql(
         `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}"`,
@@ -120,21 +129,41 @@ class Database {
   }
 
   deleteBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
-        db.transaction((txn) => {
-            txn.executeSql(
-                `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
-                [],
-                callback,
-                errorCallback
-            )
-        })
-    }
+    db.transaction((txn) => {
+      txn.executeSql(
+        `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
+        [],
+        callback,
+        errorCallback
+      )
+    })
+  }
 
-    deleteById(id) {
-        db.transaction(txn => {
-            txn.executeSql(`DELETE FROM captures where id='${id}'`)
-        })
-    }
+  deleteById(id) {
+    db.transaction(txn => {
+      txn.executeSql(`DELETE FROM captures where id='${id}'`)
+    })
+  }
+
+  /**
+   * @param uuid {null | string}
+   * @returns {Promise}
+   */
+  getCaptures(uuid = null) {
+    const query = uuid ? `SELECT * FROM captures WHERE sequence_uuid='${uuid}'` : `SELECT * FROM captures`;
+
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          query, [], (_, results) => {
+            resolve(results.rows._array)
+          },
+          (error) => {
+            reject(error)
+          })
+      });
+    })
+  }
 }
 
 const database = new Database();
