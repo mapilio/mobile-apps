@@ -13,23 +13,22 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 const List = ({ navigation }) => {
   const { uploadData } = useSelector((status) => status.uploadReducer);
-  const { auth } = useSelector((status) => status.getTokenReducer);
   const dispatch = useDispatch();
 
   const deleteSequence = (sequence_uuid) => {
     database.deleteBySequenceId(sequence_uuid, async () => {
-      await FileSystem.deleteAsync(FileSystem.documentDirectory + `${auth.id}/${sequence_uuid}`)
+      await FileSystem.deleteAsync(FileSystem.documentDirectory + `${sequence_uuid}`)
       getData();
     })
   }
 
   const getData = () => {
-    database.getGroupByWithColumn((_, result) => {
-      const filteredData = result.rows._array.filter((data) => {
-        if (data.count >= 5) {
-          return data
+    database.getGroupByWithSequenceUUID().then(data => {
+      const filteredData = data.filter((item) => {
+        if (item.count >= 5) {
+          return item
         } else {
-          deleteSequence(data.sequence_uuid)
+          deleteSequence(item.sequence_uuid)
         }
       })
 

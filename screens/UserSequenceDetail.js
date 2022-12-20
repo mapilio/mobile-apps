@@ -27,7 +27,6 @@ const UserSequenceDetail = ({ navigation, route }) => {
   const [currentImage, setCurrentImage] = useState(null);
   const {activeSequence, sequenceImages} = useSelector((state) => state.uploadReducer);
   const screenHeight = Dimensions.get("window").height - RFValue(110);
-  const {userInformation} = useSelector((state) => state.getTokenReducer);
   const {rank} = useSelector((state) => state.uploadReducer)
 
   useEffect(() => navigation.addListener("blur", () => setClickedPoint(null)), [navigation]);
@@ -110,7 +109,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
                 }
               });
 
-              setCurrentImage(FileSystem.documentDirectory + `${userInformation.id}/${properties.sequence_uuid}/${properties.path.split('/').pop()}`);
+              setCurrentImage(FileSystem.documentDirectory + `${properties.sequence_uuid}/${properties.path.split('/').pop()}`);
               setClickedPoint({
                 heading: JSON.parse(properties.location).heading,
                 longitude: Number(point.features[0].geometry.coordinates[0]),

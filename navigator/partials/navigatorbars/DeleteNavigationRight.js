@@ -6,11 +6,15 @@ import db from "../../../db";
 import {CustomText} from "../../../highordercomponents";
 import {deleteRight} from "../../../styles/navigatorBarStyles";
 import {Trash} from "../../../assets/svg/illustrations";
+import {useNavigation} from "@react-navigation/native";
+import {Routes} from "../../Routes";
+import {UPLOAD_DATA} from "../../../store/actionsName";
 
-const DeleteNavigationRight = (props) => {
+const DeleteNavigationRight = () => {
   const { rank } = useSelector((state) => state.uploadReducer);
   const { activeSequence } = useSelector((state) => state.uploadReducer);
   const dispatch = useDispatch();
+  const navigation = useNavigation()
 
   return (
     <View>
@@ -24,40 +28,25 @@ const DeleteNavigationRight = (props) => {
                 text: "Yes",
                 onPress: () => {
                   try {
-                    db.query(
-                      `SELECT id, path FROM captures WHERE id=${rank.id}`,
-                      (_, result) => {
-                        FileSystem.deleteAsync(result.rows._array[0].path).then(
-                          () => {
-                            db.query(
-                              `DELETE FROM captures where id=${rank.id}`,
-                              () => {
-                                db.query(
-                                  "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-                                  (_, result) => {
-                                    dispatch({
-                                      type: UPLOAD_DATA,
-                                      payload: result.rows._array,
-                                    });
-                                    const isSequence = result.rows._array.map(
-                                      (item) =>
-                                        item.sequence_uuid === activeSequence
-                                    );
-                                    isSequence.length
-                                      ? props.navigation.navigate(
-                                          Routes.sequences
-                                        )
-                                      : props.navigation.navigate(
-                                          Routes.upload
-                                        );
-                                  }
-                                );
-                              }
-                            );
-                          }
-                        );
-                      }
-                    );
+                    db.query(`SELECT id, path FROM captures WHERE id=${rank.id}`, (_, result) => {
+                      FileSystem.deleteAsync(result.rows._array[0].path).then(() => {
+                          db.deleteById(rank.id).then(() => {
+
+                            db.getGroupByWithSequenceUUID().then((data) => {
+                              dispatch({type: UPLOAD_DATA, payload: data});
+
+                              const isSequence = data.map((item) => item.sequence_uuid === activeSequence);
+
+                              isSequence.length ?
+                                navigation.navigate(Routes.sequences) :
+                                navigation.navigate(Routes.upload);
+                            })
+                          })
+                        }
+                      ).catch(() => {
+                        toast.show("There was a problem while deleting! Try Again.", {type: "error"})
+                      })
+                    });
                   } catch (e) {
                     toast.show("There was a problem while deleting! Try Again.", {type: "error"})
                   }

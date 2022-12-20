@@ -29,7 +29,7 @@ const ProfileSettings = ({navigation}) => {
   }
 
   const exitHandle = () => {
-    navigation.navigate(Routes.map);
+    navigation.navigate("MapTab");
     dispatch({type: EXIT_USER});
     OneSignal.removeExternalUserId();
   }

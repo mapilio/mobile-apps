@@ -8,7 +8,6 @@ import { getUserInformation } from "../../store/reducers/loginReducer/getUserInf
 import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
-import Database from "../../db";
 import Config from "react-native-config";
 
 const FacebookLogin = ({ navigation }) => {
@@ -44,7 +43,6 @@ const FacebookLogin = ({ navigation }) => {
             }).then((res) => {
               dispatch({type: GET_TOKEN_SUCCESS, payload: res});
               dispatch(getUserInformation(res));
-              Database.startDB(res.id);
               navigation.navigate("MapTab", {screen: Routes.map});
               toast.show(`Login Success ${(json).name}`, {type: "success"})
             }).catch((err) => console.error(err));

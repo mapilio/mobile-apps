@@ -12,6 +12,7 @@ import {SET_CAMERA_LOCATION, UPDATE_GPS_ACCURACY, UPDATE_MOCKED_STATUS} from "..
 import * as ScreenOrientation from "expo-screen-orientation";
 import {exitCapture, setNewUUID} from "../helper/camera";
 import LinearGradient from "react-native-linear-gradient";
+import db from "../db";
 
 const AppCamera = ({ navigation, route }) => {
   const {distanceBetween, selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
@@ -59,6 +60,7 @@ const AppCamera = ({ navigation, route }) => {
   }
 
   useEffect(() => {
+    db.startDB();
     activateKeepAwake();
     let watchID = watchPosition()
 

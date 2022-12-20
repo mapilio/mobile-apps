@@ -15,7 +15,6 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
   const [imageLoad, setLoadImage] = useState(true);
   const {sequenceImages} = useSelector((state) => state.uploadReducer);
   const {uploadedImages, selectedImages} = useSelector((state) => state.imagesReducer);
-  const {userInformation} = useSelector((state) => state.getTokenReducer);
 
   useEffect(() => {
     return navigation.addListener("focus", () => {
@@ -49,7 +48,7 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
         {sequenceImages.map((image) => (
           <UploadImageCard
             key={image.id}
-            path={FileSystem.documentDirectory + `${userInformation.id}/${sequence_uuid}/${image.path.split('/').pop()}`}
+            path={FileSystem.documentDirectory + `${sequence_uuid}/${image.path.split('/').pop()}`}
             location={JSON.parse(image.location)}
             id={image.id}
             uploadedImages={uploadedImages}

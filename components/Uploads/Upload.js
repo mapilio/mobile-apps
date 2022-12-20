@@ -32,7 +32,7 @@ const Upload = ({sequence_uuid}) => {
   const pictures = []
 
   useEffect(() => {
-    let filePath = FileSystem.documentDirectory + `${userInformation.id}`;
+    let filePath = FileSystem.documentDirectory;
     sequence_uuid && (filePath += `/${sequence_uuid}`);
 
     FileSystem.getInfoAsync(filePath).then(({size}) => {
@@ -45,17 +45,21 @@ const Upload = ({sequence_uuid}) => {
   const upload = () => {
     activateKeepAwake('upload')
 
-    calculateToSequence(sequence_uuid).then(({status, data}) => {
-      if (status === 'success') {
-        setTotalImageCount(data.count)
-        getSequences(data.sequences)
-        setModalVisible(true)
-      }
-    }).catch(() => {
-      setModalVisible(false)
-    }).finally(() => {
-      deactivateKeepAwake('upload');
-    })
+    if (!userInformation) {
+      navigation.navigate("Auth")
+    } else {
+      calculateToSequence(sequence_uuid).then(({status, data}) => {
+        if (status === 'success') {
+          setTotalImageCount(data.count)
+          getSequences(data.sequences)
+          setModalVisible(true)
+        }
+      }).catch(() => {
+        setModalVisible(false)
+      }).finally(() => {
+        deactivateKeepAwake('upload');
+      })
+    }
   }
 
   const getSequences = (sequences, index = 0) => {
@@ -92,8 +96,8 @@ const Upload = ({sequence_uuid}) => {
         } else {
           imageryUpload(i, pictures).then(async () => {
             navigation.navigate(Routes.upload);
-            db.getGroupByWithColumn((_, result) => {
-              dispatch({type: UPLOAD_DATA, payload: result.rows._array})
+            db.getGroupByWithSequenceUUID().then((data) => {
+              dispatch({type: UPLOAD_DATA, payload: data})
             })
             await sendImages(++i)
           }).catch(requestBroken)
@@ -136,7 +140,7 @@ const Upload = ({sequence_uuid}) => {
         visible={completedModalVisible}
         onPressButton={() => {
           setCompletedModalVisible(false)
-          navigation.navigate(Routes.map)
+          navigation.navigate("MapTab")
         }}
       />
     </View>

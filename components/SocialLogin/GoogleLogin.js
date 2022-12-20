@@ -8,7 +8,6 @@ import { socialLoginStyles } from "../../styles/loginStyles";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
-import Database from "../../db";
 import Config from "react-native-config";
 
 const GoogleLogin = ({ navigation }) => {
@@ -54,7 +53,6 @@ const GoogleLogin = ({ navigation }) => {
       if (res.id) {
         dispatch({type: GET_TOKEN_SUCCESS, payload: res});
         dispatch(getUserInformation(res));
-        Database.startDB(res.id);
         toast.show(`Login Success ${response.name}`, {type: 'success'})
         navigation.navigate("MapTab", {screen: Routes.map})
       } else {

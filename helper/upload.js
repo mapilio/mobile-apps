@@ -87,7 +87,7 @@ export const getHash = (image) => {
     const {userInformation} = store.getState().getTokenReducer
 
     const fileName = image.path.split("/").pop();
-    const filePath = FileSystem.documentDirectory + `${userInformation.id}/${image.sequence_uuid}/${fileName}`;
+    const filePath = FileSystem.documentDirectory + `${image.sequence_uuid}/${fileName}`;
 
     FileSystem.getInfoAsync(filePath).then(() => {
       const formData = new FormData();
@@ -152,7 +152,7 @@ export const imageryUpload = (index, pictures) => {
       const location = JSON.parse(picture.location)
       const exif = JSON.parse(picture.exif);
       const fileName = picture.path.split("/").pop();
-      const filePath = FileSystem.documentDirectory + `${userInformation.id}/${picture.sequence_uuid}/${fileName}`;
+      const filePath = FileSystem.documentDirectory + `${picture.sequence_uuid}/${fileName}`;
 
       FileSystem.getInfoAsync(filePath).then((fileInfo) => {
         const horizontal = exif.ImageWidth || exif.PixelXDimension;
@@ -223,8 +223,7 @@ export const imageryUpload = (index, pictures) => {
 
 const deleteSequence = (sequence) => {
   return new Promise(async(resolve) => {
-    const {userInformation} = store.getState().getTokenReducer
-    await FileSystem.deleteAsync(FileSystem.documentDirectory + `${userInformation.id}/${sequence}`)
+    await FileSystem.deleteAsync(FileSystem.documentDirectory + `${sequence}`)
     await db.queryAsync(`DELETE FROM captures WHERE sequence_uuid='${sequence}'`)
     resolve()
   });

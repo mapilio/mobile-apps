@@ -5,7 +5,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {UploadCompleted} from "../../assets/svg/illustrations";
 import {CustomText, CustomTextBold} from "../../highordercomponents";
 
-const completedModal = ({visible, onPressButton}) => {
+const CompletedModal = ({visible, onPressButton}) => {
 
   return (
     <Modal visible={visible} transparent={false} animationType={"slide"}>
@@ -57,4 +57,4 @@ const completedModal = ({visible, onPressButton}) => {
   )
 }
 
-export default completedModal;
+export default CompletedModal;

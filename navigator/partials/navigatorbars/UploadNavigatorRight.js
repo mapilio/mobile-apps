@@ -5,13 +5,13 @@ import {uploadRight} from "../../../styles/navigatorBarStyles";
 import {Upload} from "../../../components/Uploads";
 
 const UploadNavigatorRight = ({ navigation }) => {
-  const { uploadData } = useSelector((state) => state.uploadReducer);
+  const {uploadData} = useSelector((state) => state.uploadReducer);
 
-  return uploadData.length === 0 ? null : (
+  return uploadData.length ? (
     <View style={uploadRight.container}>
-      <Upload navigation={navigation} />
+      <Upload navigation={navigation}/>
     </View>
-  );
+  ) : null;
 };
 
 export default UploadNavigatorRight;

@@ -3,7 +3,6 @@ import * as AppleAuthentication from "expo-apple-authentication";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
 import { useDispatch } from "react-redux";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
-import Database from "../../db";
 import { Routes } from "../../navigator/Routes";
 import { fetchHandler } from "../../helper/helper";
 import Config from "react-native-config";
@@ -31,8 +30,7 @@ const AppleLogin = ({ navigation }) => {
       }).then((res) => {
         dispatch({type: GET_TOKEN_SUCCESS, payload: res});
         dispatch(getUserInformation(res));
-        Database.startDB(res.id);
-        navigation.navigate(Routes.tabHome);
+        navigation.navigate("MapTab");
       }).catch(({response}) => toast.show(response.data.message, {type: 'error'}));
       toast.show(`Login Success ${credential.fullName.familyName}`, {type: 'success'})
     } else {
@@ -41,7 +39,6 @@ const AppleLogin = ({ navigation }) => {
       fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/w-token`, params: params}).then((res) => {
         dispatch({type: GET_TOKEN_SUCCESS, payload: res});
         dispatch(getUserInformation(res));
-        Database.startDB(res.id);
         navigation.navigate("MapTab", {screen: Routes.map});
       }).catch(({response}) => toast.show(response.data.message, {type: 'error'}));
     }

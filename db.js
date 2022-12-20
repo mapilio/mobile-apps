@@ -1,13 +1,10 @@
 import * as SQLite from "expo-sqlite";
-import {store} from "./store/store";
 import * as FileSystem from "expo-file-system";
 
-const id = store.getState().generalReducer.id;
-
-let db = SQLite.openDatabase(`mapilio-test-${id}.db`);
+let db = SQLite.openDatabase(`mapilio.db`);
 
 class Database {
-  async startDB() {
+  startDB() {
     db.transaction((txn) => {
       txn.executeSql(
         `CREATE TABLE IF NOT EXISTS captures (
@@ -41,23 +38,6 @@ class Database {
         (_, error) => {
           console.log(error);
           toast.show(`An error occurred while shooting, please try again.`, {type: "error"})
-          this.startDB(id);
-        }
-      );
-    });
-  }
-
-  getDB(userID) {
-    return db.transaction((txn) => {
-      txn.executeSql(
-        "SELECT * FROM captures",
-        [],
-        () => {},
-        (_, _error) => {
-          toast.show(`An error occurred while shooting, please try again.`, {type: "error"})
-          if (userID) {
-            this.startDB(userID);
-          }
         }
       );
     });
@@ -119,12 +99,31 @@ class Database {
   }
 
   getGroupByWithColumn(callback) {
+    console.warn('getGroupByWithColumn() is deprecated. You can use getGroupByWithSequenceUUID()')
+
     db.transaction((txn) => {
       txn.executeSql(
         `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
         [],
         callback
       )
+    })
+  }
+
+  getGroupByWithSequenceUUID() {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
+          [],
+          (_, result) => {
+            resolve(result.rows._array)
+          },
+          (_transaction, error) => {
+            reject(error)
+          }
+        )
+      })
     })
   }
 
@@ -140,8 +139,14 @@ class Database {
   }
 
   deleteById(id) {
-    db.transaction(txn => {
-      txn.executeSql(`DELETE FROM captures where id='${id}'`)
+    return new Promise((resolve, reject) => {
+      db.transaction(txn => {
+        txn.executeSql(`DELETE FROM captures where id='${id}'`, [], (_, results) => {
+          resolve(results.rows._array)
+        }, (error) => {
+          reject(error)
+        })
+      })
     })
   }
 
