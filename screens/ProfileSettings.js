@@ -4,7 +4,6 @@ import {Routes} from "../navigator/Routes";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useDispatch} from "react-redux";
 import {EXIT_USER} from "../store/actionsName";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
 import OneSignal from "react-native-onesignal";
 
 const ListItem = ({name, onPress}) => {
@@ -16,7 +15,6 @@ const ListItem = ({name, onPress}) => {
 }
 
 const ProfileSettings = ({navigation}) => {
-  const {bottom} = useSafeAreaInsets();
   const dispatch = useDispatch();
 
   const lists = [
@@ -50,7 +48,7 @@ const ProfileSettings = ({navigation}) => {
         </Pressable>
       </View>
 
-      <View style={{...styles.version, bottom: bottom + RFValue(10)}}>
+      <View style={{...styles.version, bottom: RFValue(10)}}>
         <Text style={styles.versionInfo}>mapilio</Text>
         <Text style={{...styles.versionInfo, fontWeight: "bold"}}> V 1.0.2</Text>
       </View>

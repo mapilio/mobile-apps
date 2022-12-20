@@ -1,13 +1,11 @@
 import React from "react";
 import { View, TouchableOpacity, Alert } from "react-native";
-import { Trash } from "../../assets/svg/illustrations";
-import { deleteRight } from "../../styles/navigatorBarStyles";
-import { CustomText } from "../../highordercomponents";
 import { useDispatch, useSelector } from "react-redux";
-import db from "../../db";
 import * as FileSystem from "expo-file-system";
-import { Routes } from "../Routes";
-import { UPLOAD_DATA } from "../../store/actionsName";
+import db from "../../../db";
+import {CustomText} from "../../../highordercomponents";
+import {deleteRight} from "../../../styles/navigatorBarStyles";
+import {Trash} from "../../../assets/svg/illustrations";
 
 const DeleteNavigationRight = (props) => {
   const { rank } = useSelector((state) => state.uploadReducer);

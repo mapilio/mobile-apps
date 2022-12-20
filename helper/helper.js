@@ -130,7 +130,7 @@ const headingPointGeoJson = (heading, coordinates) => {
  * @param bottom {number} Bottom bar height
  * @returns {number} content height
  */
-const getContentAreaHeight = (top, bottom) => Dimensions.get('window').height - RFValue(63) - RFValue(50) - top - bottom
+const getContentAreaHeight = (top, bottom) => Dimensions.get('window').height - RFValue(63) - top - bottom
 
 
 export {

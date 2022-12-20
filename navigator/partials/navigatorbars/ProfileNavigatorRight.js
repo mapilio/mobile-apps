@@ -1,8 +1,8 @@
 import React from "react";
 import {RFValue} from "react-native-responsive-fontsize";
 import {StyleSheet, TouchableOpacity} from "react-native";
-import {Routes} from "../Routes";
-import {SettingsDots} from "../../assets/svg/illustrations";
+import {Routes} from "../../Routes";
+import {SettingsDots} from "../../../assets/svg/illustrations";
 
 const ProfileNavigatorRight = ({ navigation }) => {
   return (

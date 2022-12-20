@@ -56,7 +56,7 @@ const GoogleLogin = ({ navigation }) => {
         dispatch(getUserInformation(res));
         Database.startDB(res.id);
         toast.show(`Login Success ${response.name}`, {type: 'success'})
-        navigation.reset({index: 0, routes: [{name: Routes.tabHome}]});
+        navigation.navigate("MapTab", {screen: Routes.map})
       } else {
         toast.show(`There was a problem registering. Please try a different method.`, {type: 'warning'})
         setLoading(false);

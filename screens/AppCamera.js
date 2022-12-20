@@ -11,7 +11,6 @@ import SafeAreaView from 'react-native-safe-area-view';
 import {SET_CAMERA_LOCATION, UPDATE_GPS_ACCURACY, UPDATE_MOCKED_STATUS} from "../store/actionsName";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {exitCapture, setNewUUID} from "../helper/camera";
-import {Routes} from "../navigator/Routes";
 import LinearGradient from "react-native-linear-gradient";
 
 const AppCamera = ({ navigation, route }) => {
@@ -30,8 +29,8 @@ const AppCamera = ({ navigation, route }) => {
     }
 
     if (isStarted && !autoCaptureStart) {
+      navigation.reset({index: 0, routes: [{name: "UploadTab"}]});
       exitCapture()
-      navigation.reset({index: 0, routes: [{ name: Routes.upload }]});
     }
   }, [autoCaptureStart]);
 

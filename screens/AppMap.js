@@ -39,7 +39,7 @@ const AppMap = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    cameraRef.current?.flyTo(userCoordinate.geometry.coordinates, 0)
+    cameraRef.current?.flyTo(userCoordinate?.geometry?.coordinates, 0)
   }, [cameraRef.current]);
 
   const contentHeight = height - bottom - RFValue(63)
@@ -71,7 +71,7 @@ const AppMap = ({ navigation }) => {
       if (res !== RESULTS.GRANTED) {
         toast.show(`Your GPS is disabled.`, {type: "error"})
       } else {
-        userCoordinate && cameraRef.current?.setCamera({centerCoordinate: userCoordinate.geometry.coordinates, zoomLevel: 15});
+        userCoordinate && cameraRef.current?.setCamera({centerCoordinate: userCoordinate?.geometry?.coordinates, zoomLevel: 15});
       }
     })
   }

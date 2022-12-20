@@ -1,17 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {
-	ActivityIndicator,
-	TextInput,
-	TouchableOpacity,
-	View,
-} from "react-native";
+import {ActivityIndicator, TextInput, TouchableOpacity, View} from "react-native";
 import * as yup from "yup";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
 import {CustomText} from "../highordercomponents";
 import {globalStyles} from "../styles/globalStyles";
-import {useDispatch} from "react-redux";
-import {getTokenAction} from "../store/reducers/loginReducer/getTokenAction";
 import {RFValue} from "react-native-responsive-fontsize";
 import {Eye} from "../assets/svg/illustrations";
 import {SocialLogin} from "../components";
@@ -19,6 +12,7 @@ import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import SafeAreaView from "react-native-safe-area-view";
 import {MapilioLogoBeta} from "../assets/svg/logos";
+import {fetchLogin} from "../helper/user";
 
 const loginValidationSchema = yup.object().shape({
 	email: yup.string()
@@ -28,7 +22,6 @@ const loginValidationSchema = yup.object().shape({
 });
 
 const Login = ({navigation}) => {
-	const dispatch = useDispatch();
 	const [securePassword, setSecurePassword] = useState(true);
 	const [toggleEye, setToggleEye] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -39,6 +32,16 @@ const Login = ({navigation}) => {
 	});
 
 	useEffect(() => setLoading(isSubmitting), [isSubmitting]);
+
+	const handleLogin = (values) => {
+		const {email, password} = values;
+
+		fetchLogin(email, password).then(() => {
+			navigation.navigate("MapTab", {screen: Routes.map})
+		}).catch((err) => {
+			toast.show(`${err}`, {type: "error"})
+		})
+	}
 
 	return (
 		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
@@ -96,7 +99,7 @@ const Login = ({navigation}) => {
 
 				<TouchableOpacity
 					style={loginStyles.button}
-					onPress={handleSubmit((values) => dispatch(getTokenAction(values, navigation.navigate)))}
+					onPress={handleSubmit((values) => handleLogin(values))}
 					disabled={loading}
 				>
 					<CustomText style={{...loginStyles.secondaryText, color: "#fff"}}>

@@ -27,7 +27,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
       dispatch({
         type: UPDATE_CURRENT_SEQUENCE,
         payload: {
-          sequence_uuid: route.params.points[0].sequence_uuid,
+          sequence_uuid: route.params.points[0]?.sequence_uuid,
           user_id: userInformation.id,
         },
       });

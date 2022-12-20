@@ -42,7 +42,7 @@ const AppleLogin = ({ navigation }) => {
         dispatch({type: GET_TOKEN_SUCCESS, payload: res});
         dispatch(getUserInformation(res));
         Database.startDB(res.id);
-        navigation.navigate(Routes.tabHome);
+        navigation.navigate("MapTab", {screen: Routes.map});
       }).catch(({response}) => toast.show(response.data.message, {type: 'error'}));
     }
   };

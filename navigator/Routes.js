@@ -18,7 +18,7 @@ export const Routes = {
   walkthrough: "Walkthough",
   welcomeWalkthrough: "WelcomeWalkthrough",
   noInternetAccess: "NoInternetAccess",
-  map: "map",
+  map: "Map",
   nonUserTab: "NonUserTab",
   profileSequence: "ProfileSequence",
   webview: "WebviewScreen",

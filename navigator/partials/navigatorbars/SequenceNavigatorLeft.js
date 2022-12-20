@@ -1,11 +1,11 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
-import { ArrowLeft } from "../../assets/svg/illustrations";
-import { CustomText } from "../../highordercomponents";
-import { sequenceLeft } from "../../styles/navigatorBarStyles";
-import { useRoute } from "@react-navigation/native";
-import { Routes } from "../Routes";
-import { useDispatch, useSelector } from "react-redux";
+import {TouchableOpacity} from "react-native";
+import {useRoute} from "@react-navigation/native";
+import {useSelector} from "react-redux";
+import {sequenceLeft} from "../../../styles/navigatorBarStyles";
+import {ArrowLeft} from "../../../assets/svg/illustrations";
+import {CustomText} from "../../../highordercomponents";
+import {Routes} from "../../Routes";
 
 const SequenceNavigatorLeft = (props) => {
   const route = useRoute();
@@ -21,7 +21,7 @@ const SequenceNavigatorLeft = (props) => {
           props.navigation.navigate(props.backRoute);
         } else {
           props.navigation.navigate(Routes.profileSequence, {
-            id: route.params.points[0].sequence_uuid,
+            id: route.params.points[0]?.sequence_uuid,
             user_id: userInformation.user_id,
           });
         }

@@ -16,10 +16,11 @@ import {useDispatch, useSelector} from "react-redux";
 import * as FileSystem from "expo-file-system";
 import CompletedModal from "./CompletedModal";
 import UploadModal from "./UploadModal";
+import {useNavigation} from "@react-navigation/native";
 
-const Upload = ({sequence_uuid, navigation}) => {
+const Upload = ({sequence_uuid}) => {
   const dispatch = useDispatch();
-  const { uploadData } = useSelector((state) => state.uploadReducer);
+  const {uploadData} = useSelector((state) => state.uploadReducer);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
@@ -27,6 +28,7 @@ const Upload = ({sequence_uuid, navigation}) => {
   const [completedModalVisible, setCompletedModalVisible] = useState(false);
   const [sequenceLength, setSequenceLength] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
+  const navigation = useNavigation();
   const pictures = []
 
   useEffect(() => {

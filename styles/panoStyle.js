@@ -10,7 +10,6 @@ export const panoStyle = {
     padding: RFValue(5),
     borderRadius: RFValue(4),
     position: "absolute",
-    top: RFValue(10),
     left: RFValue(16),
   },
   minimize: {

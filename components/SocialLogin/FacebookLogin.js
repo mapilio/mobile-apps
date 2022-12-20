@@ -45,7 +45,7 @@ const FacebookLogin = ({ navigation }) => {
               dispatch({type: GET_TOKEN_SUCCESS, payload: res});
               dispatch(getUserInformation(res));
               Database.startDB(res.id);
-              navigation.navigate(Routes.tabHome);
+              navigation.navigate("MapTab", {screen: Routes.map});
               toast.show(`Login Success ${(json).name}`, {type: "success"})
             }).catch((err) => console.error(err));
           }
