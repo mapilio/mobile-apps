@@ -16,7 +16,6 @@ export const fetchLogin = (email, password) => {
       Database.startDB(response.id);
       resolve(response)
     }).catch((err) => {
-      console.log(err.response.data.message)
       reject(err.response.data.message)
     });
   })
