@@ -44,7 +44,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>4</string>
 	<key>CLIENT_ID</key>
 	<string>563319300844-1ui5kbrs3h68ldk5bc5jr94r9oev220m.apps.googleusercontent.com</string>
 	<key>FacebookAppID</key>
@@ -83,8 +83,6 @@
 	<string>We need to access your location so we can put the photos in the correct location and also show your location on the map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need to access your location so we can put the photos in the correct location and also show your location on the map.</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>REVERSE_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.563319300844-1ui5kbrs3h68ldk5bc5jr94r9oev220m</string>
 	<key>SKAdNetworkItems</key>
