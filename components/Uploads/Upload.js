@@ -21,6 +21,7 @@ import {useNavigation} from "@react-navigation/native";
 const Upload = ({sequence_uuid}) => {
   const dispatch = useDispatch();
   const {uploadData} = useSelector((state) => state.uploadReducer);
+  const {connection} = useSelector((state) => state.generalReducer);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
@@ -42,24 +43,34 @@ const Upload = ({sequence_uuid}) => {
     return () => setTotalSize(0)
   }, []);
 
-  const upload = () => {
-    activateKeepAwake('upload')
+  const uploadHandler = () => {
+    if (!connection.connectionStatus) {
+      toast.show('You do not have an active internet connection', {type: 'error'});
+      return;
+    }
 
     if (!userInformation) {
       navigation.navigate("Auth")
-    } else {
-      calculateToSequence(sequence_uuid).then(({status, data}) => {
-        if (status === 'success') {
-          setTotalImageCount(data.count)
-          getSequences(data.sequences)
-          setModalVisible(true)
-        }
-      }).catch(() => {
-        setModalVisible(false)
-      }).finally(() => {
-        deactivateKeepAwake('upload');
-      })
+      return;
     }
+
+    upload();
+  }
+
+  const upload = () => {
+    activateKeepAwake('upload')
+
+    calculateToSequence(sequence_uuid).then(({status, data}) => {
+      if (status === 'success') {
+        setTotalImageCount(data.count)
+        getSequences(data.sequences)
+        setModalVisible(true)
+      }
+    }).catch(() => {
+      setModalVisible(false)
+    }).finally(() => {
+      deactivateKeepAwake('upload');
+    })
   }
 
   const getSequences = (sequences, index = 0) => {
@@ -124,7 +135,7 @@ const Upload = ({sequence_uuid}) => {
 
   return (
     <View>
-      {uploadData.length > 0 && <TouchableOpacity onPress={upload}><UploadIcon/></TouchableOpacity>}
+      {uploadData.length > 0 && <TouchableOpacity onPress={uploadHandler}><UploadIcon/></TouchableOpacity>}
 
       <UploadModal
         visible={modalVisible}

@@ -19,8 +19,7 @@ const UploadNavigator = () => {
       headerTitleAlign: navigatorStyle.headerTitleAlign,
       headerLeft: false,
     }}>
-      <Stack.Screen name={Routes.upload} component={userUpload} options={{
-      }}/>
+      <Stack.Screen name={Routes.upload} component={userUpload}/>
 
       <Stack.Screen name={Routes.sequences} component={UserSequence} options={{
         headerLeft: (props) => (<SequenceNavigatorLeft{...props} route backRoute={Routes.upload}/>),
