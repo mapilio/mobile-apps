@@ -38,7 +38,7 @@ const ProfileSettings = ({navigation}) => {
   }
 
   const exitHandle = () => {
-    navigation.navigate("MapTab");
+    navigation.reset({index: 0, routes: [{name: "MapTab"}]});
     dispatch({type: EXIT_USER});
     OneSignal.removeExternalUserId();
   }

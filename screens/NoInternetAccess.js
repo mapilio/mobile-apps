@@ -12,11 +12,8 @@ const NoInternetAccess = ({ navigation }) => {
 
   useEffect(() => {
     if (!connection.connectionStatus) return;
-    if (auth) {
-      navigation.navigate(Routes.tabHome);
-    } else {
-      navigation.navigate(Routes.login);
-    }
+
+    navigation.navigate('MapTab', {screen: Routes.map});
   }, [connection, auth]);
 
   return (

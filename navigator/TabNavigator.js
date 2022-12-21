@@ -33,19 +33,45 @@ const CaptureTabBarButton = ({onPress}) => {
   );
 };
 
-const TabNavigator = ({navigation}) => {
+const TabNavigator = () => {
   const {auth} = useSelector((state) => state.getTokenReducer);
   const {bottom} = useSafeAreaInsets();
   const {connection} = useSelector((state) => state.generalReducer);
   const {isFirstOpen} = useSelector((state) => state.cameraReducer);
 
-  const screenListener = ({ navigation, route }) => ({
-    focus: () => {
-      if (!connection.connectionStatus && route.name !== Routes.camera && route.name !== Routes.upload) {
-        navigation.navigate(Routes.noInternetAccess);
+  const offlineTabs = ['CameraTab', 'UploadTab'];
+  const guardedTabs = ['ProfileTab'];
+  const firstLogin = ['CameraTab'];
+
+  const screenListener = ({navigation, route}) => ({
+    tabPress: (e) => {
+      e.preventDefault();
+
+      if (connection.connectionStatus) {
+        if (firstLogin.find(value => value === route.name)) {
+          auth && isFirstOpen ?
+            navigation.navigate(route.name) :
+            navigation.navigate('Auth', {backRoute: 'CameraTab'})
+
+          return;
+        }
+
+        if (guardedTabs.find(value => value === route.name)) {
+          navigation.navigate('Auth')
+          return;
+        }
+
+        navigation.navigate(route.name)
+      } else {
+
+        if (offlineTabs.find(value => value === route.name)) {
+          navigation.navigate(route.name)
+          return;
+        }
+
+        navigation.navigate('MapTab', {screen: Routes.noInternetAccess})
       }
-    },
-    // tabPress: () => connectionAlertHandler(navigation, route.name),
+    }
   })
 
   return (
@@ -70,15 +96,6 @@ const TabNavigator = ({navigation}) => {
       <Tab.Screen
         name={"CameraTab"}
         component={CameraNavigator}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault()
-
-            isFirstOpen && !auth ?
-              navigation.navigate('Auth', {backRoute: 'CameraTab'}) :
-              navigation.navigate('CameraTab')
-          }
-        }}
         options={{
           tabBarStyle: {display: "none"},
           tabBarButton: (prop) => <CaptureTabBarButton {...prop} />
@@ -94,12 +111,6 @@ const TabNavigator = ({navigation}) => {
       <Tab.Screen
         name={"ProfileTab"}
         component={ProfileNavigator}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault()
-            auth ? navigation.navigate('ProfileTab') : navigation.navigate('Auth')
-          }
-        }}
         options={{
           tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Profile"}/>,
         }}
