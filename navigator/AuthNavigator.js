@@ -1,8 +1,8 @@
 import {createStackNavigator} from "@react-navigation/stack";
-import {loginStyles} from "../../styles/loginStyles";
-import {Back, SignInButton, SignUpButton} from "../../components/Login";
-import {Routes} from "../Routes";
-import {ForgotPassword, Login, Register} from "../../screens";
+import {loginStyles} from "../styles/loginStyles";
+import {Back, SignInButton, SignUpButton} from "../components/Login";
+import {Routes} from "./Routes";
+import {ForgotPassword, Login, Register} from "../screens";
 import React from "react";
 
 const Stack = createStackNavigator();

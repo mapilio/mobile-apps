@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import TabNavigator from "./TabNavigator";
-import {AuthNavigator} from "./partials";
+import AuthNavigator from "./AuthNavigator";
 import NetInfo from "@react-native-community/netinfo";
 import {UPDATE_CONNECTION_STATUS} from "../store/actionsName";
 import {useDispatch} from "react-redux";
