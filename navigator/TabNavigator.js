@@ -56,7 +56,7 @@ const TabNavigator = () => {
           return;
         }
 
-        if (guardedTabs.find(value => value === route.name)) {
+        if (!auth && guardedTabs.find(value => value === route.name)) {
           navigation.navigate('Auth')
           return;
         }
