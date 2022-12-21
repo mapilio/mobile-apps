@@ -19,7 +19,7 @@ const CameraNavigator = () => {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={Routes.camera} component={AppCamera}/>
 
-      <Stack.Group screenOptions={{presentation: "modal", gestureEnabled:false}}>
+      <Stack.Group screenOptions={{presentation: "modal", gestureEnabled: false}}>
         <Stack.Screen name={Routes.walkthrough} component={Walkthrough}/>
         <Stack.Screen name={Routes.cameraSettings} component={CameraSettings}/>
         <Stack.Screen name={Routes.generalSettings} component={GeneralSettings} options={generalSettingsOptions}/>

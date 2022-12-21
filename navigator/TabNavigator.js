@@ -19,7 +19,7 @@ import {
 
 const Tab = createBottomTabNavigator();
 
-const CaptureTabBarButton = ({ onPress }) => {
+const CaptureTabBarButton = ({onPress}) => {
   const screenListen = () => cameraPermission(onPress)
 
   return (
@@ -37,12 +37,11 @@ const TabNavigator = ({navigation}) => {
   const {auth} = useSelector((state) => state.getTokenReducer);
   const {bottom} = useSafeAreaInsets();
   const {connection} = useSelector((state) => state.generalReducer);
+  const {isFirstOpen} = useSelector((state) => state.cameraReducer);
 
   const screenListener = ({ navigation, route }) => ({
     focus: () => {
-      if (
-        !connection.connectionStatus && route.name !== Routes.camera && route.name !== Routes.upload
-      ) {
+      if (!connection.connectionStatus && route.name !== Routes.camera && route.name !== Routes.upload) {
         navigation.navigate(Routes.noInternetAccess);
       }
     },
@@ -71,6 +70,15 @@ const TabNavigator = ({navigation}) => {
       <Tab.Screen
         name={"CameraTab"}
         component={CameraNavigator}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault()
+
+            isFirstOpen && !auth ?
+              navigation.navigate('Auth', {backRoute: 'CameraTab'}) :
+              navigation.navigate('CameraTab')
+          }
+        }}
         options={{
           tabBarStyle: {display: "none"},
           tabBarButton: (prop) => <CaptureTabBarButton {...prop} />
@@ -89,10 +97,7 @@ const TabNavigator = ({navigation}) => {
         listeners={{
           tabPress: (e) => {
             e.preventDefault()
-
-            auth ?
-              navigation.navigate('ProfileTab', {screen: Routes.profile}) :
-              navigation.navigate('Auth', {screen: Routes.login})
+            auth ? navigation.navigate('ProfileTab') : navigation.navigate('Auth')
           }
         }}
         options={{

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Platform, View} from "react-native";
 import {Camera, CameraSidebar} from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -8,20 +8,24 @@ import Geolocation from "react-native-geolocation-service";
 import {useDispatch, useSelector} from "react-redux";
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
-import {SET_CAMERA_LOCATION, UPDATE_GPS_ACCURACY, UPDATE_MOCKED_STATUS} from "../store/actionsName";
+import {
+  SET_CAMERA_LOCATION,
+  UPDATE_GPS_ACCURACY,
+  UPDATE_MOCKED_STATUS,
+  UPDATE_OPENED_STATUS
+} from "../store/actionsName";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {exitCapture, setNewUUID} from "../helper/camera";
 import LinearGradient from "react-native-linear-gradient";
-import db from "../db";
+import {useNavigation} from "@react-navigation/native";
 
-const AppCamera = ({ navigation, route }) => {
+const AppCamera = () => {
   const {distanceBetween, selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
   const {photoAmount} = useSelector((state) => state.cameraReducer);
   const [lowBrightness, setLowBrightness] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
-  const timeout = useRef(null);
-  const waitGPS = useRef(true);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (autoCaptureStart) {
@@ -60,9 +64,9 @@ const AppCamera = ({ navigation, route }) => {
   }
 
   useEffect(() => {
-    db.startDB();
-    activateKeepAwake();
+    activateKeepAwake("camera");
     let watchID = watchPosition()
+    dispatch({type: UPDATE_OPENED_STATUS, payload: false})
 
     ScreenOrientation.getOrientationLockAsync().then(currentOrientation => {
       if (
@@ -78,7 +82,7 @@ const AppCamera = ({ navigation, route }) => {
 
     return (() => {
       Geolocation.clearWatch(watchID)
-      deactivateKeepAwake()
+      deactivateKeepAwake("camera")
     })
   }, []);
 
@@ -106,13 +110,7 @@ const AppCamera = ({ navigation, route }) => {
             zIndex: 2,
           }}
         >
-          <CameraSidebar
-            navigation={navigation}
-            setLowBrightness={setLowBrightness}
-            timeout={timeout}
-            waitGPS={waitGPS}
-            route={route}
-          />
+          <CameraSidebar navigation={navigation} setLowBrightness={setLowBrightness}/>
         </LinearGradient>
       </SafeAreaView>
     </SafeAreaProvider>

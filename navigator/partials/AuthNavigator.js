@@ -7,14 +7,14 @@ import React from "react";
 
 const Stack = createStackNavigator();
 
-const AuthNavigator = ({navigation}) => {
+const AuthNavigator = ({navigation, route}) => {
   return (
     <Stack.Navigator>
       <Stack.Group screenOptions={{
         presentation: "card",
         headerStyle: loginStyles.headerStyle,
         title: false,
-        headerLeft: ({onPress}) => <Back onPress={onPress}/>
+        headerLeft: ({onPress}) => <Back onPress={onPress} route={route}/>
       }}>
         <Stack.Screen
           name={Routes.login}

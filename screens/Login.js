@@ -37,7 +37,7 @@ const Login = ({navigation}) => {
 		const {email, password} = values;
 
 		fetchLogin(email, password).then(() => {
-			navigation.navigate("MapTab", {screen: Routes.map})
+			navigation.goBack();
 		}).catch((err) => {
 			toast.show(`${err}`, {type: "error"})
 		})

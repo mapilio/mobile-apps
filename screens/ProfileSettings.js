@@ -5,6 +5,8 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {useDispatch} from "react-redux";
 import {EXIT_USER} from "../store/actionsName";
 import OneSignal from "react-native-onesignal";
+import {useEffect} from "react";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const ListItem = ({name, onPress}) => {
   return (
@@ -16,6 +18,13 @@ const ListItem = ({name, onPress}) => {
 
 const ProfileSettings = ({navigation}) => {
   const dispatch = useDispatch();
+  const {bottom} = useSafeAreaInsets();
+
+  useEffect(() => {
+    navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
+    return () => navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: RFValue(63) + bottom}})
+  }, []);
+
 
   const lists = [
     {name: 'Licenses', url: 'https://mapilio.com/licenses-webview'},

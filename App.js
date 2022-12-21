@@ -13,6 +13,7 @@ import {SafeAreaProvider} from "react-native-safe-area-context";
 import Toast from "react-native-toast-notifications";
 import ToastMessage from "./components/ToastMessage";
 import OneSignal from "react-native-onesignal";
+import db from "./db";
 
 Sentry.init({dsn: `${Config.SENTRY_DSN}`, tracesSampleRate: 1.0});
 
@@ -27,6 +28,8 @@ function App() {
   });
 
   useEffect(() => {
+    db.startDB();
+
     (async () => {
       await SplashScreen.preventAutoHideAsync();
     })()
