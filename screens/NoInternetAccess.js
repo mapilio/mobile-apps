@@ -38,6 +38,7 @@ const NoInternetAccess = ({ navigation }) => {
             fontSize: RFValue(14),
             color: "#FFFFFF",
             marginBottom: RFValue(8),
+            textAlign: "center",
           }}
         >
           You do not have an internet connection
