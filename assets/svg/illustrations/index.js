@@ -56,4 +56,4 @@ export {default as ErrorIcon} from "./ErrorIcon";
 export {default as SuccessIcon} from "./SuccessIcon";
 export {default as WarningIcon} from "./WarningIcon";
 export {default as Icon} from "./Icon";
-export {default as UploadCompleted} from "./UploadCompleted";
+export {default as UploadCompletedSvg} from "./UploadCompletedSvg";

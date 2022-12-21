@@ -16,6 +16,8 @@ import {initialPermissions} from "../helper/helper";
 import {RESULTS} from "react-native-permissions";
 import {point} from "@turf/turf";
 import {styles} from "../styles/circleStyles";
+import {useSelector} from "react-redux";
+import {Routes} from "../navigator/Routes";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -25,12 +27,15 @@ const AppMap = ({ navigation }) => {
   const [showPano, setShowPano] = useState(false);
   const [userCoordinate, setUserCoordinate] = useState(undefined);
   const [userLocation, setUserLocation] = useState(true);
+  const {connection} = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
   const {height} = Dimensions.get("window");
   const {bottom} = useSafeAreaInsets();
 
   useEffect(() => {
+    !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess)
+
     const watchId = Geolocation.watchPosition(({coords}) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords))
     })

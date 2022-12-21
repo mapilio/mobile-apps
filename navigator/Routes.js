@@ -4,6 +4,7 @@ export const Routes = {
   sequenceDetail: "SequenceDetail",
   feedDetail: "feedDetail",
   upload: "Upload",
+  uploadCompleted: "UploadCompleted",
   camera: "Camera",
   cameraSettings: "CameraSettings",
   generalSettings: "GeneralSettings",

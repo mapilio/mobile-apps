@@ -48,10 +48,10 @@ const TabNavigator = () => {
       e.preventDefault();
 
       if (connection.connectionStatus) {
-        if (firstLogin.find(value => value === route.name)) {
-          auth && isFirstOpen ?
-            navigation.navigate(route.name) :
-            navigation.navigate('Auth', {backRoute: 'CameraTab'})
+        if (!auth && firstLogin.find(value => value === route.name)) {
+          isFirstOpen ?
+            navigation.navigate('Auth', {backRoute: 'CameraTab'}) :
+            navigation.navigate(route.name)
 
           return;
         }

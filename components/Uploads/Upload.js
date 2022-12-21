@@ -14,7 +14,6 @@ import {UPLOAD_DATA} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import * as FileSystem from "expo-file-system";
-import CompletedModal from "./CompletedModal";
 import UploadModal from "./UploadModal";
 import {useNavigation} from "@react-navigation/native";
 
@@ -26,7 +25,6 @@ const Upload = ({sequence_uuid}) => {
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-  const [completedModalVisible, setCompletedModalVisible] = useState(false);
   const [sequenceLength, setSequenceLength] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
   const navigation = useNavigation();
@@ -114,8 +112,8 @@ const Upload = ({sequence_uuid}) => {
           }).catch(requestBroken)
         }
       } else {
-        setCompletedModalVisible(true)
         setModalVisible(false)
+        navigation.navigate("UploadTab", {screen: Routes.uploadCompleted})
       }
     })
   }
@@ -144,15 +142,6 @@ const Upload = ({sequence_uuid}) => {
         totalImageCount={totalImageCount}
         handleStop={handleStop}
         totalSize={totalSize}
-      />
-
-      <CompletedModal
-        navigation={navigation}
-        visible={completedModalVisible}
-        onPressButton={() => {
-          setCompletedModalVisible(false)
-          navigation.navigate("MapTab")
-        }}
       />
     </View>
   );
