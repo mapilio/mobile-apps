@@ -38,6 +38,7 @@ const TabNavigator = () => {
   const {bottom} = useSafeAreaInsets();
   const {connection} = useSelector((state) => state.generalReducer);
   const {isFirstOpen} = useSelector((state) => state.cameraReducer);
+  const {uploadData} = useSelector((state) => state.uploadReducer);
 
   const offlineTabs = ['CameraTab', 'UploadTab'];
   const guardedTabs = ['ProfileTab'];
@@ -105,6 +106,8 @@ const TabNavigator = () => {
         name={"UploadTab"}
         component={UploadNavigator}
         options={{
+          tabBarBadge: uploadData.length !== 0 ? uploadData.length : null,
+          tabBarBadgeStyle: {marginTop: RFValue(10)},
           tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Upload"}/>,
         }}
       />
