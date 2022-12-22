@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {ScrollView, View, TouchableOpacity, Alert, Dimensions} from "react-native";
-import Map from "../assets/svg/illustrations/Map";
-import { ImageUpload } from "../components/Uploads";
-import { userSequenceStyles } from "../styles/userSequenceStyle";
-import { Trash } from "../assets/svg/illustrations";
-import { userUploadStyles } from "../styles/userUploadStyle";
-import { useDispatch, useSelector } from "react-redux";
+import {ImageUpload} from "../components/Uploads";
+import {userSequenceStyles} from "../styles/userSequenceStyle";
+import {Trash} from "../assets/svg/illustrations";
+import {userUploadStyles} from "../styles/userUploadStyle";
+import {useDispatch, useSelector} from "react-redux";
 import database from "../db";
 import * as FileSystem from "expo-file-system";
 import SwitchSelector from "react-native-switch-selector";
-import { styles } from "../styles/circleStyles";
-import {
-  SEQUENCE_IMAGES,
-  SWITCH_SELECTOR,
-  UPDATE_SELECTED_IMAGES,
-  UPLOAD_DATA,
-} from "../store/actionsName";
+import {styles} from "../styles/circleStyles";
+import {SEQUENCE_IMAGES, SWITCH_SELECTOR, UPDATE_SELECTED_IMAGES, UPLOAD_DATA} from "../store/actionsName";
 import MapboxGL from "@rnmapbox/maps";
-import { appMapStyle } from "../styles/appMapStyle";
-import { Routes } from "../navigator/Routes";
-import { MapView } from "../highordercomponents";
-import { RFValue } from "react-native-responsive-fontsize";
+import {appMapStyle} from "../styles/appMapStyle";
+import {Routes} from "../navigator/Routes";
+import {MapView} from "../highordercomponents";
+import {RFValue} from "react-native-responsive-fontsize";
 import {setGeoJson} from "../helper/geojson";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
@@ -168,14 +162,15 @@ const UserSequence = ({ navigation }) => {
                 onPress={(point) => {
                   navigation.reset({
                     index: 0,
-                    routes: [{ name: Routes.sequenceDetail, params: {
+                    routes: [{
+                      name: Routes.sequenceDetail,
+                      params: {
                         id: point.features[0].properties.item.id,
                         path: point.features[0].properties.item.path,
                         coordinate: point.features[0].geometry.coordinates,
-                        heading: JSON.parse(
-                          point.features[0].properties.item.location
-                        ).heading,
-                      }}]
+                        heading: JSON.parse(point.features[0].properties.item.location).heading,
+                      }
+                    }]
                   })
                 }}
               >

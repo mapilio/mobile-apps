@@ -24,4 +24,5 @@ export const Routes = {
   profileSequence: "ProfileSequence",
   webview: "WebviewScreen",
   profileSettings: "ProfileSettings",
+  profileEdit: "profileEdit",
 };

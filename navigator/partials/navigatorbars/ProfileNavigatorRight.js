@@ -3,8 +3,11 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {StyleSheet, TouchableOpacity} from "react-native";
 import {Routes} from "../../Routes";
 import {SettingsDots} from "../../../assets/svg/illustrations";
+import {useNavigation} from "@react-navigation/native";
 
-const ProfileNavigatorRight = ({ navigation }) => {
+const ProfileNavigatorRight = () => {
+  const navigation = useNavigation();
+
   return (
     <TouchableOpacity style={styles.settingsButton} onPress={() => navigation.navigate(Routes.profileSettings)}>
       <SettingsDots width={RFValue(12)}/>

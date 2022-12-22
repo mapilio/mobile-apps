@@ -46,6 +46,10 @@ const ProfileSettings = ({navigation}) => {
   return (
     <View style={styles.wrapper}>
       <View>
+        <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.profileEdit)}>
+          <CustomText style={styles.listText}>Profile Edit</CustomText>
+        </Pressable>
+
         <FlatList
           scrollEnabled={false}
           data={lists}
