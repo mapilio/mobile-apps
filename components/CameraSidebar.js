@@ -82,7 +82,7 @@ const CameraSidebar = ({navigation, setLowBrightness}) => {
   const {autoCaptureStart} = useSelector((state) => state.settingsReducer);
 
   const exitHandler = () => {
-    navigation.reset({index: 0, routes: [{name: Routes.upload}]});
+    navigation.reset({index: 0, routes: [{name: "UploadTab"}]});
     exitCapture();
   }
 

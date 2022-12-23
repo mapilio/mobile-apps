@@ -5,3 +5,5 @@ export { default as SequenceNavigatorTitle } from "./SequenceNavigatorTitle";
 export { default as SequenceDetailTitle } from "./SequenceDetailTitle";
 export { default as DeleteNavigationRight } from "./DeleteNavigationRight";
 export { default as ProfileNavigatorRight } from "./ProfileNavigatorRight";
+export { default as GeneralSettingsNavigatorLeft } from "./GeneralSettingsNavigatorLeft";
+export { default as ProfileSettingsNavigatorLeft } from "./ProfileSettingsNavigatorLeft";

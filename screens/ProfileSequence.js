@@ -70,9 +70,7 @@ const UserSequence = ({ navigation, route }) => {
 
   const fetchNext = (foreignURL) => {
     fetchHandler({
-      url: foreignURL
-        ? `${Config.SERVICE_URL}${foreignURL}`
-        : `${Config.SERVICE_URL}${paginationURL}`,
+      url: foreignURL ? `${Config.SERVICE_URL}${foreignURL}` : `${Config.SERVICE_URL}${paginationURL}`,
     })
       .then((res) => {
         setPaginationLoading(false);

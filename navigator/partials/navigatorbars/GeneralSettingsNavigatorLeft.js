@@ -1,8 +1,8 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { ArrowLeft } from "../../assets/svg/illustrations";
-import { CustomText } from "../../highordercomponents";
-import { generalSettingsLeft } from "../../styles/navigatorBarStyles";
+import {ArrowLeft} from "../../../assets/svg/illustrations";
+import {CustomText} from "../../../highordercomponents";
+import {generalSettingsLeft} from "../../../styles/navigatorBarStyles";
 
 const GeneralSettingsNavigatorLeft = (props) => {
   return (

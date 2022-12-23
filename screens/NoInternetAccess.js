@@ -6,17 +6,14 @@ import { NoInternetAccessIcon } from "../assets/svg/illustrations";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { Routes } from "../navigator/Routes";
 
-const NoInternetAccess = ({ navigation }) => {
-  const { connection } = useSelector((state) => state.generalReducer);
-  const { auth } = useSelector((state) => state.getTokenReducer);
+const NoInternetAccess = ({navigation}) => {
+  const {connection} = useSelector((state) => state.generalReducer);
+  const {auth} = useSelector((state) => state.getTokenReducer);
 
   useEffect(() => {
     if (!connection.connectionStatus) return;
-    if (auth) {
-      navigation.navigate(Routes.tabHome);
-    } else {
-      navigation.navigate(Routes.login);
-    }
+
+    navigation.navigate('MapTab', {screen: Routes.map});
   }, [connection, auth]);
 
   return (
@@ -41,6 +38,7 @@ const NoInternetAccess = ({ navigation }) => {
             fontSize: RFValue(14),
             color: "#FFFFFF",
             marginBottom: RFValue(8),
+            textAlign: "center",
           }}
         >
           You do not have an internet connection

@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, View, ScrollView, ActivityIndicator, Platform, RefreshControl} from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  ActivityIndicator,
+  Platform,
+  RefreshControl,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import {globalStyles} from "../styles/globalStyles";
 import {ProfileFeed, UserInfos} from "../components";
 import {useSelector} from "react-redux";
@@ -9,7 +18,6 @@ import {RFValue} from "react-native-responsive-fontsize";
 import DropDownPicker from "react-native-dropdown-picker";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
-import {Routes} from "../navigator/Routes";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
@@ -188,11 +196,11 @@ const FeedList = ({data, navigation, selectedOrganization, loading, isLoadingDat
           <CustomText style={styles.noFeedDescription}>
             There are no feeds to display. You can contribute by starting the catch now.
           </CustomText>
-          <CustomText
+          <TouchableOpacity
             style={marketplaceReceivedStyles.button}
-            onPress={() => navigation.navigate(Routes.camera)}>
-            Start Capture
-          </CustomText>
+            onPress={() => navigation.navigate("CameraTab")}>
+            <Text style={marketplaceReceivedStyles.startCapture}>Start Capture</Text>
+          </TouchableOpacity>
         </View>
       )}
 

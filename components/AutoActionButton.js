@@ -24,7 +24,6 @@ const AutoActionButton = ({navigation}) => {
 		captureButtonStatus,
 		cameraLocation
 	} = useSelector((status) => status.cameraReducer);
-	const {userInformation} = useSelector((state) => state.getTokenReducer);
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
@@ -129,19 +128,18 @@ const AutoActionButton = ({navigation}) => {
 	const savePicture = async (image, location) => {
 		calculateAmount("add");
 
-		const id = userInformation.id;
 		const imageUri = image.path;
 
 		if (!imageUri) {
 			calculateAmount("subtract");
 			return;
 		}
-		const metaDataDir = await FileSystem.getInfoAsync(FileSystem.documentDirectory + `${id}/${currentUUID}`);
+		const metaDataDir = await FileSystem.getInfoAsync(FileSystem.documentDirectory + `${currentUUID}`);
 		const isDir = metaDataDir.isDirectory;
 
 		if (!isDir) {
 			try {
-				await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + `${id}/${currentUUID}`, {intermediates: true});
+				await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + `${currentUUID}`, {intermediates: true});
 			} catch (e) {
 				console.info("ERROR", e);
 				calculateAmount("subtract");
@@ -149,7 +147,7 @@ const AutoActionButton = ({navigation}) => {
 		}
 
 		const filename = Math.round(new Date().getTime() / 1000).toString();
-		const newPath = FileSystem.documentDirectory + `${id}/${currentUUID}/${filename}.${"jpeg"}`;
+		const newPath = FileSystem.documentDirectory + `/${currentUUID}/${filename}.${"jpeg"}`;
 
 		await FileSystem.copyAsync({from: `file://${imageUri}`, to: newPath});
 		image.uri = newPath;

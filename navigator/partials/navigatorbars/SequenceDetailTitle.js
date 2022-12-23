@@ -1,8 +1,8 @@
 import React from "react";
 import {View} from "react-native";
-import {CustomText} from "../../highordercomponents";
 import {useSelector} from "react-redux";
-import {sequenceDetailTitle} from "../../styles/navigatorBarStyles";
+import {CustomText} from "../../../highordercomponents";
+import {sequenceDetailTitle} from "../../../styles/navigatorBarStyles";
 
 
 const SequenceDetailTitle = () => {

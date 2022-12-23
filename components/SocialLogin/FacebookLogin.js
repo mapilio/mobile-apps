@@ -5,10 +5,8 @@ import * as Facebook from "expo-facebook";
 import { fetchHandler } from "../../helper/helper";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
-import { Routes } from "../../navigator/Routes";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
-import Database from "../../db";
 import Config from "react-native-config";
 
 const FacebookLogin = ({ navigation }) => {
@@ -44,8 +42,7 @@ const FacebookLogin = ({ navigation }) => {
             }).then((res) => {
               dispatch({type: GET_TOKEN_SUCCESS, payload: res});
               dispatch(getUserInformation(res));
-              Database.startDB(res.id);
-              navigation.navigate(Routes.tabHome);
+              navigation.goBack();
               toast.show(`Login Success ${(json).name}`, {type: "success"})
             }).catch((err) => console.error(err));
           }

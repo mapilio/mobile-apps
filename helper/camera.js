@@ -135,7 +135,7 @@ export const setNewUUID = () => {
 }
 
 export const exitCapture = () => {
-  ScreenOrientation.unlockAsync().then(() => ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP))
+  ScreenOrientation.unlockAsync().then(() => ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP));
   StatusBar.setHidden(false);
   store.dispatch({type: UPDATE_PHOTO_AMOUNT, payload: 0});
   store.dispatch({type: CAMERA_REDUCER_RESET});

@@ -50,7 +50,7 @@ const Pano = ({imageInformation, hidePano}) => {
 
   const reportImage = () => {
     fetchHandler({
-      url: `${Config.SERVICE_URL}/api/function/image_complaint/complaint/report`,
+      url: `${Config.SERVICE_URL}/api/image-report`,
       method: "POST",
       data: {
         options: {
@@ -71,10 +71,10 @@ const Pano = ({imageInformation, hidePano}) => {
     <View>
       <View style={panoStyle.topBar}>
         <TouchableOpacity style={{...panoStyle.switch, top: top}} onPress={() => setFullHeight(!fullHeight)}>
-          <SwitchMapPano/>
+          <SwitchMapPano />
         </TouchableOpacity>
         <TouchableOpacity style={{...panoStyle.minimize, top: top}} onPress={hidePano}>
-          <MinimizePano/>
+          <MinimizePano />
         </TouchableOpacity>
       </View>
       <Image

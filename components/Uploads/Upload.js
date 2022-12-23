@@ -14,23 +14,24 @@ import {UPLOAD_DATA} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import * as FileSystem from "expo-file-system";
-import CompletedModal from "./CompletedModal";
 import UploadModal from "./UploadModal";
+import {useNavigation} from "@react-navigation/native";
 
-const Upload = ({sequence_uuid, navigation}) => {
+const Upload = ({sequence_uuid}) => {
   const dispatch = useDispatch();
-  const { uploadData } = useSelector((state) => state.uploadReducer);
+  const {uploadData} = useSelector((state) => state.uploadReducer);
+  const {connection} = useSelector((state) => state.generalReducer);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-  const [completedModalVisible, setCompletedModalVisible] = useState(false);
   const [sequenceLength, setSequenceLength] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
+  const navigation = useNavigation();
   const pictures = []
 
   useEffect(() => {
-    let filePath = FileSystem.documentDirectory + `${userInformation.id}`;
+    let filePath = FileSystem.documentDirectory;
     sequence_uuid && (filePath += `/${sequence_uuid}`);
 
     FileSystem.getInfoAsync(filePath).then(({size}) => {
@@ -39,6 +40,20 @@ const Upload = ({sequence_uuid, navigation}) => {
 
     return () => setTotalSize(0)
   }, []);
+
+  const uploadHandler = () => {
+    if (!connection.connectionStatus) {
+      toast.show('You do not have an active internet connection', {type: 'error'});
+      return;
+    }
+
+    if (!userInformation) {
+      navigation.navigate("Auth")
+      return;
+    }
+
+    upload();
+  }
 
   const upload = () => {
     activateKeepAwake('upload')
@@ -90,15 +105,15 @@ const Upload = ({sequence_uuid, navigation}) => {
         } else {
           imageryUpload(i, pictures).then(async () => {
             navigation.navigate(Routes.upload);
-            db.getGroupByWithColumn((_, result) => {
-              dispatch({type: UPLOAD_DATA, payload: result.rows._array})
+            db.getGroupByWithSequenceUUID().then((data) => {
+              dispatch({type: UPLOAD_DATA, payload: data})
             })
             await sendImages(++i)
           }).catch(requestBroken)
         }
       } else {
-        setCompletedModalVisible(true)
         setModalVisible(false)
+        navigation.navigate("UploadTab", {screen: Routes.uploadCompleted})
       }
     })
   }
@@ -118,7 +133,7 @@ const Upload = ({sequence_uuid, navigation}) => {
 
   return (
     <View>
-      {uploadData.length > 0 && <TouchableOpacity onPress={upload}><UploadIcon/></TouchableOpacity>}
+      {uploadData.length > 0 && <TouchableOpacity onPress={uploadHandler}><UploadIcon/></TouchableOpacity>}
 
       <UploadModal
         visible={modalVisible}
@@ -127,15 +142,6 @@ const Upload = ({sequence_uuid, navigation}) => {
         totalImageCount={totalImageCount}
         handleStop={handleStop}
         totalSize={totalSize}
-      />
-
-      <CompletedModal
-        navigation={navigation}
-        visible={completedModalVisible}
-        onPressButton={() => {
-          setCompletedModalVisible(false)
-          navigation.navigate(Routes.map)
-        }}
       />
     </View>
   );

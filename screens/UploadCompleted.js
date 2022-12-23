@@ -1,0 +1,70 @@
+import {useNavigation} from "@react-navigation/native";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import React, {useEffect} from "react";
+import {RFValue} from "react-native-responsive-fontsize";
+import {TouchableOpacity, View} from "react-native";
+import Lottie from "lottie-react-native";
+import {CustomText, CustomTextBold} from "../highordercomponents";
+import {UploadCompletedSvg} from "../assets/svg/illustrations";
+
+const UploadCompleted = () => {
+  const navigation = useNavigation();
+  const {bottom} = useSafeAreaInsets();
+
+  useEffect(() => {
+    navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
+    return () => navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: RFValue(63) + bottom}})
+  }, []);
+
+  return (
+    <View style={{flex: 1}}>
+      <View style={{
+        alignItems: "center",
+        marginBottom: "auto",
+        marginHorizontal: RFValue(40),
+      }}>
+        <View style={{alignItems: "center"}}>
+          <View style={{zIndex: 1}}>
+            <Lottie
+              source={require('../assets/animations/completed.json')}
+              style={{height: RFValue(375), paddingTop: RFValue(25)}}
+              autoPlay={true}
+              loop={true}
+            />
+          </View>
+          <View style={{position: "absolute", bottom: RFValue(25), zIndex: 2}}>
+            <UploadCompletedSvg height={RFValue(75)} width={RFValue(75)}/>
+          </View>
+        </View>
+
+        <View style={{alignItems: "center"}}>
+          <CustomTextBold style={{fontSize: RFValue(14)}}>Upload Completed</CustomTextBold>
+          <CustomText style={{textAlign: "center", marginTop: RFValue(10)}}>
+            Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.
+          </CustomText>
+        </View>
+      </View>
+
+      <TouchableOpacity
+        onPress={() => navigation.reset({index: 0, routes: [{name: "MapTab"}]})}
+        style={{
+          borderWidth: RFValue(1),
+          borderColor: "#3F8BE9",
+          borderRadius: RFValue(24),
+          marginHorizontal: RFValue(40),
+          alignItems: "center",
+          marginBottom: RFValue(47),
+          paddingVertical: RFValue(13),
+          zIndex: 10,
+        }}
+      >
+        <CustomText style={{
+          color: "#3F8BE9",
+          fontSize: RFValue(16)
+        }}>Go To Map</CustomText>
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export default UploadCompleted;

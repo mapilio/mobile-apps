@@ -17,7 +17,8 @@ import {
   UPDATE_ACCURACY,
   CAPTURE_BUTTON_STATUS,
   UPDATE_ROTATE_STATUS,
-  SET_CAMERA_LOCATION
+  SET_CAMERA_LOCATION,
+  UPDATE_OPENED_STATUS,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -39,6 +40,7 @@ const INITIAL_STATE = {
   captureButtonStatus: false,
   rotateStatus: false,
   cameraLocation: null,
+  isFirstOpen: true,
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -144,7 +146,12 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cameraLocation: action.payload
-      }
+      };
+    case UPDATE_OPENED_STATUS:
+      return {
+        ...state,
+        isFirstOpen: action.payload
+      };
     default:
       return state;
   }

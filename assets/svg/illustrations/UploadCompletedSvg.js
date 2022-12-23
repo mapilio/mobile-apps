@@ -1,7 +1,7 @@
 import Svg, {G, Path} from "react-native-svg";
 import {RFValue} from "react-native-responsive-fontsize";
 
-const UploadCompleted = ({width = RFValue(58.34), height = RFValue(62.361)}) => {
+const UploadCompletedSvg = ({width = RFValue(58.34), height = RFValue(62.361)}) => {
   return (
     <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 58.34 62.361">
       <G id="Group_107117" data-name="Group 107117" transform="translate(-158.331 -264.319)">
@@ -20,4 +20,4 @@ const UploadCompleted = ({width = RFValue(58.34), height = RFValue(62.361)}) => 
   )
 }
 
-export default UploadCompleted;
+export default UploadCompletedSvg;

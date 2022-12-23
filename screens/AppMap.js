@@ -16,6 +16,8 @@ import {initialPermissions} from "../helper/helper";
 import {RESULTS} from "react-native-permissions";
 import {point} from "@turf/turf";
 import {styles} from "../styles/circleStyles";
+import {useSelector} from "react-redux";
+import {Routes} from "../navigator/Routes";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -25,12 +27,15 @@ const AppMap = ({ navigation }) => {
   const [showPano, setShowPano] = useState(false);
   const [userCoordinate, setUserCoordinate] = useState(undefined);
   const [userLocation, setUserLocation] = useState(true);
+  const {connection} = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
   const {height} = Dimensions.get("window");
   const {bottom} = useSafeAreaInsets();
 
   useEffect(() => {
+    !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess)
+
     const watchId = Geolocation.watchPosition(({coords}) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords))
     })
@@ -39,7 +44,7 @@ const AppMap = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    cameraRef.current?.flyTo(userCoordinate.geometry.coordinates, 0)
+    cameraRef.current?.flyTo(userCoordinate?.geometry?.coordinates, 0)
   }, [cameraRef.current]);
 
   const contentHeight = height - bottom - RFValue(63)
@@ -71,7 +76,7 @@ const AppMap = ({ navigation }) => {
       if (res !== RESULTS.GRANTED) {
         toast.show(`Your GPS is disabled.`, {type: "error"})
       } else {
-        userCoordinate && cameraRef.current?.setCamera({centerCoordinate: userCoordinate.geometry.coordinates, zoomLevel: 15});
+        userCoordinate && cameraRef.current?.setCamera({centerCoordinate: userCoordinate?.geometry?.coordinates, zoomLevel: 15});
       }
     })
   }

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {View} from "react-native";
-import {CustomTextMedium} from "../../highordercomponents";
-import {sequenceTitle} from "../../styles/navigatorBarStyles";
 import {useSelector} from "react-redux";
-import db from "../../db";
-import {dateConvert} from "../../helper/helper";
+import db from "../../../db";
+import {dateConvert} from "../../../helper/helper";
+import {CustomTextMedium} from "../../../highordercomponents";
+import {sequenceTitle} from "../../../styles/navigatorBarStyles";
 
 const SequenceNavigatorTitle = () => {
 	const {activeSequence} = useSelector((state) => state.uploadReducer)
