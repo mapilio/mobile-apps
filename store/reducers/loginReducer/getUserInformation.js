@@ -1,36 +1,31 @@
-import axios from "axios";
-import { GET_USER_INDEX_TYPE, GET_USER_INFORMATION } from "../../actionsName";
+import {GET_USER_INDEX_TYPE, GET_USER_INFORMATION} from "../../actionsName";
 import Config from "react-native-config";
 import OneSignal from "react-native-onesignal";
+import {fetchHandler} from "../../../helper/helper";
 
-export const getUserInformation = (auth) => (dispatch) => {
-  const token = auth.token;
-  const user_id = auth.id;
+export const getUserInformation = () => (dispatch) => {
+  fetchHandler({url: `${Config.SERVICE_URL}/api/function/user_profile/profile/getProfile`}).then(({data}) => {
 
-  axios
-    .get(`${Config.SERVICE_URL}/api/entries/users/users/${user_id}`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const {id, email, display_name, user_profile_photo, username, str_id, user_bio} = data[0]
+
+    dispatch({
+      type: GET_USER_INDEX_TYPE,
+      payload: {
+        index: 0,
+        type: {
+          accountType: "Individual",
+          displayName: display_name,
+          picture: user_profile_photo,
+          username: username,
+          key: str_id,
+          id: id,
+          bio: user_bio,
+        }
+      }
     })
-    .then((response) => {
-      const userInfo = response.data.data;
-      dispatch({
-        type: GET_USER_INDEX_TYPE,
-        payload: {
-          index: 0,
-          type: {
-            accountType: "Individual",
-            displayName: userInfo.display_name,
-            picture: userInfo.user_profile_photo,
-            username: userInfo.username,
-            key: userInfo.str_id,
-            id: userInfo.id,
-            bio: userInfo.user_bio,
-          },
-        },
-      });
-      dispatch({ type: GET_USER_INFORMATION, payload: userInfo });
-      OneSignal.setExternalUserId(userInfo.id.toString())
-      OneSignal.setEmail(userInfo.email)
-    })
-    .catch((err) => console.log(err));
+
+    dispatch({type: GET_USER_INFORMATION, payload: data[0]});
+    OneSignal.setExternalUserId(id.toString())
+    OneSignal.setEmail(email)
+  })
 };

@@ -19,3 +19,4 @@ export { default as ProfileSequence } from "./ProfileSequence";
 export { default as ProfileUploadDetail } from "./ProfileUploadDetail";
 export { default as ProfileSettings } from "./ProfileSettings";
 export { default as WebviewScreen } from "./WebviewScreen";
+export { default as ProfileEdit } from "./ProfileEdit";
