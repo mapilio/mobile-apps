@@ -84,6 +84,7 @@ const TabNavigator = () => {
         name={"MapTab"}
         component={MapNavigator}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Map"}/>
         }}
       />

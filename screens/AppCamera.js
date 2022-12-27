@@ -53,7 +53,7 @@ const AppCamera = () => {
     return Geolocation.watchPosition((location) => {
       dispatch({type: UPDATE_MOCKED_STATUS, payload: location.mocked})
       dispatch({type: SET_CAMERA_LOCATION, payload: location.coords})
-      dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy < 20})
+      dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy <= 20})
     }, (error) => {
       toast.show(`${error.message}`, {type: "error"})
     }, {
@@ -80,10 +80,10 @@ const AppCamera = () => {
       }
     })
 
-    return (() => {
+    return () => {
       Geolocation.clearWatch(watchID)
       deactivateKeepAwake("camera")
-    })
+    }
   }, []);
 
   return (
