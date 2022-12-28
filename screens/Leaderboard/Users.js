@@ -13,7 +13,7 @@ const Users = () => {
     return null;
   });
   const authUserIndex = leaderboardUsers.findIndex((user) =>
-    authUserUsername ? user.user_username === authUserUsername : null
+    authUserUsername ? user.username === authUserUsername : null
   );
 
   return (
