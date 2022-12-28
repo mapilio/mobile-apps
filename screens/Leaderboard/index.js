@@ -23,6 +23,8 @@ const Leaderboard = () => {
     (state) => state.leaderboardReducer.organizations
   );
 
+  const auth = useSelector((state) => state.getTokenReducer);
+
   const fetchUsersLeaderboard = () => {
     fetchHandler({ url: `${Config.SERVICE_URL}/api/leaderboard` })
       .then((res) => {
@@ -58,7 +60,11 @@ const Leaderboard = () => {
   useEffect(() => {
     fetchUsersLeaderboard();
     fetchOrganizationsLeaderboard();
-  }, []);
+    return () => {
+      dispatch({ type: GET_LEADERBOARD_DATA_USERS, payload: null });
+      dispatch({ type: GET_LEADERBOARD_DATA_ORGANIZATIONS, payload: null });
+    };
+  }, [auth]);
 
   if (!users || !organizations) return <Loading />;
 

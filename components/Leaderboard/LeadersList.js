@@ -5,18 +5,19 @@ import renderItem from "./RenderItem";
 import AuthUserButton from "./AuthUserButton";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-
 const LeadersList = ({ leaders, authUserIndex, listType }) => {
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
   const [isAuthUserVisible, setIsAuthUserVisible] = useState(false);
   const flatListRef = useRef(null);
 
   const onViewableItemsChanged = ({ viewableItems }) => {
-    const isAuthUserInVisibleIndex = viewableItems.find(
-      (item) => item.index === authUserIndex
-    );
-    isAuthUserInVisibleIndex
+    const isAuthUserExistInVisibleIndex =
+      viewableItems.filter((item) => {
+        return item.index === authUserIndex;
+      }).length > 0;
+
+    isAuthUserExistInVisibleIndex
       ? setIsAuthUserVisible(false)
       : setIsAuthUserVisible(true);
   };

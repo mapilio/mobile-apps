@@ -2,7 +2,9 @@ import { SafeAreaView, ActivityIndicator } from "react-native";
 
 const Loading = () => {
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+    <SafeAreaView
+      style={{ flex: 1, justifyContent: "center", backgroundColor: "#FFF" }}
+    >
       <ActivityIndicator size="large" color="#130C47" />
     </SafeAreaView>
   );
