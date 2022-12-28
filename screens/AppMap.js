@@ -1,5 +1,5 @@
-import React, {memo, useEffect, useRef, useState} from "react";
-import {Dimensions, TouchableOpacity, View, Pressable} from "react-native";
+import React, {memo, useEffect, useRef, useState, Fragment} from "react";
+import {Dimensions, TouchableOpacity, View, Pressable, Text} from "react-native";
 import {appMapStyle} from "../styles/appMapStyle";
 import MapboxGL, {Camera} from "@rnmapbox/maps";
 import Pano from "../components/Map/Pano";
@@ -18,6 +18,7 @@ import {point} from "@turf/turf";
 import {styles} from "../styles/circleStyles";
 import {useSelector} from "react-redux";
 import {Routes} from "../navigator/Routes";
+import ProfileButton from "../components/ProfileButton";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -32,6 +33,8 @@ const AppMap = ({ navigation }) => {
   let mapRef = useRef();
   const {height} = Dimensions.get("window");
   const {bottom} = useSafeAreaInsets();
+  const { auth } = useSelector((state) => state.getTokenReducer);
+
 
   useEffect(() => {
     !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess)
@@ -86,9 +89,20 @@ const AppMap = ({ navigation }) => {
       {showPano ? (
         <Pano hidePano={() => setShowPano(false)} imageInformation={imageInformations} navigation={navigation}/>
       ) : (
-        <Search camera={cameraRef}/>
+        <Fragment>
+          <Search camera={cameraRef}/>
+          <ProfileButton onPress={()=>{
+            if(auth){
+              navigation.navigate("ProfileNavigator")
+              return
+            } 
+            else{
+              navigation.navigate("Auth")
+              return;
+            }
+            }} />
+        </Fragment>        
       )}
-
       {!showPano && imageInformations && (
         <TouchableOpacity style={appMapStyle.minimizePano} onPress={() => setShowPano(true)}>
           <PanoMinimize />
