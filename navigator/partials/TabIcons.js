@@ -1,15 +1,17 @@
 import {navigatorStyle} from "../../styles/navigatorStyle";
 import {Text, View} from "react-native";
 import {CaptureIcon, MarketplaceIcon, Profile, TabMap, Upload} from "../../assets/svg/illustrations";
+import LeaderIcon from "../../assets/svg/illustrations/LeaderIcon";
 
 const TabIcons = ({focused, title}) => {
   const icons = {
     Map: <TabMap fill={focused ? "#130C47" : undefined} />,
-    Market: <MarketplaceIcon fill={focused ? "#130C47" : undefined}/>,
-    Capture: <CaptureIcon fill={focused ? "#130C47" : undefined}/>,
-    Upload: <Upload fill={focused ? "#130C47" : undefined}/>,
-    Profile: <Profile fill={focused ? "#130C47" : undefined}/>,
-  }
+    Market: <MarketplaceIcon fill={focused ? "#130C47" : undefined} />,
+    Capture: <CaptureIcon fill={focused ? "#130C47" : undefined} />,
+    Upload: <Upload fill={focused ? "#130C47" : undefined} />,
+    Profile: <Profile fill={focused ? "#130C47" : undefined} />,
+    Leader: <LeaderIcon fill={focused ? "#130C47" : undefined} />,
+  };
 
   return (
     <View style={[navigatorStyle.tabIconStyle, focused ? navigatorStyle.borderStyle : {}]}>

@@ -12,10 +12,10 @@ import {
   CameraNavigator,
   MapNavigator,
   MarketplaceNavigator,
-  ProfileNavigator,
   TabIcons,
   UploadNavigator
 } from "./partials";
+import Leaderboard from "../screens/Leaderboard";
 
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +41,6 @@ const TabNavigator = () => {
   const {uploadData} = useSelector((state) => state.uploadReducer);
 
   const offlineTabs = ['CameraTab', 'UploadTab'];
-  const guardedTabs = ['ProfileTab'];
   const firstLogin = ['CameraTab'];
 
   const screenListener = ({navigation, route}) => ({
@@ -57,10 +56,6 @@ const TabNavigator = () => {
           return;
         }
 
-        if (!auth && guardedTabs.find(value => value === route.name)) {
-          navigation.navigate('Auth')
-          return;
-        }
 
         navigation.navigate(route.name)
       } else {
@@ -113,10 +108,10 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={"ProfileTab"}
-        component={ProfileNavigator}
+        name={"Leaderboard"}
+        component={Leaderboard}
         options={{
-          tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Profile"}/>,
+          tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Leader"}/>,
         }}
       />
     </Tab.Navigator>
