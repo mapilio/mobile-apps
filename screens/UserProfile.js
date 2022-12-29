@@ -69,6 +69,8 @@ const UserProfile = ({navigation}) => {
             setTotalPage(pagination ? pagination.last_page : 1)
             setFeedData(prev => page === 1 ? [...data] : [...prev, ...data])
           }
+        }).catch(() => {
+          toast.show('Unable to load feed list, please try again', {type: 'warning'})
         }).finally(() => {
           setPage(prev => prev + 1)
           setGettingData(false)

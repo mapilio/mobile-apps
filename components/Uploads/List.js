@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { View, TouchableOpacity, Alert } from "react-native";
+import {View, TouchableOpacity, Alert, Text} from "react-native";
 import { userUploadStyles } from "../../styles/userUploadStyle";
 import { UserFeed } from "../index";
 import { NoUpload, Trash } from "../../assets/svg/illustrations";
-import { CustomText, CustomTextBold } from "../../highordercomponents";
+import { CustomText } from "../../highordercomponents";
 import { SwipeListView } from "react-native-swipe-list-view";
 import database from "../../db";
 import { useDispatch, useSelector } from "react-redux";
@@ -82,16 +82,17 @@ const List = ({ navigation }) => {
       }}
     >
       <NoUpload />
-      <CustomTextBold
+      <Text
         style={{
           fontSize: RFValue(16),
           color: "#4A4A4A",
           textAlign: "center",
           marginTop: RFValue(30),
+          fontFamily: "Poppins-SemiBold"
         }}
       >
         No footage found to upload
-      </CustomTextBold>
+      </Text>
       <CustomText
         style={{
           fontSize: RFValue(16),

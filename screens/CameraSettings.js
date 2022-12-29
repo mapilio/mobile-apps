@@ -1,40 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View, StatusBar, TouchableHighlight, Dimensions } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import * as ScreenOrientation from "expo-screen-orientation";
 import { CloseIcon } from "../assets/svg/illustrations";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { UPDATE_CAPTURE_TYPE } from "../store/actionsName";
+import {IS_ACTIVE} from "../store/actionsName";
 
 const CameraSettings = ({ navigation }) => {
-  const { photoAmount, batteryLevel, phoneMemory } = useSelector(
-    (state) => state.cameraReducer
-  );
+  const {photoAmount, batteryLevel, phoneMemory} = useSelector((state) => state.cameraReducer);
   const dispatch = useDispatch();
-  const { captureType } = useSelector((state) => state.settingsReducer);
-  const [index, setIndex] = useState(0);
-  const [options] = useState([
-    { label: "Manuel", value: "manuel" },
-    { label: "Automatic", value: "automatic" },
-  ]);
-  
+
   useEffect(() => {
     StatusBar.setHidden(true);
-    if (captureType) {
-      setIndex(0);
-    } else {
-      setIndex(1);
-    }
-  }, [captureType]);
+    dispatch({type: IS_ACTIVE, payload: false})
 
-  const switchHandler = (value) => {
-    value === "manuel"
-      ? dispatch({ type: UPDATE_CAPTURE_TYPE, payload: true })
-      : dispatch({ type: UPDATE_CAPTURE_TYPE, payload: false });
-  };
+    return () => {
+      dispatch({type: IS_ACTIVE, payload: true})
+    }
+  }, []);
 
   return (
     <View

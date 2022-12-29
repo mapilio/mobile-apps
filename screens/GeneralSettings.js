@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Slider from "@react-native-community/slider";
 import {Platform, ScrollView, StatusBar, StyleSheet, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
-import {UPDATE_DISTANCE_BETWEEN} from "../store/actionsName";
+import {IS_ACTIVE, UPDATE_DISTANCE_BETWEEN} from "../store/actionsName";
 import {SettingsIcon} from "../assets/svg/illustrations";
 import {convertHexToRGBA} from "../helper/helper";
 import {CustomText, CustomTextMedium} from "../highordercomponents";
@@ -11,6 +11,14 @@ import {useDispatch, useSelector} from "react-redux";
 const GeneralSettings = ({ navigation }) => {
   const dispatch = useDispatch();
   const {distanceBetween} = useSelector((state) => state.settingsReducer);
+
+  useEffect(() => {
+    dispatch({type: IS_ACTIVE, payload: false})
+
+    return () => {
+      dispatch({type: IS_ACTIVE, payload: true})
+    }
+  }, []);
 
   const changeDistanceValue = (value) => dispatch({type: UPDATE_DISTANCE_BETWEEN, payload: value});
 

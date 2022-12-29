@@ -16,6 +16,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 const Camera = ({navigation}) => {
   const cameraRef = useRef(null);
   const {cameraWalkthroughStatus, auth} = useSelector((state) => state.generalReducer);
+  const {isActive} = useSelector((state) => state.cameraReducer);
   const [cameraReady, setCameraReady] = useState(false);
   const devices = useCameraDevices()
   const device = devices.back
@@ -41,7 +42,7 @@ const Camera = ({navigation}) => {
           style={cameraStyles.camera}
           ref={cameraRef}
           device={device}
-          isActive={true}
+          isActive={isActive}
           photo={true}
           enableDepthData={true}
           onInitialized={handleCameraReady}
