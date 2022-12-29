@@ -80,8 +80,6 @@ const galleryPermission = async () => {
 
   const status = await request(PERMISSIONS.IOS.PHOTO_LIBRARY)
 
-  console.log(status)
-
   if (status !== RESULTS.GRANTED) {
     throw new Error('We need photo gallery access so you can update your profile photo.')
   }
