@@ -72,6 +72,21 @@ const cameraPermission = (onPress) => {
   })
 }
 
+const galleryPermission = async () => {
+
+  if (Platform.OS === 'android') {
+    return RESULTS.GRANTED;
+  }
+
+  const status = await request(PERMISSIONS.IOS.PHOTO_LIBRARY)
+
+  if (status !== RESULTS.GRANTED) {
+    throw new Error('We need photo gallery access so you can update your profile photo.')
+  }
+
+  return RESULTS.GRANTED;
+}
+
 const alertHandler = (alertText) => {
   if (!isOpenOnce) {
     isOpenOnce = true;
@@ -142,5 +157,6 @@ export {
   headingPointGeoJson,
   getContentAreaHeight,
   initialPermissions,
-  cameraPermission
+  cameraPermission,
+  galleryPermission
 };
