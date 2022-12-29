@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { View, Image, Dimensions } from "react-native";
+import React, {useState, useRef, useEffect} from "react";
+import { View, Dimensions } from "react-native";
 import { CustomText } from "../highordercomponents";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { walkthroughStyle } from "../styles/walkthroughStyle";
@@ -8,8 +8,9 @@ import {
   Prev,
   Start,
 } from "../components/Walkthrough/CaptureWalkthrough";
-import { useSelector } from "react-redux";
+import {useDispatch} from "react-redux";
 import { CleanRoad, Orientation, Road } from "../assets/svg/illustrations";
+import {IS_ACTIVE} from "../store/actionsName";
 
 const width = Dimensions.get("window").width;
 
@@ -24,9 +25,9 @@ const _renderItem = ({ item, i }) => {
 };
 
 const Walkthrough = ({ navigation }) => {
-  const { captureType } = useSelector((state) => state.settingsReducer);
   const [modalVisible, setModalVisible] = useState(true);
   const carouselRef = useRef();
+  const dispatch = useDispatch();
   const [active, setActive] = useState(0);
   const data = [
     {
@@ -54,6 +55,14 @@ const Walkthrough = ({ navigation }) => {
       mode: false,
     },
   ];
+
+  useEffect(() => {
+    dispatch({type: IS_ACTIVE, payload: false})
+
+    return () => {
+      dispatch({type: IS_ACTIVE, payload: true})
+    }
+  }, []);
 
   return (
     <View style={walkthroughStyle.centeredView}>

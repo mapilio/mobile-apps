@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useRef, useState, Fragment} from "react";
-import {Dimensions, TouchableOpacity, View, Pressable, Text} from "react-native";
+import {Dimensions, TouchableOpacity, View, Pressable} from "react-native";
 import {appMapStyle} from "../styles/appMapStyle";
 import MapboxGL, {Camera} from "@rnmapbox/maps";
 import Pano from "../components/Map/Pano";
@@ -94,14 +94,14 @@ const AppMap = ({ navigation }) => {
           <ProfileButton onPress={()=>{
             if(auth){
               navigation.navigate("ProfileNavigator")
-              return
-            } 
+              return true;
+            }
             else{
               navigation.navigate("Auth")
-              return;
+              return true;
             }
             }} />
-        </Fragment>        
+        </Fragment>
       )}
       {!showPano && imageInformations && (
         <TouchableOpacity style={appMapStyle.minimizePano} onPress={() => setShowPano(true)}>
@@ -171,7 +171,7 @@ const AppMap = ({ navigation }) => {
               markerPath={require("../assets/images/heading.png")}
             />
           )}
-          <Camera ref={cameraRef} />
+          <Camera animationMode={"none"} ref={cameraRef} />
         </MapView>
         <Pressable
           style={appMapStyle.currentIcon}

@@ -14,7 +14,6 @@ import Config from "react-native-config";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
   const screenHeight = Dimensions.get("window").height - RFValue(110);
-  const [maximize, setMaximize] = useState(false);
   const [points, setPoints] = useState({});
   const [coordinates, setCoordinates] = useState({});
   const [coord, setCoord] = useState(null);
@@ -65,23 +64,8 @@ const ProfileUploadDetail = ({ navigation, route }) => {
             uri: currentImage ? currentImage : `${route.params.path}`,
           }}
           resizeMode={"cover"}
-          style={{
-            ...sequenceDetailStyles.image,
-            height: maximize ? screenHeight - RFValue(60) : screenHeight / 2,
-          }}
+          style={{...sequenceDetailStyles.image, height: screenHeight / 2}}
         />
-        {/* <View
-          style={[
-            sequenceDetailStyles.resizeButton,
-            maximize
-              ? sequenceDetailStyles.maximizeButton
-              : sequenceDetailStyles.minimizeButton,
-          ]}
-        >
-          <TouchableOpacity onPress={() => setMaximize(!maximize)}>
-            {maximize ? <Minimize /> : <Maximize />}
-          </TouchableOpacity>
-        </View> */}
       </View>
       <MapView
         mapStyle={{ ...appMapStyle.map, height: RFPercentage(64) }}
@@ -89,7 +73,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
       >
         <MapboxGL.Camera
           zoomLevel={17}
-          animationMode={"moveTo"}
+          animationMode={"none"}
           centerCoordinate={[
             route.params.coordinate[0] + 0.0009,
             route.params.coordinate[1],

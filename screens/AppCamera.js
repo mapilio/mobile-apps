@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {Platform, View} from "react-native";
+import React, {useCallback, useEffect, useState} from "react";
+import {BackHandler, Platform, StatusBar, View} from "react-native";
 import {Camera, CameraSidebar} from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
@@ -34,8 +34,7 @@ const AppCamera = () => {
     }
 
     if (isStarted && !autoCaptureStart) {
-      navigation.reset({index: 0, routes: [{name: "UploadTab"}]});
-      exitCapture()
+      closeHandler()
     }
   }, [autoCaptureStart]);
 
@@ -48,6 +47,11 @@ const AppCamera = () => {
   const breakBrightness = () => {
     lowBrightness && Brightness.setSystemBrightnessAsync(0.7).then(() => setLowBrightness(false));
   };
+
+  const closeHandler = useCallback(() => {
+    navigation.reset({index: 0, routes: [{name: "UploadTab"}]});
+    exitCapture();
+  }, []);
 
   const watchPosition = () => {
     return Geolocation.watchPosition((location) => {
@@ -65,7 +69,9 @@ const AppCamera = () => {
 
   useEffect(() => {
     activateKeepAwake("camera");
+    BackHandler.addEventListener('hardwareBackPress', closeHandler);
     let watchID = watchPosition()
+    StatusBar.setHidden(true)
     dispatch({type: UPDATE_OPENED_STATUS, payload: false})
 
     ScreenOrientation.getOrientationLockAsync().then(currentOrientation => {
@@ -82,6 +88,7 @@ const AppCamera = () => {
 
     return () => {
       Geolocation.clearWatch(watchID)
+      BackHandler.removeEventListener('hardwareBackPress', closeHandler);
       deactivateKeepAwake("camera")
     }
   }, []);

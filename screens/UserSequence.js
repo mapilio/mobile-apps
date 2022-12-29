@@ -153,6 +153,7 @@ const UserSequence = ({ navigation }) => {
               centerCoordinate={
                 center.length !== 0 && [center[0] + 0.0009, center[1]]
               }
+              animationMode={"none"}
               zoomLevel={16}
             />
             {!!Object.keys(points).length && (

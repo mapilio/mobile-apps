@@ -91,7 +91,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
             center.length !== 0 && [center[0] + 0.0009, center[1]]
           }
           zoomLevel={16}
-          animationMode={"flyTo"}
+          animationMode={"none"}
           animationDuration={1000}
         />
         {!!Object.keys(points).length && (

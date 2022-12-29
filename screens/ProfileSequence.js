@@ -196,7 +196,7 @@ const UserSequence = ({ navigation, route }) => {
           </View>
         ) : (
           <MapView mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}>
-            <MapboxGL.Camera centerCoordinate={center.length !== 0 && [center[0] + 0.0009, center[1]]} zoomLevel={16}/>
+            <MapboxGL.Camera animationMode={"none"} centerCoordinate={center.length !== 0 && [center[0] + 0.0009, center[1]]} zoomLevel={16}/>
             {!!Object.keys(points).length && (
               <MapboxGL.ShapeSource
                 id={"pointsProfileShape"}

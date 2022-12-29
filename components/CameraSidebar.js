@@ -11,7 +11,7 @@ import {
 import CameraActionsButtons from "./CameraActionsButtons";
 import {Routes} from "../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
-import {UPDATE_UUID} from "../store/actionsName";
+import {IS_ACTIVE, UPDATE_UUID} from "../store/actionsName";
 import * as Brightness from "expo-brightness";
 import {exitCapture} from "../helper/camera";
 
@@ -51,8 +51,9 @@ const CaptureComponent = ({navigation, exitHandler}) => {
   const dispatch = useDispatch();
 
   const changeRoute = (route) => {
-    navigation.navigate(route);
+    dispatch({type: IS_ACTIVE, payload: false})
     dispatch({type: UPDATE_UUID, payload: 'uuidV4'});
+    navigation.navigate(route);
   }
 
   return (

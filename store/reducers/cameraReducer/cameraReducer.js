@@ -19,6 +19,7 @@ import {
   UPDATE_ROTATE_STATUS,
   SET_CAMERA_LOCATION,
   UPDATE_OPENED_STATUS,
+  IS_ACTIVE,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -41,6 +42,7 @@ const INITIAL_STATE = {
   rotateStatus: false,
   cameraLocation: null,
   isFirstOpen: true,
+  isActive: true,
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -151,6 +153,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFirstOpen: action.payload
+      };
+    case IS_ACTIVE:
+      return {
+        ...state,
+        isActive: action.payload
       };
     default:
       return state;
