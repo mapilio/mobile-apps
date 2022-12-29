@@ -83,6 +83,8 @@
 	<string>We need to access your location so we can put the photos in the correct location and also show your location on the map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need to access your location so we can put the photos in the correct location and also show your location on the map.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need photo gallery access so you can update your profile photo.</string>
 	<key>REVERSE_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.563319300844-1ui5kbrs3h68ldk5bc5jr94r9oev220m</string>
 	<key>SKAdNetworkItems</key>

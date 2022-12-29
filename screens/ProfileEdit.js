@@ -1,7 +1,7 @@
 import {
   ActivityIndicator,
   Image,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView, Platform,
   Pressable,
   ScrollView,
   Text,
@@ -15,7 +15,7 @@ import {useForm, Controller} from "react-hook-form";
 import React, {useState} from "react";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {fetchHandler} from "../helper/helper";
+import {fetchHandler, galleryPermission} from "../helper/helper";
 import Config from "react-native-config";
 import {ProfileCamera} from "../assets/svg/illustrations";
 import {getUserInformation} from "../store/reducers/loginReducer/getUserInformation";
@@ -74,13 +74,17 @@ const ProfileEdit = () => {
   };
 
   const selectImage = () => {
-    launchImageLibrary({selectionLimit: 1, mediaType: "photo", quality: 0}).then(({assets}) => {
-      assets && setSelectedImage(assets[0])
+    galleryPermission().then(() => {
+      launchImageLibrary({selectionLimit: 1, mediaType: "photo", quality: 0}).then(({assets}) => {
+        assets && setSelectedImage(assets[0])
+      })
+    }).catch((err) => {
+      toast.show(err.message, {type: 'error'})
     })
   }
 
   return (
-    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} style={{flex: 1}}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? "padding" : ''} keyboardVerticalOffset={50} style={{flex: 1}}>
       <TouchableWithoutFeedback>
         <ScrollView contentContainerStyle={{flexGrow:1}} >
           <View style={{paddingHorizontal: RFValue(15), flex: 1, justifyContent: "space-between", paddingBottom: RFValue(24)}}>
@@ -132,6 +136,7 @@ const ProfileEdit = () => {
                     <View
                       style={{
                         flexDirection: "row",
+                        alignItems: "center",
                         borderBottomColor: "#EAEAEA",
                         borderBottomWidth: RFValue(1),
                         paddingVertical: RFValue(15)
@@ -160,6 +165,7 @@ const ProfileEdit = () => {
                     <View
                       style={{
                         flexDirection: "row",
+                        alignItems: "center",
                         borderBottomColor: "#EAEAEA",
                         borderBottomWidth: RFValue(1),
                         paddingVertical: RFValue(15)
