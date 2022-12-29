@@ -46,6 +46,11 @@ target 'Mapilio' do
     # :flipper_configuration => !ENV['CI'] ? FlipperConfiguration.enabled : FlipperConfiguration.disabled,
   )
 
+ENVFILES = {
+  'Debug' => '$(PODS_ROOT)/../../.env.development',
+  'Release' => '$(PODS_ROOT)/../../.env.production',
+}
+
   post_install do |installer|
 # @generated begin @rnmapbox/maps-post_installer - expo prebuild (DO NOT MODIFY) sync-c4e8f90e96f6b6c6ea9241dd7b52ab5f57f7bf36
     $RNMapboxMaps.post_install(installer)
@@ -68,6 +73,14 @@ target 'Mapilio' do
         end
       end
     end
+
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            if target.name == 'react-native-config'
+                config.build_settings['ENVFILE'] = ENVFILES[config.name]
+            end
+        end
+      end
   end
 
   post_integrate do |installer|
