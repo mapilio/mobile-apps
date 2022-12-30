@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, Image, View} from "react-native";
+import {ActivityIndicator, Dimensions, Image, View} from "react-native";
 import {sequenceDetailStyles} from "../styles/userSequenceStyle";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import MapboxGL from "@rnmapbox/maps";
@@ -18,8 +18,9 @@ const ProfileUploadDetail = ({ navigation, route }) => {
   const [coordinates, setCoordinates] = useState({});
   const [coord, setCoord] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(true);
   const dispatch = useDispatch();
-  const { userInformation } = useSelector((state) => state.getTokenReducer);
+  const {userInformation} = useSelector((state) => state.getTokenReducer);
 
   useEffect(() => {
     return navigation.addListener("focus", () => {
@@ -57,6 +58,10 @@ const ProfileUploadDetail = ({ navigation, route }) => {
   return (
     <View>
       <View style={sequenceDetailStyles.imageArea}>
+        {
+          imageLoading &&
+            <ActivityIndicator style={{alignItems: "center", justifyContent: "center", height: screenHeight / 2}}/>
+        }
         <Image
           source={{
             width: RFValue(200),
@@ -65,6 +70,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
           }}
           resizeMode={"cover"}
           style={{...sequenceDetailStyles.image, height: screenHeight / 2}}
+          onLoadEnd={() => setImageLoading(false)}
         />
       </View>
       <MapView

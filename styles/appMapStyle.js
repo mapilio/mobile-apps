@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
+import {globalStyles} from "./globalStyles";
 
 export const appMapStyle = StyleSheet.create({
   map: {
@@ -11,7 +12,8 @@ export const appMapStyle = StyleSheet.create({
     top: RFValue(10.25),
     zIndex: 5,
     width: Dimensions.get("screen").width,
-    alignItems: "center"
+    alignItems: "center",
+    ...globalStyles.shadow,
   },
   searchIcon: {
     backgroundColor: "#FFFFFF",
@@ -34,6 +36,7 @@ export const appMapStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: RFPercentage(0.5),
+    ...globalStyles.shadow,
   },
   minimizePano: {
     position: "absolute",

@@ -7,9 +7,6 @@ import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const FeedImageCard = (props) => {
   const [imageLoad, setImageLoad] = useState(true);
-  const image = {
-    uri: `${props.path}/240`,
-  };
 
   const loadEnd = () => setImageLoad(true);
 
@@ -35,7 +32,7 @@ const FeedImageCard = (props) => {
     >
       <View style={sequenceCardStyles.imagePosition}>
         {imageLoad && (
-          <SkeletonPlaceholder>
+          <SkeletonPlaceholder speed={1000}>
             <View
               style={{
                 width: RFValue(100),
@@ -57,7 +54,7 @@ const FeedImageCard = (props) => {
             width: 120,
             resizeMode: "cover",
           }}
-          source={image}
+          source={{uri: `${props.path}/240`, cache: "force-cache"}}
           onLoadEnd={loadEnd}
         />
       </View>
