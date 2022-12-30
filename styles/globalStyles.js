@@ -20,4 +20,11 @@ export const globalStyles = StyleSheet.create({
   screenTextMargin: {
     marginTop: RFValue(24),
   },
+  shadow: {
+    shadowColor: '#455B6314',
+    shadowOffset: {height: 0, width: 2},
+    shadowOpacity: .9,
+    shadowRadius: 2,
+    elevation: 3,
+  }
 });

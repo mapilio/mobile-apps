@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { View } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { globalStyles } from "../styles/globalStyles";
-import { FeedImageCard } from "./index";
+import React, {useEffect} from "react";
+import {View} from "react-native";
+import {RFValue} from "react-native-responsive-fontsize";
+import {globalStyles} from "../styles/globalStyles";
+import {FeedImageCard} from "./index";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { CustomText, CustomTextMedium } from "../highordercomponents";
-import { userSequenceStyles } from "../styles/userSequenceStyle";
-import { ActivityIndicator } from "react-native-paper";
-import { useDispatch } from "react-redux";
-import { UPDATE_CURRENT_SEQUENCE } from "../store/actionsName";
+import {CustomText, CustomTextMedium} from "../highordercomponents";
+import {userSequenceStyles} from "../styles/userSequenceStyle";
+import {ActivityIndicator} from "react-native-paper";
+import {useDispatch} from "react-redux";
+import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
 import Config from "react-native-config";
 
 const ListProfileUploads = ({
@@ -26,10 +26,7 @@ const ListProfileUploads = ({
   useEffect(() => {
     let unsubscribe = navigation.addListener("blur", () => {
       setImagesList([]);
-      dispatch({
-        type: UPDATE_CURRENT_SEQUENCE,
-        payload: null,
-      });
+      dispatch({type: UPDATE_CURRENT_SEQUENCE, payload: null});
     });
     return () => unsubscribe();
   }, [navigation]);
@@ -54,16 +51,16 @@ const ListProfileUploads = ({
         ]}
       >
         {loading
-          ? Array(15).map((i) => (
+          ? [...Array(16)].map((value, index) => (
               <View
                 style={{
                   maxWidth: "31%",
                   marginRight: RFValue(5),
                   justifyContent: "space-between",
                 }}
-                key={i}
+                key={index}
               >
-                <SkeletonPlaceholder>
+                <SkeletonPlaceholder speed={1000}>
                   <View
                     style={{
                       width: RFValue(100),

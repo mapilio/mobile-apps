@@ -1,10 +1,29 @@
-import { TouchableOpacity, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Profile } from "../assets/svg/illustrations";
-import { profileButtonStyles as styles } from "../styles/profileButtonStyles";
+import {ActivityIndicator, Image, TouchableOpacity, View} from "react-native";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Profile} from "../assets/svg/illustrations";
+import {profileButtonStyles as styles} from "../styles/profileButtonStyles";
+import {useSelector} from "react-redux";
+import React, {useState} from "react";
+
+const UserImage = ({userInformation}) => {
+  const [imageLoading, setImageLoading] = useState(true);
+
+  return (
+    <View>
+      {imageLoading && <ActivityIndicator style={styles.indicator} color={"#FFF"}/>}
+
+      <Image
+        style={{...styles.profileImage}}
+        source={{uri: userInformation?.user_profile_photo, cache: "force-cache"}}
+        onLoadEnd={() => setImageLoading(false)}
+        />
+    </View>
+  )
+}
 
 const ProfileButton = ({ onPress }) => {
-  const { top } = useSafeAreaInsets();
+  const {top} = useSafeAreaInsets();
+  const {userInformation} = useSelector(state => state.getTokenReducer)
 
   return (
     <TouchableOpacity
@@ -12,7 +31,11 @@ const ProfileButton = ({ onPress }) => {
       onPress={onPress}
     >
       <View style={styles.profileIcon}>
-        <Profile width={23} height={23} fill="#FFFFFF" />
+        {
+          userInformation
+            ? <UserImage userInformation={userInformation}/>
+            : <Profile width={23} height={23} fill="#FFFFFF"/>
+        }
       </View>
     </TouchableOpacity>
   );
