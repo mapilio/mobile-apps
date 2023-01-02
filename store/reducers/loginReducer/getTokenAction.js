@@ -13,12 +13,10 @@ export const getTokenAction = (parameters) => (dispatch) => {
       email: parameters.email,
       password: parameters.password,
     },
-  })
-    .then((res) => {
+  }).then((res) => {
       dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
       dispatch(getUserInformation(res));
-    })
-    .catch((err) => {
-      toast.show(`${err.response.data.message}`, {type: "error"})
+    }).catch((err) => {
+      toast.show(`${err.response.data.message || err}`, {type: "error"})
     });
 };

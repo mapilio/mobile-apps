@@ -54,7 +54,9 @@ const AppleLogin = ({ navigation }) => {
     AppleAuthentication.signInAsync(options).then((credential) => {
       fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` }).then(({data}) => {
         signInToApple(credential, data.state)
-      }).catch(({response}) => toast.show(`${response.data.message}`, {type: 'error'}));
+      }).catch(({response}) => {
+        toast.show(`${response.data.message || "An error occurred, try again later."}`, {type: 'error'})
+      });
     })
   }
 

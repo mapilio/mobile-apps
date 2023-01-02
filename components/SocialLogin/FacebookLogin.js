@@ -17,7 +17,9 @@ const FacebookLogin = ({ navigation }) => {
     setLoading(true)
     fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/generate-state`}).then(({data}) => {
       facebookAccess(data.state);
-    }).catch((err) => console.error(err));
+    }).catch(() => {
+      toast.show("An error occurred, try again later.", {type: 'error'})
+    }).finally(() => setLoading(false))
   };
 
   const facebookAccess = async (stateKey) => {

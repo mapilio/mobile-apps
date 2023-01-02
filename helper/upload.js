@@ -89,9 +89,9 @@ export const getHash = (image) => {
     const fileName = image.path.split("/").pop();
     const filePath = FileSystem.documentDirectory + `${image.sequence_uuid}/${fileName}`;
 
-    FileSystem.getInfoAsync(filePath).then(() => {
+    FileSystem.getInfoAsync(filePath).then((info) => {
       const formData = new FormData();
-      formData.append("file", {uri: filePath, name: fileName, type: "image/jpeg"});
+      formData.append("file", {uri: info.uri, name: fileName, type: "image/jpeg"});
       formData.append("email", userInformation.email)
 
       if (image.project_key && image.organization_key) {
@@ -104,9 +104,7 @@ export const getHash = (image) => {
         method: 'POST',
         data: formData,
         signal: controller.signal,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        headers: {'Content-Type': 'multipart/form-data'},
       }).then(async (response) => {
         await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE path='${image.path}' AND sequence_uuid='${image.sequence_uuid}'`)
         resolve({status: 'success', hash: response.files[0].hash})
@@ -155,8 +153,22 @@ export const imageryUpload = (index, pictures) => {
       const filePath = FileSystem.documentDirectory + `${picture.sequence_uuid}/${fileName}`;
 
       FileSystem.getInfoAsync(filePath).then((fileInfo) => {
-        const horizontal = exif.ImageWidth || exif.PixelXDimension;
-        const vertical = exif.ImageLength || exif.PixelYDimension;
+        const {latitude, longitude, altitude, heading, speed, accuracy: accuracy_level} = location;
+        const {
+          Orientation,
+          ['{TIFF}']: {Make, Model, DateTime},
+          ['{Exif}']: {PixelXDimension, PixelYDimension},
+          LensMake,
+          LensModel,
+          DateTimeOriginal,
+          ImageWidth,
+          ImageLength,
+          gyroscope,
+          accelerometer,
+        } = exif;
+
+        const horizontal = ImageWidth || PixelXDimension;
+        const vertical = ImageLength || PixelYDimension;
 
         const fov = calculate.fov(
           horizontal > vertical ? horizontal : vertical,
@@ -171,26 +183,26 @@ export const imageryUpload = (index, pictures) => {
         }
 
         files.options.parameters.json_data.push({
-          latitude: location.latitude,
-          longitude: location.longitude,
-          captureTime: dateConvert((exif.DateTime || exif.DateTimeOriginal), 'YYYY-MM-D HH:mm'),
-          altitude: location.altitude,
-          heading: location.heading,
-          orientation: exif.Orientation,
-          deviceMake: exif.Make || exif.LensMake,
-          deviceModel: exif.Model || exif.LensModel,
-          imageSize: `${exif.ImageWidth || exif.PixelXDimension}x${exif.ImageLength || exif.PixelYDimension}`,
+          latitude,
+          longitude,
+          altitude,
+          heading,
+          gyroscope,
+          accelerometer,
+          accuracy_level,
+          captureTime: dateConvert((DateTime || DateTimeOriginal), 'YYYY-MM-D HH:mm'),
+          orientation: Orientation,
+          deviceMake: Make || LensMake,
+          deviceModel: Model || LensModel,
+          imageSize: `${ImageWidth || PixelXDimension}x${ImageLength || PixelYDimension}`,
           fov: fov,
           sequenceUuid: picture.sequence_uuid,
-          photoUuid: md5(userInformation.email + (exif.DateTime || exif.DateTimeOriginal)),
+          photoUuid: md5(userInformation.email + (DateTime || DateTimeOriginal)),
           filename: fileName,
-          roll: calculate.roll(exif.accelerometer),
-          yaw: calculate.yaw(exif.accelerometer),
-          pitch: calculate.pitch(exif.accelerometer),
-          car_speed: location.speed * 3.6,
-          gyroscope: exif.gyroscope,
-          acceleration: exif.accelerometer,
-          accuracy_level: location.accuracy,
+          roll: calculate.roll(accelerometer),
+          yaw: calculate.yaw(accelerometer),
+          pitch: calculate.pitch(accelerometer),
+          car_speed: speed * 3.6,
           anomaly: 0,
         });
 
@@ -200,7 +212,7 @@ export const imageryUpload = (index, pictures) => {
         files.options.parameters.summary.Information.size = (filesize += fileInfo.size) / 1024 / 1024;
         files.options.parameters.summary.Information.hash = pictures.hash;
 
-        if(i === pictures[index].length - 1) {
+        if (i === pictures[index].length - 1) {
           fetchHandler({
             url: `${Config.SERVICE_URL}/api/function/mapilio/imagery/upload`,
             method: "POST",
