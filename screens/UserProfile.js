@@ -20,6 +20,7 @@ import {CustomText, CustomTextBold} from "../highordercomponents";
 import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 const UserProfile = ({navigation}) => {
   const {userInformation} = useSelector((state) => state.getTokenReducer);
@@ -105,6 +106,7 @@ const UserProfile = ({navigation}) => {
 
   return (
     <View style={{...globalStyles.container, paddingBottom: bottom}}>
+      <FocusAwareStatusBar barStyle="light-content" />
       <UserInfos isOrganization={isOrganization} selectedItem={selectedOrganization}/>
       {
         organizations.length >= 2 &&

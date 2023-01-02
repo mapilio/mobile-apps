@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useRef, useState, Fragment} from "react";
-import {Dimensions, TouchableOpacity, View, Pressable} from "react-native";
+import {Dimensions, TouchableOpacity, View, Pressable, Platform} from "react-native";
 import {appMapStyle} from "../styles/appMapStyle";
 import MapboxGL, {Camera} from "@rnmapbox/maps";
 import Pano from "../components/Map/Pano";
@@ -19,6 +19,7 @@ import {styles} from "../styles/circleStyles";
 import {useSelector} from "react-redux";
 import {Routes} from "../navigator/Routes";
 import ProfileButton from "../components/ProfileButton";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 MapboxGL.setAccessToken("pk.your_mapbox_public_token");
 
@@ -86,6 +87,7 @@ const AppMap = ({ navigation }) => {
 
   return (
     <View>
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={Platform.OS === "android" && "white"}  />
       {showPano ? (
         <Pano hidePano={() => setShowPano(false)} imageInformation={imageInformations} navigation={navigation}/>
       ) : (

@@ -19,6 +19,7 @@ import Config from "react-native-config";
 import {globalStyles} from "../styles/globalStyles";
 import SafeAreaView from "react-native-safe-area-view";
 import {MapilioLogoBeta} from "../assets/svg/logos";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 const registerValidationSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -75,6 +76,7 @@ const Register = ({ navigation }) => {
 
   return (
     <SafeAreaView style={[globalStyles.container, loginStyles.container]}>
+			<FocusAwareStatusBar barStyle="light-content" backgroundColor={"#130C47"}/>
       <View>
         <View style={loginStyles.logo}>
           <MapilioLogoBeta width={RFValue(248)} height={RFValue(50)}/>

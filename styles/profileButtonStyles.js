@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { RFValue,RFPercentage } from "react-native-responsive-fontsize";
 import {globalStyles} from "./globalStyles";
 export const profileButtonStyles = StyleSheet.create({
@@ -7,6 +7,7 @@ export const profileButtonStyles = StyleSheet.create({
     backgroundColor: "#666666",
     borderRadius: RFValue(50),
     zIndex: 5,
+    top: Platform.OS === "android" && RFValue(5),
     right: RFValue(20.25),
     alignItems: "flex-end",
     ...globalStyles.shadow,
@@ -27,7 +28,9 @@ export const profileButtonStyles = StyleSheet.create({
   },
   indicator: {
     position: "absolute",
-    width: RFValue(38),
-    height: RFValue(38),
+    left:0,
+    right:0,
+    top:0,
+    bottom:0,
   },
 });
