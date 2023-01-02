@@ -25,7 +25,9 @@ const GoogleLogin = ({ navigation }) => {
     const unsubscribe = navigation.addListener("focus", async () => {
       fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` })
         .then((response) => setStateKey(response.data.state))
-        .catch((err) => console.error(err));
+        .catch(() => {
+          toast.show("An error occurred, try again later.", {type: 'error'})
+        });
     });
     return () => unsubscribe();
   }, [navigation]);
@@ -56,9 +58,12 @@ const GoogleLogin = ({ navigation }) => {
         navigation.goBack()
       } else {
         toast.show(`There was a problem registering. Please try a different method.`, {type: 'warning'})
-        setLoading(false);
       }
-    }).catch((err) => console.error(err));
+    }).catch(() => {
+      toast.show("An error occurred, try again later.", {type: 'error'})
+    }).finally(() => {
+      setLoading(false)
+    });
   };
 
   return (
