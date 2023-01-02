@@ -26,6 +26,7 @@ const ProfileEdit = () => {
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState(null);
   const [avatarLoading, setAvatarLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const {
@@ -49,6 +50,8 @@ const ProfileEdit = () => {
   });
 
   const onSubmit = ({user_bio, display_name}) => {
+    setIsLoading(true)
+
     let data = new FormData()
     data.append("options[parameters][user_bio]", user_bio);
     data.append("options[parameters][display_name]", display_name);
@@ -70,12 +73,21 @@ const ProfileEdit = () => {
       } else {
         toast.show(error.response.data.message || error, {type: "error"})
       }
+    }).finally(() => {
+      setIsLoading(false)
     })
   };
 
   const selectImage = () => {
     galleryPermission().then(() => {
-      launchImageLibrary({selectionLimit: 1, mediaType: "photo", quality: 0}).then(({assets}) => {
+      launchImageLibrary({
+        selectionLimit: 1,
+        mediaType: "photo",
+        quality: .7,
+        maxHeight: 512,
+        maxWidth: 512,
+        includeExtra: false
+      }).then(({assets}) => {
         assets && setSelectedImage(assets[0])
       })
     }).catch((err) => {
@@ -243,6 +255,7 @@ const ProfileEdit = () => {
 
             <TouchableOpacity
               onPress={handleSubmit(onSubmit)}
+              disabled={isLoading}
               style={{
                 backgroundColor: "#3F8BE9",
                 borderRadius: RFValue(24),
@@ -251,14 +264,13 @@ const ProfileEdit = () => {
                 marginBottom: RFValue(10) + bottom
               }}
             >
-              <Text
-                style={{
-                  color: "#FFF",
-                  fontSize: RFValue(16)
-                }}
-              >
-                Save
-              </Text>
+              {
+                isLoading ? (
+                  <ActivityIndicator style={{paddingVertical: RFValue(3)}} color={'#FFF'} size={"small"} />
+                ) : (
+                  <Text style={{color: "#FFF", fontSize: RFValue(16)}}>Save</Text>
+                )
+              }
             </TouchableOpacity>
           </View>
         </ScrollView>

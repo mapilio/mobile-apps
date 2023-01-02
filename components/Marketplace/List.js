@@ -80,7 +80,7 @@ const Projects = ({slidePanel, setOnScroll, onSelectedItem, navigation}) => {
       onSelectedItem(clickedItem)
       slidePanel.show(RFValue(250))
     } else {
-      navigation.navigate('Auth', {screen: Routes.login})
+      navigation.navigate(Routes.stackNavigator, {screen: Routes.login})
     }
   }
 

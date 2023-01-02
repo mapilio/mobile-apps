@@ -47,10 +47,6 @@ const AppMap = ({ navigation }) => {
     return () => Geolocation.clearWatch(watchId)
   }, []);
 
-  useEffect(() => {
-    cameraRef.current?.flyTo(userCoordinate?.geometry?.coordinates, 0)
-  }, [cameraRef.current]);
-
   const contentHeight = height - bottom - RFValue(63)
 
   const zoomPoint = (coordinate) => {
@@ -95,11 +91,11 @@ const AppMap = ({ navigation }) => {
           <Search camera={cameraRef}/>
           <ProfileButton onPress={()=>{
             if(auth){
-              navigation.navigate("ProfileNavigator")
+              navigation.navigate(Routes.stackNavigator, {screen: Routes.profileNavigator})
               return true;
             }
             else{
-              navigation.navigate("Auth")
+              navigation.navigate(Routes.stackNavigator, {screen: Routes.login})
               return true;
             }
             }} />

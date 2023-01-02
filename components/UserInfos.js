@@ -26,6 +26,8 @@ const UserInfos = ({ isOrganization, selectedItem }) => {
     setAvatarLoading(false);
   };
 
+  if (!userInformation) return false;
+
   return (
     <View style={userInfoStyles.profileContainer}>
       <Image

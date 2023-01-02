@@ -48,7 +48,7 @@ const Upload = ({sequence_uuid}) => {
     }
 
     if (!userInformation) {
-      navigation.navigate("Auth")
+      navigation.navigate(Routes.stackNavigator, {screen: Routes.login})
       return;
     }
 
