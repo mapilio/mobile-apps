@@ -12,6 +12,7 @@ import Organizations from "./Organizations";
 import Config from "react-native-config";
 import Loading from "../../components/Loading";
 import { fetchHandler } from "../../helper/helper";
+import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -70,6 +71,7 @@ const Leaderboard = () => {
 
   return (
     <SafeAreaView style={styles.base}>
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={"white"} />
       <View style={styles.container}>
         <Text style={styles.headerTitle}>Leaderboard</Text>
         <Text style={styles.headerSubTitle}>

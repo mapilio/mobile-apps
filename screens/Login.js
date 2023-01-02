@@ -13,6 +13,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import SafeAreaView from "react-native-safe-area-view";
 import {MapilioLogoBeta} from "../assets/svg/logos";
 import {fetchLogin} from "../helper/user";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 const loginValidationSchema = yup.object().shape({
 	email: yup.string()
@@ -45,6 +46,7 @@ const Login = ({navigation}) => {
 
 	return (
 		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
+			<FocusAwareStatusBar barStyle="light-content"  backgroundColor={"#130C47"}/>
 			<View>
 				<View style={loginStyles.logo}>
 					<MapilioLogoBeta width={RFValue(248)} height={RFValue(50)}/>

@@ -4,6 +4,7 @@ import {fetchHandler} from "../../helper/helper";
 import Config from "react-native-config";
 import SearchHeader from "./SearchHeader";
 import SearchList from "./SearchList";
+import FocusAwareStatusBar from "../FocusAwareStatusBar";
 
 const SearchModal = ({open, closeHandler, onClick}) => {
   const [searchText, setSearchText] = useState("");
@@ -19,6 +20,7 @@ const SearchModal = ({open, closeHandler, onClick}) => {
 
   return (
     <Modal visible={open} animationType={"slide"}>
+      <FocusAwareStatusBar barStyle="light-content" backgroundColor={"#130C47"} />
       <SearchHeader closeHandler={closeHandler} setSearchText={handleSearchText}/>
       <SearchList search={searchText} lists={locations} onClick={onClick}/>
     </Modal>

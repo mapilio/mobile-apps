@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {TouchableOpacity, View} from "react-native";
+import {Platform, TouchableOpacity, View} from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import {RFValue} from "react-native-responsive-fontsize";
 import {List, MarketplaceMap} from "../components/Marketplace";
@@ -11,6 +11,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {CustomText} from "../highordercomponents";
 import {Document} from "../assets/svg/illustrations";
 import Geolocation from "react-native-geolocation-service";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 const Marketplace = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const Marketplace = ({ navigation }) => {
   return (
     <View style={{flex: 1}}>
       <MarketplaceMap navigation={navigation}/>
-
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={Platform.OS ==="android" && "white"} />
       <TouchableOpacity
         onPress={() => slidePanel.current?.show(RFValue(400))}
         style={{

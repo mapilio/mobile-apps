@@ -9,6 +9,7 @@ import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import Config from "react-native-config";
 import {CustomText, CustomTextBold} from "../highordercomponents";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 
 const forgotValidationSchema = yup.object().shape({
@@ -44,6 +45,7 @@ const ForgotPassword = ({navigation}) => {
 
 	return (
 		<View style={loginStyles.container}>
+			<FocusAwareStatusBar barStyle="light-content" backgroundColor={"#130C47"}/>
 			<View style={{marginBottom: RFValue(30)}}>
 				<CustomTextBold style={loginStyles.primaryText}>Forgot your password?</CustomTextBold>
 				<CustomText style={loginStyles.secondaryText}>
