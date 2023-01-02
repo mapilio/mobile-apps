@@ -4,6 +4,7 @@ import FallbackImage from "./FallbackImage";
 import CrownIcon from "../../assets/svg/illustrations/CorwnIcon";
 import React from "react";
 import AuthUserButton from "./AuthUserButton";
+import UserProfileImage from "./UserProfileImage";
 
 const renderItem = ({ item, index }, authUserIndex, screenType) => {
   const isAuthUser = index === authUserIndex;
@@ -58,15 +59,7 @@ const renderItem = ({ item, index }, authUserIndex, screenType) => {
     <View style={baseStyle}>
       <Rank rankIndex={index} />
       {item.user_profile_photo ? (
-        <Image
-          source={{
-            uri: item.user_profile_photo,
-            width: 42,
-            height: 42,
-            cache: "force-cache",
-          }}
-          style={styles.profilePhoto}
-        />
+        <UserProfileImage source={item.user_profile_photo} />
       ) : (
         <FallbackImage displayName={displayName} />
       )}

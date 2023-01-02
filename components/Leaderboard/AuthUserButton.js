@@ -1,6 +1,7 @@
 import { View, Text, Image } from "react-native";
 import { leaderStyles as styles } from "../../styles/leaderStyles";
 import FallbackImage from "./FallbackImage";
+import UserProfileImage from "./UserProfileImage";
 
 const AuthUserButton = ({ authUser, displayName, rankIndex }) => {
   return (
@@ -9,14 +10,9 @@ const AuthUserButton = ({ authUser, displayName, rankIndex }) => {
         {"#" + (rankIndex + 1)}
       </Text>
       {authUser.user_profile_photo ? (
-        <Image
-          source={{
-            uri: authUser.user_profile_photo,
-            width: 42,
-            height: 42,
-            cache: "force-cache",
-          }}
-          style={styles.profilePhoto}
+        <UserProfileImage
+          source={authUser.user_profile_photo}
+          spinnerColor={"white"}
         />
       ) : (
         <FallbackImage displayName={displayName} />
