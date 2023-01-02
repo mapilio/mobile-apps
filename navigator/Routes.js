@@ -1,4 +1,8 @@
 export const Routes = {
+  stackNavigator: "StackNavigator",
+  tabNavigator: "TabNavigator",
+  profileNavigator: "ProfileNavigator",
+  auth: "Auth",
   profile: "Profile",
   sequences: "Sequences",
   sequenceDetail: "SequenceDetail",

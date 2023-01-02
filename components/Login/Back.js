@@ -7,7 +7,7 @@ const Back = ({route}) => {
   const navigation = useNavigation();
 
   const handleBack = () => {
-    route.params?.backRoute ? navigation.navigate(route.params.backRoute) : navigation.goBack()
+    route?.params?.backRoute ? navigation.navigate(route.params.backRoute) : navigation.goBack()
   }
 
   return (

@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import TabNavigator from "./TabNavigator";
-import AuthNavigator from "./AuthNavigator";
 import NetInfo from "@react-native-community/netinfo";
 import {UPDATE_CONNECTION_STATUS} from "../store/actionsName";
 import {useDispatch} from "react-redux";
+import {Routes} from "./Routes";
+import StackNavigator from "./StackNavigator";
 
 const Stack = createStackNavigator();
 
@@ -24,8 +25,8 @@ const MainNavigator = () => {
 
   return (
     <Stack.Navigator screenOptions={{headerShown: false}} >
-      <Stack.Screen name={"Tabs"} component={TabNavigator}/>
-      <Stack.Screen name={"Auth"} component={AuthNavigator}/>
+      <Stack.Screen name={Routes.tabNavigator} component={TabNavigator}/>
+      <Stack.Screen name={Routes.stackNavigator} component={StackNavigator}/>
     </Stack.Navigator>
   )
 };

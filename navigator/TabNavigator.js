@@ -50,7 +50,7 @@ const TabNavigator = () => {
       if (connection.connectionStatus) {
         if (!auth && firstLogin.find(value => value === route.name)) {
           isFirstOpen ?
-            navigation.navigate('Auth', {backRoute: 'CameraTab'}) :
+            navigation.navigate(Routes.stackNavigator, {screen: Routes.login, params: {backRoute: 'CameraTab'}}) :
             navigation.navigate(route.name)
 
           return;
