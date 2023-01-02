@@ -88,8 +88,10 @@ export const leaderStyles = StyleSheet.create({
     },
   },
   profilePhoto: {
-    borderRadius: 50,
     marginLeft: 10,
+    width: 42,
+    height: 42,
+    justifyContent: "center",
   },
   fallbackImage: {
     width: 42,
@@ -111,5 +113,5 @@ export const leaderStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  }
+  },
 });

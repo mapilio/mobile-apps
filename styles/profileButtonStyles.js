@@ -4,17 +4,16 @@ import {globalStyles} from "./globalStyles";
 export const profileButtonStyles = StyleSheet.create({
   profileButton: {
     position: "absolute",
-    backgroundColor:"#666666",
+    backgroundColor: "#666666",
     borderRadius: RFValue(50),
-    top: RFValue(10.25),
     zIndex: 5,
     right: RFValue(20.25),
     alignItems: "flex-end",
-    ...globalStyles.shadow
+    ...globalStyles.shadow,
   },
   profileIcon: {
-    width: RFValue(38),
-    height: RFValue(38),
+    width: RFValue(55),
+    height: RFValue(55),
     alignItems: "center",
     justifyContent: "center",
     borderRadius: RFPercentage(50),
@@ -22,13 +21,13 @@ export const profileButtonStyles = StyleSheet.create({
     zIndex: -1,
   },
   profileImage: {
-    width: RFValue(38),
-    height: RFValue(38),
+    width: RFValue(55),
+    height: RFValue(55),
     borderRadius: RFPercentage(50),
   },
   indicator: {
     position: "absolute",
     width: RFValue(38),
-    height: (RFValue(38))
-  }
+    height: RFValue(38),
+  },
 });
