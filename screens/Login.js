@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {ActivityIndicator, TextInput, TouchableOpacity, View} from "react-native";
 import * as yup from "yup";
 import {loginStyles} from "../styles/loginStyles";
@@ -32,16 +32,14 @@ const Login = ({navigation}) => {
 		resolver: yupResolver(loginValidationSchema),
 	});
 
-	useEffect(() => setLoading(isSubmitting), [isSubmitting]);
-
 	const handleLogin = (values) => {
 		const {email, password} = values;
-
+		setLoading(true);
 		fetchLogin(email, password).then(() => {
 			navigation.goBack();
 		}).catch((err) => {
 			toast.show(`${err}`, {type: "error"})
-		})
+		}).finally(() => setLoading(false))
 	}
 
 	return (
@@ -105,7 +103,7 @@ const Login = ({navigation}) => {
 					disabled={loading}
 				>
 					<CustomText style={{...loginStyles.secondaryText, color: "#fff"}}>
-						{loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : "Log In"}
+						{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : "Log In"}
 					</CustomText>
 				</TouchableOpacity>
 				<CustomText

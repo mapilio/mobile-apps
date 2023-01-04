@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Text, View, TextInput, TouchableOpacity, ActivityIndicator} from "react-native";
 import * as yup from "yup";
 import {loginStyles} from "../styles/loginStyles";
@@ -25,9 +25,9 @@ const ForgotPassword = ({navigation}) => {
 		defaultValues: {email: ''},
 		resolver: yupResolver(forgotValidationSchema),
 	});
-	useEffect(() => setLoading(isSubmitting), [isSubmitting]);
 
 	const forgotPassword = (values) => {
+		setLoading(true);
 		fetchHandler({
 			url: `${Config.SERVICE_URL}/api/forgot-password`,
 			method: "POST",
@@ -40,7 +40,7 @@ const ForgotPassword = ({navigation}) => {
 		}).then(() => {
 			navigation.reset({index: 0, routes: [{name: Routes.login}]})
 			toast.show(`The reset request has been sent to the e-mail address.`, {type: "success"})
-		}).catch((err) => toast.show(`${err.response.data.message}`, {type: "error"}));
+		}).catch((err) => toast.show(`${err.response.data.message}`, {type: "error"})).finally(() => setLoading(false));
 	};
 
 	return (
@@ -70,7 +70,7 @@ const ForgotPassword = ({navigation}) => {
 			)}/>
 			<TouchableOpacity style={loginStyles.button} onPress={handleSubmit((values) => forgotPassword(values))}>
 				<Text style={loginStyles.buttonText}>
-					{loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : "Send reset link"}
+					{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : "Send reset link"}
 				</Text>
 			</TouchableOpacity>
 
