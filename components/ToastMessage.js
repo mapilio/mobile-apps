@@ -4,7 +4,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {CloseIcon, ErrorIcon, Icon, SuccessIcon, WarningIcon} from "../assets/svg/illustrations";
 
 const ToastMessage = ({options: {id, type, message}}) => {
-  const {bottom} = useSafeAreaInsets();
+  const {top} = useSafeAreaInsets();
 
   const icons = {
     success: <SuccessIcon/>,
@@ -16,7 +16,7 @@ const ToastMessage = ({options: {id, type, message}}) => {
   const handleClose = () => toast.hide(id)
 
   return (
-    <View style={{...styles.wrapper, ...styles[type + 'Bg'], marginBottom: bottom}}>
+    <View style={{...styles.wrapper, ...styles[type + 'Bg'], marginTop: top}}>
       <View>
         <View style={styles.statusIcon}>{icons[type]}</View>
         <Text style={{...styles[type + 'Text'], ...styles.text}}>{message}</Text>

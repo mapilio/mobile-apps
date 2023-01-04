@@ -57,6 +57,7 @@ function App() {
               ref={(ref) => global['toast'] = ref}
               duration={3000}
               renderToast={(options) => <ToastMessage options={options}/>}
+              placement="top"
             />
           </SafeAreaProvider>
         </NavigationContainer>
