@@ -19,24 +19,29 @@ const Detail = ({project, onClose, setOnScroll, navigation}) => {
   useEffect(() => setOnScroll(false), []);
 
   const {properties: {id, owner, marketplace_name, marketplace_description, project_camera_type}, geometry} = project
+  const {auth} = useSelector((status) => status.getTokenReducer)
 
   const acceptProject = () => {
-    const polygon = setGeoJson(geometry.coordinates, "polygon")
-    const targetPoint = centroid(polygon);
-
-    isNear(targetPoint).then((distance) => {
-      if (distance > 5) {
-        toast.show('Your location is too far from the project area.', {type: 'error'})
-      } else {
-        fetchHandler({
-          url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
-          method: "POST",
-          data: {options: {parameters: {id: id}}},
-        }).then(() => {
-          navigation.navigate(Routes.MarketplaceReady, {data: project.properties,});
-        }).catch(err => toast.show(`${err.response.data.message}`, {type: 'error'}))
-      }
-    }).catch((err) => toast.show(`${err}`, {type: 'error'}))
+    if(!auth){
+      return navigation.navigate(Routes.stackNavigator, {screen:Routes.login})
+    }else{
+      const polygon = setGeoJson(geometry.coordinates, "polygon")
+      const targetPoint = centroid(polygon);
+  
+      isNear(targetPoint).then((distance) => {
+        if (distance > 5) {
+          toast.show('Your location is too far from the project area.', {type: 'error'})
+        } else {
+          fetchHandler({
+            url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
+            method: "POST",
+            data: {options: {parameters: {id: id}}},
+          }).then(() => {
+            navigation.navigate(Routes.MarketplaceReady, {data: project.properties,});
+          }).catch(err => toast.show(`${err.response.data.message}`, {type: 'error'}))
+        }
+      }).catch((err) => toast.show(`${err}`, {type: 'error'}))
+    }
   }
 
   return (
@@ -68,20 +73,14 @@ const Detail = ({project, onClose, setOnScroll, navigation}) => {
 
 const Projects = ({slidePanel, setOnScroll, onSelectedItem, navigation}) => {
   const dispatch = useDispatch();
-  const {auth} = useSelector((status) => status.getTokenReducer)
   const {marketplaceData} = useSelector((status) => status.marketplaceReducer);
 
   const handleItemClick = (clickedItem) => {
     const center = centerOfMass(polygon(clickedItem.geometry.coordinates))
     dispatch({type: MARKETPLACE_CENTER, payload: center.geometry.coordinates})
     dispatch({type: ZOOM_LEVEL, payload: 8})
-
-    if (auth) {
-      onSelectedItem(clickedItem)
-      slidePanel.show(RFValue(250))
-    } else {
-      navigation.navigate(Routes.stackNavigator, {screen: Routes.login})
-    }
+    onSelectedItem(clickedItem)
+    slidePanel.show(RFValue(250))
   }
 
   return (
