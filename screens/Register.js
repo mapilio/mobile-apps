@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {
   View,
   TextInput,
@@ -39,6 +39,7 @@ const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const register = (values) => {
+    setLoading(true)
     fetchHandler({
       url: `${Config.SERVICE_URL}/api/register`,
       method: "POST",
@@ -58,7 +59,7 @@ const Register = ({ navigation }) => {
       Object.values(err.response.data).map((item, _i) => {
         toast.show(`${item[0]}`, {type: "error"})
       });
-    });
+    }).finally(() => setLoading(false))
   };
 
   const redirectBrowser = () => {
@@ -72,7 +73,6 @@ const Register = ({ navigation }) => {
     resolver: yupResolver(registerValidationSchema),
   });
 
-  useEffect(() => setLoading(isSubmitting), [isSubmitting]);
 
   return (
     <SafeAreaView style={[globalStyles.container, loginStyles.container]}>
@@ -151,7 +151,7 @@ const Register = ({ navigation }) => {
           <CustomText
             style={{ ...loginStyles.secondaryText, color: "#fff" }}
           >
-            {loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : "Sign up"}
+            {loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : "Sign up"}
           </CustomText>
         </TouchableOpacity>
         <View style={{marginTop: RFValue(21)}}>
