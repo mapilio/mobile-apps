@@ -6,8 +6,10 @@ import {sequenceLeft} from "../../../styles/navigatorBarStyles";
 import {ArrowLeft} from "../../../assets/svg/illustrations";
 import {CustomText} from "../../../highordercomponents";
 import {Routes} from "../../Routes";
+import {useTranslation} from "react-i18next";
 
 const SequenceNavigatorLeft = (props) => {
+  const {t} = useTranslation("navigation");
   const route = useRoute();
   const { userInformation } = useSelector((state) => state.getTokenReducer);
   const navigation = useNavigation();
@@ -29,7 +31,9 @@ const SequenceNavigatorLeft = (props) => {
       }}
     >
       <ArrowLeft />
-      <CustomText style={sequenceLeft.backTitle}>Back</CustomText>
+      <CustomText style={sequenceLeft.backTitle}>
+        {t("back")}
+      </CustomText>
     </TouchableOpacity>
   );
 };

@@ -1,5 +1,6 @@
 import {createStackNavigator} from "@react-navigation/stack";
 import {
+  Language,
   ProfileEdit,
   ProfileSequence,
   ProfileSettings,
@@ -14,6 +15,7 @@ import {ProfileNavigatorRight, ProfileSettingsNavigatorLeft} from "../../navigat
 import {SequenceNavigatorLeft} from "./navigatorbars";
 import {RFValue} from "react-native-responsive-fontsize";
 import {Back} from "../../components/Login";
+import {useTranslation} from "react-i18next";
 
 const Stack = createStackNavigator();
 
@@ -25,42 +27,52 @@ const screenOptions = {
 }
 
 const ProfileNavigator = ({navigation}) => {
+  const {t} = useTranslation("navigation");
+
     return (
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen name={Routes.profile} component={UserProfile} options={{
           headerLeft: () => <Back />,
           headerRight: () => <ProfileNavigatorRight/>,
+          title: t("profile")
         }}/>
-        <Stack.Screen name={Routes.profileSettings} component={ProfileSettings} options={() => ({
+
+        <Stack.Screen name={Routes.profileSettings} component={ProfileSettings} options={{
           headerStyle: {backgroundColor: '#FFF', elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
           cardStyle: {backgroundColor: '#FFF'},
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
           title: false
-        })}/>
+        }}/>
 
         <Stack.Screen name={Routes.profileSequence} component={ProfileSequence} options={{
-          title: "Your uploads",
+          title: t("your_uploads"),
           headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.profile}/>,
         }}/>
 
         <Stack.Screen name={Routes.feedDetail} component={ProfileUploadDetail} options={{
-          title: "Upload detail",
+          title: t("upload_detail"),
           headerLeft: (props) => <SequenceNavigatorLeft {...props} navigation={navigation} backRoute={Routes.sequences}/>,
         }}/>
 
-        <Stack.Screen name={Routes.webview} component={WebviewScreen} options={() => ({
+        <Stack.Screen name={Routes.webview} component={WebviewScreen} options={{
           headerStyle: {backgroundColor: '#FFF', elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
           cardStyle: {backgroundColor: '#FFF'},
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
           title: false
-        })}/>
+        }}/>
 
         <Stack.Screen name={Routes.profileEdit} component={ProfileEdit} options={{
           headerStyle: {backgroundColor: '#FFF', elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
           cardStyle: {backgroundColor: '#FFF'},
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
-          title: 'Profile Edit',
+          title: t("profile_edit"),
           headerTitleStyle: {color: '#333333', fontSize: RFValue(18)}
+        }}/>
+
+        <Stack.Screen name={Routes.language} component={Language} options={{
+          cardStyle: {backgroundColor: '#FFF'},
+          headerStyle: {backgroundColor: '#FFF', elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
+          headerLeft: () => <ProfileSettingsNavigatorLeft/>,
         }}/>
       </Stack.Navigator>
     )

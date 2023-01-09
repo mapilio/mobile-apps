@@ -118,9 +118,7 @@ const UserSequence = ({ navigation }) => {
           <SwitchSelector
             initial={0}
             options={options}
-            onPress={(value) => {
-              dispatch({ type: SWITCH_SELECTOR, payload: value });
-            }}
+            onPress={(value) => dispatch({type: SWITCH_SELECTOR, payload: value})}
             value={switchSelector === "image" ? 0 : 1}
             backgroundColor={"#F5F5F5"}
             borderColor={"#CBD1D9"}

@@ -16,10 +16,13 @@ import {
   UploadNavigator
 } from "./partials";
 import Leaderboard from "../screens/Leaderboard";
+import {useTranslation} from "react-i18next";
+import {CustomTextBold} from "../highordercomponents";
 
 const Tab = createBottomTabNavigator();
 
 const CaptureTabBarButton = ({onPress}) => {
+  const {t} = useTranslation("tab");
   const screenListen = () => cameraPermission(onPress)
 
   return (
@@ -27,6 +30,14 @@ const CaptureTabBarButton = ({onPress}) => {
       <View style={navigatorStyle.captureButtonWrapperStyle}>
         <View style={navigatorStyle.captureButtonStyle}>
           <CaptureText />
+
+          <CustomTextBold style={{
+            position: "absolute",
+            color: "#1ad971",
+            fontSize: RFValue(12),
+          }}>
+            {t("capture")}
+          </CustomTextBold>
         </View>
       </View>
     </TouchableOpacity>
@@ -79,15 +90,14 @@ const TabNavigator = () => {
         name={"MapTab"}
         component={MapNavigator}
         options={{
-          unmountOnBlur: true,
-          tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Map"}/>
+          tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"map"}/>
         }}
       />
       <Tab.Screen
         name={"MarketplaceTab"}
         component={MarketplaceNavigator}
         options={{
-          tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Market"}/>,
+          tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"market"}/>,
         }}
       />
       <Tab.Screen
@@ -104,14 +114,14 @@ const TabNavigator = () => {
         options={{
           tabBarBadge: uploadData.length !== 0 ? uploadData.length : null,
           tabBarBadgeStyle: {marginTop: RFValue(10)},
-          tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Upload"}/>,
+          tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"upload"}/>,
         }}
       />
       <Tab.Screen
         name={"Leaderboard"}
         component={Leaderboard}
         options={{
-          tabBarIcon: ({focused}) => <TabIcons focused={focused} title={"Leader"}/>,
+          tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"leader"}/>,
         }}
       />
     </Tab.Navigator>

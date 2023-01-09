@@ -5,9 +5,11 @@ import Popover, {PopoverPlacement} from "react-native-popover-view";
 import {CustomText} from "../../highordercomponents";
 import {marketplaceStyles} from "../../styles/marketplaceStyles";
 import React, {useRef, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 const MarketplacePopover = () => {
   const [showPopover, setShowPopover] = useState(false);
+  const {t} = useTranslation("marketplace");
   const touchable = useRef();
 
   return (
@@ -23,8 +25,7 @@ const MarketplacePopover = () => {
         verticalOffset={Platform.OS === "android" ? -StatusBar.currentHeight : 0}
       >
         <CustomText style={marketplaceStyles.popoverText}>
-          Find or offer help on image collection and data verification
-          projects to create fresh map data in locations where it’s needed.
+          {t("tooltip")}
         </CustomText>
       </Popover>
     </View>

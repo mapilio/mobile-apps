@@ -2,11 +2,16 @@ import {CustomText} from "../../highordercomponents";
 import {StyleSheet, TouchableOpacity} from "react-native";
 import {Routes} from "../../navigator/Routes";
 import {RFValue} from "react-native-responsive-fontsize";
+import {useTranslation} from "react-i18next";
 
 const SignUpButton = ({navigation}) => {
+  const {t} = useTranslation("navigation");
+
   return (
     <TouchableOpacity onPress={() => navigation.navigate(Routes.register)}>
-      <CustomText style={styles.text}>Sign up</CustomText>
+      <CustomText style={styles.text}>
+        {t("sign_up")}
+      </CustomText>
     </TouchableOpacity>
   )
 }

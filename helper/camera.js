@@ -20,6 +20,9 @@ import {
 } from "../store/actionsName";
 import uuid from "react-native-uuid";
 import * as ScreenOrientation from "expo-screen-orientation";
+import i18n from 'i18next';
+
+const translate = (key) => i18n.t(key, {ns: "camera"})
 
 const Alert = ({svg, title, content}) => {
   return (
@@ -46,8 +49,8 @@ const cameraAlerts = {
     return (
       <Alert
         svg={<BatteryLevelIcon/>}
-        title={"Battery level low"}
-        content={"GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible."}
+        title={translate("warning.battery.title")}
+        content={translate("warning.battery.description")}
       />
     );
   },
@@ -55,8 +58,8 @@ const cameraAlerts = {
     return (
       <Alert
         svg={<MockedIcon/>}
-        title={"Fake GPS"}
-        content={"Fake gps usage has been detected, please use device gps location to proceed!"}
+        title={translate("warning.mocked.title")}
+        content={translate("warning.mocked.description")}
       />
     )
   },
@@ -64,8 +67,8 @@ const cameraAlerts = {
     return (
       <Alert
         svg={<HighSpeedIcon/>}
-        title={"High speed"}
-        content={"You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."}
+        title={translate("warning.speed.title")}
+        content={translate("warning.speed.description")}
       />
     )
   },
@@ -73,8 +76,8 @@ const cameraAlerts = {
     return (
       <Alert
         svg={<BadGPS width={RFValue(34)} height={RFValue(30)}/>}
-        title={"GPS accuracy is too low"}
-        content={"Shooting will continue when the GPS alert icon turns green."}
+        title={translate("warning.bad_gps.title")}
+        content={translate("warning.bad_gps.description")}
       />
     )
   },
@@ -82,8 +85,8 @@ const cameraAlerts = {
     return (
       <Alert
         svg={<GPSSearch/>}
-        title={"GPS Searching"}
-        content={"Please be in the open area where the GPS will capture. This process can take up to 30 seconds."}
+        title={translate("warning.gps.title")}
+        content={translate("warning.gps.description")}
       />
     )
   },
@@ -91,8 +94,8 @@ const cameraAlerts = {
     return (
       <Alert
         svg={<CameraRotate/>}
-        title={"Adjust your camera angle"}
-        content={"Shooting will continue when the your rotation true."}
+        title={translate("warning.angle.title")}
+        content={translate("warning.angle.description")}
       />
     )
   }

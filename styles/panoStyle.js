@@ -48,7 +48,8 @@ export const panoStyle = {
     justifyContent: "space-between",
     position: "absolute",
     bottom: 0,
-    width: Dimensions.get("window").width
+    width: Dimensions.get("window").width,
+    height: RFValue(30)
   },
   report: {
     flexDirection: "row",

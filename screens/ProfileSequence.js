@@ -14,8 +14,10 @@ import {ActivityIndicator} from "react-native-paper";
 import {setGeoJson} from "../helper/geojson";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useTranslation} from "react-i18next";
 
 const UserSequence = ({ navigation, route }) => {
+  const {t} = useTranslation("profile");
   const [active, setActive] = useState("image");
   const [points, setPoints] = useState({});
   const [loading, setLoading] = useState(true);
@@ -35,8 +37,8 @@ const UserSequence = ({ navigation, route }) => {
   };
 
   const options = [
-    { label: "Image", value: "image", imageIcon: icons.image },
-    { label: "Map", value: "map", imageIcon: icons.map },
+    { label: t("image"), value: "image", imageIcon: icons.image },
+    { label: t("map"), value: "map", imageIcon: icons.map },
   ];
 
   useEffect(() => {

@@ -3,8 +3,10 @@ import { View, TouchableOpacity } from "react-native";
 import {CustomText, CustomTextBold} from "../../highordercomponents";
 import { marketplaceItemStyles } from "../../styles/marketplaceStyles";
 import {getEquipment} from "../../helper/marketplace";
+import {useTranslation} from "react-i18next";
 
 const ListItem = ({data, onClick}) => {
+  const {t} = useTranslation("marketplace")
   const {owner, marketplace_description, project_camera_type} = data
   const {icon, name} = getEquipment(project_camera_type);
 
@@ -19,7 +21,7 @@ const ListItem = ({data, onClick}) => {
         {marketplace_description}
       </CustomText>
       <CustomText style={marketplaceItemStyles.equipmentInfo}>
-        EQUIPMENT:
+        {t("equipment")}:
         {'\u00A0'}{icon}{'\u00A0'}
         <CustomText style={marketplaceItemStyles.equipment}>{name}</CustomText>
       </CustomText>

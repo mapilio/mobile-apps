@@ -21,6 +21,7 @@ import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {useTranslation} from "react-i18next";
 
 const UserProfile = ({navigation}) => {
   const {userInformation} = useSelector((state) => state.getTokenReducer);
@@ -128,6 +129,7 @@ const UserProfile = ({navigation}) => {
 
 const OrganizationSelector = ({items, onSelectItem}) => {
   const {userInformation} = useSelector((state) => state.getTokenReducer);
+  const {t} = useTranslation("profile");
   const [open, setOpen] = useState(false);
 
   const [value, setValue] = useState({
@@ -146,7 +148,7 @@ const OrganizationSelector = ({items, onSelectItem}) => {
         setValue={setValue}
         showArrowIcon={false}
         items={items}
-        placeholder={"Select organization"}
+        placeholder={t("select_organization")}
         closeAfterSelecting
         style={styles.dropdown}
         listItemLabelStyle={styles.listItemLabelStyle}
@@ -165,6 +167,7 @@ const OrganizationSelector = ({items, onSelectItem}) => {
 }
 
 const FeedList = ({data, navigation, selectedOrganization, loading, isLoadingData, onLoad}) => {
+  const {t} = useTranslation("profile");
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
     const paddingToBottom = 20;
     return (
@@ -195,15 +198,17 @@ const FeedList = ({data, navigation, selectedOrganization, loading, isLoadingDat
       ) : (
         <View style={styles.noFeedWrapper}>
           <CustomTextBold style={styles.noFeedTitle}>
-            No feed
+            {t("no_feed")}
           </CustomTextBold>
           <CustomText style={styles.noFeedDescription}>
-            There are no feeds to display. You can contribute by starting the catch now.
+            {t("no_feed_desc")}
           </CustomText>
           <TouchableOpacity
             style={marketplaceReceivedStyles.button}
             onPress={() => navigation.navigate("CameraTab")}>
-            <Text style={marketplaceReceivedStyles.startCapture}>Start Capture</Text>
+            <Text style={marketplaceReceivedStyles.startCapture}>
+              {t("start_capture")}
+            </Text>
           </TouchableOpacity>
         </View>
       )}

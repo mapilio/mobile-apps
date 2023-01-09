@@ -5,10 +5,13 @@ import {DeleteNavigationRight, SequenceDetailTitle, SequenceNavigatorLeft, Uploa
 import {navigatorStyle} from "../../styles/navigatorStyle";
 import React from "react";
 import {UploadCompleted, UserSequence, UserSequenceDetail} from "../../screens";
+import {useTranslation} from "react-i18next";
 
 const Stack = createStackNavigator()
 
 const UploadNavigator = () => {
+  const {t} = useTranslation("upload");
+
   return (
     <Stack.Navigator screenOptions={{
       headerShown: true,
@@ -19,7 +22,9 @@ const UploadNavigator = () => {
       headerTitleAlign: navigatorStyle.headerTitleAlign,
       headerLeft: false,
     }}>
-      <Stack.Screen name={Routes.upload} component={userUpload}/>
+      <Stack.Screen name={Routes.upload} component={userUpload} options={{
+        title: t("upload")
+      }}/>
 
       <Stack.Screen name={Routes.sequences} component={UserSequence} options={{
         headerLeft: (props) => (<SequenceNavigatorLeft{...props} route backRoute={Routes.upload}/>),

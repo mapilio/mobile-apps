@@ -18,3 +18,5 @@ export { default as SocialLogin } from "./SocialLogin";
 export { default as ProfileFeed } from "./ProfileFeed";
 export { default as FeedImageCard } from "./FeedImageCard";
 export { default as SearchbarSwipe } from "./SearchbarSwipe";
+export { default as Languages } from "./Languages";
+export { default as Panorama } from "./Panorama";

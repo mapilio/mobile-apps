@@ -2,14 +2,19 @@ import React from "react";
 import { View, Image } from "react-native";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
-import Info from "../assets/svg/illustrations/Info";
 import { Routes } from "../navigator/Routes";
 import { RFValue } from "react-native-responsive-fontsize";
 import { UPDATE_SELECTED_PROJECT } from "../store/actionsName";
 import { useDispatch } from "react-redux";
+import {Trans, useTranslation} from "react-i18next";
 
 const MarketplaceReady = ({ navigation, route }) => {
+  const {t} = useTranslation("marketplace")
   const dispatch = useDispatch();
+
+  const goToMarketPlace = () => (
+    <CustomText style={marketplaceReceivedStyles.link} onPress={() => navigation.navigate(Routes.marketplace)}/>
+  )
 
   return (
     <View style={marketplaceReceivedStyles.container}>
@@ -19,18 +24,11 @@ const MarketplaceReady = ({ navigation, route }) => {
         style={marketplaceReceivedStyles.image}
       />
       <CustomTextMedium style={marketplaceReceivedStyles.title}>
-        Mission Ready
+        {t("mission_ready")}
       </CustomTextMedium>
       <CustomText style={marketplaceReceivedStyles.description}>
-        You can learn which path to follow while catching from the information
-        section.
+        {t("mission_detail")}
       </CustomText>
-      {/* <View>
-        <CustomText>
-          <Info width={RFValue(12)} height={RFValue(12)} /> What do you need to
-          do?
-        </CustomText>
-      </View> */}
       <CustomText
         style={marketplaceReceivedStyles.button}
         onPress={() => {
@@ -44,20 +42,16 @@ const MarketplaceReady = ({ navigation, route }) => {
               id: route.params.data.id,
             },
           });
-          navigation.navigate(Routes.camera);
+          navigation.navigate(Routes.cameraTab);
         }}
       >
-        Start Capture
+        {t("start_capture")}
       </CustomText>
-      <CustomText style={marketplaceReceivedStyles.or}>or</CustomText>
-      <CustomText style={{ marginBottom: RFValue(30) }}>
-        back to the{" "}
-        <CustomText
-          style={marketplaceReceivedStyles.link}
-          onPress={() => navigation.navigate(Routes.marketplace)}
-        >
-          Marketplace.
-        </CustomText>
+      <CustomText style={marketplaceReceivedStyles.or}>
+        {t("or")}
+      </CustomText>
+      <CustomText style={{marginBottom: RFValue(30)}}>
+        <Trans t={t} i18nKey={"back_to_the"} components={[goToMarketPlace()]}/>
       </CustomText>
     </View>
   );

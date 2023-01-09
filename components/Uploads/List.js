@@ -1,18 +1,20 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import {View, TouchableOpacity, Alert, Text} from "react-native";
-import { userUploadStyles } from "../../styles/userUploadStyle";
-import { UserFeed } from "../index";
-import { NoUpload, Trash } from "../../assets/svg/illustrations";
-import { CustomText } from "../../highordercomponents";
-import { SwipeListView } from "react-native-swipe-list-view";
+import {userUploadStyles} from "../../styles/userUploadStyle";
+import {UserFeed} from "../index";
+import {NoUpload, Trash} from "../../assets/svg/illustrations";
+import {CustomText} from "../../highordercomponents";
+import {SwipeListView} from "react-native-swipe-list-view";
 import database from "../../db";
-import { useDispatch, useSelector } from "react-redux";
-import { UPLOAD_DATA } from "../../store/actionsName";
+import {useDispatch, useSelector} from "react-redux";
+import {UPLOAD_DATA} from "../../store/actionsName";
 import * as FileSystem from "expo-file-system";
-import { RFValue } from "react-native-responsive-fontsize";
+import {RFValue} from "react-native-responsive-fontsize";
+import {useTranslation} from "react-i18next";
 
 const List = ({ navigation }) => {
-  const { uploadData } = useSelector((status) => status.uploadReducer);
+  const {uploadData} = useSelector((status) => status.uploadReducer);
+  const {t} = useTranslation("upload");
   const dispatch = useDispatch();
 
   const deleteSequence = (sequence_uuid) => {
@@ -40,15 +42,15 @@ const List = ({ navigation }) => {
 
   const deleteRow = (sequence_uuid) => {
     Alert.alert(
-      "Are you sure?",
-      "Are you sure you want to delete this project",
+      t("are_you_sure"),
+      t("delete_message"),
       [
         {
-          text: "Yes",
+          text: t("yes"),
           onPress: () => deleteSequence(sequence_uuid)
         },
         {
-          text: "No",
+          text: t("no"),
         },
       ]
     );
@@ -91,7 +93,7 @@ const List = ({ navigation }) => {
           fontFamily: "Poppins-SemiBold"
         }}
       >
-        No footage found to upload
+        {t("no_data.title")}
       </Text>
       <CustomText
         style={{
@@ -101,8 +103,7 @@ const List = ({ navigation }) => {
           textAlign: "center",
         }}
       >
-        In order to upload, you need to shoot from the 'Capture' section. Your
-        footage will appear here.
+        {t("no_data.description")}
       </CustomText>
     </View>
   ) : (

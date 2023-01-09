@@ -9,8 +9,10 @@ import { useKeepAwake } from "expo-keep-awake";
 import { useSelector } from "react-redux";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {useTranslation} from "react-i18next";
 const UserUpload = ({ navigation }) => {
   const { uploadData } = useSelector((status) => status.uploadReducer);
+  const {t} = useTranslation("upload");
   const { bottom } = useSafeAreaInsets();
 
   useKeepAwake();
@@ -21,10 +23,10 @@ const UserUpload = ({ navigation }) => {
       {uploadData.length !== 0 && (
         <View style={userUploadStyles.container}>
           <CustomTextMedium style={globalStyles.screenTitle}>
-            Upload Photos
+            {t("title")}
           </CustomTextMedium>
           <CustomText style={globalStyles.screenDescription}>
-            You can upload images from here.
+            {t("subtitle")}
           </CustomText>
         </View>
       )}

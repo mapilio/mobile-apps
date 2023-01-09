@@ -16,9 +16,11 @@ import {useDispatch, useSelector} from "react-redux";
 import * as FileSystem from "expo-file-system";
 import UploadModal from "./UploadModal";
 import {useNavigation} from "@react-navigation/native";
+import {useTranslation} from "react-i18next";
 
 const Upload = ({sequence_uuid}) => {
   const dispatch = useDispatch();
+  const {t} = useTranslation("navigation");
   const {uploadData} = useSelector((state) => state.uploadReducer);
   const {connection} = useSelector((state) => state.generalReducer);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
@@ -43,7 +45,7 @@ const Upload = ({sequence_uuid}) => {
 
   const uploadHandler = () => {
     if (!connection.connectionStatus) {
-      toast.show('You do not have an active internet connection', {type: 'error'});
+      toast.show(t("have_not_connection"), {type: 'error'});
       return;
     }
 

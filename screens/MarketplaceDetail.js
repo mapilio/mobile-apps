@@ -26,7 +26,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
             },
           },
         }).then(() => {
-          navigation.navigate(Routes.MarketplaceReady, {
+          navigation.navigate(Routes.marketplaceReady, {
             data: route.params.data,
           });
         }).catch((err) => {

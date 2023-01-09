@@ -7,18 +7,20 @@ import Lottie from "lottie-react-native";
 import {percentage} from "../../helper/upload";
 import {CloseIcon} from "../../assets/svg/illustrations";
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, totalSize, handleStop}) => {
+  const {t} = useTranslation("upload_modal");
+
   return (
     <Modal animationType="slide" transparent={false} visible={visible}>
       <View style={userUploadModalStyles.container}>
         <View style={userUploadModalStyles.header}>
           <CustomTextBold style={userUploadModalStyles.title}>
-            Together We Create More Up-To-Date Maps
+            {t("title")}
           </CustomTextBold>
           <CustomText style={userUploadModalStyles.subtitle}>
-            You can shoot more and compete in the leaderboard to be the most contributing participant in your
-            region.
+            {t("subtitle")}
           </CustomText>
         </View>
         <View style={userUploadModalStyles.sequenceInfo}>
@@ -36,14 +38,18 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
           <View style={userUploadModalStyles.sequenceInfoSide}>
             <View style={{alignItems: "center"}}>
               <CustomTextBold style={userUploadModalStyles.sequenceInfoTextBold}>{sequenceLength}</CustomTextBold>
-              <CustomText style={userUploadModalStyles.sequenceInfoText}>Sequences</CustomText>
+              <CustomText style={userUploadModalStyles.sequenceInfoText}>
+                {t("sequences")}
+              </CustomText>
             </View>
             <View style={userUploadModalStyles.separator}/>
             <View style={{alignItems: "center"}}>
               <CustomTextBold style={userUploadModalStyles.sequenceInfoTextBold}>
                 {totalImageCount - sentCount}
               </CustomTextBold>
-              <CustomText style={userUploadModalStyles.sequenceInfoText}>Images</CustomText>
+              <CustomText style={userUploadModalStyles.sequenceInfoText}>
+                {t("images")}
+              </CustomText>
             </View>
           </View>
         </View>
@@ -57,7 +63,7 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
           />
 
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: RFValue(10)}}>
-            <CustomTextBold style={{fontSize: RFValue(16)}}>{totalImageCount} images</CustomTextBold>
+            <CustomTextBold style={{fontSize: RFValue(16)}}>{totalImageCount} {t("images")}</CustomTextBold>
             <CustomText style={{fontSize: RFValue(16)}}> / {totalSize}MB</CustomText>
           </View>
         </View>

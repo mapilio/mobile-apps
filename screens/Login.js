@@ -14,20 +14,23 @@ import SafeAreaView from "react-native-safe-area-view";
 import {MapilioLogoBeta} from "../assets/svg/logos";
 import {fetchLogin} from "../helper/user";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {useTranslation} from "react-i18next";
+import {LanguageModal} from "../components/Login";
 
-const loginValidationSchema = yup.object().shape({
-	email: yup.string()
-		.email("You have entered an invalid username and password")
-		.required("Email Address is Required"),
-	password: yup.string().required("Password is required"),
-});
+
 
 const Login = ({navigation}) => {
+	const {t} = useTranslation("login");
 	const [securePassword, setSecurePassword] = useState(true);
 	const [toggleEye, setToggleEye] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	const {control, handleSubmit, formState: {errors, isSubmitting}} = useForm({
+	const loginValidationSchema = yup.object().shape({
+		email: yup.string().email('please_enter_valid_email').required('email_required',),
+		password: yup.string().required('password_required'),
+	});
+
+	const {control, handleSubmit, formState: {errors: {email: emailError, password: passwordError}}} = useForm({
 		defaultValues: {email: '', password: ''},
 		resolver: yupResolver(loginValidationSchema),
 	});
@@ -47,44 +50,44 @@ const Login = ({navigation}) => {
 			<FocusAwareStatusBar barStyle="light-content"  backgroundColor={"#130C47"}/>
 			<View>
 				<View style={loginStyles.logo}>
-					<MapilioLogoBeta width={RFValue(248)} height={RFValue(50)}/>
+					<MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>
 				</View>
 
 				<View style={{marginBottom: RFValue(30)}}>
 					<CustomText style={loginStyles.headerText}>
-						Sign in to see what's on your map.
+						{t("title")}
 					</CustomText>
 				</View>
 
 				<Controller name={"email"} control={control} render={({field: {onChange, onBlur, value}}) => (
 					<View style={loginStyles.formGroup}>
-						{errors.email && <CustomText style={loginStyles.errorText}>{errors.email.message} </CustomText>}
+						{emailError && <CustomText style={loginStyles.errorText}>{t(emailError.message, {ns: 'form'})} </CustomText>}
 						<TextInput
 							name="email"
-							placeholder="Email or Username"
+							placeholder={t("email_username")}
 							onChangeText={onChange}
 							onBlur={onBlur}
 							value={value}
 							keyboardType="email-address"
 							autoCapitalize="none"
-							style={errors.email ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
+							style={emailError ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
 						/>
 					</View>
 				)}/>
 
 				<Controller name={"password"} control={control} render={({field: {onChange, onBlur, value}}) => (
 					<View style={loginStyles.formGroup}>
-						{errors.password && <CustomText style={loginStyles.errorText}>{errors.password.message}</CustomText>}
+						{passwordError && <CustomText style={loginStyles.errorText}>{t(passwordError.message, {ns: "form"})}</CustomText>}
 						<TextInput
 							name="password"
-							placeholder="Password"
+							placeholder={t("password")}
 							onChangeText={(e) => {
 								setToggleEye(!!e.length)
 								onChange(e)
 							}}
 							onBlur={onBlur}
 							value={value}
-							style={errors.password ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
+							style={passwordError ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
 							secureTextEntry={securePassword}
 						/>
 						<TouchableOpacity
@@ -103,19 +106,20 @@ const Login = ({navigation}) => {
 					disabled={loading}
 				>
 					<CustomText style={{...loginStyles.secondaryText, color: "#fff"}}>
-						{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : "Log In"}
+						{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : t("login")}
 					</CustomText>
 				</TouchableOpacity>
 				<CustomText
 					onPress={() => navigation.navigate(Routes.forgotPassword)}
 					style={{...loginStyles.privacyText, marginVertical: RFValue(21)}}
 				>
-					Forgot your password?
+					{t("forgot_password")}
 				</CustomText>
 
 				<SocialLogin navigation={navigation}/>
-
 			</View>
+
+			<LanguageModal />
 		</SafeAreaView>
 	);
 };

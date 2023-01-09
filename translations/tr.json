@@ -1,0 +1,228 @@
+{
+  "tab": {
+    "map": "Harita",
+    "market": "Market",
+    "capture": "Başla",
+    "upload": "Çekimler",
+    "leader": "Liderler"
+  },
+  "navigation": {
+    "back": "Geri",
+    "are_you_sure": "Emin misin?",
+    "delete_photo": "Bu fotoğrafı silmek istediğinizden emin misiniz?",
+    "yes": "Evet",
+    "no": "Hayır",
+    "delete_error": "Silinirken bir sorun oluştu! Tekrar deneyin.",
+    "delete": "Sil",
+    "have_not_connection": "Aktif bir internet bağlantınız yok.",
+    "profile": "Profil",
+    "profile_edit": "Profil Düzenleme",
+    "your_uploads": "Yüklemelerin",
+    "upload_detail": "Yükeleme Detay",
+    "sign_up": "Kayıt ol",
+    "sign_in": "Giriş yap"
+  },
+  "search": {
+    "no_results": "Sonuç bulunamadı",
+    "another_search": "Lütfen başka bir arama yapın."
+  },
+  "marketplace": {
+    "marketplace": "Market",
+    "market_list": "Market Listesi",
+    "equipment": "EKİPMAN",
+    "apply_project": "Bu projeye başvur",
+    "mission_ready": "Göreve Hazır",
+    "mission_detail": "Çekim yaparken hangi yolu izlemeniz gerektiğini bilgi kısmından öğrenebilirsiniz.",
+    "start_capture": "Çekimi Başlat",
+    "or": "yada",
+    "back_to_the": "<0>Market</0>'e dön",
+    "far_location": "Konumunuz proje alanından çok uzakta",
+    "tooltip": "İhtiyaç duyulan yerlerde yeni harita verileri oluşturmak için görüntü toplama ve veri doğrulama projelerinde yardımda bulun veya sunun."
+  },
+  "profile_settings": {
+    "profile_edit": "Profil Düzenleme",
+    "licences": "Lisanslar",
+    "terms_and_conditions": "Şartlar & Koşullar",
+    "privacy": "Gizlilik Politikası",
+    "about": "Hakkında",
+    "change_language": "Dili değiştir",
+    "mapilio": "mapilio",
+    "version": "V 1.0.2",
+    "sign_out": "Oturumu Kapat"
+  },
+  "profile_edit": {
+    "username": "Kullanıcı adı",
+    "name": "İsim",
+    "bio": "Bio",
+    "save": "Kaydet"
+  },
+  "upload_complete": {
+    "title": "Yükleme Tamamlandı",
+    "description": "Verileriniz işleniyor... Resimleriniz Mapilio'da yayınlandığında e-posta ile bilgilendirileceksiniz.",
+    "go_to_map": "Haritaya Git"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "Sokak seviyesinde",
+      "subtitle": "Çekim yap",
+      "description": "Akıllı telefonunuz, aksiyon kameranız veya 360 derecelik kameranızla görüntü yakalayın."
+    },
+    "second": {
+      "title": "Çekimleri Yükle",
+      "subtitle": "Katkı yap",
+      "description": "Çektiğiniz resimleri mapilio sistemine yükleyin."
+    },
+    "third": {
+      "title": "Görevleri tamamla",
+      "subtitle": "Hediyeler kazan",
+      "description": "Katkıda bulunduğunuz görevler aracılığıyla hediyeler kazanma şansı yakalayın."
+    }
+  },
+  "camera": {
+    "title": "Çekim başladı",
+    "description": "Bu arada kameranızın açısının doğru ve sabit olduğundan emin olun.",
+    "safe_mode": "Güç tasarrufu modu",
+    "advanced": "Gelişmiş",
+    "getting_ready": "Kamera hazırlanıyor. Lütfen bekle.",
+    "warning": {
+      "battery": {
+        "title": "Pil seviyesi düşük",
+        "description": "Şarjınız %20'nin altında olduğu için GPS doğruluğu azalacaktır. Bu durumda çekim yapılamaz."
+      },
+      "mocked": {
+        "title": "Sahte GPS",
+        "description": "Sahte GPS kullanımı tespit edildi, devam etmek için lütfen cihazın GPS konumunu kullanın!"
+      },
+      "speed": {
+        "title": "Yüksek hız",
+        "description": "Yüksek hız sınırını aştınız. Hassasiyet için hızınız maksimum 70km/s olmalıdır."
+      },
+      "bad_gps": {
+        "title": "GPS doğruluğu çok düşük",
+        "description": "GPS uyarı simgesi yeşile döndüğünde çekim devam edecektir."
+      },
+      "gps": {
+        "title": "GPS Aranıyor",
+        "description": "Lütfen GPS'in yakalayacağı açık alanda olun. Bu işlem 30 saniye kadar sürebilir."
+      },
+      "angle": {
+        "title": "Kamera açınızı ayarlayın",
+        "description": "Rotasyonunuz doğru olduğunda çekim devam edecektir."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Yola odaklan",
+      "description": "Ekrana dokunarak odağı yol olarak ayarlayın."
+    },
+    "second": {
+      "title": "Temiz Görüntü",
+      "description": "Araç kaportasının ve diğer nesnelerin resimde görünmediğinden emin olun."
+    },
+    "third": {
+      "title": "Kamera Yönü",
+      "description": "Görüntüyü yere paralel olarak kaydetmek için kameranın konumunu ayarlayın."
+    }
+  },
+  "camera_settings": {
+    "general_settings": "Genel ayarlar",
+    "capture_settings": "Çekim ayarları",
+    "distance_between": "Çekimler arasındaki mesafe",
+    "camera_settings": "Kamera Ayarları",
+    "remaining_images": "Yakalanan görüntüler / Kalan görüntüler",
+    "battery_level": "Pil seviyesi"
+  },
+  "upload": {
+    "upload": "Çekimler",
+    "no_data": {
+      "title": "Yüklenecek görüntü bulunamadı",
+      "description": "Yüklemek için 'Başla' bölümünden çekim yapmanız gerekmektedir. Çekiminiz burada görünecek."
+    },
+    "title": "Fotoğrafları yükle",
+    "subtitle": "Resimleri buradan yükleyebilirsiniz.",
+    "image_count": "{{count}} resim",
+    "are_you_sure": "Emin misin?",
+    "delete_message": "Bu projeyi silmek istediğinizden emin misiniz?",
+    "yes": "Evet",
+    "no": "Hayır"
+  },
+  "profile": {
+    "individual_account": "Bireysel hesap",
+    "organization_account": "Kuruluş Hesabı",
+    "no_feed": "Yükleme yok",
+    "no_feed_desc": "Görüntülenecek yayın yok. Şimdi çekime başlayarak katkıda bulunabilirsiniz.",
+    "start_capture": "Çekime başla",
+    "select_organization": "Kuruluş seç",
+    "images": "resim",
+    "uploaded": "Sıraya Eklendi",
+    "completed": "Tamamlandı",
+    "sequences": "Dizi",
+    "photos": "Resim",
+    "uploaded_title": "Yüklediğiniz resimler",
+    "uploaded_subtitle": "Burada yüklenen resimleri görebilirsiniz.",
+    "image": "Resimler",
+    "map": "Harita"
+  },
+  "login": {
+    "title": "Haritanızda neler olduğunu görmek için oturum açın.",
+    "email_username": "E-posta ya da kullanıcı adı",
+    "password": "Parola",
+    "login": "Giriş yap",
+    "forgot_password": "Parolanızı mı unuttunuz?",
+    "languages": "Diller"
+  },
+  "register": {
+    "title": "Haritanızda neler olduğunu görmek için kaydolun.",
+    "name": "İsim",
+    "email": "E-posta Adresi",
+    "password": "Parola",
+    "signup": "Kaydol",
+    "name_required": "İsim gerekli",
+    "email_required": "E-posta adresi gerekli",
+    "email_not_valid": "Lütfen geçerli bir e-posta girin",
+    "pass_min_character": "Şifre en az {{min}} karakter olmalıdır",
+    "account_created": "Hesabınız oluşturuldu, e-posta adresinizi kontrol edin.",
+    "redirect_error": "Yönlendirme sırasında bir hata oluştu, lütfen tekrar deneyin.",
+    "policy" : "\"Kaydol\" düğmesini tıklayarak <0>Gizlilik politikamızı</0> kabul etmiş olursunuz."
+  },
+  "forgot": {
+    "title": "Parolanızı mı unuttunuz?",
+    "description": "Mapilio hesabınızla ilişkili e-postanızı girin. Parolanızı sıfırlamanız için size bir bağlantı göndereceğiz.",
+    "email": "E-posta Adresi",
+    "reset_link": "Sıfırlama Bağlantısı Gönder",
+    "reset_success": "Sıfırlama talebi e-posta adresine gönderildi."
+  },
+  "leaderboard": {
+    "title": "Liderler Sıralaması",
+    "description": "Mapilio'nun büyümesine yardımcı olan en iyi 50 topluluk üyesi!",
+    "users": "Kullanıcılar",
+    "organizations": "Organizasyonlar",
+    "fetch_error": "Skor Tablosu getirilirken bir sorun oluştu. Lütfen tekrar deneyin."
+  },
+  "upload_modal": {
+    "title": "Birlikte Daha Güncel Haritalar Oluşturuyoruz",
+    "subtitle": "Bölgenizde en çok katkıda bulunan katılımcı olmak için daha fazla çekim yapabilir ve skor tablosunda rekabet edebilirsiniz.",
+    "sequences": "Dizi",
+    "images": "Resim"
+  },
+  "no_internet": {
+    "title": "İnternet bağlantınız yok",
+    "description": "İnternet bağlantınız yok. Hücresel verinizin veya kablosuz ağınızın açık olduğundan emin olun."
+  },
+  "form": {
+    "email_required": "E-posta Adresi Gerekli",
+    "please_enter_valid_email": "Lütfen geçerli bir e-posta girin",
+    "password_required": "Şifre gereklidir"
+  },
+  "languages": {
+    "tr": "Türkçe",
+    "en": "İngilizce",
+    "ch": "Çince",
+    "fr": "Fransızca",
+    "de": "Almanca",
+    "it": "İtalyanca",
+    "pr": "Portekizce",
+    "es": "İspanyolca"
+  }
+}

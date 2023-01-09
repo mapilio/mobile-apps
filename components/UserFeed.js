@@ -7,9 +7,11 @@ import {useDispatch} from "react-redux";
 import { ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES } from "../store/actionsName";
 import { dateConvert } from "../helper/helper";
 import * as FileSystem from "expo-file-system";
+import {useTranslation} from "react-i18next";
 
 const UserFeed = ({navigation, data}) => {
   const dispatch = useDispatch();
+  const {t} = useTranslation("upload");
 
   return (
     <TouchableOpacity
@@ -25,11 +27,11 @@ const UserFeed = ({navigation, data}) => {
         <CustomTextBold style={userFeedStyles.dateStyle}>
           {dateConvert(
             JSON.parse(data.exif).DateTime || JSON.parse(data.exif).DateTimeOriginal,
-            "MMM D, YYYY - H:mm"
+            "DD MM YYYY - H:mm"
           )}
         </CustomTextBold>
         <CustomText style={userFeedStyles.descriptionStyle}>
-          {data.count} images
+          {t("image_count", {count: data.count})}
         </CustomText>
       </View>
       <View>

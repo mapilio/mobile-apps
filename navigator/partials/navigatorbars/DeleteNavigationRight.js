@@ -9,8 +9,11 @@ import {Trash} from "../../../assets/svg/illustrations";
 import {useNavigation} from "@react-navigation/native";
 import {Routes} from "../../Routes";
 import {UPLOAD_DATA} from "../../../store/actionsName";
+import {useTranslation} from "react-i18next";
 
 const DeleteNavigationRight = () => {
+  const {t} = useTranslation("navigation");
+
   const { rank } = useSelector((state) => state.uploadReducer);
   const { activeSequence } = useSelector((state) => state.uploadReducer);
   const dispatch = useDispatch();
@@ -21,11 +24,11 @@ const DeleteNavigationRight = () => {
       <TouchableOpacity
         onPress={() => {
           Alert.alert(
-            "Are you sure?",
-            "Are you sure you want to delete this photo",
+            t("are_you_sure"),
+            t("delete_photo"),
             [
               {
-                text: "Yes",
+                text: t("yes"),
                 onPress: () => {
                   try {
                     db.query(`SELECT id, path FROM captures WHERE id=${rank.id}`, (_, result) => {
@@ -44,23 +47,23 @@ const DeleteNavigationRight = () => {
                           })
                         }
                       ).catch(() => {
-                        toast.show("There was a problem while deleting! Try Again.", {type: "error"})
+                        toast.show(t("delete_error"), {type: "error"})
                       })
                     });
                   } catch (e) {
-                    toast.show("There was a problem while deleting! Try Again.", {type: "error"})
+                    toast.show(t("delete_error"), {type: "error"})
                   }
                 },
               },
               {
-                text: "No",
+                text: t("no"),
               },
             ]
           );
         }}
       >
         <CustomText style={deleteRight.text}>
-          <Trash width={16.56} height={20.32} /> Delete
+          <Trash width={16.56} height={20.32} /> {t("delete")}
         </CustomText>
       </TouchableOpacity>
     </View>

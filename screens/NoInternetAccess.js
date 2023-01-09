@@ -5,10 +5,12 @@ import { useSelector } from "react-redux";
 import { NoInternetAccessIcon } from "../assets/svg/illustrations";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { Routes } from "../navigator/Routes";
+import {useTranslation} from "react-i18next";
 
 const NoInternetAccess = ({navigation}) => {
   const {connection} = useSelector((state) => state.generalReducer);
   const {auth} = useSelector((state) => state.getTokenReducer);
+  const {t} = useTranslation("no_internet");
 
   useEffect(() => {
     if (!connection.connectionStatus) return;
@@ -41,7 +43,7 @@ const NoInternetAccess = ({navigation}) => {
             textAlign: "center",
           }}
         >
-          You do not have an internet connection
+          {t("title")}
         </CustomTextMedium>
         <CustomText
           lineCount={10}
@@ -51,8 +53,7 @@ const NoInternetAccess = ({navigation}) => {
             color: "#FFFFFF",
           }}
         >
-          You do not have an internet connection. Make sure your mobile celluar
-          or wifi is turned on.
+          {t("description")}
         </CustomText>
       </View>
     </View>

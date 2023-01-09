@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import {CleanRoad, Orientation, Road} from "../assets/svg/illustrations";
 import {IS_ACTIVE} from "../store/actionsName";
 import {RFValue} from "react-native-responsive-fontsize";
+import {useTranslation} from "react-i18next";
 
 const width = Dimensions.get("window").width;
 
@@ -23,6 +24,7 @@ const _renderItem = ({ item, i }) => {
 
 const Walkthrough = () => {
   const [modalVisible, setModalVisible] = useState(true);
+  const {t} = useTranslation("camera_walkthrough");
   const carouselRef = useRef();
   const dispatch = useDispatch();
   const [active, setActive] = useState(0);
@@ -31,24 +33,24 @@ const Walkthrough = () => {
       src: <Road/>,
       width: RFValue(74),
       height: RFValue(93),
-      title: "Focus the Road",
-      desc: "Set the focus as the path by touching the screen.",
+      title: t("first.title"),
+      desc: t("first.description"),
       mode: false,
     },
     {
       src: <CleanRoad/>,
       width: RFValue(78),
       height: RFValue(83),
-      title: "Clean Image",
-      desc: "Make sure that the vehicle hood and other objects are not visible in the image.",
+      title: t("second.title"),
+      desc: t("second.description"),
       mode: false,
     },
     {
       src: <Orientation/>,
       width: RFValue(199),
       height: RFValue(25),
-      title: "Camera Direction",
-      desc: "Adjust the position of the camera to record the image parallel to the ground.",
+      title: t("third.title"),
+      desc: t("third.description"),
       mode: false,
     },
   ];

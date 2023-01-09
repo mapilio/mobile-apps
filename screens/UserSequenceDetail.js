@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  Image,
-  View,
-  ScrollView,
-} from "react-native";
+import {Dimensions, View, ScrollView} from "react-native";
 import { sequenceDetailStyles } from "../styles/userSequenceStyle";
 import { styles } from "../styles/circleStyles";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
@@ -17,6 +12,8 @@ import { RANK } from "../store/actionsName";
 import {Heading} from "../components/Map";
 import {setGeoJson} from "../helper/geojson";
 import * as FileSystem from "expo-file-system";
+import {Panorama} from "../components";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const UserSequenceDetail = ({ navigation, route }) => {
   const [lines, setLines] = useState({});
@@ -26,8 +23,10 @@ const UserSequenceDetail = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [currentImage, setCurrentImage] = useState(null);
   const {activeSequence, sequenceImages} = useSelector((state) => state.uploadReducer);
-  const screenHeight = Dimensions.get("window").height - RFValue(110);
   const {rank} = useSelector((state) => state.uploadReducer)
+  const {bottom} = useSafeAreaInsets();
+  const {height} = Dimensions.get("screen")
+  const image = currentImage ? currentImage : `${route.params.path}`
 
   useEffect(() => navigation.addListener("blur", () => setClickedPoint(null)), [navigation]);
 
@@ -65,21 +64,11 @@ const UserSequenceDetail = ({ navigation, route }) => {
     getCoordinates();
   }, [activeSequence, route.params]);
 
+
   return (
     <View>
       <ScrollView style={sequenceDetailStyles.imageArea}>
-        <Image
-          source={{
-            width: RFValue(200),
-            height: RFValue(78),
-            uri: currentImage ? currentImage : `${route.params.path}`,
-          }}
-          resizeMode={"cover"}
-          style={{
-            ...sequenceDetailStyles.image,
-            height: screenHeight / 2,
-          }}
-        />
+        <Panorama image={image} height={(height - RFValue(63) - bottom) / 2}/>
       </ScrollView>
 
       <MapView
