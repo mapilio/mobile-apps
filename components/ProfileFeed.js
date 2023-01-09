@@ -8,17 +8,12 @@ import { useSelector } from "react-redux";
 import Config from "react-native-config";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {RFValue} from "react-native-responsive-fontsize";
+import {useTranslation} from "react-i18next";
 
-const ProfileFeed = ({
-  navigation,
-  data,
-  selectedOrganization,
-  organizationKey,
-}) => {
+const ProfileFeed = ({navigation, data, selectedOrganization, organizationKey}) => {
+  const {t} = useTranslation("profile");
   const { userInformation } = useSelector((state) => state.getTokenReducer);
   const [imageLoading, setImageLoading] = useState(true);
-
-  const statusName = (status) => status ? status.replace('uploaded', 'added queue') : 'failed'
 
   return (
     <TouchableOpacity
@@ -38,10 +33,10 @@ const ProfileFeed = ({
           {moment(data.created_at).format("DD-MM-YYYY")}
         </CustomTextBold>
         <CustomText style={userFeedStyles.descriptionStyle}>
-          {data.total_images} images
+          {data.total_images} {t("images")}
         </CustomText>
         <CustomText style={userFeedStyles.statusStyle}>
-          {statusName(data.last_status)}
+          {t(data.last_status)}
         </CustomText>
       </View>
       <View style={{height: RFValue(70)}}>

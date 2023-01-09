@@ -14,8 +14,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {IS_ACTIVE, UPDATE_UUID} from "../store/actionsName";
 import * as Brightness from "expo-brightness";
 import {exitCapture} from "../helper/camera";
+import {useTranslation} from "react-i18next";
 
 const CapturedComponent = ({navigation, setLowBrightness}) => {
+  const {t} = useTranslation("camera");
   const permissionsGranted = useRef(false);
 
   const lowLightHandler = () => {
@@ -39,15 +41,16 @@ const CapturedComponent = ({navigation, setLowBrightness}) => {
 
   return (
     <View>
-      <CustomTextBold style={styles.title}>{texts.title}</CustomTextBold>
-      <CustomText style={styles.description}>{texts.description}</CustomText>
+      <CustomTextBold style={styles.title}>{t("title")}</CustomTextBold>
+      <CustomText style={styles.description}>{t("description")}</CustomText>
       <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
-      <CustomTextBold style={styles.safeMode} onPress={lowLightHandler}>{texts.safeMode}</CustomTextBold>
+      <CustomTextBold style={styles.safeMode} onPress={lowLightHandler}>{t("safe_mode")}</CustomTextBold>
     </View>
   )
 }
 
 const CaptureComponent = ({navigation, exitHandler}) => {
+  const {t} = useTranslation("camera");
   const dispatch = useDispatch();
 
   const changeRoute = (route) => {
@@ -71,7 +74,7 @@ const CaptureComponent = ({navigation, exitHandler}) => {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => changeRoute(Routes.cameraSettings)}>
-        <CustomText style={styles.advanced}>{texts.advanced}</CustomText>
+        <CustomText style={styles.advanced}>{t("advanced")}</CustomText>
       </TouchableOpacity>
 
       <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
@@ -143,12 +146,5 @@ const styles = StyleSheet.create({
     fontSize: RFValue(14),
   }
 })
-
-const texts = {
-  title: 'Capture has started',
-  description: 'In the meantime, make sure that the angle of your camera is correct and stable.',
-  safeMode: 'Power safe mode',
-  advanced: 'Advanced',
-}
 
 export default CameraSidebar;

@@ -14,8 +14,11 @@ import {getEquipment, isNear} from "../../helper/marketplace";
 import {Routes} from "../../navigator/Routes";
 import {setGeoJson} from "../../helper/geojson";
 import {fetchHandler} from "../../helper/helper";
+import {useTranslation} from "react-i18next";
+import Config from "react-native-config";
 
 const Detail = ({project, onClose, setOnScroll, navigation}) => {
+  const {t} = useTranslation("marketplace");
   useEffect(() => setOnScroll(false), []);
 
   const {properties: {id, owner, marketplace_name, marketplace_description, project_camera_type}, geometry} = project
@@ -27,20 +30,20 @@ const Detail = ({project, onClose, setOnScroll, navigation}) => {
     }else{
       const polygon = setGeoJson(geometry.coordinates, "polygon")
       const targetPoint = centroid(polygon);
-  
+
       isNear(targetPoint).then((distance) => {
         if (distance > 5) {
-          toast.show('Your location is too far from the project area.', {type: 'error'})
+          toast.show(`${t("far_location")}.`, {type: 'error'})
         } else {
           fetchHandler({
             url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
             method: "POST",
             data: {options: {parameters: {id: id}}},
           }).then(() => {
-            navigation.navigate(Routes.MarketplaceReady, {data: project.properties,});
+            navigation.navigate(Routes.marketplaceReady, {data: project.properties,});
           }).catch(err => toast.show(`${err.response.data.message}`, {type: 'error'}))
         }
-      }).catch((err) => toast.show(`${err}`, {type: 'error'}))
+      }).catch((err) => toast.show(`${err.message || err}`, {type: 'error'}))
     }
   }
 
@@ -57,14 +60,14 @@ const Detail = ({project, onClose, setOnScroll, navigation}) => {
       <CustomTextBold style={marketplaceDetailStyles.owner}>{owner}</CustomTextBold>
       <CustomText style={marketplaceDetailStyles.description}>{marketplace_description}</CustomText>
 
-      <CustomText style={marketplaceDetailStyles.equipmentInfo}>EQUIPMENT :
+      <CustomText style={marketplaceDetailStyles.equipmentInfo}>{t("equipment")} :
         {'\u00A0'}{getEquipment(project_camera_type).icon}{'\u00A0'}
         <CustomTextBold style={marketplaceDetailStyles.equipment}>{getEquipment(project_camera_type).name}</CustomTextBold>
       </CustomText>
 
       <TouchableOpacity style={marketplaceDetailStyles.button} onPress={acceptProject}>
         <CustomText style={marketplaceDetailStyles.buttonText}>
-          Apply to this project
+          {t("apply_project")}
         </CustomText>
       </TouchableOpacity>
     </View>
@@ -73,6 +76,7 @@ const Detail = ({project, onClose, setOnScroll, navigation}) => {
 
 const Projects = ({slidePanel, setOnScroll, onSelectedItem, navigation}) => {
   const dispatch = useDispatch();
+  const {t} = useTranslation("marketplace");
   const {marketplaceData} = useSelector((status) => status.marketplaceReducer);
 
   const handleItemClick = (clickedItem) => {
@@ -94,7 +98,7 @@ const Projects = ({slidePanel, setOnScroll, onSelectedItem, navigation}) => {
       <View style={marketplaceStyles.listHeader} onTouchStart={() => setOnScroll(false)}>
         <Marketplace width={RFValue(25)} height={RFValue(25)} color={'#3F8BE9'} style={{marginRight: 10}}/>
         <CustomText style={marketplaceStyles.title}>
-          Marketplace
+          {t("marketplace")}
         </CustomText>
         <MarketplacePopover/>
       </View>

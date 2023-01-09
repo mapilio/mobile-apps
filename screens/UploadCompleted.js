@@ -6,10 +6,12 @@ import {TouchableOpacity, View} from "react-native";
 import Lottie from "lottie-react-native";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import {UploadCompletedSvg} from "../assets/svg/illustrations";
+import {useTranslation} from "react-i18next";
 
 const UploadCompleted = () => {
   const navigation = useNavigation();
   const {bottom} = useSafeAreaInsets();
+  const {t} = useTranslation("upload_complete");
 
   useEffect(() => {
     navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
@@ -38,9 +40,11 @@ const UploadCompleted = () => {
         </View>
 
         <View style={{alignItems: "center"}}>
-          <CustomTextBold style={{fontSize: RFValue(14)}}>Upload Completed</CustomTextBold>
+          <CustomTextBold style={{fontSize: RFValue(14)}}>
+            {t("title")}
+          </CustomTextBold>
           <CustomText style={{textAlign: "center", marginTop: RFValue(10)}}>
-            Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.
+            {t("description")}
           </CustomText>
         </View>
       </View>
@@ -61,7 +65,9 @@ const UploadCompleted = () => {
         <CustomText style={{
           color: "#3F8BE9",
           fontSize: RFValue(16)
-        }}>Go To Map</CustomText>
+        }}>
+          {t("go_to_map")}
+        </CustomText>
       </TouchableOpacity>
     </View>
   )

@@ -20,23 +20,21 @@ import {globalStyles} from "../styles/globalStyles";
 import SafeAreaView from "react-native-safe-area-view";
 import {MapilioLogoBeta} from "../assets/svg/logos";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {Trans, useTranslation} from "react-i18next";
 
-const registerValidationSchema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  email: yup
-    .string()
-    .email("Please enter valid email")
-    .required("Email Address is Required"),
-  password: yup
-    .string()
-    .min(8, ({ min }) => `Password must be at least ${min} characters`)
-    .required("Password is required"),
-});
+
 
 const Register = ({ navigation }) => {
+  const {t} = useTranslation("register");
   const [securePassword, setSecurePassword] = useState(true);
   const [toggleEye, setToggleEye] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const registerValidationSchema = yup.object().shape({
+    name: yup.string().required(t("name_required")),
+    email: yup.string().email(t("email_not_valid")).required(t("email_required")),
+    password: yup.string().min(8, ({min}) => t("pass_min_character", {min})).required("Password is required"),
+  });
 
   const register = (values) => {
     setLoading(true)
@@ -54,7 +52,7 @@ const Register = ({ navigation }) => {
       },
     }).then(() => {
       navigation.reset({index: 0, routes: [{name: Routes.login}]})
-      toast.show(`Your account has been created, check your e-mail address.`, {type: "success"})
+      toast.show(t("account_created"), {type: "success"})
     }).catch((err) => {
       Object.values(err.response.data).map((item, _i) => {
         toast.show(`${item[0]}`, {type: "error"})
@@ -64,11 +62,11 @@ const Register = ({ navigation }) => {
 
   const redirectBrowser = () => {
     Linking.openURL("https://mapilio.com/privacy").catch(() => {
-      toast.show(`An error occurred while redirecting, please try again.`, {type: "error"})
+      toast.show(t("redirect_error"), {type: "error"})
     });
   };
 
-  const {control, handleSubmit, formState: {errors, isSubmitting}} = useForm({
+  const {control, handleSubmit, formState: {errors}} = useForm({
     defaultValues: {name: '', email: '', password: ''},
     resolver: yupResolver(registerValidationSchema),
   });
@@ -79,11 +77,11 @@ const Register = ({ navigation }) => {
 			<FocusAwareStatusBar barStyle="light-content" backgroundColor={"#130C47"}/>
       <View>
         <View style={loginStyles.logo}>
-          <MapilioLogoBeta width={RFValue(248)} height={RFValue(50)}/>
+          <MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>
         </View>
         <View style={{marginBottom: RFValue(30)}}>
           <CustomText style={loginStyles.headerText}>
-            Sign up to see what's on your map.
+            {t("title")}
           </CustomText>
         </View>
 
@@ -92,7 +90,7 @@ const Register = ({ navigation }) => {
             {errors.name && <CustomText style={loginStyles.errorText}>{errors.name.message}</CustomText>}
             <TextInput
               name="name"
-              placeholder="Name"
+              placeholder={t("name")}
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
@@ -106,7 +104,7 @@ const Register = ({ navigation }) => {
             {errors.email && <CustomText style={loginStyles.errorText}>{errors.email.message}</CustomText>}
             <TextInput
               name="email"
-              placeholder="Email Address"
+              placeholder={t("email")}
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
@@ -123,7 +121,7 @@ const Register = ({ navigation }) => {
 
               <TextInput
                 name="password"
-                placeholder="Password"
+                placeholder={t("password")}
                 onChangeText={(e) => {
                   setToggleEye(!!e.length)
                   onChange(e)
@@ -151,7 +149,7 @@ const Register = ({ navigation }) => {
           <CustomText
             style={{ ...loginStyles.secondaryText, color: "#fff" }}
           >
-            {loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : "Sign up"}
+            {loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : t("signup")}
           </CustomText>
         </TouchableOpacity>
         <View style={{marginTop: RFValue(21)}}>
@@ -159,11 +157,13 @@ const Register = ({ navigation }) => {
         </View>
       </View>
       <View style={loginStyles.policy}>
+
         <CustomText style={loginStyles.privacyText}>
-          By clicking "Sign up" button you agree with our
-        </CustomText>
-        <CustomText style={loginStyles.link} onPress={redirectBrowser}>
-          Privacy policy
+          <Trans
+            t={t}
+            i18nKey={"policy"}
+            components={[<CustomText style={loginStyles.link} onPress={redirectBrowser}/>]}
+          />
         </CustomText>
       </View>
 

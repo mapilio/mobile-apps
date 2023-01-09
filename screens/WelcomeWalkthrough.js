@@ -1,54 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { Dimensions, View, Image } from "react-native";
-import Carousel, { Pagination } from "react-native-snap-carousel";
-import { StreetLevel, UploadCapture } from "../assets/svg/illustrations";
-import {
-  Next,
-  Start,
-} from "../components/Walkthrough/WelcomeWalkthrough";
-import { UPDATE_WELCOME_WALKTHROUGH_STATUS } from "../store/actionsName";
-import { RFValue } from "react-native-responsive-fontsize";
-import { CustomText, CustomTextBold } from "../highordercomponents";
-import { useDispatch, useSelector } from "react-redux";
-import { Routes } from "../navigator/Routes";
+import React, {useState} from "react";
+import {Dimensions, View, Image} from "react-native";
+import Carousel, {Pagination} from "react-native-snap-carousel";
+import {StreetLevel, UploadCapture} from "../assets/svg/illustrations";
+import {Next, Start} from "../components/Walkthrough/WelcomeWalkthrough";
+import {RFValue} from "react-native-responsive-fontsize";
+import {CustomText, CustomTextBold} from "../highordercomponents";
+import {useTranslation} from "react-i18next";
 
-const WelcomeWalkthrough = ({ navigation }) => {
+const WelcomeWalkthrough = () => {
+  const {t} = useTranslation("welcome_walkthrough");
   const width = Dimensions.get("window").width;
   const [modalVisible, setModalVisible] = useState(true);
   const [active, setActive] = useState(0);
   const [data] = useState([
     {
       svg: <StreetLevel />,
-      title: "Take a shot",
-      subTitle: "At street level",
-      desc: "Capture images with your smartphone, action camera, or 360 camera.",
+      title: t("first.title"),
+      subTitle: t("first.subtitle"),
+      desc: t("first.description"),
     },
     {
       svg: <UploadCapture />,
-      title: "Upload Captures",
-      subTitle: "Contribute",
-      desc: "Upload the images you took to the mapilio system.",
+      title: t("second.title"),
+      subTitle: t("second.subtitle"),
+      desc: t("second.description"),
     },
     {
       svg: false,
       png: require("../assets/images/EarnGifts.jpg"),
-      title: "Earn gifts",
-      subTitle: "Complete missions",
-      desc: "Get a chance to win gifts through the tasks you contribute.",
+      title: t("third.title"),
+      subTitle: t("third.subtitle"),
+      desc: t("third.description"),
     },
   ]);
-  const dispatch = useDispatch();
-  const { welcomeWalkthroughStatus } = useSelector(
-    (state) => state.generalReducer
-  );
-
-  useEffect(() => {
-    if (welcomeWalkthroughStatus) {
-      navigation.navigate(Routes.nonUserTab);
-    } else {
-      dispatch({ type: UPDATE_WELCOME_WALKTHROUGH_STATUS, payload: true });
-    }
-  }, []);
 
   const _renderItem = ({ item }) => (
     <View
@@ -138,7 +122,6 @@ const WelcomeWalkthrough = ({ navigation }) => {
           marginBottom: RFValue(20),
         }}
       >
-        {/* <Prev active={active} /> */}
         <Pagination
           dotsLength={data.length}
           activeDotIndex={active}
@@ -147,16 +130,12 @@ const WelcomeWalkthrough = ({ navigation }) => {
             width: RFValue(27),
             backgroundColor: "#1976D2",
           }}
-          inactiveDotStyle={{
-            width: RFValue(17),
-          }}
+          inactiveDotStyle={{width: RFValue(17),}}
           inactiveDotScale={1}
         />
         <Next
           active={active}
           dataLength={data.length}
-          setModalVisible={setModalVisible}
-          navigation={navigation}
         />
         <Start
           active={active}

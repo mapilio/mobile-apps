@@ -2,6 +2,8 @@ export const Routes = {
   stackNavigator: "StackNavigator",
   tabNavigator: "TabNavigator",
   profileNavigator: "ProfileNavigator",
+  cameraNavigator: "CameraNavigator",
+  cameraTab: "CameraTab",
   auth: "Auth",
   profile: "Profile",
   sequences: "Sequences",
@@ -18,7 +20,7 @@ export const Routes = {
   marketplace: "Marketplace",
   marketplaceDetail: "MarketplaceDetail",
   marketplaceReceived: "MarketplaceReceived",
-  MarketplaceReady: "MarketplaceReady",
+  marketplaceReady: "MarketplaceReady",
   tabHome: "Home",
   walkthrough: "Walkthough",
   welcomeWalkthrough: "WelcomeWalkthrough",
@@ -30,4 +32,5 @@ export const Routes = {
   profileSettings: "ProfileSettings",
   profileEdit: "profileEdit",
   leaders: "Leaders",
+  language: "Language",
 };

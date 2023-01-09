@@ -10,11 +10,13 @@ export const loginStyles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: RFValue(28),
     backgroundColor: "#130C47",
+    paddingBottom: RFValue(50)
   },
   logo: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: RFValue(10)
   },
   primaryText: {
     fontSize: RFValue(26),
@@ -91,6 +93,7 @@ export const loginStyles = StyleSheet.create({
     textAlign: "center",
     color: "#fff",
     fontSize: RFValue(10),
+    paddingHorizontal: RFValue(25)
   },
   passwordIcon: {
     position: "absolute",

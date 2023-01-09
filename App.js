@@ -14,6 +14,9 @@ import Toast from "react-native-toast-notifications";
 import ToastMessage from "./components/ToastMessage";
 import OneSignal from "react-native-onesignal";
 import db from "./db";
+import i18n from "i18next";
+import {initReactI18next} from "react-i18next";
+import translations from "./translations";
 
 Sentry.init({dsn: `${Config.SENTRY_DSN}`, tracesSampleRate: 1.0});
 
@@ -26,6 +29,14 @@ function App() {
     "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
   });
+
+  const {language} = store.getState().generalReducer
+
+  i18n.use(initReactI18next).init({
+    compatibilityJSON: 'v3',
+    resources: translations(),
+    fallbackLng: language,
+  })
 
   useEffect(() => {
     db.startDB();

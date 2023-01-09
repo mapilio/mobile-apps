@@ -2,6 +2,7 @@ import * as React from "react";
 import { Platform } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import Svg, { G, Text, TSpan, Path } from "react-native-svg";
+import {useTranslation} from "react-i18next";
 
 const CaptureText = ({ width = RFValue(50), height = RFValue(30) }) => (
   <Svg
@@ -11,17 +12,6 @@ const CaptureText = ({ width = RFValue(50), height = RFValue(30) }) => (
     viewBox="0 0 52 31.024"
   >
     <G transform="translate(11892.5 -15055.988)">
-      <Text
-        transform="translate(-11866.5 15076)"
-        fill="#1ad971"
-        fontSize={12}
-        fontFamily="Poppins-SemiBold, Poppins"
-        fontWeight={600}
-      >
-        <TSpan x={Platform.OS === "android" ? -21 : -25} y={0}>
-          {"Capture"}
-        </TSpan>
-      </Text>
       <G transform="translate(-11885.115 15053.988)">
         <G transform="translate(0 2)">
           <Path

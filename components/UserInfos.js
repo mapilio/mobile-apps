@@ -4,8 +4,10 @@ import {CustomText, CustomTextBold, CustomTextMedium} from "../highordercomponen
 import {userInfoStyles} from "../styles/userProfileStyle";
 import {kFormatter} from "../helper/helper";
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 const UserInfos = ({ isOrganization, selectedItem }) => {
+  const {t} = useTranslation("profile");
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [avatarLoading, setAvatarLoading] = useState(true);
 
@@ -49,17 +51,17 @@ const UserInfos = ({ isOrganization, selectedItem }) => {
             {isOrganization ? userInformation.username : selectedItem.organization_username}
           </CustomTextMedium>
           <CustomText style={userInfoStyles.accountType}>
-            {isOrganization ? "Individual Account" : "Organization account"}
+            {isOrganization ? t("individual_account") : t("organization_account")}
           </CustomText>
         </View>
         <View style={userInfoStyles.infoGrid}>
           {infoGenerate(
             kFormatter(isOrganization ? userInformation.sequences : selectedItem.sequences),
-            "sequences"
+            t("sequences")
           )}
           {infoGenerate(
             kFormatter(isOrganization ? userInformation.photos : selectedItem.photos),
-            "photos"
+            t("photos")
           )}
           {/* {infoGenerate(kFormatter(userInformation.meters), "meters")} */}
         </View>

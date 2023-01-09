@@ -12,10 +12,13 @@ import {Routes} from "../navigator/Routes";
 import {View, ActivityIndicator, Dimensions} from "react-native";
 import {CustomTextMedium} from "../highordercomponents";
 import {RFValue} from "react-native-responsive-fontsize";
+import {useTranslation} from "react-i18next";
 
 const Camera = ({navigation}) => {
+  const {t} = useTranslation("camera");
   const cameraRef = useRef(null);
-  const {cameraWalkthroughStatus, auth} = useSelector((state) => state.generalReducer);
+  const {cameraWalkthroughStatus} = useSelector((state) => state.generalReducer);
+  const {auth} = useSelector((state) => state.getTokenReducer);
   const {isActive} = useSelector((state) => state.cameraReducer);
   const [cameraReady, setCameraReady] = useState(false);
   const devices = useCameraDevices()
@@ -71,7 +74,7 @@ const Camera = ({navigation}) => {
       <View style={cameraStyles.notReadyContainer}>
         <ActivityIndicator size={"large"} color={"#FFFFFF"} />
         <CustomTextMedium style={cameraStyles.notReadyText}>
-          Camera is getting ready. Please wait.
+          {t("getting_ready")}
         </CustomTextMedium>
       </View>
     )

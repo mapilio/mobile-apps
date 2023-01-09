@@ -11,16 +11,19 @@ import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
 import {Heading} from "../components/Map";
 import {setGeoJson} from "../helper/geojson";
 import Config from "react-native-config";
+import {Panorama} from "../components";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
-  const screenHeight = Dimensions.get("window").height - RFValue(110);
   const [points, setPoints] = useState({});
   const [coordinates, setCoordinates] = useState({});
   const [coord, setCoord] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
-  const [imageLoading, setImageLoading] = useState(true);
   const dispatch = useDispatch();
   const {userInformation} = useSelector((state) => state.getTokenReducer);
+  const {bottom} = useSafeAreaInsets();
+  const {height} = Dimensions.get("screen")
+  const image = currentImage ? currentImage : `${route.params.path}`
 
   useEffect(() => {
     return navigation.addListener("focus", () => {
@@ -58,20 +61,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
   return (
     <View>
       <View style={sequenceDetailStyles.imageArea}>
-        {
-          imageLoading &&
-            <ActivityIndicator style={{alignItems: "center", justifyContent: "center", height: screenHeight / 2}}/>
-        }
-        <Image
-          source={{
-            width: RFValue(200),
-            height: RFValue(78),
-            uri: currentImage ? currentImage : `${route.params.path}`,
-          }}
-          resizeMode={"cover"}
-          style={{...sequenceDetailStyles.image, height: screenHeight / 2}}
-          onLoadEnd={() => setImageLoading(false)}
-        />
+        <Panorama image={image} height={(height - RFValue(63) - bottom) / 2}/>
       </View>
       <MapView
         mapStyle={{ ...appMapStyle.map, height: RFPercentage(64) }}

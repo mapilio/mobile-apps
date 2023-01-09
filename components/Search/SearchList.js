@@ -4,6 +4,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {maxCharacterHandler} from "../../helper/helper";
 import React from "react";
 import {NoLocation} from "../../assets/svg/illustrations";
+import {useTranslation} from "react-i18next";
 
 const LocationList = ({index, location, onClick}) => {
   const { properties, geometry } = location
@@ -30,12 +31,14 @@ const LocationList = ({index, location, onClick}) => {
 }
 
 const emptyList = (search) => {
+  const {t} = useTranslation("search")
+
   if (!!search) {
     return (
       <View style={styles.emptyWrapper}>
         <NoLocation width={RFValue(119)} height={RFValue(138)}/>
-        <CustomTextBold style={styles.emptyTitle}>No results found</CustomTextBold>
-        <CustomText style={styles.emptyText}>Please make another search.</CustomText>
+        <CustomTextBold style={styles.emptyTitle}>{t("no_results")}</CustomTextBold>
+        <CustomText style={styles.emptyText}>{t("another_search")}</CustomText>
       </View>
     )
   }

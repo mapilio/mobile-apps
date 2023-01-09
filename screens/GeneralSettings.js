@@ -7,9 +7,11 @@ import {SettingsIcon} from "../assets/svg/illustrations";
 import {convertHexToRGBA} from "../helper/helper";
 import {CustomText, CustomTextMedium} from "../highordercomponents";
 import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 const GeneralSettings = ({ navigation }) => {
   const dispatch = useDispatch();
+  const {t} = useTranslation("camera_settings");
   const {distanceBetween} = useSelector((state) => state.settingsReducer);
 
   useEffect(() => {
@@ -33,15 +35,21 @@ const GeneralSettings = ({ navigation }) => {
     <View style={styles.wrapper}>
       <View style={styles.header}>
         <SettingsIcon width={RFValue(21)} height={RFValue(21)} />
-        <CustomText style={styles.title}>General settings</CustomText>
+        <CustomText style={styles.title}>
+          {t("general_settings")}
+        </CustomText>
       </View>
       <View>
-        <CustomTextMedium style={styles.subtitle}>Capture settings</CustomTextMedium>
+        <CustomTextMedium style={styles.subtitle}>
+          {t("capture_settings")}
+        </CustomTextMedium>
         <View style={styles.border} />
       </View>
       <ScrollView style={{ maxHeight: Platform.OS === "android" ? "100%" : "50%" }}>
         <View style={styles.item}>
-          <CustomText style={{...styles.name, marginBottom: 4}}>Distance between images</CustomText>
+          <CustomText style={{...styles.name, marginBottom: 4}}>
+            {t("distance_between")}
+          </CustomText>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <ScrollView>
               <Slider

@@ -58,3 +58,4 @@ export {default as WarningIcon} from "./WarningIcon";
 export {default as Icon} from "./Icon";
 export {default as UploadCompletedSvg} from "./UploadCompletedSvg";
 export {default as ProfileCamera} from "./ProfileCamera";
+export {default as Flags} from "./Flags";

@@ -76,6 +76,7 @@ export const userInfoStyles = StyleSheet.create({
   infoGrid: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: RFValue(3),
   },
   infoTitle: {

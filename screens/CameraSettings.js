@@ -7,9 +7,11 @@ import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {IS_ACTIVE} from "../store/actionsName";
+import {useTranslation} from "react-i18next";
 
 const CameraSettings = ({ navigation }) => {
   const {photoAmount, batteryLevel, phoneMemory} = useSelector((state) => state.cameraReducer);
+  const {t} = useTranslation("camera_settings");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,10 +40,7 @@ const CameraSettings = ({ navigation }) => {
           backgroundColor: convertHexToRGBA("#7E86B0", 20),
           justifyContent: "center",
           alignItems: "center",
-          borderRadius: Math.round(
-            (Dimensions.get("window").height + Dimensions.get("window").width) /
-              2
-          ),
+          borderRadius: Math.round((Dimensions.get("window").height + Dimensions.get("window").width) / 2),
           alignSelf: "flex-end",
           marginTop: RFValue(-10),
         }}
@@ -56,7 +55,7 @@ const CameraSettings = ({ navigation }) => {
           marginBottom: RFValue(28),
         }}
       >
-        Camera Settings
+        {t("camera_settings")}
       </CustomText>
       <View
         style={{
@@ -67,7 +66,7 @@ const CameraSettings = ({ navigation }) => {
         }}
       >
         <CustomText style={{ fontSize: RFValue(14), color: "#FFFFFF" }}>
-          Captured images / Remaining images
+          {t("remaining_images")}
         </CustomText>
         <View style={{ flexDirection: "row" }}>
           <CustomTextMedium
@@ -101,7 +100,7 @@ const CameraSettings = ({ navigation }) => {
         }}
       >
         <CustomText style={{ fontSize: RFValue(14), color: "#FFFFFF" }}>
-          Battery level
+          {t("battery_level")}
         </CustomText>
         <CustomTextMedium style={{ fontSize: RFValue(14), color: "#FFFFFF" }}>
           %{batteryLevel}

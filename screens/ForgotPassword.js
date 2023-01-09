@@ -10,18 +10,17 @@ import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import Config from "react-native-config";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {useTranslation} from "react-i18next";
 
 
 const forgotValidationSchema = yup.object().shape({
-	email: yup
-		.string()
-		.email("Please enter valid email")
-		.required("Email Address is Required"),
+	email: yup.string().email('please_enter_valid_email').required('email_required'),
 });
 
 const ForgotPassword = ({navigation}) => {
+	const {t} = useTranslation("forgot");
 	const [loading, setLoading] = useState(false);
-	const {control, handleSubmit, formState: {errors, isSubmitting}} = useForm({
+	const {control, handleSubmit, formState: {errors}} = useForm({
 		defaultValues: {email: ''},
 		resolver: yupResolver(forgotValidationSchema),
 	});
@@ -39,7 +38,7 @@ const ForgotPassword = ({navigation}) => {
 			},
 		}).then(() => {
 			navigation.reset({index: 0, routes: [{name: Routes.login}]})
-			toast.show(`The reset request has been sent to the e-mail address.`, {type: "success"})
+			toast.show(t("reset_success"), {type: "success"})
 		}).catch((err) => toast.show(`${err.response.data.message}`, {type: "error"})).finally(() => setLoading(false));
 	};
 
@@ -47,18 +46,20 @@ const ForgotPassword = ({navigation}) => {
 		<View style={loginStyles.container}>
 			<FocusAwareStatusBar barStyle="light-content" backgroundColor={"#130C47"}/>
 			<View style={{marginBottom: RFValue(30)}}>
-				<CustomTextBold style={loginStyles.primaryText}>Forgot your password?</CustomTextBold>
+				<CustomTextBold style={loginStyles.primaryText}>
+					{t("title")}
+				</CustomTextBold>
 				<CustomText style={loginStyles.secondaryText}>
-					Enter your email associated with Mapilio account. We'll sent you link to reset your password.
+					{t("description")}
 				</CustomText>
 			</View>
 
 			<Controller name={"email"} control={control} render={({field: {onChange, onBlur, value}}) => (
 				<View style={{...loginStyles.formGroup}}>
-					{errors.email && <Text style={loginStyles.errorText}>{errors.email.message}</Text>}
+					{errors.email && <Text style={loginStyles.errorText}>{t(errors.email.message, {ns: "form"})}</Text>}
 					<TextInput
 						name="email"
-						placeholder="Email Address"
+						placeholder={t("email")}
 						onChangeText={onChange}
 						onBlur={onBlur}
 						value={value}
@@ -70,7 +71,7 @@ const ForgotPassword = ({navigation}) => {
 			)}/>
 			<TouchableOpacity style={loginStyles.button} onPress={handleSubmit((values) => forgotPassword(values))}>
 				<Text style={loginStyles.buttonText}>
-					{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : "Send reset link"}
+					{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : t("reset_link")}
 				</Text>
 			</TouchableOpacity>
 

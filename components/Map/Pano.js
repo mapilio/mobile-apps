@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {
-  Image,
   View,
   Text,
   TouchableOpacity,
@@ -19,6 +18,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {NorthArrow} from "../../assets/svg/illustrations";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import Panorama from "../Panorama";
 
 const Pano = ({imageInformation, hidePano}) => {
   const [fullHeight, setFullHeight] = useState(false);
@@ -46,7 +46,6 @@ const Pano = ({imageInformation, hidePano}) => {
 
     return fullHeight ? _imageHeight : (_imageHeight + top) / 2
   }
-
 
   const reportImage = () => {
     fetchHandler({
@@ -77,14 +76,13 @@ const Pano = ({imageInformation, hidePano}) => {
           <MinimizePano />
         </TouchableOpacity>
       </View>
-      <Image
-        source={{uri: imageInformation.highResImage}}
-        style={{
-          height: imageHeight(),
-          resizeMode: "cover",
-          transform: [{translateY: -top}]
-        }}
+
+      <Panorama
+        image={imageInformation.highResImage}
+        height={imageHeight()}
+        resolution={imageInformation.resolution}
       />
+
       <View style={panoStyle.watermark}>
         <LogoWatermark />
       </View>

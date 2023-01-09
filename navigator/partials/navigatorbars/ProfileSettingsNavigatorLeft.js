@@ -5,8 +5,10 @@ import {CustomText} from "../../../highordercomponents";
 import {sequenceLeft} from "../../../styles/navigatorBarStyles";
 import {Routes} from "../../Routes";
 import {useNavigation} from "@react-navigation/native";
+import {useTranslation} from "react-i18next";
 
 const ProfileSettingsNavigatorLeft = () => {
+  const {t} = useTranslation("navigation");
   const navigation = useNavigation();
 
   return (
@@ -18,7 +20,9 @@ const ProfileSettingsNavigatorLeft = () => {
       }}
     >
       <ArrowLeft color={'#D8D8D8'}/>
-      <CustomText style={sequenceLeft.backTitle}>Back</CustomText>
+      <CustomText style={sequenceLeft.backTitle}>
+        {t("back")}
+      </CustomText>
     </TouchableOpacity>
   );
 };

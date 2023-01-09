@@ -12,12 +12,14 @@ import {CustomText} from "../highordercomponents";
 import {Document} from "../assets/svg/illustrations";
 import Geolocation from "react-native-geolocation-service";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {useTranslation} from "react-i18next";
 
 const Marketplace = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const [onScroll, setOnScroll] = useState(false);
+  const {t} = useTranslation("marketplace");
   const slidePanel = useRef();
+  const dispatch = useDispatch();
   const {top, bottom} = useSafeAreaInsets();
+  const [onScroll, setOnScroll] = useState(false);
   const [currentCoordinate, setCurrentCoordinate] = useState({latitude: 0, longitude: 0});
 
   useEffect(() => {
@@ -63,7 +65,7 @@ const Marketplace = ({ navigation }) => {
         flexDirection: "row",
       }}>
         <Document/>
-        <CustomText style={{color: '#FFF'}}>Market List</CustomText>
+        <CustomText style={{color: '#FFF'}}>{t("market_list")}</CustomText>
       </TouchableOpacity>
 
       <SlidingUpPanel

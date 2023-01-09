@@ -21,7 +21,7 @@ import {Routes} from "../navigator/Routes";
 import ProfileButton from "../components/ProfileButton";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
-MapboxGL.setAccessToken("pk.your_mapbox_public_token");
+MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
 const AppMap = ({ navigation }) => {
   const [imageInformations, setImageInformations] = useState(null);
@@ -34,7 +34,7 @@ const AppMap = ({ navigation }) => {
   let mapRef = useRef();
   const {height} = Dimensions.get("window");
   const {bottom} = useSafeAreaInsets();
-  const { auth } = useSelector((state) => state.getTokenReducer);
+  const {auth} = useSelector((state) => state.getTokenReducer);
 
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const AppMap = ({ navigation }) => {
       user: properties.created_by_id,
       pointID: properties.id,
       heading: properties.heading,
+      resolution: properties.resolution,
       image: `${Config.IMAGE_API}/${properties.img_code}/${properties.filename}/480`,
       highResImage: `${Config.IMAGE_API}/${properties.img_code}/${properties.filename}/1080`,
     });

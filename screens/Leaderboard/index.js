@@ -13,11 +13,13 @@ import Config from "react-native-config";
 import Loading from "../../components/Loading";
 import { fetchHandler } from "../../helper/helper";
 import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
+import {useTranslation} from "react-i18next";
 
 const Tab = createMaterialTopTabNavigator();
 
 const Leaderboard = () => {
   const dispatch = useDispatch();
+  const {t} = useTranslation("leaderboard");
 
   const users = useSelector((state) => state.leaderboardReducer.users);
   const organizations = useSelector(
@@ -35,10 +37,7 @@ const Leaderboard = () => {
         });
       })
       .catch(() => {
-        toast.show(
-          `There was a problem for fetching Leaderboard. Please try again.`,
-          { type: "warning" }
-        );
+        toast.show(t("fetch_error"), {type: "warning"});
       });
   };
 
@@ -51,10 +50,7 @@ const Leaderboard = () => {
         });
       })
       .catch(() => {
-        toast.show(
-          `There was a problem fetching for fetching Leaderboard. Please try again.`,
-          { type: "warning" }
-        );
+        toast.show(t("fetch_error"), {type: "warning"});
       });
   };
 
@@ -73,16 +69,16 @@ const Leaderboard = () => {
     <SafeAreaView style={styles.base}>
       <FocusAwareStatusBar barStyle="dark-content" backgroundColor={"white"} />
       <View style={styles.container}>
-        <Text style={styles.headerTitle}>Leaderboard</Text>
+        <Text style={styles.headerTitle}>{t("title")}</Text>
         <Text style={styles.headerSubTitle}>
-          Top 50 community members helping grow the mapilio!
+          {t("description")}
         </Text>
         <Tab.Navigator
           screenOptions={styles.screenOptionsStyles}
           initialRouteName="Users"
         >
-          <Tab.Screen name="Users" component={Users} />
-          <Tab.Screen name="Organizations" component={Organizations} />
+          <Tab.Screen name={t("users")} component={Users} />
+          <Tab.Screen name={t("organizations")} component={Organizations} />
         </Tab.Navigator>
       </View>
     </SafeAreaView>

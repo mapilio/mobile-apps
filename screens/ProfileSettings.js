@@ -7,11 +7,14 @@ import {EXIT_USER} from "../store/actionsName";
 import OneSignal from "react-native-onesignal";
 import {useEffect} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useTranslation} from "react-i18next";
 
 const ListItem = ({name, onPress}) => {
+  const {t} = useTranslation('profile_settings');
+
   return (
     <Pressable style={styles.listItem} onPress={onPress}>
-      <CustomText style={styles.listText}>{name}</CustomText>
+      <CustomText style={styles.listText}>{t(name)}</CustomText>
     </Pressable>
   )
 }
@@ -19,18 +22,18 @@ const ListItem = ({name, onPress}) => {
 const ProfileSettings = ({navigation}) => {
   const dispatch = useDispatch();
   const {bottom} = useSafeAreaInsets();
+  const {t} = useTranslation('profile_settings');
 
   useEffect(() => {
     navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
     return () => navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: RFValue(63) + bottom}})
   }, []);
 
-
   const lists = [
-    {name: 'Licenses', url: 'https://mapilio.com/licenses-webview'},
-    {name: 'Terms & Conditions', url: 'https://mapilio.com/terms-webview'},
-    {name: 'Privacy Policy', url: 'https://mapilio.com/privacy-webview'},
-    {name: 'About', url: 'https://mapilio.com/about-webview'}
+    {name: 'licences', url: 'https://mapilio.com/licenses-webview'},
+    {name: 'terms_and_conditions', url: 'https://mapilio.com/terms-webview'},
+    {name: 'privacy', url: 'https://mapilio.com/privacy-webview'},
+    {name: 'about', url: 'https://mapilio.com/about-webview'}
   ]
 
   const handlePress = (url) => {
@@ -47,7 +50,7 @@ const ProfileSettings = ({navigation}) => {
     <View style={styles.wrapper}>
       <View>
         <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.profileEdit)}>
-          <CustomText style={styles.listText}>Profile Edit</CustomText>
+          <CustomText style={styles.listText}>{t("profile_edit")}</CustomText>
         </Pressable>
 
         <FlatList
@@ -56,14 +59,18 @@ const ProfileSettings = ({navigation}) => {
           renderItem={({item: {name, url}}) => <ListItem name={name} onPress={() => handlePress(url)}/>}
         />
 
+        <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.language)}>
+          <CustomText style={styles.listText}>{t("change_language")}</CustomText>
+        </Pressable>
+
         <Pressable onPress={exitHandle}>
-          <CustomText style={styles.signOut}>Sign out</CustomText>
+          <CustomText style={styles.signOut}>{t("sign_out")}</CustomText>
         </Pressable>
       </View>
 
       <View style={{...styles.version, bottom: RFValue(10)}}>
-        <Text style={styles.versionInfo}>mapilio</Text>
-        <Text style={{...styles.versionInfo, fontWeight: "bold"}}> V 1.0.2</Text>
+        <Text style={styles.versionInfo}>{t("mapilio")}</Text>
+        <Text style={{...styles.versionInfo, fontWeight: "bold"}}> {t("version")}</Text>
       </View>
     </View>
   )
@@ -83,12 +90,12 @@ const styles = StyleSheet.create({
   },
   listText: {
     color: '#666666',
-    fontSize: RFValue(16)
+    fontSize: RFValue(16),
   },
   signOut: {
     color: '#3F8BE9',
     fontSize: RFValue(14),
-    paddingVertical: RFValue(14)
+    paddingVertical: RFValue(14),
   },
   version: {
     flexDirection: "row",

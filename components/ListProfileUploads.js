@@ -10,6 +10,7 @@ import {ActivityIndicator} from "react-native-paper";
 import {useDispatch} from "react-redux";
 import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
 import Config from "react-native-config";
+import {useTranslation} from "react-i18next";
 
 const ListProfileUploads = ({
   navigation,
@@ -21,6 +22,7 @@ const ListProfileUploads = ({
   loading,
   paginationLoading,
 }) => {
+  const {t} = useTranslation("profile");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,10 +37,10 @@ const ListProfileUploads = ({
     <View style={globalStyles.container}>
       <View style={{ marginTop: RFValue(25) }}>
         <CustomTextMedium style={globalStyles.screenTitle}>
-          Images you uploaded
+          {t("uploaded_title")}
         </CustomTextMedium>
         <CustomText style={globalStyles.screenDescription}>
-          Here you can uploaded pictures.
+          {t("uploaded_subtitle")}
         </CustomText>
       </View>
       <View
