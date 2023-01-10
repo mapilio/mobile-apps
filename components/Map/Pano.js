@@ -31,7 +31,10 @@ const Pano = ({imageInformation, hidePano}) => {
       url: `${Config.SERVICE_URL}/api/search-user?options[parameters][id]=${imageInformation.user}`
     }).then(({data}) => {
       if (data && data.length) {
-        setUsername('@' + data[0].username)
+        let name = data[0].username
+        name.length > 10 ? name = name.slice(0, 10) + '...' : name
+
+        setUsername('@' + name)
       } else {
         setUsername(null)
       }

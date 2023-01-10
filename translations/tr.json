@@ -54,6 +54,7 @@
     "username": "Kullanıcı adı",
     "name": "İsim",
     "bio": "Bio",
+    "hide_my_username": "Kullanıcı adımı gizle",
     "save": "Kaydet"
   },
   "upload_complete": {

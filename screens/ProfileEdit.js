@@ -1,9 +1,11 @@
 import {
   ActivityIndicator,
   Image,
-  KeyboardAvoidingView, Platform,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
-  ScrollView, StyleSheet,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -98,8 +100,11 @@ const ProfileEdit = () => {
   }
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? "padding" : ''} keyboardVerticalOffset={50}
-                          style={{flex: 1}}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? "padding" : ''}
+      keyboardVerticalOffset={50}
+      style={{flex: 1}}
+    >
       <TouchableWithoutFeedback>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.formWrapper}>

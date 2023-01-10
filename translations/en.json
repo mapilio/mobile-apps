@@ -15,6 +15,7 @@
     "delete": "Delete",
     "have_not_connection": "You do not have an active internet connection",
     "profile": "Profile",
+    "profile_edit": "Profile Edit",
     "your_uploads": "Your Uploads",
     "upload_detail": "Upload Detail",
     "sign_up": "Sign up",
@@ -52,6 +53,7 @@
     "username": "Username",
     "name": "Name",
     "bio": "Bio",
+    "hide_my_username": "Hide my username",
     "save": "Save"
   },
   "upload_complete": {

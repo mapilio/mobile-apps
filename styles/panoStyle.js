@@ -64,13 +64,12 @@ export const panoStyle = {
   capturerWrapper: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
   },
   capturerName: {
     color: "#B9C0CF",
     marginRight: RFValue(6.64),
-    fontSize: RFValue(14),
-    fontFamily: "Poppins-Medium",
-    top: RFValue(1),
+    fontSize: RFValue(12),
   },
   captureDate: {
     color: "#B9C0CF",
