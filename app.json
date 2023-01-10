@@ -40,10 +40,7 @@
         "WRITE_EXTERNAL_STORAGE",
         "WRITE_SETTINGS"
       ],
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/playstore.png",
-        "backgroundColor": "#FFFFFF"
-      },
+      "icon": "./assets/playstore.png",
       "splash": {
         "backgroundColor": "#130C47",
         "resizeMode": "contain",
