@@ -25,6 +25,9 @@
     "no_results": "No results found",
     "another_search": "Please make another search."
   },
+  "panorama": {
+    "image_report": "Image report"
+  },
   "marketplace": {
     "marketplace": "Marketplace",
     "market_list": "Market List",
