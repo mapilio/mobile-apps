@@ -19,12 +19,14 @@ import {NorthArrow} from "../../assets/svg/illustrations";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import Panorama from "../Panorama";
+import {useTranslation} from "react-i18next";
 
 const Pano = ({imageInformation, hidePano}) => {
   const [fullHeight, setFullHeight] = useState(false);
   const [username, setUsername] = useState(null);
   const {top, bottom} = useSafeAreaInsets();
-  const {height} = Dimensions.get("screen")
+  const {t} = useTranslation("panorama")
+  const {height} = Dimensions.get("screen");
 
   useEffect(() => {
     fetchHandler({
@@ -102,7 +104,9 @@ const Pano = ({imageInformation, hidePano}) => {
       <View style={panoStyle.bottomTab}>
         <Pressable style={panoStyle.report} onPress={reportImage}>
           <ReportIcon />
-          <Text style={panoStyle.reportText}>Image Report</Text>
+          <Text style={panoStyle.reportText}>
+            {t("image_report")}
+          </Text>
         </Pressable>
 
         <View style={panoStyle.capturerWrapper}>

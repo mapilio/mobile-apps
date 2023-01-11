@@ -22,6 +22,9 @@
     "sign_up": "Kayıt ol",
     "sign_in": "Giriş yap"
   },
+  "panorama": {
+    "image_report": "Resmi raporla"
+  },
   "search": {
     "no_results": "Sonuç bulunamadı",
     "another_search": "Lütfen başka bir arama yapın."
