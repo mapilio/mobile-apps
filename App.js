@@ -35,7 +35,7 @@ function App() {
   i18n.use(initReactI18next).init({
     compatibilityJSON: 'v3',
     resources: translations(),
-    fallbackLng: language,
+    lng: language
   })
 
   useEffect(() => {
