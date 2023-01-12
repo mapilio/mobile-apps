@@ -18,15 +18,20 @@ import {
 import Leaderboard from "../screens/Leaderboard";
 import {useTranslation} from "react-i18next";
 import {CustomTextBold} from "../highordercomponents";
+import {useNavigation} from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
-const CaptureTabBarButton = ({onPress}) => {
+const CaptureTabBarButton = () => {
   const {t} = useTranslation("tab");
-  const screenListen = () => cameraPermission(onPress)
+  const navigation = useNavigation()
+
+  const handlePress = () => cameraPermission(() => {
+    navigation.reset({index: 0, routes: [{name: "CameraTab"}]})
+  })
 
   return (
-    <TouchableOpacity style={{justifyContent: "center", alignItems: "center", flex: 1}} onPress={screenListen}>
+    <TouchableOpacity style={{justifyContent: "center", alignItems: "center", flex: 1}} onPress={handlePress}>
       <View style={navigatorStyle.captureButtonWrapperStyle}>
         <View style={navigatorStyle.captureButtonStyle}>
           <CaptureText />
@@ -105,7 +110,7 @@ const TabNavigator = () => {
         component={CameraNavigator}
         options={{
           tabBarStyle: {display: "none"},
-          tabBarButton: (prop) => <CaptureTabBarButton {...prop} />
+          tabBarButton: () => <CaptureTabBarButton />
         }}
       />
       <Tab.Screen
