@@ -20,3 +20,4 @@ export { default as FeedImageCard } from "./FeedImageCard";
 export { default as SearchbarSwipe } from "./SearchbarSwipe";
 export { default as Languages } from "./Languages";
 export { default as Panorama } from "./Panorama";
+export { default as BackButton } from "./BackButton";

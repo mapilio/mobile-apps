@@ -16,10 +16,11 @@ import {initialPermissions} from "../helper/helper";
 import {RESULTS} from "react-native-permissions";
 import {point} from "@turf/turf";
 import {styles} from "../styles/circleStyles";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Routes} from "../navigator/Routes";
 import ProfileButton from "../components/ProfileButton";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {MAP_WATCH_ID} from "../store/actionsName";
 
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
@@ -35,6 +36,7 @@ const AppMap = ({ navigation }) => {
   const {height} = Dimensions.get("window");
   const {bottom} = useSafeAreaInsets();
   const {auth} = useSelector((state) => state.getTokenReducer);
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const AppMap = ({ navigation }) => {
     const watchId = Geolocation.watchPosition(({coords}) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords))
     })
+    dispatch({type: MAP_WATCH_ID, payload: watchId})
 
     return () => Geolocation.clearWatch(watchId)
   }, []);

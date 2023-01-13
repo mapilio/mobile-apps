@@ -198,6 +198,7 @@
   },
   "leaderboard": {
     "title": "Leaderboard",
+    "how_to_score": "How to \nscore?",
     "description": "Top 50 community members helping grow the mapilio!",
     "users": "Users",
     "organizations": "Organizations",
@@ -217,6 +218,12 @@
     "email_required": "Email Address is Required",
     "please_enter_valid_email": "Please enter valid email",
     "password_required": "Password is required"
+  },
+  "how_to_score": {
+    "title": "How does the scoring system work?",
+    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
+    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>\u25CF Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>\u25CF Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>\u25CF Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
+    "start_now_capture": "Start Now Capture"
   },
   "languages": {
     "tr": "Turkish",

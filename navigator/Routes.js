@@ -33,4 +33,5 @@ export const Routes = {
   profileEdit: "profileEdit",
   leaders: "Leaders",
   language: "Language",
+  howToScore: "HowToScore"
 };
