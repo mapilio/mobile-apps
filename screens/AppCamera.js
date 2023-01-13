@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
 import {
+  MAP_WATCH_ID,
   SET_CAMERA_LOCATION,
   UPDATE_GPS_ACCURACY,
   UPDATE_MOCKED_STATUS,
@@ -21,6 +22,7 @@ import {useNavigation} from "@react-navigation/native";
 
 const AppCamera = () => {
   const {distanceBetween, selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
+  const {mapWatchId} = useSelector((state) => state.generalReducer);
   const {photoAmount} = useSelector((state) => state.cameraReducer);
   const [lowBrightness, setLowBrightness] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
@@ -68,6 +70,11 @@ const AppCamera = () => {
   }
 
   useEffect(() => {
+    if (typeof mapWatchId !== null) {
+      Geolocation.clearWatch(mapWatchId)
+      dispatch({type: MAP_WATCH_ID, payload: null})
+    }
+
     activateKeepAwake("camera");
     BackHandler.addEventListener('hardwareBackPress', closeHandler);
     let watchID = watchPosition()

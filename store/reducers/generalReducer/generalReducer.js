@@ -4,7 +4,8 @@ import {
   UPDATE_CURRENT_DB,
   UPDATE_CURRENT_FEED_SEQUENCE,
   UPDATE_CAMERA_WALKTHROUGH_STATUS,
-  UPDATE_LANGUAGE
+  UPDATE_LANGUAGE,
+  MAP_WATCH_ID
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -14,6 +15,7 @@ const INITIAL_STATE = {
   db: null,
   currentFeedSequence: null,
   language: 'en',
+  mapWatchId: null
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -47,6 +49,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         language: action.payload
+      }
+    case MAP_WATCH_ID:
+      return {
+        ...state,
+        mapWatchId: action.payload
       }
     default:
       return state;

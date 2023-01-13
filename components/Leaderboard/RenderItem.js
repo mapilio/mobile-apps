@@ -1,10 +1,11 @@
-import { Image, Text, View } from "react-native";
-import { leaderStyles as styles } from "../../styles/leaderStyles";
+import {Text, View} from "react-native";
+import {leaderStyles as styles} from "../../styles/leaderStyles";
 import FallbackImage from "./FallbackImage";
 import CrownIcon from "../../assets/svg/illustrations/CorwnIcon";
 import React from "react";
 import AuthUserButton from "./AuthUserButton";
 import UserProfileImage from "./UserProfileImage";
+import {RFValue} from "react-native-responsive-fontsize";
 
 const renderItem = ({ item, index }, authUserIndex, screenType) => {
   const isAuthUser = index === authUserIndex;
@@ -57,7 +58,9 @@ const renderItem = ({ item, index }, authUserIndex, screenType) => {
 
   return (
     <View style={baseStyle}>
-      <Rank rankIndex={index} />
+      <View style={{width: RFValue(33)}}>
+        <Rank rankIndex={index} />
+      </View>
       {item.user_profile_photo ? (
         <UserProfileImage source={item.user_profile_photo} />
       ) : (
