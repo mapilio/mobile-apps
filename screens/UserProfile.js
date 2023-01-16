@@ -1,135 +1,48 @@
-import React, {useEffect, useState} from "react";
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  ActivityIndicator,
-  Platform,
-  RefreshControl,
-  Text,
-  TouchableOpacity
-} from "react-native";
+import {ActivityIndicator, FlatList, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {globalStyles} from "../styles/globalStyles";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import React, {useEffect, useState} from "react";
+import {RFValue} from "react-native-responsive-fontsize";
 import {ProfileFeed, UserInfos} from "../components";
-import {useSelector} from "react-redux";
 import {fetchHandler} from "../helper/helper";
 import Config from "react-native-config";
-import {RFValue} from "react-native-responsive-fontsize";
-import DropDownPicker from "react-native-dropdown-picker";
-import {CustomText, CustomTextBold} from "../highordercomponents";
-import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
+import {useSelector} from "react-redux";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {CustomText, CustomTextBold} from "../highordercomponents";
+import {marketplaceReceivedStyles} from "../styles/marketplaceStyles";
+import {Routes} from "../navigator/Routes";
+import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
+import DropDownPicker from "react-native-dropdown-picker";
 
-const UserProfile = ({navigation}) => {
-  const {userInformation} = useSelector((state) => state.getTokenReducer);
-  const [loading, setLoading] = useState(true);
-  const [isOrganization, setOrganization] = useState(true);
-  const [organizations, setOrganizations] = useState([]);
-  const [selectedOrganization, setSelectedOrganization] = useState({type: "individual"});
-  const [feedData, setFeedData] = useState([]);
-  const [gettingData, setGettingData] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
-  const [refreshing, setRefreshing] = useState(false);
-  const {bottom} = useSafeAreaInsets();
+const SkeletonList = () => (
+  [...Array(6)].map((_v, i) => (
+    <SkeletonPlaceholder key={i}><View style={styles.skeletonItem}/></SkeletonPlaceholder>
+  ))
+)
 
-  useEffect(() => {
-    if (!!userInformation) {
-      const {id, display_name, username} = userInformation;
-
-      const initialOrganization = {
-        id: id,
-        organization_name: display_name,
-        organization_username: username,
-        type: "individual"
-      };
-
-      setOrganizations([initialOrganization])
-      setSelectedOrganization(initialOrganization)
-    }
-  }, []);
-
-
-  useEffect(() => {
-    fetchHandler({url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`}).then(({data}) => {
-      data !== null && setOrganizations(prev => [...prev, ...data])
-    })
-  }, [userInformation]);
-
-  const getData = () => {
-    return new Promise((resolve) => {
-      const url = selectedOrganization.type
-        ? `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
-        : `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedOrganization.organization_key}&options[limit]=10&page=${page}`
-
-      if (page <= totalPage && !gettingData) {
-        fetchHandler({url: `${Config.SERVICE_URL}${url}`,}).then(({data, pagination}) => {
-          if (data) {
-            setTotalPage(pagination ? pagination.last_page : 1)
-            setFeedData(prev => page === 1 ? [...data] : [...prev, ...data])
-          }
-        }).catch(() => {
-          toast.show('Unable to load feed list, please try again', {type: 'warning'})
-        }).finally(() => {
-          setPage(prev => prev + 1)
-          setGettingData(false)
-          resolve()
-        })
-        setGettingData(true)
-      } else {
-        resolve()
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (Object.entries(selectedOrganization).length) {
-      setLoading(true)
-      setPage(1)
-      setLoading(true)
-      setOrganization(selectedOrganization.type === "individual")
-      setFeedData([])
-      getData().then(() => setLoading(false))
-    }
-  }, [selectedOrganization])
-
-  useEffect(() => {
-    page === 1 && getData()
-  }, [page]);
-
-  const handleRefresh = () => {
-    setRefreshing(true)
-    getData().finally(() => setRefreshing(false))
-  }
+const EmptyComponent = () => {
+  const navigation = useNavigation();
+  const {t} = useTranslation("profile")
 
   return (
-    <View style={{...globalStyles.container, paddingBottom: bottom}}>
-      <FocusAwareStatusBar barStyle="light-content" />
-      <UserInfos isOrganization={isOrganization} selectedItem={selectedOrganization}/>
-      {
-        organizations.length >= 2 &&
-        <OrganizationSelector items={organizations} onSelectItem={setSelectedOrganization}/>
-      }
-      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh}/>}>
-        <FeedList
-          data={feedData}
-          navigation={navigation}
-          selectedOrganization={selectedOrganization}
-          loading={loading}
-          isLoadingData={gettingData}
-          onLoad={getData}
-        />
-      </ScrollView>
+    <View style={styles.noFeedWrapper}>
+      <CustomTextBold style={styles.noFeedTitle}>{t("no_feed")}</CustomTextBold>
+      <CustomText style={styles.noFeedDescription}>{t("no_feed_desc")}</CustomText>
+      <TouchableOpacity
+        style={marketplaceReceivedStyles.button}
+        onPress={() => navigation.navigate(Routes.cameraTab)}
+      >
+        <Text style={marketplaceReceivedStyles.startCapture}>{t("start_capture")}</Text>
+      </TouchableOpacity>
     </View>
   )
-};
+}
 
 const OrganizationSelector = ({items, onSelectItem}) => {
-  const {userInformation} = useSelector((state) => state.getTokenReducer);
   const {t} = useTranslation("profile");
+  const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [open, setOpen] = useState(false);
 
   const [value, setValue] = useState({
@@ -166,55 +79,110 @@ const OrganizationSelector = ({items, onSelectItem}) => {
   )
 }
 
-const FeedList = ({data, navigation, selectedOrganization, loading, isLoadingData, onLoad}) => {
+const UserProfile = () => {
+  const {userInformation} = useSelector((state) => state.getTokenReducer);
+  const [loading, setLoading] = useState(true);
+  const [_organizations, setOrganizations] = useState([]);
+  const [gettingData, setGettingData] = useState(false);
+  const [selectedOrganization, setSelectedOrganization] = useState({type: "individual"});
+  const [feedData, setFeedData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
   const {t} = useTranslation("profile");
-  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-    const paddingToBottom = 20;
-    return (
-      layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - paddingToBottom
-    );
-  };
-  const scrollHandle = ({nativeEvent}) => {
-    if (isCloseToBottom(nativeEvent)) {onLoad()}
+  const {bottom} = useSafeAreaInsets();
+  const navigation = useNavigation();
+
+  const setInitialOrganization = () => {
+    const {id, display_name: organization_name, username: organization_username} = userInformation;
+    const initialOrganization = {id, organization_name, organization_username, type: "individual"};
+    setOrganizations([initialOrganization])
+    setSelectedOrganization(initialOrganization)
   }
 
-  return loading ? (
-    [0, 1, 2, 3].map((i) => <SkeletonPlaceholder key={i}><View style={styles.skeletonItem}/></SkeletonPlaceholder>)
-  ) : (
-    <ScrollView onScroll={scrollHandle} scrollEventThrottle={400}>
-      {data.length ? (
-        data.map(item => {
-          return (
-            <ProfileFeed
-              key={item.id}
-              data={item}
-              navigation={navigation}
-              selectedOrganization={selectedOrganization.type}
-              organizationKey={selectedOrganization.organization_key ? selectedOrganization.organization_key : 0}
-            />
-          )
-        })
-      ) : (
-        <View style={styles.noFeedWrapper}>
-          <CustomTextBold style={styles.noFeedTitle}>
-            {t("no_feed")}
-          </CustomTextBold>
-          <CustomText style={styles.noFeedDescription}>
-            {t("no_feed_desc")}
-          </CustomText>
-          <TouchableOpacity
-            style={marketplaceReceivedStyles.button}
-            onPress={() => navigation.navigate("CameraTab")}>
-            <Text style={marketplaceReceivedStyles.startCapture}>
-              {t("start_capture")}
-            </Text>
-          </TouchableOpacity>
-        </View>
+  const getData = async () => {
+    setGettingData(true)
+
+    const url = selectedOrganization.type
+      ? `/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
+      : `/api/function/organizations/organization/feedList?options[parameters][organization_key]=${selectedOrganization.organization_key}&options[limit]=10&page=${page}`
+
+    try {
+      const {data, pagination} = await fetchHandler({url: `${Config.SERVICE_URL}${url}`})
+
+      setPage(pagination.current_page + 1)
+      setGettingData(false)
+
+      return {status: 'success', data, pagination}
+    } catch (e) {
+      toast.show(t("fetch_error"), {type: 'error'})
+    }
+  }
+
+  const nextPage = async () => {
+    if (page > totalPage) return;
+
+    const {data} = await getData()
+    setFeedData(prev => [...prev, ...data])
+  }
+
+  const initial = async () => {
+    try {
+      setInitialOrganization();
+
+      const {data} = await fetchHandler({
+        url: `${Config.SERVICE_URL}/api/function/organizations/organization/myOrganizations`
+      })
+
+      data && setOrganizations(prev => [...prev, ...data])
+
+      const {data: feeds, pagination} = await getData()
+      setTotalPage(pagination.last_page)
+      setFeedData(feeds)
+      setLoading(false)
+    } catch (e) {
+      throw new Error('fetch_error')
+    }
+  }
+
+  useEffect(() => {
+    setInitialOrganization();
+    initial().catch(() => toast.show(t("fetch_error"), {type: 'error'}))
+
+    return () => setPage(1)
+  }, [])
+
+  const pressHandler = (sequence_uuid) => {
+    navigation.navigate(Routes.profileSequence, {
+      id: sequence_uuid,
+      user_id: userInformation.id,
+      isIndividual: selectedOrganization,
+      org_id: selectedOrganization.organization_key || 0
+    });
+  }
+
+  return (
+    <View style={{...globalStyles.container, paddingBottom: bottom}}>
+      <FocusAwareStatusBar barStyle="light-content" />
+      <UserInfos selectedItem={selectedOrganization}/>
+
+      {/* TODO: This action is not true. services is will update with Vedat.
+        {
+          organizations.length >= 2 &&
+          <OrganizationSelector items={organizations} onSelectItem={setSelectedOrganization}/>
+        }
+      */}
+
+      {loading ? <SkeletonList/> : (
+        <FlatList
+          data={feedData}
+          onEndReached={() => !gettingData && nextPage()}
+          ListFooterComponent={() => gettingData && <ActivityIndicator size={"small"}/>}
+          ListEmptyComponent={() => <EmptyComponent/>}
+          renderItem={({item}) => <ProfileFeed data={item} onPress={() => pressHandler(item.sequence_uuid)}/>}
+        />
       )}
 
-      <ActivityIndicator animating={isLoadingData} size={"large"}/>
-    </ScrollView>
+    </View>
   )
 }
 
@@ -237,7 +205,6 @@ const styles = StyleSheet.create({
   noFeedWrapper: {
     alignItems: "center",
     justifyContent: "center",
-    textAlign: "center",
     marginTop: RFValue(60),
   },
   noFeedTitle: {

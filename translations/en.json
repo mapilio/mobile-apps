@@ -165,7 +165,8 @@
     "uploaded_title": "Images you uploaded",
     "uploaded_subtitle": "Here you can see uploaded pictures.",
     "image": "Image",
-    "map": "Map"
+    "map": "Map",
+    "fetch_error": "There was a problem for fetching Profile. Please try again."
   },
   "login": {
     "title": "Sign in to see what's on your map.",
