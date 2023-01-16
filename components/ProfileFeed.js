@@ -1,42 +1,29 @@
 import React, {useState} from "react";
-import { Image, TouchableOpacity, View } from "react-native";
-import { CustomText, CustomTextBold } from "../highordercomponents";
-import { Routes } from "../navigator/Routes";
-import { userFeedStyles } from "../styles/userProfileStyle";
+import {Image, TouchableOpacity, View} from "react-native";
+import {CustomText, CustomTextBold} from "../highordercomponents";
+import {userFeedStyles} from "../styles/userProfileStyle";
 import moment from "moment";
-import { useSelector } from "react-redux";
 import Config from "react-native-config";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 
-const ProfileFeed = ({navigation, data, selectedOrganization, organizationKey}) => {
+const ProfileFeed = ({data, onPress}) => {
   const {t} = useTranslation("profile");
-  const { userInformation } = useSelector((state) => state.getTokenReducer);
   const [imageLoading, setImageLoading] = useState(true);
+  const {created_at, total_images, last_status, img_code, cover_photo} = data;
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      style={userFeedStyles.feedContainer}
-      onPress={() => {
-        navigation.navigate(Routes.profileSequence, {
-          id: data.sequence_uuid,
-          user_id: userInformation.id,
-          isIndividual: selectedOrganization,
-          org_id: organizationKey,
-        });
-      }}
-    >
+    <TouchableOpacity activeOpacity={0.7} style={userFeedStyles.feedContainer} onPress={() => onPress()}>
       <View style={userFeedStyles.viewStyle}>
         <CustomTextBold style={userFeedStyles.dateStyle}>
-          {moment(data.created_at).format("DD-MM-YYYY")}
+          {moment(created_at).format("DD-MM-YYYY")}
         </CustomTextBold>
         <CustomText style={userFeedStyles.descriptionStyle}>
-          {data.total_images} {t("images")}
+          {total_images} {t("images")}
         </CustomText>
         <CustomText style={userFeedStyles.statusStyle}>
-          {t(data.last_status)}
+          {t(last_status)}
         </CustomText>
       </View>
       <View style={{height: RFValue(70)}}>
@@ -49,7 +36,7 @@ const ProfileFeed = ({navigation, data, selectedOrganization, organizationKey}) 
         }
         <Image
           style={userFeedStyles.imageStyle}
-          source={{uri: `${Config.IMAGE_API}/${data.img_code}/${data.cover_photo}/480`}}
+          source={{uri: `${Config.IMAGE_API}/${img_code}/${cover_photo}/480`}}
           onLoadEnd={() => setImageLoading(false)}
         />
       </View>

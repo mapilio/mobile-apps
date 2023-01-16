@@ -6,7 +6,7 @@ import {kFormatter} from "../helper/helper";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
-const UserInfos = ({ isOrganization, selectedItem }) => {
+const UserInfos = ({selectedItem}) => {
   const {t} = useTranslation("profile");
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [avatarLoading, setAvatarLoading] = useState(true);
@@ -34,9 +34,7 @@ const UserInfos = ({ isOrganization, selectedItem }) => {
     <View style={userInfoStyles.profileContainer}>
       <Image
         style={{...userInfoStyles.imageStyle}}
-        source={{
-          uri: isOrganization ? userInformation.user_profile_photo : selectedItem.organization_profile_picture,
-        }}
+        source={{uri: selectedItem?.organization_profile_picture || userInformation.user_profile_photo}}
         onLoadEnd={finishLoad}
       />
       {avatarLoading && (
@@ -48,21 +46,15 @@ const UserInfos = ({ isOrganization, selectedItem }) => {
       <View style={userInfoStyles.infoContainer}>
         <View>
           <CustomTextMedium style={userInfoStyles.username}>
-            {isOrganization ? userInformation.username : selectedItem.organization_username}
+            {selectedItem.organization_username}
           </CustomTextMedium>
           <CustomText style={userInfoStyles.accountType}>
-            {isOrganization ? t("individual_account") : t("organization_account")}
+            {selectedItem.type === "individual" ? t("individual_account") : t("organization_account")}
           </CustomText>
         </View>
         <View style={userInfoStyles.infoGrid}>
-          {infoGenerate(
-            kFormatter(isOrganization ? userInformation.sequences : selectedItem.sequences),
-            t("sequences")
-          )}
-          {infoGenerate(
-            kFormatter(isOrganization ? userInformation.photos : selectedItem.photos),
-            t("photos")
-          )}
+          {infoGenerate(kFormatter(selectedItem?.sequences || userInformation.sequences), t("sequences"))}
+          {infoGenerate(kFormatter(selectedItem?.photos || userInformation.photos), t("photos"))}
           {/* {infoGenerate(kFormatter(userInformation.meters), "meters")} */}
         </View>
       </View>

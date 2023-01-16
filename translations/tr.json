@@ -166,7 +166,8 @@
     "uploaded_title": "Yüklediğiniz resimler",
     "uploaded_subtitle": "Burada yüklenen resimleri görebilirsiniz.",
     "image": "Resimler",
-    "map": "Harita"
+    "map": "Harita",
+    "fetch_error": "Profil bilgileri getirilirken bir sorun oluştu. Lütfen tekrar deneyin."
   },
   "login": {
     "title": "Haritanızda neler olduğunu görmek için oturum açın.",
