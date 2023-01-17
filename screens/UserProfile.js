@@ -109,7 +109,11 @@ const UserProfile = () => {
     try {
       const {data, pagination} = await fetchHandler({url: `${Config.SERVICE_URL}${url}`})
 
-      setPage(pagination.current_page + 1)
+      if (!!pagination) {
+        setPage(pagination?.current_page + 1)
+        setTotalPage(pagination?.last_page)
+      }
+
       setGettingData(false)
 
       return {status: 'success', data, pagination}
@@ -135,8 +139,7 @@ const UserProfile = () => {
 
       data && setOrganizations(prev => [...prev, ...data])
 
-      const {data: feeds, pagination} = await getData()
-      setTotalPage(pagination.last_page)
+      const {data: feeds} = await getData()
       setFeedData(feeds)
       setLoading(false)
     } catch (e) {
