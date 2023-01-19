@@ -1,7 +1,7 @@
 import {createStackNavigator} from "@react-navigation/stack";
 import {Routes} from "../Routes";
 import userUpload from "../../screens/UserUpload";
-import {DeleteNavigationRight, SequenceDetailTitle, SequenceNavigatorLeft, UploadNavigatorRight} from "./navigatorbars";
+import {DeleteNavigationRight, SequenceDetailTitle, SequenceNavigatorLeft} from "./navigatorbars";
 import {navigatorStyle} from "../../styles/navigatorStyle";
 import React from "react";
 import {UploadCompleted, UserSequence, UserSequenceDetail} from "../../screens";
@@ -15,7 +15,6 @@ const UploadNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{
       headerShown: true,
-      headerRight: () => <UploadNavigatorRight/>,
       headerStyle: navigatorStyle.headerStyle,
       headerTitleStyle: navigatorStyle.headerTitleStyle,
       headerTintColor: navigatorStyle.headerTintColor,
@@ -23,7 +22,8 @@ const UploadNavigator = () => {
       headerLeft: false,
     }}>
       <Stack.Screen name={Routes.upload} component={userUpload} options={{
-        title: t("upload")
+        title: t("upload"),
+        cardStyle: {backgroundColor: "#FFF"}
       }}/>
 
       <Stack.Screen name={Routes.sequences} component={UserSequence} options={{

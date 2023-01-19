@@ -2,7 +2,7 @@ import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 
-const ArrowLeft = ({width = RFValue(11.5), height = RFValue(11.5), color = '#b9c0cf'}) => (
+const ArrowLeft = ({width = RFValue(11), height = RFValue(11), color = '#666666'}) => (
   <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 11.575 11.575">
     <Path
       id="union"

@@ -63,7 +63,7 @@ const DeleteNavigationRight = () => {
         }}
       >
         <CustomText style={deleteRight.text}>
-          <Trash width={16.56} height={20.32} /> {t("delete")}
+          <Trash width={16.56} height={20.32} color={'#000'} /> {t("delete")}
         </CustomText>
       </TouchableOpacity>
     </View>

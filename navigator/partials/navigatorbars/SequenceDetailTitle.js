@@ -11,11 +11,8 @@ const SequenceDetailTitle = () => {
 	return (
 		<View style={sequenceDetailTitle.container}>
 			<CustomText style={sequenceDetailTitle.rank}>
-				<CustomText style={sequenceDetailTitle.active}>
-					{rank.active}
-				</CustomText>
-				/
-				{rank.total}</CustomText>
+				<CustomText style={sequenceDetailTitle.active}>{rank.active}</CustomText> / {rank.total}
+			</CustomText>
 		</View>
 	)
 };

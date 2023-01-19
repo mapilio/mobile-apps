@@ -60,3 +60,8 @@ export {default as UploadCompletedSvg} from "./UploadCompletedSvg";
 export {default as ProfileCamera} from "./ProfileCamera";
 export {default as Flags} from "./Flags";
 export {default as HowToScore} from "./HowToScore";
+export {default as Cog} from "./Cog";
+export {default as NoFeed} from "./NoFeed";
+export {default as CameraFilledIcon} from "./CameraFilledIcon";
+export {default as RoadIcon} from "./RoadIcon";
+export {default as Photos} from "./Photos";

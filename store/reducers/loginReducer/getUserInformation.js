@@ -6,7 +6,7 @@ import {fetchHandler} from "../../../helper/helper";
 export const getUserInformation = () => (dispatch) => {
   fetchHandler({url: `${Config.SERVICE_URL}/api/function/user_profile/profile/getProfile`}).then(({data}) => {
 
-    const {id, email, display_name, user_profile_photo, username, str_id, user_bio} = data[0]
+    const {id, email, display_name, user_profile_photo, username, str_id, user_bio, meters} = data[0]
 
     dispatch({
       type: GET_USER_INDEX_TYPE,
@@ -20,6 +20,7 @@ export const getUserInformation = () => (dispatch) => {
           key: str_id,
           id: id,
           bio: user_bio,
+          meters: meters
         }
       }
     })

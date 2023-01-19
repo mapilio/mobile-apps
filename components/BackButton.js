@@ -4,19 +4,21 @@ import {sequenceLeft} from "../styles/navigatorBarStyles";
 import React from "react";
 import {TouchableOpacity} from "react-native";
 import {useTranslation} from "react-i18next";
+import {useNavigation} from "@react-navigation/native";
 
-const BackButton = (props) => {
+const BackButton = ({title}) => {
   const {t} = useTranslation("navigation")
+  const navigation = useNavigation();
 
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={sequenceLeft.container}
-      {...props}
+      onPress={() => navigation.goBack()}
     >
       <ArrowLeft/>
       <CustomText style={sequenceLeft.backTitle}>
-        {t("back")}
+        {t(title || "back")}
       </CustomText>
     </TouchableOpacity>
   )
