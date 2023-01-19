@@ -52,21 +52,12 @@ const UserSequence = ({ navigation, route }) => {
 
   useEffect(() => {
     return navigation.addListener("focus", () => {
-      if (route.params.isIndividual) {
-        setPaginationURL(
-          `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
-        );
-        fetchNext(
-          `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
-        );
-      } else {
-        setPaginationURL(
-          `/api/function/organizations/organization/feedDetail?options[parameters][organization_key]=${route.params.org_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
-        );
-        fetchNext(
-          `/api/function/organizations/organization/feedDetail?options[parameters][organization_key]=${route.params.org_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
-        );
-      }
+      setPaginationURL(
+        `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+      );
+      fetchNext(
+        `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+      );
     });
   }, [navigation, route.params.id]);
 
@@ -107,15 +98,9 @@ const UserSequence = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    if (route.params.isIndividual) {
-      fetchMapNext(
-        `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=1000&page=1`
-      );
-    } else {
-      fetchMapNext(
-        `/api/function/organizations/organization/feedDetail?options[parameters][organization_key]=${route.params.org_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=1000&page=1`
-      );
-    }
+    fetchMapNext(
+      `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=1000&page=1`
+    );
   }, [active, imageList]);
 
   const scrollHandler = ({ nativeEvent }) => {

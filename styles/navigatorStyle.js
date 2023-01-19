@@ -3,7 +3,10 @@ import { Dimensions, Platform } from "react-native";
 
 export const navigatorStyle = {
   headerStyle: {
-    backgroundColor: "#130C47",
+    backgroundColor: '#FFF',
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0
   },
   headerSettingsStyle: {
     height: RFValue(50),
@@ -11,6 +14,10 @@ export const navigatorStyle = {
   },
   headerTitleStyle: {
     fontSize: RFValue(16),
+    color: '#333333'
+  },
+  cardStyle: {
+    backgroundColor: '#FFF',
   },
   headerTintColor: "#ffffff",
   headerTitleAlign: "center",

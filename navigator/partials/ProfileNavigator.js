@@ -11,11 +11,9 @@ import {
 import {Routes} from "../Routes";
 import {navigatorStyle} from "../../styles/navigatorStyle";
 import React from "react";
-import {ProfileNavigatorRight, ProfileSettingsNavigatorLeft} from "../../navigator/partials/navigatorbars";
-import {SequenceNavigatorLeft} from "./navigatorbars";
-import {RFValue} from "react-native-responsive-fontsize";
-import {Back} from "../../components/Login";
+import {ProfileNavigatorRight, ProfileSettingsNavigatorLeft, SequenceNavigatorLeft} from "./navigatorbars";
 import {useTranslation} from "react-i18next";
+import {BackButton} from "../../components";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +22,7 @@ const screenOptions = {
   headerTitleStyle: navigatorStyle.headerTitleStyle,
   headerTintColor: navigatorStyle.headerTintColor,
   headerTitleAlign: navigatorStyle.headerTitleAlign,
+  cardStyle: navigatorStyle.cardStyle,
 }
 
 const ProfileNavigator = ({navigation}) => {
@@ -32,14 +31,12 @@ const ProfileNavigator = ({navigation}) => {
     return (
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen name={Routes.profile} component={UserProfile} options={{
-          headerLeft: () => <Back />,
+          headerLeft: () => <BackButton title={"go_map"}/>,
           headerRight: () => <ProfileNavigatorRight/>,
-          title: t("profile")
+          title: t("profile"),
         }}/>
 
         <Stack.Screen name={Routes.profileSettings} component={ProfileSettings} options={{
-          headerStyle: {backgroundColor: '#FFF', elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
-          cardStyle: {backgroundColor: '#FFF'},
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
           title: false
         }}/>
@@ -55,23 +52,16 @@ const ProfileNavigator = ({navigation}) => {
         }}/>
 
         <Stack.Screen name={Routes.webview} component={WebviewScreen} options={{
-          headerStyle: {backgroundColor: '#FFF', elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
-          cardStyle: {backgroundColor: '#FFF'},
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
           title: false
         }}/>
 
         <Stack.Screen name={Routes.profileEdit} component={ProfileEdit} options={{
-          headerStyle: {backgroundColor: '#FFF', elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
-          cardStyle: {backgroundColor: '#FFF'},
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
           title: t("profile_edit"),
-          headerTitleStyle: {color: '#333333', fontSize: RFValue(18)}
         }}/>
 
         <Stack.Screen name={Routes.language} component={Language} options={{
-          cardStyle: {backgroundColor: '#FFF'},
-          headerStyle: {backgroundColor: '#FFF', elevation: 0, shadowOpacity: 0, borderBottomWidth: 0},
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
         }}/>
       </Stack.Navigator>

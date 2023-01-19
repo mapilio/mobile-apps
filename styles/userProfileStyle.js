@@ -1,56 +1,128 @@
 import { Platform, StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 
+const colors = {
+  completed: {color: '#1AD971', border: '#1AD97166'},
+  uploaded: {color: '#3F8BE9', border: '#3F8BE966'},
+  processing: {color: '#FFC01A', border: '#FFC01A66'},
+  fail: {color: '#EC6A56', border: '#EC6A5666'},
+}
+
 export const userFeedStyles = StyleSheet.create({
-  feedContainer: {
-    width: "100%",
-    backgroundColor: convertHexToRGBA("#CBD1D9", 20),
+  wrapper: {
+    backgroundColor: '#FFF',
+    shadowColor: '#00000029',
+    shadowOffset: {height: 0, width: 3},
+    shadowOpacity: .9,
+    shadowRadius: 2,
+    elevation: 3,
+    marginBottom: RFValue(10),
+    borderWidth: .3,
+    borderColor: '#00000029',
     borderRadius: 4,
-    paddingVertical: RFValue(12),
-    paddingHorizontal: RFValue(16),
-    flexDirection: "row",
-    marginBottom: RFValue(5),
   },
-  viewStyle: {
-    flex: 1,
-    marginRight: RFValue(20),
-    justifyContent: "space-between"
-  },
-  dateStyle: {
-    fontSize: RFValue(14),
-    color: "#4A4A4A",
-  },
-  descriptionStyle: {
-    fontSize: RFValue(14),
-    color: "#4A4A4A",
-    flexWrap: "nowrap",
-  },
-  statusStyle: {
-    fontSize: RFValue(10),
-    color: "rgba(74,74,74,0.54)",
-    textTransform: "capitalize",
-  },
+  imageWrapper: {height: RFValue(100)},
   imageStyle: {
-    width: RFValue(130),
-    height: RFValue(70),
+    width: "100%",
+    height: RFValue(100),
     resizeMode: "cover",
-    borderRadius: 4,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    zIndex: 8,
+    position: "absolute",
+    top: 0,
+    left: 0,
   },
+  imageGradient: {
+    zIndex: 9,
+    position: "absolute",
+    height: RFValue(100),
+    flex: 1,
+    width: "100%"
+  },
+  info: {
+    justifyContent: "space-between",
+    padding: RFValue(10)
+  },
+  subInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  address:{
+    color: '#130C47',
+    fontSize: RFValue(12),
+    fontFamily: "Poppins-Medium",
+  },
+  date: {
+    color: '#666666',
+    fontSize: RFValue(10),
+    fontFamily: "Poppins",
+  },
+  status: {
+    position: "absolute",
+    right: RFValue(10),
+    top: RFValue(10),
+    zIndex: 10,
+    text: {
+      fontSize: RFValue(10),
+      fontFamily: 'Poppins',
+    },
+    uploaded: {color: colors.uploaded.color},
+    completed: {color: colors.completed.color},
+    processing: {color: colors.processing.color},
+    fail: {color: colors.fail.color},
+    icon: {
+      borderRadius: RFPercentage(50),
+      marginLeft: "auto",
+      marginRight: "auto",
+      marginTop: "auto",
+      marginBottom: "auto",
+      width: RFValue(7),
+      height: RFValue(7),
+
+      border: {
+        borderRadius: RFPercentage(50),
+        width: RFValue(10),
+        height: RFValue(10),
+      },
+
+      uploaded: {
+        backgroundColor: colors.uploaded.color,
+        border: {backgroundColor: colors.uploaded.border}
+      },
+
+      completed: {
+        backgroundColor: colors.completed.color,
+        border: {backgroundColor: colors.completed.border}
+      },
+
+      processing: {
+        backgroundColor: colors.processing.color,
+        border: {backgroundColor: colors.processing.border}
+      },
+
+      fail : {
+        backgroundColor: colors.fail.color,
+        border: {backgroundColor: colors.fail.border}
+      }
+    }
+  }
 });
 
 export const userInfoStyles = StyleSheet.create({
   profileContainer: {
     flexDirection: "row",
-    paddingHorizontal: Platform.OS === "ios" ? RFValue(8) : RFValue(20),
-    paddingBottom: RFValue(31),
+    paddingBottom: RFValue(20),
   },
   imageStyle: {
-    borderRadius: RFValue(71) / 2,
+    borderRadius: RFPercentage(50),
+    borderWidth: RFValue(1),
+    borderColor: '#EAEAEA',
     resizeMode: "cover",
-    width: RFValue(71),
-    height: RFValue(71),
-    marginRight: RFValue(22),
+    width: RFValue(81),
+    height: RFValue(81),
+    marginRight: RFValue(18),
   },
   indicatorStyle: {
     backgroundColor: convertHexToRGBA("#4A4A4A", 10),
@@ -65,8 +137,9 @@ export const userInfoStyles = StyleSheet.create({
     top: 0,
   },
   username: {
-    color: "#4a4a4a",
+    color: "#3F8BE9",
     fontSize: RFValue(18),
+    fontFamily: "Poppins-Medium",
   },
   accountType: {
     color: "#4a4a4a",
@@ -74,23 +147,29 @@ export const userInfoStyles = StyleSheet.create({
     marginTop: Platform.OS === "android" ? RFValue(-4) : 0,
   },
   infoGrid: {
-    display: "flex",
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: RFValue(3),
+    alignItems: "flex-end",
   },
   infoTitle: {
-    textTransform: "uppercase",
     fontSize: RFValue(12),
-    color: "#A4A9C7",
+    color: "#666666",
     opacity: 0.6,
   },
   infoValue: {
     fontSize: RFValue(18),
-    color: "#5B687C",
+    color: "#130C47",
   },
   infoContainer: {
+    flex: .8,
     flexDirection: "column",
     marginRight: RFValue(10),
   },
+  separator: {
+    borderLeftWidth: 1,
+    borderLeftColor: "#D8D8D8",
+    height: "50%",
+    marginBottom: 10,
+  }
 });

@@ -29,9 +29,9 @@ const fetchHandler = ({ ...args } = {}) => {
   return axios(args).then((response) => response.data);
 };
 
-const kFormatter = (num) => {
+const thousandFormatter = (num, shortCode = "k") => {
   return Math.abs(num) > 999
-    ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+    ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + shortCode
     : Math.sign(num) * Math.abs(num);
 };
 
@@ -152,7 +152,7 @@ export {
   convertHexToRGBA,
   fetchHandler,
   maxCharacterHandler,
-  kFormatter,
+  thousandFormatter,
   dateConvert,
   headingPointGeoJson,
   getContentAreaHeight,

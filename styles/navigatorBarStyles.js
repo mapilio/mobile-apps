@@ -9,8 +9,8 @@ export const sequenceLeft = StyleSheet.create({
     marginLeft: RFValue(16),
   },
   backTitle: {
-    fontSize: RFValue(16),
-    color: "#D8D8D8",
+    fontSize: RFValue(14),
+    color: "#666666",
     marginBottom: Platform.OS === "ios" ? 0 : RFValue(-2),
     marginLeft: RFValue(3),
   },
@@ -40,7 +40,7 @@ export const sequenceTitle = StyleSheet.create({
 
 export const deleteRight = StyleSheet.create({
   text: {
-    color: "#FFF",
+    color: "#000",
     fontSize: RFValue(14),
     right: RFValue(10),
   },
@@ -69,7 +69,7 @@ export const generalSettingsLeft = StyleSheet.create({
 
 export const sequenceDetailTitle = StyleSheet.create({
   rank: {
-    color: "#FFF",
+    color: "#000",
     fontSize: RFValue(16),
   },
   active: {

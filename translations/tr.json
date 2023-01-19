@@ -20,7 +20,8 @@
     "your_uploads": "Yüklemelerin",
     "upload_detail": "Yükeleme Detay",
     "sign_up": "Kayıt ol",
-    "sign_in": "Giriş yap"
+    "sign_in": "Giriş yap",
+    "go_map": "Haritaya Dön"
   },
   "panorama": {
     "image_report": "Resmi raporla"
@@ -149,7 +150,8 @@
     "are_you_sure": "Emin misin?",
     "delete_message": "Bu projeyi silmek istediğinizden emin misiniz?",
     "yes": "Evet",
-    "no": "Hayır"
+    "no": "Hayır",
+    "start_upload": "Yüklemeyi başlat"
   },
   "profile": {
     "individual_account": "Bireysel hesap",
@@ -161,8 +163,11 @@
     "images": "resim",
     "uploaded": "Sıraya Eklendi",
     "completed": "Tamamlandı",
+    "processing": "İşleniyor",
+    "fail": "Hata oluştu",
     "sequences": "Dizi",
     "photos": "Resim",
+    "roads": "Yollar",
     "uploaded_title": "Yüklediğiniz resimler",
     "uploaded_subtitle": "Burada yüklenen resimleri görebilirsiniz.",
     "image": "Resimler",

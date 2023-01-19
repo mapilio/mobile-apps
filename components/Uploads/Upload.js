@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, TouchableOpacity} from "react-native";
-import {UploadIcon} from "../../assets/svg/illustrations";
+import {View, TouchableOpacity, Text, StyleSheet} from "react-native";
 import {
   calculateToSequence,
   closeRequest,
@@ -17,6 +16,7 @@ import * as FileSystem from "expo-file-system";
 import UploadModal from "./UploadModal";
 import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
+import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 
 const Upload = ({sequence_uuid}) => {
   const dispatch = useDispatch();
@@ -135,7 +135,11 @@ const Upload = ({sequence_uuid}) => {
 
   return (
     <View>
-      {uploadData.length > 0 && <TouchableOpacity onPress={uploadHandler}><UploadIcon/></TouchableOpacity>}
+      {!!uploadData.length && (
+        <TouchableOpacity style={styles.uploadButton} onPress={uploadHandler}>
+          <Text style={styles.uploadButtonText}>{t("start_upload", {ns: 'upload'})}</Text>
+        </TouchableOpacity>
+      )}
 
       <UploadModal
         visible={modalVisible}
@@ -148,5 +152,22 @@ const Upload = ({sequence_uuid}) => {
     </View>
   );
 };
+
+
+const styles = StyleSheet.create({
+  uploadButton: {
+    backgroundColor: '#3F8BE9',
+    padding: RFValue(15),
+    margin: RFValue(15),
+    marginBottom: RFValue(25),
+    borderRadius: RFPercentage(50),
+    alignItems: 'center',
+  },
+  uploadButtonText: {
+    color: '#FFF',
+    fontSize: RFValue(14),
+    fontFamily: 'Poppins',
+  },
+})
 
 export default Upload;

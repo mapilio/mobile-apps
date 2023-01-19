@@ -1,32 +1,33 @@
 import React, {useState} from "react";
-import {ActivityIndicator, Image, View} from "react-native";
-import {CustomText, CustomTextBold, CustomTextMedium} from "../highordercomponents";
+import {ActivityIndicator, Image, Text, View} from "react-native";
+import {CustomText, CustomTextBold} from "../highordercomponents";
 import {userInfoStyles} from "../styles/userProfileStyle";
-import {kFormatter} from "../helper/helper";
+import {thousandFormatter} from "../helper/helper";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import {CameraFilledIcon, RoadIcon} from "../assets/svg/illustrations";
 
-const UserInfos = ({selectedItem}) => {
+const UserInfos = () => {
   const {t} = useTranslation("profile");
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [avatarLoading, setAvatarLoading] = useState(true);
 
-  const infoGenerate = (value, subtitle) => {
+  const CustomInfo = ({value, subtitle, icon}) => {
     return (
-      <View style={userInfoStyles.infoContainer}>
+      <View>
         <CustomTextBold style={userInfoStyles.infoValue} lineCount={1}>
           {value}
         </CustomTextBold>
-        <CustomTextMedium style={userInfoStyles.infoTitle} lineCount={1}>
-          {subtitle}
-        </CustomTextMedium>
+        <CustomText style={userInfoStyles.infoTitle} lineCount={1}>
+          {icon}
+          {" "}
+          {t(subtitle)}
+        </CustomText>
       </View>
     );
   };
 
-  const finishLoad = () => {
-    setAvatarLoading(false);
-  };
+  const finishLoad = () => setAvatarLoading(false);
 
   if (!userInformation) return false;
 
@@ -34,28 +35,33 @@ const UserInfos = ({selectedItem}) => {
     <View style={userInfoStyles.profileContainer}>
       <Image
         style={{...userInfoStyles.imageStyle}}
-        source={{uri: selectedItem?.organization_profile_picture || userInformation.user_profile_photo}}
+        source={{uri: userInformation.user_profile_photo}}
         onLoadEnd={finishLoad}
       />
-      {avatarLoading && (
-        <ActivityIndicator
-          color={"#AFAFAF"}
-          style={userInfoStyles.indicatorStyle}
-        />
-      )}
+
+      {avatarLoading && <ActivityIndicator color={"#AFAFAF"} style={userInfoStyles.indicatorStyle}/>}
+
       <View style={userInfoStyles.infoContainer}>
         <View>
-          <CustomTextMedium style={userInfoStyles.username}>
-            {selectedItem.organization_username}
-          </CustomTextMedium>
-          <CustomText style={userInfoStyles.accountType}>
-            {selectedItem.type === "individual" ? t("individual_account") : t("organization_account")}
-          </CustomText>
+          <Text style={userInfoStyles.username}>
+            {userInformation.username}
+          </Text>
         </View>
         <View style={userInfoStyles.infoGrid}>
-          {infoGenerate(kFormatter(selectedItem?.sequences || userInformation.sequences), t("sequences"))}
-          {infoGenerate(kFormatter(selectedItem?.photos || userInformation.photos), t("photos"))}
-          {/* {infoGenerate(kFormatter(userInformation.meters), "meters")} */}
+          <CustomInfo
+            value={thousandFormatter(userInformation.photos)}
+            subtitle={"photos"}
+            icon={<CameraFilledIcon/>}
+          />
+
+          <View style={userInfoStyles.separator}/>
+
+          <CustomInfo
+            value={thousandFormatter(userInformation.meters, "km")}
+            subtitle={"roads"}
+            icon={<RoadIcon />}
+          />
+
         </View>
       </View>
     </View>

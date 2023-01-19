@@ -1,37 +1,53 @@
-import React from "react";
-import { View } from "react-native";
-import { CustomText, CustomTextMedium } from "../highordercomponents";
-import { globalStyles } from "../styles/globalStyles";
-import { List } from "../components/Uploads";
-import { userUploadStyles } from "../styles/userUploadStyle";
-import { RFValue } from "react-native-responsive-fontsize";
-import { useKeepAwake } from "expo-keep-awake";
-import { useSelector } from "react-redux";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import React, {Fragment, useEffect} from "react";
+import {FlatList} from "react-native";
+import {useDispatch, useSelector} from "react-redux";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {useTranslation} from "react-i18next";
-const UserUpload = ({ navigation }) => {
-  const { uploadData } = useSelector((status) => status.uploadReducer);
-  const {t} = useTranslation("upload");
-  const { bottom } = useSafeAreaInsets();
+import {EmptyList, UploadItem} from "../components";
+import database from "../db";
+import * as FileSystem from "expo-file-system";
+import {UPLOAD_DATA} from "../store/actionsName";
+import {Upload} from "../components/Uploads";
 
-  useKeepAwake();
+const UserUpload = () => {
+  const {uploadData} = useSelector((status) => status.uploadReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => getData(), []);
+
+  const getData = () => {
+    database.getGroupByWithSequenceUUID().then(data => {
+      const filteredData = data.filter((item) => {
+        if (item.count >= 5) {
+          return item
+        }
+
+        deleteSequence(item.sequence_uuid)
+      })
+
+      dispatch({type: UPLOAD_DATA, payload: filteredData})
+    });
+  };
+
+  const deleteSequence = (sequence_uuid) => {
+    database.deleteBySequenceId(sequence_uuid, async () => {
+      await FileSystem.deleteAsync(FileSystem.documentDirectory + `${sequence_uuid}`)
+      getData();
+    })
+  }
 
   return (
-    <View style={{ paddingBottom: bottom + RFValue(85) }}>
-      <FocusAwareStatusBar barStyle="light-content" backgroundColor={"#130C47"} />
-      {uploadData.length !== 0 && (
-        <View style={userUploadStyles.container}>
-          <CustomTextMedium style={globalStyles.screenTitle}>
-            {t("title")}
-          </CustomTextMedium>
-          <CustomText style={globalStyles.screenDescription}>
-            {t("subtitle")}
-          </CustomText>
-        </View>
-      )}
-      <List navigation={navigation} />
-    </View>
+    <Fragment>
+      <FocusAwareStatusBar barStyle="dark-content" />
+
+      <FlatList
+        data={uploadData}
+        ListEmptyComponent={() => <EmptyList />}
+        renderItem={({item}) => <UploadItem item={item} deleteSequence={deleteSequence} />}
+        keyExtractor={(item) => item.sequence_uuid}
+      />
+
+      <Upload />
+    </Fragment>
   );
 };
 
