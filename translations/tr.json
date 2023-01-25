@@ -194,7 +194,7 @@
     "pass_min_character": "Şifre en az {{min}} karakter olmalıdır",
     "account_created": "Hesabınız oluşturuldu, e-posta adresinizi kontrol edin.",
     "redirect_error": "Yönlendirme sırasında bir hata oluştu, lütfen tekrar deneyin.",
-    "policy" : "\"Kaydol\" düğmesini tıklayarak <0>Gizlilik politikamızı</0> kabul etmiş olursunuz."
+    "policy": "\"Kaydol\" düğmesini tıklayarak <0>Gizlilik politikamızı</0> kabul etmiş olursunuz."
   },
   "forgot": {
     "title": "Parolanızı mı unuttunuz?",
@@ -231,6 +231,41 @@
     "summary": "Dünyanın her yerinden Mapilio'ya katkıda bulunanlarla rekabet edin ve harika ödüller kazanın!",
     "paragraph": "<h2>Mapilio Ödüllendirme Sistemi</h2> <p>\n\nMapilio'da çekimlerden puan toplamak ve ödüller kazanmak mümkün.\n\n<h3>Skor sistemi</h3>\nGlobal liderlik tablosu, katkılarınızı diğer katılımcılarla karşılaştırmanıza olanak tanır. Skor listesi, katkının birden çok unsurunu dikkate alacak bir puanlama sistemine sahiptir. İşte skoru oluşturan değişkenler:\n\n<h3>\u25CF Benzersiz kilometre (UKM):</h3>\nbu, daha önce kapsama alanı olmayan alanlarda katkıda bulunan sekansların toplam mesafesidir. Örneğin, 10 km sürdüyseniz ve bunun 7 km'sinde mevcut görüntü yoksa, o sürüş için UKM'niz 7 km olur.\n\n<h3>\u25CF Görüntüler:</h3>\nkatılımcının yarışma sırasında yüklediği toplam resim sayısı\n\n<h3>\u25CF Katılımcılar:</h3>\nbu, yerel meydan okumanıza katılan kişilerin sayısıdır. Fikir, işbirliğini teşvik etmek ve ödüllendirmektir.\n\nPuanı hesaplamak için formül aşağıdaki gibidir: Puan = (toplam UKM katkısı + (görüntü/1000)) * (1 + (katılımcı sayısı/10))\n\n<h3>Unutma;</h3>\nÖdül kazanabilmeniz için minimum 100 puana ulaşmanız gerekmektedir. Çekimlerinizden puan alabilmek için mekanın net olması, görüntülerin yeterince parlak ışıkta çekilmiş olması ve kötü hava koşullarında çekilmemiş olması gerekir. Sis, yağmur veya görüntüyü bozan diğer hava koşulları gibi.\n\n\n<h3center>Artık çekime başlayabilir, puan toplayabilir ve liderlik için rekabet edebilirsiniz.</h3center></p>",
     "start_now_capture": "Çekime Başla"
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Harita",
+      "map_desc": "Harita görünümünde mevcut konumunuzu, yolları, yerleri, binaları ve diğer ayrıntıları görün. Ayrıca halihazırda ele çekilmiş alanlar burada gözlemlenebilir.",
+      "marketplace": "Market",
+      "marketplace_desc": "Bazı alanlar için, karşılığında nakit veya kupon kazanabileceğiniz özel görvlerimiz var. Market sayfasında inceleyebilirsiniz.",
+      "upload": "Çekimler",
+      "upload_desc": "Çekiminiz bitti mi? Ardından tüm görüntüleri yüklemek için tıklayın.",
+      "leaderboard": "Liderler",
+      "leaderboard_desc": "Liderler Sayfası, çekimleriniz için kazandığınız puanları ve sıralamadaki konumunuzu gösterir.",
+      "capture": "Başla",
+      "capture_desc": "Daha iyi haritalar için çekimlere ve katkıda bulunmaya şimdi başlayın",
+      "next": "Devam Et",
+      "done": "Tamam"
+    },
+    "camera": {
+      "angle": "Doğru Açı",
+      "angle_desc": "Ufuk çizgisi daima zıt ve yatay olacak şekilde kamera açısını koruyun.",
+      "startCapture": "Çekime Başla",
+      "start_capture_desc": "Işık, konum, pil... Her şey hazır mı? Çekime başlayalım.",
+      "tasks": "Görevler",
+      "tasks_desc": "Ekranda yapmanız gereken görevleri görebilirsiniz.",
+      "next": "Devam Et",
+      "done": "Tamam"
+    },
+    "marketplace": {
+      "list": "Market",
+      "list_desc": "Burada, bölgenizdeki görevleri görebilirsiniz. Karşılığında nakit veya kupon kazanabilirsiniz.",
+      "apply": "Başvur",
+      "apply_desc": "Başvur butonuna tıklayarak talep başvurusunda bulunabilirsiniz.",
+      "next": "Devam Et",
+      "done": "Tamam"
+    },
+    "skip": "Geç"
   },
   "languages": {
     "tr": "Türkçe",

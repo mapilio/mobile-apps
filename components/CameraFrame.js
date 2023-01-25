@@ -2,15 +2,25 @@ import React from "react";
 import {StyleSheet, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {CameraCenter} from "../assets/svg/illustrations";
+import { tooltipContents } from "../util/consts/tooltip";
 import BatteryLevel from "./BatteryLevel";
 import GPSLevel from "./GPSLevel";
 import PhotoAmounts from "./PhotoAmounts";
 import RecordStatus from "./RecordStatus";
+import { TooltipWrapper } from "./Tooltip";
 
 const CameraFrame = () => {
   return (
     <View style={styles.wrapper}>
-      <CameraCenter />
+      <TooltipWrapper
+        content={tooltipContents.camera.angle}
+        name="angle"
+        placement="right"
+      >
+        <View style={styles.wrapper}>
+          <CameraCenter />
+        </View>
+      </TooltipWrapper>
       <View style={styles.battery}>
         <BatteryLevel />
       </View>

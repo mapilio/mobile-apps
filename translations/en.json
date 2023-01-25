@@ -193,7 +193,7 @@
     "pass_min_character": "Password must be at least {{min}} characters",
     "account_created": "Your account has been created, check your e-mail address.",
     "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy" : "By clicking \"Sign up\" button you agree with our <0>Privacy policy</0>"
+    "policy": "By clicking \"Sign up\" button you agree with our <0>Privacy policy</0>"
   },
   "forgot": {
     "title": "Forgot your password?",
@@ -230,6 +230,41 @@
     "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
     "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>\u25CF Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>\u25CF Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>\u25CF Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
     "start_now_capture": "Start Now Capture"
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Map",
+      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
+      "marketplace": "Marketplace",
+      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
+      "upload": "Upload",
+      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
+      "leaderboard": "Leaderboard",
+      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
+      "capture": "Capture",
+      "capture_desc": "Start now to start capturing and contributing better maps",
+      "next": "Next",
+      "done": "Done"
+    },
+    "camera": {
+      "angle": "Right Angle",
+      "angle_desc": "Keep the camera angle so that the horizon line is always opposite and horizontal",
+      "startCapture": "Capture Start",
+      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
+      "tasks": "Tasks",
+      "tasks_desc": "You can see the tasks you have to do on the screen.",
+      "next": "Next",
+      "done": "Done"
+    },
+    "marketplace": {
+      "list": "Marketplace",
+      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
+      "apply": "Apply",
+      "apply_desc": "You can apply for the request by clicking on the Apply button.",
+      "next": "Next",
+      "done": "Done"
+    },
+    "skip": "Skip"
   },
   "languages": {
     "tr": "Turkish",

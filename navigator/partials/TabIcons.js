@@ -3,31 +3,64 @@ import {Text, View} from "react-native";
 import {CaptureIcon, MarketplaceIcon, Profile, TabMap, Upload} from "../../assets/svg/illustrations";
 import LeaderIcon from "../../assets/svg/illustrations/LeaderIcon";
 import {useTranslation} from "react-i18next";
+import { TooltipWrapper } from "../../components/Tooltip";
+import { tooltipContents } from "../../util/consts/tooltip";
+import { useSelector } from "react-redux";
 
-const TabIcons = ({focused, tab}) => {
-  const {t} = useTranslation("tab")
+const TabIcons = ({ focused, tab }) => {
+  const { t } = useTranslation("tab");
+  const {isInitialized}  = useSelector(state => state.tooltipReducer.tabBar);
+
+  const iconColor = () => {
+    if(!isInitialized || focused) return "#130C47";
+    return undefined
+  }
+
+  const textColor = () => {
+    if(!isInitialized || focused) return {color: "#130C47"};
+    return {}
+  }
+
+  const borderColor = () => {
+    if(!isInitialized) return {};
+    if(focused) return {borderColor: "#130C47"};
+    return {}
+  }
 
   const icons = {
-    map: <TabMap fill={focused ? "#130C47" : undefined} />,
-    market: <MarketplaceIcon fill={focused ? "#130C47" : undefined} />,
-    capture: <CaptureIcon fill={focused ? "#130C47" : undefined} />,
-    upload: <Upload fill={focused ? "#130C47" : undefined} />,
-    profile: <Profile fill={focused ? "#130C47" : undefined} />,
-    leader: <LeaderIcon fill={focused ? "#130C47" : undefined} />,
+    map: <TabMap fill={iconColor()} />,
+    market: <MarketplaceIcon fill={iconColor()} />,
+    capture: <CaptureIcon fill={iconColor()} />,
+    upload: <Upload fill={iconColor()} />,
+    profile: <Profile fill={iconColor()} />,
+    leader: <LeaderIcon fill={iconColor()} />,
   };
 
   return (
-    <View style={[navigatorStyle.tabIconStyle, focused ? navigatorStyle.borderStyle : {}]}>
+    <View
+      style={[
+        navigatorStyle.tabIconStyle,
+        borderColor(),
+      ]}
+    >
+      <TooltipWrapper name={tab} content={tooltipContents.tabBar[tab]}>
+      <View style={{alignItems:"center"}}>
       {icons[tab]}
-      <Text
-        style={[navigatorStyle.tabTextStyle, focused ? {color: "#130C47"} : {}]}
-        numberOfLines={1}
-        ellipsizeMode={"clip"}
-      >
-        {t(tab)}
-      </Text>
+        <Text
+          style={[
+            navigatorStyle.tabTextStyle,
+            textColor(),
+          ]}
+          numberOfLines={1}
+          ellipsizeMode={"clip"}
+        >
+          {t(tab)}
+        </Text>
+      </View>
+      </TooltipWrapper>
+      
     </View>
-  )
-}
+  );
+};
 
 export default TabIcons;

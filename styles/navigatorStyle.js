@@ -64,8 +64,6 @@ export const navigatorStyle = {
     paddingBottom: RFValue(2.5),
     borderBottomWidth: RFValue(3),
     borderColor: "transparent",
-    paddingLeft: RFValue(10),
-    paddingRight: RFValue(10),
     width: "100%",
     flex: 1,
   },

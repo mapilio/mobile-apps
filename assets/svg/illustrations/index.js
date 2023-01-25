@@ -65,3 +65,4 @@ export {default as NoFeed} from "./NoFeed";
 export {default as CameraFilledIcon} from "./CameraFilledIcon";
 export {default as RoadIcon} from "./RoadIcon";
 export {default as Photos} from "./Photos";
+export {default as ArrowRight} from "./ArrowRight";

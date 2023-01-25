@@ -5,7 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { DropdownArrow } from "../assets/svg/illustrations";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 
-const SelectProjectButton = ({ setModalVisible }) => {
+export const SelectProjectButton = ({ setModalVisible }) => {
   return (
     <TouchableOpacity
       style={{
