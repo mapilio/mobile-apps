@@ -131,3 +131,15 @@ export const cameraProjectModalStyles = {
 		}
 	})
 }
+
+export const fakeTasksStyle = {
+  flex: 1,
+  position: "absolute",
+  marginVertical: RFValue(14),
+  marginHorizontal: RFValue(20),
+  justifyContent: "center",
+  alignItems: "center",
+  left: 0,
+  top: 0,
+  right: 0,
+};

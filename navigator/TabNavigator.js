@@ -19,6 +19,8 @@ import Leaderboard from "../screens/Leaderboard";
 import {useTranslation} from "react-i18next";
 import {CustomTextBold} from "../highordercomponents";
 import {useNavigation} from "@react-navigation/native";
+import { TooltipWrapper } from "../components/Tooltip";
+import { tooltipContents } from "../util/consts/tooltip";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,8 +33,9 @@ const CaptureTabBarButton = () => {
   })
 
   return (
-    <TouchableOpacity style={{justifyContent: "center", alignItems: "center", flex: 1}} onPress={handlePress}>
+     <TouchableOpacity style={{justifyContent: "center", alignItems: "center", flex: 1}} onPress={handlePress}>
       <View style={navigatorStyle.captureButtonWrapperStyle}>
+        <TooltipWrapper name="capture" content={tooltipContents.tabBar.capture}>
         <View style={navigatorStyle.captureButtonStyle}>
           <CaptureText />
 
@@ -44,6 +47,7 @@ const CaptureTabBarButton = () => {
             {t("capture")}
           </CustomTextBold>
         </View>
+        </TooltipWrapper>
       </View>
     </TouchableOpacity>
   );

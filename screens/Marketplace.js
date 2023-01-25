@@ -13,6 +13,7 @@ import {Document} from "../assets/svg/illustrations";
 import Geolocation from "react-native-geolocation-service";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
+import { useSelector } from "react-redux";
 
 const Marketplace = ({ navigation }) => {
   const {t} = useTranslation("marketplace");
@@ -21,6 +22,11 @@ const Marketplace = ({ navigation }) => {
   const {top, bottom} = useSafeAreaInsets();
   const [onScroll, setOnScroll] = useState(false);
   const [currentCoordinate, setCurrentCoordinate] = useState({latitude: 0, longitude: 0});
+
+  const {isInitialized} = useSelector(state => state.tooltipReducer.marketplace);
+
+
+  const DEFAULT_FRICTION = isInitialized ? 0.998 : 0;
 
   useEffect(() => {
     Geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
@@ -43,6 +49,12 @@ const Marketplace = ({ navigation }) => {
     });
 
   }, [currentCoordinate]);
+
+  useEffect(() => {
+    if(!isInitialized) {
+      slidePanel.current?.show(RFValue(400))
+    }
+  }, [isInitialized]);
 
 
   return (
@@ -72,6 +84,7 @@ const Marketplace = ({ navigation }) => {
         allowDragging={!onScroll}
         showBackdrop={false}
         ref={slidePanel}
+        friction={DEFAULT_FRICTION}
         draggableRange={{top: getContentAreaHeight(top, bottom) - top, bottom: 0}}
         containerStyle={{zIndex: 6}}
       >

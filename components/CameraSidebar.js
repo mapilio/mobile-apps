@@ -15,7 +15,8 @@ import {IS_ACTIVE, UPDATE_UUID} from "../store/actionsName";
 import * as Brightness from "expo-brightness";
 import {exitCapture} from "../helper/camera";
 import {useTranslation} from "react-i18next";
-
+import { TooltipWrapper } from "./Tooltip";
+import { tooltipContents } from "../util/consts/tooltip";
 const CapturedComponent = ({navigation, setLowBrightness}) => {
   const {t} = useTranslation("camera");
   const permissionsGranted = useRef(false);
@@ -77,7 +78,9 @@ const CaptureComponent = ({navigation, exitHandler}) => {
         <CustomText style={styles.advanced}>{t("advanced")}</CustomText>
       </TouchableOpacity>
 
-      <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
+     <TooltipWrapper content={tooltipContents.camera.startCapture} name={"startCapture"} placement={"left"}>
+     <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
+     </TooltipWrapper>
     </>
   )
 }

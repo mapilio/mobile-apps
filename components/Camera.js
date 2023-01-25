@@ -1,46 +1,63 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Camera as VisionCamera, useCameraDevices} from "react-native-vision-camera";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Camera as VisionCamera,
+  useCameraDevices,
+} from "react-native-vision-camera";
 
-import {cameraStyles} from "../styles/cameraStyles";
+import { cameraStyles, fakeTasksStyle } from "../styles/cameraStyles";
 import CameraFrame from "./CameraFrame";
 import RotationLine from "./RotationLine";
-import {CameraWarnings} from "../helper/camera";
+import { CameraWarnings } from "../helper/camera";
 import CameraProjectInfo from "./CameraProjectInfo";
-import {UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS} from "../store/actionsName";
-import {useDispatch, useSelector} from "react-redux";
-import {Routes} from "../navigator/Routes";
-import {View, ActivityIndicator, Dimensions} from "react-native";
-import {CustomTextMedium} from "../highordercomponents";
-import {RFValue} from "react-native-responsive-fontsize";
-import {useTranslation} from "react-i18next";
-
-const Camera = ({navigation}) => {
-  const {t} = useTranslation("camera");
+import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes } from "../navigator/Routes";
+import { View, ActivityIndicator, Dimensions, Text } from "react-native";
+import { CustomTextMedium } from "../highordercomponents";
+import { RFValue } from "react-native-responsive-fontsize";
+import { useTranslation } from "react-i18next";
+import SelectProjectButton from "./SelectProjectButton";
+import { TooltipWrapper } from "./Tooltip";
+import { tooltipContents } from "../util/consts/tooltip";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+const Camera = ({ navigation }) => {
+  const { t } = useTranslation("camera");
   const cameraRef = useRef(null);
-  const {cameraWalkthroughStatus} = useSelector((state) => state.generalReducer);
-  const {auth} = useSelector((state) => state.getTokenReducer);
-  const {isActive} = useSelector((state) => state.cameraReducer);
+  const { cameraWalkthroughStatus } = useSelector(
+    (state) => state.generalReducer
+  );
+  const { auth } = useSelector((state) => state.getTokenReducer);
+  const { isActive } = useSelector((state) => state.cameraReducer);
   const [cameraReady, setCameraReady] = useState(false);
-  const devices = useCameraDevices()
-  const device = devices.back
+  const devices = useCameraDevices();
+  const device = devices.back;
   const dispatch = useDispatch();
+  const { isInitialized } = useSelector((state) => state.tooltipReducer.camera);
 
   useEffect(() => {
     !cameraWalkthroughStatus && navigation.navigate(Routes.walkthrough);
 
-    const timeout = setTimeout(() => setCameraReady(true), 500)
+    const timeout = setTimeout(() => setCameraReady(true), 500);
 
-    return () => clearTimeout(timeout)
+    return () => clearTimeout(timeout);
   }, []);
 
   const handleCameraReady = () => {
-    dispatch({type: UPDATE_CAMERA_STATUS, payload: "READY"});
-    dispatch({type: UPDATE_CAMERA_REF, payload: cameraRef.current});
-  }
+    dispatch({ type: UPDATE_CAMERA_STATUS, payload: "READY" });
+    dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
+  };
+
+  const FakeTasks = () => {
+    return (
+        <SelectProjectButton
+          navigation={navigation}
+        />
+    );
+  };
 
   if (cameraReady && cameraWalkthroughStatus && device) {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <VisionCamera
           style={cameraStyles.camera}
           ref={cameraRef}
@@ -54,19 +71,29 @@ const Camera = ({navigation}) => {
           enableZoomGesture={true}
           hdr={false}
         />
-        <View style={{
-          width: Dimensions.get("window").width - RFValue(180),
-          height: "100%",
-          flex:1,
-          position: "absolute",
-          zIndex: 2,
-        }}>
-          <RotationLine/>
-          <CameraFrame navigation={navigation}/>
-          {auth && <CameraProjectInfo navigation={navigation}/>}
-          <CameraWarnings/>
+        <View
+          style={{
+            width: Dimensions.get("window").width - RFValue(180),
+            height: "100%",
+            flex: 1,
+            position: "absolute",
+            zIndex: 2,
+          }}
+        >
+          <RotationLine />
+          <CameraFrame navigation={navigation} />
+          {auth && <CameraProjectInfo navigation={navigation} />}
+          {!auth && !isInitialized && (
+            <View
+            style={fakeTasksStyle}
+          >
+            <TooltipWrapper name="tasks" content={tooltipContents.camera.tasks} placement={"bottom"}>
+             <FakeTasks />
+            </TooltipWrapper>
+            </View>
+          )}
+          {isInitialized && <CameraWarnings />}
         </View>
-
       </View>
     );
   } else {
@@ -77,7 +104,7 @@ const Camera = ({navigation}) => {
           {t("getting_ready")}
         </CustomTextMedium>
       </View>
-    )
+    );
   }
 };
 
