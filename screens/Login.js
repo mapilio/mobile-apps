@@ -47,8 +47,8 @@ const Login = ({navigation}) => {
 
 	return (
 		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
-			<FocusAwareStatusBar barStyle="light-content"  backgroundColor={"#130C47"}/>
 			<View>
+			<FocusAwareStatusBar barStyle="light-content"  />
 				<View style={loginStyles.logo}>
 					<MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>
 				</View>
@@ -111,7 +111,7 @@ const Login = ({navigation}) => {
 				</TouchableOpacity>
 				<CustomText
 					onPress={() => navigation.navigate(Routes.forgotPassword)}
-					style={{...loginStyles.privacyText, marginVertical: RFValue(21)}}
+					style={{...loginStyles.forgotPassword, marginVertical: RFValue(18)}}
 				>
 					{t("forgot_password")}
 				</CustomText>

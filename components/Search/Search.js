@@ -4,23 +4,37 @@ import {TouchableOpacity, View} from "react-native";
 import {appMapStyle} from "../../styles/appMapStyle";
 import SearchModal from "./SearchModal";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useDispatch} from "react-redux";
+import {ADD_SEARCH_HISTORY} from "../../store/actionsName";
 
 const Search = ({camera}) => {
   const {top} = useSafeAreaInsets();
   const [openSearchbar, setOpenSearchbar] = useState(false);
+  const dispatch = useDispatch();
+
   let timeout;
 
-  const handleClick = (coordinate) => {
+  const addSearchHistory = (searchItem) => {
+    dispatch({
+      type: ADD_SEARCH_HISTORY,
+      payload: searchItem,
+    });
+  };
+
+  const handleClick = (coordinates, param) => {
     setOpenSearchbar(false)
     timeout = setTimeout(() => {
-      coordinate.length === 4 &&
-        camera.current.fitBounds([coordinate[0], coordinate[1]], [coordinate[2], coordinate[3]], [20, 20], 1000)
+      coordinates.length === 4 &&
+        camera.current.fitBounds([coordinates[0], coordinates[1]], [coordinates[2], coordinates[3]], [20, 20], 1000)
 
-      coordinate.length === 2 &&
-        camera.current.setCamera({centerCoordinate: coordinate, zoomLevel: 10, animationDuration: 1000})
+      coordinates.length === 2 &&
+        camera.current.setCamera({centerCoordinate: coordinates, zoomLevel: 10, animationDuration: 1000})
     }, 200)
+    addSearchHistory({
+      param,
+      coordinates
+    })
   }
-
   useEffect(() => {
     return () => timeout?.remove()
   }, []);

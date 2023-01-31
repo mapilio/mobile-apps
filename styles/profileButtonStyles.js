@@ -13,8 +13,8 @@ export const profileButtonStyles = StyleSheet.create({
     ...globalStyles.shadow,
   },
   profileIcon: {
-    width: RFValue(55),
-    height: RFValue(55),
+    width: RFValue(52),
+    height: RFValue(52),
     alignItems: "center",
     justifyContent: "center",
     borderRadius: RFPercentage(50),

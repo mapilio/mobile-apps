@@ -9,7 +9,7 @@ import {RFValue} from "react-native-responsive-fontsize";
  * @returns {JSX.Element} Returns the JSX Svg component
  * @constructor
  */
-const Flags = ({flag, width = RFValue(29), height = RFValue(19)}) => {
+const Flags = ({flag, width = RFValue(19), height = RFValue(19)}) => {
 
   const iconList = [
     {code: 'en', component: <England/>},

@@ -9,6 +9,7 @@ import {
   marketplaceReducer,
   leaderboardReducer,
   tooltipReducer,
+  searchReducer,
 } from "./reducers";
 
 export default combineReducers({
@@ -21,4 +22,5 @@ export default combineReducers({
   marketplaceReducer,
   leaderboardReducer,
   tooltipReducer,
+  searchReducer,
 });

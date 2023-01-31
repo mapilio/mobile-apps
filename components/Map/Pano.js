@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,47 +10,60 @@ import { panoStyle } from "../../styles/panoStyle";
 import ReportIcon from "../../assets/svg/illustrations/ReportIcon";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 import SwitchMapPano from "../../assets/svg/illustrations/SwitchMapPano";
-import MinimizePano from "../../assets/svg/illustrations/MinimizePano";
 import Campus from "../../assets/svg/illustrations/Campus";
 import moment from "moment";
-import {fetchHandler} from "../../helper/helper";
-import {RFValue} from "react-native-responsive-fontsize";
-import {NorthArrow} from "../../assets/svg/illustrations";
+import { fetchHandler } from "../../helper/helper";
+import { RFValue } from "react-native-responsive-fontsize";
+import {
+  MaximizePano,
+  MinimizePano,
+} from "../../assets/svg/illustrations";
 import Config from "react-native-config";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Panorama from "../Panorama";
-import {useTranslation} from "react-i18next";
-
-const Pano = ({imageInformation, hidePano}) => {
+import { useTranslation } from "react-i18next";
+import LinearGradient from "react-native-linear-gradient";
+import { useSelector } from "react-redux";
+const Pano = ({ imageInformation, hidePano }) => {
   const [fullHeight, setFullHeight] = useState(false);
   const [username, setUsername] = useState(null);
-  const {top, bottom} = useSafeAreaInsets();
-  const {t} = useTranslation("panorama")
-  const {height} = Dimensions.get("screen");
+  const { top, bottom } = useSafeAreaInsets();
+  const { height } = Dimensions.get("screen");
+  const {language} = useSelector(state => state.generalReducer)
+
+  const {t} = useTranslation("languages", {nsMode: "fallback"})
 
   useEffect(() => {
     fetchHandler({
-      url: `${Config.SERVICE_URL}/api/search-user?options[parameters][id]=${imageInformation.user}`
-    }).then(({data}) => {
-      if (data && data.length) {
-        let name = data[0].username
-        name.length > 10 ? name = name.slice(0, 10) + '...' : name
+      url: `${Config.SERVICE_URL}/api/search-user?options[parameters][id]=${imageInformation.user}`,
+    })
+      .then(({ data }) => {
+        if (data && data.length) {
+          let name = data[0].username;
+          name.length > 20 ? (name = name.slice(0, 20) + "...") : name;
 
-        setUsername('@' + name)
-      } else {
-        setUsername(null)
-      }
-    }).catch((err) => {
-      setUsername(null)
-      toast.show(err.response.data.message, {type: "error"})
+          setUsername("@" + name);
+        } else {
+          setUsername(null);
+        }
+      })
+      .catch((err) => {
+        setUsername(null);
+        toast.show(err.response.data.message, { type: "error" });
+      });
+  }, [imageInformation]);
+
+  useEffect(()=> {
+    moment.locale(language, {
+        months:t("moment.months", {returnObjects: true}),
     })
   }, [])
 
   const imageHeight = () => {
-    const _imageHeight = height - RFValue(63) - bottom
+    const _imageHeight = height - RFValue(52) - bottom;
 
-    return fullHeight ? _imageHeight : (_imageHeight + top) / 2
-  }
+    return fullHeight ? _imageHeight : (_imageHeight + top) / 2;
+  };
 
   const reportImage = () => {
     fetchHandler({
@@ -64,58 +77,69 @@ const Pano = ({imageInformation, hidePano}) => {
           },
         },
       },
-    }).then(() => {
-      toast.show('Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.', {type: 'info'})
-    }).catch(() => {
-      toast.show('An error occurred while reporting. Try again.', {type: 'error'})
-    });
+    })
+      .then(() => {
+        toast.show(
+          "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
+          { type: "info" }
+        );
+      })
+      .catch(() => {
+        toast.show("An error occurred while reporting. Try again.", {
+          type: "error",
+        });
+      });
   };
 
   return (
-    <View>
+    <View style={{zIndex:10}}>
       <View style={panoStyle.topBar}>
-        <TouchableOpacity style={{...panoStyle.switch, top: top}} onPress={() => setFullHeight(!fullHeight)}>
+        <TouchableOpacity
+          style={{ ...panoStyle.switch, top: top }}
+          onPress={() => setFullHeight(!fullHeight)}
+        >
+          {fullHeight ? <MinimizePano /> : <MaximizePano />}
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ ...panoStyle.minimize, top: top }}
+          onPress={hidePano}
+        >
           <SwitchMapPano />
         </TouchableOpacity>
-        <TouchableOpacity style={{...panoStyle.minimize, top: top}} onPress={hidePano}>
-          <MinimizePano />
-        </TouchableOpacity>
       </View>
-
+   
       <Panorama
         image={imageInformation.highResImage}
         height={imageHeight()}
         resolution={imageInformation.resolution}
       />
 
-      <View style={panoStyle.watermark}>
-        <LogoWatermark />
-      </View>
-
-      <View style={panoStyle.userActionWrapper}>
-        <View>
-          <NorthArrow />
-        </View>
-        <View style={{transform: [{rotate: `${imageInformation.heading}deg`}]}}>
+      <View style={panoStyle.info}>
+       <View style={panoStyle.capturer}>
+       <Text style={panoStyle.capturer.name}>{username}</Text>
+        <Text style={panoStyle.capturer.date}>
+          {moment(imageInformation.date).format("MMMM DD.MM.YYYY")}
+        </Text>
+       </View>
+        <View
+          style={{ transform: [{ rotate: `${imageInformation.heading}deg` }], position:"absolute", right:RFValue(10), bottom:0 }}
+        >
           <Campus />
         </View>
       </View>
 
-      <View style={panoStyle.bottomTab}>
-        <Pressable style={panoStyle.report} onPress={reportImage}>
-          <ReportIcon />
-          <Text style={panoStyle.reportText}>
-            {t("image_report")}
-          </Text>
-        </Pressable>
-
-        <View style={panoStyle.capturerWrapper}>
-          <Text style={panoStyle.capturerName}>{username}</Text>
-          <Text style={panoStyle.captureDate}>
-            {moment(imageInformation.date).format("DD.MM.YYYY")}
-          </Text>
+      <LinearGradient
+        colors={["#11111100", "#111111"]}
+        angle={180}
+        style={panoStyle.bottomTab}
+      >
+        <View style={panoStyle.watermark}>
+          <LogoWatermark />
         </View>
-      </View>
+        <TouchableOpacity style={panoStyle.report} onPress={reportImage}>
+          <ReportIcon />
+        </TouchableOpacity>
+      </LinearGradient>
     </View>
   );
 };

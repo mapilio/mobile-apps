@@ -211,6 +211,7 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
           marketplaceData.features.map((value, index) => {
             if (index === 1) {
               return (
+                <Fragment key={index}>
                 <TooltipWrapper
                   key={index}
                   name="list"
@@ -226,14 +227,20 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
                     onClick={() => handleItemClick(value)}
                   />
                 </TooltipWrapper>
+                <View style={{backgroundColor:"#CBD1D9", width:"100%", height:1}} />
+                </Fragment>
               );
             }
             return (
+              <Fragment key={index}>
               <ListItem
                 key={index}
                 data={value.properties}
                 onClick={() => handleItemClick(value)}
               />
+              <View style={{backgroundColor:"#CBD1D9", width:"100%", height:1}} />
+              </Fragment>
+
             );
           })
         ) : (

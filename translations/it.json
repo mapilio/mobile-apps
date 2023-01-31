@@ -108,20 +108,6 @@
       }
     }
   },
-  "camera_walkthrough": {
-    "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
-    },
-    "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
-    },
-    "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
-    }
-  },
   "camera_settings": {
     "general_settings": "General settings",
     "capture_settings": "Capture settings",
@@ -166,7 +152,8 @@
     "email_username": "Email or Username",
     "password": "Password",
     "login": "Log In",
-    "forgot_password": "Forgot your password?"
+    "forgot_password": "Forgot your password?",
+    "languages": "Languages"
   },
   "register": {
     "title": "Sign up to see what's on your map.",
@@ -180,7 +167,7 @@
     "pass_min_character": "Password must be at least {{min}} characters",
     "account_created": "Your account has been created, check your e-mail address.",
     "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy" : "By clicking \"Sign up\" button you agree with our <0>Privacy policy</0>"
+    "policy": "By clicking \"Sign up\" button you agree with our <0>Privacy policy</0>"
   },
   "forgot": {
     "title": "Forgot your password?",
@@ -219,6 +206,22 @@
     "de": "Germany",
     "it": "Italian",
     "pr": "Portuguese",
-    "es": "Spanish"
+    "es": "Spanish",
+    "moment": {
+      "months": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    }
   }
 }

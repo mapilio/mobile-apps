@@ -58,25 +58,27 @@ const Marketplace = ({ navigation }) => {
 
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor:"white"}}>
       <MarketplaceMap navigation={navigation}/>
       <FocusAwareStatusBar barStyle="dark-content" backgroundColor={Platform.OS ==="android" && "white"} />
       <TouchableOpacity
         onPress={() => slidePanel.current?.show(RFValue(400))}
         style={{
+        display:"flex",
         backgroundColor: '#130C47',
         marginTop: "auto",
         marginLeft: "auto",
         marginRight: "auto",
-        marginBottom: RFValue(36),
+        marginBottom: RFValue(24),
         height: RFValue(36),
         alignItems: "center",
         justifyContent: "center",
-        paddingHorizontal: RFValue(24),
+        paddingHorizontal: RFValue(18),
         borderRadius: RFValue(18),
         flexDirection: "row",
       }}>
         <Document/>
+        <View style={{width: RFValue(3)}}/>
         <CustomText style={{color: '#FFF'}}>{t("market_list")}</CustomText>
       </TouchableOpacity>
 

@@ -23,7 +23,7 @@ const LanguageModal = () => {
         <CustomText style={styles.langText}>
           {t(language, {ns: 'languages'})}
         </CustomText>
-        <DropdownArrow />
+        <DropdownArrow  />
       </Pressable>
 
       <SlidingUpPanel
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     height: RFValue(4),
     borderRadius: RFValue(5),
     marginVertical: RFValue(15),
+    
   },
   title: {
     color: '#333333',
@@ -80,11 +81,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: "auto",
     marginLeft: "auto",
+    opacity: 0.7,
   },
   langText: {
     color: '#FFF',
     paddingHorizontal: RFValue(5),
-    fontSize: RFValue(14)
+    fontSize: RFValue(13),
+
   }
 })
 

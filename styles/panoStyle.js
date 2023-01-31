@@ -1,21 +1,23 @@
 import { RFValue } from "react-native-responsive-fontsize";
-import {Dimensions} from "react-native";
+import { Dimensions } from "react-native";
 
 export const panoStyle = {
   topBar: {
     zIndex: RFValue(1),
   },
   switch: {
-    backgroundColor: "rgba(31,48,76,0.75)",
-    padding: RFValue(5),
+    backgroundColor: "#191919",
     borderRadius: RFValue(4),
     position: "absolute",
     left: RFValue(16),
+    opacity: 0.7,
+    padding: RFValue(4.5),
   },
   minimize: {
-    backgroundColor: "rgba(31,48,76,0.75)",
+    backgroundColor: "#191919",
+    opacity: 0.7,
     padding: RFValue(4.5),
-    borderRadius: RFValue(4),
+    borderRadius: RFValue(20),
     position: "absolute",
     top: RFValue(10),
     right: RFValue(16),
@@ -33,27 +35,23 @@ export const panoStyle = {
     fontSize: RFValue(14),
     color: "#CBD1D9",
   },
-  imageStyle: {
-    // width: RFValue(Dimensions.get('window').width),
-    // resizeMode: "cover",
-    // aspectRatio: 3 / 2,
-  },
   bottomTab: {
-    paddingLeft: RFValue(13),
-    paddingRight: RFValue(13),
-    paddingTop: RFValue(6),
-    paddingBottom: RFValue(6),
-    backgroundColor: "#130C47",
+    backgroundColor: "transparent",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
     position: "absolute",
     bottom: 0,
     width: Dimensions.get("window").width,
-    height: RFValue(30)
+    height: RFValue(100),
   },
   report: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: RFValue(10),
+    position: "absolute",
+    right: RFValue(10),
+    bottom: RFValue(0),
   },
   reportText: {
     fontSize: RFValue(12),
@@ -61,31 +59,36 @@ export const panoStyle = {
     marginLeft: RFValue(3.87),
     textDecorationLine: "underline",
   },
-  capturerWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  capturerName: {
-    color: "#B9C0CF",
-    marginRight: RFValue(6.64),
-    fontSize: RFValue(12),
-  },
-  captureDate: {
-    color: "#B9C0CF",
-    fontSize: RFValue(12),
-  },
   watermark: {
     position: "absolute",
-    bottom: RFValue(43.01),
-    left: RFValue(11.59),
+    bottom: RFValue(10),
+    left: RFValue(10),
   },
-  userActionWrapper: {
+  info: {
     position: "absolute",
-    bottom: RFValue(43),
-    right: RFValue(17),
+    bottom: RFValue(40),
     zIndex: 1,
     alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    flexDirection: "row",
+    paddingRight: RFValue(10),
+  },
+  capturer: {
+    name: {
+      color: "#F4F2F6",
+      marginLeft: RFValue(10),
+      fontSize: RFValue(11.5),
+      fontFamily: "Poppins-Medium",
+    },
+    date: {
+      color: "#D8D8D8",
+      fontSize: RFValue(11.5),
+      paddingLeft: RFValue(8),
+    },
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
   },
   zoomIn: {
     backgroundColor: "rgba(31,48,76,0.75)",

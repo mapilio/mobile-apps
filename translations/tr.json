@@ -27,6 +27,10 @@
     "image_report": "Resmi raporla"
   },
   "search": {
+    "search": "Ara",
+    "recent_searches": "Son aramalar",
+    "clear": "Temizle",
+    "empty_search": "Son arama sonuçları burada görüntülenecek",
     "no_results": "Sonuç bulunamadı",
     "another_search": "Lütfen başka bir arama yapın."
   },
@@ -116,20 +120,6 @@
       }
     }
   },
-  "camera_walkthrough": {
-    "first": {
-      "title": "Yola odaklan",
-      "description": "Ekrana dokunarak odağı yol olarak ayarlayın."
-    },
-    "second": {
-      "title": "Temiz Görüntü",
-      "description": "Araç kaportasının ve diğer nesnelerin resimde görünmediğinden emin olun."
-    },
-    "third": {
-      "title": "Kamera Yönü",
-      "description": "Görüntüyü yere paralel olarak kaydetmek için kameranın konumunu ayarlayın."
-    }
-  },
   "camera_settings": {
     "general_settings": "Genel ayarlar",
     "capture_settings": "Çekim ayarları",
@@ -194,7 +184,7 @@
     "pass_min_character": "Şifre en az {{min}} karakter olmalıdır",
     "account_created": "Hesabınız oluşturuldu, e-posta adresinizi kontrol edin.",
     "redirect_error": "Yönlendirme sırasında bir hata oluştu, lütfen tekrar deneyin.",
-    "policy": "\"Kaydol\" düğmesini tıklayarak <0>Gizlilik politikamızı</0> kabul etmiş olursunuz."
+    "policy": "\"Kaydol\" düğmesini tıklayarak\n <0>Gizlilik politikamızı</0> kabul etmiş olursunuz."
   },
   "forgot": {
     "title": "Parolanızı mı unuttunuz?",
@@ -267,6 +257,7 @@
     },
     "skip": "Geç"
   },
+
   "languages": {
     "tr": "Türkçe",
     "en": "İngilizce",
@@ -275,6 +266,22 @@
     "de": "Almanca",
     "it": "İtalyanca",
     "pr": "Portekizce",
-    "es": "İspanyolca"
+    "es": "İspanyolca",
+    "moment": {
+      "months": [
+        "Ocak",
+        "Şubat",
+        "Mart",
+        "Nisan",
+        "Mayıs",
+        "Haziran",
+        "Temmuz",
+        "Ağustos",
+        "Eylül",
+        "Ekim",
+        "Kasım",
+        "Aralık"
+      ]
+    }
   }
 }

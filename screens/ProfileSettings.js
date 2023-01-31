@@ -8,6 +8,7 @@ import OneSignal from "react-native-onesignal";
 import {useEffect} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 const ListItem = ({name, onPress}) => {
   const {t} = useTranslation('profile_settings');
@@ -48,6 +49,7 @@ const ProfileSettings = ({navigation}) => {
 
   return (
     <View style={styles.wrapper}>
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white"/>
       <View>
         <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.profileEdit)}>
           <CustomText style={styles.listText}>{t("profile_edit")}</CustomText>

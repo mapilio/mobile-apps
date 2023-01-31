@@ -152,7 +152,7 @@ const Register = ({ navigation }) => {
             {loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : t("signup")}
           </CustomText>
         </TouchableOpacity>
-        <View style={{marginTop: RFValue(21)}}>
+        <View style={{marginTop: RFValue(18)}}>
           <SocialLogin navigation={navigation} />
         </View>
       </View>

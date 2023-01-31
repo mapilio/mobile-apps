@@ -49,9 +49,6 @@ export const marketplaceStyles = StyleSheet.create({
 
 export const marketplaceItemStyles = StyleSheet.create({
   container: {
-    borderBottomWidth: 1,
-    borderColor: "#576679FF",
-    marginBottom: RFValue(15),
     paddingVertical: RFValue(15),
   },
   topContainer: {

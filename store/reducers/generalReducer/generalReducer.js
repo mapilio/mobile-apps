@@ -3,7 +3,6 @@ import {
   UPDATE_WELCOME_WALKTHROUGH_STATUS,
   UPDATE_CURRENT_DB,
   UPDATE_CURRENT_FEED_SEQUENCE,
-  UPDATE_CAMERA_WALKTHROUGH_STATUS,
   UPDATE_LANGUAGE,
   MAP_WATCH_ID
 } from "../../actionsName";
@@ -29,11 +28,6 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         welcomeWalkthroughStatus: action.payload,
-      };
-    case UPDATE_CAMERA_WALKTHROUGH_STATUS:
-      return {
-        ...state,
-        cameraWalkthroughStatus: action.payload,
       };
     case UPDATE_CURRENT_DB:
       return {
