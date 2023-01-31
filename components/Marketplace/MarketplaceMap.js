@@ -30,7 +30,7 @@ const MarketplaceMap = ({navigation}) => {
   }
 
   return (
-    <MapView mapStyle={{...appMapStyle.map, height: Dimensions.get("window").height - bottom - RFValue(63)}}>
+    <MapView mapStyle={{...appMapStyle.map, height: Dimensions.get("window").height - bottom - RFValue(52)}}>
       <MapboxGL.Camera animationMode={"none"} ref={camera}/>
       {_drawPolygon(marketplaceData, navigation)}
     </MapView>

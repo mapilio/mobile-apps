@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {AppState, TouchableOpacity, View} from "react-native";
+import {AppState, View, Pressable} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
@@ -9,6 +9,7 @@ import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {setNewUUID} from "../helper/camera";
 import {Accelerometer, Gyroscope} from "expo-sensors";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -35,6 +36,10 @@ const AutoActionButton = ({navigation}) => {
 	const dispatch = useDispatch();
 
 	const playHandler = () => {
+		ReactNativeHapticFeedback.trigger("impactLight", {
+			enableVibrateFallback: true,
+			ignoreAndroidSystemSettings: true,
+		});
 		if (autoCaptureStart || !isAlert) {
 			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: !autoCaptureStart})
 		}
@@ -187,7 +192,7 @@ const AutoActionButton = ({navigation}) => {
 	}
 
 	return (
-		<TouchableOpacity
+		<Pressable
 			disabled={!captureButtonStatus}
 			style={cameraActionButtonStyles.container}
 			onPress={playHandler}
@@ -196,7 +201,7 @@ const AutoActionButton = ({navigation}) => {
 				{autoCaptureStart ? <StopIcon/> : <PlayIcon/>}
 			</View>
 			<View style={cameraActionButtonStyles.buttonBuffer}/>
-		</TouchableOpacity>
+		</Pressable>
 	)
 };
 

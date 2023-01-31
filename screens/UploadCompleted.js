@@ -7,6 +7,7 @@ import Lottie from "lottie-react-native";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import {UploadCompletedSvg} from "../assets/svg/illustrations";
 import {useTranslation} from "react-i18next";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 const UploadCompleted = () => {
   const navigation = useNavigation();
@@ -20,6 +21,7 @@ const UploadCompleted = () => {
 
   return (
     <View style={{flex: 1}}>
+      <FocusAwareStatusBar barStyle="dark-content"/>
       <View style={{
         alignItems: "center",
         marginBottom: "auto",

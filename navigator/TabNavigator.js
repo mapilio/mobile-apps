@@ -4,7 +4,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {cameraPermission} from "../helper/helper";
-import {TouchableOpacity, View} from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import {navigatorStyle} from "../styles/navigatorStyle";
 import {CaptureText} from "../assets/svg/illustrations";
 import {useSelector} from "react-redux";
@@ -92,21 +92,43 @@ const TabNavigator = () => {
 
   return (
     <Tab.Navigator
-      screenOptions={{tabBarShowLabel: false, headerShown: false, tabBarStyle: {height: RFValue(65) + bottom}}}
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarStyle: { height: RFValue(52) + bottom },
+        tabBarButton: ({ children, onPress }) => (
+          <Pressable
+            style={({ pressed }) => [
+              {
+                opacity: pressed ? 0.8 : 1,
+                transform: pressed ? [{ scale: 0.98 }] : [{ scale: 1 }],
+                flex: 1,
+              },
+            ]}
+            onPress={onPress}
+          >
+            {children}
+          </Pressable>
+        ),
+      }}
       screenListeners={screenListener}
     >
       <Tab.Screen
         name={"MapTab"}
         component={MapNavigator}
         options={{
-          tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"map"}/>
+          tabBarIcon: ({ focused }) => (
+            <TabIcons focused={focused} tab={"map"} />
+          ),
         }}
       />
       <Tab.Screen
         name={"MarketplaceTab"}
         component={MarketplaceNavigator}
         options={{
-          tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"market"}/>,
+          tabBarIcon: ({ focused }) => (
+            <TabIcons focused={focused} tab={"market"} />
+          ),
         }}
       />
       <Tab.Screen
@@ -130,11 +152,13 @@ const TabNavigator = () => {
         name={"Leaderboard"}
         component={Leaderboard}
         options={{
-          tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"leader"}/>,
+          tabBarIcon: ({ focused }) => (
+            <TabIcons focused={focused} tab={"leader"} />
+          ),
         }}
       />
     </Tab.Navigator>
-  )
+  );
 };
 
 export default TabNavigator;

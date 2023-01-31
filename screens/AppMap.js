@@ -1,26 +1,27 @@
-import React, {memo, useEffect, useRef, useState, Fragment} from "react";
-import {Dimensions, TouchableOpacity, View, Pressable, Platform} from "react-native";
-import {appMapStyle} from "../styles/appMapStyle";
-import MapboxGL, {Camera} from "@rnmapbox/maps";
-import Pano from "../components/Map/Pano";
-import CurrentLocationIcon from "../assets/svg/illustrations/CurrentLocationIcon";
-import PanoMinimize from "../assets/svg/illustrations/PanoMinimize";
-import {RFValue} from "react-native-responsive-fontsize";
-import {MapView} from "../highordercomponents";
-import {Heading} from "../components/Map";
+import React, { memo, useEffect, useRef, useState, Fragment } from "react";
+import { Dimensions, View, Platform } from "react-native";
+import { appMapStyle } from "../styles/appMapStyle";
+import MapboxGL, { Camera } from "@rnmapbox/maps";
+import { RFValue } from "react-native-responsive-fontsize";
+import { MapView } from "../highordercomponents";
 import Config from "react-native-config";
 import Geolocation from "react-native-geolocation-service";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {Search} from "../components/Search";
-import {initialPermissions} from "../helper/helper";
-import {RESULTS} from "react-native-permissions";
-import {point} from "@turf/turf";
-import {styles} from "../styles/circleStyles";
-import {useDispatch, useSelector} from "react-redux";
-import {Routes} from "../navigator/Routes";
-import ProfileButton from "../components/ProfileButton";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Search } from "../components/Search";
+import { initialPermissions } from "../helper/helper";
+import { RESULTS } from "react-native-permissions";
+import { point } from "@turf/turf";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {MAP_WATCH_ID} from "../store/actionsName";
+import { MAP_WATCH_ID } from "../store/actionsName";
+import {
+  ActiveSources,
+  Lines,
+  Points,
+  Userlocation,
+} from "../components/Map/layers";
+import { CenterToUserButton, ProfileButton, Pano } from "../components/Map";
 
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
@@ -29,160 +30,133 @@ const AppMap = ({ navigation }) => {
   const [clickedCoord, setClickedCoord] = useState(null);
   const [showPano, setShowPano] = useState(false);
   const [userCoordinate, setUserCoordinate] = useState(undefined);
-  const [userLocation, setUserLocation] = useState(true);
-  const {connection} = useSelector((state) => state.generalReducer);
+  const [showUser, setShowUser] = useState(false);
+  const { connection } = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
-  const {height} = Dimensions.get("window");
-  const {bottom} = useSafeAreaInsets();
-  const {auth} = useSelector((state) => state.getTokenReducer);
+  const { height } = Dimensions.get("window");
+  const { bottom } = useSafeAreaInsets();
+  const { auth } = useSelector((state) => state.getTokenReducer);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess)
+    !connection.connectionStatus &&
+      navigation.navigate(Routes.noInternetAccess);
 
-    const watchId = Geolocation.watchPosition(({coords}) => {
-      setUserCoordinate(point([coords.longitude, coords.latitude], coords))
-    })
-    dispatch({type: MAP_WATCH_ID, payload: watchId})
-
-    return () => Geolocation.clearWatch(watchId)
+    const watchId = Geolocation.watchPosition(({ coords }) => {
+      setUserCoordinate(point([coords.longitude, coords.latitude], coords));
+      setShowUser(true);
+     
+    });
+    dispatch({ type: MAP_WATCH_ID, payload: watchId });
+    return () => Geolocation.clearWatch(watchId);
   }, []);
 
-  const contentHeight = height - bottom - RFValue(63)
+  const contentHeight = height - bottom - RFValue(52);
 
   const zoomPoint = (coordinate) => {
     mapRef.current?.getZoom().then((zoomLevel) => {
-      cameraRef.current?.setCamera({centerCoordinate: coordinate, zoomLevel: zoomLevel + 5})
-    })
-  }
+      cameraRef.current?.setCamera({
+        centerCoordinate: coordinate,
+        zoomLevel: zoomLevel + 5,
+      });
+    });
+  };
 
   const touchPoint = (e) => {
-    const {geometry, properties} = e.features[0];
+    const { geometry, properties } = e.features[0];
     setClickedCoord(geometry.coordinates);
     setImageInformations({
-      sequenceID: properties.SEQUENCE_UUID,
+      sequenceID: properties.sequence_uuid,
       date: properties.created_at,
       user: properties.created_by_id,
       pointID: properties.id,
       heading: properties.heading,
       resolution: properties.resolution,
-      image: `${Config.IMAGE_API}/${properties.img_code}/${properties.filename}/480`,
-      highResImage: `${Config.IMAGE_API}/${properties.img_code}/${properties.filename}/1080`,
+      image: `${Config.IMAGE_API}/${properties.uploaded_hash}/${properties.filename}/480`,
+      highResImage: `${Config.IMAGE_API}/${properties.uploaded_hash}/${properties.filename}/1080`,
     });
-
     setShowPano(true);
-  }
+  };
 
   const handleSetCenter = async () => {
     initialPermissions().then((res) => {
       if (res !== RESULTS.GRANTED) {
-        toast.show(`Your GPS is disabled.`, {type: "error"})
+        toast.show(`Your GPS is disabled.`, { type: "error" });
       } else {
-        userCoordinate && cameraRef.current?.setCamera({centerCoordinate: userCoordinate?.geometry?.coordinates, zoomLevel: 15});
+        userCoordinate &&
+          cameraRef.current?.setCamera({
+            centerCoordinate: userCoordinate?.geometry?.coordinates,
+            zoomLevel: 15,
+          });
       }
-    })
-  }
+    });
+  };
+
+  const handleProfile = () => {
+    if (auth) {
+      navigation.navigate(Routes.stackNavigator, {
+        screen: Routes.profileNavigator,
+      });
+      return true;
+    } else {
+      navigation.navigate(Routes.stackNavigator, {
+        screen: Routes.login,
+      });
+      return true;
+    }
+  };
+
+  const mapStyles = {
+    ...appMapStyle.map,
+    height: showPano ? contentHeight / 2 : contentHeight,
+  };
 
   return (
-    <View>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={Platform.OS === "android" && "white"}  />
+    <View style={{ flex: 1 }}>
+      <FocusAwareStatusBar
+        barStyle="dark-content"
+        backgroundColor={Platform.OS === "android" && "white"}
+      />
       {showPano ? (
-        <Pano hidePano={() => setShowPano(false)} imageInformation={imageInformations} navigation={navigation}/>
+        <Pano
+          hidePano={() => setShowPano(false)}
+          imageInformation={imageInformations}
+          navigation={navigation}
+        />
       ) : (
         <Fragment>
-          <Search camera={cameraRef}/>
-          <ProfileButton onPress={()=>{
-            if(auth){
-              navigation.navigate(Routes.stackNavigator, {screen: Routes.profileNavigator})
-              return true;
-            }
-            else{
-              navigation.navigate(Routes.stackNavigator, {screen: Routes.login})
-              return true;
-            }
-            }} />
+          <Search camera={cameraRef} />
+          <ProfileButton onPress={handleProfile} />
         </Fragment>
-      )}
-      {!showPano && imageInformations && (
-        <TouchableOpacity style={appMapStyle.minimizePano} onPress={() => setShowPano(true)}>
-          <PanoMinimize />
-        </TouchableOpacity>
       )}
 
       <View>
-        <MapView
-          mapStyle={{...appMapStyle.map, height: showPano ? (contentHeight / 2) : contentHeight}}
-          mapRef={mapRef}
-        >
+        <MapView mapStyle={mapStyles} mapRef={mapRef}>
+          <Camera
+            animationMode={"none"}
+            ref={cameraRef}
+            followZoomLevel={15}
+            zoomLevel={4}
+            centerCoordinate={userCoordinate?.geometry?.coordinates}
+          />
+          <Points touchPoint={touchPoint} />
+          <Lines zoomPoint={zoomPoint} />
 
-          {
-            (userCoordinate?.geometry && userLocation) && (
-              <MapboxGL.ShapeSource id={"userLocationHeadingShape"} shape={userCoordinate}>
-                <MapboxGL.SymbolLayer
-                  id={"userLocationHeading"}
-                  style={{
-                    iconImage: require("../assets/images/userLocation.png"),
-                    iconSize: 1,
-                    iconAllowOverlap: true,
-                    iconRotate: ["get", "heading"],
-                    iconRotationAlignment: 'map',
-                  }}
-                />
-              </MapboxGL.ShapeSource>
-            )
-          }
-          <MapboxGL.VectorSource
-            id="road-points"
-            url={Config.MAPBOX_POINT_URL}
-            onPress={touchPoint}
-          >
-            <MapboxGL.CircleLayer
-              id={"mapilio_point_new"}
-              sourceLayerID={Config.MAPBOX_POINT_ID}
-              style={styles.circles}
-              minZoomLevel={14}
-            />
-          </MapboxGL.VectorSource>
+         {showUser &&  <Userlocation shape={userCoordinate} />}
 
-          <MapboxGL.VectorSource
-            id="road-points-2"
-            url={Config.MAPBOX_POINT_URL}
-            onPress={(e) => zoomPoint(e.features[0].geometry.coordinates)}
-          >
-            <MapboxGL.CircleLayer
-              id={"mapilio-point-v1-stroke"}
-              sourceLayerID={Config.MAPBOX_POINT_ID}
-              style={styles.circlesOpacity}
-              maxZoomLevel={15}
-            />
-          </MapboxGL.VectorSource>
-
-          <MapboxGL.VectorSource
-            id={"road-shape"}
-            url={Config.MAPBOX_ROAD_URL}
-            onPress={(e) => zoomPoint(e.features[0].geometry.coordinates[0])}
-          >
-            <MapboxGL.LineLayer id={"mapilio-road-v1"} sourceLayerID={Config.MAPBOX_ROAD_ID} style={styles.lineStyles}/>
-          </MapboxGL.VectorSource>
-          {(clickedCoord && showPano) && (
-            <Heading
-              heading={imageInformations ? imageInformations.heading : 0}
-              coordinates={clickedCoord}
-              markerPath={require("../assets/images/heading.png")}
+          {clickedCoord && showPano && (
+            <ActiveSources
+              clickedCoord={clickedCoord}
+              imageInformations={imageInformations}
             />
           )}
-          <Camera animationMode={"none"} ref={cameraRef} />
         </MapView>
-        <Pressable
-          style={appMapStyle.currentIcon}
-          onPress={handleSetCenter}
-          onLongPress={() => setUserLocation(prev => !prev)}
-        >
-          <CurrentLocationIcon />
-        </Pressable>
       </View>
+      <CenterToUserButton
+        handleSetCenter={handleSetCenter}
+        setShowUser={setShowUser}
+      />
     </View>
   );
 };

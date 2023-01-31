@@ -34,6 +34,26 @@ export const styles = {
       2,
     ],
   },
+
+  userLocation:{
+    circleColor: "#1AD971",
+    circleStrokeColor: "#1AD971",
+    circleStrokeOpacity: 0.4,
+    circleStrokeWidth: [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      7,
+      1,
+      7.1,
+      0,
+      14,
+      0,
+      14.1,
+      2,
+    ],
+    
+  },
   lineStyles: {
     lineColor: "#146aff",
   },

@@ -1,28 +1,27 @@
 import {Modal} from "react-native";
-import React, {useEffect, useState} from "react";
-import {fetchHandler} from "../../helper/helper";
-import Config from "react-native-config";
 import SearchHeader from "./SearchHeader";
 import SearchList from "./SearchList";
 import FocusAwareStatusBar from "../FocusAwareStatusBar";
+import {useSelector, useDispatch} from "react-redux";
+import {Loading, NoResult} from "./status";
+import { useEffect } from "react";
 
 const SearchModal = ({open, closeHandler, onClick}) => {
-  const [searchText, setSearchText] = useState("");
-  const [locations, setLocations] = useState([]);
-
-  const handleSearchText = (e) => setSearchText(e)
+  const {isLoading, error} = useSelector(state => state.searchReducer)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchHandler({url: `${Config.SEARCH_API}${searchText}`}).then((res) => {
-      setLocations(res.features)
-    })
-  }, [searchText]);
+    dispatch({type: "SET_SEARCH_LOCATIONS", payload: []})
+    dispatch({type: "SET_SEARCH_ERROR", payload: false})
+    dispatch({type: "SET_SEARCH_LOADING", payload: false})
+  }, [open])
+ 
 
   return (
     <Modal visible={open} animationType={"slide"}>
-      <FocusAwareStatusBar barStyle="light-content" backgroundColor={"#130C47"} />
-      <SearchHeader closeHandler={closeHandler} setSearchText={handleSearchText}/>
-      <SearchList search={searchText} lists={locations} onClick={onClick}/>
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={"#130C47"} />
+      <SearchHeader closeHandler={closeHandler}/>
+      {isLoading ? <Loading /> : error ? <NoResult /> : <SearchList onClick={onClick}/>}
     </Modal>
   )
 }

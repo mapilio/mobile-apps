@@ -7,3 +7,4 @@ export { default as uploadReducer } from "./uploadReducer/uploadReducer";
 export { default as marketplaceReducer } from "./marketplaceReducer/marketplaceReducer";
 export { default as leaderboardReducer } from "./leaderboardReducer/leaderboardReducer";
 export { default as tooltipReducer } from "./tooltipReducer/tooltipReducer";
+export { default as searchReducer } from "./searchReducer/searchReducer";

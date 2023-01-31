@@ -11,7 +11,6 @@ import { CameraWarnings } from "../helper/camera";
 import CameraProjectInfo from "./CameraProjectInfo";
 import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes } from "../navigator/Routes";
 import { View, ActivityIndicator, Dimensions, Text } from "react-native";
 import { CustomTextMedium } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -19,13 +18,9 @@ import { useTranslation } from "react-i18next";
 import SelectProjectButton from "./SelectProjectButton";
 import { TooltipWrapper } from "./Tooltip";
 import { tooltipContents } from "../util/consts/tooltip";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 const Camera = ({ navigation }) => {
   const { t } = useTranslation("camera");
   const cameraRef = useRef(null);
-  const { cameraWalkthroughStatus } = useSelector(
-    (state) => state.generalReducer
-  );
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { isActive } = useSelector((state) => state.cameraReducer);
   const [cameraReady, setCameraReady] = useState(false);
@@ -35,8 +30,6 @@ const Camera = ({ navigation }) => {
   const { isInitialized } = useSelector((state) => state.tooltipReducer.camera);
 
   useEffect(() => {
-    !cameraWalkthroughStatus && navigation.navigate(Routes.walkthrough);
-
     const timeout = setTimeout(() => setCameraReady(true), 500);
 
     return () => clearTimeout(timeout);
@@ -55,7 +48,7 @@ const Camera = ({ navigation }) => {
     );
   };
 
-  if (cameraReady && cameraWalkthroughStatus && device) {
+  if (cameraReady && device) {
     return (
       <View style={{ flex: 1 }}>
         <VisionCamera
@@ -73,7 +66,7 @@ const Camera = ({ navigation }) => {
         />
         <View
           style={{
-            width: Dimensions.get("window").width - RFValue(180),
+            width: Dimensions.get("window").width - RFValue(150),
             height: "100%",
             flex: 1,
             position: "absolute",

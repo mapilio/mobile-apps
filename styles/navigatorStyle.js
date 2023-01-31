@@ -61,7 +61,6 @@ export const navigatorStyle = {
     justifyContent: "center",
     position: "absolute",
     bottom: 0,
-    paddingBottom: RFValue(2.5),
     borderBottomWidth: RFValue(3),
     borderColor: "transparent",
     width: "100%",
@@ -74,6 +73,6 @@ export const navigatorStyle = {
     fontSize: 12,
     marginTop: 3,
     color: "#7E86B0",
-    fontFamily: "Poppins-SemiBold",
+    fontFamily: "Poppins-Medium",
   },
 };

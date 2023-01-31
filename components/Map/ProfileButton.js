@@ -1,7 +1,7 @@
 import {ActivityIndicator, Image, TouchableOpacity, View} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {Profile} from "../assets/svg/illustrations";
-import {profileButtonStyles as styles} from "../styles/profileButtonStyles";
+import {Profile} from "../../assets/svg/illustrations";
+import {profileButtonStyles as styles} from "../../styles/profileButtonStyles";
 import {useSelector} from "react-redux";
 import React, {useState} from "react";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -42,7 +42,7 @@ const ProfileButton = ({ onPress }) => {
         {userInformation ? (
           <UserImage userInformation={userInformation} />
         ) : (
-          <Profile width={RFValue(26)} height={RFValue(26)} fill="#FFFFFF" />
+          <Profile width={RFValue(24)} height={RFValue(24)} fill="#FFFFFF" />
         )}
       </View>
     </TouchableOpacity>

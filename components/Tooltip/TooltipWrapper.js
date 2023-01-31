@@ -1,5 +1,5 @@
 import { View, Platform, Dimensions } from "react-native";
-import Tooltip from "react-native-walkthrough-tooltip";
+import Tooltip from "@dogukany/react-native-walkthrough-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import Content from "./Content";
 import {
@@ -11,8 +11,6 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTranslation } from "react-i18next";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useEffect } from "react";
-import { SET_TOOLTIP_CAMERA_INITIALIZED, SET_TOOLTIP_CAMERA_STEP, SET_TOOLTIP_TABBAR_INITIALIZED, SET_TOOLTIP_TABBAR_STEP } from "../../store/actionsName";
 
 /**
  * Wrapper for Tooltip component. Content and names must be handled in the consts and helpers files.
@@ -154,7 +152,7 @@ const TooltipWrapper = ({ children, name, content, placement = "top", handleNext
       skipText={skipText()}
       handleSkip={handleSkip}
       skipTextStyle={skipTextStyle}
-      useInteractionManager={true}
+      useInteractionManager={tooltipType === "camera" ? false : true} // Camera tooltip is not shown on the first launch, so it is not necessary to use InteractionManager
       closeOnBackgroundInteraction={false}
       allowChildInteraction={false}
       backgroundColor="rgba(0,0,0,0.80)"
@@ -162,6 +160,7 @@ const TooltipWrapper = ({ children, name, content, placement = "top", handleNext
       contentStyle={contentStyle}
       childContentSpacing={childContentSpacing}
       placement={placement}
+      animationType="fade"
       content={
         <Content
           handleClose={handleClose}

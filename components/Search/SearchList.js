@@ -1,91 +1,179 @@
-import {FlatList, StyleSheet, TouchableOpacity, View} from "react-native";
-import {CustomText, CustomTextBold} from "../../highordercomponents";
-import {RFValue} from "react-native-responsive-fontsize";
-import {maxCharacterHandler} from "../../helper/helper";
-import React from "react";
-import {NoLocation} from "../../assets/svg/illustrations";
-import {useTranslation} from "react-i18next";
+import {
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+} from "react-native";
+import { CustomText } from "../../highordercomponents";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { maxCharacterHandler } from "../../helper/helper";
+import { RightTopDirectionIcon } from "../../assets/svg/illustrations";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  CLEAR_SEARCH_HISTORY,
+} from "../../store/actionsName";
+import { Welcome } from "./status";
+import { useTranslation } from "react-i18next";
 
-const LocationList = ({index, location, onClick}) => {
-  const { properties, geometry } = location
+const LocationList = ({ location, onClick }) => {
+  const { properties, geometry } = location;
 
+  const cityAndState = `${maxCharacterHandler(properties.name, 45)}${
+    properties.city ? "," + " " + properties.city : ""
+  }`
+
+  if(!properties.name) return null
 
   return (
     <TouchableOpacity
-      key={index}
-      id={index}
       style={styles.listItem}
-      onPress={() => onClick(properties.extent || geometry.coordinates)}
+      onPress={() => onClick(properties.extent || geometry.coordinates, cityAndState)}
     >
       <CustomText style={styles.address}>
-        {`${maxCharacterHandler(properties.name, 45)}${properties.city ? "," + " " + properties.city : ""}`}
+        {cityAndState}
       </CustomText>
       <CustomText style={styles.country}>
-        {properties.district && properties.district + ' '}
-        {properties.city && properties.city + ' '}
-        {properties.state && properties.state + ' '}
+        {properties.district && properties.district + " "}
+        {properties.city && properties.city + " "}
+        {properties.state && properties.state + " "}
         {properties.country}
       </CustomText>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-const emptyList = (search) => {
+const SearchHistory = ({onClick}) => {
+  const { searchHistory } = useSelector((state) => state.searchReducer);
+  const dispatch = useDispatch();
   const {t} = useTranslation("search")
 
-  if (!!search) {
-    return (
-      <View style={styles.emptyWrapper}>
-        <NoLocation width={RFValue(119)} height={RFValue(138)}/>
-        <CustomTextBold style={styles.emptyTitle}>{t("no_results")}</CustomTextBold>
-        <CustomText style={styles.emptyText}>{t("another_search")}</CustomText>
-      </View>
-    )
-  }
-}
+  const handleSearch = (param, coordinates) => {
+    onClick(coordinates,param)
+  };
 
-const SearchList = ({search, lists, onClick}) => {
+  if (searchHistory.length > 0) {
+    return (
+      <View style={styles.history}>
+        <View style={styles.history.wrapper}>
+          <Text style={styles.history.title}>{t("recent_searches")}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch({ type: CLEAR_SEARCH_HISTORY });
+              }}
+              style={styles.history.clearButton}
+            >
+              <Text style={styles.history.clearText}>{t("clear")}</Text>
+            </TouchableOpacity>
+        </View>
+        <View>
+          {searchHistory.map((item, key) => {
+            return (
+              <TouchableOpacity
+                key={key}
+                onPress={() => {
+                  handleSearch(item.param, item.coordinates);
+                }}
+                style={styles.history.searchList.item}
+              >
+                <Text style={styles.history.searchList.title}>{item.param}</Text>
+                <View style={styles.history.searchList.icon}>
+                  <RightTopDirectionIcon
+                    width={RFValue(11)}
+                    height={RFValue(11)}
+                  />
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
+    );
+  }
+
+  return <Welcome />;
+};
+
+const SearchList = ({ onClick }) => {
+  const { locations } = useSelector((state) => state.searchReducer);
+
   return (
     <FlatList
-      data={lists}
+      data={locations}
+      keyboardShouldPersistTaps="always"
       keyExtractor={(_value, i) => i.toString()}
-      ListEmptyComponent={() => emptyList(search)}
-      renderItem={({item, index}) => <LocationList location={item} index={index} onClick={onClick}/>}
+      ListEmptyComponent={<SearchHistory onClick={onClick} />}
+      renderItem={({ item, index }) => (
+        <LocationList
+          key={index}
+          location={item}
+          index={index}
+          onClick={onClick}
+        />
+      )}
     />
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   listWrapper: {
-    marginVertical: RFValue(30)
+    marginVertical: RFValue(30),
   },
   listItem: {
     borderBottomWidth: RFValue(1),
-    borderColor: '#EAEAEA',
+    borderColor: "#EAEAEA",
     marginHorizontal: RFValue(18),
-    paddingVertical: RFValue(5)
+    paddingVertical: RFValue(5),
   },
   address: {
-    color: '#130C47',
-    fontSize: RFValue(14)
+    color: "#130C47",
+    fontSize: RFValue(14),
   },
   country: {
-    color: '#666666',
-    fontSize: RFValue(12)
+    color: "#666666",
+    fontSize: RFValue(12),
   },
-  emptyWrapper: {
-    alignItems: "center",
-    paddingTop: RFValue(50)
+  history: {
+    width: "100%",
+    paddingHorizontal: RFValue(20),
+    wrapper: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      width: "100%",
+    },
+    title: {
+      fontFamily: "Poppins-Medium",
+      color: "#666666",
+      fontSize: RFValue(14),
+    },
+    clearButton: {
+      backgroundColor: "#D8D8D8",
+      padding: RFValue(4),
+      borderRadius: RFPercentage(5),
+      paddingHorizontal: RFValue(10),
+    },
+    clearText: {
+      color: "#666666",
+      fontFamily: "Poppins",
+      fontSize: RFValue(11),
+    },
+    searchList: {
+      item: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+        paddingVertical: RFValue(10),
+      },
+      title: {
+        fontFamily: "Poppins-Medium",
+        fontSize: RFValue(14),
+        color: "#130C47",
+      },
+      icon: {
+        alignItems: "center",
+        justifyContent: "flex-end",
+      },
+    },
   },
-  emptyTitle: {
-    color: '#130C47',
-    fontSize: RFValue(18),
-    textAlign: "center"
-  },
-  emptyText: {
-    color: '#130C47',
-    fontSize: RFValue(14)
-  }
-})
+});
 
 export default SearchList;

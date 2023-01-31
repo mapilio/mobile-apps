@@ -23,6 +23,7 @@ import {ProfileCamera} from "../assets/svg/illustrations";
 import {getUserInformation} from "../store/reducers/loginReducer/getUserInformation";
 import {launchImageLibrary} from "react-native-image-picker";
 import {useTranslation} from "react-i18next";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 const ProfileEdit = () => {
   const {t} = useTranslation("profile_edit");
@@ -107,7 +108,10 @@ const ProfileEdit = () => {
     >
       <TouchableWithoutFeedback>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
+          
           <View style={styles.formWrapper}>
+          <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white"/>
+
             <View>
               <View style={{alignItems: "center", paddingTop: RFValue(30)}}>
                 <Image

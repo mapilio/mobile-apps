@@ -50,6 +50,7 @@ export const loginStyles = StyleSheet.create({
     borderColor: "#ed535a",
   },
   button: {
+    marginTop: RFValue(10),
     borderRadius: RFValue(24),
     backgroundColor: "#3F8BE9",
     display: "flex",
@@ -75,7 +76,7 @@ export const loginStyles = StyleSheet.create({
     paddingRight: RFValue(15)
   },
   formGroup: {
-    marginBottom: RFValue(18),
+    marginBottom: RFValue(14),
   },
   link: {
     color: "#4A90E2",
@@ -93,8 +94,18 @@ export const loginStyles = StyleSheet.create({
     textAlign: "center",
     color: "#fff",
     fontSize: RFValue(10),
-    paddingHorizontal: RFValue(25)
+    marginBottom: RFValue(25),
+    paddingBottom: RFValue(10),
+    fontFamily:"Poppins"
   },
+  forgotPassword: {
+    textAlign: "center",
+    color: "#fff",
+    fontSize: RFValue(12),
+    marginBottom: RFValue(25),
+    paddingBottom: RFValue(10),
+    fontFamily:"Poppins"
+  }, 
   passwordIcon: {
     position: "absolute",
     right: RFValue(20),
@@ -119,9 +130,10 @@ export const socialLoginStyles = StyleSheet.create({
   },
   line: {
     backgroundColor: "#CBD1D9",
-    opacity: 0.7,
+    opacity: 0.3,
     height: 1,
-    flex: 1,
+    width: "35%",
+   
   },
   bottomText: {
     paddingHorizontal: 15,

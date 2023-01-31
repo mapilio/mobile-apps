@@ -57,7 +57,7 @@ const UserInfos = () => {
           <View style={userInfoStyles.separator}/>
 
           <CustomInfo
-            value={thousandFormatter(userInformation.meters, "km")}
+            value={userInformation.meters + "km"}
             subtitle={"roads"}
             icon={<RoadIcon />}
           />

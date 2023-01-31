@@ -36,7 +36,11 @@ const thousandFormatter = (num, shortCode = "k") => {
 };
 
 const maxCharacterHandler = (text, maxLength) => {
-  if (text.length > maxLength) text = text.substring(0, maxLength) + "...";
+ try {
+   if (text.length > maxLength) text = text.substring(0, maxLength) + "...";
+ } catch {
+   return " ";
+ }
   return text;
 };
 
