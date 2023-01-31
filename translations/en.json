@@ -92,6 +92,7 @@
     "safe_mode": "Power safe mode",
     "advanced": "Advanced",
     "getting_ready": "Camera is getting ready. Please wait.",
+    "something_went_wrong": "Something went wrong. Please try again.",
     "warning": {
       "battery": {
         "title": "Battery level low",

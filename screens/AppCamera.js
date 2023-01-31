@@ -23,7 +23,6 @@ import {useNavigation} from "@react-navigation/native";
 const AppCamera = () => {
   const {distanceBetween, selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
   const {mapWatchId} = useSelector((state) => state.generalReducer);
-  const {photoAmount} = useSelector((state) => state.cameraReducer);
   const [lowBrightness, setLowBrightness] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const dispatch = useDispatch();
@@ -41,10 +40,6 @@ const AppCamera = () => {
   }, [autoCaptureStart]);
 
   useEffect(() => setNewUUID(), [selectedProject]);
-
-  useEffect(() => {
-    if(photoAmount >= 250) {setNewUUID()}
-  }, [photoAmount]);
 
   const breakBrightness = () => {
     lowBrightness && Brightness.setSystemBrightnessAsync(0.7).then(() => setLowBrightness(false));

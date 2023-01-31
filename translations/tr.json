@@ -93,6 +93,7 @@
     "safe_mode": "Güç tasarrufu modu",
     "advanced": "Gelişmiş",
     "getting_ready": "Kamera hazırlanıyor. Lütfen bekle.",
+    "something_went_wrong": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
     "warning": {
       "battery": {
         "title": "Pil seviyesi düşük",

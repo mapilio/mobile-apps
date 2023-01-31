@@ -18,7 +18,8 @@ class Database {
                                 path TEXT NOT NULL, 
                                 hash TEXT DEFAULT NULL,
                                 uploaded BOOLEAN DEFAULT 0,
-                                filename TEXT NOT NULL
+                                filename TEXT NOT NULL,
+                                group_id TEXT DEFAULT NULL
                                 )`,
         []
       );
@@ -29,11 +30,23 @@ class Database {
     return db;
   }
 
-  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename}) {
+  /**
+   * Add group_id column to captures table
+   */
+  addGroupIDColumn() {
     db.transaction((txn) => {
       txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename],
+        `ALTER TABLE captures ADD COLUMN group_id TEXT DEFAULT NULL`,
+        []
+      );
+    });
+  }
+
+  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId}) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId],
         () => null,
         (_, error) => {
           console.log(error);
@@ -115,6 +128,23 @@ class Database {
       db.transaction((txn) => {
         txn.executeSql(
           `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
+          [],
+          (_, result) => {
+            resolve(result.rows._array)
+          },
+          (_transaction, error) => {
+            reject(error)
+          }
+        )
+      })
+    })
+  }
+
+  getGroupByWithGroupID() {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT *, COUNT(*) as count FROM captures GROUP BY group_id ORDER BY id DESC`,
           [],
           (_, result) => {
             resolve(result.rows._array)
