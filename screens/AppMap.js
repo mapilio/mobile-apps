@@ -1,5 +1,5 @@
-import React, { memo, useEffect, useRef, useState, Fragment } from "react";
-import { Dimensions, View, Platform } from "react-native";
+import React, { memo, useEffect, useRef, useState} from "react";
+import { Dimensions, View } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -35,7 +35,7 @@ const AppMap = ({ navigation }) => {
   let cameraRef = useRef();
   let mapRef = useRef();
   const { height } = Dimensions.get("window");
-  const { bottom } = useSafeAreaInsets();
+  const { bottom, top } = useSafeAreaInsets();
   const { auth } = useSelector((state) => state.getTokenReducer);
   const dispatch = useDispatch();
 
@@ -116,47 +116,44 @@ const AppMap = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       <FocusAwareStatusBar
         barStyle="dark-content"
-        backgroundColor={Platform.OS === "android" && "white"}
+        backgroundColor={"transparent"}
+        translucent={true}
       />
-      {showPano ? (
-        <Pano
+      {showPano && (
+          <Pano
           hidePano={() => setShowPano(false)}
           imageInformation={imageInformations}
           navigation={navigation}
+        />) }
+      <MapView mapStyle={mapStyles} mapRef={mapRef}>
+        <Camera
+          animationMode={"none"}
+          ref={cameraRef}
+          followZoomLevel={15}
+          zoomLevel={4}
+          centerCoordinate={userCoordinate?.geometry?.coordinates}
         />
-      ) : (
-        <Fragment>
-          <Search camera={cameraRef} />
-          <ProfileButton onPress={handleProfile} />
-        </Fragment>
-      )}
+        <Points touchPoint={touchPoint} />
+        <Lines zoomPoint={zoomPoint} />
 
-      <View>
-        <MapView mapStyle={mapStyles} mapRef={mapRef}>
-          <Camera
-            animationMode={"none"}
-            ref={cameraRef}
-            followZoomLevel={15}
-            zoomLevel={4}
-            centerCoordinate={userCoordinate?.geometry?.coordinates}
+        {showUser && <Userlocation shape={userCoordinate} />}
+
+        {clickedCoord && showPano && (
+          <ActiveSources
+            clickedCoord={clickedCoord}
+            imageInformations={imageInformations}
           />
-          <Points touchPoint={touchPoint} />
-          <Lines zoomPoint={zoomPoint} />
-
-         {showUser &&  <Userlocation shape={userCoordinate} />}
-
-          {clickedCoord && showPano && (
-            <ActiveSources
-              clickedCoord={clickedCoord}
-              imageInformations={imageInformations}
-            />
-          )}
-        </MapView>
-      </View>
+        )}
+      </MapView>
       <CenterToUserButton
         handleSetCenter={handleSetCenter}
         setShowUser={setShowUser}
       />
+      {/**  Mapbox cause overflow on early android versions. That's necessarry to call them in here for early devices. */}
+        {!showPano && <View style={[appMapStyle.topWrapper, {marginTop:top+RFValue(10)}]}>
+          <Search camera={cameraRef} />
+          <ProfileButton onPress={handleProfile} />
+        </View >}
     </View>
   );
 };

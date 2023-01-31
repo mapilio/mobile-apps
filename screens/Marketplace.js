@@ -60,7 +60,8 @@ const Marketplace = ({ navigation }) => {
   return (
     <View style={{flex: 1, backgroundColor:"white"}}>
       <MarketplaceMap navigation={navigation}/>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={Platform.OS ==="android" && "white"} />
+      <FocusAwareStatusBar barStyle="dark-content"  backgroundColor={"transparent"}
+        translucent={true} /* translucent={true} */ />
       <TouchableOpacity
         onPress={() => slidePanel.current?.show(RFValue(400))}
         style={{
