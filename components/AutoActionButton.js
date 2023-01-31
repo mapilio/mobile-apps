@@ -9,6 +9,7 @@ import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {setNewUUID} from "../helper/camera";
 import {Accelerometer, Gyroscope} from "expo-sensors";
+import {useTranslation} from "react-i18next";
 import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 const AutoActionButton = ({navigation}) => {
@@ -31,9 +32,11 @@ const AutoActionButton = ({navigation}) => {
 	const [accuracyErrorCount, setAccuracyErrorCount] = useState(0);
 	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
 	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
+	const [groupId, setGroupId] = useState(null);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
+	const {t} = useTranslation("camera");
 
 	const playHandler = () => {
 		ReactNativeHapticFeedback.trigger("impactLight", {
@@ -53,14 +56,15 @@ const AutoActionButton = ({navigation}) => {
 		}
 
 		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
-			if (photo === 250) {
-				photo = 0;
+			if (!!photo && photo % 250 === 0) {
 				currentUUID = uuid.v4();
 				dispatch({type: UPDATE_UUID, payload: currentUUID});
 				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
-			} else {
-				takePicture(cameraLocation).catch((err) => console.log("take picture error ", err));
 			}
+
+			takePicture(cameraLocation).catch(() => {
+				toast.show(t("something_went_wrong"), {type: "error"});
+			});
 		}
 	}, [cameraLocation]);
 
@@ -75,6 +79,7 @@ const AutoActionButton = ({navigation}) => {
 	}, [navigation]);
 
 	useEffect(() => {
+		setGroupId(uuid.v4());
 		const listener = AppState.addEventListener("change", startNewSequence);
 		const accelerometer = Accelerometer.addListener(data => setAccelerometerData(data))
 		const gyroscope = Gyroscope.addListener(data => setGyroscopeData(data))
@@ -170,6 +175,7 @@ const AutoActionButton = ({navigation}) => {
 			uuid: currentUUID,
 			path: newPath,
 			filename,
+			groupId,
 		});
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});

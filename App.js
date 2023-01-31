@@ -40,6 +40,7 @@ function App() {
 
   useEffect(() => {
     db.startDB();
+    db.addGroupIDColumn();
 
     (async () => {
       await SplashScreen.preventAutoHideAsync();

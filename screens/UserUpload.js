@@ -1,21 +1,22 @@
-import React, {Fragment, useEffect} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {FlatList} from "react-native";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {EmptyList, UploadItem} from "../components";
 import database from "../db";
 import * as FileSystem from "expo-file-system";
 import {UPLOAD_DATA} from "../store/actionsName";
 import {Upload} from "../components/Uploads";
+import db from "../db";
 
 const UserUpload = () => {
-  const {uploadData} = useSelector((status) => status.uploadReducer);
   const dispatch = useDispatch();
+  const [data, setData] = useState([]);
 
   useEffect(() => getData(), []);
 
   const getData = () => {
-    database.getGroupByWithSequenceUUID().then(data => {
+    db.getGroupByWithSequenceUUID().then(data => {
       const filteredData = data.filter((item) => {
         if (item.count >= 5) {
           return item
@@ -25,7 +26,9 @@ const UserUpload = () => {
       })
 
       dispatch({type: UPLOAD_DATA, payload: filteredData})
-    });
+    }).then(() => {
+      db.getGroupByWithGroupID().then(data => setData(data));
+    })
   };
 
   const deleteSequence = (sequence_uuid) => {
@@ -40,7 +43,7 @@ const UserUpload = () => {
       <FocusAwareStatusBar barStyle="dark-content" />
 
       <FlatList
-        data={uploadData}
+        data={data}
         ListEmptyComponent={() => <EmptyList />}
         renderItem={({item}) => <UploadItem item={item} deleteSequence={deleteSequence} />}
         keyExtractor={(item) => item.sequence_uuid}

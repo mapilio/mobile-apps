@@ -134,7 +134,6 @@ export const degreeCalculate = (x, y) => {
 
 export const setNewUUID = () => {
   store.dispatch({ type: UPDATE_UUID, payload: uuid.v4() });
-  store.dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
 }
 
 export const exitCapture = () => {
