@@ -7,11 +7,8 @@ export const appMapStyle = StyleSheet.create({
     width: Dimensions.get("screen").width,
     position: "relative"
   },
+  topWrapper:{position:"absolute", justifyContent:"center", alignItems:"center", width:"100%"},
   search: {
-    position: "absolute",
-    top: RFValue(10.25),
-    zIndex: 5,
-    width: Dimensions.get("screen").width,
     alignItems: "center",
     ...globalStyles.shadow,
   },
