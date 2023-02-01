@@ -30,8 +30,8 @@ const AppMap = ({ navigation }) => {
   const [clickedCoord, setClickedCoord] = useState(null);
   const [showPano, setShowPano] = useState(false);
   const [userCoordinate, setUserCoordinate] = useState(undefined);
-  const [initialCoord, setInitialCoord] = useState(null);
-  const [showUser, setShowUser] = useState(false);
+  const [initialCoord, setInitialCoord] = useState(undefined);
+  const [showUser, setShowUser] = useState(true);
   const { connection } = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
@@ -46,7 +46,6 @@ const AppMap = ({ navigation }) => {
 
     const watchId = Geolocation.watchPosition(({ coords }) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords));
-      setShowUser(true)
     });
     dispatch({ type: MAP_WATCH_ID, payload: watchId });
     return () => Geolocation.clearWatch(watchId);
@@ -135,14 +134,13 @@ const AppMap = ({ navigation }) => {
         <Camera
           animationMode={"none"}
           ref={cameraRef}
-          followZoomLevel={15}
-          zoomLevel={4}
-          centerCoordinate={userCoordinate?.geometry?.coordinates}
+          zoomLevel={5}
+          centerCoordinate={initialCoord}
         />
         <Points touchPoint={touchPoint} />
         <Lines zoomPoint={zoomPoint} />
 
-        {showUser && <Userlocation shape={userCoordinate} />}
+        {showUser && userCoordinate && <Userlocation shape={userCoordinate} />}
 
         {clickedCoord && showPano && (
           <ActiveSources
