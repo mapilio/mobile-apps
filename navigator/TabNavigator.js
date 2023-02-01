@@ -103,6 +103,7 @@ const TabNavigator = () => {
                 opacity: pressed ? 0.8 : 1,
                 transform: pressed ? [{ scale: 0.98 }] : [{ scale: 1 }],
                 flex: 1,
+                alignItems: "center",
               },
             ]}
             onPress={onPress}
@@ -144,7 +145,9 @@ const TabNavigator = () => {
         component={UploadNavigator}
         options={{
           tabBarBadge: uploadData.length !== 0 ? uploadData.length : null,
-          tabBarBadgeStyle: {marginTop: RFValue(10)},
+          tabBarBadgeStyle: {
+            backgroundColor:"#D33030"
+          },
           tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"upload"}/>,
         }}
       />
