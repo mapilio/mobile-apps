@@ -30,12 +30,11 @@ const UserImage = ({ userInformation }) => {
 };
 
 const ProfileButton = ({ onPress }) => {
-  const { top } = useSafeAreaInsets();
   const { userInformation } = useSelector((state) => state.getTokenReducer);
 
   return (
     <TouchableOpacity
-      style={{ ...styles.profileButton, marginTop: top }}
+      style={{ ...styles.profileButton }}
       onPress={onPress}
     >
       <View style={styles.profileIcon}>

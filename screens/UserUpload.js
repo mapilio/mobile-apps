@@ -40,8 +40,7 @@ const UserUpload = () => {
 
   return (
     <Fragment>
-      <FocusAwareStatusBar barStyle="dark-content" />
-
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white" />
       <FlatList
         data={data}
         ListEmptyComponent={() => <EmptyList />}
