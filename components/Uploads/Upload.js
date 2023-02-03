@@ -1,12 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {View, TouchableOpacity, Text, StyleSheet} from "react-native";
-import {
-  calculateToSequence,
-  closeRequest,
-  getHash,
-  getImagesBySequence,
-  imageryUpload,
-} from "../../helper/upload";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {closeRequest, filesFilter, getHash, getImagesBySequence, imageryUpload, isWifi} from "../../helper/upload";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
 import db from "../../db";
 import {UPLOAD_DATA} from "../../store/actionsName";
@@ -17,13 +11,14 @@ import UploadModal from "./UploadModal";
 import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
+import {getUserInformation} from "../../store/reducers/loginReducer/getUserInformation";
 
-const Upload = ({sequence_uuid}) => {
+const Upload = ({group_uuid = null, style}) => {
   const dispatch = useDispatch();
   const {t} = useTranslation("navigation");
   const {uploadData} = useSelector((state) => state.uploadReducer);
   const {connection} = useSelector((state) => state.generalReducer);
-  const {userInformation} = useSelector((state) => state.getTokenReducer);
+  const {auth, userInformation} = useSelector((state) => state.getTokenReducer);
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,17 +28,17 @@ const Upload = ({sequence_uuid}) => {
   const pictures = []
 
   useEffect(() => {
-    let filePath = FileSystem.documentDirectory;
-    sequence_uuid && (filePath += `/${sequence_uuid}`);
+    let path = FileSystem.documentDirectory;
+    group_uuid && (path += `/${group_uuid}`);
 
-    FileSystem.getInfoAsync(filePath).then(({size}) => {
+    FileSystem.getInfoAsync(path).then(({size}) => {
       setTotalSize(Math.round(size / 1024 / 1024))
     })
 
     return () => setTotalSize(0)
   }, []);
 
-  const uploadHandler = () => {
+  const uploadHandler = async () => {
     if (!connection.connectionStatus) {
       toast.show(t("have_not_connection"), {type: 'error'});
       return;
@@ -53,40 +48,34 @@ const Upload = ({sequence_uuid}) => {
       navigation.navigate(Routes.stackNavigator, {screen: Routes.login})
       return;
     }
+    activateKeepAwake('upload');
+    setModalVisible(true)
 
-    upload();
-  }
+    await isWifi();
+    const files = await filesFilter(group_uuid);
 
-  const upload = () => {
-    activateKeepAwake('upload')
+    setSequenceLength(files.length)
 
-    calculateToSequence(sequence_uuid).then(({status, data}) => {
-      if (status === 'success') {
-        setTotalImageCount(data.count)
-        getSequences(data.sequences)
-        setModalVisible(true)
-      }
-    }).catch(() => {
-      setModalVisible(false)
-    }).finally(() => {
-      deactivateKeepAwake('upload');
+    files.forEach(item => {
+      setTotalImageCount(prev => prev + item.count)
     })
+
+    await getSequences(files)
   }
 
-  const getSequences = (sequences, index = 0) => {
-    setSequenceLength(sequences.length)
+  const getSequences = async (sequences, index = 0) => {
     if (sequences[index]) {
-      getImagesBySequence(sequences[index]).then(images => {
+      getImagesBySequence(sequences[index].sequence_uuid).then(images => {
         const uploadedCount = images.filter(item => item.uploaded === 1)
         setSentCount(prev => prev + uploadedCount.length)
         pictures.push(images)
       }).finally(() => getSequences(sequences, ++index))
     } else {
-      sendImages(0, 0)
+      await sendImages(0, 0)
     }
   }
 
-  const sendImages = (i = 0, j = 0) => {
+  const sendImages = async (i = 0, j = 0) => {
     return new Promise(() => {
       if (pictures[i]) {
         if (pictures[i][j]) {
@@ -107,7 +96,7 @@ const Upload = ({sequence_uuid}) => {
         } else {
           imageryUpload(i, pictures).then(async () => {
             navigation.navigate(Routes.upload);
-            db.getGroupByWithSequenceUUID().then((data) => {
+            db.getGroupByWithGroupID().then((data) => {
               dispatch({type: UPLOAD_DATA, payload: data})
             })
             await sendImages(++i)
@@ -115,6 +104,7 @@ const Upload = ({sequence_uuid}) => {
         }
       } else {
         setModalVisible(false)
+        dispatch(getUserInformation())
         navigation.navigate("UploadTab", {screen: Routes.uploadCompleted})
       }
     })
@@ -123,6 +113,7 @@ const Upload = ({sequence_uuid}) => {
   const requestBroken = (error) => {
     closeRequest();
     setModalVisible(false);
+    deactivateKeepAwake('upload');
     setSentCount(0);
     toast.show(`${error}`, {type: "error"})
   }
@@ -134,8 +125,8 @@ const Upload = ({sequence_uuid}) => {
   }
 
   return (
-    <View>
-      {!!uploadData.length && (
+    <View style={style}>
+      {(!!uploadData.length || group_uuid) && (
         <TouchableOpacity style={styles.uploadButton} onPress={uploadHandler}>
           <Text style={styles.uploadButtonText}>{t("start_upload", {ns: 'upload'})}</Text>
         </TouchableOpacity>

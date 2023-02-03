@@ -19,6 +19,7 @@ const INITIAL_STATE = {
     id: 0,
     total: 0,
     active: 0,
+    path: null,
   },
 };
 

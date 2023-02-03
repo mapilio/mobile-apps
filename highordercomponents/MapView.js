@@ -1,7 +1,7 @@
 import MapboxGL from "@rnmapbox/maps";
 import React, {memo, useEffect, useState} from "react";
 
-const MapView = ({children, mapRef, attributionStyle, regionChange, mapStyle, onPress, ...props}) => {
+const MapView = ({children, mapRef, attributionStyle, regionChange, mapStyle, onPress, onDidFinishLoadingMap, ...props}) => {
   const [didFinishLoadingMap, setDidFinishLoadingMap] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,10 @@ const MapView = ({children, mapRef, attributionStyle, regionChange, mapStyle, on
       logoPosition={{bottom: 20, left: 25}}
       rotateEnabled={false}
       onPress={onPress}
-      onDidFinishLoadingMap={() => setDidFinishLoadingMap(true)}
+      onDidFinishLoadingMap={() => {
+        setDidFinishLoadingMap(true)
+        onDidFinishLoadingMap && onDidFinishLoadingMap()
+      }}
       {...props}
     >
       {didFinishLoadingMap && children}

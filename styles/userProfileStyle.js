@@ -113,7 +113,6 @@ export const userFeedStyles = StyleSheet.create({
 export const userInfoStyles = StyleSheet.create({
   profileContainer: {
     flexDirection: "row",
-    paddingBottom: RFValue(20),
   },
   imageStyle: {
     borderRadius: RFPercentage(50),

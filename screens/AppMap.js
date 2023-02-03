@@ -41,8 +41,7 @@ const AppMap = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    !connection.connectionStatus &&
-      navigation.navigate(Routes.noInternetAccess);
+    !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
 
     const watchId = Geolocation.watchPosition(({ coords }) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords));
@@ -100,9 +99,7 @@ const AppMap = ({ navigation }) => {
 
   const handleProfile = () => {
     if (auth) {
-      navigation.navigate(Routes.stackNavigator, {
-        screen: Routes.profileNavigator,
-      });
+      navigation.navigate(Routes.stackNavigator, {screen: Routes.profileNavigator});
       return true;
     } else {
       navigation.navigate(Routes.stackNavigator, {

@@ -129,6 +129,12 @@
     "remaining_images": "Yakalanan görüntüler / Kalan görüntüler",
     "battery_level": "Pil seviyesi"
   },
+  "capture_completed": {
+    "title": "<0>{{distance}}Km</0> Yol\nÇekimi Yapıldı",
+    "detail": "<0>{{count}} resim </0> / {{size}}MB",
+    "upload_now": "Şimdi yükle",
+    "upload_later": "Daha sonra yükle"
+  },
   "upload": {
     "upload": "Çekimler",
     "no_data": {
@@ -142,7 +148,14 @@
     "delete_message": "Bu projeyi silmek istediğinizden emin misiniz?",
     "yes": "Evet",
     "no": "Hayır",
-    "start_upload": "Yüklemeyi başlat"
+    "start_upload": "Yüklemeyi başlat",
+    "is_cellular_data": "Hücresel veriyle göndermek istediğinizden emin misiniz?",
+    "you_cancelled_upload": "Yüklemeyi iptal ettiniz",
+    "sequences_deleted": "Diziler silindi",
+    "upload_completed": "Yükleme tamamlandı",
+    "upload_failed": "Yükeleme sırasında hata oluştu",
+    "no_address": "Adres bulunamadı",
+    "point": "~<0>{{count}}</0>puan "
   },
   "profile": {
     "individual_account": "Bireysel hesap",
@@ -163,7 +176,8 @@
     "uploaded_subtitle": "Burada yüklenen resimleri görebilirsiniz.",
     "image": "Resimler",
     "map": "Harita",
-    "fetch_error": "Profil bilgileri getirilirken bir sorun oluştu. Lütfen tekrar deneyin."
+    "fetch_error": "Profil bilgileri getirilirken bir sorun oluştu. Lütfen tekrar deneyin.",
+    "no_address": "Adres bulunamadı"
   },
   "login": {
     "title": "Haritanızda neler olduğunu görmek için oturum açın.",

@@ -5,19 +5,15 @@ export default StyleSheet.create({
   container: {
     marginHorizontal: RFValue(10),
     backgroundColor: '#FFF',
-    shadowColor: '#00000029',
-    shadowOffset: {height: 0, width: 3},
-    shadowOpacity: .9,
-    shadowRadius: 2,
-    elevation: 3,
     marginBottom: RFValue(10),
     borderWidth: .3,
     borderColor: '#00000029',
-    borderRadius: 4,
+    borderRadius: RFValue(5),
   },
   image: {
     width: "100%",
     height: RFValue(110),
+    borderRadius: RFValue(5),
   },
   imageGradient: {
     zIndex: 9,
@@ -25,11 +21,13 @@ export default StyleSheet.create({
     height: RFValue(110),
     flex: 1,
     width: "100%",
+    borderRadius: RFValue(5),
   },
   info: {
     backgroundColor: '#FFF',
     paddingVertical: RFValue(5),
     paddingHorizontal: RFValue(10),
+    justifyContent: 'space-between'
   },
   address: {
     color: '#130C47',
@@ -53,6 +51,12 @@ export default StyleSheet.create({
     color: '#666666',
     fontSize: RFValue(10),
     fontFamily: 'Poppins',
+    marginTop: 'auto'
+  },
+  point: {
+    color: '#130C47',
+    fontFamily: 'Poppins-Medium',
+    fontSize: RFValue(12),
   },
   deleteAction: {
     backgroundColor: '#D33030',
@@ -61,4 +65,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     zIndex: -1,
   },
+  bold: {
+    fontFamily: 'Poppins-SemiBold',
+  }
 });

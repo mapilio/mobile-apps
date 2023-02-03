@@ -10,7 +10,7 @@ import {SEQUENCE_IMAGES} from "../../store/actionsName";
 import {RFValue} from "react-native-responsive-fontsize";
 import * as FileSystem from "expo-file-system";
 
-const ImageUpload = ({ navigation, sequence_uuid }) => {
+const ImageUpload = ({ navigation, group_id }) => {
   const dispatch = useDispatch();
   const [imageLoad, setLoadImage] = useState(true);
   const {sequenceImages} = useSelector((state) => state.uploadReducer);
@@ -19,13 +19,13 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
   useEffect(() => {
     return navigation.addListener("focus", () => {
       database.query(
-        `SELECT id, path,location FROM captures where sequence_uuid = '${sequence_uuid}' ORDER BY id ASC`,
+        `SELECT id, path,location FROM captures where group_id = '${group_id}' ORDER BY id ASC`,
         (_, result) => {
           dispatch({type: SEQUENCE_IMAGES, payload: result.rows._array});
         }
       );
     });
-  }, [sequence_uuid, navigation]);
+  }, [group_id, navigation]);
 
   useEffect(() => {
     return navigation.addListener("blur", () => {
@@ -48,14 +48,14 @@ const ImageUpload = ({ navigation, sequence_uuid }) => {
         {sequenceImages.map((image) => (
           <UploadImageCard
             key={image.id}
-            path={FileSystem.documentDirectory + `${sequence_uuid}/${image.path.split('/').pop()}`}
+            path={FileSystem.documentDirectory + `${group_id}/${image.path.split('/').pop()}`}
             location={JSON.parse(image.location)}
             id={image.id}
             uploadedImages={uploadedImages}
             selectedImages={selectedImages}
             navigation={navigation}
             setLoadImage={setLoadImage}
-            sequence_uuid={sequence_uuid}
+            sequence_uuid={group_id}
           />
         ))}
       </View>

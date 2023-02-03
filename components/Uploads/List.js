@@ -17,9 +17,9 @@ const List = ({ navigation }) => {
   const {t} = useTranslation("upload");
   const dispatch = useDispatch();
 
-  const deleteSequence = (sequence_uuid) => {
-    database.deleteBySequenceId(sequence_uuid, async () => {
-      await FileSystem.deleteAsync(FileSystem.documentDirectory + `${sequence_uuid}`)
+  const deleteSequence = (group_id) => {
+    database.deleteByGroupID(group_id, async () => {
+      await FileSystem.deleteAsync(FileSystem.documentDirectory + `${group_id}`)
       getData();
     })
   }
@@ -30,7 +30,7 @@ const List = ({ navigation }) => {
         if (item.count >= 5) {
           return item
         } else {
-          deleteSequence(item.sequence_uuid)
+          deleteSequence(item.group_id)
         }
       })
 

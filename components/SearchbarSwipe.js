@@ -38,7 +38,7 @@ const SearchbarSwipe = ({
     setLoading(true);
 
     if (valueAPI.length !== 0) {
-      fetchHandler({url: `${Config.SEARCH_API}${valueAPI}`}).then((res) => {
+      fetchHandler({url: `${Config.SEARCH_API}/api/?q=${valueAPI}`}).then((res) => {
         setLocations(res.features);
         setLoading(false);
       }).catch(() => toast.show("An error occurred while find locations, please try again.", {type: "error"}));

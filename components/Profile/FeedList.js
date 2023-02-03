@@ -47,7 +47,7 @@ const FeedList = () => {
   const [gettingData, setGettingData] = useState(false);
 
   const getData = async () => {
-    const url = `${Config.SERVICE_URL}/api/user-uploads?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
+    const url = `${Config.SERVICE_URL}/api/user-uploads-v2?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
 
     try {
       const {data, pagination} = await fetchHandler({url: url})
@@ -89,8 +89,8 @@ const FeedList = () => {
     return <SkeletonList />
   }
 
-  const pressHandler = (sequence_uuid) => {
-    navigation.navigate(Routes.profileSequence, {id: sequence_uuid, user_id: userInformation.id});
+  const pressHandler = (group_key) => {
+    navigation.navigate(Routes.profileSequence, {id: group_key, user_id: userInformation.id});
   }
 
   return (
@@ -101,7 +101,7 @@ const FeedList = () => {
         onEndReached={() => !gettingData && nextPage()}
         ListEmptyComponent={() => <EmptyComponent/>}
         ListFooterComponent={() => gettingData && <ActivityIndicator size={"small"}/>}
-        renderItem={({item}) => <ProfileFeed data={item} pressHandle={() => pressHandler(item.sequence_uuid)}/>}
+        renderItem={({item}) => <ProfileFeed data={item} pressHandle={() => pressHandler(item.group_key)}/>}
       />
     </View>
   )

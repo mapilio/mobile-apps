@@ -20,6 +20,7 @@ import {
   SET_CAMERA_LOCATION,
   UPDATE_OPENED_STATUS,
   IS_ACTIVE,
+  GROUP_ID,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -43,6 +44,7 @@ const INITIAL_STATE = {
   cameraLocation: null,
   isFirstOpen: true,
   isActive: true,
+  groupId: null,
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -158,6 +160,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isActive: action.payload
+      };
+    case GROUP_ID:
+      return {
+        ...state,
+        groupId: action.payload
       };
     default:
       return state;

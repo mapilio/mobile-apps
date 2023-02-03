@@ -56,7 +56,7 @@ const CaptureComponent = ({navigation, exitHandler}) => {
 
   const changeRoute = (route) => {
     dispatch({type: IS_ACTIVE, payload: false})
-    dispatch({type: UPDATE_UUID, payload: 'uuidV4'});
+    dispatch({type: UPDATE_UUID, payload: null});
     navigation.navigate(route);
   }
 

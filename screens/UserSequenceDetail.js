@@ -31,16 +31,16 @@ const UserSequenceDetail = ({ navigation, route }) => {
   useEffect(() => navigation.addListener("blur", () => setClickedPoint(null)), [navigation]);
 
   useEffect(() => {
-    sequenceImages.filter((value, i) => {
+    sequenceImages.forEach((value, i) => {
       if (value.id === route.params.id) {
-        dispatch({type: RANK, payload: {id: value.id, total: sequenceImages.length, active: ++i}});
+        dispatch({type: RANK, payload: {id: value.id, total: sequenceImages.length, active: ++i, path: value.path}});
       }
     })
   }, [route.params]);
 
   const getCoordinates = () => {
     database.query(
-      `SELECT * FROM captures WHERE sequence_uuid='${activeSequence}'`,
+      `SELECT * FROM captures WHERE group_id='${activeSequence}'`,
       (_, result) => {
 
         setLines(setGeoJson(result.rows._array, "line"));
@@ -81,7 +81,7 @@ const UserSequenceDetail = ({ navigation, route }) => {
           }
           zoomLevel={16}
           animationMode={"none"}
-          animationDuration={1000}
+          animationDuration={0}
         />
         {!!Object.keys(points).length && (
           <MapboxGL.ShapeSource
@@ -94,11 +94,12 @@ const UserSequenceDetail = ({ navigation, route }) => {
                 payload: {
                   id: properties.id,
                   total: rank.total,
-                  active: properties.count
+                  active: properties.count,
+                  path: properties.path
                 }
               });
 
-              setCurrentImage(FileSystem.documentDirectory + `${properties.sequence_uuid}/${properties.path.split('/').pop()}`);
+              setCurrentImage(FileSystem.documentDirectory + `${properties.group_id}/${properties.path.split('/').pop()}`);
               setClickedPoint({
                 heading: JSON.parse(properties.location).heading,
                 longitude: Number(point.features[0].geometry.coordinates[0]),

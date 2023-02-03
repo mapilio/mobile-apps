@@ -17,6 +17,7 @@ import {MapView} from "../highordercomponents";
 import {RFValue} from "react-native-responsive-fontsize";
 import {setGeoJson} from "../helper/geojson";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import db from "../db";
 
 const UserSequence = ({ navigation }) => {
   const [coordinates, setCoordinates] = useState({});
@@ -45,49 +46,23 @@ const UserSequence = ({ navigation }) => {
       {
         text: "Yes",
         onPress: () => {
-          database.query(
-            `SELECT id, path FROM captures WHERE id IN (${selectedImages})`,
-            (_, result) => {
-              result.rows._array.map((file) => {
-                FileSystem.deleteAsync(file.path).then(() => {
-                  database.query(
-                    `DELETE FROM captures WHERE id = ${file.id}`,
-                    () => {
-                      database.query(
-                        `SELECT * FROM captures WHERE sequence_uuid = '${activeSequence}'`,
-                        (_, result) => {
-                          dispatch({
-                            type: SEQUENCE_IMAGES,
-                            payload: result.rows._array,
-                          });
-                          dispatch({
-                            type: UPDATE_SELECTED_IMAGES,
-                            payload: selectedImages.filter(
-                              (e) => e !== file.id
-                            ),
-                          });
-                          database.query(
-                            "SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-                            (_, result) => {
-                              dispatch({
-                                type: UPLOAD_DATA,
-                                payload: result.rows._array,
-                              });
-                            }
-                          );
-                        }
-                      );
-                    }
-                  );
-                });
-              });
-            }
-          );
-        },
+          selectedImages.forEach(({id, path}) => {
+            db.deleteById(id).then(() => {
+              FileSystem.deleteAsync(path).then(() => {
+                db.getCaptures(activeSequence).then((result) => {
+                  dispatch({type: SEQUENCE_IMAGES, payload: result,});
+                  dispatch({type: UPDATE_SELECTED_IMAGES, payload: selectedImages.filter((e) => e !== id)});
+                })
+
+                db.getGroupByWithSequenceUUID().then(data => dispatch({type: UPLOAD_DATA, payload: data}))
+              })
+            })
+          })
+        }
       },
       {
         text: "No",
-      },
+      }
     ]);
   };
 
@@ -141,7 +116,7 @@ const UserSequence = ({ navigation }) => {
           />
         </View>
         {switchSelector === "image" ? (
-          <ImageUpload navigation={navigation} sequence_uuid={activeSequence} />
+          <ImageUpload navigation={navigation} group_id={activeSequence} />
         ) : (
           <MapView
             mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}
@@ -153,6 +128,7 @@ const UserSequence = ({ navigation }) => {
               }
               animationMode={"none"}
               zoomLevel={16}
+              animationDuration={0}
             />
             {!!Object.keys(points).length && (
               <MapboxGL.ShapeSource

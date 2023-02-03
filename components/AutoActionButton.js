@@ -4,13 +4,20 @@ import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import Database from "../db";
 import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
-import {UPDATE_AUTOCAPTURE_START, UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT, UPDATE_UUID} from "../store/actionsName";
+import {
+	UPDATE_AUTOCAPTURE_START,
+	UPDATE_IMAGE_SIZE,
+	UPDATE_PHOTO_AMOUNT,
+	UPDATE_UUID,
+	UPLOAD_DATA
+} from "../store/actionsName";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
-import {setNewUUID} from "../helper/camera";
 import {Accelerometer, Gyroscope} from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import {fetchHandler} from "../helper/helper";
+import Config from "react-native-config";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -24,15 +31,15 @@ const AutoActionButton = ({navigation}) => {
 		mocked,
 		highSpeed,
 		captureButtonStatus,
-		cameraLocation
+		cameraLocation,
+		groupId,
 	} = useSelector((status) => status.cameraReducer);
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
+	const {connection} = useSelector((state) => state.generalReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
-	const [accuracyErrorCount, setAccuracyErrorCount] = useState(0);
 	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
 	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
-	const [groupId, setGroupId] = useState(null);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
@@ -49,12 +56,6 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	useEffect(() => {
-		if (!GPSAccuracy) {
-			setAccuracyErrorCount(prev => prev + 1)
-		} else if (accuracyErrorCount > 0) {
-			setAccuracyErrorCount(0)
-		}
-
 		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
 			if (!!photo && photo % 250 === 0) {
 				currentUUID = uuid.v4();
@@ -69,17 +70,11 @@ const AutoActionButton = ({navigation}) => {
 	}, [cameraLocation]);
 
 	useEffect(() => {
-		accuracyErrorCount === 2 && setNewUUID();
-	}, [accuracyErrorCount]);
-
-
-	useEffect(() => {
 		navigation.addListener("blur", () => dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false}));
 		return () => navigation.removeListener("blur");
 	}, [navigation]);
 
 	useEffect(() => {
-		setGroupId(uuid.v4());
 		const listener = AppState.addEventListener("change", startNewSequence);
 		const accelerometer = Accelerometer.addListener(data => setAccelerometerData(data))
 		const gyroscope = Gyroscope.addListener(data => setGyroscopeData(data))
@@ -144,20 +139,27 @@ const AutoActionButton = ({navigation}) => {
 			calculateAmount("subtract");
 			return;
 		}
-		const metaDataDir = await FileSystem.getInfoAsync(FileSystem.documentDirectory + `${currentUUID}`);
+		const metaDataDir = await FileSystem.getInfoAsync(FileSystem.documentDirectory + `${groupId}`);
 		const isDir = metaDataDir.isDirectory;
 
 		if (!isDir) {
 			try {
-				await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + `${currentUUID}`, {intermediates: true});
+				await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + `${groupId}`, {intermediates: true});
 			} catch (e) {
-				console.info("ERROR", e);
 				calculateAmount("subtract");
 			}
 		}
 
-		const filename = Math.round(new Date().getTime() / 1000).toString();
-		const newPath = FileSystem.documentDirectory + `/${currentUUID}/${filename}.${"jpeg"}`;
+		const filename = ((Math.random() + 1).toString(36).substring(7) + Math.round(new Date().getTime() / 1000)).toString();
+		const newPath = FileSystem.documentDirectory + `${groupId}/${filename}.${"jpeg"}`;
+
+		let address = {}
+
+		if (!connection.connectionStatus) {
+			const {features} = await fetchHandler({url: `${Config.SEARCH_API}/reverse?lat=${location.latitude}&lon=${location.longitude}`})
+			const {city, country, name, street, state} = features[0]?.properties || {};
+			address = {city, country, name, street, state}
+		}
 
 		await FileSystem.copyAsync({from: `file://${imageUri}`, to: newPath});
 		image.uri = newPath;
@@ -173,9 +175,10 @@ const AutoActionButton = ({navigation}) => {
 			organizationName: selectedProject.projectName,
 			organizationKey: selectedProject.organizationKey,
 			uuid: currentUUID,
-			path: newPath,
+			path: `${groupId}/${filename}.${"jpeg"}`,
 			filename,
 			groupId,
+			address: address.street || address.name || address.city || address.state || address.country || null,
 		});
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});

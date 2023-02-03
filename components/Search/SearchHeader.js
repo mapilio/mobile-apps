@@ -59,7 +59,7 @@ const SearchHeader = ({ closeHandler }) => {
 
   const fetchSearch = (param) => {
     if (param) {
-      fetchHandler({ url: `${Config.SEARCH_API}${param}` }).then((res) => {
+      fetchHandler({ url: `${Config.SEARCH_API}/api/?q=${param}` }).then((res) => {
         if (res.features.length === 0) {
           setSearchError(true);
         } else {
@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   back: {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
     width: RFValue(40),
     height: RFValue(40),
     alignItems: "center",

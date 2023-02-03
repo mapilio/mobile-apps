@@ -52,7 +52,6 @@ export const styles = {
       14.1,
       2,
     ],
-    
   },
   lineStyles: {
     lineColor: "#146aff",

@@ -41,6 +41,7 @@ function App() {
   useEffect(() => {
     db.startDB();
     db.addGroupIDColumn();
+    db.addAddressColumn();
 
     (async () => {
       await SplashScreen.preventAutoHideAsync();
