@@ -4,6 +4,7 @@ export const Routes = {
   profileNavigator: "ProfileNavigator",
   cameraNavigator: "CameraNavigator",
   cameraTab: "CameraTab",
+  uploadTab: "UploadTab",
   auth: "Auth",
   profile: "Profile",
   sequences: "Sequences",
@@ -33,5 +34,6 @@ export const Routes = {
   profileEdit: "profileEdit",
   leaders: "Leaders",
   language: "Language",
-  howToScore: "HowToScore"
+  howToScore: "HowToScore",
+  captureCompleted: "CaptureCompleted",
 };

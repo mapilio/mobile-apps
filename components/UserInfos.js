@@ -57,7 +57,7 @@ const UserInfos = () => {
           <View style={userInfoStyles.separator}/>
 
           <CustomInfo
-            value={userInformation.meters + "km"}
+            value={Math.floor(userInformation.meters) + "km"}
             subtitle={"roads"}
             icon={<RoadIcon />}
           />

@@ -76,7 +76,6 @@ const TabNavigator = () => {
           return;
         }
 
-
         navigation.navigate(route.name)
       } else {
 

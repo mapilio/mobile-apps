@@ -17,15 +17,14 @@ const UploadImageCard = (props) => {
   const { allSelect } = useSelector((state) => state.imagesReducer);
 
   const addToSelectedImages = () => {
-    const isSelected = selectedImages.some((selectedId) => selectedId === id);
+    const isSelected = selectedImages.some((selectedId) => selectedId.id === id);
+
     if (isSelected) {
-      const filteredImages = selectedImages.filter(
-        (selectedID) => selectedID !== id
-      );
+      const filteredImages = selectedImages.filter((selectedID) => selectedID.id !== id);
       dispatch({ type: UPDATE_SELECTED_IMAGES, payload: filteredImages });
       setSelected(false);
     } else {
-      selectedImages.push(id);
+      selectedImages.push({id, path});
       dispatch({ type: UPDATE_SELECTED_IMAGES, payload: selectedImages });
       setSelected(true);
     }

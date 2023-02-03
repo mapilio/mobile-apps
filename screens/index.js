@@ -22,3 +22,4 @@ export { default as WebviewScreen } from "./WebviewScreen";
 export { default as ProfileEdit } from "./ProfileEdit";
 export { default as Language } from "./Language";
 export { default as HowToScore } from "./HowToScore";
+export { default as CaptureCompleted } from "./CaptureCompleted";

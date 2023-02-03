@@ -72,3 +72,5 @@ export {default as CheckIcon} from "./CheckIcon";
 export {default as NoResultIcon} from "./NoResultIcon";
 export {default as RightTopDirectionIcon} from "./RightTopDirectionIcon";
 export {default as SearchWelcome} from "./SearchWelcome";
+export {default as PointIcon} from "./PointIcon";
+export {default as TimeIcon} from "./TimeIcon";

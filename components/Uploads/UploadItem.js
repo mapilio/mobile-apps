@@ -5,10 +5,10 @@ import {dateConvert} from "../../helper/helper";
 import LinearGradient from "react-native-linear-gradient";
 import React from "react";
 import {userFeedStyles} from "../../styles/userProfileStyle";
-import {Photos, Trash} from "../../assets/svg/illustrations";
+import {Photos, PointIcon, Trash} from "../../assets/svg/illustrations";
 import {Swipeable} from "react-native-gesture-handler";
 import {RFValue} from "react-native-responsive-fontsize";
-import {useTranslation} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 import {ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
 import {useDispatch} from "react-redux";
@@ -18,10 +18,10 @@ const UploadItem = ({item, deleteSequence}) => {
   const {t} = useTranslation("upload");
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const image = `${FileSystem.documentDirectory + `${item.sequence_uuid}/${item.filename}.jpeg`}`
+  const image = `${FileSystem.documentDirectory + `${item.group_id}/${item.filename}.jpeg`}`
 
   const goToDetail = () => {
-    dispatch({ type: ACTIVE_SEQUENCE, payload: item.sequence_uuid });
+    dispatch({ type: ACTIVE_SEQUENCE, payload: item.group_id });
     dispatch({ type: UPDATE_SELECTED_IMAGES, payload: [] });
     navigation.navigate(Routes.sequences)
   }
@@ -32,7 +32,7 @@ const UploadItem = ({item, deleteSequence}) => {
         t("are_you_sure"),
         t("delete_message"),
         [
-          {text: t("yes"), onPress: () => deleteSequence(item.sequence_uuid)},
+          {text: t("yes"), onPress: () => deleteSequence(item.group_id)},
           {text: t("no")},
         ]
       )
@@ -51,7 +51,7 @@ const UploadItem = ({item, deleteSequence}) => {
   return (
     <Swipeable renderRightActions={renderRightActions} containerStyle={styles.container}>
       <Pressable onPress={goToDetail}>
-        <View style={styles.imageContainer}>
+        <View>
           <LinearGradient
             colors={['#00000000', '#000000BF']}
             angle={90}
@@ -64,8 +64,7 @@ const UploadItem = ({item, deleteSequence}) => {
         </View>
         <View style={styles.info}>
           <Text style={styles.address} numberOfLines={1}>
-            {/* TODO: The sequence start address will be added to this field. */}
-            {" "}
+            {item.address || t("no_address")}
           </Text>
 
           <View style={userFeedStyles.subInfo}>
@@ -74,6 +73,17 @@ const UploadItem = ({item, deleteSequence}) => {
                 JSON.parse(item.exif).DateTime || JSON.parse(item.exif).DateTimeOriginal,
                 "DD MM YYYY - H:mm"
               )}
+            </Text>
+
+            <Text style={styles.point}>
+              <PointIcon />
+              {" "}
+              <Trans
+                t={t}
+                i18nKey="point"
+                values={{count: item.count / 1000}}
+                components={[<Text style={styles.bold} />]}
+              />
             </Text>
           </View>
         </View>

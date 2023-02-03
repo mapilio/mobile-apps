@@ -19,6 +19,20 @@ const DeleteNavigationRight = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
 
+  const deleteHandler = () => {
+    FileSystem.deleteAsync(rank.path).then(() => {
+      db.deleteById(rank.id).then(() => {
+        db.getGroupByWithSequenceUUID().then((data) => {
+          dispatch({type: UPLOAD_DATA, payload: data});
+
+          const isSequence = data.map((item) => item.sequence_uuid === activeSequence);
+
+          isSequence.length ? navigation.navigate(Routes.sequences) : navigation.navigate(Routes.upload);
+        })
+      })
+    })
+  }
+
   return (
     <View>
       <TouchableOpacity
@@ -26,39 +40,7 @@ const DeleteNavigationRight = () => {
           Alert.alert(
             t("are_you_sure"),
             t("delete_photo"),
-            [
-              {
-                text: t("yes"),
-                onPress: () => {
-                  try {
-                    db.query(`SELECT id, path FROM captures WHERE id=${rank.id}`, (_, result) => {
-                      FileSystem.deleteAsync(result.rows._array[0].path).then(() => {
-                          db.deleteById(rank.id).then(() => {
-
-                            db.getGroupByWithSequenceUUID().then((data) => {
-                              dispatch({type: UPLOAD_DATA, payload: data});
-
-                              const isSequence = data.map((item) => item.sequence_uuid === activeSequence);
-
-                              isSequence.length ?
-                                navigation.navigate(Routes.sequences) :
-                                navigation.navigate(Routes.upload);
-                            })
-                          })
-                        }
-                      ).catch(() => {
-                        toast.show(t("delete_error"), {type: "error"})
-                      })
-                    });
-                  } catch (e) {
-                    toast.show(t("delete_error"), {type: "error"})
-                  }
-                },
-              },
-              {
-                text: t("no"),
-              },
-            ]
+            [{text: t("yes"), onPress: () => deleteHandler()}, {text: t("no")}]
           );
         }}
       >

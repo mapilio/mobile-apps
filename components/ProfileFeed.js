@@ -22,7 +22,7 @@ const SkeletonItem = ({loading}) => {
 const ProfileFeed = ({data, pressHandle}) => {
   const {t} = useTranslation("profile");
   const [imageLoading, setImageLoading] = useState(true);
-  const {created_at, total_images, last_status, img_code, cover_photo} = data;
+  const {capture_time, total, last_status, uploaded_hash, cover_photo, start_address} = data;
 
   return (
     <TouchableOpacity style={userFeedStyles.wrapper} onPress={pressHandle}>
@@ -39,7 +39,7 @@ const ProfileFeed = ({data, pressHandle}) => {
 
         <Image
           style={userFeedStyles.imageStyle}
-          source={{uri: `${Config.IMAGE_API}/${img_code}/${cover_photo}/480`}}
+          source={{uri: `${Config.IMAGE_API}/${uploaded_hash}/${cover_photo}/480`}}
           onLoadEnd={() => setImageLoading(false)}
         />
       </View>
@@ -60,13 +60,12 @@ const ProfileFeed = ({data, pressHandle}) => {
 
       <View style={userFeedStyles.info}>
         <Text style={userFeedStyles.address} numberOfLines={1}>
-          {/* TODO: The sequence start address will be added to this field. */}
-          {" "}
+          {start_address || t("no_address")}
         </Text>
 
         <View style={userFeedStyles.subInfo}>
-          <Text style={userFeedStyles.date}>{moment(created_at).format("DD-MM-YYYY")}</Text>
-          <Text style={userFeedStyles.date}>{total_images} <Photos/></Text>
+          <Text style={userFeedStyles.date}>{moment(capture_time).format("DD-MM-YYYY")}</Text>
+          <Text style={userFeedStyles.date}>{total} <Photos/></Text>
         </View>
       </View>
     </TouchableOpacity>

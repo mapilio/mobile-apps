@@ -9,19 +9,24 @@ import {useDispatch, useSelector} from "react-redux";
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
 import {
+  GROUP_ID,
   MAP_WATCH_ID,
   SET_CAMERA_LOCATION,
   UPDATE_GPS_ACCURACY,
   UPDATE_MOCKED_STATUS,
-  UPDATE_OPENED_STATUS
+  UPDATE_OPENED_STATUS,
+  UPDATE_PHOTO_AMOUNT
 } from "../store/actionsName";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {exitCapture, setNewUUID} from "../helper/camera";
 import LinearGradient from "react-native-linear-gradient";
 import {useNavigation} from "@react-navigation/native";
+import {Routes} from "../navigator/Routes";
+import uuid from "react-native-uuid";
 
 const AppCamera = () => {
   const {distanceBetween, selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
+  const {photoAmount} = useSelector((state) => state.cameraReducer);
   const {mapWatchId} = useSelector((state) => state.generalReducer);
   const [lowBrightness, setLowBrightness] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
@@ -30,12 +35,20 @@ const AppCamera = () => {
 
   useEffect(() => {
     if (autoCaptureStart) {
-      setNewUUID();
       setIsStarted(true)
     }
 
     if (isStarted && !autoCaptureStart) {
       closeHandler()
+
+      if (photoAmount >= 5) {
+        navigation.reset({
+          index: 0,
+          routes: [{name: Routes.uploadTab, params: {screen: Routes.captureCompleted}}]
+        });
+      } else {
+        navigation.reset({index: 0, routes: [{name: Routes.uploadTab}]});
+      }
     }
   }, [autoCaptureStart]);
 
@@ -65,6 +78,9 @@ const AppCamera = () => {
   }
 
   useEffect(() => {
+    dispatch({type: GROUP_ID, payload: uuid.v4()});
+    dispatch({type: UPDATE_PHOTO_AMOUNT, payload: 0})
+
     if (typeof mapWatchId !== null) {
       Geolocation.clearWatch(mapWatchId)
       dispatch({type: MAP_WATCH_ID, payload: null})

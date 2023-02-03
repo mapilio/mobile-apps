@@ -26,7 +26,7 @@ const UserSequence = ({ navigation, route }) => {
   const [imageList, setImagesList] = useState([]);
   const [mapList, setMapList] = useState([]);
   const [paginationLoading, setPaginationLoading] = useState(false);
-  const [paginationURL, setPaginationURL] = useState(`/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`);
+  const [paginationURL, setPaginationURL] = useState(`/api/user-uploads-detail-v2?options[parameters][user_id]=${route.params.user_id}&options[parameters][group_key]=${route.params.id}&options[limit]=40&page=1`);
   const {bottom}  = useSafeAreaInsets();
 
 
@@ -53,10 +53,10 @@ const UserSequence = ({ navigation, route }) => {
   useEffect(() => {
     return navigation.addListener("focus", () => {
       setPaginationURL(
-        `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+        `/api/user-uploads-detail-v2?options[parameters][user_id]=${route.params.user_id}&options[parameters][group_key]=${route.params.id}&options[limit]=40&page=1`
       );
       fetchNext(
-        `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=40&page=1`
+        `/api/user-uploads-detail-v2?options[parameters][user_id]=${route.params.user_id}&options[parameters][group_key]=${route.params.id}&options[limit]=40&page=1`
       );
     });
   }, [navigation, route.params.id]);
@@ -99,7 +99,7 @@ const UserSequence = ({ navigation, route }) => {
 
   useEffect(() => {
     fetchMapNext(
-      `/api/user-uploads-detail?options[parameters][user_id]=${route.params.user_id}&options[parameters][sequence_uuid]=${route.params.id}&options[limit]=1000&page=1`
+      `/api/user-uploads-detail-v2?options[parameters][user_id]=${route.params.user_id}&options[parameters][group_key]=${route.params.id}&options[limit]=1000&page=1`
     );
   }, [active, imageList]);
 
@@ -183,7 +183,12 @@ const UserSequence = ({ navigation, route }) => {
           </View>
         ) : (
           <MapView mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}>
-            <MapboxGL.Camera animationMode={"none"} centerCoordinate={center.length !== 0 && [center[0] + 0.0009, center[1]]} zoomLevel={16}/>
+            <MapboxGL.Camera
+              animationMode={"none"}
+              animationDuration={0}
+              centerCoordinate={center.length !== 0 && [center[0] + 0.0009, center[1]]}
+              zoomLevel={16}
+            />
             {!!Object.keys(points).length && (
               <MapboxGL.ShapeSource
                 id={"pointsProfileShape"}

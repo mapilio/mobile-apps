@@ -4,7 +4,7 @@ import userUpload from "../../screens/UserUpload";
 import {DeleteNavigationRight, SequenceDetailTitle, SequenceNavigatorLeft} from "./navigatorbars";
 import {navigatorStyle} from "../../styles/navigatorStyle";
 import React from "react";
-import {UploadCompleted, UserSequence, UserSequenceDetail} from "../../screens";
+import {CaptureCompleted, UploadCompleted, UserSequence, UserSequenceDetail} from "../../screens";
 import {useTranslation} from "react-i18next";
 
 const Stack = createStackNavigator()
@@ -42,6 +42,7 @@ const UploadNavigator = () => {
 
       <Stack.Group screenOptions={{presentation: "card", gestureEnabled: false, headerShown: false}}>
         <Stack.Screen name={Routes.uploadCompleted} component={UploadCompleted}/>
+        <Stack.Screen name={Routes.captureCompleted} component={CaptureCompleted}/>
       </Stack.Group>
     </Stack.Navigator>
   )

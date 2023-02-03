@@ -42,11 +42,23 @@ class Database {
     });
   }
 
-  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId}) {
+  /**
+   * Add address column to captures table
+   */
+  addAddressColumn() {
     db.transaction((txn) => {
       txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId],
+        `ALTER TABLE captures ADD COLUMN address TEXT DEFAULT NULL`,
+        []
+      );
+    });
+  }
+
+  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, address}) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, address],
         () => null,
         (_, error) => {
           console.log(error);
@@ -92,15 +104,13 @@ class Database {
   }
 
   /**
-   * getCapturesBySequenceId() is deprecated. You can change getCaptures()
+   * @deprecated Use getCapturesBySequenceIdAsync() instead
    *
-   * @param sequence_uuid
-   * @param callback
-   * @param errorCallback
+   * @param sequence_uuid {string} - sequence_uuid
+   * @param callback {function}
+   * @param errorCallback {function}
    */
   getCapturesBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
-    console.warn('getCapturesBySequenceId() is deprecated. You can change getCaptures()')
-
     db.transaction((txn) => {
       txn.executeSql(
         `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}"`,
@@ -108,6 +118,23 @@ class Database {
         callback,
         errorCallback
       )
+    })
+  }
+
+  getCapturesBySequenceIdAsync(sequence_uuid) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}"`,
+          [],
+          (_, result) => {
+            resolve(result.rows._array)
+          },
+          (_transaction, error) => {
+            reject(error)
+          }
+        )
+      })
     })
   }
 
@@ -157,10 +184,58 @@ class Database {
     })
   }
 
+  /**
+   * @deprecated Use deleteBySequenceIdAsync() instead
+   *
+   * @param sequence_uuid {string}
+   * @param callback {function}
+   * @param errorCallback {function}
+   */
   deleteBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
     db.transaction((txn) => {
       txn.executeSql(
         `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
+        [],
+        callback,
+        errorCallback
+      )
+    })
+  }
+
+  /**
+   * Delete all captures by sequence_uuid
+   *
+   * @param sequence_uuid {string} (unique id)
+   * @returns {Promise<unknown>}
+   */
+  deleteBySequenceIdAsync(sequence_uuid) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
+          [],
+          (_, result) => {
+            resolve(result.rows._array)
+          },
+          (_transaction, error) => {
+            reject(error)
+          }
+        )
+      })
+    })
+  }
+
+  /**
+   * Delete all captures by group_id
+   *
+   * @param group_id {string}
+   * @param callback {function}
+   * @param errorCallback {function}
+   */
+  deleteByGroupID(group_id, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
+    db.transaction((txn) => {
+      txn.executeSql(
+        `DELETE FROM captures where group_id = '${group_id}'`,
         [],
         callback,
         errorCallback
@@ -181,17 +256,107 @@ class Database {
   }
 
   /**
-   * @param uuid {null | string}
+   * @param uuid {null | string} If uuid is null, get all captures from database
    * @returns {Promise}
    */
   getCaptures(uuid = null) {
-    const query = uuid ? `SELECT * FROM captures WHERE sequence_uuid='${uuid}'` : `SELECT * FROM captures`;
+    const query = uuid ? `SELECT * FROM captures WHERE group_id='${uuid}'` : `SELECT * FROM captures`;
 
     return new Promise((resolve, reject) => {
       db.transaction((txn) => {
         txn.executeSql(
           query, [], (_, results) => {
             resolve(results.rows._array)
+          },
+          (error) => {
+            reject(error)
+          })
+      });
+    })
+  }
+
+  /**
+   * Get captures by group id
+   *
+   * @param groupId {string}
+   * @returns {Promise<Array>}
+   */
+  getCapturesByGroupID(groupId) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT * FROM captures WHERE group_id='${groupId}'`, [], (_, results) => {
+            resolve(results.rows._array)
+          },
+          (error) => {
+            reject(error)
+          })
+      });
+    })
+  }
+
+  /**
+   * Get first capture by group id
+   * @param groupId {string}
+   * @returns {Promise<unknown>}
+   */
+  getFirstWithGroupID(groupId) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT * FROM captures WHERE group_id='${groupId}' ORDER BY id ASC LIMIT 1`, [], (_, results) => {
+            resolve(results.rows._array[0])
+          },
+          (error) => {
+            reject(error)
+          })
+      });
+    })
+  }
+
+  /**
+   * Get last capture by group id
+   * @param groupId
+   * @returns {Promise<unknown>}
+   */
+  getLastWithGroupID(groupId) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT * FROM captures WHERE group_id='${groupId}' ORDER BY id DESC LIMIT 1`, [], (_, results) => {
+            resolve(results.rows._array[0])
+          },
+          (error) => {
+            reject(error)
+          })
+      });
+    })
+  }
+
+  /**
+   * Get captures by group ids (array)
+   * @param ids {Array<string>}
+   */
+  getCapturesWithIDs(ids) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT * FROM captures WHERE group_id IN (${ids.map(id => `'${id}'`).join(',')})`, [], (_, results) => {
+            resolve(results.rows._array)
+          },
+          (error) => {
+            reject(error)
+          })
+      });
+    })
+  }
+
+  getSequencesWithGroups(groupIDs) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT sequence_uuid FROM captures WHERE group_id IN (${groupIDs.map(id => `'${id}'`).join(',')}) GROUP BY sequence_uuid`, [], (_, results) => {
+            resolve(results.rows._array.map(row => row.sequence_uuid))
           },
           (error) => {
             reject(error)

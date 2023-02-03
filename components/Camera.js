@@ -11,7 +11,7 @@ import { CameraWarnings } from "../helper/camera";
 import CameraProjectInfo from "./CameraProjectInfo";
 import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
 import { useDispatch, useSelector } from "react-redux";
-import { View, ActivityIndicator, Dimensions, Text } from "react-native";
+import { View, ActivityIndicator, Dimensions } from "react-native";
 import { CustomTextMedium } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTranslation } from "react-i18next";
