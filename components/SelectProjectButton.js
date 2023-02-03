@@ -4,8 +4,10 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
 import { DropdownArrow } from "../assets/svg/illustrations";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
+import { useTranslation } from "react-i18next";
 
 export const SelectProjectButton = ({ setModalVisible }) => {
+  const { t } = useTranslation("camera");
   return (
     <TouchableOpacity
       style={{
@@ -32,7 +34,7 @@ export const SelectProjectButton = ({ setModalVisible }) => {
             marginLeft: RFValue(3),
           }}
         >
-          Tasks
+          {t("tasks")}
         </CustomTextMedium>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -44,7 +46,7 @@ export const SelectProjectButton = ({ setModalVisible }) => {
             marginRight: RFValue(3),
           }}
         >
-          Select mission
+          {t("select_mission")}
         </CustomText>
         <DropdownArrow />
       </View>

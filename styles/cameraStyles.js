@@ -119,6 +119,7 @@ export const cameraProjectModalStyles = {
 			padding: RFValue(10),
 		},
 		title: {
+			fontSize:RFValue(14),
 			color: "#4A4A4A",
 			alignSelf: "flex-start",
 			marginBottom: RFValue(10),
@@ -127,7 +128,7 @@ export const cameraProjectModalStyles = {
 			fontSize: RFValue(14), color: "#4A4A4A"
 		},
 		link: {
-			color: "#4A90E2", fontSize: RFValue(14)
+			color: "#4A90E2", fontSize: RFValue(14),
 		}
 	})
 }
