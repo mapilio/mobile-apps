@@ -94,6 +94,10 @@
     "advanced": "Gelişmiş",
     "getting_ready": "Kamera hazırlanıyor. Lütfen bekle.",
     "something_went_wrong": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+    "tasks": "İşler",
+    "select_mission": "Görev seç",
+    "empty_mission_title": "Dahil olduğunuz bir proje yok.",
+    "empty_mission_description": "<0>Market'ten</0> projelere göz atabilirsiniz",
     "warning": {
       "battery": {
         "title": "Pil seviyesi düşük",

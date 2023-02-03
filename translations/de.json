@@ -85,6 +85,11 @@
     "safe_mode": "Power safe mode",
     "advanced": "Advanced",
     "getting_ready": "Camera is getting ready. Please wait.",
+    "something_went_wrong": "Something went wrong. Please try again.",
+    "tasks": "Tasks",
+    "select_mission": "Select Mission",
+    "empty_mission_title": "There is no project you are involved in.",
+    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
     "warning": {
       "battery": {
         "title": "Battery level low",

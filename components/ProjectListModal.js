@@ -10,11 +10,13 @@ import {CloseIcon} from "../assets/svg/illustrations";
 import {CustomTextMedium} from "../highordercomponents";
 import ProjectList from "./ProjectList";
 import {fetchHandler} from "../helper/helper";
-import {Routes} from "../navigator/Routes";
 import {cameraProjectModalStyles} from "../styles/cameraStyles";
 import Config from "react-native-config";
+import { Trans, useTranslation } from "react-i18next";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
+	const { t } = useTranslation("camera");
 	const [projects, setProjects] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -27,27 +29,35 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
 		});
 	}, []);
 
-
 	const EmptyList = () => {
-
-		const goMarketplace = () => {
-			setModalVisible(false)
-			navigation.reset({index: 0, routes: [{name: Routes.marketplace}]})
-		}
-
-		return (
-			<View>
-				<CustomTextMedium style={cameraProjectModalStyles.projectList.paragraph}>
-					There is no project you are involved in. You can browse projects on{" "}
-				</CustomTextMedium>
-				<Pressable onPress={goMarketplace}>
-					<CustomTextMedium style={cameraProjectModalStyles.projectList.link}>
-						Marketplace.
-					</CustomTextMedium>
-				</Pressable>
-			</View>
-		)
+    const goMarketplace = () => {
+      setModalVisible(false);
+	  ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+		navigation.reset({
+			index: 0,
+			routes: [
+				{ name: "MarketplaceTab", },
+			],
+		});
 	}
+
+    return (
+      <View style={{ flexDirection: "column", alignItems: "center" }}>
+        <CustomTextMedium
+          style={cameraProjectModalStyles.projectList.paragraph}
+        >
+          {t("empty_mission_title")}
+        </CustomTextMedium>
+        <CustomTextMedium style={cameraProjectModalStyles.projectList.paragraph}> 
+          <Trans
+            t={t}
+            i18nKey="empty_mission_description"
+			components={[<CustomTextMedium style={cameraProjectModalStyles.projectList.link} onPress={goMarketplace} />]}
+          />
+        </CustomTextMedium>
+      </View>
+    );
+  };
 
 	return (
 		<View style={cameraProjectModalStyles.projectList.outline}>
@@ -55,10 +65,10 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
 				<View style={cameraProjectModalStyles.projectList.modal}>
 					<View style={cameraProjectModalStyles.projectList.content}>
 						<Pressable style={cameraProjectModalStyles.projectList.close} onPress={() => setModalVisible(false)}>
-							<CloseIcon color={"#E5E7EF"}/>
+							<CloseIcon color={"#4A4A4A"}/>
 						</Pressable>
 						<CustomTextMedium style={cameraProjectModalStyles.projectList.title}>
-							Select mission
+							{t("select_mission")}
 						</CustomTextMedium>
 						{loading ? (
 							<View style={{marginVertical: RFValue(40)}}>
