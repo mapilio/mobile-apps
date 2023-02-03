@@ -154,8 +154,7 @@ const AutoActionButton = ({navigation}) => {
 		const newPath = FileSystem.documentDirectory + `${groupId}/${filename}.${"jpeg"}`;
 
 		let address = {}
-
-		if (!connection.connectionStatus) {
+		if (connection.connectionStatus) {
 			const {features} = await fetchHandler({url: `${Config.SEARCH_API}/reverse?lat=${location.latitude}&lon=${location.longitude}`})
 			const {city, country, name, street, state} = features[0]?.properties || {};
 			address = {city, country, name, street, state}
