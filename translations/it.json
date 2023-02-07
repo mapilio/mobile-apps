@@ -15,14 +15,23 @@
     "delete": "Delete",
     "have_not_connection": "You do not have an active internet connection",
     "profile": "Profile",
+    "profile_edit": "Profile Edit",
     "your_uploads": "Your Uploads",
     "upload_detail": "Upload Detail",
     "sign_up": "Sign up",
-    "sign_in": "Sign in"
+    "sign_in": "Sign in",
+    "go_map": "Go Map"
   },
   "search": {
+    "search": "Search",
+    "recent_searches": "Recent Searches",
+    "clear": "Clear",
+    "empty_search": "Recently found and used items will be here",
     "no_results": "No results found",
     "another_search": "Please make another search."
+  },
+  "panorama": {
+    "image_report": "Image report"
   },
   "marketplace": {
     "marketplace": "Marketplace",
@@ -52,11 +61,13 @@
     "username": "Username",
     "name": "Name",
     "bio": "Bio",
+    "hide_my_username": "Hide my username",
     "save": "Save"
   },
   "upload_complete": {
     "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio."
+    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
+    "go_to_map": "Go To Map"
   },
   "welcome_walkthrough": {
     "first": {
@@ -121,10 +132,16 @@
     "remaining_images": "Captured images / Remaining images",
     "battery_level": "Battery level"
   },
+  "capture_completed": {
+    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
+    "detail": "<0>{{count}} images </0> / {{size}}MB",
+    "upload_now": "Upload Now",
+    "upload_later": "Upload Later"
+  },
   "upload": {
     "upload": "Upload",
     "no_data": {
-      "title": "No footage found to upload",
+      "title": "No capture found to upload",
       "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
     },
     "title": "Upload Photos",
@@ -133,7 +150,15 @@
     "are_you_sure": "Are you sure?",
     "delete_message": "Are you sure you want to delete this project",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "start_upload": "Start Upload",
+    "is_cellular_data": "Are you sure you want to send via cellular data?",
+    "you_cancelled_upload": "You cancelled the upload",
+    "sequences_deleted": "Sequences deleted",
+    "upload_completed": "Upload Completed",
+    "upload_failed": "Upload Failed",
+    "no_address": "No address",
+    "point": "~<0>{{count}}</0>pts"
   },
   "profile": {
     "individual_account": "Individual Account",
@@ -143,14 +168,19 @@
     "start_capture": "Start Capture",
     "select_organization": "Select organization",
     "images": "images",
-    "uploaded": "Added Queue",
+    "uploaded": "Uploaded",
     "completed": "Completed",
+    "processing": "Processing",
+    "fail": "Fail",
     "sequences": "Sequences",
     "photos": "Photos",
+    "roads": "Roads",
     "uploaded_title": "Images you uploaded",
     "uploaded_subtitle": "Here you can see uploaded pictures.",
     "image": "Image",
-    "map": "Map"
+    "map": "Map",
+    "fetch_error": "There was a problem for fetching Profile. Please try again.",
+    "no_address": "No address"
   },
   "login": {
     "title": "Sign in to see what's on your map.",
@@ -172,7 +202,7 @@
     "pass_min_character": "Password must be at least {{min}} characters",
     "account_created": "Your account has been created, check your e-mail address.",
     "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our <0>Privacy policy</0>"
+    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy policy</0>"
   },
   "forgot": {
     "title": "Forgot your password?",
@@ -183,10 +213,12 @@
   },
   "leaderboard": {
     "title": "Leaderboard",
+    "how_to_score": "How to \nscore?",
     "description": "Top 50 community members helping grow the mapilio!",
     "users": "Users",
     "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again."
+    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
+    "join_the_race": "join the\nrace"
   },
   "upload_modal": {
     "title": "Together We Create More Up-To-Date Maps",
@@ -202,6 +234,62 @@
     "email_required": "Email Address is Required",
     "please_enter_valid_email": "Please enter valid email",
     "password_required": "Password is required"
+  },
+  "how_to_score": {
+    "title": "How does the scoring system work?",
+    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
+    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>\u25CF Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>\u25CF Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>\u25CF Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
+    "start_now_capture": "Start Now Capture"
+  },
+  "award": {
+    "summary": "Are you ready to collect reward with <0>Mapilio \uD83C\uDF0D\uD83C\uDFC6</0>",
+    "start_capture_now": "Start Capture Now",
+    "slogan": "<bold>Goodbye</bold> Winter Contest by Mapilio",
+    "title": "Earn new gifts as you reach more kilometers",
+    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.02.2023</date> and <date>10.05.2023</date> will win great prizes.",
+    "mi_pro_2_scooter": "Mi Pro 2 Scooter",
+    "gopro_9": "GoPro 9",
+    "beats_3_headphones": "Beats 3 Headphones",
+    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>\u25CF Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>\u25CF Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>\u25CF Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>\u25CF Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>\u25CF Exact Location</bold> Location Services of your device must be on and precise.",
+    "final_content": {
+      "title": "Follow Mapilio For More Prizes And Competitions!",
+      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Map",
+      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
+      "marketplace": "Marketplace",
+      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
+      "upload": "Upload",
+      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
+      "leaderboard": "Leaderboard",
+      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
+      "capture": "Capture",
+      "capture_desc": "Start now to start capturing and contributing better maps",
+      "next": "Next",
+      "done": "Done"
+    },
+    "camera": {
+      "angle": "Right Angle",
+      "angle_desc": "Keep the camera angle so that the horizon line is always opposite and horizontal",
+      "startCapture": "Capture Start",
+      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
+      "tasks": "Tasks",
+      "tasks_desc": "You can see the tasks you have to do on the screen.",
+      "next": "Next",
+      "done": "Done"
+    },
+    "marketplace": {
+      "list": "Marketplace",
+      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
+      "apply": "Apply",
+      "apply_desc": "You can apply for the request by clicking on the Apply button.",
+      "next": "Next",
+      "done": "Done"
+    },
+    "skip": "Skip"
   },
   "languages": {
     "tr": "Turkish",

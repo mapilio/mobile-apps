@@ -217,7 +217,8 @@
     "description": "Top 50 community members helping grow the mapilio!",
     "users": "Users",
     "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again."
+    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
+    "join_the_race": "join the\nrace"
   },
   "upload_modal": {
     "title": "Together We Create More Up-To-Date Maps",
@@ -239,6 +240,21 @@
     "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
     "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>\u25CF Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>\u25CF Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>\u25CF Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
     "start_now_capture": "Start Now Capture"
+  },
+  "award": {
+    "summary": "Are you ready to collect reward with <0>Mapilio \uD83C\uDF0D\uD83C\uDFC6</0>",
+    "start_capture_now": "Start Capture Now",
+    "slogan": "<bold>Goodbye</bold> Winter Contest by Mapilio",
+    "title": "Earn new gifts as you reach more kilometers",
+    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.02.2023</date> and <date>10.05.2023</date> will win great prizes.",
+    "mi_pro_2_scooter": "Mi Pro 2 Scooter",
+    "gopro_9": "GoPro 9",
+    "beats_3_headphones": "Beats 3 Headphones",
+    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>\u25CF Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>\u25CF Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>\u25CF Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>\u25CF Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>\u25CF Exact Location</bold> Location Services of your device must be on and precise.",
+    "final_content": {
+      "title": "Follow Mapilio For More Prizes And Competitions!",
+      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+    }
   },
   "tooltip": {
     "tabBar": {

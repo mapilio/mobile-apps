@@ -1,11 +1,12 @@
 import {
   GET_LEADERBOARD_DATA_ORGANIZATIONS,
-  GET_LEADERBOARD_DATA_USERS,
+  GET_LEADERBOARD_DATA_USERS, SET_SHOW_GIFTS,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   users: null,
   organizations: null,
+  showGifts: true,
 };
 
 const leaderboardReducer = (state = INITIAL_STATE, action) => {
@@ -20,6 +21,11 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         ...state,
         organizations: action.payload,
       };
+    case SET_SHOW_GIFTS:
+      return {
+        ...state,
+        showGifts: action.payload,
+      }
     default:
       return state;
   }

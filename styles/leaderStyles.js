@@ -17,16 +17,37 @@ export const leaderStyles = StyleSheet.create({
     fontSize: 20,
   },
   howToScore: {
-    position: "absolute",
     flexDirection: "row",
-    right: 0,
   },
   howToScoreText: {
     color: "#3F8BE9",
     fontSize: RFValue(10),
-    fontFamily: "Poppins-SemiBold",
+    fontFamily: "Poppins-Medium",
     textAlign: "right",
     paddingRight: RFValue(3),
+  },
+  award: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    gift: {
+      width: RFValue(90),
+      zIndex: -1,
+      position: 'absolute',
+      transform: [
+        { translate: [RFValue(-6), 0] }
+      ]
+    },
+    text: {
+      fontSize: RFValue(10),
+      fontFamily: "Poppins-Medium",
+      color: "#333333",
+      zIndex: 1,
+      transform: [
+        {translate: [RFValue(23), RFValue(4)]}
+      ]
+    }
   },
   headerSubTitle: {
     fontFamily: "Poppins",

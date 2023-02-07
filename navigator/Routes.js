@@ -36,4 +36,5 @@ export const Routes = {
   language: "Language",
   howToScore: "HowToScore",
   captureCompleted: "CaptureCompleted",
+  award: "Award",
 };
