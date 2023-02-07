@@ -25,14 +25,9 @@ const AwardModal = () => {
     }
   }, []);
 
-  return (
-    <Fragment>
-      <SlidingUpPanel
-        ref={slidePanel}
-        allowDragging={!onScroll}
-        draggableRange={{top: getContentAreaHeight(top / 2, bottom) - top, bottom: 0}}
-        containerStyle={styles.slideContainer}
-      >
+  const SlidingPanelChildren = () => {
+    return (
+      <Fragment>
         <Fragment>
           <View style={styles.divider}/>
 
@@ -42,14 +37,27 @@ const AwardModal = () => {
         </Fragment>
 
         <Award setOnScroll={setOnScroll}/>
-      </SlidingUpPanel>
+      </Fragment>
+    )
+  }
+
+  return (
+    <Fragment>
+      <SlidingUpPanel
+        ref={slidePanel}
+        allowDragging={!onScroll}
+        draggableRange={{top: getContentAreaHeight(top / 2, bottom) - top, bottom: 0}}
+        containerStyle={styles.slideContainer}
+        allowMomentum={false}
+        children={SlidingPanelChildren}
+      />
     </Fragment>
   )
 }
 
 const styles = StyleSheet.create({
   slideContainer: {
-    zIndex: 6,
+    zIndex: 4,
     backgroundColor: '#FFF',
     borderTopLeftRadius: RFValue(20),
     borderTopRightRadius: RFValue(20),
@@ -63,6 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: RFValue(5),
     marginTop: RFValue(12),
     marginBottom: RFValue(22),
+    zIndex: 6,
   },
   closeIcon: {
     backgroundColor: '#D8D8D8',
@@ -74,6 +83,7 @@ const styles = StyleSheet.create({
     top: RFValue(20),
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 5,
   }
 })
 
