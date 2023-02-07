@@ -21,6 +21,7 @@ import {
   UPDATE_OPENED_STATUS,
   IS_ACTIVE,
   GROUP_ID,
+  TOGGLE_ROTATE_ALERT,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -41,6 +42,7 @@ const INITIAL_STATE = {
   isCharge: true,
   captureButtonStatus: false,
   rotateStatus: false,
+  showRotateAlert: true,
   cameraLocation: null,
   isFirstOpen: true,
   isActive: true,
@@ -166,6 +168,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         ...state,
         groupId: action.payload
       };
+    case TOGGLE_ROTATE_ALERT:
+      return {
+        ...state,
+        showRotateAlert: action.payload
+      }
     default:
       return state;
   }

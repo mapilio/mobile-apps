@@ -5,6 +5,7 @@ import Database from "../db";
 import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
 import {
+	TOGGLE_ROTATE_ALERT,
 	UPDATE_AUTOCAPTURE_START,
 	UPDATE_IMAGE_SIZE,
 	UPDATE_PHOTO_AMOUNT,
@@ -27,6 +28,7 @@ const AutoActionButton = ({navigation}) => {
 		keepUUID,
 		GPSAccuracy,
 		rotateStatus,
+		showRotateAlert,
 		batteryStatus,
 		mocked,
 		highSpeed,
@@ -40,6 +42,7 @@ const AutoActionButton = ({navigation}) => {
 	const [isAlert, setIsAlert] = useState(null);
 	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
 	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
+	const [timeouts, setTimeouts] = useState([]);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
@@ -55,12 +58,15 @@ const AutoActionButton = ({navigation}) => {
 		}
 	};
 
+	const newSequence = () => {
+		currentUUID = uuid.v4();
+		dispatch({type: UPDATE_UUID, payload: currentUUID});
+	}
+
 	useEffect(() => {
 		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
 			if (!!photo && photo % 250 === 0) {
-				currentUUID = uuid.v4();
-				dispatch({type: UPDATE_UUID, payload: currentUUID});
-				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
+				newSequence();
 			}
 
 			takePicture(cameraLocation).catch(() => {
@@ -73,6 +79,30 @@ const AutoActionButton = ({navigation}) => {
 		navigation.addListener("blur", () => dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false}));
 		return () => navigation.removeListener("blur");
 	}, [navigation]);
+
+	useEffect(() => {
+		if (rotateStatus) {
+			// Start a new sequence if the user is not rotating the phone for 7 seconds
+			setTimeouts([...timeouts, setTimeout(() => newSequence(), 7000)]);
+
+			// Stop the capture if the user is not rotating the phone for 3 seconds
+			setTimeouts([...timeouts, setTimeout(() => setIsAlert(true), 3000)]);
+		} else {
+			setIsAlert(false)
+			dispatch({type: TOGGLE_ROTATE_ALERT, payload: false})
+			timeouts.forEach(timeout => clearTimeout(timeout));
+		}
+	}, [rotateStatus]);
+
+	useEffect(() => {
+		let timeout;
+
+		if(!showRotateAlert) {
+			timeout = setTimeout(() => dispatch({type: TOGGLE_ROTATE_ALERT, payload: true}), 3000)
+		}
+
+		return () => clearTimeout(timeout);
+	}, [showRotateAlert]);
 
 	useEffect(() => {
 		const listener = AppState.addEventListener("change", startNewSequence);
@@ -111,8 +141,8 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	useEffect(() => {
-		setIsAlert(!(GPSAccuracy && !rotateStatus && !batteryStatus && !mocked && !highSpeed))
-	}, [GPSAccuracy, rotateStatus, batteryStatus, mocked, highSpeed]);
+		setIsAlert(!(GPSAccuracy && !batteryStatus && !mocked && !highSpeed))
+	}, [GPSAccuracy, batteryStatus, mocked, highSpeed]);
 
 
 	// TODO ADD TO HELPER.JS

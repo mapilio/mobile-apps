@@ -28,7 +28,6 @@ const Award = ({setOnScroll}) => {
       onScrollBeginDrag={() => !!setOnScroll && setOnScroll(true)}
       onScrollEndDrag={() => !!setOnScroll && setOnScroll(false)}
       onTouchStart={() => !!setOnScroll && setOnScroll(true)}
-      onTouchEnd={() => !!setOnScroll && setOnScroll(false)}
     >
       <Fragment>
         <Lottie

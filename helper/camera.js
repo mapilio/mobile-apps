@@ -107,7 +107,7 @@ export const CameraWarnings = () => {
   const setAlert = () => {
     if (!cameraReducers.GPSAccuracy) {
       return cameraAlerts.gpsAlert()
-    } else if (cameraReducers.rotateStatus) {
+    } else if (cameraReducers.rotateStatus && cameraReducers.showRotateAlert) {
       return cameraAlerts.rotate()
     } else if (cameraReducers.batteryStatus) {
       return cameraAlerts.battery()
