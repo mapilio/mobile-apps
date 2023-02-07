@@ -25,3 +25,4 @@ export { default as FocusAwareStatusBar } from "./FocusAwareStatusBar";
 export { default as FeedList } from "./Profile/FeedList";
 export { default as UploadItem } from "./Uploads/UploadItem";
 export { default as EmptyList } from "./Uploads/EmptyList";
+export { default as Button } from "./Button";

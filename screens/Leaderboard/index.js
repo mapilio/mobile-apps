@@ -18,6 +18,8 @@ import {HowToScore} from "../../assets/svg/illustrations";
 import {CustomText} from "../../highordercomponents";
 import {useNavigation} from "@react-navigation/native";
 import {Routes} from "../../navigator/Routes";
+import Lottie from "lottie-react-native";
+import AwardModal from "./AwardModal";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -30,9 +32,10 @@ const Leaderboard = () => {
   const auth = useSelector((state) => state.getTokenReducer);
 
   const goToScoreInfo = () => navigation.navigate(Routes.stackNavigator, {screen: Routes.howToScore})
+  const goToAward = () => navigation.navigate(Routes.stackNavigator, {screen: Routes.award})
 
   const fetchUsersLeaderboard = () => {
-    fetchHandler({ url: `${Config.SERVICE_URL}/api/leaderboard` })
+    fetchHandler({url: `${Config.SERVICE_URL}/api/leaderboard`})
       .then((res) => {
         dispatch({type: GET_LEADERBOARD_DATA_USERS, payload: res.data.leaderboard});
       })
@@ -42,7 +45,7 @@ const Leaderboard = () => {
   };
 
   const fetchOrganizationsLeaderboard = () => {
-    fetchHandler({ url: `${Config.SERVICE_URL}/api/leaderboard-organization` })
+    fetchHandler({url: `${Config.SERVICE_URL}/api/leaderboard-organization`})
       .then((res) => {
         dispatch({
           type: GET_LEADERBOARD_DATA_ORGANIZATIONS,
@@ -69,7 +72,18 @@ const Leaderboard = () => {
     <SafeAreaView style={styles.base}>
       <FocusAwareStatusBar barStyle="dark-content" backgroundColor={"white"} />
       <View style={styles.container}>
-        <View style={{alignItems: "center"}}>
+        <View style={{flexDirection: 'row', alignItems: "center", justifyContent: 'space-between'}}>
+
+          <Pressable style={styles.award} onPress={goToAward}>
+            <Lottie
+              source={require("../../assets/animations/gift.json")}
+              style={styles.award.gift}
+              autoPlay
+              loop
+            />
+            <CustomText style={styles.award.text}>{t("join_the_race")}</CustomText>
+          </Pressable>
+
           <Text style={styles.headerTitle}>{t("title")}</Text>
 
           <Pressable style={styles.howToScore} onPress={goToScoreInfo}>
@@ -88,6 +102,8 @@ const Leaderboard = () => {
           <Tab.Screen name={t("organizations")} component={Organizations} />
         </Tab.Navigator>
       </View>
+
+      <AwardModal />
     </SafeAreaView>
   );
 };

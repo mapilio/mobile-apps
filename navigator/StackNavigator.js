@@ -1,7 +1,7 @@
 import {createStackNavigator} from "@react-navigation/stack";
 import {Routes} from "./Routes";
 import {AuthNavigator, ProfileNavigator} from "./partials";
-import {HowToScore, WelcomeWalkthrough} from "../screens";
+import {Award, HowToScore, WelcomeWalkthrough} from "../screens";
 import {BackButton} from "../components";
 import {StyleSheet} from "react-native";
 
@@ -22,6 +22,14 @@ const StackNavigator = ({route}) => {
           headerLeft: (props) => <BackButton {...props} />,
           title: false
         }}/>
+
+        <Stack.Screen name={Routes.award} component={Award} options={{
+          headerShown: true,
+          title: false,
+          headerStyle: styles.headerStyle,
+          cardStyle: styles.cardStyle,
+          headerLeft: (props) => <BackButton {...props} />,
+        }} />
       </Stack.Group>
     </Stack.Navigator>
   )
