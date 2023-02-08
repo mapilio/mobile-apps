@@ -35,11 +35,11 @@ const CaptureCompleted = () => {
     const firstData = await db.getFirstWithGroupID(groupId);
     const lastData = await db.getLastWithGroupID(groupId);
 
-    const {DateTime, DateTimeOriginal} = JSON.parse(firstData.exif);
-    const {DateTime: DateTime2, DateTimeOriginal: DateTimeOriginal2} = JSON.parse(lastData.exif);
+    const exif1 = JSON.parse(firstData.exif)
+    const exif2 = JSON.parse(lastData.exif)
 
-    const firstTime = new Date(dateConvert(DateTime || DateTimeOriginal, 'MMM D, YYYY HH:mm:ss'));
-    const lastTime = new Date(dateConvert(DateTime2 || DateTimeOriginal2, 'MMM D, YYYY HH:mm:ss'));
+    const firstTime = new Date(dateConvert(exif1.DateTime || exif1.DateTimeOriginal || exif1.DateTimeDigitized || exif1["{TIFF}"].DateTime, 'MMM D, YYYY HH:mm:ss'));
+    const lastTime = new Date(dateConvert(exif2.DateTime || exif2.DateTimeOriginal || exif2.DateTimeDigitized || exif2["{TIFF}"].DateTime, 'MMM D, YYYY HH:mm:ss'));
 
     const diffTime = Math.abs(lastTime - firstTime);
 
@@ -128,7 +128,10 @@ const CaptureCompleted = () => {
       <Text style={styles.date}>
         {
           dateConvert(
-            JSON.parse(lineDetail.data[0].exif).DateTime || JSON.parse(lineDetail.data[0].exif).DateTimeOriginal,
+            JSON.parse(lineDetail.data[0].exif).DateTime
+            || JSON.parse(lineDetail.data[0].exif).DateTimeOriginal
+            || JSON.parse(lineDetail.data[0].exif).DateTimeDigitized
+            || JSON.parse(lineDetail.data[0].exif)["{TIFF}"].DateTime,
             "MMM DD, YYYY - HH:mm"
           )
         }

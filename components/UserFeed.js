@@ -12,6 +12,7 @@ import {useTranslation} from "react-i18next";
 const UserFeed = ({navigation, data}) => {
   const dispatch = useDispatch();
   const {t} = useTranslation("upload");
+  const exif = JSON.parse(data.exif)
 
   return (
     <TouchableOpacity
@@ -26,7 +27,7 @@ const UserFeed = ({navigation, data}) => {
       <View style={userFeedStyles.viewStyle}>
         <CustomTextBold style={userFeedStyles.dateStyle}>
           {dateConvert(
-            JSON.parse(data.exif).DateTime || JSON.parse(data.exif).DateTimeOriginal,
+            exif.DateTime || exif.DateTimeOriginal || exif.DateTimeDigitized || exif["{TIFF}"].DateTime,
             "DD MM YYYY - H:mm"
           )}
         </CustomTextBold>

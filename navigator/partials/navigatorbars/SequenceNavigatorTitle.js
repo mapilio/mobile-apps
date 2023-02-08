@@ -14,7 +14,7 @@ const SequenceNavigatorTitle = () => {
 	useEffect(() => {
 		db.query(`SELECT * FROM captures WHERE sequence_uuid='${activeSequence}' ORDER BY id DESC LIMIT 1`, (_, result) => {
 			const exif = JSON.parse(result.rows._array[0].exif)
-			setDate(dateConvert(exif.DateTime || exif.DateTimeOriginal))
+			setDate(dateConvert(exif.DateTime || exif.DateTimeOriginal || exif.DateTimeDigitized || exif["{TIFF}"].DateTime))
 		})
 	}, [activeSequence]);
 
