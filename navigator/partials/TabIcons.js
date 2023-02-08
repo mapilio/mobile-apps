@@ -38,7 +38,7 @@ const TabIcons = ({ focused, tab }) => {
 
   return (
     <View style={navigatorStyle.tabIconStyle}>
-      <TooltipWrapper name={tab} content={tooltipContents.tabBar[tab]}>
+      <TooltipWrapper name={tab} content={tooltipContents.tabBar[tab]} tabFocus={focused}>
         <View style={{ alignItems: "center" }}>
           {icons[tab]}
           <Text

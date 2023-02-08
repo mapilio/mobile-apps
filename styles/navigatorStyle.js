@@ -21,18 +21,6 @@ export const navigatorStyle = {
   },
   headerTintColor: "#ffffff",
   headerTitleAlign: "center",
-  tabBarStyle: {
-    height:
-      Platform.OS === "android"
-        ? RFValue(63)
-        : Dimensions.get("window").height > 1000
-        ? RFValue(56)
-        : Dimensions.get("window").height > 775
-        ? RFValue(83)
-        : RFValue(63),
-    position: "absolute",
-    bottom: 0,
-  },
   captureButtonWrapperStyle: {
     width: RFValue(71),
     height: RFValue(71),

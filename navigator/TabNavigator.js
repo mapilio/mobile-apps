@@ -21,6 +21,7 @@ import {CustomTextBold} from "../highordercomponents";
 import {useNavigation} from "@react-navigation/native";
 import { TooltipWrapper } from "../components/Tooltip";
 import { tooltipContents } from "../util/consts/tooltip";
+import { tabHeight } from "../util/consts/ui";
 
 const Tab = createBottomTabNavigator();
 
@@ -94,7 +95,7 @@ const TabNavigator = () => {
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
-        tabBarStyle: { height: RFValue(52) + bottom },
+        tabBarStyle: { height: tabHeight + bottom },
         tabBarButton: ({ children, onPress }) => (
           <Pressable
             style={({ pressed }) => [

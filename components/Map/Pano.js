@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Pressable,
   Dimensions,
 } from "react-native";
 import { panoStyle } from "../../styles/panoStyle";
@@ -24,6 +23,7 @@ import Panorama from "../Panorama";
 import { useTranslation } from "react-i18next";
 import LinearGradient from "react-native-linear-gradient";
 import { useSelector } from "react-redux";
+import { tabHeight } from "../../util/consts/ui";
 const Pano = ({ imageInformation, hidePano }) => {
   const [fullHeight, setFullHeight] = useState(false);
   const [username, setUsername] = useState(null);
@@ -60,7 +60,7 @@ const Pano = ({ imageInformation, hidePano }) => {
   }, [])
 
   const imageHeight = () => {
-    const _imageHeight = height - RFValue(52) - bottom;
+    const _imageHeight = height - tabHeight - bottom;
 
     return fullHeight ? _imageHeight : (_imageHeight + top) / 2;
   };

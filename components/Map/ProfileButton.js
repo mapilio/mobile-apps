@@ -1,5 +1,4 @@
 import {ActivityIndicator, Image, TouchableOpacity, View} from "react-native";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Profile} from "../../assets/svg/illustrations";
 import {profileButtonStyles as styles} from "../../styles/profileButtonStyles";
 import {useSelector} from "react-redux";
