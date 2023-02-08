@@ -69,9 +69,7 @@ const AutoActionButton = ({navigation}) => {
 				newSequence();
 			}
 
-			takePicture(cameraLocation).catch(() => {
-				toast.show(t("something_went_wrong"), {type: "error"});
-			});
+			takePicture(cameraLocation).catch(() => toast.show(t("something_went_wrong"), {type: "error"}));
 		}
 	}, [cameraLocation]);
 
@@ -83,14 +81,17 @@ const AutoActionButton = ({navigation}) => {
 	useEffect(() => {
 		if (rotateStatus) {
 			// Start a new sequence if the user is not rotating the phone for 7 seconds
-			setTimeouts([...timeouts, setTimeout(() => newSequence(), 7000)]);
+			setTimeouts(prev => [...prev, setTimeout(() => newSequence(), 7000)]);
 
 			// Stop the capture if the user is not rotating the phone for 3 seconds
-			setTimeouts([...timeouts, setTimeout(() => setIsAlert(true), 3000)]);
+			setTimeouts(prev => [...prev, setTimeout(() => setIsAlert(true), 3000)]);
 		} else {
 			setIsAlert(false)
 			dispatch({type: TOGGLE_ROTATE_ALERT, payload: false})
-			timeouts.forEach(timeout => clearTimeout(timeout));
+			timeouts.forEach((timeout, index) => {
+				clearTimeout(timeout)
+				if (index === timeouts.length - 1) setTimeouts([]);
+			});
 		}
 	}, [rotateStatus]);
 
