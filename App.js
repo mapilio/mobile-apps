@@ -11,7 +11,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import {initialPermissions} from "./helper/helper";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import Toast from "react-native-toast-notifications";
-import ToastMessage from "./components/ToastMessage";
+import {ToastMessage} from "./components";
 import OneSignal from "react-native-onesignal";
 import db from "./db";
 import i18n from "i18next";
@@ -71,6 +71,7 @@ function App() {
               duration={3000}
               renderToast={(options) => <ToastMessage options={options}/>}
               placement="top"
+              swipeEnabled={true}
             />
           </SafeAreaProvider>
         </NavigationContainer>

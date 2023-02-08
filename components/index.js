@@ -26,3 +26,4 @@ export { default as FeedList } from "./Profile/FeedList";
 export { default as UploadItem } from "./Uploads/UploadItem";
 export { default as EmptyList } from "./Uploads/EmptyList";
 export { default as Button } from "./Button";
+export { default as ToastMessage } from "./Toast/ToastMessage";

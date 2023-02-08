@@ -1,15 +1,53 @@
 import * as React from "react";
-import Svg, {G, Path, Rect} from "react-native-svg";
+import Svg, {G, Path, Circle} from "react-native-svg";
 
 const ErrorIcon = ({width = 32, height = 32}) => {
   return (
-    <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 32 32">
-      <G id="error_icon" transform="translate(18683.084 -8294.916)">
-        <Rect id="Rectangle_25981" data-name="Rectangle 25981" width="32" height="32" rx="16" transform="translate(-18683.084 8294.916)" fill="rgba(236,78,44,0.2)"/>
-        <Path id="Path_92093" data-name="Path 92093" d="M75.063,211.978l-6.425-10.655a2.873,2.873,0,0,0-4.842,0l-6.425,10.655a2.513,2.513,0,0,0-.042,2.513,2.825,2.825,0,0,0,2.463,1.424h12.85a2.822,2.822,0,0,0,2.463-1.391,2.513,2.513,0,0,0-.042-2.547Zm-8.846.586a.838.838,0,1,1,.592-.245A.837.837,0,0,1,66.217,212.565Zm.838-3.351a.838.838,0,0,1-1.675,0v-3.351a.838.838,0,0,1,1.675,0Z" transform="translate(-18733.301 8102.54)" fill="#ec4e2c"/>
-        <Path id="Path_92094" data-name="Path 92094" d="M66.217,212.565a.838.838,0,1,1,.592-.245A.837.837,0,0,1,66.217,212.565Zm.838-3.351a.838.838,0,0,1-1.675,0v-3.351a.838.838,0,0,1,1.675,0Z" transform="translate(-18733.301 8102.54)" fill="#fff"/>
+    <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 32 32"
+  >
+    <G transform="translate(18725 -8267)">
+      <G data-name="Group 85335" transform="translate(-18725 8267)">
+        <Circle
+          cx="16"
+          cy="16"
+          r="16"
+          fill="rgba(255,255,255,0.2)"
+          data-name="Ellipse 2057"
+        ></Circle>
       </G>
-    </Svg>
+      <G data-name="Group 118951" transform="translate(-18719.535 8272.54)">
+        <Circle
+          cx="10.46"
+          cy="10.46"
+          r="10.46"
+          fill="#fff"
+          data-name="Ellipse 2058"
+        ></Circle>
+        <Path
+          fill="none"
+          stroke="#ec4e2c"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.458"
+          d="M7.994 12.925l4.931-4.931"
+          data-name="Path 91260"
+        ></Path>
+        <Path
+          fill="none"
+          stroke="#ec4e2c"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.458"
+          d="M12.924 12.925L7.993 7.994"
+          data-name="Path 223393"
+        ></Path>
+      </G>
+    </G>
+  </Svg>
   )
 };
 
