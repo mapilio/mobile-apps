@@ -15,6 +15,7 @@ const Lines = ({ zoomPoint }) => {
           id={"road-lines"}
           sourceLayerID={Config.MAPBOX_ROAD_ID}
           style={styles.lineStyles}
+          belowLayerID={"road-points"}
         />
       </MapboxGL.VectorSource>
     </Fragment>

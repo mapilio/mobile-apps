@@ -10,7 +10,6 @@ import {
 const INITIAL_STATE = {
   connection: { connectionStatus: true, connectionType: "wifi" },
   welcomeWalkthroughStatus: false,
-  cameraWalkthroughStatus: false,
   db: null,
   currentFeedSequence: null,
   language: 'en',
