@@ -22,6 +22,7 @@ const UploadItem = ({item, deleteSequence}) => {
   const [score, setScore] = useState(0);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const exif = JSON.parse(item.exif);
   const image = `${FileSystem.documentDirectory + `${item.group_id}/${item.filename}.jpeg`}`
 
   const calculateScore = async () => {
@@ -94,7 +95,7 @@ const UploadItem = ({item, deleteSequence}) => {
           <View style={userFeedStyles.subInfo}>
             <Text style={styles.date}>
               {dateConvert(
-                JSON.parse(item.exif).DateTime || JSON.parse(item.exif).DateTimeOriginal,
+                exif.DateTime || exif.DateTimeOriginal || exif.DateTimeDigitized || exif["{TIFF}"].DateTime,
                 "DD MM YYYY - H:mm"
               )}
             </Text>
