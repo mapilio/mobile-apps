@@ -1,10 +1,12 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { statusBarPadding } from "../util/consts/ui";
 
 export const leaderStyles = StyleSheet.create({
   base: {
     flex: 1,
     backgroundColor: "#FFFFFF",
+    paddingTop:statusBarPadding,
   },
   container: {
     flex: 1,
