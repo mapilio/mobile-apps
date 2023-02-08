@@ -3,7 +3,7 @@ import * as FileSystem from "expo-file-system";
 import styles from './UploadItem.styles';
 import {dateConvert} from "../../helper/helper";
 import LinearGradient from "react-native-linear-gradient";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {userFeedStyles} from "../../styles/userProfileStyle";
 import {Photos, PointIcon, Trash} from "../../assets/svg/illustrations";
 import {Swipeable} from "react-native-gesture-handler";
@@ -11,20 +11,44 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {Trans, useTranslation} from "react-i18next";
 import {ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
+import db from "../../db";
+import {length, lineString} from "@turf/turf";
 
 const UploadItem = ({item, deleteSequence}) => {
+  const {distanceBetween} = useSelector((state) => state.settingsReducer);
   const {t} = useTranslation("upload");
+  const [score, setScore] = useState(0);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const image = `${FileSystem.documentDirectory + `${item.group_id}/${item.filename}.jpeg`}`
 
+  const calculateScore = async () => {
+    const data = await db.getCapturesByGroupID(item.group_id)
+
+    const line = lineString(data.map((capture) => {
+      const {longitude, latitude} = JSON.parse(capture.location)
+
+      return [longitude, latitude]
+    }))
+
+    const meters = length(line, {units: 'meters'})
+    const count = ((meters / distanceBetween) + (item.count / 1000)).toFixed(2)
+
+    setScore(count)
+  }
+
   const goToDetail = () => {
-    dispatch({ type: ACTIVE_SEQUENCE, payload: item.group_id });
-    dispatch({ type: UPDATE_SELECTED_IMAGES, payload: [] });
+    dispatch({type: ACTIVE_SEQUENCE, payload: item.group_id});
+    dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
     navigation.navigate(Routes.sequences)
   }
+
+  useEffect(() => {
+    calculateScore();
+  }, []);
+
 
   const renderRightActions = () => {
     const deleteHandler = () => {
@@ -60,7 +84,7 @@ const UploadItem = ({item, deleteSequence}) => {
           />
 
           <Image source={{uri: image}} style={styles.image}/>
-          <Text style={styles.count}>{item.count} <Photos color={'#FFF'} /></Text>
+          <Text style={styles.count}>{item.count} <Photos color={'#FFF'}/></Text>
         </View>
         <View style={styles.info}>
           <Text style={styles.address} numberOfLines={1}>
@@ -76,13 +100,13 @@ const UploadItem = ({item, deleteSequence}) => {
             </Text>
 
             <Text style={styles.point}>
-              <PointIcon />
+              <PointIcon/>
               {" "}
               <Trans
                 t={t}
                 i18nKey="point"
-                values={{count: item.count / 1000}}
-                components={[<Text style={styles.bold} />]}
+                values={{count: score}}
+                components={[<Text style={styles.bold}/>]}
               />
             </Text>
           </View>
