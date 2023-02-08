@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {FlatList, StyleSheet} from "react-native";
+import {FlatList, StyleSheet, Platform} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {EmptyList, UploadItem} from "../components";
@@ -45,7 +45,7 @@ const UserUpload = () => {
 
   return (
     <Fragment>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white" />
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true} />
 
       <MaskedView
         androidRenderingMode={null}

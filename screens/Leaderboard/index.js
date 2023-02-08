@@ -70,7 +70,7 @@ const Leaderboard = () => {
 
   return (
     <SafeAreaView style={styles.base}>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={"white"} />
+      <FocusAwareStatusBar translucent={true} barStyle="dark-content" backgroundColor={"transparent"} />
       <View style={styles.container}>
         <View style={{flexDirection: 'row', alignItems: "center", justifyContent: 'space-between'}}>
 
