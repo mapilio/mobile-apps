@@ -10,7 +10,6 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
 import {
   GROUP_ID,
-  MAP_WATCH_ID,
   SET_CAMERA_LOCATION,
   UPDATE_GPS_ACCURACY,
   UPDATE_MOCKED_STATUS,
@@ -27,9 +26,10 @@ import uuid from "react-native-uuid";
 const AppCamera = () => {
   const {distanceBetween, selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
   const {photoAmount} = useSelector((state) => state.cameraReducer);
-  const {mapWatchId} = useSelector((state) => state.generalReducer);
   const [lowBrightness, setLowBrightness] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
+  const [accuracy, setAccuracy] = useState(0);
+  const [watchID, setWatchID] = useState([]);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -63,11 +63,19 @@ const AppCamera = () => {
     exitCapture();
   }, []);
 
+  const clearWatch = () => {
+    watchID.forEach(id => {
+      Geolocation.clearWatch(id)
+      setWatchID(prev => prev.filter(item => item !== id))
+    })
+  }
+
   const watchPosition = () => {
     return Geolocation.watchPosition((location) => {
       dispatch({type: UPDATE_MOCKED_STATUS, payload: location.mocked})
       dispatch({type: SET_CAMERA_LOCATION, payload: location.coords})
       dispatch({type: UPDATE_GPS_ACCURACY, payload: location.coords.accuracy <= 20})
+      setAccuracy(location.coords.accuracy)
     }, (error) => {
       toast.show(`${error.message}`, {type: "error"})
     }, {
@@ -81,14 +89,10 @@ const AppCamera = () => {
     dispatch({type: GROUP_ID, payload: uuid.v4()});
     dispatch({type: UPDATE_PHOTO_AMOUNT, payload: 0})
 
-    if (typeof mapWatchId !== null) {
-      Geolocation.clearWatch(mapWatchId)
-      dispatch({type: MAP_WATCH_ID, payload: null})
-    }
-
     activateKeepAwake("camera");
     BackHandler.addEventListener('hardwareBackPress', closeHandler);
-    let watchID = watchPosition()
+    const id = watchPosition()
+    setWatchID(prev => [...prev, id])
     StatusBar.setHidden(true)
     dispatch({type: UPDATE_OPENED_STATUS, payload: false})
 
@@ -105,11 +109,23 @@ const AppCamera = () => {
     })
 
     return () => {
-      Geolocation.clearWatch(watchID)
+      watchID.forEach(id => Geolocation.clearWatch(id))
       BackHandler.removeEventListener('hardwareBackPress', closeHandler);
       deactivateKeepAwake("camera")
     }
   }, []);
+
+  useEffect(() => {
+    if (accuracy >= 20 && !photoAmount) {
+      clearWatch()
+
+      setTimeout(() => {
+        const id = watchPosition()
+        setWatchID(prev => [...prev, id])
+      }, 2000)
+    }
+  }, [accuracy]);
+
 
   return (
     <SafeAreaProvider>

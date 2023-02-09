@@ -4,7 +4,7 @@ import {
   UPDATE_CURRENT_DB,
   UPDATE_CURRENT_FEED_SEQUENCE,
   UPDATE_LANGUAGE,
-  MAP_WATCH_ID
+  SET_CURRENT_POSITION
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   db: null,
   currentFeedSequence: null,
   language: 'en',
-  mapWatchId: null
+  currentPosition: undefined,
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -43,10 +43,10 @@ const generalReducer = (state = INITIAL_STATE, action) => {
         ...state,
         language: action.payload
       }
-    case MAP_WATCH_ID:
+    case SET_CURRENT_POSITION:
       return {
         ...state,
-        mapWatchId: action.payload
+        currentPosition: action.payload
       }
     default:
       return state;
