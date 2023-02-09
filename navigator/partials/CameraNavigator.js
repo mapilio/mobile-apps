@@ -1,6 +1,6 @@
 import {createStackNavigator} from "@react-navigation/stack";
 import {Routes} from "../Routes";
-import {AppCamera, CameraSettings, GeneralSettings} from "../../screens";
+import {AppCamera, CameraSettings, GeneralSettings, CaptureWalkthrough} from "../../screens";
 import {navigatorStyle} from "../../styles/navigatorStyle";
 import React from "react";
 import {GeneralSettingsNavigatorLeft} from "./navigatorbars";
@@ -18,6 +18,7 @@ const CameraNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={Routes.camera} component={AppCamera}/>
+      <Stack.Screen name={Routes.captureWalkthrough} component={CaptureWalkthrough} />
 
       <Stack.Group screenOptions={{presentation: "modal", gestureEnabled: false}}>
         <Stack.Screen name={Routes.cameraSettings} component={CameraSettings}/>

@@ -124,6 +124,23 @@
       }
     }
   },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Focus the Road",
+      "description": "Set the focus as the path by touching the screen."
+    },
+    "second": {
+      "title": "Clean Image",
+      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+    },
+    "third": {
+      "title": "Camera Direction",
+      "description": "Adjust the position of the camera to record the image parallel to the ground."
+    },
+    "next": "Next",
+    "prev": "Prev",
+    "finish": "Finish"
+  },
   "camera_settings": {
     "general_settings": "General settings",
     "capture_settings": "Capture settings",

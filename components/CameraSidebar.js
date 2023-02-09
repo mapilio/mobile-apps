@@ -66,7 +66,7 @@ const CaptureComponent = ({navigation, exitHandler}) => {
         <SettingsIcon/>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.info} onPress={() => navigation.navigate(Routes.walkthrough)}>
+      <TouchableOpacity style={styles.info} onPress={() => navigation.navigate(Routes.captureWalkthrough)}>
         <InformationIcon/>
       </TouchableOpacity>
 
