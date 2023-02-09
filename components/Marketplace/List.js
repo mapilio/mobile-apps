@@ -28,6 +28,7 @@ import Config from "react-native-config";
 import { TooltipWrapper } from "../../components/Tooltip";
 import { tooltipContents } from "../../util/consts/tooltip";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { useIsFocused } from "@react-navigation/native";
 
 const PlaceHolder = () => {
   return (
@@ -45,7 +46,7 @@ const PlaceHolder = () => {
             height={RFValue(20)}
             borderRadius={RFValue(4)}
           />
-           <SkeletonPlaceholder.Item
+          <SkeletonPlaceholder.Item
             marginTop={RFValue(10)}
             width={Dimensions.get("window").width/4}
             height={RFValue(20)}
@@ -60,6 +61,7 @@ const PlaceHolder = () => {
 const Detail = ({ project, onClose, setOnScroll, navigation }) => {
   const { t } = useTranslation("marketplace");
   useEffect(() => setOnScroll(false), []);
+  const isFocused = useIsFocused();
 
   const {
     properties: {
@@ -115,41 +117,43 @@ const Detail = ({ project, onClose, setOnScroll, navigation }) => {
       <View style={marketplaceStyles.panelHeader}>
         <SwipeLine />
       </View>
-      <TooltipWrapper
-        name={"apply"}
-        content={tooltipContents.marketplace.apply}
-        placement={"top"}
-      >
+      {isFocused && (
+        <TooltipWrapper
+          name={"apply"}
+          content={tooltipContents.marketplace.apply}
+          placement={"top"}
+        >
         <View style={{width:"100%"}}>
-          <CustomText style={marketplaceDetailStyles.marketplace_name}>
-            {marketplace_name}
-          </CustomText>
-          <CustomTextBold style={marketplaceDetailStyles.owner}>
-            {owner}
-          </CustomTextBold>
-          <CustomText style={marketplaceDetailStyles.description}>
-            {marketplace_description}
-          </CustomText>
-
-          <CustomText style={marketplaceDetailStyles.equipmentInfo}>
-            {t("equipment")} :{"\u00A0"}
-            {getEquipment(project_camera_type).icon}
-            {"\u00A0"}
-            <CustomTextBold style={marketplaceDetailStyles.equipment}>
-              {getEquipment(project_camera_type).name}
-            </CustomTextBold>
-          </CustomText>
-
-          <TouchableOpacity
-            style={marketplaceDetailStyles.button}
-            onPress={acceptProject}
-          >
-            <CustomText style={marketplaceDetailStyles.buttonText}>
-              {t("apply_project")}
+            <CustomText style={marketplaceDetailStyles.marketplace_name}>
+              {marketplace_name}
             </CustomText>
-          </TouchableOpacity>
-        </View>
-      </TooltipWrapper>
+            <CustomTextBold style={marketplaceDetailStyles.owner}>
+              {owner}
+            </CustomTextBold>
+            <CustomText style={marketplaceDetailStyles.description}>
+              {marketplace_description}
+            </CustomText>
+
+            <CustomText style={marketplaceDetailStyles.equipmentInfo}>
+              {t("equipment")} :{"\u00A0"}
+              {getEquipment(project_camera_type).icon}
+              {"\u00A0"}
+              <CustomTextBold style={marketplaceDetailStyles.equipment}>
+                {getEquipment(project_camera_type).name}
+              </CustomTextBold>
+            </CustomText>
+
+            <TouchableOpacity
+              style={marketplaceDetailStyles.button}
+              onPress={acceptProject}
+            >
+              <CustomText style={marketplaceDetailStyles.buttonText}>
+                {t("apply_project")}
+              </CustomText>
+            </TouchableOpacity>
+          </View>
+        </TooltipWrapper>
+      )}
     </View>
   );
 };
@@ -160,6 +164,7 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
   const { marketplaceData } = useSelector(
     (status) => status.marketplaceReducer
   );
+  const isFocused = useIsFocused();
 
   const handleItemClick = (clickedItem) => {
     const center = centerOfMass(polygon(clickedItem.geometry.coordinates));
@@ -210,26 +215,33 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
         {!!Object.keys(marketplaceData).length > 0 ? (
           marketplaceData.features.map((value, index) => {
             if (index === 1) {
-              return (
-                <Fragment key={index}>
-                <TooltipWrapper
-                  key={index}
-                  name="list"
-                  content={tooltipContents.marketplace.list}
-                  placement="top"
-                  handleNext={() => {
-                    handleItemClick(value);
-                  }}
-                >
-                  <ListItem
-                    key={index}
-                    data={value.properties}
-                    onClick={() => handleItemClick(value)}
-                  />
-                </TooltipWrapper>
-                <View style={{backgroundColor:"#CBD1D9", width:"100%", height:1}} />
-                </Fragment>
-              );
+              return isFocused && (
+                 <Fragment key={index}>
+                   <TooltipWrapper
+                     key={index}
+                     name="list"
+                     content={tooltipContents.marketplace.list}
+                     placement="top"
+                     handleNext={() => {
+                       handleItemClick(value);
+                     }}
+                   >
+                     <ListItem
+                       key={index}
+                       data={value.properties}
+                       onClick={() => handleItemClick(value)}
+                     />
+                   </TooltipWrapper>
+                   <View
+                     style={{
+                       backgroundColor: "#CBD1D9",
+                       width: "100%",
+                       height: 1,
+                     }}
+                   />
+                 </Fragment>
+               );
+             
             }
             return (
               <Fragment key={index}>
