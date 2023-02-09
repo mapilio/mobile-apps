@@ -39,9 +39,13 @@ const UserUpload = () => {
     })
   }
 
-  const MaskItem = () => {
-    return <LinearGradient style={styles.gradient} colors={['black', 'transparent']} locations={[.75, .95]}/>
-  }
+  const MaskItem = () => (
+    <LinearGradient
+      style={styles.gradient}
+      colors={['black', uploadData.length ? 'transparent' : 'black']}
+      locations={[.75, .95]}
+    />
+  )
 
   return (
     <Fragment>
@@ -53,13 +57,11 @@ const UserUpload = () => {
         style={styles.maskedView}
       >
         <FlatList
+          scrollEnabled={uploadData.length > 0}
           data={uploadData}
           ListEmptyComponent={() => <EmptyList />}
-          renderItem={({item}) => {
-            return <UploadItem item={item} deleteSequence={deleteSequence}/>
-          }}
+          renderItem={({item}) => <UploadItem item={item} deleteSequence={deleteSequence}/>}
           keyExtractor={(item) => item.sequence_uuid}
-          contentContainerStyle={styles.conentContainer}
         />
       </MaskedView>
 
@@ -83,10 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%'
   },
-  conentContainer: {
-    paddingTop: RFValue(15),
-    paddingBottom: RFValue(100)
-  }
 })
 
 export default UserUpload;

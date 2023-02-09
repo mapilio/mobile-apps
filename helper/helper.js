@@ -1,9 +1,9 @@
 import {store} from "../store/store";
 import axios from "axios";
 import {Alert, Dimensions, Linking, Platform} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
 import Moment from "moment";
 import {check, PERMISSIONS, request, requestMultiple, RESULTS} from "react-native-permissions";
+import {tabHeight} from "../util/consts/ui";
 
 let isOpenOnce = false;
 Moment.suppressDeprecationWarnings = true;
@@ -149,7 +149,7 @@ const headingPointGeoJson = (heading, coordinates) => {
  * @param bottom {number} Bottom bar height
  * @returns {number} content height
  */
-const getContentAreaHeight = (top, bottom) => Dimensions.get('window').height - RFValue(63) - top - bottom
+const getContentAreaHeight = (top, bottom) => Dimensions.get('window').height - tabHeight - top - bottom
 
 
 export {

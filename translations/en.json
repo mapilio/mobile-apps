@@ -158,7 +158,23 @@
     "upload_completed": "Upload Completed",
     "upload_failed": "Upload Failed",
     "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts"
+    "point": "~<0>{{count}}</0>pts",
+    "accessible_world": {
+      "title": "Accessible world",
+      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+    },
+    "contribute_to_our_environment": {
+      "title": "Contribute to our environment",
+      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+    },
+    "traffic_problem": {
+      "title": "Traffic problem",
+      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Earthquakes and emergencies",
+      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+    }
   },
   "profile": {
     "individual_account": "Individual Account",

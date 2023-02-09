@@ -159,7 +159,24 @@
     "upload_completed": "Yükleme tamamlandı",
     "upload_failed": "Yükeleme sırasında hata oluştu",
     "no_address": "Adres bulunamadı",
-    "point": "~<0>{{count}}</0>puan "
+    "point": "~<0>{{count}}</0>puan ",
+    "accessible_world": {
+      "title": "Erişilebilir dünya",
+      "description": "New York'un merkezinde veya Afrika'da bir köyde. Her yakalama ile haritalara katkıda bulunun ve insanlık için hayatı kolaylaştırın."
+    },
+    "contribute_to_our_environment": {
+      "title": "çevremize katkıda bulun",
+      "description": "Hepimiz daha temiz ve erişilebilir bir dünya hayal ediyoruz, Mapilio'a katkıda bulunarak herkes için daha iyi bir harita oluşturalım."
+    },
+    "traffic_problem": {
+      "title": "Trafik problemi",
+      "description": "Yılda 102 saatten fazla trafikte zaman geçirdiğinizi biliyor muydunuz? Yakıt tüketimi ve kaçırılan süre nedeniyle yılda 1.739 $ kayıp."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Depremler ve acil durumlar",
+      "description": "Ulaşılamayan yolların keşfedilmesine ve ortaya çıkabilecek sağlık ve hayati durumlarda erken müdahaleye katkıda bulunun."
+    }
+
   },
   "profile": {
     "individual_account": "Bireysel hesap",
