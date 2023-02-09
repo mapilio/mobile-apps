@@ -1,0 +1,81 @@
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  CloseIcon,
+  ErrorIcon,
+  Icon,
+  SuccessIcon,
+  WarningIcon,
+} from "../../assets/svg/illustrations";
+
+const ToastMessage = ({ options: { id, type, message } }) => {
+
+  const { top } = useSafeAreaInsets();
+  const icons = {
+    success: <SuccessIcon />,
+    error: <ErrorIcon />,
+    warning: <WarningIcon />,
+    info: <Icon />,
+  };
+
+  const handleClose = () => toast.hide(id);
+
+  return (
+    <View style={{ ...styles.wrapper, ...styles[type + "Bg"], marginTop:top}}>
+        <View style={styles.statusIcon}>{icons[type]}</View>
+        <Text style={styles.text}>{message}</Text>
+        <TouchableOpacity onPress={handleClose} style={styles.closeIcon}>
+          <CloseIcon color={"#D8D8D8"} />
+        </TouchableOpacity>
+      </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  wrapper: {
+    position: "absolute",
+    width: Dimensions.get("window").width - RFValue(26),
+    paddingVertical: RFValue(10),
+    paddingHorizontal: RFValue(8),
+    borderRadius: RFValue(24),
+    minHeight: RFValue(50),
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  closeIcon: {
+    position: "absolute",
+    right: RFValue(10),
+    height: "100%",
+    justifyContent: "center",
+  },
+  text: {
+    marginHorizontal: RFValue(30),
+    marginVertical: RFValue(5),
+    fontFamily: "Poppins",
+    color: "#FFFFFF",
+    paddingLeft: RFValue(10),
+    lineHeight: RFValue(16),
+    fontSize: RFValue(12),
+  },
+  statusIcon: {
+    position: "absolute",
+    left: RFValue(10),
+    height: "100%",
+    justifyContent: "center",
+  },
+  successBg: {
+    backgroundColor: "#38B35A",
+  },
+  warningBg: {
+    backgroundColor: "#FBA63C",
+  },
+  infoBg: {
+    backgroundColor: "#4A90E2",
+  },
+  errorBg: {
+    backgroundColor: "#EC4E2C",
+  },
+});
+
+export default ToastMessage;

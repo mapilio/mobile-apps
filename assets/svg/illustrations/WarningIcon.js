@@ -1,22 +1,37 @@
 import * as React from "react";
-import Svg, {G, Path, Circle} from "react-native-svg";
+import Svg, {G, Path, Rect} from "react-native-svg";
 
 const WarningIcon = ({ width = 32, height = 32 }) => {
   return (
-    <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 32 32">
-      <G id="warning_icon" transform="translate(18725 -8267)">
-        <G id="Group_85335" data-name="Group 85335" transform="translate(-18725 8267)">
-          <Circle id="Ellipse_2057" data-name="Ellipse 2057" cx="16" cy="16" r="16" fill="rgba(251,166,60,0.2)"/>
-        </G>
-        <G id="Group_85336" data-name="Group 85336" transform="translate(-18719.535 8272.465)">
-          <Circle id="Ellipse_2058" data-name="Ellipse 2058" cx="10.46" cy="10.46" r="10.46" transform="translate(0 0)" fill="#fba63c"/>
-          <G id="Group_85353" data-name="Group 85353">
-            <Path id="Path_91260" data-name="Path 91260" d="M33.615,212.873V208.23" transform="translate(-23.156 -199.09)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.458"/>
-            <Path id="Path_92095" data-name="Path 92095" d="M33.615,208.23v0" transform="translate(-23.156 -201.093)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.458"/>
-          </G>
-        </G>
-      </G>
-    </Svg>
+    <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <G transform="translate(18683.084 -8294.916)">
+      <Rect
+        width="32"
+        height="32"
+        fill="rgba(255,255,255,0.2)"
+        data-name="Rectangle 25981"
+        rx="16"
+        transform="translate(-18683.084 8294.916)"
+      ></Rect>
+      <Path
+        fill="#fff"
+        d="M75.063 211.978l-6.425-10.655a2.873 2.873 0 00-4.842 0l-6.425 10.655a2.513 2.513 0 00-.042 2.513 2.825 2.825 0 002.463 1.424h12.85a2.822 2.822 0 002.463-1.391 2.513 2.513 0 00-.042-2.547zm-8.846.586a.838.838 0 11.592-.245.837.837 0 01-.592.246zm.838-3.351a.838.838 0 01-1.675 0v-3.351a.838.838 0 011.675 0z"
+        data-name="Path 92093"
+        transform="translate(-18733.301 8102.54)"
+      ></Path>
+      <Path
+        fill="#fba63c"
+        d="M66.217 212.565a.838.838 0 11.592-.245.837.837 0 01-.592.245zm.838-3.351a.838.838 0 01-1.675 0v-3.351a.838.838 0 011.675 0z"
+        data-name="Path 92094"
+        transform="translate(-18733.301 8102.54)"
+      ></Path>
+    </G>
+  </Svg>
   )
 };
 
