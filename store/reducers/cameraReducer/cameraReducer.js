@@ -1,6 +1,5 @@
 import {
   UPDATE_GPS_ACCURACY,
-  UPDATE_GPS_STATUS,
   UPDATE_CAMERA_STATUS,
   UPDATE_CAMERA_REF,
   UPDATE_IMAGE_SIZE,
@@ -27,7 +26,6 @@ import {
 const INITIAL_STATE = {
   GPSAccuracy: false,
   GPSStartAccuracy: false,
-  GPSStatus: true,
   cameraStatus: "",
   camera: null,
   imageSize: 3145728,
@@ -55,11 +53,6 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         GPSAccuracy: action.payload,
-      };
-    case UPDATE_GPS_STATUS:
-      return {
-        ...state,
-        GPSStatus: action.payload,
       };
     case UPDATE_CAMERA_STATUS:
       return {
@@ -131,7 +124,7 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         ...state,
         GPSAccuracy: false,
         GPSStartAccuracy: false,
-        GPSStatus: true,
+        GPSAccuracyLevel: 100,
         cameraStatus: "",
         camera: null,
         imageSize: 3145728,

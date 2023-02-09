@@ -14,7 +14,6 @@ import { point } from "@turf/turf";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import { MAP_WATCH_ID } from "../store/actionsName";
 import {
   ActiveSources,
   Lines,
@@ -47,7 +46,7 @@ const AppMap = ({ navigation }) => {
     const watchId = Geolocation.watchPosition(({ coords }) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords));
     });
-    dispatch({ type: MAP_WATCH_ID, payload: watchId });
+
     return () => Geolocation.clearWatch(watchId);
   }, []);
 
