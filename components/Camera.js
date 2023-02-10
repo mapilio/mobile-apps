@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import SelectProjectButton from "./SelectProjectButton";
 import { TooltipWrapper } from "./Tooltip";
 import { tooltipContents } from "../util/consts/tooltip";
+
 const Camera = ({ navigation }) => {
   const { t } = useTranslation("camera");
   const cameraRef = useRef(null);
@@ -50,7 +51,7 @@ const Camera = ({ navigation }) => {
 
   if (cameraReady && device) {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: "black" }}>
         <VisionCamera
           style={cameraStyles.camera}
           ref={cameraRef}
@@ -77,12 +78,14 @@ const Camera = ({ navigation }) => {
           <CameraFrame navigation={navigation} />
           {auth && <CameraProjectInfo navigation={navigation} />}
           {!auth && !isInitialized && (
-            <View
-            style={fakeTasksStyle}
-          >
-            <TooltipWrapper name="tasks" content={tooltipContents.camera.tasks} placement={"bottom"}>
-             <FakeTasks />
-            </TooltipWrapper>
+            <View style={fakeTasksStyle}>
+              <TooltipWrapper
+                name="tasks"
+                content={tooltipContents.camera.tasks}
+                placement={"bottom"}
+              >
+                <FakeTasks />
+              </TooltipWrapper>
             </View>
           )}
           {isInitialized && <CameraWarnings />}

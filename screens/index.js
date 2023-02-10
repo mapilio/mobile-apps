@@ -24,3 +24,4 @@ export { default as Language } from "./Language";
 export { default as HowToScore } from "./HowToScore";
 export { default as CaptureCompleted } from "./CaptureCompleted";
 export { default as Award } from "./Award";
+export { default as CaptureWalkthrough } from "./CaptureWalkthrough";

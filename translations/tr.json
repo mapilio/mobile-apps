@@ -125,6 +125,23 @@
       }
     }
   },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Yola Odaklanın",
+      "description": "Ekrana dokunarak odağı yol olarak ayarlayın."
+    },
+    "second": {
+      "title": "Doğru Görüntü",
+      "description": "Araç kaportasının ve diğer nesnelerin resimde görünmediğinden emin olun."
+    },
+    "third": {
+      "title": "Kamera Yönü",
+      "description": "Görüntüyü yere paralel olarak kaydetmek için kameranın konumunu ayarlayın."
+    },
+    "next": "Sonraki",
+    "prev": "Önceki",
+    "finish": "Tamamla"
+  },
   "camera_settings": {
     "general_settings": "Genel ayarlar",
     "capture_settings": "Çekim ayarları",
