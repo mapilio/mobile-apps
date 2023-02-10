@@ -37,7 +37,6 @@ const AutoActionButton = ({navigation}) => {
 		groupId,
 	} = useSelector((status) => status.cameraReducer);
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
-	const {connection} = useSelector((state) => state.generalReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
 	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
@@ -184,13 +183,6 @@ const AutoActionButton = ({navigation}) => {
 		const filename = ((Math.random() + 1).toString(36).substring(7) + Math.round(new Date().getTime() / 1000)).toString();
 		const newPath = FileSystem.documentDirectory + `${groupId}/${filename}.${"jpeg"}`;
 
-		let address = {}
-		if (connection.connectionStatus) {
-			const {features} = await fetchHandler({url: `${Config.SEARCH_API}/reverse?lat=${location.latitude}&lon=${location.longitude}`})
-			const {city, country, name, street, state} = features[0]?.properties || {};
-			address = {city, country, name, street, state}
-		}
-
 		await FileSystem.copyAsync({from: `file://${imageUri}`, to: newPath});
 		image.uri = newPath;
 		Database.insertToDB({
@@ -208,7 +200,7 @@ const AutoActionButton = ({navigation}) => {
 			path: `${groupId}/${filename}.${"jpeg"}`,
 			filename,
 			groupId,
-			address: address.street || address.name || address.city || address.state || address.country || null,
+			address: null,
 		});
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
