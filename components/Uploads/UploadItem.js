@@ -1,7 +1,7 @@
-import {Alert, Image, Pressable, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Dimensions, Image, Modal, Pressable, Text, TouchableOpacity, View} from "react-native";
 import * as FileSystem from "expo-file-system";
 import styles from './UploadItem.styles';
-import {dateConvert} from "../../helper/helper";
+import {dateConvert, fetchHandler} from "../../helper/helper";
 import LinearGradient from "react-native-linear-gradient";
 import React, {useEffect, useState} from "react";
 import {userFeedStyles} from "../../styles/userProfileStyle";
@@ -15,9 +15,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import db from "../../db";
 import {length, lineString} from "@turf/turf";
+import Config from "react-native-config";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
-const UploadItem = ({item, deleteSequence}) => {
+const UploadItem = ({item, deleteFunc}) => {
   const {distanceBetween} = useSelector((state) => state.settingsReducer);
+  const {connection} = useSelector((state) => state.generalReducer);
+  const [address, setAddress] = useState(item.address);
   const {t} = useTranslation("upload");
   const [score, setScore] = useState(0);
   const dispatch = useDispatch();
@@ -40,6 +44,20 @@ const UploadItem = ({item, deleteSequence}) => {
     setScore(count)
   }
 
+  const getAddress = async () => {
+    if (connection.connectionStatus) {
+      try {
+        const location = JSON.parse(item.location)
+        const {features} = await fetchHandler({url: `${Config.SEARCH_API}/reverse?lat=${location.latitude}&lon=${location.longitude}`})
+        const {city, country, name, street, state} = features[0]?.properties || {};
+        setAddress(street || name || city || state || country || null)
+        db.updateById(item.id, {address: street || name || city || state || country || null})
+      } catch {
+        getAddress()
+      }
+    }
+  }
+
   const goToDetail = () => {
     dispatch({type: ACTIVE_SEQUENCE, payload: item.group_id});
     dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
@@ -48,28 +66,28 @@ const UploadItem = ({item, deleteSequence}) => {
 
   useEffect(() => {
     calculateScore();
+    !address && getAddress();
   }, []);
 
 
   const renderRightActions = () => {
-    const deleteHandler = () => {
-      Alert.alert(
-        t("are_you_sure"),
-        t("delete_message"),
-        [
-          {text: t("yes"), onPress: () => deleteSequence(item.group_id)},
-          {text: t("no")},
-        ]
-      )
-    }
-
     return (
-      <TouchableOpacity
-        style={styles.deleteAction}
-        onPress={deleteHandler}
-      >
+      <TouchableOpacity style={styles.deleteAction} onPress={() => deleteFunc(item.group_id)}>
         <Trash width={RFValue(21)} height={RFValue(30)}/>
       </TouchableOpacity>
+    )
+  }
+
+  const AddressPlaceholder = () => {
+    return (
+      <SkeletonPlaceholder children={
+        <SkeletonPlaceholder.Item
+          width={Dimensions.get('window').width / 2}
+          height={20}
+          borderRadius={4}
+          style={{marginTop: 8}}
+        />
+      }/>
     )
   }
 
@@ -89,7 +107,7 @@ const UploadItem = ({item, deleteSequence}) => {
         </View>
         <View style={styles.info}>
           <Text style={styles.address} numberOfLines={1}>
-            {item.address || t("no_address")}
+            {!address ? <AddressPlaceholder/> : address}
           </Text>
 
           <View style={userFeedStyles.subInfo}>

@@ -36,7 +36,7 @@ class Database {
   addGroupIDColumn() {
     db.transaction((txn) => {
       txn.executeSql(
-        `ALTER TABLE captures ADD COLUMN group_id TEXT DEFAULT NULL`,
+        `IF COL_LENGTH('table_name', 'group_id') IS NULL ALTER TABLE captures ADD COLUMN group_id TEXT DEFAULT NULL`,
         []
       );
     });
@@ -48,7 +48,7 @@ class Database {
   addAddressColumn() {
     db.transaction((txn) => {
       txn.executeSql(
-        `ALTER TABLE captures ADD COLUMN address TEXT DEFAULT NULL`,
+        `IF COL_LENGTH('table_name', 'address') IS NULL ALTER TABLE captures ADD COLUMN address TEXT DEFAULT NULL`,
         []
       );
     });
@@ -174,7 +174,17 @@ class Database {
           `SELECT *, COUNT(*) as count FROM captures GROUP BY group_id ORDER BY id DESC`,
           [],
           (_, result) => {
-            resolve(result.rows._array)
+            const groups = result.rows._array.filter((item) => {
+              if (item.count >= 5) {
+                return item
+              }
+
+              // Delete group if it has less than 5 images
+              this.deleteByGroupID(item.group_id)
+              FileSystem.deleteAsync(FileSystem.documentDirectory + `${item.group_id}`)
+            })
+
+            resolve(groups)
           },
           (_transaction, error) => {
             reject(error)
@@ -362,6 +372,26 @@ class Database {
             reject(error)
           })
       });
+    })
+  }
+
+  /**
+   * Update capture by id
+   *
+   * @param id {string} Capture id
+   * @param data {Object} Data object (key-value) (e.g. {name: 'test'})
+   * @returns {Promise} Promise with updated capture data (array) or error (object)
+   *
+   */
+  updateById(id, data) {
+    return new Promise((resolve, reject) => {
+      db.transaction(txn => {
+        txn.executeSql(`UPDATE captures SET ${Object.keys(data).map(key => `${key}='${data[key]}'`).join(',')} WHERE id='${id}'`, [], (_, results) => {
+          resolve(results.rows._array)
+        }, (error) => {
+          reject(error)
+        })
+      })
     })
   }
 }
