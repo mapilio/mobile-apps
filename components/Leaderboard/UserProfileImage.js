@@ -12,7 +12,7 @@ const UserProfileImage = ({ source, spinnerColor = "gray" }) => {
           uri: source,
           width: 42,
           height: 42,
-          cache: "force-cache",
+          cache: "default",
         }}
         style={[{ borderRadius: 50 }, isLoading && { opacity: 0 }]}
         onLoadEnd={() => setIsLoading(false)}

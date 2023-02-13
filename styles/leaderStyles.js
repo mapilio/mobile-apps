@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { statusBarPadding } from "../util/consts/ui";
 
@@ -24,12 +24,11 @@ export const leaderStyles = StyleSheet.create({
   },
   howToScoreText: {
     color: "#3F8BE9",
-    fontSize: RFValue(12),
+    fontSize: RFValue(10),
     fontFamily: "Poppins-Medium",
     textAlign: "right",
     paddingRight: RFValue(3),
     lineHeight: RFValue(13),
-    marginHorizontal: RFValue(3),
   },
   award: {
     flexDirection: 'row',
@@ -45,10 +44,9 @@ export const leaderStyles = StyleSheet.create({
       ]
     },
     text: {
-      fontSize: RFValue(12),
+      fontSize: RFValue(10),
       fontFamily: "Poppins-Medium",
       lineHeight: RFValue(13),
-      marginLeft: RFValue(10),
       color: "#333333",
       zIndex: 1,
       transform: [
