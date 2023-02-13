@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {BackHandler, Platform, StatusBar, View} from "react-native";
+import {BackHandler, Dimensions, Platform, StatusBar, StyleSheet, View} from "react-native";
 import {Camera, CameraSidebar} from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
@@ -22,10 +22,15 @@ import LinearGradient from "react-native-linear-gradient";
 import {useNavigation} from "@react-navigation/native";
 import {Routes} from "../navigator/Routes";
 import uuid from "react-native-uuid";
+import { useOrientation } from "../hooks/ui";
+import {Loading} from "../components";
 
 const AppCamera = () => {
-  const {distanceBetween, selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
-  const {photoAmount} = useSelector((state) => state.cameraReducer);
+  const orientation = useOrientation(500);
+  const { distanceBetween, selectedProject, autoCaptureStart } = useSelector(
+    (state) => state.settingsReducer
+  );
+  const { photoAmount } = useSelector((state) => state.cameraReducer);
   const [lowBrightness, setLowBrightness] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [accuracy, setAccuracy] = useState(0);
@@ -102,11 +107,13 @@ const AppCamera = () => {
         currentOrientation !== ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT ||
         currentOrientation !== ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
       ) {
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE).catch((error) => {
-          toast.show(`${error}`, {type: "error"})
-        });
+          ScreenOrientation.lockAsync(
+            ScreenOrientation.OrientationLock.LANDSCAPE
+          ).catch((error) => {
+            toast.show(`${error}`, { type: "error" });
+          });
       }
-    })
+    });
 
     return () => {
       watchID.forEach(id => Geolocation.clearWatch(id))
@@ -129,33 +136,42 @@ const AppCamera = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        forceInset={{vertical: 'never', horizontal: 'never'}}
-        style={{flex: 1, flexDirection: "row"}}
-        onTouchEndCapture={breakBrightness}
-      >
-        <View style={{flex: 1, position: "relative"}}>
-          <Camera navigation={navigation}/>
-        </View>
-        <LinearGradient
-          colors={['#11111100', '#111111']}
-          angle={90}
-          useAngle={true}
-          style={{
-            padding: RFValue(22),
-            backgroundColor: "transparent",
-            position: "absolute",
-            right: 0,
-            height: "100%",
-            width: RFValue(180),
-            zIndex: 2,
-          }}
+      {orientation === "LANDSCAPE" ? (
+        <SafeAreaView
+          forceInset={{ vertical: "never", horizontal: "never" }}
+          style={{ flex: 1, flexDirection: "row" }}
+          onTouchEndCapture={breakBrightness}
         >
-          <CameraSidebar navigation={navigation} setLowBrightness={setLowBrightness}/>
-        </LinearGradient>
-      </SafeAreaView>
+         <Camera navigation={navigation} />
+          <LinearGradient
+            colors={["#11111100", "#111111"]}
+            angle={90}
+            useAngle={true}
+            style={styles.gradient}
+          >
+            <CameraSidebar
+              navigation={navigation}
+              setLowBrightness={setLowBrightness}
+            />
+          </LinearGradient>
+
+        </SafeAreaView>
+      ) : (
+        <Loading backgroundColor="black" indicatorColor="white" />
+      )}
     </SafeAreaProvider>
   );
 };
 
+const styles = StyleSheet.create({
+  gradient:{
+    padding: RFValue(22),
+    backgroundColor: "transparent",
+    position: "absolute",
+    right: 0,
+    height: "100%",
+    width: "20%",
+    zIndex: 2,
+  }
+});
 export default AppCamera;

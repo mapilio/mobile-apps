@@ -8,10 +8,12 @@ import GPSLevel from "./GPSLevel";
 import PhotoAmounts from "./PhotoAmounts";
 import RecordStatus from "./RecordStatus";
 import { TooltipWrapper } from "./Tooltip";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CameraFrame = () => {
+  const {left} = useSafeAreaInsets();
   return (
-    <View style={styles.wrapper}>
+    <View style={{...styles.wrapper, marginLeft: left ? left : RFValue(20) }}>
       <TooltipWrapper
         content={tooltipContents.camera.angle}
         name="angle"

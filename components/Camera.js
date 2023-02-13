@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef } from "react";
 import {
   Camera as VisionCamera,
   useCameraDevices,
 } from "react-native-vision-camera";
-
 import { cameraStyles, fakeTasksStyle } from "../styles/cameraStyles";
 import CameraFrame from "./CameraFrame";
 import RotationLine from "./RotationLine";
@@ -11,30 +10,19 @@ import { CameraWarnings } from "../helper/camera";
 import CameraProjectInfo from "./CameraProjectInfo";
 import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
 import { useDispatch, useSelector } from "react-redux";
-import { View, ActivityIndicator, Dimensions } from "react-native";
-import { CustomTextMedium } from "../highordercomponents";
-import { RFValue } from "react-native-responsive-fontsize";
-import { useTranslation } from "react-i18next";
+import { View, StyleSheet } from "react-native";
 import SelectProjectButton from "./SelectProjectButton";
 import { TooltipWrapper } from "./Tooltip";
 import { tooltipContents } from "../util/consts/tooltip";
 
 const Camera = ({ navigation }) => {
-  const { t } = useTranslation("camera");
   const cameraRef = useRef(null);
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { isActive } = useSelector((state) => state.cameraReducer);
-  const [cameraReady, setCameraReady] = useState(false);
   const devices = useCameraDevices();
   const device = devices.back;
   const dispatch = useDispatch();
   const { isInitialized } = useSelector((state) => state.tooltipReducer.camera);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setCameraReady(true), 500);
-
-    return () => clearTimeout(timeout);
-  }, []);
 
   const handleCameraReady = () => {
     dispatch({ type: UPDATE_CAMERA_STATUS, payload: "READY" });
@@ -49,9 +37,9 @@ const Camera = ({ navigation }) => {
     );
   };
 
-  if (cameraReady && device) {
+  if (device) {
     return (
-      <View style={{ flex: 1, backgroundColor: "black" }}>
+      <View style={{ flex: 1 }}>
         <VisionCamera
           style={cameraStyles.camera}
           ref={cameraRef}
@@ -65,15 +53,7 @@ const Camera = ({ navigation }) => {
           enableZoomGesture={true}
           hdr={false}
         />
-        <View
-          style={{
-            width: Dimensions.get("window").width - RFValue(150),
-            height: "100%",
-            flex: 1,
-            position: "absolute",
-            zIndex: 2,
-          }}
-        >
+        <View style={styles.cameraContents}>
           <RotationLine />
           <CameraFrame navigation={navigation} />
           {auth && <CameraProjectInfo navigation={navigation} />}
@@ -94,14 +74,19 @@ const Camera = ({ navigation }) => {
     );
   } else {
     return (
-      <View style={cameraStyles.notReadyContainer}>
-        <ActivityIndicator size={"large"} color={"#FFFFFF"} />
-        <CustomTextMedium style={cameraStyles.notReadyText}>
-          {t("getting_ready")}
-        </CustomTextMedium>
-      </View>
+      <View style={{flex:1, backgroundColor:"black"}} />
     );
   }
 };
+
+const styles = StyleSheet.create({
+  cameraContents: {
+    width: "80%",
+    height: "100%",
+    flex: 1,
+    position: "absolute",
+    zIndex: 2,
+  },
+});
 
 export default Camera;
