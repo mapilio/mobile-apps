@@ -8,6 +8,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {CloseIcon} from "../../assets/svg/illustrations";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_SHOW_GIFTS} from "../../store/actionsName";
+import { vibrate } from "../../util/helpers";
 
 const AwardModal = () => {
   const {showGifts} = useSelector(state => state.leaderboardReducer);
@@ -21,6 +22,7 @@ const AwardModal = () => {
   useEffect(() => {
     if (showGifts) {
       slidePanel.current?.show()
+      vibrate("success")
       dispatch({type: SET_SHOW_GIFTS, payload: false})
     }
   }, []);
