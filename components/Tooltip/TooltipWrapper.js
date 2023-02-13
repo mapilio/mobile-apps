@@ -2,7 +2,6 @@ import {
   View,
   Platform,
   Dimensions,
-  StatusBar,
   InteractionManager,
 } from "react-native";
 import Tooltip from "@dogukany/react-native-walkthrough-tooltip";
@@ -149,7 +148,7 @@ const TooltipWrapper = ({
     },
     tooltipType === "camera" && {
       minHeight: RFValue(160),
-      minWidth: RFValue(200),
+      minWidth: RFValue(100),
     },
   ];
 

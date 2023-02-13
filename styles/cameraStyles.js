@@ -7,18 +7,14 @@ export const cameraStyles = StyleSheet.create({
 		flex: 1,
 		position: "relative",
 		zIndex: 1,
+		backgroundColor: "black",
 	},
 	notReadyContainer: {
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		backgroundColor: "#2E2E2E",
+		backgroundColor: "black",
 	},
-	notReadyText: {
-		fontSize: RFValue(16),
-		marginTop: RFValue(30),
-		color: "#FFFFFF",
-	}
 });
 
 export const cameraAlertStyles = StyleSheet.create({

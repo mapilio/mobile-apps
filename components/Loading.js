@@ -1,11 +1,11 @@
 import { SafeAreaView, ActivityIndicator } from "react-native";
 
-const Loading = () => {
+const Loading = ({backgroundColor="#fff", indicatorColor="#130C47"}) => {
   return (
     <SafeAreaView
-      style={{ flex: 1, justifyContent: "center", backgroundColor: "#FFF" }}
+      style={{ flex: 1, justifyContent: "center", backgroundColor: backgroundColor}}
     >
-      <ActivityIndicator size="large" color="#130C47" />
+      <ActivityIndicator size="large" color={indicatorColor} />
     </SafeAreaView>
   );
 };
