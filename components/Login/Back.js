@@ -4,12 +4,11 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {useNavigation} from "@react-navigation/native";
 import { Routes } from "../../navigator/Routes";
 
-const Back = ({route}) => {
+const Back = () => {
   const navigation = useNavigation();
 
   const handleBack = () => {
-    if (route === Routes.map) return navigation.navigate(Routes.map); 
-    route?.params?.backRoute ? navigation.navigate(route.params.backRoute) : navigation.goBack()
+    navigation.navigate(Routes.map); 
   }
 
   return (

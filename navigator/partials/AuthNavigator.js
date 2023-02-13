@@ -14,7 +14,7 @@ const AuthNavigator = ({navigation}) => {
         presentation: "card",
         headerStyle: loginStyles.headerStyle,
         title: false,
-        headerLeft: ({onPress}) => <Back onPress={onPress} route={Routes.map}/>
+        headerLeft: () => <Back />
       }}>
         <Stack.Screen
           name={Routes.login}
