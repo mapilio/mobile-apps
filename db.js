@@ -19,7 +19,8 @@ class Database {
                                 hash TEXT DEFAULT NULL,
                                 uploaded BOOLEAN DEFAULT 0,
                                 filename TEXT NOT NULL,
-                                group_id TEXT DEFAULT NULL
+                                group_id TEXT DEFAULT NULL,
+                                address TEXT DEFAULT NULL
                                 )`,
         []
       );
@@ -31,14 +32,36 @@ class Database {
   }
 
   /**
+   * if the column doesn't exist, add it to the table
+   */
+  isColumnExist(columnName) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(`SELECT count(*) as count FROM pragma_table_info('captures') where name='${columnName}'`,
+          [],
+          (_, results) => {
+            resolve(!!results.rows._array[0].count)
+          },
+          (error) => {
+            reject(error)
+          }
+        );
+      });
+    })
+  }
+
+  addColumn(columnName, columnType) {
+    db.transaction((txn) => {
+      txn.executeSql(`ALTER TABLE captures ADD COLUMN ${columnName} ${columnType}`, [])
+    });
+  }
+
+  /**
    * Add group_id column to captures table
    */
   addGroupIDColumn() {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `IF COL_LENGTH('table_name', 'group_id') IS NULL ALTER TABLE captures ADD COLUMN group_id TEXT DEFAULT NULL`,
-        []
-      );
+    this.isColumnExist('group_id').then((isExist) => {
+      if (!isExist) this.addColumn('group_id', 'TEXT DEFAULT NULL');
     });
   }
 
@@ -46,12 +69,9 @@ class Database {
    * Add address column to captures table
    */
   addAddressColumn() {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `IF COL_LENGTH('table_name', 'address') IS NULL ALTER TABLE captures ADD COLUMN address TEXT DEFAULT NULL`,
-        []
-      );
-    });
+    this.isColumnExist('address').then((isExist) => {
+      !isExist && this.addColumn('address', 'TEXT DEFAULT NULL');
+    })
   }
 
   insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, address}) {
