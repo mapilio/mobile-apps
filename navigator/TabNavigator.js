@@ -22,6 +22,7 @@ import {useNavigation} from "@react-navigation/native";
 import { TooltipWrapper } from "../components/Tooltip";
 import { tooltipContents } from "../util/consts/tooltip";
 import { tabHeight } from "../util/consts/ui";
+import { vibrate } from "../util/helpers";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +31,7 @@ const CaptureTabBarButton = () => {
   const navigation = useNavigation()
 
   const handlePress = () => cameraPermission(() => {
+    vibrate("light")
     navigation.reset({index: 0, routes: [{name: "CameraTab"}]})
   })
 

@@ -16,9 +16,7 @@ import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {Accelerometer, Gyroscope} from "expo-sensors";
 import {useTranslation} from "react-i18next";
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
-import {fetchHandler} from "../helper/helper";
-import Config from "react-native-config";
+import {vibrate} from "../util/helpers";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -48,10 +46,7 @@ const AutoActionButton = ({navigation}) => {
 	const {t} = useTranslation("camera");
 
 	const playHandler = () => {
-		ReactNativeHapticFeedback.trigger("impactLight", {
-			enableVibrateFallback: true,
-			ignoreAndroidSystemSettings: true,
-		});
+		vibrate("medium");
 		if (autoCaptureStart || !isAlert) {
 			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: !autoCaptureStart})
 		}

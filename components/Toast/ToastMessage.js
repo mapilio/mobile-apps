@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -8,6 +9,7 @@ import {
   SuccessIcon,
   WarningIcon,
 } from "../../assets/svg/illustrations";
+import { vibrate } from "../../util/helpers";
 
 const ToastMessage = ({ options: { id, type, message } }) => {
 
@@ -20,6 +22,10 @@ const ToastMessage = ({ options: { id, type, message } }) => {
   };
 
   const handleClose = () => toast.hide(id);
+
+  useEffect(() => {
+    vibrate(type);
+  }, []);
 
   return (
     <View style={{ ...styles.wrapper, ...styles[type + "Bg"], marginTop:top}}>
