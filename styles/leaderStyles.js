@@ -20,13 +20,16 @@ export const leaderStyles = StyleSheet.create({
   },
   howToScore: {
     flexDirection: "row",
+    alignItems: "center",
   },
   howToScoreText: {
     color: "#3F8BE9",
-    fontSize: RFValue(10),
+    fontSize: RFValue(12),
     fontFamily: "Poppins-Medium",
     textAlign: "right",
     paddingRight: RFValue(3),
+    lineHeight: RFValue(13),
+    marginHorizontal: RFValue(3),
   },
   award: {
     flexDirection: 'row',
@@ -42,8 +45,10 @@ export const leaderStyles = StyleSheet.create({
       ]
     },
     text: {
-      fontSize: RFValue(10),
+      fontSize: RFValue(12),
       fontFamily: "Poppins-Medium",
+      lineHeight: RFValue(13),
+      marginLeft: RFValue(10),
       color: "#333333",
       zIndex: 1,
       transform: [
