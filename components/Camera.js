@@ -1,28 +1,25 @@
-import React, {  useRef } from "react";
-import {
-  Camera as VisionCamera,
-  useCameraDevices,
-} from "react-native-vision-camera";
-import { cameraStyles, fakeTasksStyle } from "../styles/cameraStyles";
+import React, {useRef} from "react";
+import {Camera as VisionCamera, useCameraDevices} from "react-native-vision-camera";
+import {cameraStyles, fakeTasksStyle} from "../styles/cameraStyles";
 import CameraFrame from "./CameraFrame";
 import RotationLine from "./RotationLine";
-import { CameraWarnings } from "../helper/camera";
+import {CameraWarnings} from "../helper/camera";
 import CameraProjectInfo from "./CameraProjectInfo";
-import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
-import { useDispatch, useSelector } from "react-redux";
-import { View, StyleSheet } from "react-native";
+import {UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS} from "../store/actionsName";
+import {useDispatch, useSelector} from "react-redux";
+import {View, StyleSheet} from "react-native";
 import SelectProjectButton from "./SelectProjectButton";
-import { TooltipWrapper } from "./Tooltip";
-import { tooltipContents } from "../util/consts/tooltip";
+import {TooltipWrapper} from "./Tooltip";
+import {tooltipContents} from "../util/consts/tooltip";
 
 const Camera = ({ navigation }) => {
   const cameraRef = useRef(null);
-  const { auth } = useSelector((state) => state.getTokenReducer);
-  const { isActive } = useSelector((state) => state.cameraReducer);
+  const {auth} = useSelector((state) => state.getTokenReducer);
+  const {isActive} = useSelector((state) => state.cameraReducer);
   const devices = useCameraDevices();
   const device = devices.back;
   const dispatch = useDispatch();
-  const { isInitialized } = useSelector((state) => state.tooltipReducer.camera);
+  const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 
   const handleCameraReady = () => {
     dispatch({ type: UPDATE_CAMERA_STATUS, payload: "READY" });
@@ -50,7 +47,7 @@ const Camera = ({ navigation }) => {
           onInitialized={handleCameraReady}
           enableHighQualityPhotos={false}
           zoom={1}
-          enableZoomGesture={true}
+          enableZoomGesture={false}
           hdr={false}
         />
         <View style={styles.cameraContents}>

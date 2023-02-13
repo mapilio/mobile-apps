@@ -1,5 +1,5 @@
 import {ActionCamera, Camera, PhoneCamera} from "../assets/svg/illustrations";
-import Geolocation from "react-native-geolocation-service";
+import Geolocation from "@react-native-community/geolocation";
 import {distance, point} from "@turf/turf";
 
 export const getEquipment = (equipment) => {

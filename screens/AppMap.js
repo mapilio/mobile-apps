@@ -5,7 +5,7 @@ import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
 import Config from "react-native-config";
-import Geolocation from "react-native-geolocation-service";
+import Geolocation from "@react-native-community/geolocation";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
@@ -32,12 +32,12 @@ const AppMap = ({ navigation }) => {
   const [userCoordinate, setUserCoordinate] = useState(undefined);
   const [initialCoord, setInitialCoord] = useState(undefined);
   const [showUser, setShowUser] = useState(true);
-  const { connection } = useSelector((state) => state.generalReducer);
+  const {connection} = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
-  const { height } = Dimensions.get("window");
-  const { bottom, top } = useSafeAreaInsets();
-  const { auth } = useSelector((state) => state.getTokenReducer);
+  const {height} = Dimensions.get("window");
+  const {bottom, top} = useSafeAreaInsets();
+  const {auth} = useSelector((state) => state.getTokenReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {

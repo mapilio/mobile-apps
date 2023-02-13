@@ -50,28 +50,22 @@ class Database {
     })
   }
 
-  addColumn(columnName, columnType) {
+  /**
+   * add column to the table if it doesn't exist yet
+   *
+   * @param columnName {string} - name of the column to add to the table
+   * @param columnType {string} - default: 'TEXT' - type of the column
+   * @param table {string} - default: 'captures' table name (optional) - if you want to add column to another table
+   *
+   * @example
+   * addColumnIfNotExist('hash', 'TEXT', 'captures')
+   */
+  addColumnIfNotExist(columnName, columnType = 'TEXT DEFAULT NULL', table = 'captures') {
     db.transaction((txn) => {
-      txn.executeSql(`ALTER TABLE captures ADD COLUMN ${columnName} ${columnType}`, [])
+      this.isColumnExist(columnName).then((isExist) => {
+        !isExist && txn.executeSql(`ALTER TABLE ${table} ADD COLUMN ${columnName} ${columnType}`, [])
+      });
     });
-  }
-
-  /**
-   * Add group_id column to captures table
-   */
-  addGroupIDColumn() {
-    this.isColumnExist('group_id').then((isExist) => {
-      if (!isExist) this.addColumn('group_id', 'TEXT DEFAULT NULL');
-    });
-  }
-
-  /**
-   * Add address column to captures table
-   */
-  addAddressColumn() {
-    this.isColumnExist('address').then((isExist) => {
-      !isExist && this.addColumn('address', 'TEXT DEFAULT NULL');
-    })
   }
 
   insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, address}) {

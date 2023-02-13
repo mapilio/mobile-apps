@@ -40,8 +40,8 @@ function App() {
 
   useEffect(() => {
     db.startDB();
-    db.addGroupIDColumn();
-    db.addAddressColumn();
+    db.addColumnIfNotExist('group_id');
+    db.addColumnIfNotExist('address');
 
     (async () => {
       await SplashScreen.preventAutoHideAsync();

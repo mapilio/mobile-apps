@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Platform, TouchableOpacity, View} from "react-native";
+import {TouchableOpacity, View} from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import {RFValue} from "react-native-responsive-fontsize";
 import {List, MarketplaceMap} from "../components/Marketplace";
@@ -10,10 +10,10 @@ import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {CustomText} from "../highordercomponents";
 import {Document} from "../assets/svg/illustrations";
-import Geolocation from "react-native-geolocation-service";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import { useSelector } from "react-redux";
+import Geolocation from "@react-native-community/geolocation";
 
 const Marketplace = ({ navigation }) => {
   const {t} = useTranslation("marketplace");
