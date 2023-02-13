@@ -10,7 +10,6 @@ import {
 import Users from "./Users";
 import Organizations from "./Organizations";
 import Config from "react-native-config";
-import Loading from "../../components/Loading";
 import { fetchHandler } from "../../helper/helper";
 import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
@@ -20,6 +19,7 @@ import {useNavigation} from "@react-navigation/native";
 import {Routes} from "../../navigator/Routes";
 import Lottie from "lottie-react-native";
 import AwardModal from "./AwardModal";
+import SkeletonLoading from "../../components/Leaderboard/SkeletonLoading";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -66,7 +66,6 @@ const Leaderboard = () => {
     };
   }, [auth]);
 
-  if (!users || !organizations) return <Loading />;
 
   return (
     <SafeAreaView style={styles.base}>
@@ -98,8 +97,8 @@ const Leaderboard = () => {
           screenOptions={styles.screenOptionsStyles}
           initialRouteName="Users"
         >
-          <Tab.Screen name={t("users")} component={Users} />
-          <Tab.Screen name={t("organizations")} component={Organizations} />
+          <Tab.Screen name={t("users")} component={!users ? SkeletonLoading : Users } />
+          <Tab.Screen name={t("organizations")} component={!organizations ? SkeletonLoading : Organizations} />
         </Tab.Navigator>
       </View>
 
