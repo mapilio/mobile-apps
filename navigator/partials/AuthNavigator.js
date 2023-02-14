@@ -5,17 +5,22 @@ import {Routes} from "../Routes";
 import {ForgotPassword, Login, Register} from "../../screens";
 import React from "react";
 
+
 const Stack = createStackNavigator();
 
-const AuthNavigator = ({navigation, route}) => {
+const AuthNavigator = ({navigation}) => {
   return (
     <Stack.Navigator>
-      <Stack.Group screenOptions={{
-        presentation: "card",
-        headerStyle: loginStyles.headerStyle,
-        title: false,
-        headerLeft: ({onPress}) => <Back onPress={onPress} route={route.params}/>
-      }}>
+      <Stack.Group
+        screenOptions={{
+          presentation: "card",
+          headerStyle: loginStyles.headerStyle,
+          title: false,
+          headerLeft: () => (
+            <Back route={{params:{backRoute:Routes.map}}} />
+          ),
+        }}
+      >
         <Stack.Screen
           name={Routes.login}
           component={Login}
@@ -33,7 +38,7 @@ const AuthNavigator = ({navigation, route}) => {
         />
       </Stack.Group>
     </Stack.Navigator>
-  )
+  );
 }
 
 export default AuthNavigator;

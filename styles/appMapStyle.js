@@ -28,7 +28,7 @@ export const appMapStyle = StyleSheet.create({
     position: "absolute",
     zIndex: 8,
     right: RFValue(15),
-    bottom: RFValue(30),
+    bottom: RFValue(12),
     alignItems: "center",
     justifyContent: "center",
     borderRadius: RFValue(30),
