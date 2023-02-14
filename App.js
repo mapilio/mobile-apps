@@ -17,6 +17,8 @@ import db from "./db";
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
 import translations from "./translations";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 
 Sentry.init({dsn: `${Config.SENTRY_DSN}`, tracesSampleRate: 1.0});
 
@@ -61,8 +63,10 @@ function App() {
   }
 
   return (
-    <Provider store={store}>
+    <GestureHandlerRootView style={{flex:1}}>
+      <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <BottomSheetModalProvider>
         <NavigationContainer>
           <SafeAreaProvider>
             <MainNavigator/>
@@ -75,8 +79,10 @@ function App() {
             />
           </SafeAreaProvider>
         </NavigationContainer>
+        </BottomSheetModalProvider>
       </PersistGate>
     </Provider>
+    </GestureHandlerRootView>
   );
 }
 
