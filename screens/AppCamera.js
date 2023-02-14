@@ -4,7 +4,7 @@ import {Camera, CameraSidebar} from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
 import * as Brightness from "expo-brightness";
-import Geolocation from "@react-native-community/geolocation";
+import Geolocation from "react-native-geolocation-service";
 import {useDispatch, useSelector} from "react-redux";
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
@@ -75,6 +75,11 @@ const AppCamera = () => {
       distanceFilter: distanceBetween,
       enableHighAccuracy: true,
       accuracy: Platform.OS === 'android' ? 'high' : 'bestForNavigation',
+      timeout: 5000,
+      maximumAge: 10000,
+      forceLocationManager: true,
+      forceRequestLocation: true,
+      showsBackgroundLocationIndicator: true,
     })
   }
 
@@ -115,7 +120,7 @@ const AppCamera = () => {
           style={{ flex: 1, flexDirection: "row" }}
           onTouchEndCapture={breakBrightness}
         >
-         <Camera navigation={navigation} />
+          <Camera navigation={navigation} />
           <LinearGradient
             colors={["#11111100", "#111111"]}
             angle={90}
