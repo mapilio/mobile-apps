@@ -26,7 +26,7 @@ const Login = ({navigation}) => {
 	const [loading, setLoading] = useState(false);
 
 	const loginValidationSchema = yup.object().shape({
-		email: yup.string().email('please_enter_valid_email').required('email_required',),
+		email: yup.string().required('email_required',),
 		password: yup.string().required('password_required'),
 	});
 
