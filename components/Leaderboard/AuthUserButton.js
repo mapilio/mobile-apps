@@ -5,10 +5,10 @@ import UserProfileImage from "./UserProfileImage";
 import Rank from "./Rank";
 import { RFValue } from "react-native-responsive-fontsize";
 
-const AuthUserButton = ({ authUser, displayName, rankIndex }) => {
+const AuthUserButton = ({ authUser, displayName, rankIndex}) => {
   return (
-    <View style={[styles.authUserListItem]}>
-      <View style={{width: RFValue(33), alignItems:"center"}}>
+    <View style={styles.authUserListItem}>
+      <View style={{width: RFValue(33)}}>
       <Rank rankIndex={rankIndex} isAuthUser={true} />
       </View>
       {authUser.user_profile_photo ? (

@@ -34,4 +34,10 @@ export const vibrate = (type) => {
   }
 };
 
+/**
+ * 
+ * @param {string} key key of the translation
+ * @param {*} ns namespace of the translation
+ * @returns {string} translated string
+ */
 export const translate = (key, ns) => i18n.t(key, { ns });

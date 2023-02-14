@@ -19,7 +19,7 @@ const Users = () => {
   return (
     <LeadersList
       leaders={leaderboardUsers}
-      authUserIndex={authUserIndex}
+      authUserIndex={1}
       listType={"users"}
     />
   );

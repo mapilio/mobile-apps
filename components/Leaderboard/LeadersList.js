@@ -8,8 +8,9 @@ import { useDispatch } from "react-redux";
 import {
   fetchLeaderOrganizations,
   fetchLeaderUsers,
-  resetLeaderboard,
 } from "../../store/actions/leaderboard";
+import { RFValue } from "react-native-responsive-fontsize";
+import { vibrate } from "../../util/helpers";
 
 const LeadersList = ({ leaders, authUserIndex, listType }) => {
   const { bottom } = useSafeAreaInsets();
@@ -32,6 +33,7 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
 
   const viewabilityConfigCallbackPairs = useRef([{ onViewableItemsChanged }]);
   const scrollToIndex = () => {
+    vibrate("light")
     flatListRef.current.scrollToIndex({ index: authUserIndex });
   };
 
@@ -56,9 +58,7 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
         ref={flatListRef}
         data={leaders}
         keyExtractor={(_, index) => index.toString()}
-        onRefresh={() => {
-          refreshLeaderboard();
-        }}
+        onRefresh={refreshLeaderboard}
         refreshing={isRefresh}
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         renderItem={({ item, index }) =>
@@ -67,7 +67,7 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
       />
       {AuthUserInLeadersAndVisible ? (
         <TouchableOpacity
-          style={{ ...styles.authUserInList, marginBottom: bottom }}
+          style={{ ...styles.authUserInList, marginBottom: RFValue(21) }}
           onPress={scrollToIndex}
         >
           <AuthUserButton
