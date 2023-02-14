@@ -30,13 +30,13 @@ function App() {
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
   });
 
-  const {language} = store.getState().generalReducer
+  const {generalReducer: {language}} = store.getState()
 
   i18n.use(initReactI18next).init({
     compatibilityJSON: 'v3',
     resources: translations(),
     lng: language
-  })
+  }).catch((err) => toast.show(`${err}`, {type: "error"}));
 
   useEffect(() => {
     db.startDB();

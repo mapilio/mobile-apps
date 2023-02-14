@@ -10,10 +10,10 @@ import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {CustomText} from "../highordercomponents";
 import {Document} from "../assets/svg/illustrations";
+import Geolocation from "react-native-geolocation-service";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import { useSelector } from "react-redux";
-import Geolocation from "@react-native-community/geolocation";
 
 const Marketplace = ({ navigation }) => {
   const {t} = useTranslation("marketplace");
@@ -61,23 +61,23 @@ const Marketplace = ({ navigation }) => {
     <View style={{flex: 1, backgroundColor:"white"}}>
       <MarketplaceMap navigation={navigation}/>
       <FocusAwareStatusBar barStyle="dark-content"  backgroundColor={"transparent"}
-        translucent={true} />
+                           translucent={true} />
       <TouchableOpacity
         onPress={() => slidePanel.current?.show(RFValue(400))}
         style={{
-        display:"flex",
-        backgroundColor: '#130C47',
-        marginTop: "auto",
-        marginLeft: "auto",
-        marginRight: "auto",
-        marginBottom: RFValue(24),
-        height: RFValue(36),
-        alignItems: "center",
-        justifyContent: "center",
-        paddingHorizontal: RFValue(18),
-        borderRadius: RFValue(18),
-        flexDirection: "row",
-      }}>
+          display:"flex",
+          backgroundColor: '#130C47',
+          marginTop: "auto",
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginBottom: RFValue(24),
+          height: RFValue(36),
+          alignItems: "center",
+          justifyContent: "center",
+          paddingHorizontal: RFValue(18),
+          borderRadius: RFValue(18),
+          flexDirection: "row",
+        }}>
         <Document/>
         <View style={{width: RFValue(3)}}/>
         <CustomText style={{color: '#FFF'}}>{t("market_list")}</CustomText>
