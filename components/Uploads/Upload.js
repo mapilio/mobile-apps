@@ -39,6 +39,9 @@ const Upload = ({group_uuid = null, style}) => {
   }, []);
 
   const uploadHandler = async () => {
+    setTotalImageCount(0)
+    setSentCount(0)
+
     if (!connection.connectionStatus) {
       toast.show(t("have_not_connection"), {type: 'error'});
       return;
