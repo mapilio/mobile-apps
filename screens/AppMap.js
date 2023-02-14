@@ -5,7 +5,7 @@ import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
 import Config from "react-native-config";
-import Geolocation from "@react-native-community/geolocation";
+import Geolocation from "react-native-geolocation-service";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
@@ -89,10 +89,10 @@ const AppMap = ({ navigation }) => {
         toast.show(`Your GPS is disabled.`, { type: "error" });
       } else {
         userCoordinate &&
-          cameraRef.current?.setCamera({
-            centerCoordinate: userCoordinate?.geometry?.coordinates,
-            zoomLevel: 15,
-          });
+        cameraRef.current?.setCamera({
+          centerCoordinate: userCoordinate?.geometry?.coordinates,
+          zoomLevel: 15,
+        });
       }
     });
   };
@@ -122,7 +122,7 @@ const AppMap = ({ navigation }) => {
         translucent={true}
       />
       {showPano && (
-          <Pano
+        <Pano
           hidePano={() => setShowPano(false)}
           imageInformation={imageInformations}
           navigation={navigation}
@@ -151,10 +151,10 @@ const AppMap = ({ navigation }) => {
         setShowUser={setShowUser}
       />
       {/**  Mapbox cause overflow on early android versions. That's necessarry to call them in here for early devices. */}
-        {!showPano && <View style={[appMapStyle.topWrapper, {marginTop:top+RFValue(10)}]}>
-          <Search camera={cameraRef} />
-          <ProfileButton onPress={handleProfile} />
-        </View >}
+      {!showPano && <View style={[appMapStyle.topWrapper, {marginTop:top+RFValue(10)}]}>
+        <Search camera={cameraRef} />
+        <ProfileButton onPress={handleProfile} />
+      </View >}
     </View>
   );
 };

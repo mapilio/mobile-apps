@@ -1,4 +1,5 @@
 import * as Haptics from "expo-haptics";
+import i18n from "i18next";
 
 /**
  *
@@ -32,3 +33,11 @@ export const vibrate = (type) => {
       break;
   }
 };
+
+/**
+ * 
+ * @param {string} key key of the translation
+ * @param {*} ns namespace of the translation
+ * @returns {string} translated string
+ */
+export const translate = (key, ns) => i18n.t(key, { ns });

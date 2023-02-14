@@ -44,11 +44,6 @@ export const tooltipContents = {
     },
   },
   marketplace: {
-    missionArea: {
-      title: "mission_area",
-      description: "mission_area_desc",
-      buttonTitle: "next",
-    },
     list: {
       title: "list",
       description: "list_desc",
@@ -62,7 +57,6 @@ export const tooltipContents = {
   },
 };
 
-// missionArea will be added to the list of steps for the marketplace
 export const tooltipSteps = {
   tabBar: ["map", "market", "upload", "leader", "capture"],
   marketplace: ["list", "apply"],

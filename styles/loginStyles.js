@@ -99,11 +99,10 @@ export const loginStyles = StyleSheet.create({
     fontFamily:"Poppins"
   },
   forgotPassword: {
-    textAlign: "center",
     color: "#fff",
     fontSize: RFValue(12),
-    marginBottom: RFValue(25),
-    paddingBottom: RFValue(10),
+    paddingVertical: RFValue(5),
+    paddingHorizontal: RFValue(10),
     fontFamily:"Poppins"
   }, 
   passwordIcon: {

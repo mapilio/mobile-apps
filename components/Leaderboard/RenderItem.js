@@ -1,11 +1,11 @@
 import {Text, View} from "react-native";
 import {leaderStyles as styles} from "../../styles/leaderStyles";
 import FallbackImage from "./FallbackImage";
-import CrownIcon from "../../assets/svg/illustrations/CorwnIcon";
 import React from "react";
 import AuthUserButton from "./AuthUserButton";
 import UserProfileImage from "./UserProfileImage";
 import {RFValue} from "react-native-responsive-fontsize";
+import Rank from "./Rank";
 
 const renderItem = ({ item, index }, authUserIndex, screenType) => {
   const isAuthUser = index === authUserIndex;
@@ -13,38 +13,12 @@ const renderItem = ({ item, index }, authUserIndex, screenType) => {
   const displayName =
     screenType === "users" ? item.display_name : item.organization_name;
 
-  const rankStyle = isAuthUser
-    ? styles.authUserListItem.rank.text
-    : styles.listItem.rank.text;
 
   const displayNameStyle = isAuthUser
     ? styles.authUserListItem.displayName
     : styles.listItem.displayName;
 
   const baseStyle = isAuthUser ? styles.authUserListItem : styles.listItem;
-
-  const Rank = ({ rankIndex }) => {
-    switch (rankIndex) {
-      case 0:
-        return <CrownIcon />;
-      case 1:
-      case 2:
-        return (
-          <View style={styles.listItem.rank.rankers}>
-            <Text style={styles.listItem.rank.rankers.text}>
-              {rankIndex + 1}
-            </Text>
-          </View>
-        );
-      default:
-        return (
-          <Text style={rankStyle}>
-            {"#"}
-            {rankIndex + 1}
-          </Text>
-        );
-    }
-  };
 
   if (isAuthUser) {
     return (
@@ -59,7 +33,7 @@ const renderItem = ({ item, index }, authUserIndex, screenType) => {
   return (
     <View style={baseStyle}>
       <View style={{width: RFValue(33)}}>
-        <Rank rankIndex={index} />
+        <Rank rankIndex={index} isAuthUser={isAuthUser} />
       </View>
       {item.user_profile_photo ? (
         <UserProfileImage source={item.user_profile_photo} />
