@@ -1,49 +1,56 @@
-import SlidingUpPanel from "rn-sliding-up-panel";
 import {Languages} from "../index";
-import {getContentAreaHeight} from "../../helper/helper";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
-import {CloseIcon, DropdownArrow, Flags} from "../../assets/svg/illustrations";
-import {Pressable, StyleSheet, TouchableOpacity, View} from "react-native";
-import {CustomText, CustomTextBold} from "../../highordercomponents";
+import {DropdownArrow, Flags} from "../../assets/svg/illustrations";
+import { TouchableOpacity, StyleSheet, View} from "react-native";
+import { CustomText, CustomTextBold} from "../../highordercomponents";
 import {useTranslation} from "react-i18next";
-import {Fragment, useRef} from "react";
+import {Fragment, useRef, useMemo, useCallback} from "react";
 import {useSelector} from "react-redux";
+import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 
 const LanguageModal = () => {
   const {language} = useSelector((state) => state.generalReducer);
-  const {top, bottom} = useSafeAreaInsets();
   const {t} = useTranslation('login')
-  const languagePanel = useRef();
+  const bottomSheetRef = useRef(null);
+
+  const snapPoints = useMemo(() => [ "75%"], []);
+
+  const renderBackdrop = useCallback(
+    (props) => <BottomSheetBackdrop {...props} opacity={0.6} appearsOnIndex={0} disappearsOnIndex={-1} />,
+    []
+  );
+
+  const hideModal = () => {
+    bottomSheetRef.current?.dismiss();
+  };
 
   return (
     <Fragment>
-      <Pressable style={styles.langButton} onPress={() => languagePanel.current?.show()}>
-        <Flags flag={language}/>
+      <TouchableOpacity style={styles.langButton} onPress={() =>{
+        bottomSheetRef.current?.present()
+      }}>
+        <Flags flag={language} width={RFValue(23)} height={RFValue(15)} />
         <CustomText style={styles.langText}>
           {t(language, {ns: 'languages'})}
         </CustomText>
         <DropdownArrow  />
-      </Pressable>
-
-      <SlidingUpPanel
-        ref={languagePanel}
-        draggableRange={{top: getContentAreaHeight(top, bottom), bottom: 0}}
-        containerStyle={{backgroundColor: '#FFF', borderRadius: RFValue(10)}}
+      </TouchableOpacity>
+     <BottomSheetModal
+        index={0}
+        ref={bottomSheetRef}
+        snapPoints={snapPoints}
+        backdropComponent={renderBackdrop}
+        handleIndicatorStyle={styles.separator}
       >
         <Fragment>
           <View style={styles.header}>
-            <TouchableOpacity style={styles.close} onPress={() => languagePanel.current?.hide()}>
-              <CloseIcon/>
-            </TouchableOpacity>
-            <View style={styles.separator}/>
             <CustomTextBold style={styles.title}>
               {t('languages')}
             </CustomTextBold>
           </View>
-          <Languages/>
+          <Languages onPress={hideModal} isBottomSheet/>
         </Fragment>
-      </SlidingUpPanel>
+      </BottomSheetModal>
     </Fragment>
   )
 }
@@ -66,9 +73,7 @@ const styles = StyleSheet.create({
   separator: {
     backgroundColor: '#D8D8D8',
     width: RFValue(37),
-    height: RFValue(4),
     borderRadius: RFValue(5),
-    marginVertical: RFValue(15),
     
   },
   title: {

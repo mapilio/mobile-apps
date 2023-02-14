@@ -17,8 +17,6 @@ import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import {LanguageModal} from "../components/Login";
 
-
-
 const Login = ({navigation}) => {
 	const {t} = useTranslation("login");
 	const [securePassword, setSecurePassword] = useState(true);
