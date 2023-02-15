@@ -45,21 +45,9 @@ const WelcomeWalkthrough = () => {
           }}
           source={imageSource}
         />
-
-        <View
-          style={{
-            paddingHorizontal: "5%",
-            justifyContent: "center",
-          }}
-        >
-          <View
-            style={{
-              marginBottom: RFValue(3),
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <CustomTextBold style={{ fontSize: RFValue(16), color: "#B9C0CF" }}>
+        <View style={styles.textWrapper}>
+          <View style={styles.textContainer}>
+            <CustomTextBold style={styles.subTitle}>
               {t(item.subTitle)}{" "}
               {item.icons.map((source) => (
                 <Image
@@ -74,23 +62,8 @@ const WelcomeWalkthrough = () => {
               ))}
             </CustomTextBold>
           </View>
-          <CustomTextBold
-            style={{
-              marginBottom: RFValue(5),
-              fontSize: RFValue(28),
-              color: "#130C47",
-            }}
-          >
-            {t(item.title)}
-          </CustomTextBold>
-          <CustomText
-            style={{
-              fontSize: RFValue(14),
-              color: "#4A4A4A",
-              marginBottom: RFValue(40),
-            }}
-            lineCount={10}
-          >
+          <CustomTextBold style={styles.title}>{t(item.title)}</CustomTextBold>
+          <CustomText style={styles.desc} lineCount={10}>
             {t(item.desc)}
           </CustomText>
         </View>
@@ -100,8 +73,12 @@ const WelcomeWalkthrough = () => {
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <FocusAwareStatusBar style="dark" translucent={false} backgroundColor={"white"} />
-      
+      <FocusAwareStatusBar
+        style="dark"
+        translucent={false}
+        backgroundColor={"white"}
+      />
+
       <Skip />
 
       <Carousel
@@ -150,6 +127,29 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "10%",
     justifyContent: "space-between",
+  },
+  textContainer: {
+    marginBottom: RFValue(3),
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  textWrapper: {
+    paddingHorizontal: "5%",
+    justifyContent: "center",
+  },
+  title: {
+    marginBottom: RFValue(5),
+    fontSize: RFValue(28),
+    color: "#130C47",
+  },
+  subTitle: {
+    fontSize: RFValue(16),
+    color: "#B9C0CF",
+  },
+  desc: {
+    fontSize: RFValue(14),
+    color: "#4A4A4A",
+    marginBottom: RFValue(40),
   },
 });
 export default WelcomeWalkthrough;
