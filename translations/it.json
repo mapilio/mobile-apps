@@ -85,6 +85,11 @@
       "subtitle": "Complete missions",
       "description": "Get a chance to win gifts through the tasks you contribute."
     },
+    "fourth": {
+      "title": "Move on",
+      "subtitle": "For more rewards",
+      "description": "We are expanding our gift range every day."
+    },
     "next": "Next",
     "skip": "Skip",
     "start": "Start"

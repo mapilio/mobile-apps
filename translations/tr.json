@@ -86,7 +86,12 @@
       "subtitle": "Hediyeler kazan",
       "description": "Katkıda bulunduğunuz görevler aracılığıyla hediyeler kazanma şansı yakalayın."
     },
-    "next": "Devam Et",
+    "fourth": {
+      "title": "Hemen başla",
+      "subtitle": "Daha fazla ödül için",
+      "description": "Katkıda bulunduğunuz görevler ile hediyeler kazanma şansı yakalayın."
+    },
+    "next": "İlerle",
     "skip": "Atla",
     "start": "Başla"
   },

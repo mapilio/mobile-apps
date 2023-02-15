@@ -137,6 +137,11 @@
       "title": "Camera Direction",
       "description": "Adjust the position of the camera to record the image parallel to the ground."
     },
+    "fourth": {
+      "title": "Move on",
+      "subtitle": "For more rewards",
+      "description": "We are expanding our gift range every day."
+    },
     "next": "Next",
     "skip": "Skip",
     "start": "Start"
