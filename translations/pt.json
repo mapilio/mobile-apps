@@ -138,8 +138,8 @@
       "description": "Adjust the position of the camera to record the image parallel to the ground."
     },
     "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "skip": "Skip",
+    "start": "Start"
   },
   "camera_settings": {
     "general_settings": "General settings",

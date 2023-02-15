@@ -85,7 +85,10 @@
       "title": "Görevleri tamamla",
       "subtitle": "Hediyeler kazan",
       "description": "Katkıda bulunduğunuz görevler aracılığıyla hediyeler kazanma şansı yakalayın."
-    }
+    },
+    "next": "Devam Et",
+    "skip": "Atla",
+    "start": "Başla"
   },
   "camera": {
     "title": "Çekim başladı",

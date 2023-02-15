@@ -6,13 +6,15 @@ import {Routes} from "../../../navigator/Routes";
 import {useNavigation} from "@react-navigation/native";
 import {UPDATE_WELCOME_WALKTHROUGH_STATUS} from "../../../store/actionsName";
 import {useDispatch} from "react-redux";
+import {useTranslation} from "react-i18next";
 
-const Buttons = ({ active, dataLength = 0 }) => {
+const Next = ({ activeStep, dataLength = 0 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const { t } = useTranslation("welcome_walkthrough");
 
   const pressHandle = () => {
-    if (active === dataLength - 1) {
+    if (activeStep === dataLength - 1) {
       dispatch({ type: UPDATE_WELCOME_WALKTHROUGH_STATUS, payload: true });
       navigation.navigate(Routes.tabNavigator, {screen: Routes.map})
     } else {
@@ -20,13 +22,14 @@ const Buttons = ({ active, dataLength = 0 }) => {
     }
   }
 
+
   return (
     <TouchableOpacity onPress={pressHandle}>
-      <CustomText style={{ fontSize: RFValue(17), color: "#4A4A4A" }}>
-        {active === dataLength - 1 ? "      Start" : "Next"}
+      <CustomText style={{ fontSize: RFValue(17), color: "#4A4A4A", paddingRight:RFValue(35) }}>
+        {activeStep === dataLength - 1 ? t("start") : t("next")}
       </CustomText>
     </TouchableOpacity>
   );
 };
 
-export default Buttons;
+export default Next;

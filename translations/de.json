@@ -84,7 +84,10 @@
       "title": "Earn gifts",
       "subtitle": "Complete missions",
       "description": "Get a chance to win gifts through the tasks you contribute."
-    }
+    },
+    "next": "Next",
+    "skip": "Skip",
+    "start": "Start"
   },
   "camera": {
     "title": "Capture has started",

@@ -1,12 +1,12 @@
 import React, {useState, useRef, useEffect} from "react";
 import {View, Dimensions} from "react-native";
-import {CustomText} from "../highordercomponents";
+import {CustomText} from "../../highordercomponents";
 import Carousel, {Pagination} from "react-native-snap-carousel";
-import {walkthroughStyle} from "../styles/walkthroughStyle";
-import {Next, Prev, Start} from "../components/Walkthrough/CaptureWalkthrough";
+import {walkthroughStyle} from "../../styles/walkthroughStyle";
+import {Next, Prev, Start} from "../../components/Walkthrough/CaptureWalkthrough";
 import {useDispatch} from "react-redux";
-import {CleanRoad, Orientation, Road} from "../assets/svg/illustrations";
-import {IS_ACTIVE} from "../store/actionsName";
+import {CleanRoad, Orientation, Road} from "../../assets/svg/illustrations";
+import {IS_ACTIVE} from "../../store/actionsName";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 
