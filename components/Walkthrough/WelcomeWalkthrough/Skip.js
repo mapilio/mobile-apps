@@ -6,11 +6,13 @@ import { useDispatch } from "react-redux";
 import { UPDATE_WELCOME_WALKTHROUGH_STATUS } from "../../../store/actionsName";
 import { Routes } from "../../../navigator/Routes";
 import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Skip = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
+  const {top} = useSafeAreaInsets();
+  
   const { t } = useTranslation("welcome_walkthrough");
 
   const onPress = () => {
@@ -19,7 +21,7 @@ const Skip = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, top}}>
       <TouchableOpacity onPress={onPress}>
         <CustomText style={styles.text}>{t("skip")}</CustomText>
       </TouchableOpacity>
@@ -31,8 +33,9 @@ const styles = StyleSheet.create({
   container: {
     height: "10%",
     width: "100%",
-    paddingRight: RFValue(35),
-    paddingTop: RFValue(10),
+    position: "absolute",
+    zIndex: 2,
+    right: RFValue(35),
   },
   text: {
     textAlign: "right",
