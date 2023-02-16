@@ -71,6 +71,8 @@ const WelcomeWalkthrough = () => {
     );
   };
 
+  const isLastStep = activeStep === sliderData.length - 1;
+  
   return (
     <SafeAreaView style={styles.wrapper}>
       <FocusAwareStatusBar
@@ -79,7 +81,7 @@ const WelcomeWalkthrough = () => {
         backgroundColor={"white"}
       />
 
-      <Skip />
+      {!isLastStep && <Skip />}
 
       <Carousel
         ref={(c) => {
