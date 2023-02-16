@@ -65,6 +65,10 @@ const ProfileSettings = ({navigation}) => {
           <CustomText style={styles.listText}>{t("change_language")}</CustomText>
         </Pressable>
 
+        <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.deleteAccount)}>
+          <CustomText style={styles.listText}>{t("delete_account")}</CustomText>
+        </Pressable>
+
         <Pressable onPress={exitHandle}>
           <CustomText style={styles.signOut}>{t("sign_out")}</CustomText>
         </Pressable>

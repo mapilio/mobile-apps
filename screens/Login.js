@@ -16,9 +16,11 @@ import {fetchLogin} from "../helper/user";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import {LanguageModal} from "../components/Login";
+import {useDispatch} from "react-redux";
 
 const Login = ({navigation}) => {
 	const {t} = useTranslation("login");
+	const dispatch = useDispatch();
 	const [securePassword, setSecurePassword] = useState(true);
 	const [toggleEye, setToggleEye] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -36,7 +38,8 @@ const Login = ({navigation}) => {
 	const handleLogin = (values) => {
 		const {email, password} = values;
 		setLoading(true);
-		fetchLogin(email, password).then(() => {
+		fetchLogin(email, password).then((res) => {
+			dispatch({type: "SET_CREDENTIAL", payload: {type: 'default', ...res}});
 			navigation.goBack();
 		}).catch((err) => {
 			toast.show(`${err}`, {type: "error"})
