@@ -55,7 +55,8 @@
     "change_language": "Change Language",
     "mapilio": "mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Sign Out"
+    "sign_out": "Sign Out",
+    "delete_account": "Delete Account"
   },
   "profile_edit": {
     "username": "Username",
@@ -63,6 +64,19 @@
     "bio": "Bio",
     "hide_my_username": "Hide my username",
     "save": "Save"
+  },
+  "delete_account": {
+    "title": "Thank you for contributing to Mapilio",
+    "description": "The account will be permanently deleted. This will not affect your data on the Mapilio platform.",
+    "alert_title": "Are you sure you want to delete your account?",
+    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "delete_account": "Delete Account",
+    "login_again": "You must login again",
+    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
+    "ok": "OK",
+    "delete_error": "There was a problem while deleting! Try Again."
   },
   "upload_complete": {
     "title": "Upload Completed",

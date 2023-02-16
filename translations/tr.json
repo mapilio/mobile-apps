@@ -56,7 +56,8 @@
     "change_language": "Dili değiştir",
     "mapilio": "mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Oturumu Kapat"
+    "sign_out": "Oturumu Kapat",
+    "delete_account": "Hesabı Sil"
   },
   "profile_edit": {
     "username": "Kullanıcı adı",
@@ -64,6 +65,19 @@
     "bio": "Bio",
     "hide_my_username": "Kullanıcı adımı gizle",
     "save": "Kaydet"
+  },
+  "delete_account": {
+    "title": "Mapilio'ya katkıda bulunduğunuz için teşekkür ederiz",
+    "description": "Hesap kalıcı olarak silinecek. Bu, Mapilio platformundaki verilerinizi etkilemeyecektir.",
+    "alert_title": "Hesabınızı silmek istediğinizden emin misiniz?",
+    "alert_description": "Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+    "delete": "Sil",
+    "cancel": "İptal",
+    "delete_account": "Hesabı sil",
+    "login_again": "Tekrar giriş yapmalısın",
+    "login_again_description": "Hesabınızı silmek için tekrar giriş yapmalısınız. Giriş sayfasına yönlendirileceksiniz.",
+    "ok": "Tamam",
+    "delete_error": "Hesabınız silinirken bir sorun oluştu. Lütfen tekrar deneyin."
   },
   "upload_complete": {
     "title": "Yükleme Tamamlandı",

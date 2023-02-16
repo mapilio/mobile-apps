@@ -14,6 +14,7 @@ import React from "react";
 import {ProfileNavigatorRight, ProfileSettingsNavigatorLeft, SequenceNavigatorLeft} from "./navigatorbars";
 import {useTranslation} from "react-i18next";
 import {BackButton} from "../../components";
+import DeleteAccount from "../../screens/Profile/DeleteAccount";
 
 const Stack = createStackNavigator();
 
@@ -64,6 +65,9 @@ const ProfileNavigator = ({navigation}) => {
         <Stack.Screen name={Routes.language} component={Language} options={{
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
         }}/>
+
+        <Stack.Screen name={Routes.deleteAccount} component={DeleteAccount} options={{title: null}}/>
+
       </Stack.Navigator>
     )
 

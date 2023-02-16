@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as AppleAuthentication from "expo-apple-authentication";
-import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
+import {GET_TOKEN_SUCCESS, SET_CREDENTIAL} from "../../store/actionsName";
 import { useDispatch } from "react-redux";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import { fetchHandler } from "../../helper/helper";
@@ -16,31 +16,21 @@ const AppleLogin = ({ navigation }) => {
   }, []);
 
   const signInToApple = (credential, stateKey) => {
-    if (credential.email) {
-      fetchHandler({
-        url: `${Config.SERVICE_URL}/oauth-api/callback`,
-        method: "POST",
-        data: {
-          email: credential.email,
-          name: credential.fullName.givenName + credential.fullName.familyName,
-          state: stateKey,
-          token: credential.user,
-        },
-      }).then((res) => {
-        dispatch({type: GET_TOKEN_SUCCESS, payload: res});
-        dispatch(getUserInformation(res));
-        navigation.goBack();
-      }).catch(({response}) => toast.show(response.data.message, {type: 'error'}));
-      toast.show(`Login Success ${credential.fullName.familyName}`, {type: 'success'})
-    } else {
-      let params = {token: credential.user, state: stateKey};
+    let params = {token: credential.user, state: stateKey};
+    let url = `${Config.SERVICE_URL}/oauth-api/w-token`;
 
-      fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/w-token`, params: params}).then((res) => {
-        dispatch({type: GET_TOKEN_SUCCESS, payload: res});
-        dispatch(getUserInformation(res));
-        navigation.goBack();
-      }).catch(({response}) => toast.show(response.data.message, {type: 'error'}));
+    if (credential.email) {
+      url = `${Config.SERVICE_URL}/oauth-api/callback`;
+      params.email = credential.email;
+      params.name = credential.fullName.givenName + credential.fullName.familyName;
     }
+
+    fetchHandler({url, method: "POST", data: params}).then((res) => {
+      dispatch({type: GET_TOKEN_SUCCESS, payload: res});
+      dispatch({type: SET_CREDENTIAL, payload: {...credential, type: 'apple'}});
+      dispatch(getUserInformation(res));
+      navigation.goBack();
+    }).catch(({response}) => toast.show(response.data.message, {type: 'error'}));
   };
 
   const loginHandler = () => {

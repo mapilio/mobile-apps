@@ -37,4 +37,5 @@ export const Routes = {
   howToScore: "HowToScore",
   captureCompleted: "CaptureCompleted",
   award: "Award",
+  deleteAccount: "DeleteAccount",
 };

@@ -5,7 +5,7 @@ import * as Google from "expo-auth-session/providers/google";
 import { fetchHandler } from "../../helper/helper";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import { useDispatch } from "react-redux";
-import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
+import {GET_TOKEN_SUCCESS, SET_CREDENTIAL} from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import Config from "react-native-config";
 
@@ -39,26 +39,22 @@ const GoogleLogin = ({ navigation }) => {
 
   useEffect(() => {
     if (response?.type === "success") {
-      const { authentication } = response;
-      fetchHandler({url: Config.GOOGLE_REQUEST_URL + authentication.accessToken}).then(data => {
-        loginToMapilio(data);
-      })
+      const {authentication} = response;
+      fetchHandler({url: Config.GOOGLE_REQUEST_URL + authentication.accessToken}).then(data => loginToMapilio(data))
     } else {
       setLoading(false);
     }
   }, [response]);
 
-  const loginToMapilio = (response) => {
-    const data = {email: response.email, name: response.name, state: stateKey}
-    fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/callback`, method: "POST", data: data,}).then((res) => {
-      if (res.id) {
-        dispatch({type: GET_TOKEN_SUCCESS, payload: res});
-        dispatch(getUserInformation(res));
-        toast.show(`Login Success ${response.name}`, {type: 'success'})
-        navigation.goBack()
-      } else {
-        toast.show(`There was a problem registering. Please try a different method.`, {type: 'warning'})
-      }
+  const loginToMapilio = (user) => {
+    const data = {email: user.email, name: user.name, state: stateKey}
+
+    fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/callback`, method: "POST", data}).then((res) => {
+      dispatch({type: SET_CREDENTIAL, payload: {...response, type: 'google'}});
+      dispatch({type: GET_TOKEN_SUCCESS, payload: res});
+      dispatch(getUserInformation(res));
+      toast.show(`Login Success ${user.name}`, {type: 'success'})
+      navigation.goBack()
     }).catch(() => {
       toast.show("An error occurred, try again later.", {type: 'error'})
     }).finally(() => {
@@ -69,9 +65,7 @@ const GoogleLogin = ({ navigation }) => {
   return (
     <View style={socialLoginStyles.googleButton}>
       {loading ? (
-        <View>
-          <ActivityIndicator size="small" color="#000" />
-        </View>
+        <ActivityIndicator size="small" color="#000" />
       ) : (
         <TouchableOpacity onPress={handleLogin} style={{justifyContent: "center", alignItems: "center"}}>
           <View>

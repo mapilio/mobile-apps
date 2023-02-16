@@ -6,7 +6,7 @@ import { fetchHandler } from "../../helper/helper";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import { useDispatch } from "react-redux";
-import { GET_TOKEN_SUCCESS } from "../../store/actionsName";
+import {GET_TOKEN_SUCCESS, SET_CREDENTIAL} from "../../store/actionsName";
 import Config from "react-native-config";
 
 const FacebookLogin = ({ navigation }) => {
@@ -42,6 +42,7 @@ const FacebookLogin = ({ navigation }) => {
                 state: stateKey,
               },
             }).then((res) => {
+              dispatch({type: SET_CREDENTIAL, payload: {...json, type: 'facebook'}});
               dispatch({type: GET_TOKEN_SUCCESS, payload: res});
               dispatch(getUserInformation(res));
               navigation.goBack();
