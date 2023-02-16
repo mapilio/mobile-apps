@@ -10,11 +10,12 @@ export const navigatorStyle = {
   },
   headerSettingsStyle: {
     height: RFValue(50),
-    backgroundColor: "#4B4D51",
+    backgroundColor: "#FFFFFF",
   },
   headerTitleStyle: {
-    fontSize: RFValue(16),
-    color: '#333333'
+    fontSize: RFValue(14),
+    color: '#333333',
+    fontFamily: "Poppins-SemiBold",
   },
   cardStyle: {
     backgroundColor: '#FFF',

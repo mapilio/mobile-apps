@@ -2,7 +2,6 @@ import React, {useRef} from "react";
 import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {CustomText, CustomTextBold} from "../highordercomponents";
-import {convertHexToRGBA} from "../helper/helper";
 import {
   GoBackIcon,
   InformationIcon,
@@ -74,10 +73,6 @@ const CaptureComponent = ({navigation, exitHandler}) => {
         <GoBackIcon/>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => changeRoute(Routes.cameraSettings)}>
-        <CustomText style={styles.advanced}>{t("advanced")}</CustomText>
-      </TouchableOpacity>
-
      <TooltipWrapper content={tooltipContents.camera.startCapture} name={"startCapture"} placement={"left"}>
      <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
      </TooltipWrapper>
@@ -144,10 +139,6 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0
   },
-  advanced: {
-    color: convertHexToRGBA("#FFFFFF", 75),
-    fontSize: RFValue(14),
-  }
 })
 
 export default CameraSidebar;

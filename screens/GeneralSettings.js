@@ -1,28 +1,33 @@
-import React, {useEffect} from "react";
-import Slider from "@react-native-community/slider";
-import {Platform, ScrollView, StatusBar, StyleSheet, View} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-import {IS_ACTIVE, UPDATE_DISTANCE_BETWEEN} from "../store/actionsName";
-import {SettingsIcon} from "../assets/svg/illustrations";
-import {convertHexToRGBA} from "../helper/helper";
-import {CustomText, CustomTextMedium} from "../highordercomponents";
-import {useDispatch, useSelector} from "react-redux";
-import {useTranslation} from "react-i18next";
+import React, { useEffect } from "react";
+import { StatusBar, StyleSheet, View } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { IS_ACTIVE, UPDATE_DISTANCE_BETWEEN } from "../store/actionsName";
+import { CustomText, CustomTextMedium } from "../highordercomponents";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Slider } from "@miblanchard/react-native-slider";
 
 const GeneralSettings = ({ navigation }) => {
   const dispatch = useDispatch();
-  const {t} = useTranslation("camera_settings");
-  const {distanceBetween} = useSelector((state) => state.settingsReducer);
+  const { t } = useTranslation("camera_settings");
+  const { distanceBetween } = useSelector((state) => state.settingsReducer);
+  const { photoAmount, batteryLevel, phoneMemory } = useSelector(
+    (state) => state.cameraReducer
+  );
+
+  const { left, right } = useSafeAreaInsets();
 
   useEffect(() => {
-    dispatch({type: IS_ACTIVE, payload: false})
-
+    dispatch({ type: IS_ACTIVE, payload: false });
     return () => {
-      dispatch({type: IS_ACTIVE, payload: true})
-    }
+      dispatch({ type: IS_ACTIVE, payload: true });
+    };
   }, []);
 
-  const changeDistanceValue = (value) => dispatch({type: UPDATE_DISTANCE_BETWEEN, payload: value});
+  const changeDistanceValue = (value) => {
+    dispatch({ type: UPDATE_DISTANCE_BETWEEN, payload: value });
+  };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -31,45 +36,72 @@ const GeneralSettings = ({ navigation }) => {
     return () => unsubscribe();
   }, [navigation]);
 
+  const safeAreaPaddings = {
+    paddingLeft: left ? left : RFValue(35),
+    paddingRight: right ? right : RFValue(35),
+  };
+
   return (
     <View style={styles.wrapper}>
-      <View style={styles.header}>
-        <SettingsIcon width={RFValue(21)} height={RFValue(21)} />
-        <CustomText style={styles.title}>
-          {t("general_settings")}
-        </CustomText>
-      </View>
-      <View>
-        <CustomTextMedium style={styles.subtitle}>
-          {t("capture_settings")}
-        </CustomTextMedium>
-        <View style={styles.border} />
-      </View>
-      <ScrollView style={{ maxHeight: Platform.OS === "android" ? "100%" : "50%" }}>
-        <View style={styles.item}>
-          <CustomText style={{...styles.name, marginBottom: 4}}>
+      <View style={styles.item}>
+        <View style={safeAreaPaddings}>
+          <CustomText style={styles.itemMenuTitle}>
+            {t("Camera Settings")}
+          </CustomText>
+          <CustomText style={styles.itemTitle}>
             {t("distance_between")}
           </CustomText>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <ScrollView>
-              <Slider
-                style={{ width: "100%", height: RFValue(40) }}
-                minimumValue={5}
-                maximumValue={15}
-                value={distanceBetween}
-                step={1}
-                onValueChange={changeDistanceValue}
-                minimumTrackTintColor={"#007AFF"}
-                maximumTrackTintColor={"#C7C7CC"}
-                thumbTintColor={"#FFFFFF"}
-              />
-            </ScrollView>
-            <CustomTextMedium style={{...styles.name, marginLeft: RFValue(7)}}>
+          <View style={styles.row}>
+            <Slider
+              minimumValue={5}
+              maximumValue={15}
+              step={1}
+              value={distanceBetween}
+              onValueChange={changeDistanceValue}
+              containerStyle={{ width: "90%" }}
+              minimumTrackTintColor={"#3F8BE9"}
+              maximumTrackTintColor={"#C7C7CC"}
+              thumbStyle={styles.thumbStyle}
+            />
+            <CustomTextMedium
+              style={{ ...styles.itemDesc, marginLeft: RFValue(13) }}
+            >
               {distanceBetween} m
             </CustomTextMedium>
           </View>
         </View>
-      </ScrollView>
+      </View>
+      <View style={styles.padding} />
+
+      <View style={styles.item}>
+        <View style={safeAreaPaddings}>
+          <CustomText style={styles.itemMenuTitle}>
+            {"Capture Settings"}
+          </CustomText>
+          <View style={styles.row}>
+            <CustomText style={styles.itemTitle}>
+              {t("remaining_images")}
+            </CustomText>
+            <View style={styles.row}>
+              <CustomTextMedium
+                style={{ ...styles.itemDesc, color: "#3F8BE9" }}
+              >
+                {photoAmount}{" "}
+              </CustomTextMedium>
+              <CustomTextMedium style={styles.itemDesc}>
+                / {phoneMemory}
+              </CustomTextMedium>
+            </View>
+          </View>
+          <View style={styles.seperator} />
+          <View style={styles.row}>
+            <CustomText style={styles.itemTitle}>
+              {t("battery_level")}
+            </CustomText>
+            <CustomText style={styles.itemDesc}>%{batteryLevel}</CustomText>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -77,43 +109,51 @@ const GeneralSettings = ({ navigation }) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: "#2A2B2F",
-    height: "100%",
-    paddingBottom: RFValue(5)
+    backgroundColor: "#FFFFFF",
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: RFValue(15),
-    marginLeft: RFValue(38)
+  itemMenuTitle: {
+    fontSize: RFValue(12),
+    color: "#666666",
+    marginBottom: RFValue(6),
+    fontFamily: "Poppins-Medium",
+
   },
-  title: {
-    fontSize: RFValue(17),
-    color: "#B9C0CF",
-    marginLeft: RFValue(7)
-  },
-  subtitle: {
-    fontSize: RFValue(14),
-    color: "#929BCC",
-    marginLeft: RFValue(38),
-    marginBottom: RFValue(6)
-  },
-  border: {
-    marginLeft: RFValue(38),
-    backgroundColor: convertHexToRGBA("#CBD1D9", 50),
+  seperator: {
     height: RFValue(2),
-    width: "90%",
-    marginBottom: RFValue(6)
+    backgroundColor: "#EAEAEA",
+    marginVertical: RFValue(4),
+  },
+  padding: {
+    marginVertical: RFValue(5),
   },
   item: {
-    backgroundColor: "#333438",
-    paddingHorizontal: RFValue(38),
-    paddingVertical: RFValue(8)
+    backgroundColor: "#F7F7F7",
+    paddingVertical: RFValue(8),
   },
-  name: {
+  itemDesc: {
+    fontSize: RFValue(15),
+    color: "#333333",
+    fontFamily: "Poppins-Medium",
+  },
+  itemTitle: {
     fontSize: RFValue(14),
-    color: "#FFFFFF",
-  }
-})
+    color: "#333333",
+    fontFamily: "Poppins-Medium",
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: RFValue(2),
+  },
+  thumbStyle: {
+    width: RFValue(18),
+    height: RFValue(18),
+    borderRadius: RFValue(9),
+    backgroundColor: "#3F8BE9",
+    borderColor: "#FFFFFF",
+    borderWidth: RFValue(2),
+  },
+});
 
 export default GeneralSettings;

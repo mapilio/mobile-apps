@@ -57,13 +57,10 @@ export const generalSettingsLeft = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: RFValue(16),
   },
   backTitle: {
-    fontSize: RFValue(16),
-    color: "#B9C0CF",
-    marginBottom: Platform.OS === "ios" ? 0 : RFValue(-2),
-    marginLeft: RFValue(3),
+    fontSize: RFValue(14),
+    color: "#666666",
   },
 });
 

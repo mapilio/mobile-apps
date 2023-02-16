@@ -150,8 +150,8 @@
     "finish": "Finish"
   },
   "camera_settings": {
-    "general_settings": "General settings",
-    "capture_settings": "Capture settings",
+    "general_settings": "General Settings",
+    "capture_settings": "Capture Settings",
     "distance_between": "Distance between images",
     "camera_settings": "Camera Settings",
     "remaining_images": "Captured images / Remaining images",

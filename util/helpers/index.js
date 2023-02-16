@@ -3,11 +3,12 @@ import i18n from "i18next";
 
 /**
  *
- * @param {"success" | "warning" | "info" | "error" | "light" | "medium" | "heavy"} type
+ * @param {"success" | "warning" | "info" | "error" | "light" | "medium" | "heavy" | "selection" } type
  * @returns {void}
  * @description
  * Light, medium and heavy are impact feedbacks.
  * Success, warning, info and error are notification feedbacks
+ * Selection is a selection feedback
  */
 export const vibrate = (type) => {
   switch (type) {
@@ -29,6 +30,9 @@ export const vibrate = (type) => {
       break;
     case "heavy":
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      case "selection":
+      Haptics.selectionAsync();
+      break;
     default:
       break;
   }
