@@ -13,10 +13,7 @@ import Campus from "../../assets/svg/illustrations/Campus";
 import moment from "moment";
 import { fetchHandler } from "../../helper/helper";
 import { RFValue } from "react-native-responsive-fontsize";
-import {
-  MaximizePano,
-  MinimizePano,
-} from "../../assets/svg/illustrations";
+import { MaximizePano, MinimizePano } from "../../assets/svg/illustrations";
 import Config from "react-native-config";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Panorama from "../Panorama";
@@ -24,14 +21,17 @@ import { useTranslation } from "react-i18next";
 import LinearGradient from "react-native-linear-gradient";
 import { useSelector } from "react-redux";
 import { tabHeight } from "../../util/consts/ui";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+
 const Pano = ({ imageInformation, hidePano }) => {
   const [fullHeight, setFullHeight] = useState(false);
   const [username, setUsername] = useState(null);
   const { top, bottom } = useSafeAreaInsets();
   const { height } = Dimensions.get("screen");
-  const {language} = useSelector(state => state.generalReducer)
+  const { language } = useSelector((state) => state.generalReducer);
 
-  const {t} = useTranslation("languages", {nsMode: "fallback"})
+  const { showActionSheetWithOptions } = useActionSheet();
+  const { t } = useTranslation("report", { nsMode: "fallback" });
 
   useEffect(() => {
     fetchHandler({
@@ -65,7 +65,7 @@ const Pano = ({ imageInformation, hidePano }) => {
     return fullHeight ? _imageHeight : (_imageHeight + top) / 2;
   };
 
-  const reportImage = () => {
+  const report = (reason) => {
     fetchHandler({
       url: `${Config.SERVICE_URL}/api/image-report`,
       method: "POST",
@@ -73,26 +73,60 @@ const Pano = ({ imageInformation, hidePano }) => {
         options: {
           parameters: {
             imagery_id: imageInformation.pointID,
-            message: "",
+            message: reason,
           },
         },
       },
     })
       .then(() => {
         toast.show(
-          "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
+          t("report_success"),
           { type: "info" }
         );
       })
       .catch(() => {
-        toast.show("An error occurred while reporting. Try again.", {
+        toast.show(t("report_error"), {
           type: "error",
         });
       });
   };
+  const reportImage = () => {
+    showActionSheetWithOptions(
+      {
+        options: [
+          t("cancel"),
+          t("privacy_violation"),
+          t("inappropriate_content"),
+          t("low_quality"),
+          t("other"),
+        ],
+        cancelButtonIndex: 0,
+        useModal: true,
+        showSeparators: true,
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 1:
+            report("Privacy Violation");
+            break;
+          case 2:
+            report("Inappropriate Content");
+            break;
+          case 3:
+            report("Low Quality");
+            break;
+          case 4:
+            report("Other")
+            break;
+          default:
+            break;
+        }
+      }
+    );
+  };
 
   return (
-    <View style={{zIndex:10}}>
+    <View style={{ zIndex: 10 }}>
       <View style={panoStyle.topBar}>
         <TouchableOpacity
           style={{ ...panoStyle.switch, top: top }}

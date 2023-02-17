@@ -347,15 +347,14 @@
     },
     "skip": "Skip"
   },
-  "languages": {
-    "tr": "Turkish",
-    "en": "English",
-    "ch": "Chinese",
-    "fr": "French",
-    "de": "Germany",
-    "it": "Italian",
-    "pr": "Portuguese",
-    "es": "Spanish",
+  "report": {
+    "cancel": "Cancel",
+    "privacy_violation": "Privacy Violation",
+    "inappropriate_content": "Inappropriate Content",
+    "low_quality": "Low Quality",
+    "other": "Other",
+    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
+    "report_error": "An error occurred while reporting. Please try again later.",
     "moment": {
       "months": [
         "January",
@@ -372,5 +371,16 @@
         "December"
       ]
     }
+  },
+  "languages": {
+    "tr": "Turkish",
+    "en": "English",
+    "ch": "Chinese",
+    "fr": "French",
+    "de": "Germany",
+    "it": "Italian",
+    "pr": "Portuguese",
+    "es": "Spanish"
   }
 }
+
