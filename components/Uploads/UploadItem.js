@@ -51,9 +51,9 @@ const UploadItem = ({item, deleteFunc}) => {
         const {features} = await fetchHandler({url: `${Config.SEARCH_API}/reverse?lat=${location.latitude}&lon=${location.longitude}`})
         const {city, country, name, street, state} = features[0]?.properties || {};
         setAddress(street || name || city || state || country || null)
-        db.updateById(item.id, {address: street || name || city || state || country || null})
+        await db.updateById(item.id, {address: street || name || city || state || country || null})
       } catch {
-        getAddress()
+        await getAddress()
       }
     }
   }
