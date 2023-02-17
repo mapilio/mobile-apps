@@ -347,15 +347,12 @@
     },
     "skip": "Skip"
   },
-  "languages": {
-    "tr": "Turkish",
-    "en": "English",
-    "ch": "Chinese",
-    "fr": "French",
-    "de": "Germany",
-    "it": "Italian",
-    "pr": "Portuguese",
-    "es": "Spanish",
+  "report": {
+    "cancel": "Cancel",
+    "privacy_violation": "Privacy Violation",
+    "inappropriate_content": "Inappropriate Content",
+    "low_quality": "Low Quality",
+    "other": "Other",
     "moment": {
       "months": [
         "January",
@@ -372,5 +369,15 @@
         "December"
       ]
     }
+  },
+  "languages": {
+    "tr": "Turkish",
+    "en": "English",
+    "ch": "Chinese",
+    "fr": "French",
+    "de": "Germany",
+    "it": "Italian",
+    "pr": "Portuguese",
+    "es": "Spanish"
   }
 }

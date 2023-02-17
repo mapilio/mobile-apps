@@ -216,7 +216,6 @@
       "title": "Depremler ve acil durumlar",
       "description": "Ulaşılamayan yolların keşfedilmesine ve ortaya çıkabilecek sağlık ve hayati durumlarda erken müdahaleye katkıda bulunun."
     }
-
   },
   "profile": {
     "individual_account": "Bireysel hesap",
@@ -349,16 +348,14 @@
     },
     "skip": "Geç"
   },
-
-  "languages": {
-    "tr": "Türkçe",
-    "en": "İngilizce",
-    "ch": "Çince",
-    "fr": "Fransızca",
-    "de": "Almanca",
-    "it": "İtalyanca",
-    "pr": "Portekizce",
-    "es": "İspanyolca",
+  "report": {
+    "cancel": "İptal",
+    "privacy_violation": "Gizlilik İhlali",
+    "inappropriate_content": "Uygunsuz İçerik",
+    "low_quality": "Düşük Çözünürlük",
+    "other": "Diğer",
+    "report_success": "Rapor başarıyla gönderildi. Gerekli incelemeler yapılacak ve tarafınıza e-posta ile bilgi verilecektir.",
+    "report_error": "Rapor gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
     "moment": {
       "months": [
         "Ocak",
@@ -375,5 +372,15 @@
         "Aralık"
       ]
     }
+  },
+  "languages": {
+    "tr": "Türkçe",
+    "en": "İngilizce",
+    "ch": "Çince",
+    "fr": "Fransızca",
+    "de": "Almanca",
+    "it": "İtalyanca",
+    "pr": "Portekizce",
+    "es": "İspanyolca"
   }
 }

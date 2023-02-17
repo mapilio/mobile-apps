@@ -12,6 +12,7 @@
   "dependencies": {
     "@dogukany/react-native-walkthrough-tooltip": "^1.5.3",
     "@expo/configure-splash-screen": "^0.6.0",
+    "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "^4",
     "@hookform/resolvers": "^2.9.10",
     "@lightbase/react-native-panorama-view": "^1.0.1",
