@@ -26,6 +26,7 @@ const Upload = ({group_uuid = null, style}) => {
   const [totalSize, setTotalSize] = useState(0);
   const navigation = useNavigation();
   const pictures = []
+  let fetchErrorCount = 0;
 
   useEffect(() => {
     let path = FileSystem.documentDirectory;
@@ -88,22 +89,42 @@ const Upload = ({group_uuid = null, style}) => {
           } else {
             getHash(pictures[i][j]).then(async (res) => {
               if (res.status === 'success') {
+                fetchErrorCount = 0;
+
                 pictures.hash = res.hash;
                 setSentCount(prev => prev + 1)
                 await sendImages(i, ++j)
               } else {
+                requestBroken(res.message)
                 toast.show(res.message, {type: res.status})
               }
-            }).catch(requestBroken)
+            }).catch((err) => {
+              fetchErrorCount++;
+
+              if (fetchErrorCount > 3) {
+                requestBroken(err)
+              } else {
+                sendImages(i, j)
+              }
+            })
           }
         } else {
           imageryUpload(i, pictures).then(async () => {
+            fetchErrorCount = 0;
             navigation.navigate(Routes.upload);
             db.getGroupByWithGroupID().then((data) => {
               dispatch({type: UPLOAD_DATA, payload: data})
             })
             await sendImages(++i)
-          }).catch(requestBroken)
+          }).catch((err) => {
+            fetchErrorCount++;
+
+            if (fetchErrorCount > 3) {
+              requestBroken(err)
+            } else {
+              sendImages(i, j)
+            }
+          })
         }
       } else {
         setModalVisible(false)

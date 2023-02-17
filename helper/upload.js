@@ -88,7 +88,7 @@ export const getHash = async (image) => {
       return {status: 'warning', message: translate('you_cancelled_upload')}
     }
 
-    throw new Error(e);
+    throw new Error(e?.response?.data?.message || e.message);
   }
 }
 
@@ -209,7 +209,7 @@ export const imageryUpload = async (index, pictures) => {
       }
 
     } catch (e) {
-      throw new Error(e);
+      throw new Error(e?.response?.data?.message || e.message);
     }
   }
 }
