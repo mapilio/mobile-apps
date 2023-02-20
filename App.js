@@ -65,27 +65,29 @@ function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{flex:1}}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ActionSheetProvider>
-        <BottomSheetModalProvider>
-        <NavigationContainer>
-          <SafeAreaProvider>
-            <MainNavigator/>
-            <Toast
-              ref={(ref) => global['toast'] = ref}
-              duration={3000}
-              renderToast={(options) => <ToastMessage options={options}/>}
-              placement="top"
-              swipeEnabled={true}
-            />
-          </SafeAreaProvider>
-        </NavigationContainer>
-        </BottomSheetModalProvider>
-        </ActionSheetProvider>
-      </PersistGate>
-    </Provider>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            <BottomSheetModalProvider>
+              <ActionSheetProvider>
+                <SafeAreaProvider>
+                  <MainNavigator />
+                  <Toast
+                    ref={(ref) => (global["toast"] = ref)}
+                    duration={3000}
+                    renderToast={(options) => (
+                      <ToastMessage options={options} />
+                    )}
+                    placement="top"
+                    swipeEnabled={true}
+                  />
+                </SafeAreaProvider>
+              </ActionSheetProvider>
+            </BottomSheetModalProvider>
+          </NavigationContainer>
+        </PersistGate>
+      </Provider>
     </GestureHandlerRootView>
   );
 }
