@@ -26,7 +26,9 @@ const GeneralSettings = ({ navigation }) => {
   }, []);
 
   const changeDistanceValue = (value) => {
-    dispatch({ type: UPDATE_DISTANCE_BETWEEN, payload: value });
+    if(distanceBetween !== value[0]) {
+      dispatch({ type: UPDATE_DISTANCE_BETWEEN, payload: value[0] });
+    }
   };
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const GeneralSettings = ({ navigation }) => {
               minimumValue={5}
               maximumValue={15}
               step={1}
-              value={distanceBetween}
+               value={distanceBetween}
               onValueChange={changeDistanceValue}
               containerStyle={{ width: "90%" }}
               minimumTrackTintColor={"#3F8BE9"}

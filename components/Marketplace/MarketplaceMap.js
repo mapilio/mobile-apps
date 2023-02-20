@@ -3,12 +3,8 @@ import {MapView} from "../../highordercomponents";
 import {appMapStyle} from "../../styles/appMapStyle";
 import MapboxGL from "@rnmapbox/maps";
 import {useSelector} from "react-redux";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {Dimensions} from "react-native";
-import { tabHeight } from '../../util/consts/ui';
 
 const MarketplaceMap = ({navigation}) => {
-  const {bottom} = useSafeAreaInsets();
   const {marketplaceCenter, zoomLevel, marketplaceData} = useSelector((status) => status.marketplaceReducer);
   const camera = useRef();
 
@@ -30,7 +26,7 @@ const MarketplaceMap = ({navigation}) => {
   }
 
   return (
-    <MapView mapStyle={{...appMapStyle.map, height: Dimensions.get("window").height - bottom - tabHeight}}>
+    <MapView mapStyle={appMapStyle.map}>
       <MapboxGL.Camera animationMode={"none"} ref={camera}/>
       {_drawPolygon(marketplaceData, navigation)}
     </MapView>

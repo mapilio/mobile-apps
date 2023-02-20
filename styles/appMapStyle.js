@@ -5,7 +5,8 @@ import {globalStyles} from "./globalStyles";
 export const appMapStyle = StyleSheet.create({
   map: {
     width: Dimensions.get("screen").width,
-    position: "relative"
+    position: "relative",
+    height: "100%",
   },
   topWrapper:{position:"absolute", justifyContent:"center", alignItems:"center", width:"100%"},
   search: {

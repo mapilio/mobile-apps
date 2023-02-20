@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState} from "react";
-import { Dimensions, View } from "react-native";
+import { View } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -11,7 +11,7 @@ import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
 import { RESULTS } from "react-native-permissions";
 import { point } from "@turf/turf";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {
@@ -21,7 +21,6 @@ import {
   Userlocation,
 } from "../components/Map/layers";
 import { CenterToUserButton, ProfileButton, Pano } from "../components/Map";
-import { tabHeight } from "../util/consts/ui";
 
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
@@ -35,10 +34,8 @@ const AppMap = ({ navigation }) => {
   const {connection} = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
-  const {height} = Dimensions.get("window");
-  const {bottom, top} = useSafeAreaInsets();
+  const {top} = useSafeAreaInsets();
   const {auth} = useSelector((state) => state.getTokenReducer);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
@@ -56,7 +53,6 @@ const AppMap = ({ navigation }) => {
      })
   }, [showUser]);
 
-  const contentHeight = height - bottom - tabHeight;
 
   const zoomPoint = (coordinate) => {
     mapRef.current?.getZoom().then((zoomLevel) => {
@@ -111,7 +107,7 @@ const AppMap = ({ navigation }) => {
 
   const mapStyles = {
     ...appMapStyle.map,
-    height: showPano ? contentHeight / 2 : contentHeight,
+    height: showPano ? "50%" : "100%",
   };
 
   return (
