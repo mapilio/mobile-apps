@@ -1,5 +1,6 @@
 import * as Haptics from "expo-haptics";
 import i18n from "i18next";
+import {length, lineString} from "@turf/turf";
 
 /**
  *
@@ -30,7 +31,8 @@ export const vibrate = (type) => {
       break;
     case "heavy":
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-      case "selection":
+      break;
+    case "selection":
       Haptics.selectionAsync();
       break;
     default:
@@ -39,9 +41,22 @@ export const vibrate = (type) => {
 };
 
 /**
- * 
+ *
  * @param {string} key key of the translation
  * @param {*} ns namespace of the translation
  * @returns {string} translated string
  */
 export const translate = (key, ns) => i18n.t(key, { ns });
+
+/**
+ *
+ * @description Calculate the score of the sequence based on the length of the sequence and the distance between the points
+ * @param {Array} sequence Array of sequence objects with location property in JSON format
+ * @returns {number} score of the sequence
+ */
+export const scoreCalculate = (sequence) => {
+  const line = lineString(sequence.map(({location}) => [JSON.parse(location).longitude, JSON.parse(location).latitude]));
+  const meters = length(line, { units: "kilometers" });
+
+  return parseFloat((meters + (sequence.length / 100)).toFixed(2))
+}

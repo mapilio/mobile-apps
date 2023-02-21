@@ -6,11 +6,23 @@ import {navigatorStyle} from "../../styles/navigatorStyle";
 import React from "react";
 import {CaptureCompleted, UploadCompleted, UserSequence, UserSequenceDetail} from "../../screens";
 import {useTranslation} from "react-i18next";
+import {tabHeight} from "../../util/consts/ui";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const Stack = createStackNavigator()
 
 const UploadNavigator = () => {
   const {t} = useTranslation("upload");
+  const {bottom} = useSafeAreaInsets();
+
+  const sequenceListener = ({navigation, route}) => ({
+    state: () => {
+      navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
+    },
+    beforeRemove: (e) => {
+      navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: tabHeight + bottom}})
+    }
+  })
 
   return (
     <Stack.Navigator screenOptions={{
@@ -26,9 +38,12 @@ const UploadNavigator = () => {
         cardStyle: {backgroundColor: "#FFF"}
       }}/>
 
-      <Stack.Screen name={Routes.sequences} component={UserSequence} options={{
-        headerLeft: (props) => (<SequenceNavigatorLeft{...props} route backRoute={Routes.upload}/>),
-      }} />
+      <Stack.Screen
+        name={Routes.sequences}
+        component={UserSequence}
+        options={{headerShown: false}}
+        listeners={sequenceListener}
+      />
 
       <Stack.Screen name={Routes.sequenceDetail} component={UserSequenceDetail} options={{
         headerLeft: (props) => (<SequenceNavigatorLeft{...props} route backRoute={Routes.sequences}/>),

@@ -199,6 +199,7 @@
     "upload_completed": "Yükleme tamamlandı",
     "upload_failed": "Yükeleme sırasında hata oluştu",
     "no_address": "Adres bulunamadı",
+    "clear_selections": "Clear Selections",
     "point": "~<0>{{count}}</0>puan ",
     "accessible_world": {
       "title": "Erişilebilir dünya",
@@ -245,7 +246,8 @@
     "password": "Parola",
     "login": "Giriş yap",
     "forgot_password": "Parolanızı mı unuttunuz?",
-    "languages": "Diller"
+    "languages": "Diller",
+    "login_error": "Giriş sırasında bir hata oluştu, lütfen tekrar deneyin."
   },
   "register": {
     "title": "Haritanızda neler olduğunu görmek için kaydolun.",

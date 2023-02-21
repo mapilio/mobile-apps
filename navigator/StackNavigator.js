@@ -7,29 +7,24 @@ import {StyleSheet} from "react-native";
 
 const Stack = createStackNavigator();
 const StackNavigator = ({route}) => {
+
+  const options = {
+    headerShown: true,
+    title: null,
+    headerStyle: styles.headerStyle,
+    cardStyle: styles.cardStyle,
+    headerLeft: (props) => <BackButton {...props} />,
+  }
+
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={Routes.auth} component={AuthNavigator} initialParams={route.params}/>
       <Stack.Screen name={Routes.profileNavigator} component={ProfileNavigator}/>
 
-      <Stack.Group screenOptions={{presentation: "modal", gestureEnabled: false, headerShown: false }}>
+      <Stack.Group screenOptions={{presentation: "modal", gestureEnabled: false, headerShown: false}}>
         <Stack.Screen name={Routes.welcomeWalkthrough} component={WelcomeWalkthrough}/>
-
-        <Stack.Screen name={Routes.howToScore} component={HowToScore} options={{
-          headerShown: true,
-          headerStyle: styles.headerStyle,
-          cardStyle: styles.cardStyle,
-          headerLeft: (props) => <BackButton {...props} />,
-          title: false
-        }}/>
-
-        <Stack.Screen name={Routes.award} component={Award} options={{
-          headerShown: true,
-          title: false,
-          headerStyle: styles.headerStyle,
-          cardStyle: styles.cardStyle,
-          headerLeft: (props) => <BackButton {...props} />,
-        }} />
+        <Stack.Screen name={Routes.howToScore} component={HowToScore} options={options}/>
+        <Stack.Screen name={Routes.award} component={Award} options={options}/>
       </Stack.Group>
     </Stack.Navigator>
   )
