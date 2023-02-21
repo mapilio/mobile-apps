@@ -41,11 +41,10 @@ const Language = ({ onPress, isBottomSheet = false }) => {
             { ...styles.languageText },
             isActive
               ? {
-                  color: "#000",
+                  color: "#191919",
                   fontFamily: "Poppins-Medium",
                 }
               : {
-                  color: "#666666",
                   fontFamily: "Poppins",
                 },
           ]}
@@ -56,7 +55,7 @@ const Language = ({ onPress, isBottomSheet = false }) => {
           style={[
             styles.checkbox,
             {
-              backgroundColor: isActive ? "#3F8BE9" : "white",
+              backgroundColor: isActive ? "#0056F1" : "white",
               borderWidth: isActive ? 0 : 2,
             },
           ]}

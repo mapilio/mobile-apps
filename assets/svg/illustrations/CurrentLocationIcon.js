@@ -2,7 +2,7 @@ import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 
-const CurrentLocationIcon = ({ width = RFValue(20), height = RFValue(20), fill="#616161" }) => (
+const CurrentLocationIcon = ({ width = RFValue(20), height = RFValue(20), fill="#808080" }) => (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}

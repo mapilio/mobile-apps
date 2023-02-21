@@ -1,7 +1,6 @@
 import {navigatorStyle} from "../../styles/navigatorStyle";
 import { Text, View } from "react-native";
 import {
-  CaptureIcon,
   MarketplaceIcon,
   Profile,
   TabMap,
@@ -18,19 +17,18 @@ const TabIcons = ({ focused, tab }) => {
   const { isInitialized } = useSelector((state) => state.tooltipReducer.tabBar);
 
   const iconColor = () => {
-    if (!isInitialized || focused) return "#130C47";
+    if (!isInitialized || focused) return "#191919";
     return undefined;
   };
 
   const textColor = () => {
-    if (!isInitialized || focused) return { color: "#130C47" };
+    if (!isInitialized || focused) return { color: "#191919" };
     return {};
   };
 
   const icons = {
     map: <TabMap fill={iconColor()} />,
     market: <MarketplaceIcon fill={iconColor()} />,
-    capture: <CaptureIcon fill={iconColor()} />,
     upload: <Upload fill={iconColor()} />,
     profile: <Profile fill={iconColor()} />,
     leader: <LeaderIcon fill={iconColor()} />,

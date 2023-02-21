@@ -5,7 +5,7 @@ import Svg, { Path } from "react-native-svg";
 const LeaderIcon = ({
   width = RFValue(25),
   height = RFValue(27),
-  fill = "#A5ABC8",
+  fill = "#C2C2C2",
 }) => {
   return (
     <Svg

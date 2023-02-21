@@ -2,7 +2,7 @@ import React from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 
-const MarketplaceIcon = ({ width = RFValue(29), height = RFValue(27), fill = '#A5ABC8' }) => (
+const MarketplaceIcon = ({ width = RFValue(29), height = RFValue(27), fill = '#C2C2C2' }) => (
   <Svg
   xmlns="http://www.w3.org/2000/svg"
   width={width}

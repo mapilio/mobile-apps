@@ -41,7 +41,7 @@ const Search = ({camera}) => {
     <View style={{...appMapStyle.search}}>
       <TouchableOpacity onPress={() => setOpenSearchbar(true)}>
         <View style={appMapStyle.searchIcon}>
-          <SearchIcon width={19.55} height={19.55} color={'#616161'}/>
+          <SearchIcon width={19.55} height={19.55} color={'#191919'}/>
         </View>
       </TouchableOpacity>
 

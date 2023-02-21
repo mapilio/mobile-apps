@@ -40,7 +40,7 @@ const ProfileButton = ({ onPress }) => {
         {userInformation ? (
           <UserImage userInformation={userInformation} />
         ) : (
-          <Profile width={RFValue(24)} height={RFValue(24)} fill="#FFFFFF" />
+          <Profile width={RFValue(26)} height={RFValue(26)} fill="#FFFFFF" />
         )}
       </View>
     </TouchableOpacity>

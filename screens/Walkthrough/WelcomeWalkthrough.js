@@ -47,7 +47,7 @@ const WelcomeWalkthrough = () => {
         />
         <View style={styles.textWrapper}>
           <View style={styles.textContainer}>
-            <CustomTextBold style={styles.subTitle}>
+            <CustomText style={styles.subTitle}>
               {t(item.subTitle)}{" "}
               {item.icons.map((source) => (
                 <Image
@@ -60,7 +60,7 @@ const WelcomeWalkthrough = () => {
                   }}
                 />
               ))}
-            </CustomTextBold>
+            </CustomText>
           </View>
           <CustomTextBold style={styles.title}>{t(item.title)}</CustomTextBold>
           <CustomText style={styles.desc} lineCount={10}>
@@ -142,15 +142,15 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: RFValue(5),
     fontSize: RFValue(28),
-    color: "#130C47",
+    color: "#191919",
   },
   subTitle: {
     fontSize: RFValue(16),
-    color: "#B9C0CF",
+    color: "#808080",
   },
   desc: {
     fontSize: RFValue(14),
-    color: "#4A4A4A",
+    color: "#808080",
     marginBottom: RFValue(40),
   },
 });

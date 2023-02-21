@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     
   },
   title: {
-    color: '#333333',
+    color: '#191919',
     fontSize: RFValue(18),
   },
   langButton: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   langText: {
-    color: '#FFF',
+    color: '#808080',
     paddingHorizontal: RFValue(5),
     fontSize: RFValue(13),
 

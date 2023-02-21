@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ActivityIndicator, Keyboard, ScrollView, TextInput, TouchableOpacity, View, } from "react-native";
+import {ActivityIndicator, ScrollView, TextInput, TouchableOpacity, View} from "react-native";
 import * as yup from "yup";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
@@ -48,7 +48,7 @@ const Login = ({navigation}) => {
 
 	return (
 		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
-			<FocusAwareStatusBar barStyle="light-content"  />
+			<FocusAwareStatusBar barStyle="dark-content"  />
 				<ScrollView>
 				<View style={loginStyles.logo}>
 					<MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>
@@ -110,14 +110,13 @@ const Login = ({navigation}) => {
 						{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : t("login")}
 					</CustomText>
 				</TouchableOpacity>
-				<View style={{alignItems:"center"}}>
+				<TouchableOpacity style={{alignItems:"center"}} onPress={() => navigation.navigate(Routes.forgotPassword)}>
 				<CustomText
-					onPress={() => navigation.navigate(Routes.forgotPassword)}
 					style={{...loginStyles.forgotPassword, marginVertical: RFValue(18)}}
 				>
 					{t("forgot_password")}
 				</CustomText>
-				</View>
+				</TouchableOpacity>
 
 				<SocialLogin navigation={navigation}/>
 				</ScrollView>
