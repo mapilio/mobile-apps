@@ -14,9 +14,9 @@ import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import db from "../../db";
-import {length, lineString} from "@turf/turf";
 import Config from "react-native-config";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import {scoreCalculate} from "../../util/helpers";
 
 const UploadItem = ({item, deleteFunc}) => {
   const {distanceBetween} = useSelector((state) => state.settingsReducer);
@@ -31,24 +31,18 @@ const UploadItem = ({item, deleteFunc}) => {
 
   const calculateScore = async () => {
     const data = await db.getCapturesByGroupID(item.group_id)
-
-    const line = lineString(data.map((capture) => {
-      const {longitude, latitude} = JSON.parse(capture.location)
-
-      return [longitude, latitude]
-    }))
-
-    const meters = length(line, {units: 'meters'})
-    const count = ((meters / distanceBetween) + (item.count / 1000)).toFixed(2)
-
-    setScore(count)
+    setScore(scoreCalculate(data))
   }
 
   const getAddress = async () => {
     if (connection.connectionStatus) {
       try {
-        const location = JSON.parse(item.location)
-        const {features} = await fetchHandler({url: `${Config.SEARCH_API}/reverse?lat=${location.latitude}&lon=${location.longitude}`})
+        const {latitude, longitude} = JSON.parse(item.location)
+
+        const {features} = await fetchHandler({
+          url: `${Config.SEARCH_API}/reverse?lat=${latitude}&lon=${longitude}`
+        })
+
         const {city, country, name, street, state} = features[0]?.properties || {};
         setAddress(street || name || city || state || country || null)
         await db.updateById(item.id, {address: street || name || city || state || country || null})

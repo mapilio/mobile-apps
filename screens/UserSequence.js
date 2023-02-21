@@ -1,179 +1,224 @@
-import React, {useEffect, useState} from "react";
-import {ScrollView, View, TouchableOpacity, Alert, Dimensions} from "react-native";
-import {ImageUpload} from "../components/Uploads";
-import {userSequenceStyles} from "../styles/userSequenceStyle";
-import {Trash} from "../assets/svg/illustrations";
-import {userUploadStyles} from "../styles/userUploadStyle";
-import {useDispatch, useSelector} from "react-redux";
-import database from "../db";
-import * as FileSystem from "expo-file-system";
-import SwitchSelector from "react-native-switch-selector";
-import {styles} from "../styles/circleStyles";
-import {SEQUENCE_IMAGES, SWITCH_SELECTOR, UPDATE_SELECTED_IMAGES, UPLOAD_DATA} from "../store/actionsName";
-import MapboxGL from "@rnmapbox/maps";
-import {appMapStyle} from "../styles/appMapStyle";
-import {Routes} from "../navigator/Routes";
-import {MapView} from "../highordercomponents";
+import React, {useEffect, useMemo, useRef, useState} from "react";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
-import {setGeoJson} from "../helper/geojson";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {MapView} from "../highordercomponents";
+import {ArrowLeft} from "../assets/svg/illustrations";
+import {globalStyles} from "../styles/globalStyles";
+import MapboxGL from "@rnmapbox/maps";
+import {useDispatch, useSelector} from "react-redux";
 import db from "../db";
+import {bbox, lineString} from "@turf/turf";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
+import UserSequenceDetail from "./UserSequenceDetail";
+import {deleteAsync, documentDirectory} from "expo-file-system";
+import {Heading} from "../components/Map";
+import {setGeoJson} from "../helper/geojson";
+import {useTranslation} from "react-i18next";
+import {UPDATE_SELECTED_IMAGES} from "../store/actionsName";
+import SequenceDetail from "../components/SequenceDetail";
 
-const UserSequence = ({ navigation }) => {
-  const [coordinates, setCoordinates] = useState({});
-  const [points, setPoints] = useState({});
-  const [center, setCenter] = useState([]);
-  const icons = {
-    image: require("../assets/images/imgIcon.png"),
-    map: require("../assets/images/mapIcon.png"),
-  };
-  const {activeSequence, switchSelector} = useSelector((state) => state.uploadReducer);
-  const {selectedImages} = useSelector((state) => state.imagesReducer);
+const UserSequence = ({navigation}) => {
+  const cameraRef = useRef();
+  const {top} = useSafeAreaInsets();
+  const {t} = useTranslation("upload");
+  const {activeSequence} = useSelector((state) => state.uploadReducer);
+  const [mapGeoJson, setMapGeoJson] = useState(undefined);
+  const [imageDetail, setImageDetail] = useState(undefined);
+  const bottomSheetModalRef = useRef(null);
   const dispatch = useDispatch();
-  const {bottom} = useSafeAreaInsets();
-
-  const options = [
-    { label: "Image", value: "image", imageIcon: icons.image },
-    { label: "Map", value: "map", imageIcon: icons.map },
-  ];
 
   useEffect(() => {
-    navigation.addListener("blur", () => dispatch({type: SWITCH_SELECTOR, payload: "image"}));
-  }, [navigation]);
+    getData().catch((e) => toast.show(t('fetch_error'), {type: 'danger'}));
 
-  const deletedImages = () => {
-    Alert.alert("Are you sure?", "Are you sure you want to delete this image", [
-      {
-        text: "Yes",
-        onPress: () => {
-          selectedImages.forEach(({id, path}) => {
-            db.deleteById(id).then(() => {
-              FileSystem.deleteAsync(path).then(() => {
-                db.getCaptures(activeSequence).then((result) => {
-                  dispatch({type: SEQUENCE_IMAGES, payload: result,});
-                  dispatch({type: UPDATE_SELECTED_IMAGES, payload: selectedImages.filter((e) => e !== id)});
-                })
+    bottomSheetModalRef.current?.present();
+  }, [])
 
-                db.getGroupByWithSequenceUUID().then(data => dispatch({type: UPLOAD_DATA, payload: data}))
-              })
-            })
-          })
-        }
-      },
-      {
-        text: "No",
-      }
-    ]);
-  };
+  const GetContent = () => {
+    if (!!imageDetail) {
+      return <UserSequenceDetail item={imageDetail} changeImage={changeImage} deleteHandler={deleteImages} />
+    }
 
-  useEffect(() => {
-    navigation.addListener("blur", () => {
-      dispatch({ type: SWITCH_SELECTOR, payload: "image" });
-    });
-  }, [navigation]);
+    if (!!mapGeoJson) {
+      return <SequenceDetail sequence={mapGeoJson?.result} onClick={setImageDetail} deleteHandler={deleteImages}/>
+    }
 
-  const getCoordinates = () => {
-    database.getCaptures(activeSequence).then((result) => {
-      setCenter([
-        JSON.parse(result[0].location)?.longitude,
-        JSON.parse(result[0].location)?.latitude,
-      ]);
+    return null;
+  }
 
-      setCoordinates(setGeoJson(result, "line"));
-      setPoints(setGeoJson(result, "point"));
-    })
-  };
+  const snapPoints = useMemo(() => [...Array(9).keys()].map((e) => (e + 1) + '0%'), []);
 
-  useEffect(() => getCoordinates(), [activeSequence]);
+  const getData = async () => {
+    const result = await db.getCaptures(activeSequence);
+
+    const coordinates = result.map(({location}) => [JSON.parse(location).longitude, JSON.parse(location).latitude]);
+
+    const point = setGeoJson(result, 'point');
+    const line = lineString(coordinates);
+    const bboxData = bbox(line);
+
+
+    setMapGeoJson({line, point, bboxData, result});
+  }
+
+  const goBack = () => {
+    if (!!imageDetail) {
+      setImageDetail(undefined);
+    } else {
+      navigation.goBack();
+    }
+  }
+
+  /**
+   * Change image detail to next or previous image in sequence detail list view (bottom sheet)
+   * @param {string ?: "next" | "prev"} type next or previous image type string
+   */
+  const changeImage = (type) => {
+    const index = mapGeoJson?.result.findIndex(({id}) => id === imageDetail?.id);
+    const newIndex = type === 'next' ? index + 1 : index - 1;
+
+    if (newIndex < 0 || newIndex > mapGeoJson?.result.length - 1) {
+      setImageDetail(undefined);
+    } else {
+      const total = mapGeoJson?.result.length;
+      const current = newIndex + 1;
+
+      setImageDetail({...mapGeoJson?.result[newIndex], total, current});
+    }
+  }
+
+  /**
+   * Delete images from local storage and database and update state to reflect changes in UI
+   * @param images array of image ids to delete from local storage and database
+   * @returns {Promise<void>}
+   */
+  const deleteImages = async (images) => {
+    setImageDetail(undefined);
+
+    for (const image of images) {
+      await db.deleteById(image.id);
+      await deleteAsync(documentDirectory + image.path);
+    }
+
+    dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
+    await getData();
+  }
+
+  const onPointClick = (e) => {
+    if (e.features.length > 1) {
+      const coordinates = e.features.map(({geometry: {coordinates}}) => coordinates);
+      const clickedBbox = bbox(lineString(coordinates || []));
+
+      cameraRef.current?.fitBounds([clickedBbox[0], clickedBbox[1]], [clickedBbox[2], clickedBbox[3]], [20, 20], 500);
+
+    } else {
+      const item = e.features[0].properties.item;
+      item.total = mapGeoJson?.result.length;
+      item.current = mapGeoJson?.result.findIndex(({id}) => id === item?.id) + 1;
+
+      setImageDetail(e.features[0].properties.item);
+    }
+  }
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView scrollEnabled={switchSelector === "image"}>
-        <View style={userSequenceStyles.tabBar}>
-          <SwitchSelector
-            initial={0}
-            options={options}
-            onPress={(value) => dispatch({type: SWITCH_SELECTOR, payload: value})}
-            value={switchSelector === "image" ? 0 : 1}
-            backgroundColor={"#F5F5F5"}
-            borderColor={"#CBD1D9"}
-            buttonColor={"#130C47"}
-            borderRadius={5}
-            textColor={"#130C47"}
-            hasPadding
-            imageStyle={{
-              width: 18,
-              height: 18,
-              marginRight: 3,
-            }}
-            style={{
-              marginTop: RFValue(20),
-              alignSelf: "center",
-              width: RFValue(250),
-              zIndex: 999999999999999,
-            }}
-            height={32}
-          />
-        </View>
-        {switchSelector === "image" ? (
-          <ImageUpload navigation={navigation} group_id={activeSequence} />
-        ) : (
-          <MapView
-            mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}
-            attributionPosition={{ bottom: 26, right: 8 }}
-          >
-            <MapboxGL.Camera
-              centerCoordinate={
-                center.length !== 0 && [center[0] + 0.0009, center[1]]
-              }
-              animationMode={"none"}
-              zoomLevel={16}
-              animationDuration={0}
-            />
-            {!!Object.keys(points).length && (
-              <MapboxGL.ShapeSource
-                id={"pointsShape"}
-                shape={points}
-                onPress={(point) => {
-                  navigation.reset({
-                    index: 0,
-                    routes: [{
-                      name: Routes.sequenceDetail,
-                      params: {
-                        id: point.features[0].properties.item.id,
-                        path: point.features[0].properties.item.path,
-                        coordinate: point.features[0].geometry.coordinates,
-                        heading: JSON.parse(point.features[0].properties.item.location).heading,
-                      }
-                    }]
-                  })
-                }}
-              >
-                <MapboxGL.CircleLayer id={"circle"} style={styles.circles} />
-                <MapboxGL.CircleLayer
-                  id={"circleBuffer"}
-                  style={styles.circlesOpacity}
-                />
-              </MapboxGL.ShapeSource>
-            )}
+    <View style={styles.container}>
 
-            {!!Object.keys(coordinates).length && (
-              <MapboxGL.ShapeSource id={"marketplaceShape"} shape={coordinates}>
-                <MapboxGL.LineLayer id="linelayer1" style={styles.lineStyles} />
-              </MapboxGL.ShapeSource>
-            )}
-          </MapView>
-        )}
-      </ScrollView>
-      {!!selectedImages.length && (
-        <View style={userUploadStyles.deleteButton}>
-          <TouchableOpacity onPress={() => deletedImages()}>
-            <Trash width={24} height={24} />
-          </TouchableOpacity>
-        </View>
-      )}
+      <TouchableOpacity
+        onPress={goBack}
+        style={{...styles.backButton, top: top + RFValue(20)}}
+      >
+        <ArrowLeft />
+      </TouchableOpacity>
+
+      <MapView style={{flex: 1}} pitchEnabled={false}>
+        <MapboxGL.Camera
+          ref={cameraRef}
+          bounds={{
+            ne: [mapGeoJson?.bboxData[2], mapGeoJson?.bboxData[3]],
+            sw: [mapGeoJson?.bboxData[0], mapGeoJson?.bboxData[1]],
+            paddingTop: 100, paddingBottom: 100, paddingLeft: 100, paddingRight: 100,
+          }}
+          animationDuration={0}
+        />
+
+        <MapboxGL.ShapeSource id={"LineShape"} shape={mapGeoJson?.line}>
+          <MapboxGL.LineLayer id="lineLayer" style={styles.lineStyles}/>
+        </MapboxGL.ShapeSource>
+
+        <MapboxGL.ShapeSource id={"PointShape"} shape={mapGeoJson?.point} onPress={onPointClick}>
+          <MapboxGL.CircleLayer id="pointLayer" style={styles.circleStyles} />
+        </MapboxGL.ShapeSource>
+
+        {
+          !!imageDetail && (
+            <Heading
+              coordinates={[JSON.parse(imageDetail.location).longitude, JSON.parse(imageDetail.location).latitude]}
+              heading={JSON.parse(imageDetail?.location).heading}
+              markerPath={require("../assets/images/map/location.png")}
+            />
+          )
+        }
+      </MapView>
+
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        snapPoints={snapPoints}
+        index={1}
+        onDismiss={() => bottomSheetModalRef.current?.present()}
+        handleIndicatorStyle={{...styles.indicatorStyle, backgroundColor: imageDetail ? "#FFF" : "#D8D8D8"}}
+        handleStyle={styles.handleStyle}
+        style={{backgroundColor: 'transparent'}}
+      >
+        <GetContent/>
+      </BottomSheetModal>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  backButton: {
+    position: "absolute",
+    left: RFValue(20),
+    zIndex: 1,
+    width: RFValue(30),
+    height: RFValue(30),
+    borderRadius: RFValue(30),
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    ...globalStyles.shadow,
+  },
+  lineStyles: {
+    lineColor: "#3F8BE9",
+    lineWidth: 2,
+  },
+  circleStyles: {
+    circleColor: "#3F8BE9",
+    circleRadius: 5,
+    circleStrokeOpacity: .5,
+    circleStrokeWidth: 2.5,
+    circleStrokeColor: "#3F8BE9",
+  },
+  currentCircle: {
+    circleColor: "red",
+    circleRadius: 10,
+    circleStrokeOpacity: .5,
+    circleStrokeWidth: 2.5,
+    circleStrokeColor: "#3F8BE9",
+  },
+  handleStyle: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+  },
+  indicatorStyle: {
+    width: RFValue(37),
+    height: RFValue(4),
+    borderRadius: RFValue(2),
+  },
+})
 
 export default UserSequence;

@@ -199,6 +199,7 @@
     "upload_failed": "Upload Failed",
     "no_address": "No address",
     "point": "~<0>{{count}}</0>pts",
+    "clear_selections": "Clear Selections",
     "accessible_world": {
       "title": "Accessible world",
       "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
@@ -244,7 +245,8 @@
     "password": "Password",
     "login": "Log In",
     "forgot_password": "Forgot your password?",
-    "languages": "Languages"
+    "languages": "Languages",
+    "login_error": "There was an error with the server, please try again later."
   },
   "register": {
     "title": "Sign up to see what's on your map.",
@@ -383,4 +385,3 @@
     "es": "Spanish"
   }
 }
-

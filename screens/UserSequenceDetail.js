@@ -1,143 +1,226 @@
-import React, { useEffect, useState } from "react";
-import {Dimensions, View, ScrollView} from "react-native";
-import { sequenceDetailStyles } from "../styles/userSequenceStyle";
-import { styles } from "../styles/circleStyles";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import MapboxGL from "@rnmapbox/maps";
-import { appMapStyle } from "../styles/appMapStyle";
-import database from "../db";
-import { useDispatch, useSelector } from "react-redux";
-import { MapView } from "../highordercomponents";
-import { RANK } from "../store/actionsName";
-import {Heading} from "../components/Map";
-import {setGeoJson} from "../helper/geojson";
-import * as FileSystem from "expo-file-system";
-import {Panorama} from "../components";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {documentDirectory} from "expo-file-system";
+import React, {Fragment, useEffect, useState} from "react";
+import {RFValue} from "react-native-responsive-fontsize";
+import LinearGradient from "react-native-linear-gradient";
+import {dateConvert, fetchHandler} from "../helper/helper";
+import {useSelector} from "react-redux";
+import Config from "react-native-config";
+import db from "../db";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import {ArrowLeft, ArrowRight, Trash} from "../assets/svg/illustrations";
+import {useTranslation} from "react-i18next";
+import LogoWatermark from "../assets/svg/illustrations/LogoWatermark";
+import {AlertModal} from "../components";
 
-const UserSequenceDetail = ({ navigation, route }) => {
-  const [lines, setLines] = useState({});
-  const [points, setPoints] = useState({});
-  const [center, setCenter] = useState([30.8, 41.015137]);
-  const [clickedPoint, setClickedPoint] = useState(null);
-  const dispatch = useDispatch();
-  const [currentImage, setCurrentImage] = useState(null);
-  const {activeSequence, sequenceImages} = useSelector((state) => state.uploadReducer);
-  const {rank} = useSelector((state) => state.uploadReducer)
-  const {bottom} = useSafeAreaInsets();
-  const {height} = Dimensions.get("screen")
-  const image = currentImage ? currentImage : `${route.params.path}`
-
-  useEffect(() => navigation.addListener("blur", () => setClickedPoint(null)), [navigation]);
+const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
+  const {t} = useTranslation("upload");
+  const {id, path, address, exif, location, current, total} = item
+  const [imageInfo, setImageInfo] = useState({})
+  const [isDelete, setIsDelete] = useState(false);
 
   useEffect(() => {
-    sequenceImages.forEach((value, i) => {
-      if (value.id === route.params.id) {
-        dispatch({type: RANK, payload: {id: value.id, total: sequenceImages.length, active: ++i, path: value.path}});
-      }
+    Image.getSize(documentDirectory + path, (width, height) => {
+      setImageInfo(prev => ({...prev, width: width / 2, height}))
     })
-  }, [route.params]);
 
-  const getCoordinates = () => {
-    database.query(
-      `SELECT * FROM captures WHERE group_id='${activeSequence}'`,
-      (_, result) => {
+    const date = dateConvert(
+      JSON.parse(exif).DateTime
+      || JSON.parse(exif).DateTimeOriginal
+      || JSON.parse(exif).DateTimeDigitized
+      || JSON.parse(exif)["{TIFF}"].DateTime,
+      "MMM DD, YYYY - HH:mm"
+    )
+    setImageInfo(prev => ({...prev, date}))
+    !address ? getAddress() : setImageInfo(prev => ({...prev, address}))
+  }, []);
 
-        setLines(setGeoJson(result.rows._array, "line"));
-        setPoints(setGeoJson(result.rows._array, "point"));
+  const getAddress = async () => {
+    const {latitude, longitude} = JSON.parse(location)
+    const {features} = await fetchHandler({
+      url: `${Config.SEARCH_API}/reverse?lat=${latitude}&lon=${longitude}`
+    })
+    const {city, country, name, street, state} = features[0]?.properties || {};
 
-        setCenter([
-          JSON.parse(result.rows._array[0].location).longitude,
-          JSON.parse(result.rows._array[0].location).latitude,
-        ]);
+    setImageInfo(prev => ({...prev, address: street || name || city || state || country || null}))
+    await db.updateById(item.id, {address: street || name || city || state || country || null})
+  }
 
-        setClickedPoint({
-          heading: route.params.heading,
-          longitude: route.params.coordinate[0],
-          latitude: route.params.coordinate[1]
-        });
-      }
-    );
-  };
-
-  useEffect(() => {
-    getCoordinates();
-  }, [activeSequence, route.params]);
-
+  const AddressPlaceholder = () => {
+    return (
+      <SkeletonPlaceholder children={
+        <SkeletonPlaceholder.Item
+          width={Dimensions.get('window').width / 2}
+          height={20}
+          borderRadius={4}
+          style={{marginTop: 8}}
+        />
+      }/>
+    )
+  }
 
   return (
-    <View>
-      <ScrollView style={sequenceDetailStyles.imageArea}>
-        <Panorama image={image} height={(height - RFValue(63) - bottom) / 2}/>
-      </ScrollView>
-
-      <MapView
-        mapStyle={{ ...appMapStyle.map, height: RFPercentage(74) }}
-        attributionPosition={{ bottom: 26, right: 8 }}
-      >
-        <MapboxGL.Camera
-          centerCoordinate={
-            center.length !== 0 && [center[0] + 0.0009, center[1]]
-          }
-          zoomLevel={16}
-          animationMode={"none"}
-          animationDuration={0}
-        />
-        {!!Object.keys(points).length && (
-          <MapboxGL.ShapeSource
-            id={"pointsShape"}
-            shape={points}
-            onPress={(point) => {
-              const properties = point.features[0].properties.item
-
-              dispatch({type: RANK,
-                payload: {
-                  id: properties.id,
-                  total: rank.total,
-                  active: properties.count,
-                  path: properties.path
-                }
-              });
-
-              setCurrentImage(FileSystem.documentDirectory + `${properties.group_id}/${properties.path.split('/').pop()}`);
-              setClickedPoint({
-                heading: JSON.parse(properties.location).heading,
-                longitude: Number(point.features[0].geometry.coordinates[0]),
-                latitude: Number(point.features[0].geometry.coordinates[1]),
-              });
-            }}
-          >
-            <MapboxGL.CircleLayer
-              id={"circle"}
-              style={styles.circles}
-              layerIndex={60}
-            />
-            <MapboxGL.CircleLayer
-              id={"circleBuffer"}
-              style={styles.circlesOpacity}
-              layerIndex={59}
-            />
-          </MapboxGL.ShapeSource>
-        )}
-        {clickedPoint && (
-          <Heading
-            heading={clickedPoint ? clickedPoint.heading : route.params.heading}
-            coordinates={[clickedPoint.longitude, clickedPoint.latitude]}
-            markerPath={require("../assets/images/heading.png")}
+    <View style={styles.container}>
+      <ScrollView horizontal={true} contentContainerStyle={{width: imageInfo.width}}>
+        <ImageBackground
+          source={{uri: documentDirectory + path}}
+          style={{width: imageInfo.width, height: imageInfo.height}}
+        >
+          <LinearGradient
+            colors={['transparent', '#00000022', '#00000055', '#00000077', '#000000']}
+            style={styles.imageGradient}
           />
-        )}
-        {!!Object.keys(lines).length && (
-          <MapboxGL.ShapeSource id={"detailShape"} shape={lines}>
-            <MapboxGL.LineLayer
-              id="linelayer1"
-              style={styles.lineStyles}
-              layerIndex={58}
-            />
-          </MapboxGL.ShapeSource>
-        )}
-      </MapView>
-    </View>
-  );
-};
+        </ImageBackground>
+      </ScrollView>
+      <View style={styles.infoWrapper}>
+        <Text style={styles.address} numberOfLines={1}>
+          {imageInfo.address ? imageInfo.address : <AddressPlaceholder/>}
+        </Text>
 
-export default UserSequenceDetail;
+        <Text style={styles.date}>
+          {imageInfo.date}
+        </Text>
+      </View>
+
+      <Fragment>
+        <View style={styles.prev}>
+          <TouchableOpacity style={styles.prevButton} onPress={() => changeImage("prev")}>
+            <ArrowLeft color={'#FFF'}/>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.next}>
+          <TouchableOpacity style={styles.nextButton} onPress={() => changeImage("next")}>
+            <ArrowLeft color={'#FFF'}/>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.imageCount}>
+          <Text style={styles.imageCountText}>
+            <Text style={{fontFamily: 'Poppins-SemiBold'}}>{current}</Text> / {total}
+          </Text>
+        </View>
+
+        <View style={styles.delete}>
+          <TouchableOpacity style={styles.deleteButton} onPress={() => setIsDelete(true)}>
+            <Trash color={'#FFF'} width={RFValue(17)} height={RFValue(24)} />
+            <Text style={styles.deleteText}> {t("delete")}</Text>
+          </TouchableOpacity>
+
+          <AlertModal
+            visible={isDelete}
+            title={t("delete_capture")}
+            description={t("delete_message")}
+            buttons={{
+              cancel: {text: t("no"), onPress: () => setIsDelete(false)},
+              confirm: {text: t("yes"), onPress: () => deleteHandler([{id, path}])}
+            }}
+          />
+        </View>
+
+        <View style={styles.watermark}>
+          <LogoWatermark />
+        </View>
+      </Fragment>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    borderTopLeftRadius: RFValue(10),
+    borderTopRightRadius: RFValue(10),
+    width: Dimensions.get('screen').width,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  header: {},
+  title: {
+    position: 'absolute',
+    backgroundColor: '#FFFFFF',
+  },
+  infoWrapper: {
+    padding: RFValue(16),
+    position: 'absolute',
+    bottom: RFValue(40)
+  },
+  imageGradient: {
+    flex: 1,
+    marginTop: 'auto'
+  },
+  address: {
+    fontSize: RFValue(16),
+    fontFamily: 'Poppins-Medium',
+    color: '#FFFFFF'
+  },
+  date: {
+    fontSize: RFValue(12),
+    fontFamily: 'Poppins',
+    color: '#C2C2C2'
+  },
+  prev: {
+    position: 'absolute',
+    justifyContent: 'center',
+    top: 0,
+    bottom: 0,
+    left: RFValue(10),
+  },
+  prevButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'rgba(255,255,255, .3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  next: {
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: RFValue(10),
+  },
+  nextButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'rgba(255,255,255, .3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    transform: [{rotate: '180deg'}]
+  },
+  imageCount: {
+    position: 'absolute',
+    top: RFValue(20),
+    left: 0,
+    right: 0,
+  },
+  imageCountText: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontFamily: 'Poppins',
+    fontSize: RFValue(12)
+  },
+  delete: {
+    position: 'absolute',
+    top: RFValue(20),
+    right: RFValue(10),
+  },
+  deleteButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  deleteText: {
+    color: '#FFFFFF',
+    fontFamily: 'Poppins',
+    fontSize: RFValue(12)
+  },
+  watermark: {
+    position: 'absolute',
+    bottom: RFValue(20),
+    right: RFValue(10),
+  }
+})
+
+export default UserSequenceDetail

@@ -13,7 +13,7 @@ import {useTranslation} from "react-i18next";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import {getUserInformation} from "../../store/reducers/loginReducer/getUserInformation";
 
-const Upload = ({group_uuid = null, style}) => {
+const Upload = ({group_uuid = null, style, buttonStyle}) => {
   const dispatch = useDispatch();
   const {t} = useTranslation("navigation");
   const {uploadData} = useSelector((state) => state.uploadReducer);
@@ -151,7 +151,10 @@ const Upload = ({group_uuid = null, style}) => {
   return (
     <View style={style}>
       {(!!uploadData.length || group_uuid) && (
-        <TouchableOpacity style={styles.uploadButton} onPress={uploadHandler}>
+        <TouchableOpacity
+          style={{...styles.uploadButton, ...buttonStyle}}
+          onPress={uploadHandler}
+        >
           <Text style={styles.uploadButtonText}>{t("start_upload", {ns: 'upload'})}</Text>
         </TouchableOpacity>
       )}

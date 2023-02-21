@@ -284,7 +284,7 @@ class Database {
    * @returns {Promise}
    */
   getCaptures(uuid = null) {
-    const query = uuid ? `SELECT * FROM captures WHERE group_id='${uuid}'` : `SELECT * FROM captures`;
+    const query = uuid ? `SELECT * FROM captures WHERE group_id='${uuid}' ORDER BY id ASC` : `SELECT * FROM captures`;
 
     return new Promise((resolve, reject) => {
       db.transaction((txn) => {
@@ -401,6 +401,24 @@ class Database {
     return new Promise((resolve, reject) => {
       db.transaction(txn => {
         txn.executeSql(`UPDATE captures SET ${Object.keys(data).map(key => `${key}='${data[key]}'`).join(',')} WHERE id='${id}'`, [], (_, results) => {
+          resolve(results.rows._array)
+        }, (error) => {
+          reject(error)
+        })
+      })
+    })
+  }
+
+  /**
+   * Delete captures by ids with fileSystem (delete files) and database (delete rows) (async) (promise)
+   * @param images {Array<string>} Array of image ids (uuid) (e.g. ['uuid1', 'uuid2'])
+   * @returns {Promise<unknown>}
+   */
+  deleteCapturesByIds(images) {
+    return new Promise((resolve, reject) => {
+      db.transaction(txn => {
+        txn.executeSql(`DELETE FROM captures WHERE id IN (${images.map(({id}) => `'${id}'`).join(',')})`, [], (_, results) => {
+          images.forEach(({path}) => FileSystem.deleteAsync(FileSystem.documentDirectory + path))
           resolve(results.rows._array)
         }, (error) => {
           reject(error)
