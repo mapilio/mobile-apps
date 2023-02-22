@@ -31,11 +31,12 @@ const EmptyList = () => {
     {
       title: t('traffic_problem.title'),
       description: t('traffic_problem.description'),
-      image: require('../../assets/images/emergencies.png')},
+      image: require('../../assets/images/trafficProblem.png')
+    },
     {
       title: t('earthquakes_and_emergencies.title'),
       description: t('earthquakes_and_emergencies.description'),
-      image: require('../../assets/images/trafficProblem.png')
+      image: require('../../assets/images/emergencies.png')
     },
   ];
 
