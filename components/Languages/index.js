@@ -19,7 +19,7 @@ const Language = ({ onPress, isBottomSheet = false }) => {
   const { t } = useTranslation("languages");
   const dispatch = useDispatch();
 
-  const languages = ["tr", "en", "ch", "fr", "de", "it", "pr", "es"];
+  const languages = ["tr", "en"];
   const handleChange = (code) => {
     i18next.changeLanguage(code);
     dispatch({ type: UPDATE_LANGUAGE, payload: code });
