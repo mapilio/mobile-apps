@@ -179,12 +179,7 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
 
   return (
     <View style={marketplaceStyles.container}>
-      <TouchableOpacity
-        style={marketplaceStyles.closeIcon}
-        onPress={() => slidePanel.hide()}
-      >
-        <CloseIcon />
-      </TouchableOpacity>
+  
       <View
         style={marketplaceStyles.panelHeader}
         onTouchStart={() => setOnScroll(false)}
@@ -196,9 +191,9 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
         onTouchStart={() => setOnScroll(false)}
       >
         <Marketplace
-          width={RFValue(25)}
-          height={RFValue(25)}
-          color={"#3F8BE9"}
+          width={RFValue(23)}
+          height={RFValue(23)}
+          color={"#0056F1"}
           style={{ marginRight: 10 }}
         />
         <CustomText style={marketplaceStyles.title}>

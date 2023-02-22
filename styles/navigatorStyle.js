@@ -12,10 +12,10 @@ export const navigatorStyle = {
     height: RFValue(50),
     backgroundColor: "#FFFFFF",
   },
-  headerTitleStyle: {
-    fontSize: RFValue(14),
-    color: '#333333',
-    fontFamily: "Poppins-SemiBold",
+  headerTitleStyle:{
+    color: "#191919",
+    fontFamily:"Poppins-SemiBold",
+    fontSize:RFValue(14)
   },
   cardStyle: {
     backgroundColor: '#FFF',
@@ -41,7 +41,7 @@ export const navigatorStyle = {
     width: RFValue(65),
     height: RFValue(65),
     borderRadius: RFValue(35),
-    backgroundColor: "#130C47",
+    backgroundColor: "#191919",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -61,7 +61,7 @@ export const navigatorStyle = {
   tabTextStyle: {
     fontSize: 12,
     marginTop: 3,
-    color: "#7E86B0",
+    color: "#C2C2C2",
     fontFamily: "Poppins-Medium",
   },
 };

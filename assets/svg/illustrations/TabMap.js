@@ -5,7 +5,7 @@ import Svg, { Path } from "react-native-svg";
 const TabMap = ({
   width = RFValue(24),
   height = RFValue(26),
-  fill = "#A5ABC8",
+  fill = "#C2C2C2",
 }) => (
   <Svg
     id="map"

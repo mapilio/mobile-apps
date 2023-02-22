@@ -50,12 +50,12 @@ export const userFeedStyles = StyleSheet.create({
     justifyContent: "space-between",
   },
   address:{
-    color: '#130C47',
+    color: "#191919",
     fontSize: RFValue(12),
     fontFamily: "Poppins-Medium",
   },
   date: {
-    color: '#666666',
+    color: '#808080',
     fontSize: RFValue(10),
     fontFamily: "Poppins",
   },
@@ -134,7 +134,7 @@ export const userInfoStyles = StyleSheet.create({
     zIndex: 10,
   },
   username: {
-    color: "#3F8BE9",
+    color: "#0056F1",
     fontSize: RFValue(18),
     fontFamily: "Poppins-Medium",
   },
@@ -151,12 +151,11 @@ export const userInfoStyles = StyleSheet.create({
   },
   infoTitle: {
     fontSize: RFValue(12),
-    color: "#666666",
-    opacity: 0.6,
+    color: "#C2C2C2",
   },
   infoValue: {
     fontSize: RFValue(18),
-    color: "#130C47",
+    color: "#191919",
   },
   infoContainer: {
     flex: .8,

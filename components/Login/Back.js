@@ -15,14 +15,14 @@ const Back = ({route}) => {
       style={styles.backButton}
       onPress={handleBack}
     >
-      <ArrowLeft color={"#FFFFFF"} width={RFValue(13)} height={RFValue(13)} />
+      <ArrowLeft color={"#808080"} width={RFValue(13)} height={RFValue(13)} />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
     backButton: {
-    backgroundColor: "#FFFFFF4D",
+    backgroundColor: "#ECECEC",
     borderRadius: RFValue(20),
     width: RFValue(32),
     height: RFValue(32),

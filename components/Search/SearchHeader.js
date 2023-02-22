@@ -73,7 +73,7 @@ const SearchHeader = ({ closeHandler }) => {
   return (
     <View style={{ ...styles.header, paddingTop: top + RFValue(5) }}>
       <TouchableOpacity style={styles.back} onPress={closeHandler}>
-        <ArrowLeft color="#666666" width={19} height={19} />
+        <ArrowLeft color="#808080" width={19} height={19} />
       </TouchableOpacity>
       <View style={{ flex: 1, justifyContent: "center" }}>
         <TextInput
@@ -96,7 +96,7 @@ const SearchHeader = ({ closeHandler }) => {
           <SearchIcon
             width={RFValue(19)}
             height={RFValue(19)}
-            color={"#666666"}
+            color={"#191919"}
           />
         </View>
         {searchText && (
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: RFValue(20),
-    backgroundColor: "#D8D8D880",
+    backgroundColor: "#ECECEC",
     paddingLeft: 5,
   },
   search: {
@@ -147,8 +147,8 @@ const styles = StyleSheet.create({
     paddingRight: RFValue(40),
     paddingVertical: RFValue(10),
     marginLeft: RFValue(10),
-    color: "#666666",
-    backgroundColor: "#D8D8D880",
+    color: "#808080",
+    backgroundColor: "#ECECEC",
     fontSize: RFValue(16),
     fontFamily: "Poppins",
     position: "relative",

@@ -21,6 +21,7 @@ import {
   Userlocation,
 } from "../components/Map/layers";
 import { CenterToUserButton, ProfileButton, Pano } from "../components/Map";
+import { MapilioBetaWatermark } from "../assets/svg/illustrations";
 
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
@@ -142,6 +143,9 @@ const AppMap = ({ navigation }) => {
           />
         )}
       </MapView>
+      <View style={appMapStyle.watermark}>
+      <MapilioBetaWatermark  />
+      </View>
       <CenterToUserButton
         handleSetCenter={handleSetCenter}
         setShowUser={setShowUser}

@@ -1,12 +1,11 @@
 import React from "react";
 import {Routes} from "./Routes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {RFValue} from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {cameraPermission} from "../helper/helper";
 import { Pressable, TouchableOpacity, View } from "react-native";
 import {navigatorStyle} from "../styles/navigatorStyle";
-import {CaptureText} from "../assets/svg/illustrations";
+import {CaptureIcon} from "../assets/svg/illustrations";
 import {useSelector} from "react-redux";
 import {
   CameraNavigator,
@@ -16,8 +15,6 @@ import {
   UploadNavigator
 } from "./partials";
 import Leaderboard from "../screens/Leaderboard";
-import {useTranslation} from "react-i18next";
-import {CustomTextBold} from "../highordercomponents";
 import {useNavigation} from "@react-navigation/native";
 import { TooltipWrapper } from "../components/Tooltip";
 import { tooltipContents } from "../util/consts/tooltip";
@@ -27,7 +24,6 @@ import { vibrate } from "../util/helpers";
 const Tab = createBottomTabNavigator();
 
 const CaptureTabBarButton = () => {
-  const {t} = useTranslation("tab");
   const navigation = useNavigation()
 
   const handlePress = () => cameraPermission(() => {
@@ -40,15 +36,7 @@ const CaptureTabBarButton = () => {
       <View style={navigatorStyle.captureButtonWrapperStyle}>
         <TooltipWrapper name="capture" content={tooltipContents.tabBar.capture}>
         <View style={navigatorStyle.captureButtonStyle}>
-          <CaptureText />
-
-          <CustomTextBold style={{
-            position: "absolute",
-            color: "#1ad971",
-            fontSize: RFValue(12),
-          }}>
-            {t("capture")}
-          </CustomTextBold>
+          <CaptureIcon />
         </View>
         </TooltipWrapper>
       </View>

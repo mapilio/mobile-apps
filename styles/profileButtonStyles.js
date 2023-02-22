@@ -11,7 +11,9 @@ export const profileButtonStyles = StyleSheet.create({
   },
   profileIcon: {
     width: RFValue(52),
-    backgroundColor: "#666666",
+    backgroundColor: "#C2C2C2",
+    borderColor: "#ECECEC",
+    borderWidth: RFValue(1),
     height: RFValue(52),
     alignItems: "center",
     justifyContent: "center",

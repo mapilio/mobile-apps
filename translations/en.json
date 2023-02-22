@@ -21,7 +21,8 @@
     "upload_detail": "Upload Detail",
     "sign_up": "Sign up",
     "sign_in": "Sign in",
-    "go_map": "Go Map"
+    "go_map": "Go Map",
+    "settings": "Settings"
   },
   "search": {
     "search": "Search",
@@ -201,6 +202,7 @@
     "no_address": "No address",
     "point": "~<0>{{count}}</0>pts",
     "clear_selections": "Clear Selections",
+    "delete": "Delete",
     "accessible_world": {
       "title": "Accessible world",
       "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
@@ -247,7 +249,8 @@
     "login": "Log In",
     "forgot_password": "Forgot your password?",
     "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later."
+    "login_error": "There was an error with the server, please try again later.",
+    "or": "or"
   },
   "register": {
     "title": "Sign up to see what's on your map.",

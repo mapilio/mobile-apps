@@ -32,6 +32,7 @@ function App() {
     "Poppins": require("./assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
   });
 
   const {generalReducer: {language}} = store.getState()

@@ -3,13 +3,13 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 export const loginStyles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: '#130C47',
+    backgroundColor: '#FFFFFF',
     shadowOpacity: 0,
   },
   container: {
     flex: 1,
     paddingHorizontal: RFValue(28),
-    backgroundColor: "#130C47",
+    backgroundColor: "#FFFFFF",
     paddingBottom: RFValue(50)
   },
   logo: {
@@ -21,38 +21,41 @@ export const loginStyles = StyleSheet.create({
   primaryText: {
     fontSize: RFValue(26),
     lineHeight: RFValue(39),
-    color: "#FFF",
+    color: "#191919",
+    fontFamily:"Poppins-SemiBold"
   },
   smallText: {
     color: "#CBD1D9",
     fontSize: RFValue(14),
   },
   headerText: {
-    color: "#FFFFFF",
+    color: "#191919",
     fontSize: RFValue(14),
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily:"Poppins"
   },
   secondaryText: {
     fontSize: RFValue(16),
     lineHeight: RFValue(24),
-    color: "#B9C0CF",
+    color: "#808080",
   },
   input: {
-    backgroundColor: "#FFF",
+    backgroundColor: "#ECECEC",
     borderRadius: RFValue(24),
     height: RFValue(44),
     paddingHorizontal: RFValue(21),
-    fontSize: RFValue(15)
+    fontSize: RFValue(15),
+    fontFamily:"Poppins-Light"
   },
   errorInput: {
     borderWidth: 1,
-    backgroundColor: '#FBEDEC',
-    borderColor: "#ed535a",
+    backgroundColor: '#EC4E2C1A',
+    borderColor: "#EC4E2C",
   },
   button: {
     marginTop: RFValue(10),
     borderRadius: RFValue(24),
-    backgroundColor: "#3F8BE9",
+    backgroundColor: "#0056F1",
     display: "flex",
     alignItems: "center",
     padding: RFValue(11),
@@ -72,8 +75,9 @@ export const loginStyles = StyleSheet.create({
   errorText: {
     textAlign: "right",
     fontSize: RFValue(10),
-    color: "#EC6A56",
-    paddingRight: RFValue(15)
+    color: "#EC4E2C",
+    paddingRight: RFValue(15),
+    fontFamily:"Poppins"
   },
   formGroup: {
     marginBottom: RFValue(14),
@@ -92,18 +96,18 @@ export const loginStyles = StyleSheet.create({
   },
   privacyText: {
     textAlign: "center",
-    color: "#fff",
+    color: "##808080",
     fontSize: RFValue(10),
     marginBottom: RFValue(25),
     paddingBottom: RFValue(10),
     fontFamily:"Poppins"
   },
   forgotPassword: {
-    color: "#fff",
+    color: "#191919",
     fontSize: RFValue(12),
     paddingVertical: RFValue(5),
     paddingHorizontal: RFValue(10),
-    fontFamily:"Poppins"
+    fontFamily:"Poppins-Medium"
   }, 
   passwordIcon: {
     position: "absolute",
@@ -136,7 +140,7 @@ export const socialLoginStyles = StyleSheet.create({
   },
   bottomText: {
     paddingHorizontal: 15,
-    color: "#B9C0CF",
+    color: "#808080",
   },
   googleButton: {
     padding: Dimensions.get("window").height > 1100 ? 20 : 10,
@@ -145,11 +149,12 @@ export const socialLoginStyles = StyleSheet.create({
     backgroundColor: "#FFF",
     justifyContent: "center",
     alignItems: "center",
+    borderColor: "black",
+    borderWidth: 1,
     width: 50,
     height: 50,
   },
   appleButton: {
-    color: "#657488",
     borderRadius: 20,
     marginRight: 6,
     justifyContent: "center",
@@ -157,13 +162,14 @@ export const socialLoginStyles = StyleSheet.create({
     height: 50,
   },
   facebookButton: {
-    backgroundColor: "#fff",
     padding: 10,
     borderRadius: 1000,
     marginRight: 20,
     marginLeft: Platform.OS === "android" ? 0 : 20,
     alignItems: "center",
     justifyContent: "center",
+    borderColor: "black",
+    borderWidth: 1,
     width: 50,
     height: 50,
   },

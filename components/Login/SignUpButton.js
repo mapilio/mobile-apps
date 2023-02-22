@@ -18,7 +18,7 @@ const SignUpButton = ({navigation}) => {
 
 const styles = StyleSheet.create({
   text: {
-    color: '#D8D8D8',
+    color: '#808080',
     marginRight: RFValue(28),
     fontSize: RFValue(14.5),
     marginTop: RFValue(10)

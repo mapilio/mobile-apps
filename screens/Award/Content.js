@@ -8,7 +8,7 @@ import {
 import Lottie from "lottie-react-native";
 import { Fragment } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
-import { Button } from "../../components";
+import { Button, FocusAwareStatusBar } from "../../components";
 import { Trans, useTranslation } from "react-i18next";
 import { CustomTextBold } from "../../highordercomponents";
 import { useNavigation } from "@react-navigation/native";
@@ -46,6 +46,7 @@ const Content = () => {
       fontFamily: "Poppins",
       textAlign: "center",
       marginBottom: RFValue(24),
+      color:"#191919"
     },
     confetti: {
       position: "absolute",
@@ -65,13 +66,13 @@ const Content = () => {
       fontSize: RFValue(24),
       lineHeight: RFValue(36),
       textAlign: "center",
-      color: "#130C47",
+      color: "#191919",
       paddingTop: RFValue(18),
       paddingHorizontal: RFValue(25),
       marginBottom: RFValue(10),
     },
     title: {
-      color: "#130C47",
+      color: "#191919",
       fontSize: RFValue(20),
       fontFamily: "Poppins-SemiBold",
       marginBottom: RFValue(10),
@@ -81,13 +82,14 @@ const Content = () => {
       marginVertical: RFValue(20),
       marginLeft: "auto",
       marginRight: "auto",
+      backgroundColor:"#0056F1"
     },
     description: {
-      color: "#666666",
+      color: "#808080",
       fontFamily: "Poppins",
     },
     date: {
-      color: "#130C47",
+      color: "#191919",
       fontFamily: "Poppins-Medium",
       textDecorationLine: "underline",
     },
@@ -109,24 +111,24 @@ const Content = () => {
       text: {
         fontFamily: "Poppins-SemiBold",
         fontSize: RFValue(14),
-        color: "#130C47",
+        color: "#191919",
       },
     },
     content: {
-      color: "#2D3748",
+      color: "#191919",
       fontFamily: "Poppins",
       fontSize: RFValue(12),
 
       title: {
         fontFamily: "Poppins-SemiBold",
-        color: "#130C47",
+        color: "#191919",
         fontSize: RFValue(16),
       },
     },
     finalContent: {
       title: {
         fontFamily: "Poppins-SemiBold",
-        color: "#130C47",
+        color: "#191919",
         fontSize: RFValue(16),
         textAlign: "center",
         marginBottom: RFValue(10),
@@ -134,7 +136,7 @@ const Content = () => {
       },
       description: {
         fontFamily: "Poppins",
-        color: "#666666",
+        color: "#191919",
         fontSize: RFValue(12),
         textAlign: "center",
       },
@@ -155,6 +157,7 @@ const Content = () => {
 
   return (
     <Fragment>
+      <FocusAwareStatusBar barStyle="dark-content" />
       <Lottie
         source={require("../../assets/animations/award.json")}
         style={styles.confetti}

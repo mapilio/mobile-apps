@@ -16,7 +16,7 @@ export const appMapStyle = StyleSheet.create({
   searchIcon: {
     backgroundColor: "#FFFFFF",
     padding: RFValue(8),
-    width: RFValue(68),
+    width: RFValue(66),
     height: RFValue(36),
     alignItems: "center",
     justifyContent: "center",
@@ -34,6 +34,13 @@ export const appMapStyle = StyleSheet.create({
     justifyContent: "center",
     borderRadius: RFValue(30),
     ...globalStyles.shadow,
+  },
+  watermark:{
+    position:"absolute",
+    bottom:RFValue(10),
+    left:RFValue(10),
+    zIndex:1,
+    resizeMode:"contain"
   },
   minimizePano: {
     position: "absolute",

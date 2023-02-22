@@ -22,19 +22,19 @@ export default StyleSheet.create({
   noFeedTitle: {
     fontFamily: "Poppins-Medium",
     fontSize: RFValue(16),
-    color: "#130C47",
+    color: "#191919",
     textAlign: "center",
     paddingTop: RFValue(20)
   },
   noFeedDescription: {
     fontFamily: "Poppins",
     fontSize: RFValue(14),
-    color: "#666666",
+    color: "#808080",
     marginVertical: RFValue(10),
     textAlign: "center"
   },
   noFeedButton:{
-    backgroundColor: "#3F8BE9",
+    backgroundColor: "#0056F1",
     marginLeft: "auto",
     marginRight: "auto",
     marginVertical: RFValue(20),

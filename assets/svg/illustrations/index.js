@@ -74,3 +74,4 @@ export {default as PointIcon} from "./PointIcon";
 export {default as TimeIcon} from "./TimeIcon";
 export {default as AwardCompanies} from "./AwardCompanies";
 export {default as SadWorld} from "./SadWorld";
+export {default as MapilioBetaWatermark} from "./MapilioBetaWatermark";

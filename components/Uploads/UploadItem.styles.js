@@ -30,7 +30,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between'
   },
   address: {
-    color: '#130C47',
+    color: '#191919',
     fontSize: RFValue(12),
     fontFamily: "Poppins-Medium",
   },
@@ -48,13 +48,13 @@ export default StyleSheet.create({
     zIndex: 10,
   },
   date: {
-    color: '#666666',
+    color: '#808080',
     fontSize: RFValue(10),
     fontFamily: 'Poppins',
     marginTop: 'auto'
   },
   point: {
-    color: '#130C47',
+    color: '#191919',
     fontFamily: 'Poppins-Medium',
     fontSize: RFValue(12),
   },

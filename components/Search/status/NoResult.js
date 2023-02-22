@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Poppins-Medium",
     fontSize: RFValue(16),
-    color: "#130C47",
+    color: "#191919",
     marginTop: RFValue(10),
   },
   description: {
     fontFamily: "Poppins",
     fontSize: RFValue(14),
-    color: "#130C47",
+    color: "#808080",
   },
 });
 

@@ -25,7 +25,7 @@ const Next = ({ activeStep, dataLength = 0 }) => {
 
   return (
     <TouchableOpacity onPress={pressHandle}>
-      <CustomText style={{ fontSize: RFValue(17), color: "#4A4A4A", paddingRight:RFValue(35) }}>
+      <CustomText style={{ fontSize: RFValue(17), color: "#191919", paddingRight:RFValue(35) }}>
         {activeStep === dataLength - 1 ? t("start") : t("next")}
       </CustomText>
     </TouchableOpacity>

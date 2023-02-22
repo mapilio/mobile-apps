@@ -30,13 +30,13 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   deleteModalTitle:{
-    color: '#130C47',
+    color: '#191919',
     fontSize: RFValue(18),
     fontFamily: 'Poppins-SemiBold',
     marginVertical: RFValue(5),
   },
   deleteModalDescription: {
-    color: '#666666',
+    color: '#808080',
     fontSize: RFValue(12),
     fontFamily: 'Poppins',
   },

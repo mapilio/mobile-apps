@@ -1,5 +1,5 @@
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { CustomText } from "../../../highordercomponents";
+import { CustomText, CustomTextLight } from "../../../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,7 @@ const Skip = () => {
   return (
     <View style={{...styles.container, top}}>
       <TouchableOpacity onPress={onPress}>
-        <CustomText style={styles.text}>{t("skip")}</CustomText>
+        <CustomTextLight style={styles.text}>{t("skip")}</CustomTextLight>
       </TouchableOpacity>
     </View>
   );
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "right",
     fontSize: RFValue(18),
-    color: "#666666",
+    color: "#808080",
   },
 });
 
