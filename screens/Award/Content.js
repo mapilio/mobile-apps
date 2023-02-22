@@ -1,14 +1,20 @@
-import {Image,  StyleSheet, Text, View} from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import Lottie from "lottie-react-native";
-import {Fragment} from "react";
-import {RFValue} from "react-native-responsive-fontsize";
-import {Button} from "../../components";
-import {Trans, useTranslation} from "react-i18next";
-import {CustomTextBold} from "../../highordercomponents";
-import {useNavigation} from "@react-navigation/native";
-import {Routes} from "../../navigator/Routes";
+import { Fragment } from "react";
+import { RFValue } from "react-native-responsive-fontsize";
+import { Button } from "../../components";
+import { Trans, useTranslation } from "react-i18next";
+import { CustomTextBold } from "../../highordercomponents";
+import { useNavigation } from "@react-navigation/native";
+import { Routes } from "../../navigator/Routes";
 import LinearGradient from "react-native-linear-gradient";
-import {AwardCompanies} from "../../assets/svg/illustrations";
+import { AwardCompanies } from "../../assets/svg/illustrations";
 
 const Content = () => {
   const awards = [
@@ -26,6 +32,126 @@ const Content = () => {
   const { t } = useTranslation("award");
   const navigation = useNavigation();
   const pressHandler = () => navigation.navigate(Routes.cameraTab);
+
+  const { width, height } = useWindowDimensions();
+
+  const styles = StyleSheet.create({
+    bold: {
+      fontFamily: "Poppins-SemiBold",
+    },
+    fs30: {
+      fontSize: RFValue(30),
+    },
+    slogan: {
+      fontFamily: "Poppins",
+      textAlign: "center",
+      marginBottom: RFValue(24),
+    },
+    confetti: {
+      position: "absolute",
+      zIndex: -1,
+      height: height * 0.4,
+      width: width,
+    },
+    awardImage: {
+      width: width,
+      height: height * 0.35,
+      zIndex: -2,
+      alignItems: "center",
+      resizeMode: "contain",
+    },
+    summary: {
+      fontFamily: "Poppins-SemiBold",
+      fontSize: RFValue(24),
+      lineHeight: RFValue(36),
+      textAlign: "center",
+      color: "#130C47",
+      paddingTop: RFValue(18),
+      paddingHorizontal: RFValue(25),
+      marginBottom: RFValue(10),
+    },
+    title: {
+      color: "#130C47",
+      fontSize: RFValue(20),
+      fontFamily: "Poppins-SemiBold",
+      marginBottom: RFValue(10),
+    },
+    button: {
+      width: RFValue(223),
+      marginVertical: RFValue(20),
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
+    description: {
+      color: "#666666",
+      fontFamily: "Poppins",
+    },
+    date: {
+      color: "#130C47",
+      fontFamily: "Poppins-Medium",
+      textDecorationLine: "underline",
+    },
+    awardList: {
+      flexDirection: "column",
+      borderWidth: 1,
+      borderColor: "#E5E5E5",
+      borderRadius: RFValue(20),
+      padding: RFValue(10),
+      marginVertical: RFValue(20),
+      marginHorizontal: RFValue(20),
+    },
+    awardItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginVertical: RFValue(5),
+      marginHorizontal: RFValue(15),
+
+      text: {
+        fontFamily: "Poppins-SemiBold",
+        fontSize: RFValue(14),
+        color: "#130C47",
+      },
+    },
+    content: {
+      color: "#2D3748",
+      fontFamily: "Poppins",
+      fontSize: RFValue(12),
+
+      title: {
+        fontFamily: "Poppins-SemiBold",
+        color: "#130C47",
+        fontSize: RFValue(16),
+      },
+    },
+    finalContent: {
+      title: {
+        fontFamily: "Poppins-SemiBold",
+        color: "#130C47",
+        fontSize: RFValue(16),
+        textAlign: "center",
+        marginBottom: RFValue(10),
+        marginTop: RFValue(10),
+      },
+      description: {
+        fontFamily: "Poppins",
+        color: "#666666",
+        fontSize: RFValue(12),
+        textAlign: "center",
+      },
+    },
+    bottomContent: {
+      transform: [{ scale: 1.3 }, { translateX: 16 }],
+      paddingTop: RFValue(10),
+
+      gradient: {
+        position: "absolute",
+        flex: 1,
+        width: "100%",
+        height: "100%",
+        opacity: 0.8,
+      },
+    },
+  });
 
   return (
     <Fragment>
@@ -114,7 +240,7 @@ const Content = () => {
         </View>
 
         <View style={styles.bottomContent}>
-          <AwardCompanies width={"100%"} height={"75%"} />
+        <AwardCompanies width={width} height={(width * .75)} />
 
           <LinearGradient
             colors={[
@@ -135,121 +261,4 @@ const Content = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  bold: {
-    fontFamily: "Poppins-SemiBold",
-  },
-  fs30: {
-    fontSize: RFValue(30),
-  },
-  slogan: {
-    fontFamily: "Poppins",
-    textAlign: "center",
-    marginBottom: RFValue(24),
-  },
-  confetti: {
-    position: "absolute",
-    zIndex: -1,
-    height: "40%",
-    width: "100%",
-  },
-  awardImage: {
-    width: "100%",
-    height: "35%",
-    zIndex: -2,
-    alignItems: "center",
-    resizeMode: "contain",
-  },
-  summary: {
-    fontFamily: "Poppins-SemiBold",
-    fontSize: RFValue(24),
-    lineHeight: RFValue(36),
-    textAlign: "center",
-    color: "#130C47",
-    paddingTop: RFValue(18),
-    paddingHorizontal: RFValue(25),
-    marginBottom: RFValue(10),
-  },
-  title: {
-    color: "#130C47",
-    fontSize: RFValue(20),
-    fontFamily: "Poppins-SemiBold",
-    marginBottom: RFValue(10),
-  },
-  button: {
-    width: RFValue(223),
-    marginVertical: RFValue(20),
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-  description: {
-    color: "#666666",
-    fontFamily: "Poppins",
-  },
-  date: {
-    color: "#130C47",
-    fontFamily: "Poppins-Medium",
-    textDecorationLine: "underline",
-  },
-  awardList: {
-    flexDirection: "column",
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
-    borderRadius: RFValue(20),
-    padding: RFValue(10),
-    marginVertical: RFValue(20),
-    marginHorizontal: RFValue(20),
-  },
-  awardItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: RFValue(5),
-    marginHorizontal: RFValue(15),
-
-    text: {
-      fontFamily: "Poppins-SemiBold",
-      fontSize: RFValue(14),
-      color: "#130C47",
-    },
-  },
-  content: {
-    color: "#2D3748",
-    fontFamily: "Poppins",
-    fontSize: RFValue(12),
-
-    title: {
-      fontFamily: "Poppins-SemiBold",
-      color: "#130C47",
-      fontSize: RFValue(16),
-    },
-  },
-  finalContent: {
-    title: {
-      fontFamily: "Poppins-SemiBold",
-      color: "#130C47",
-      fontSize: RFValue(16),
-      textAlign: "center",
-      marginBottom: RFValue(10),
-      marginTop: RFValue(10),
-    },
-    description: {
-      fontFamily: "Poppins",
-      color: "#666666",
-      fontSize: RFValue(12),
-      textAlign: "center",
-    },
-  },
-  bottomContent: {
-    transform: [{ scale: 1.3 }, { translateX: 16 }],
-    paddingTop: RFValue(10),
-
-    gradient: {
-      position: "absolute",
-      flex: 1,
-      width: "100%",
-      height: "100%",
-      opacity: 0.8,
-    },
-  },
-});
 export default Content;

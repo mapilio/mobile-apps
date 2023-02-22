@@ -18,7 +18,7 @@ const AwardModal = () => {
     }
   }, []);
 
-  const snapPoints = useMemo(() => ["80%"], []);
+  const snapPoints = useMemo(() => ["90%"], []);
 
   const renderBackdrop = useCallback(
     (props) => (
