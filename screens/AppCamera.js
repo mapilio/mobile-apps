@@ -72,7 +72,7 @@ const AppCamera = () => {
 
   const watchPosition = () => {
     return Geolocation.watchPosition(({coords, mocked}) => {
-      dispatch({type: UPDATE_MOCKED_STATUS, payload: !mocked})
+      dispatch({type: UPDATE_MOCKED_STATUS, payload: mocked})
       dispatch({type: SET_CAMERA_LOCATION, payload: coords})
       dispatch({type: UPDATE_GPS_ACCURACY, payload: coords.accuracy <= 20})
     }, (error) => {
