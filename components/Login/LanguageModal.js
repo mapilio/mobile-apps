@@ -13,7 +13,7 @@ const LanguageModal = () => {
   const {t} = useTranslation('login')
   const bottomSheetRef = useRef(null);
 
-  const snapPoints = useMemo(() => [ "75%"], []);
+  const snapPoints = useMemo(() => [ "25%"], []);
 
   const renderBackdrop = useCallback(
     (props) => <BottomSheetBackdrop {...props} opacity={0.6} appearsOnIndex={0} disappearsOnIndex={-1} />,

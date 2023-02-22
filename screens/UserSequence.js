@@ -9,7 +9,7 @@ import MapboxGL from "@rnmapbox/maps";
 import {useDispatch, useSelector} from "react-redux";
 import db from "../db";
 import {bbox, lineString} from "@turf/turf";
-import {BottomSheetModal} from "@gorhom/bottom-sheet";
+import BottomSheet from '@gorhom/bottom-sheet';
 import UserSequenceDetail from "./UserSequenceDetail";
 import {deleteAsync, documentDirectory} from "expo-file-system";
 import {Heading} from "../components/Map";
@@ -30,8 +30,6 @@ const UserSequence = ({navigation}) => {
 
   useEffect(() => {
     getData().catch((e) => toast.show(t('fetch_error'), {type: 'danger'}));
-
-    bottomSheetModalRef.current?.present();
   }, [])
 
   const GetContent = () => {
@@ -160,17 +158,16 @@ const UserSequence = ({navigation}) => {
         }
       </MapView>
 
-      <BottomSheetModal
+      <BottomSheet
         ref={bottomSheetModalRef}
         snapPoints={snapPoints}
         index={1}
-        onDismiss={() => bottomSheetModalRef.current?.present()}
         handleIndicatorStyle={{...styles.indicatorStyle, backgroundColor: imageDetail ? "#FFF" : "#D8D8D8"}}
         handleStyle={styles.handleStyle}
         style={{backgroundColor: 'transparent'}}
       >
         <GetContent/>
-      </BottomSheetModal>
+      </BottomSheet>
     </View>
   );
 };
