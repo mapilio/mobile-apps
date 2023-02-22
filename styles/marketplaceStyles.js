@@ -35,9 +35,9 @@ export const marketplaceStyles = StyleSheet.create({
     zIndex: 10
   },
   title: {
-    color: "#130C47",
-    fontWeight: "500",
-    fontSize: RFValue(20),
+    color: "#191919",
+    fontFamily: "Poppins-Medium",
+    fontSize: RFValue(18),
     marginLeft: RFValue(5),
     marginRight: RFValue(10)
   },
@@ -57,7 +57,7 @@ export const marketplaceItemStyles = StyleSheet.create({
     marginBottom: RFValue(5),
   },
   owner: {
-    color: "#130C47",
+    color: "#191919",
     fontSize: RFValue(14),
   },
   job: {
@@ -72,46 +72,46 @@ export const marketplaceItemStyles = StyleSheet.create({
     marginBottom: RFValue(15),
   },
   description: {
-    color: "#666666",
+    color: "#808080",
     fontSize: RFValue(14),
     marginBottom: RFValue(5),
   },
   equipmentInfo: {
-    color: "#666666",
+    color: "#808080",
     fontSize: RFValue(14),
     alignItems: "center",
     justifyContent: "center"
   },
   equipment: {
-    color: "#130C47",
+    color: "#191919",
     fontSize: RFValue(14),
   },
 });
 
 export const marketplaceDetailStyles = StyleSheet.create({
   marketplace_name: {
-    color: "#D8D8D8",
+    color: "#C2C2C2",
     fontSize: RFValue(14),
   },
   owner: {
-    color: "#130C47",
+    color: "#191919",
     fontSize: RFValue(14),
     paddingVertical: RFValue(5)
   },
   description: {
-    color: "#666666",
+    color: "#808080",
     fontSize: RFValue(14),
   },
   equipmentInfo: {
-    color: "#666666",
+    color: "#808080",
     fontSize: RFValue(13)
   },
   equipment: {
-    color: "#130C47",
+    color: "#191919",
     fontSize: RFValue(13)
   },
   button: {
-    backgroundColor: "#3F8BE9",
+    backgroundColor: "#0056F1",
     paddingVertical: RFValue(10),
     marginTop: RFValue(24),
     borderRadius: RFValue(24),

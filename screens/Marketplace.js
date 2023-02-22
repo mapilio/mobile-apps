@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {TouchableOpacity, View} from "react-native";
+import {TouchableOpacity, View, StyleSheet} from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import {RFValue} from "react-native-responsive-fontsize";
 import {List, MarketplaceMap} from "../components/Marketplace";
@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { MARKETPLACE_DATA } from "../store/actionsName";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {CustomText} from "../highordercomponents";
+import { CustomTextMedium} from "../highordercomponents";
 import {Document} from "../assets/svg/illustrations";
 import Geolocation from "@react-native-community/geolocation";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
@@ -64,23 +64,10 @@ const Marketplace = ({ navigation }) => {
                            translucent={true} />
       <TouchableOpacity
         onPress={() => slidePanel.current?.show(RFValue(400))}
-        style={{
-          display:"flex",
-          backgroundColor: '#130C47',
-          marginTop: "auto",
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginBottom: RFValue(24),
-          height: RFValue(36),
-          alignItems: "center",
-          justifyContent: "center",
-          paddingHorizontal: RFValue(18),
-          borderRadius: RFValue(18),
-          flexDirection: "row",
-        }}>
+        style={styles.button}>
         <Document/>
         <View style={{width: RFValue(3)}}/>
-        <CustomText style={{color: '#FFF'}}>{t("market_list")}</CustomText>
+        <CustomTextMedium style={{color: '#FFF', fontSize:RFValue(12)}}>{t("market_list")}</CustomTextMedium>
       </TouchableOpacity>
 
       <SlidingUpPanel
@@ -100,5 +87,22 @@ const Marketplace = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    display:"flex",
+    backgroundColor: '#191919',
+    marginTop: "auto",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: RFValue(24),
+    height: RFValue(36),
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: RFValue(18),
+    borderRadius: RFValue(18),
+    flexDirection: "row",
+  }
+});
 
 export default Marketplace;

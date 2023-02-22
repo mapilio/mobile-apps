@@ -126,11 +126,11 @@ const styles = StyleSheet.create({
     paddingVertical: RFValue(5),
   },
   address: {
-    color: "#130C47",
+    color: "#191919",
     fontSize: RFValue(14),
   },
   country: {
-    color: "#666666",
+    color: "#808080",
     fontSize: RFValue(12),
   },
   history: {
@@ -143,17 +143,17 @@ const styles = StyleSheet.create({
     },
     title: {
       fontFamily: "Poppins-Medium",
-      color: "#666666",
+      color: "#808080",
       fontSize: RFValue(14),
     },
     clearButton: {
-      backgroundColor: "#D8D8D8",
+      backgroundColor: "#ECECEC",
       padding: RFValue(4),
       borderRadius: RFPercentage(5),
       paddingHorizontal: RFValue(10),
     },
     clearText: {
-      color: "#666666",
+      color: "#808080",
       fontFamily: "Poppins",
       fontSize: RFValue(11),
     },
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
       title: {
         fontFamily: "Poppins-Medium",
         fontSize: RFValue(14),
-        color: "#130C47",
+        color: "#191919",
       },
       icon: {
         alignItems: "center",

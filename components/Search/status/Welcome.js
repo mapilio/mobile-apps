@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { SearchWelcome } from "../../../assets/svg/illustrations";
 import { useTranslation } from "react-i18next";
+import { CustomText } from "../../../highordercomponents";
 
 const Welcome = () => {
   const { t } = useTranslation("search");
@@ -9,9 +10,9 @@ const Welcome = () => {
   return (
     <View style={styles.wrapper}>
         <SearchWelcome width={RFValue(200)} height={RFValue(200)} />
-      <Text style={styles.text}>
+      <CustomText style={styles.text}>
         {t("empty_search")}
-     </Text>
+     </CustomText>
     </View>
   );
 };
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: "#666666",
+    color: "#808080",
     fontSize: RFValue(14),
     justifyContent: "center",
     marginTop: RFValue(10),
