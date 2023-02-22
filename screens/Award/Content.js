@@ -8,7 +8,7 @@ import {
 import Lottie from "lottie-react-native";
 import { Fragment } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
-import { Button } from "../../components";
+import { Button, FocusAwareStatusBar } from "../../components";
 import { Trans, useTranslation } from "react-i18next";
 import { CustomTextBold } from "../../highordercomponents";
 import { useNavigation } from "@react-navigation/native";
@@ -157,6 +157,7 @@ const Content = () => {
 
   return (
     <Fragment>
+      <FocusAwareStatusBar barStyle="dark-content" />
       <Lottie
         source={require("../../assets/animations/award.json")}
         style={styles.confetti}
