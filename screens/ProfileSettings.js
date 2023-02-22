@@ -95,11 +95,11 @@ const styles = StyleSheet.create({
     paddingVertical: RFValue(14),
   },
   listText: {
-    color: '#666666',
+    color: '#808080',
     fontSize: RFValue(16),
   },
   signOut: {
-    color: '#3F8BE9',
+    color: '#0056F1',
     fontSize: RFValue(14),
     paddingVertical: RFValue(14),
   },

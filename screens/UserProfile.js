@@ -24,10 +24,12 @@ const UserProfile = () => {
       <FocusAwareStatusBar barStyle="dark-content"/>
       <UserInfos />
 
-      <Tab.Navigator initialRouteName={'Feed'} sceneContainerStyle={{backgroundColor: '#FFF'}}>
+      <Tab.Navigator initialRouteName={'Feed'} sceneContainerStyle={{backgroundColor: '#FFF'}}
+      >
         <Tab.Screen name={'Feed'} component={FeedList} options={{
-          tabBarIndicatorStyle: {height: RFValue(2)},
+          tabBarIndicatorStyle: {height: RFValue(2), color:"#0056F1"},
           tabBarItemStyle: {width: (width / 2) - RFValue(20)},
+          tabBarLabelStyle: {fontSize: RFValue(14), fontFamily:"Poppins-SemiBold"},
         }}
         />
       </Tab.Navigator>

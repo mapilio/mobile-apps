@@ -15,6 +15,7 @@ import {ProfileNavigatorRight, ProfileSettingsNavigatorLeft, SequenceNavigatorLe
 import {useTranslation} from "react-i18next";
 import {BackButton} from "../../components";
 import DeleteAccount from "../../screens/Profile/DeleteAccount";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const Stack = createStackNavigator();
 
@@ -34,12 +35,12 @@ const ProfileNavigator = ({navigation}) => {
         <Stack.Screen name={Routes.profile} component={UserProfile} options={{
           headerLeft: () => <BackButton title={"go_map"}/>,
           headerRight: () => <ProfileNavigatorRight/>,
-          title: t("profile"),
+          title: t("profile")
         }}/>
 
         <Stack.Screen name={Routes.profileSettings} component={ProfileSettings} options={{
           headerLeft: () => <ProfileSettingsNavigatorLeft/>,
-          title: false
+          title: t("settings")
         }}/>
 
         <Stack.Screen name={Routes.profileSequence} component={ProfileSequence} options={{

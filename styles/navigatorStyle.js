@@ -12,10 +12,10 @@ export const navigatorStyle = {
     height: RFValue(50),
     backgroundColor: "#FFFFFF",
   },
-  headerTitleStyle: {
-    fontSize: RFValue(14),
-    color: '#333333',
-    fontFamily: "Poppins-SemiBold",
+  headerTitleStyle:{
+    color: "#191919",
+    fontFamily:"Poppins-SemiBold",
+    fontSize:RFValue(14)
   },
   cardStyle: {
     backgroundColor: '#FFF',
