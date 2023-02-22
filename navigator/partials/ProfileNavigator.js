@@ -15,7 +15,6 @@ import {ProfileNavigatorRight, ProfileSettingsNavigatorLeft, SequenceNavigatorLe
 import {useTranslation} from "react-i18next";
 import {BackButton} from "../../components";
 import DeleteAccount from "../../screens/Profile/DeleteAccount";
-import { RFValue } from "react-native-responsive-fontsize";
 
 const Stack = createStackNavigator();
 
