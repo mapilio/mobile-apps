@@ -10,7 +10,7 @@ import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {CustomText} from "../highordercomponents";
 import {Document} from "../assets/svg/illustrations";
-import Geolocation from "react-native-geolocation-service";
+import Geolocation from "@react-native-community/geolocation";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import { useSelector } from "react-redux";

@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {BackHandler, Platform, StatusBar, StyleSheet, View} from "react-native";
+import {BackHandler, StatusBar, StyleSheet} from "react-native";
 import {Camera, CameraSidebar} from "../components";
 import { RFValue } from "react-native-responsive-fontsize";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
 import * as Brightness from "expo-brightness";
-import Geolocation from "react-native-geolocation-service";
+import Geolocation from "@react-native-community/geolocation";
 import {useDispatch, useSelector} from "react-redux";
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
@@ -35,6 +35,12 @@ const AppCamera = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
+    Geolocation.setRNConfiguration({
+      skipPermissionRequests: false,
+      authorizationLevel: "whenInUse",
+      locationProvider: "playServices",
+    })
+
     if (autoCaptureStart) {
       setIsStarted(true)
     }
@@ -66,20 +72,17 @@ const AppCamera = () => {
 
   const watchPosition = () => {
     return Geolocation.watchPosition(({coords, mocked}) => {
-      dispatch({type: UPDATE_MOCKED_STATUS, payload: mocked})
+      dispatch({type: UPDATE_MOCKED_STATUS, payload: !mocked})
       dispatch({type: SET_CAMERA_LOCATION, payload: coords})
       dispatch({type: UPDATE_GPS_ACCURACY, payload: coords.accuracy <= 20})
     }, (error) => {
       toast.show(`${error.message}`, {type: "error"})
     }, {
-      distanceFilter: distanceBetween,
+      timeout: 0,
       enableHighAccuracy: true,
-      accuracy: Platform.OS === 'android' ? 'high' : 'bestForNavigation',
-      timeout: 5000,
-      maximumAge: 10000,
-      forceLocationManager: true,
-      forceRequestLocation: true,
-      showsBackgroundLocationIndicator: true,
+      distanceFilter: 5,
+      interval: 0,
+      fastestInterval: 0,
     })
   }
 

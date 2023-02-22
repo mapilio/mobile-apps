@@ -5,7 +5,7 @@ import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
 import Config from "react-native-config";
-import Geolocation from "react-native-geolocation-service";
+import Geolocation from "@react-native-community/geolocation";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
