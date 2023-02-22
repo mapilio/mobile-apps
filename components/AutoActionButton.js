@@ -9,14 +9,15 @@ import {
 	UPDATE_AUTOCAPTURE_START,
 	UPDATE_IMAGE_SIZE,
 	UPDATE_PHOTO_AMOUNT,
-	UPDATE_UUID,
-	UPLOAD_DATA
+	UPDATE_UUID
 } from "../store/actionsName";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {Accelerometer, Gyroscope} from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
+import db from "../db";
+import {setNewUUID} from "../helper/camera";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -115,19 +116,8 @@ const AutoActionButton = ({navigation}) => {
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
-				toast.show("Your new sequence has been started.", {type: "info"})
 				setTimeout(() => {
-					if (photoAmount >= 5) {
-						Database.query(
-							"SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC",
-							(_, result) => {
-								dispatch({type: UPLOAD_DATA, payload: result.rows._array});
-							}
-						);
-					} else {
-						Database.deleteRow(currentUUID);
-					}
-					dispatch({type: UPDATE_PHOTO_AMOUNT, payload: 0});
+					db.getGroupByWithGroupID().then(() => setNewUUID())
 				}, 1000);
 			} else {
 				appState.current = nextAppState;
