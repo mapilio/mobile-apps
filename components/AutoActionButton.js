@@ -116,7 +116,7 @@ const AutoActionButton = ({navigation}) => {
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
-				setTimeout(async () => {
+				setTimeout(() => {
 					db.getGroupByWithGroupID().then(() => setNewUUID())
 				}, 1000);
 			} else {
