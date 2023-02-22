@@ -23,7 +23,7 @@ export const leaderStyles = StyleSheet.create({
     alignItems: "center",
   },
   howToScoreText: {
-    color: "#3F8BE9",
+    color: "#0056F1",
     fontSize: RFValue(10),
     fontFamily: "Poppins-Medium",
     textAlign: "right",
@@ -47,7 +47,7 @@ export const leaderStyles = StyleSheet.create({
       fontSize: RFValue(10),
       fontFamily: "Poppins-Medium",
       lineHeight: RFValue(13),
-      color: "#333333",
+      color: "#191919",
       zIndex: 1,
       transform: [
         {translate: [RFValue(23), RFValue(4)]}

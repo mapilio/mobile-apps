@@ -1,7 +1,7 @@
 import {ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Trans, useTranslation} from "react-i18next";
 import React, {Fragment, useEffect, useRef, useState} from "react";
-import {RFValue} from "react-native-responsive-fontsize";
+import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import {MapView} from "../highordercomponents";
 import {Photos, TimeIcon} from "../assets/svg/illustrations";
 import {useSelector} from "react-redux";
@@ -162,7 +162,7 @@ const CaptureCompleted = () => {
       <View style={{marginTop: 'auto', marginBottom: bottom ? bottom : RFValue(30)}}>
         <Upload group_uuid={groupId} />
 
-        <TouchableOpacity onPress={skipHandler}>
+        <TouchableOpacity style={styles.skipButton} onPress={skipHandler}>
           <Text style={styles.skip}>{t("upload_later")}</Text>
         </TouchableOpacity>
       </View>
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: RFValue(20),
     fontFamily: 'Poppins-Medium',
-    color: '#130C47',
+    color: '#191919',
   },
   bold: {
     fontFamily: 'Poppins-SemiBold',
@@ -216,39 +216,34 @@ const styles = StyleSheet.create({
     text: {
       fontSize: RFValue(16),
       fontFamily: 'Poppins-Medium',
-      color: '#666666',
+      color: '#808080',
     },
 
     time: {
       flexDirection: 'row',
 
       text: {
-        color: '#D8D8D8',
+        color: '#C2C2C2',
         fontSize: RFValue(16),
         alignItems: 'center',
         paddingLeft: RFValue(3)
       }
     }
   },
-  uploadButton: {
-    backgroundColor: '#3F8BE9',
-    borderRadius: RFValue(24),
-    paddingVertical: RFValue(13),
-    marginTop: RFValue(20),
-    alignItems: 'center',
-
-    text: {
-      color: '#FFFFFF',
-      fontSize: RFValue(16),
-      fontFamily: 'Poppins',
-    }
+  skipButton:{
+    paddingHorizontal: RFValue(15),
+    borderRadius: RFPercentage(50),
+    marginBottom: RFValue(5),
   },
   skip: {
     textAlign: 'center',
-    marginTop: RFValue(20),
-    color: '#666666',
+    paddingVertical: RFValue(13),
+    color: '#191919',
     fontFamily: 'Poppins-Medium',
     fontSize: RFValue(14),
+    borderWidth: 1,
+    borderColor: '#C2C2C2',
+    borderRadius: RFValue(24),
   },
   line: {
     lineColor: "#1AD971",

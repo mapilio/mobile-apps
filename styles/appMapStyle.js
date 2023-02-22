@@ -35,6 +35,13 @@ export const appMapStyle = StyleSheet.create({
     borderRadius: RFValue(30),
     ...globalStyles.shadow,
   },
+  watermark:{
+    position:"absolute",
+    bottom:RFValue(10),
+    left:RFValue(10),
+    zIndex:1,
+    resizeMode:"contain"
+  },
   minimizePano: {
     position: "absolute",
     right: RFValue(15),

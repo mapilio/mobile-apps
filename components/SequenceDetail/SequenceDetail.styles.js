@@ -19,6 +19,7 @@ export default StyleSheet.create({
     fontSize: RFValue(16),
     fontFamily: "Poppins-SemiBold",
     marginLeft: RFValue(5),
+    color:"#191919"
   },
   button: {
     minWidth: RFValue(160),
@@ -31,7 +32,7 @@ export default StyleSheet.create({
   address: {
     fontSize: RFValue(15),
     fontFamily: "Poppins-SemiBold",
-    color: "#333333",
+    color: "#191919",
   },
   date: {
     fontSize: RFValue(13),

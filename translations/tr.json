@@ -202,6 +202,7 @@
     "no_address": "Adres bulunamadı",
     "clear_selections": "Clear Selections",
     "point": "~<0>{{count}}</0>puan ",
+    "delete": "Sil",
     "accessible_world": {
       "title": "Erişilebilir dünya",
       "description": "New York'un merkezinde veya Afrika'da bir köyde. Her yakalama ile haritalara katkıda bulunun ve insanlık için hayatı kolaylaştırın."
@@ -248,7 +249,8 @@
     "login": "Giriş yap",
     "forgot_password": "Parolanızı mı unuttunuz?",
     "languages": "Diller",
-    "login_error": "Giriş sırasında bir hata oluştu, lütfen tekrar deneyin."
+    "login_error": "Giriş sırasında bir hata oluştu, lütfen tekrar deneyin.",
+    "or": "ya da"
   },
   "register": {
     "title": "Haritanızda neler olduğunu görmek için kaydolun.",

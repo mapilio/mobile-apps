@@ -29,8 +29,8 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
             value={percentage(sentCount, totalImageCount)}
             rotation={270}
             valueSuffix={"%"}
-            progressValueColor={'#000'}
-            activeStrokeColor={'#3F8BE9'}
+            progressValueColor={'#191919'}
+            activeStrokeColor={'#0056F1'}
             circleBackgroundColor={'#FFF'}
             progressValueFontSize={RFValue(20)}
             valueSuffixStyle={{fontSize: RFValue(10), transform: [{translateY: RFValue(-5)}]}}
@@ -63,8 +63,8 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
           />
 
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: RFValue(10)}}>
-            <CustomTextBold style={{fontSize: RFValue(16)}}>{totalImageCount} {t("images")}</CustomTextBold>
-            <CustomText style={{fontSize: RFValue(16)}}> / {totalSize}MB</CustomText>
+            <CustomTextBold style={{fontSize: RFValue(16), color:"#191919"}}>{totalImageCount} {t("images")}</CustomTextBold>
+            <CustomText style={{fontSize: RFValue(16), color:"#191919"}}> / {totalSize}MB</CustomText>
           </View>
         </View>
       </View>

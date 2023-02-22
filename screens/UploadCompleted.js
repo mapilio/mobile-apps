@@ -42,10 +42,10 @@ const UploadCompleted = () => {
         </View>
 
         <View style={{alignItems: "center"}}>
-          <CustomTextBold style={{fontSize: RFValue(14)}}>
+          <CustomTextBold style={{fontSize: RFValue(14), color:"#191919"}}>
             {t("title")}
           </CustomTextBold>
-          <CustomText style={{textAlign: "center", marginTop: RFValue(10)}}>
+          <CustomText style={{textAlign: "center", marginTop: RFValue(10), color:"#808080"}}>
             {t("description")}
           </CustomText>
         </View>

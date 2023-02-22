@@ -174,7 +174,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
 
 const styles = StyleSheet.create({
   uploadButton: {
-    backgroundColor: '#3F8BE9',
+    backgroundColor: '#0056F1',
     padding: RFValue(15),
     margin: RFValue(15),
     marginBottom: RFValue(25),

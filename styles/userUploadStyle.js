@@ -72,13 +72,13 @@ export const userUploadModalStyles = StyleSheet.create({
     textAlign: "center",
     marginBottom: RFValue(10),
     fontSize: RFValue(20),
-    color: "#130C47",
+    color: "#191919",
   },
   subtitle: {
     textAlign: "center",
     paddingBottom: RFValue(20),
     fontSize: RFValue(14),
-    color: "#666666",
+    color: "#808080",
   },
   text: {
     color: "#FFF",
@@ -102,11 +102,11 @@ export const userUploadModalStyles = StyleSheet.create({
   },
   sequenceInfoText: {
     fontSize: RFValue(14),
-    color: '#666666'
+    color: '#808080'
   },
   sequenceInfoTextBold: {
     fontSize: RFValue(20),
-    color: '#130C47'
+    color: '#191919'
   },
   progressBar: {
     borderRadius: RFValue(4),
@@ -123,7 +123,7 @@ export const userUploadModalStyles = StyleSheet.create({
     paddingBottom: RFValue(80)
   },
   close: {
-    color: "#666666",
+    color: "#808080",
     fontSize: RFValue(16)
   },
   closeIcon: {
@@ -132,7 +132,7 @@ export const userUploadModalStyles = StyleSheet.create({
     borderRadius: RFValue(24),
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#D8D8D8",
+    backgroundColor: "#C2C2C2",
     marginTop: RFValue(10),
   }
 });
