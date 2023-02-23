@@ -11,13 +11,13 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    color: "#130C47",
+    color: "#191919",
     fontFamily: "Poppins-Medium",
     fontSize: RFValue(16),
     marginTop: RFValue(28),
   },
   description: {
-    color: "#666666",
+    color: "#808080",
     fontFamily: "Poppins",
     fontSize: RFValue(14),
     marginTop: RFValue(10),
