@@ -15,8 +15,9 @@ import {deleteAsync, documentDirectory} from "expo-file-system";
 import {Heading} from "../components/Map";
 import {setGeoJson} from "../helper/geojson";
 import {useTranslation} from "react-i18next";
-import {UPDATE_SELECTED_IMAGES} from "../store/actionsName";
+import {UPDATE_SELECTED_IMAGES, UPLOAD_DATA} from "../store/actionsName";
 import SequenceDetail from "../components/SequenceDetail";
+import {Routes} from "../navigator/Routes";
 
 const UserSequence = ({navigation}) => {
   const cameraRef = useRef();
@@ -29,7 +30,7 @@ const UserSequence = ({navigation}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getData().catch((e) => toast.show(t('fetch_error'), {type: 'danger'}));
+    getData()
   }, [])
 
   const GetContent = () => {
@@ -47,16 +48,23 @@ const UserSequence = ({navigation}) => {
   const snapPoints = useMemo(() => [...Array(9).keys()].map((e) => (e + 1) + '0%'), []);
 
   const getData = async () => {
-    const result = await db.getCaptures(activeSequence);
+    try {
+      const result = await db.getCaptures(activeSequence);
 
-    const coordinates = result.map(({location}) => [JSON.parse(location).longitude, JSON.parse(location).latitude]);
+      const coordinates = result.map(({location}) => [JSON.parse(location).longitude, JSON.parse(location).latitude]);
 
-    const point = setGeoJson(result, 'point');
-    const line = lineString(coordinates);
-    const bboxData = bbox(line);
+      const point = setGeoJson(result, 'point');
+      const line = lineString(coordinates);
+      const bboxData = bbox(line);
 
 
-    setMapGeoJson({line, point, bboxData, result});
+      setMapGeoJson({line, point, bboxData, result});
+    } catch {
+      db.getGroupByWithGroupID().then((data) => {
+        dispatch({type: UPLOAD_DATA, payload: data})
+        navigation.navigate(Routes.upload)
+      })
+    }
   }
 
   const goBack = () => {
@@ -93,12 +101,10 @@ const UserSequence = ({navigation}) => {
   const deleteImages = async (images) => {
     setImageDetail(undefined);
 
-    for (const image of images) {
-      await db.deleteById(image.id);
-      await deleteAsync(documentDirectory + image.path);
-    }
+    await db.deleteCapturesByIds(images)
 
     dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
+
     await getData();
   }
 
