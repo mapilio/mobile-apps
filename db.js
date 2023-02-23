@@ -289,8 +289,16 @@ class Database {
     return new Promise((resolve, reject) => {
       db.transaction((txn) => {
         txn.executeSql(
-          query, [], (_, results) => {
-            resolve(results.rows._array)
+          query, [], (_, {rows: {_array: results}}) => {
+
+            if (results.length < 5) {
+              this.deleteByGroupID(results[0].group_id, async () => {
+                await FileSystem.deleteAsync(FileSystem.documentDirectory + `${results[0].group_id}`)
+              })
+              reject('Group has less than 5 images')
+            }
+
+            resolve(results)
           },
           (error) => {
             reject(error)
@@ -411,8 +419,8 @@ class Database {
 
   /**
    * Delete captures by ids with fileSystem (delete files) and database (delete rows) (async) (promise)
-   * @param images {Array<string>} Array of image ids (uuid) (e.g. ['uuid1', 'uuid2'])
-   * @returns {Promise<unknown>}
+   * @param images {Array<{id: string, path: string}>} Array of images (id and path) to delete (e.g. [{id: '1', path: 'test.jpg'}]) (path is relative to documentDirectory)
+   * @returns {Promise} Promise with deleted rows (array) or error (object)
    */
   deleteCapturesByIds(images) {
     return new Promise((resolve, reject) => {
