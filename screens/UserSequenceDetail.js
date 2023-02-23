@@ -4,7 +4,6 @@ import React, {Fragment, useEffect, useState} from "react";
 import {RFValue} from "react-native-responsive-fontsize";
 import LinearGradient from "react-native-linear-gradient";
 import {dateConvert, fetchHandler} from "../helper/helper";
-import {useSelector} from "react-redux";
 import Config from "react-native-config";
 import db from "../db";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";

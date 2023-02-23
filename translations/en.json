@@ -276,11 +276,15 @@
   "leaderboard": {
     "title": "Leaderboard",
     "how_to_score": "How to \nscore?",
-    "description": "Top 50 community members helping grow the mapilio!",
+    "description": "Top 30 community members helping grow the Mapilio!",
     "users": "Users",
     "organizations": "Organizations",
     "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace"
+    "join_the_race": "join the\nrace",
+    "points": "Points",
+    "points_short": "Pt",
+    "roads": "Roads",
+    "photos": "Photos"
   },
   "upload_modal": {
     "title": "Lets Create More Up To\nDate Maps",

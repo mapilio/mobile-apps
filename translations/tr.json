@@ -235,7 +235,7 @@
     "fail": "Hata oluştu",
     "sequences": "Dizi",
     "photos": "Resim",
-    "roads": "Yollar",
+    "roads": "Yol",
     "uploaded_title": "Yüklediğiniz resimler",
     "uploaded_subtitle": "Burada yüklenen resimleri görebilirsiniz.",
     "image": "Resimler",
@@ -277,11 +277,15 @@
   "leaderboard": {
     "title": "Liderler",
     "how_to_score": "Nasıl \nkazanırım?",
-    "description": "Mapilio'nun büyümesine yardımcı olan en iyi 50 topluluk üyesi!",
+    "description": "Mapilio'nun büyümesine yardımcı olan en iyi 30 topluluk üyesi!",
     "users": "Kullanıcılar",
     "organizations": "Organizasyonlar",
     "fetch_error": "Skor Tablosu getirilirken bir sorun oluştu. Lütfen tekrar deneyin.",
-    "join_the_race": "yarışa\nkatıl"
+    "join_the_race": "yarışa\nkatıl",
+    "points": "Puan",
+    "points_short": "P",
+    "roads": "Yol",
+    "photos": "Resim"
   },
   "upload_modal": {
     "title": "Daha Güncel Haritalar Oluşturalım",

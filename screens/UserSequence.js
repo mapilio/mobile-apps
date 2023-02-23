@@ -17,6 +17,7 @@ import {setGeoJson} from "../helper/geojson";
 import {useTranslation} from "react-i18next";
 import {UPDATE_SELECTED_IMAGES} from "../store/actionsName";
 import SequenceDetail from "../components/SequenceDetail";
+import { FocusAwareStatusBar } from "../components";
 
 const UserSequence = ({navigation}) => {
   const cameraRef = useRef();
@@ -127,6 +128,8 @@ const UserSequence = ({navigation}) => {
       >
         <ArrowLeft />
       </TouchableOpacity>
+
+      <FocusAwareStatusBar barStyle="dark-content"/>
 
       <MapView style={{flex: 1}} pitchEnabled={false}>
         <MapboxGL.Camera
