@@ -76,7 +76,7 @@ const WelcomeWalkthrough = () => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <FocusAwareStatusBar
-        style="dark"
+        barStyle="dark-content"
         translucent={false}
         backgroundColor={"white"}
       />

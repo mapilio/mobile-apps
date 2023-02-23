@@ -89,12 +89,12 @@
     "first": {
       "title": "Take a shot",
       "subtitle": "At street level",
-      "description": "Capture images with your smartphone, action camera, or 360 camera."
+      "description": "Capture street-level imagery and contribute the map."
     },
     "second": {
       "title": "Upload Captures",
       "subtitle": "Contribute",
-      "description": "Upload the images you took to the mapilio system."
+      "description": "Upload your imagery to collect points and get high-position in leaderboard."
     },
     "third": {
       "title": "Earn gifts",
