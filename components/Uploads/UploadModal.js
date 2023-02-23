@@ -8,12 +8,14 @@ import {percentage} from "../../helper/upload";
 import {CloseIcon} from "../../assets/svg/illustrations";
 import React from "react";
 import {useTranslation} from "react-i18next";
+import FocusAwareStatusBar from "../FocusAwareStatusBar";
 
 const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, totalSize, handleStop}) => {
   const {t} = useTranslation("upload_modal");
 
   return (
     <Modal animationType="slide" transparent={false} visible={visible}>
+      <FocusAwareStatusBar barStyle="dark-content" />
       <View style={userUploadModalStyles.container}>
         <View style={userUploadModalStyles.header}>
           <CustomTextBold style={userUploadModalStyles.title}>
@@ -69,7 +71,7 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
         </View>
       </View>
       <View style={userUploadModalStyles.bottomBar}>
-        <CustomText style={userUploadModalStyles.close}>Stop Uploading</CustomText>
+        <CustomText style={userUploadModalStyles.close}>{t("stop_upload")}</CustomText>
         <Pressable
           onPress={handleStop}
           style={userUploadModalStyles.closeIcon}>

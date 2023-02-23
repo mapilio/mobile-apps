@@ -284,10 +284,11 @@
     "join_the_race": "yarışa\nkatıl"
   },
   "upload_modal": {
-    "title": "Birlikte Daha Güncel Haritalar Oluşturuyoruz",
-    "subtitle": "Bölgenizde en çok katkıda bulunan katılımcı olmak için daha fazla çekim yapabilir ve skor tablosunda rekabet edebilirsiniz.",
+    "title": "Daha Güncel Haritalar Oluşturalım",
+    "subtitle": "Bölgenizde olumlu bir etki yaratın, Güvenilir haritalamaya katkıda bulunun, Skor tablosunda üst sıralarda yerinizi alın",
     "sequences": "Dizi",
-    "images": "Resim"
+    "images": "Resim",
+    "stop_upload": "Yüklemeyi Durdur"
   },
   "no_internet": {
     "title": "İnternet bağlantınız yok",

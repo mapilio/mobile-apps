@@ -283,10 +283,11 @@
     "join_the_race": "join the\nrace"
   },
   "upload_modal": {
-    "title": "Together We Create More Up-To-Date Maps",
-    "subtitle": "You can shoot more and compete in the leaderboard to be the most contributing participant in your region.",
+    "title": "Lets Create More Up To\nDate Maps",
+    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
     "sequences": "Sequences",
-    "images": "Images"
+    "images": "Images",
+    "stop_upload": "Stop Upload"
   },
   "no_internet": {
     "title": "You do not have an internet connection",
