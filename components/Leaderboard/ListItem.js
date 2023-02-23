@@ -36,6 +36,8 @@ const ListItem = ({
     }).start();
   }, [expanded, height]);
 
+  console.log(item)
+
   return (
     <Animated.View
       style={{
@@ -91,7 +93,7 @@ const ListItem = ({
               adjustFontSize={false}
             >
               {" "}
-              {item.total_images}
+              {item.total_images ? item.total_images : 0}
             </CustomTextBold>
           </View>
 
@@ -108,7 +110,7 @@ const ListItem = ({
               adjustFontSize={false}
             >
               {" "}
-              {item.total_length}km
+              {item.total_length ? item.total_length : 0} km
             </CustomTextBold>
           </View>
         </View>
