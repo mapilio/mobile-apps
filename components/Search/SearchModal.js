@@ -19,7 +19,7 @@ const SearchModal = ({open, closeHandler, onClick}) => {
 
   return (
     <Modal visible={open} animationType={"slide"}>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={"#130C47"} />
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor={"white"}  />
       <SearchHeader closeHandler={closeHandler}/>
       {isLoading ? <Loading /> : error ? <NoResult /> : <SearchList onClick={onClick}/>}
     </Modal>
