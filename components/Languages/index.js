@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_LANGUAGE } from "../../store/actionsName";
 import { CheckIcon } from "../../assets/svg/illustrations";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
+import FocusAwareStatusBar from "../FocusAwareStatusBar";
 
 const Language = ({ onPress, isBottomSheet = false }) => {
   const { language } = useSelector((state) => state.generalReducer);
@@ -78,12 +79,15 @@ const Language = ({ onPress, isBottomSheet = false }) => {
   }
 
   return (
-    <FlatList
+    <View style={{flex:1}}>
+      <FocusAwareStatusBar barStyle="dark-content" />
+      <FlatList
       style={{ paddingHorizontal: RFValue(15) }}
       keyExtractor={(item) => item}
       data={languages}
       renderItem={renderItem}
     />
+    </View>
   );
 };
 

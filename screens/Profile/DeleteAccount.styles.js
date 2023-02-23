@@ -25,5 +25,6 @@ export default StyleSheet.create({
   },
   button: {
     backgroundColor: "#EC4E2C",
+    marginBottom: RFValue(46),
   }
 })

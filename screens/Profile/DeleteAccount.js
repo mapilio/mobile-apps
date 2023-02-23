@@ -1,7 +1,7 @@
 import {Text, View, Alert, Modal, ActivityIndicator} from "react-native";
 import {SadWorld} from "../../assets/svg/illustrations";
 import styles from "./DeleteAccount.styles";
-import {Button, Loading} from "../../components";
+import {Button, FocusAwareStatusBar, Loading} from "../../components";
 import {fetchHandler} from "../../helper/helper";
 import Config from "react-native-config";
 import {Routes} from "../../navigator/Routes";
@@ -82,6 +82,7 @@ const DeleteAccount = () => {
 
   return (
     <View style={styles.container}>
+      <FocusAwareStatusBar barStyle="dark-content"  />
       <View style={styles.content}>
         <SadWorld />
         <Text style={styles.title}>{t("title")}</Text>

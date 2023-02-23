@@ -9,19 +9,20 @@ const Userlocation = ({shape}) => {
       <MapboxGL.CircleLayer
         id={"MarkerViewCircle"}
         style={{
-          circleColor: "#5383EC",
-          circleStrokeWidth: 2,
+          circleColor: "#191919",
+          circleStrokeWidth: 1,
           circleStrokeColor: "white",
           circleRadius: 10,
+
         }}
       />
       <MapboxGL.CircleLayer
         id={"userLocationCircle-opacity"}
         style={{
-          circleColor: "#5383EC",
+          circleColor: "#191919",
           circleRadius: 14,
           circleOpacity: 0.4,
-          circleStrokeColor: "#5383EC",
+          circleStrokeColor: "#191919",
         }}
       />
       <MapboxGL.SymbolLayer

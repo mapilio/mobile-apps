@@ -39,7 +39,7 @@ const ProfileNavigator = ({navigation}) => {
 
       <Stack.Screen name={Routes.profileSettings} component={ProfileSettings} options={{
         headerLeft: () => <ProfileSettingsNavigatorLeft/>,
-        title: false
+        title: t("settings")
       }}/>
 
       <Stack.Screen name={Routes.profileSequence} component={ProfileSequence} options={{

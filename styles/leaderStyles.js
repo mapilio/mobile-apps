@@ -23,7 +23,7 @@ export const leaderStyles = StyleSheet.create({
     alignItems: "center",
   },
   howToScoreText: {
-    color: "#0056F1",
+    color: "#4A90E2",
     fontSize: RFValue(10),
     fontFamily: "Poppins-Medium",
     textAlign: "right",
@@ -74,7 +74,7 @@ export const leaderStyles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: "#3F8BE9",
+    backgroundColor: "#0056F1",
     borderRadius: 5,
     rank: {
       text: {
