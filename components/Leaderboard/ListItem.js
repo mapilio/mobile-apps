@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   onlyPoint: {
     alignSelf: "flex-end",
     fontFamily: "Poppins-SemiBold",
-    fontSize: RFValue(14),
+    fontSize: 16,
     color: "#191919",
   },
   bottomView: {
