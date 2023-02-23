@@ -26,17 +26,15 @@ const ListItem = ({
 
   const [expanded, setExpanded] = useState(false);
 
-  const height = useRef(new Animated.Value(RFValue(50))).current;
+  const height = useRef(new Animated.Value(60)).current;
 
   useEffect(() => {
     Animated.timing(height, {
-      toValue: expanded ? RFValue(90) : RFValue(50),
+      toValue: expanded ? 110 : 60,
       duration: 150,
       useNativeDriver: false,
     }).start();
   }, [expanded, height]);
-
-  console.log(item)
 
   return (
     <Animated.View
@@ -71,7 +69,7 @@ const ListItem = ({
               style={{
                 color: "#191919",
                 fontFamily: "Poppins",
-                fontSize: RFValue(12),
+                fontSize: 14,
               }}
             >
               {" "}
@@ -83,30 +81,30 @@ const ListItem = ({
       {expanded && (
         <View style={styles.bottomView}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <CameraFilledIcon fill="#808080" />
+            <CameraFilledIcon fill="#808080" width={14} height={14} />
             <View style={{ width: 5 }} />
-            <CustomText style={{ color: "#808080", fontSize: RFValue(12) }}>
+            <Text style={styles.infoTitle}>
               {t("photos")}
-            </CustomText>
+            </Text>
             <CustomTextBold
-              style={{ color: "#191919", fontSize: RFValue(12) }}
+              style={styles.infoSubTitle}
               adjustFontSize={false}
             >
               {" "}
               {item.total_images ? item.total_images : 0}
             </CustomTextBold>
           </View>
-
-          <View style={styles.bottomInfoWrapper} />
-
+          <View style={styles.bottomSeperator} />
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <RoadIcon fill="#808080" />
+            <RoadIcon fill="#808080" width={14} height={14} />
             <View style={{ width: 5 }} />
-            <CustomText style={{ color: "#808080", fontSize: RFValue(12) }}>
+            <CustomText
+              style={styles.infoTitle}
+            >
               {t("roads")}
             </CustomText>
             <CustomTextBold
-              style={{ color: "#191919", fontSize: RFValue(12) }}
+              style={styles.infoSubTitle}
               adjustFontSize={false}
             >
               {" "}
@@ -135,18 +133,24 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 10,
     flex: 1,
-    height: RFValue(50),
   },
-  bottomInfoWrapper: {
+  bottomSeperator: {
     width: 1,
-    height: RFValue(20),
+    height: "80%",
     backgroundColor: "#DCDCDC",
     marginHorizontal: 10,
   },
+
+  infoTitle:{
+    color: "#808080", fontSize: 14, lineHeight: 20
+  },
+  infoSubTitle:{
+    color: "#191919", fontSize: 14, lineHeight: 20
+  }
 });
 
 export default ListItem;

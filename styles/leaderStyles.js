@@ -62,7 +62,7 @@ export const leaderStyles = StyleSheet.create({
     rank: {
       text: {
         fontFamily: "Poppins-Medium",
-        fontSize: RFValue(12),
+        fontSize: 14,
         minWidth: RFValue(22),
       },
       rankers: {
