@@ -7,11 +7,6 @@
     "orientation": "portrait",
     "icon": "./assets/playstore.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash/mapilio_splash.png",
-      "backgroundColor": "#130C47",
-      "resizeMode": "contain"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -41,15 +36,6 @@
         "WRITE_SETTINGS"
       ],
       "icon": "./assets/playstore.png",
-      "splash": {
-        "backgroundColor": "#130C47",
-        "resizeMode": "contain",
-        "mdpi": "./assets/splash/mapilio_splash.png",
-        "hdpi": "./assets/splash/mapilio_splash_x1.5.png",
-        "xhdpi": "./assets/splash/mapilio_splash_x2.png",
-        "xxhdpi": "./assets/splash/mapilio_splash_x3.png",
-        "xxxhdpi": "./assets/splash/mapilio_splash_x4.png"
-      },
       "package": "com.mapilio.app",
       "versionCode": 5
     },

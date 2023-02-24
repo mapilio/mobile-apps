@@ -3,7 +3,6 @@ import { FlatList, View, TouchableOpacity } from "react-native";
 import { leaderStyles as styles } from "../../styles/leaderStyles";
 import renderItem from "./RenderItem";
 import AuthUserButton from "./AuthUserButton";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
 import {
   fetchLeaderOrganizations,
@@ -13,7 +12,6 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { vibrate } from "../../util/helpers";
 
 const LeadersList = ({ leaders, authUserIndex, listType }) => {
-  const { bottom } = useSafeAreaInsets();
   const dispatch = useDispatch();
 
   const [isAuthUserVisible, setIsAuthUserVisible] = useState(false);
@@ -60,10 +58,15 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
         keyExtractor={(_, index) => index.toString()}
         onRefresh={refreshLeaderboard}
         refreshing={isRefresh}
+        ItemSeparatorComponent={() => <View style={styles.seperator} />}
+
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         renderItem={({ item, index }) =>
           renderItem({ item, index }, authUserIndex, listType)
         }
+        ListFooterComponent={() => (
+          authUserIndex > 0 && <View style={{ height: 90 }} />
+        )}
       />
       {AuthUserInLeadersAndVisible ? (
         <TouchableOpacity

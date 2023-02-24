@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { statusBarPadding } from "../util/consts/ui";
 
@@ -10,53 +10,11 @@ export const leaderStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 20,
-  },
-  headerTitle: {
-    fontFamily: "Poppins-SemiBold",
-    fontSize: 20,
-  },
-  howToScore: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  howToScoreText: {
-    color: "#0056F1",
-    fontSize: RFValue(10),
-    fontFamily: "Poppins-Medium",
-    textAlign: "right",
-    paddingRight: RFValue(3),
-    lineHeight: RFValue(13),
-  },
-  award: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    gift: {
-      width: RFValue(90),
-      zIndex: -1,
-      position: 'absolute',
-      transform: [
-        { translate: [RFValue(-6), 0] }
-      ]
-    },
-    text: {
-      fontSize: RFValue(10),
-      fontFamily: "Poppins-Medium",
-      lineHeight: RFValue(13),
-      color: "#191919",
-      zIndex: 1,
-      transform: [
-        {translate: [RFValue(23), RFValue(4)]}
-      ]
-    }
+    paddingHorizontal: Platform.isPad ? 20: 10,
   },
   headerSubTitle: {
     fontFamily: "Poppins",
-    color: "#666666",
+    color: "#808080",
     marginTop: 20,
     fontSize: 15,
     paddingTop: 5,
@@ -65,20 +23,17 @@ export const leaderStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-  screenOptionsStyles: {
-    tabBarLabelStyle: { fontSize: 14, fontFamily: "Poppins-SemiBold" },
-  },
   authUserListItem: {
     flexDirection: "row",
     width: "100%",
     alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: "#3F8BE9",
+    backgroundColor: "#0056F1",
     borderRadius: 5,
     rank: {
       text: {
-        fontFamily: "Poppins",
+        fontFamily: "Poppins-Medium",
         fontSize: RFValue(12),
         minWidth: RFValue(22),
         color: "white",
@@ -91,18 +46,23 @@ export const leaderStyles = StyleSheet.create({
       color: "white",
     },
   },
-  listItem: {
-    flexDirection: "row",
+  seperator: {
+    height: 1,
     width: "100%",
-    alignItems: "center",
-    paddingVertical: 10,
+    backgroundColor: "#ECECEC",
+    marginVertical: 3,
+    marginHorizontal: 5,
+  },
+  listItem: {
+    flexDirection: "column",
+    width: "100%",
+    alignItems: "flex-start",
     paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#E5E5E5",
+    borderRadius: 15,
     rank: {
       text: {
-        fontFamily: "Poppins",
-        fontSize: RFValue(12),
+        fontFamily: "Poppins-Medium",
+        fontSize: 14,
         minWidth: RFValue(22),
       },
       rankers: {
@@ -111,10 +71,11 @@ export const leaderStyles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#FFC700",
+        backgroundColor: "#FBA63C",
         text: {
           fontSize: RFValue(12),
           color: "white",
+          fontFamily: "Poppins",
         },
       },
     },
@@ -122,6 +83,7 @@ export const leaderStyles = StyleSheet.create({
       fontFamily: "Poppins",
       fontSize: 16,
       marginLeft: 10,
+      color:"#191919"
     },
   },
   profilePhoto: {

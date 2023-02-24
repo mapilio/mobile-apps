@@ -19,9 +19,8 @@ export const fetchLeaderUsers = () => {
       .then((res) => {
         dispatch({
           type: SET_LEADERBOARD_USERS,
-          payload: res.data.leaderboard,
+          payload: res.data.leaderboard.slice(0, 30),
         });
-
       })
       .catch(() => {
         toast.show(translate("fetch_error", "leaderboard"), { type: "warning" });

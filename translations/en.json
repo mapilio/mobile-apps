@@ -89,12 +89,12 @@
     "first": {
       "title": "Take a shot",
       "subtitle": "At street level",
-      "description": "Capture images with your smartphone, action camera, or 360 camera."
+      "description": "Capture street-level imagery and contribute the map."
     },
     "second": {
       "title": "Upload Captures",
       "subtitle": "Contribute",
-      "description": "Upload the images you took to the mapilio system."
+      "description": "Upload your imagery to collect points and get high-position in leaderboard."
     },
     "third": {
       "title": "Earn gifts",
@@ -276,17 +276,22 @@
   "leaderboard": {
     "title": "Leaderboard",
     "how_to_score": "How to \nscore?",
-    "description": "Top 50 community members helping grow the mapilio!",
+    "description": "Top 30 community members helping grow the Mapilio!",
     "users": "Users",
     "organizations": "Organizations",
     "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace"
+    "join_the_race": "join the\nrace",
+    "points": "Points",
+    "points_short": "Pt",
+    "roads": "Roads",
+    "photos": "Photos"
   },
   "upload_modal": {
-    "title": "Together We Create More Up-To-Date Maps",
-    "subtitle": "You can shoot more and compete in the leaderboard to be the most contributing participant in your region.",
+    "title": "Lets Create More Up To\nDate Maps",
+    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
     "sequences": "Sequences",
-    "images": "Images"
+    "images": "Images",
+    "stop_upload": "Stop Upload"
   },
   "no_internet": {
     "title": "You do not have an internet connection",
@@ -306,7 +311,7 @@
   "award": {
     "summary": "Are you ready to collect reward with <0>Mapilio \uD83C\uDF0D\uD83C\uDFC6</0>",
     "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Goodbye</bold> Winter Contest by Mapilio",
+    "slogan": "<bold>Mapilio</bold> started the first challange.",
     "title": "Earn new gifts as you reach more kilometers",
     "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
     "mi_pro_2_scooter": "Mi Pro 2 Scooter",

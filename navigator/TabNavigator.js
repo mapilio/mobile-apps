@@ -20,6 +20,8 @@ import { TooltipWrapper } from "../components/Tooltip";
 import { tooltipContents } from "../util/consts/tooltip";
 import { tabHeight } from "../util/consts/ui";
 import { vibrate } from "../util/helpers";
+import LeaderHeaderLeft from "../screens/Leaderboard/LeaderHeaderLeft";
+import LeaderHeaderRight from "../screens/Leaderboard/LeaderHeaderRight";
 
 const Tab = createBottomTabNavigator();
 
@@ -148,6 +150,14 @@ const TabNavigator = () => {
           tabBarIcon: ({ focused }) => (
             <TabIcons focused={focused} tab={"leader"} />
           ),
+          headerShown: true,
+          headerLeft: LeaderHeaderLeft,
+          headerRight:LeaderHeaderRight,
+          headerTitleStyle: navigatorStyle.headerTitleStyle,
+          headerTintColor: navigatorStyle.headerTintColor,
+          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          headerShadowVisible: false,
+
         }}
       />
     </Tab.Navigator>

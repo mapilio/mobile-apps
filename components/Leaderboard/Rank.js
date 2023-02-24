@@ -8,6 +8,14 @@ const Rank = ({ rankIndex, isAuthUser }) => {
     ? styles.authUserListItem.rank.text
     : styles.listItem.rank.text;
 
+    if (isAuthUser)
+      return (
+        <Text style={rankStyle}>
+          {"#"}
+          {rankIndex + 1}
+        </Text>
+      );
+
 
     switch (rankIndex) {
       case 0:

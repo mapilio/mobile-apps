@@ -4,7 +4,7 @@ import Svg, { Path } from "react-native-svg";
 const CrownIcon = ({
   width = RFValue(22),
   height = RFValue(22),
-  fill = "#FFCB3D",
+  fill = "#FBA63C",
   ...props
 }) => {
   return (

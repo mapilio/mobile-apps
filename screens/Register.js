@@ -74,7 +74,7 @@ const Register = ({ navigation }) => {
 
   return (
     <SafeAreaView style={[globalStyles.container, loginStyles.container]}>
-			<FocusAwareStatusBar barStyle="dark-content" backgroundColor={"#130C47"}/>
+			<FocusAwareStatusBar barStyle="dark-content"/>
       <View>
         <View style={loginStyles.logo}>
           <MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>

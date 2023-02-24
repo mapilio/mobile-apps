@@ -74,7 +74,7 @@ const ProfileSettings = ({navigation}) => {
         </Pressable>
       </View>
 
-      <View style={{...styles.version, bottom: RFValue(10)}}>
+      <View style={{...styles.version, bottom: RFValue(20)}}>
         <Text style={styles.versionInfo}>{t("mapilio")}</Text>
         <Text style={{...styles.versionInfo, fontWeight: "bold"}}> {t("version")}</Text>
       </View>

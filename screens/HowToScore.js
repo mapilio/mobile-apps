@@ -4,6 +4,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useNavigation} from "@react-navigation/native";
 import {Routes} from "../navigator/Routes";
 import {Trans, useTranslation} from "react-i18next";
+import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 
 const StartCaptureButton = ({style}) => {
   const navigation = useNavigation();
@@ -26,6 +27,7 @@ const HowToScore = () => {
 
   return (
     <ScrollView style={{...styles.wrapper, paddingBottom: bottom}}>
+      <FocusAwareStatusBar barStyle="dark-content" />
       <Text style={styles.h1}>
         {t("title")}
       </Text>
@@ -66,33 +68,33 @@ const styles = StyleSheet.create({
     paddingVertical: RFValue(10),
   },
   h1: {
-    color: "#130C47",
+    color: "#191919",
     fontSize: RFValue(24),
     fontWeight: "700",
     textAlign: "center",
     fontFamily: "Poppins-SemiBold"
   },
   h2: {
-    color: "#2D3748",
+    color: "#191919",
     fontFamily: "Poppins-SemiBold",
     fontSize: RFValue(18),
     marginBottom: RFValue(15)
   },
   h3: {
-    color: "#2D3748",
+    color: "#191919",
     fontFamily: "Poppins-SemiBold",
     fontSize: RFValue(12),
     marginTop: RFValue(10),
   },
   summary: {
-    color: '#666',
+    color: '#808080',
     textAlign: "center",
     fontSize: 14,
     fontFamily: "Poppins",
     padding: RFValue(10)
   },
   paragraph: {
-    color: "#2D3748",
+    color: "#191919",
     fontFamily: "Poppins",
     fontSize: RFValue(12),
     marginBottom: RFValue(15),
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     marginRight: "auto"
   },
   captureButton: {
-    backgroundColor: "#3F8BE9",
+    backgroundColor: "#0056F1",
     borderRadius: RFPercentage(50),
     width: "auto",
     marginLeft: "auto",
