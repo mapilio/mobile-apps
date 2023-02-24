@@ -27,7 +27,6 @@ const GoogleLogin = ({ navigation }) => {
       api.get('/oauth-api/generate-state').then((response) => {
           setStateKey(response.data.state)
         }).catch((err) => {
-          console.log('-->', err)
           toast.show("An error occurred, try again later.", {type: 'error'})
         });
     });
