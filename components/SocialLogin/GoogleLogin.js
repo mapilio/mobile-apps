@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import {GET_TOKEN_SUCCESS, SET_CREDENTIAL} from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import Config from "react-native-config";
+import {api} from "../../util/helpers/api";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -23,9 +24,10 @@ const GoogleLogin = ({ navigation }) => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
-      fetchHandler({ url: `${Config.SERVICE_URL}/oauth-api/generate-state` })
-        .then((response) => setStateKey(response.data.state))
-        .catch(() => {
+      api.get('/oauth-api/generate-state').then((response) => {
+          setStateKey(response.data.state)
+        }).catch((err) => {
+          console.log('-->', err)
           toast.show("An error occurred, try again later.", {type: 'error'})
         });
     });
@@ -47,9 +49,14 @@ const GoogleLogin = ({ navigation }) => {
   }, [response]);
 
   const loginToMapilio = (user) => {
-    const data = {email: user.email, name: user.name, state: stateKey}
-
-    fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/callback`, method: "POST", data}).then((res) => {
+    const data = {
+      email: user.email,
+      name: user.name,
+      state: stateKey,
+      client_id: Config.AUTH_CLIENT_ID,
+      client_secret: Config.AUTH_CLIENT_SECRET,
+    }
+    api.post('/oauth-api/callbackV2', data).then((res) => {
       dispatch({type: SET_CREDENTIAL, payload: {...response, type: 'google'}});
       dispatch({type: GET_TOKEN_SUCCESS, payload: res});
       dispatch(getUserInformation(res));

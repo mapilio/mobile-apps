@@ -358,6 +358,10 @@
     },
     "skip": "Skip"
   },
+  "errors": {
+    "server_error": "There was an error with the server, please try again later.",
+    "token_expired": "Your session has expired. Please login again."
+  },
   "report": {
     "cancel": "Cancel",
     "privacy_violation": "Privacy Violation",

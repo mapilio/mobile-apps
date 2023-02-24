@@ -8,30 +8,25 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 import { globalStyles } from "../styles/globalStyles";
 import { marketplaceDetailStyles } from "../styles/marketplaceStyles";
-import { fetchHandler } from "../helper/helper";
 import { Routes } from "../navigator/Routes";
 import Moment from "moment";
-import Config from "react-native-config";
+import {api} from "../util/helpers/api";
 
-const MarketplaceDetail = ({ navigation, route }) => {
+const MarketplaceDetail = ({navigation, route}) => {
   const applyProject = () => {
-        fetchHandler({
-          url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
-          method: "POST",
-          data: {
-            options: {
-              parameters: {
-                id: route.params.data.id,
-              },
-            },
-          },
-        }).then(() => {
-          navigation.navigate(Routes.marketplaceReady, {
-            data: route.params.data,
-          });
-        }).catch((err) => {
-          toast.show(`${err.response.data.message}`, {type: "error"})
-        });
+    api.post('/api/function/projects/job/createJob', {
+      options: {
+        parameters: {
+          id: route.params.data.id,
+        },
+      },
+    }).then(() => {
+      navigation.navigate(Routes.marketplaceReady, {
+        data: route.params.data,
+      });
+    }).catch((err) => {
+      toast.show(`${err.response.data.message}`, {type: "error"})
+    });
   };
 
   return (

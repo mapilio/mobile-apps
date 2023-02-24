@@ -1,18 +1,13 @@
 import { GET_TOKEN_START, GET_TOKEN_SUCCESS } from "../../actionsName";
 import { getUserInformation } from "./getUserInformation";
-import { fetchHandler } from "../../../helper/helper";
-import Config from "react-native-config";
+import {api} from "../../../util/helpers/api";
 
 export const getTokenAction = (parameters) => (dispatch) => {
   dispatch({ type: GET_TOKEN_START });
-  const url = `${Config.SERVICE_URL}/api/login`;
-  fetchHandler({
-    url: url,
-    method: "POST",
-    data: {
-      email: parameters.email,
-      password: parameters.password,
-    },
+
+  api.post('/api/login', {
+    email: parameters.email,
+    password: parameters.password,
   }).then((res) => {
       dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
       dispatch(getUserInformation(res));

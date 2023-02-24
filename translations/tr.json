@@ -359,6 +359,10 @@
     },
     "skip": "Geç"
   },
+  "errors": {
+    "server_error": "Sunucuda bir hata oluştu, lütfen daha sonra tekrar deneyin.",
+    "token_expired": "Oturumunuz sona erdi, lütfen tekrar giriş yapın."
+  },
   "report": {
     "cancel": "İptal",
     "privacy_violation": "Gizlilik İhlali",

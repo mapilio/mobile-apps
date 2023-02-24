@@ -3,9 +3,8 @@ import {
   SET_LEADERBOARD_ORGANIZATIONS,
   RESET_LEADERBOARD,
 } from "../../actionsName";
-import { fetchHandler } from "../../../helper/helper";
-import Config from "react-native-config";
 import { translate } from "../../../util/helpers";
+import {api} from "../../../util/helpers/api";
 
 export const resetLeaderboard = () => {
   return {
@@ -15,7 +14,7 @@ export const resetLeaderboard = () => {
 
 export const fetchLeaderUsers = () => {
   return (dispatch) => {
-    fetchHandler({ url: `${Config.SERVICE_URL}/api/leaderboard` })
+    api.get(`/api/leaderboard`)
       .then((res) => {
         dispatch({
           type: SET_LEADERBOARD_USERS,
@@ -30,7 +29,7 @@ export const fetchLeaderUsers = () => {
 
 export const fetchLeaderOrganizations = () => {
   return (dispatch) => {
-    fetchHandler({ url: `${Config.SERVICE_URL}/api/leaderboard-organization` })
+    api.get(`/api/leaderboard-organization`)
       .then((res) => {
         dispatch({
           type: SET_LEADERBOARD_ORGANIZATIONS,
