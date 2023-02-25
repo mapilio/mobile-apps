@@ -9,19 +9,18 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {CloseIcon} from "../assets/svg/illustrations";
 import {CustomTextMedium} from "../highordercomponents";
 import ProjectList from "./ProjectList";
-import {fetchHandler} from "../helper/helper";
 import {cameraProjectModalStyles} from "../styles/cameraStyles";
-import Config from "react-native-config";
 import { Trans, useTranslation } from "react-i18next";
 import * as ScreenOrientation from "expo-screen-orientation";
+import {api} from "../util/helpers/api";
 
 const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
-	const { t } = useTranslation("camera");
+	const {t} = useTranslation("camera");
 	const [projects, setProjects] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		fetchHandler({url: `${Config.SERVICE_URL}/api/function/projects/job/getMyJobs`}).then((res) => {
+		api.get('/api/function/projects/job/getMyJobs').then((res) => {
 			setLoading(false);
 			setProjects(res.data);
 		}).catch(() => {
@@ -48,7 +47,7 @@ const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
         >
           {t("empty_mission_title")}
         </CustomTextMedium>
-        <CustomTextMedium style={cameraProjectModalStyles.projectList.paragraph}> 
+        <CustomTextMedium style={cameraProjectModalStyles.projectList.paragraph}>
           <Trans
             t={t}
             i18nKey="empty_mission_description"

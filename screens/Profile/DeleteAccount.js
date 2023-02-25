@@ -2,8 +2,6 @@ import {Text, View, Alert, Modal, ActivityIndicator} from "react-native";
 import {SadWorld} from "../../assets/svg/illustrations";
 import styles from "./DeleteAccount.styles";
 import {Button, FocusAwareStatusBar, Loading} from "../../components";
-import {fetchHandler} from "../../helper/helper";
-import Config from "react-native-config";
 import {Routes} from "../../navigator/Routes";
 import {EXIT_USER} from "../../store/actionsName";
 import OneSignal from "react-native-onesignal";
@@ -12,6 +10,7 @@ import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
 import * as AppleAuthentication from "expo-apple-authentication";
 import {useState} from "react";
+import {api} from "../../util/helpers/api";
 
 
 const DeleteAccount = () => {
@@ -23,11 +22,7 @@ const DeleteAccount = () => {
 
   const deleteFetch = async (data) => {
     try {
-      await fetchHandler({
-        url: `${Config.SERVICE_URL}/api/function/user_profile/profile/delete-account`,
-        method: "POST",
-        data: {options: {parameters: data}}
-      })
+      await api.post(`/api/function/user_profile/profile/delete-account`, {options: {parameters: data}})
 
       navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
       dispatch({type: EXIT_USER});

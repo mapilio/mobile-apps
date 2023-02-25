@@ -41,7 +41,7 @@ const AppMap = ({ navigation }) => {
   useEffect(() => {
     !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
 
-    const watchId = Geolocation.watchPosition(({ coords }) => {
+    const watchId = Geolocation.watchPosition(({coords}) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords));
     });
 

@@ -1,7 +1,7 @@
 import {Alert, Dimensions, Image, Modal, Pressable, Text, TouchableOpacity, View} from "react-native";
 import * as FileSystem from "expo-file-system";
 import styles from './UploadItem.styles';
-import {dateConvert, fetchHandler} from "../../helper/helper";
+import {dateConvert} from "../../helper/helper";
 import LinearGradient from "react-native-linear-gradient";
 import React, {useEffect, useState} from "react";
 import {userFeedStyles} from "../../styles/userProfileStyle";
@@ -14,9 +14,9 @@ import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import db from "../../db";
-import Config from "react-native-config";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {scoreCalculate} from "../../util/helpers";
+import {search} from "../../util/helpers/api";
 
 const UploadItem = ({item, deleteFunc}) => {
   const {distanceBetween} = useSelector((state) => state.settingsReducer);
@@ -39,9 +39,7 @@ const UploadItem = ({item, deleteFunc}) => {
       try {
         const {latitude, longitude} = JSON.parse(item.location)
 
-        const {features} = await fetchHandler({
-          url: `${Config.SEARCH_API}/reverse?lat=${latitude}&lon=${longitude}`
-        })
+        const {data: {features}} = await search.get(`/reverse?lat=${latitude}&lon=${longitude}`)
 
         const {city, country, name, street, state} = features[0]?.properties || {};
         setAddress(street || name || city || state || country || null)

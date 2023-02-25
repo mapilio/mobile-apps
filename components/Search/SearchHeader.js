@@ -4,16 +4,11 @@ import { ArrowLeft, CloseIcon } from "../../assets/svg/illustrations";
 import SearchIcon from "../../assets/svg/illustrations/SearchIcon";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useState, useCallback } from "react";
-import { fetchHandler } from "../../helper/helper";
-import Config from "react-native-config";
 import { debounce } from "lodash";
 import { useDispatch } from "react-redux";
-import {
-  SET_SEARCH_ERROR,
-  SET_SEARCH_LOADING,
-  SET_SEARCH_LOCATIONS,
-} from "../../store/actionsName";
+import {SET_SEARCH_ERROR, SET_SEARCH_LOADING, SET_SEARCH_LOCATIONS} from "../../store/actionsName";
 import { useTranslation } from "react-i18next";
+import {search} from "../../util/helpers/api";
 
 const SearchHeader = ({ closeHandler }) => {
   const { top } = useSafeAreaInsets();
@@ -59,13 +54,13 @@ const SearchHeader = ({ closeHandler }) => {
 
   const fetchSearch = (param) => {
     if (param) {
-      fetchHandler({ url: `${Config.SEARCH_API}/api/?q=${param}` }).then((res) => {
-        if (res.features.length === 0) {
+      search.get(`/api/?q=${param}`).then(({data}) => {
+        if (data.features.length === 0) {
           setSearchError(true);
         } else {
           setSearchError(false);
-          setLocations(res.features);
-       }
+          setLocations(data.features);
+        }
       });
     }
   };

@@ -3,7 +3,7 @@ import {TouchableOpacity, View, StyleSheet} from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import {RFValue} from "react-native-responsive-fontsize";
 import {List, MarketplaceMap} from "../components/Marketplace";
-import {fetchHandler, getContentAreaHeight} from "../helper/helper";
+import {getContentAreaHeight} from "../helper/helper";
 import { useDispatch } from "react-redux";
 import { MARKETPLACE_DATA } from "../store/actionsName";
 import Config from "react-native-config";
@@ -14,6 +14,7 @@ import Geolocation from "@react-native-community/geolocation";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import { useSelector } from "react-redux";
+import {api} from "../util/helpers/api";
 
 const Marketplace = ({ navigation }) => {
   const {t} = useTranslation("marketplace");
@@ -42,7 +43,7 @@ const Marketplace = ({ navigation }) => {
       url += `?lat=${latitude}&lon=${longitude}`
     }
 
-    fetchHandler({url: url}).then(({data: {geojson}}) => {
+    api.get(url).then(({data: {geojson}}) => {
       dispatch({type: MARKETPLACE_DATA, payload: JSON.parse(geojson)});
     }).catch(({response: {data: {message}}}) => {
       toast.show(`${message}`, {type: "error"})

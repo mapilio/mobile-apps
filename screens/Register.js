@@ -10,17 +10,16 @@ import { loginStyles } from "../styles/loginStyles";
 import { Routes } from "../navigator/Routes";
 import { CustomText } from "../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
-import { fetchHandler } from "../helper/helper";
 import { Eye } from "../assets/svg/illustrations";
 import { SocialLogin } from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import Config from "react-native-config";
 import {globalStyles} from "../styles/globalStyles";
 import SafeAreaView from "react-native-safe-area-view";
 import {MapilioLogoBeta} from "../assets/svg/logos";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {Trans, useTranslation} from "react-i18next";
+import {api} from "../util/helpers/api";
 
 
 
@@ -38,18 +37,15 @@ const Register = ({ navigation }) => {
 
   const register = (values) => {
     setLoading(true)
-    fetchHandler({
-      url: `${Config.SERVICE_URL}/api/register`,
-      method: "POST",
-      data: {
-        name: values.name,
-        username: values.name,
-        email: values.email,
-        password: values.password,
-        callback: `https://mapilio.com?deeplink=mapilio://`,
-        "success-params": "tverification=true",
-        "error-params": "tverification=false",
-      },
+
+    api.post("/api/register", {
+      name: values.name,
+      username: values.name,
+      email: values.email,
+      password: values.password,
+      callback: `https://mapilio.com?deeplink=mapilio://`,
+      "success-params": "tverification=true",
+      "error-params": "tverification=false",
     }).then(() => {
       navigation.reset({index: 0, routes: [{name: Routes.login}]})
       toast.show(t("account_created"), {type: "success"})
@@ -58,7 +54,7 @@ const Register = ({ navigation }) => {
         toast.show(`${item[0]}`, {type: "error"})
       });
     }).finally(() => setLoading(false))
-  };
+  }
 
   const redirectBrowser = () => {
     Linking.openURL("https://mapilio.com/privacy").catch(() => {

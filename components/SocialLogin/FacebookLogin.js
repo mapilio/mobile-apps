@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import FacebookLogo from "../../assets/svg/logos/FacebookLogo";
 import * as Facebook from "expo-facebook";
-import { fetchHandler } from "../../helper/helper";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import { useDispatch } from "react-redux";
 import {GET_TOKEN_SUCCESS, SET_CREDENTIAL} from "../../store/actionsName";
 import Config from "react-native-config";
+import {api} from "../../util/helpers/api";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ const FacebookLogin = ({ navigation }) => {
 
   const handleLogin = () => {
     setLoading(true)
-    fetchHandler({url: `${Config.SERVICE_URL}/oauth-api/generate-state`}).then(({data}) => {
+    api.get('/oauth-api/generate-state').then(({data}) => {
       facebookAccess(data.state);
     }).catch(() => {
       toast.show("An error occurred, try again later.", {type: 'error'})
@@ -33,14 +33,12 @@ const FacebookLogin = ({ navigation }) => {
           if (!json.email) {
             toast.show("You are not a member because I cannot access your e-mail address. Please give mail permission or register another way.", {type: 'error'})
           } else {
-            fetchHandler({
-              url: `${Config.SERVICE_URL}/oauth-api/callback`,
-              method: "POST",
-              data: {
-                email: json.email,
-                name: json.name,
-                state: stateKey,
-              },
+            api.post('/oauth-api/callbackV2', {
+              email: json.email,
+              name: json.name,
+              state: stateKey,
+              client_id: Config.AUTH_CLIENT_ID,
+              client_secret: Config.AUTH_CLIENT_SECRET,
             }).then((res) => {
               dispatch({type: SET_CREDENTIAL, payload: {...json, type: 'facebook'}});
               dispatch({type: GET_TOKEN_SUCCESS, payload: res});

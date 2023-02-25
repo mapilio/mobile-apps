@@ -1,8 +1,6 @@
 import {ActivityIndicator, FlatList, Text, TouchableOpacity, View} from "react-native";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {fetchHandler} from "../../helper/helper";
-import Config from "react-native-config";
 import {ProfileFeed} from "../index";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import styles from './FeedList.styles'
@@ -10,6 +8,7 @@ import {useTranslation} from "react-i18next";
 import {useNavigation} from "@react-navigation/native";
 import {NoFeed} from "../../assets/svg/illustrations";
 import {Routes} from "../../navigator/Routes";
+import {api} from "../../util/helpers/api";
 
 const SkeletonList = () => (
   [...Array(6)].map((_v, i) => (
@@ -47,10 +46,10 @@ const FeedList = () => {
   const [gettingData, setGettingData] = useState(false);
 
   const getData = async () => {
-    const url = `${Config.SERVICE_URL}/api/user-uploads-v2?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
+    const url = `/api/user-uploads-v2?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
 
     try {
-      const {data, pagination} = await fetchHandler({url: url})
+      const {data, pagination} = await api.get(url)
 
       if (!!pagination) {
         setPage(pagination?.current_page + 1)

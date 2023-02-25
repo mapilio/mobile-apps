@@ -22,9 +22,12 @@ const convertHexToRGBA = (hexCode, opacity) => {
   return `rgba(${r},${g},${b},${opacity / 100})`;
 };
 
+/**
+ * @deprecated
+ */
 const fetchHandler = ({ ...args } = {}) => {
   const auth = store.getState().getTokenReducer.auth;
-  auth && (axios.defaults.headers.common["Authorization"] = `Bearer ${auth.token}`);
+  auth && (axios.defaults.headers.common["Authorization"] = `Bearer ${auth.access_token || auth.token}`);
 
   return axios(args).then((response) => response.data);
 };

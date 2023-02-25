@@ -7,7 +7,6 @@ import {appMapStyle} from "../styles/appMapStyle";
 import MapboxGL from "@rnmapbox/maps";
 import SwitchSelector from "react-native-switch-selector";
 import {RFValue} from "react-native-responsive-fontsize";
-import {fetchHandler} from "../helper/helper";
 import {styles} from "../styles/circleStyles";
 import {Routes} from "../navigator/Routes";
 import {ActivityIndicator} from "react-native-paper";
@@ -15,6 +14,7 @@ import {setGeoJson} from "../helper/geojson";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
+import {api} from "../util/helpers/api";
 import { FocusAwareStatusBar } from "../components";
 
 const UserSequence = ({ navigation, route }) => {
@@ -63,9 +63,7 @@ const UserSequence = ({ navigation, route }) => {
   }, [navigation, route.params.id]);
 
   const fetchNext = (foreignURL) => {
-    fetchHandler({
-      url: foreignURL ? `${Config.SERVICE_URL}${foreignURL}` : `${Config.SERVICE_URL}${paginationURL}`,
-    })
+    api.get(foreignURL ? foreignURL : paginationURL)
       .then((res) => {
         setPaginationLoading(false);
         setPaginationURL(res.pagination.next_page_url);
@@ -78,9 +76,7 @@ const UserSequence = ({ navigation, route }) => {
 
   const fetchMapNext = (foreignURL) => {
     setMapLoading(true);
-    fetchHandler({
-      url: `${Config.SERVICE_URL}${foreignURL}`,
-    })
+    api.get(foreignURL)
       .then((res) => {
         const newImageList = [...res.data];
         setMapList(newImageList);
