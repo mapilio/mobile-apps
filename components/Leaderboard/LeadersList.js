@@ -59,7 +59,10 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
         onRefresh={refreshLeaderboard}
         refreshing={isRefresh}
         ItemSeparatorComponent={() => <View style={styles.seperator} />}
-
+        initialNumToRender={30}
+        onScrollToIndexFailed={() => {
+          flatListRef.current.scrollToEnd();
+        }}
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         renderItem={({ item, index }) =>
           renderItem({ item, index }, authUserIndex, listType)
