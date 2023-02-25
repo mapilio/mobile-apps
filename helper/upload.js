@@ -2,12 +2,13 @@ import {store} from "../store/store";
 import {Alert} from "react-native";
 import db from "../db";
 import * as FileSystem from "expo-file-system";
-import {dateConvert, fetchHandler} from "./helper";
-import Config from "react-native-config";
+import {dateConvert} from "./helper";
 import {calculate} from "./calculator";
 import md5 from "md5";
 import i18n from "i18next";
-let controller = {};
+import {api, cdn} from "../util/helpers/api";
+let apiController = {};
+let cdnController = {};
 
 const translate = (key) => i18n.t(key, {ns: "upload"})
 
@@ -50,7 +51,7 @@ export const getImagesBySequence = async (sequence) => {
 }
 
 export const getHash = async (image) => {
-  controller = new AbortController();
+  cdnController = new AbortController();
   const {userInformation} = store.getState().getTokenReducer
 
   if (image.hash) {
@@ -71,13 +72,7 @@ export const getHash = async (image) => {
       formData.append("project_key", image.project_key);
     }
 
-    const response = await fetchHandler({
-      url: `${Config.CDN_URL}/api/upload/mobile`,
-      method: 'POST',
-      data: formData,
-      signal: controller.signal,
-      headers: {'Content-Type': 'multipart/form-data'},
-    })
+    const response = await cdn.post('/api/upload/mobile', formData, {signal: cdnController?.signal})
 
     await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE id=${image.id}`)
     return {status: 'success', hash: response.files[0].hash}
@@ -193,12 +188,8 @@ export const imageryUpload = async (index, pictures) => {
       files.options.parameters.summary.Information.group_key = picture.group_id;
 
       if (pictures[index].length - 1 === i) {
-        const response = await fetchHandler({
-          url: `${Config.SERVICE_URL}/api/function/mapilio/imagery/upload`,
-          method: "POST",
-          data: files,
-          signal: controller?.signal
-        })
+        apiController = new AbortController();
+        const response = await api.post('/api/function/mapilio/imagery/upload', files, {signal: apiController?.signal,})
 
         if (response.status) {
           await deleteSequence(picture.sequence_uuid)
@@ -232,5 +223,6 @@ export const percentage = (partialValue, totalValue) => {
 };
 
 export const closeRequest = () => {
-  controller?.abort()
+  apiController?.abort()
+  cdnController?.abort()
 }

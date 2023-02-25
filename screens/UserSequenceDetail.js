@@ -3,14 +3,14 @@ import {documentDirectory} from "expo-file-system";
 import React, {Fragment, useEffect, useState} from "react";
 import {RFValue} from "react-native-responsive-fontsize";
 import LinearGradient from "react-native-linear-gradient";
-import {dateConvert, fetchHandler} from "../helper/helper";
-import Config from "react-native-config";
+import {dateConvert} from "../helper/helper";
 import db from "../db";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {ArrowLeft, ArrowRight, Trash} from "../assets/svg/illustrations";
 import {useTranslation} from "react-i18next";
 import LogoWatermark from "../assets/svg/illustrations/LogoWatermark";
 import {AlertModal} from "../components";
+import {search} from "../util/helpers/api";
 
 const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
   const {t} = useTranslation("upload");
@@ -36,9 +36,8 @@ const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
 
   const getAddress = async () => {
     const {latitude, longitude} = JSON.parse(location)
-    const {features} = await fetchHandler({
-      url: `${Config.SEARCH_API}/reverse?lat=${latitude}&lon=${longitude}`
-    })
+    const {data: {features}} = await search.get(`/reverse?lat=${latitude}&lon=${longitude}`)
+
     const {city, country, name, street, state} = features[0]?.properties || {};
 
     setImageInfo(prev => ({...prev, address: street || name || city || state || country || null}))

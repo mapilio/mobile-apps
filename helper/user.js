@@ -1,15 +1,22 @@
 import {store} from "../store/store";
 import {GET_TOKEN_START, GET_TOKEN_SUCCESS} from "../store/actionsName";
-import Config from "react-native-config";
-import {fetchHandler} from "./helper";
 import {getUserInformation} from "../store/reducers/loginReducer/getUserInformation";
+import {api} from "../util/helpers/api";
 
 export const fetchLogin = async (email, password) => {
   store.dispatch({type: GET_TOKEN_START})
-  const url = `${Config.SERVICE_URL}/api/login`;
 
   try {
-    const user = await fetchHandler({url: url, method: "POST", data: {email, password}})
+    const data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
+    data.append("client_id", "9");
+    data.append("client_secret", "your_client_secret");
+    data.append("grant_type", "password");
+    data.append("device_type", "mobile");
+
+    const user = await api.post('/api/v2/login', data)
+
     store.dispatch({type: GET_TOKEN_SUCCESS, payload: user});
     store.dispatch(getUserInformation(user));
     return user

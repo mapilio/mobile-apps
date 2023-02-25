@@ -4,13 +4,13 @@ import * as yup from "yup";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
 import {RFValue} from "react-native-responsive-fontsize";
-import {fetchHandler} from "../helper/helper";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import Config from "react-native-config";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
+import {api} from "../util/helpers/api";
 
 
 const forgotValidationSchema = yup.object().shape({
@@ -27,15 +27,11 @@ const ForgotPassword = ({navigation}) => {
 
 	const forgotPassword = (values) => {
 		setLoading(true);
-		fetchHandler({
-			url: `${Config.SERVICE_URL}/api/forgot-password`,
-			method: "POST",
-			data: {
-				email: values.email,
-				callback: Config.FORGOT_URL,
-				"success-params": "tverification=true",
-				"error-params": "tverification=false",
-			},
+		api.post(`/api/forgot-password`, {
+			email: values.email,
+			callback: Config.FORGOT_URL,
+			"success-params": "tverification=true",
+			"error-params": "tverification=false",
 		}).then(() => {
 			navigation.reset({index: 0, routes: [{name: Routes.login}]})
 			toast.show(t("reset_success"), {type: "success"})

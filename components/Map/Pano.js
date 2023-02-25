@@ -11,10 +11,8 @@ import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 import SwitchMapPano from "../../assets/svg/illustrations/SwitchMapPano";
 import Campus from "../../assets/svg/illustrations/Campus";
 import moment from "moment";
-import { fetchHandler } from "../../helper/helper";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MaximizePano, MinimizePano } from "../../assets/svg/illustrations";
-import Config from "react-native-config";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Panorama from "../Panorama";
 import { useTranslation } from "react-i18next";
@@ -22,6 +20,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { useSelector } from "react-redux";
 import { tabHeight } from "../../util/consts/ui";
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import {api} from "../../util/helpers/api";
 
 const Pano = ({ imageInformation, hidePano }) => {
   const [fullHeight, setFullHeight] = useState(false);
@@ -34,23 +33,19 @@ const Pano = ({ imageInformation, hidePano }) => {
   const { t } = useTranslation("report", { nsMode: "fallback" });
 
   useEffect(() => {
-    fetchHandler({
-      url: `${Config.SERVICE_URL}/api/search-user?options[parameters][id]=${imageInformation.user}`,
-    })
-      .then(({ data }) => {
-        if (data && data.length) {
-          let name = data[0].username;
-          name.length > 20 ? (name = name.slice(0, 20) + "...") : name;
+    api.get(`/api/search-user?options[parameters][id]=${imageInformation.user}`).then((data) => {
+      if (data && data.length) {
+        let name = data[0].username;
+        name.length > 20 ? (name = name.slice(0, 20) + "...") : name;
 
-          setUsername("@" + name);
-        } else {
-          setUsername(null);
-        }
-      })
-      .catch((err) => {
+        setUsername("@" + name);
+      } else {
         setUsername(null);
-        toast.show(err.response.data.message, { type: "error" });
-      });
+      }
+    }).catch((err) => {
+      setUsername(null);
+      toast.show(err, {type: "error"});
+    });
   }, [imageInformation]);
 
   useEffect(()=> {
@@ -66,29 +61,18 @@ const Pano = ({ imageInformation, hidePano }) => {
   };
 
   const report = (reason) => {
-    fetchHandler({
-      url: `${Config.SERVICE_URL}/api/image-report`,
-      method: "POST",
-      data: {
-        options: {
-          parameters: {
-            imagery_id: imageInformation.pointID,
-            message: reason,
-          },
+    api.post('/api/image-report', {
+      options: {
+        parameters: {
+          imagery_id: imageInformation.pointID,
+          message: reason,
         },
       },
-    })
-      .then(() => {
-        toast.show(
-          t("report_success"),
-          { type: "info" }
-        );
-      })
-      .catch(() => {
-        toast.show(t("report_error"), {
-          type: "error",
-        });
-      });
+    }).then(() => {
+      toast.show(t("report_success"), {type: "info"});
+    }).catch(() => {
+      toast.show(t("report_error"), {type: "error"});
+    });
   };
   const reportImage = () => {
     showActionSheetWithOptions(
@@ -141,7 +125,7 @@ const Pano = ({ imageInformation, hidePano }) => {
           <SwitchMapPano />
         </TouchableOpacity>
       </View>
-   
+
       <Panorama
         image={imageInformation.highResImage}
         height={imageHeight()}

@@ -17,13 +17,14 @@ import {useForm, Controller} from "react-hook-form";
 import React, {useState} from "react";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {fetchHandler, galleryPermission} from "../helper/helper";
+import {galleryPermission} from "../helper/helper";
 import Config from "react-native-config";
 import {ProfileCamera} from "../assets/svg/illustrations";
 import {getUserInformation} from "../store/reducers/loginReducer/getUserInformation";
 import {launchImageLibrary} from "react-native-image-picker";
 import {useTranslation} from "react-i18next";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import {api} from "../util/helpers/api";
 
 const ProfileEdit = () => {
   const {t} = useTranslation("profile_edit");
@@ -69,7 +70,7 @@ const ProfileEdit = () => {
 
     const url = `${Config.SERVICE_URL}/api/function/user_profile/profile/updateProfile`
 
-    fetchHandler({url, method: 'POST', data}).then(() => {
+    api.post(url, data).then(() => {
       dispatch(getUserInformation());
       toast.show(`Update is successfully`, {type: 'success'})
     }).catch((error) => {
@@ -108,7 +109,7 @@ const ProfileEdit = () => {
     >
       <TouchableWithoutFeedback>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
-          
+
           <View style={styles.formWrapper}>
           <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white"/>
 

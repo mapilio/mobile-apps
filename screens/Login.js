@@ -17,6 +17,7 @@ import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import {LanguageModal} from "../components/Login";
 import {useDispatch} from "react-redux";
+import {SET_CREDENTIAL} from "../store/actionsName";
 
 const Login = ({navigation}) => {
 	const {t} = useTranslation("login");
@@ -39,7 +40,7 @@ const Login = ({navigation}) => {
 		const {email, password} = values;
 		setLoading(true);
 		fetchLogin(email, password).then((res) => {
-			dispatch({type: "SET_CREDENTIAL", payload: {type: 'default', ...res}});
+			dispatch({type: SET_CREDENTIAL, payload: {type: 'default', ...res}});
 			navigation.goBack();
 		}).catch((err) => {
 			toast.show(`${err}`, {type: "error"})

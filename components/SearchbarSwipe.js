@@ -15,12 +15,11 @@ import { marketplaceStyles } from "../styles/marketplaceStyles";
 import { RFValue } from "react-native-responsive-fontsize";
 import {
   convertHexToRGBA,
-  fetchHandler,
   maxCharacterHandler,
 } from "../helper/helper";
 import SearchIcon from "../assets/svg/illustrations/SearchIcon";
 import axios from "axios";
-import Config from "react-native-config";
+import {search} from "../util/helpers/api";
 
 const SearchbarSwipe = ({
   setFly,
@@ -38,8 +37,8 @@ const SearchbarSwipe = ({
     setLoading(true);
 
     if (valueAPI.length !== 0) {
-      fetchHandler({url: `${Config.SEARCH_API}/api/?q=${valueAPI}`}).then((res) => {
-        setLocations(res.features);
+      search.get(`/api/?q=${valueAPI}`).then(({data}) => {
+        setLocations(data.features);
         setLoading(false);
       }).catch(() => toast.show("An error occurred while find locations, please try again.", {type: "error"}));
     } else {

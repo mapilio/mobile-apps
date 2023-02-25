@@ -3,7 +3,6 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
-  ActivityIndicator,
   Dimensions,
 } from "react-native";
 import SwipeLine from "../../assets/svg/illustrations/SwipeLine";
@@ -22,13 +21,12 @@ import { MARKETPLACE_CENTER, ZOOM_LEVEL } from "../../store/actionsName";
 import { getEquipment, isNear } from "../../helper/marketplace";
 import { Routes } from "../../navigator/Routes";
 import { setGeoJson } from "../../helper/geojson";
-import { fetchHandler } from "../../helper/helper";
 import { useTranslation } from "react-i18next";
-import Config from "react-native-config";
 import { TooltipWrapper } from "../../components/Tooltip";
 import { tooltipContents } from "../../util/consts/tooltip";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { useIsFocused } from "@react-navigation/native";
+import {api} from "../../util/helpers/api";
 
 const PlaceHolder = () => {
   return (
@@ -89,19 +87,12 @@ const Detail = ({ project, onClose, setOnScroll, navigation }) => {
           if (distance > 5) {
             toast.show(`${t("far_location")}.`, { type: "error" });
           } else {
-            fetchHandler({
-              url: `${Config.SERVICE_URL}/api/function/projects/job/createJob`,
-              method: "POST",
-              data: { options: { parameters: { id: id } } },
-            })
-              .then(() => {
-                navigation.navigate(Routes.marketplaceReady, {
-                  data: project.properties,
-                });
-              })
-              .catch((err) =>
-                toast.show(`${err.response.data.message}`, { type: "error" })
-              );
+            api.post(`/api/function/projects/job/createJob`, {options: {parameters: {id: id}}}).then(() => {
+              navigation.navigate(Routes.marketplaceReady, {
+                data: project.properties,
+              });
+            }).catch((err) => toast.show(`${err}`, {type: "error"})
+            );
           }
         })
         .catch((err) => toast.show(`${err.message || err}`, { type: "error" }));
@@ -179,7 +170,7 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
 
   return (
     <View style={marketplaceStyles.container}>
-  
+
       <View
         style={marketplaceStyles.panelHeader}
         onTouchStart={() => setOnScroll(false)}
@@ -236,7 +227,7 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
                    />
                  </Fragment>
                );
-             
+
             }
             return (
               <Fragment key={index}>
@@ -251,10 +242,10 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
             );
           })
         ) : (
-          Array(3).fill(0).map((_, index) => ( 
+          Array(3).fill(0).map((_, index) => (
             <PlaceHolder key={index} />
           ))
-          
+
         )}
       </ScrollView>
     </View>
