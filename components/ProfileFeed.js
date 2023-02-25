@@ -44,20 +44,9 @@ const ProfileFeed = ({data, pressHandle}) => {
         />
       </View>
 
-      <View style={userFeedStyles.status}>
-        <Text style={{...userFeedStyles.status.text, ...userFeedStyles.status[last_status || "fail"]}}>
-          {t(last_status || "fail")} {" "}
-          <View
-            style={{
-              ...userFeedStyles.status.icon.border,
-              ...userFeedStyles.status.icon[last_status || "fail"]["border"]
-            }}
-          >
-            <View style={{...userFeedStyles.status.icon, ...userFeedStyles.status.icon[last_status || "fail"]}}/>
-          </View>
-        </Text>
-      </View>
-
+     <View style={userFeedStyles.imageCount}>
+     <Text style={userFeedStyles.imageCount.text}>{total} <Photos color="white"/></Text>
+     </View>
       <View style={userFeedStyles.info}>
         <Text style={userFeedStyles.address} numberOfLines={1}>
           {start_address || t("no_address")}
@@ -65,7 +54,12 @@ const ProfileFeed = ({data, pressHandle}) => {
 
         <View style={userFeedStyles.subInfo}>
           <Text style={userFeedStyles.date}>{moment(capture_time).format("DD-MM-YYYY")}</Text>
-          <Text style={userFeedStyles.date}>{total} <Photos/></Text>
+          
+          <View style={userFeedStyles.status}>
+        <Text style={{...userFeedStyles.status.text, ...userFeedStyles.status[last_status || "fail"]}}>
+          {t(last_status || "fail")}
+        </Text>
+      </View>
         </View>
       </View>
     </TouchableOpacity>

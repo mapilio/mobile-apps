@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
       lineHeight: RFValue(13),
       color: "#191919",
       transform: [
-        {translate: [RFValue(35), RFValue(4)]}
+        {translate: [RFValue(37), RFValue(4)]}
       ]
     },
   },
