@@ -46,7 +46,11 @@
     "or": "or",
     "back_to_the": "back to the <0>Marketplace</0>",
     "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed."
+    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
+    "map_loading": "Market map is loading..."
+  },
+  "map": {
+    "map_loading": "Loading map and zones..."
   },
   "profile_settings": {
     "profile_edit": "Profile Edit",

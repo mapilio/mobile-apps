@@ -14,6 +14,9 @@ import Geolocation from "@react-native-community/geolocation";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import { useSelector } from "react-redux";
+import MapLoading from "../components/Map/MapLoading";
+import { MapilioBetaWatermark } from "../assets/svg/illustrations";
+import { appMapStyle } from "../styles/appMapStyle";
 import {api} from "../util/helpers/api";
 
 const Marketplace = ({ navigation }) => {
@@ -23,7 +26,7 @@ const Marketplace = ({ navigation }) => {
   const {top, bottom} = useSafeAreaInsets();
   const [onScroll, setOnScroll] = useState(false);
   const [currentCoordinate, setCurrentCoordinate] = useState({latitude: 0, longitude: 0});
-
+  const [isMapReady, setIsMapReady] = useState(false);
   const {isInitialized} = useSelector(state => state.tooltipReducer.marketplace);
 
 
@@ -34,6 +37,15 @@ const Marketplace = ({ navigation }) => {
       setCurrentCoordinate({latitude: latitude, longitude: longitude})
     })
   }, []);
+
+  useEffect(() => {
+      if(!isMapReady && isInitialized) {
+        toast.show(t("map_loading"), {type: "loading", duration:10000})
+      }
+      else{
+        toast.hideAll();
+      }
+  }, [isMapReady]);
 
   useEffect(() => {
     let url = `${Config.SERVICE_URL}/api/get-marketplaces`
@@ -57,12 +69,19 @@ const Marketplace = ({ navigation }) => {
     }
   }, [isInitialized]);
 
+  const onDidFinishLoadingMap = () => {
+    setTimeout(() => {
+      setIsMapReady(true);
+    }, 300);
+  }
 
   return (
     <View style={{flex: 1, backgroundColor:"white"}}>
-      <MarketplaceMap navigation={navigation}/>
+      {!isMapReady &&  <MapLoading />  }
+      <MarketplaceMap navigation={navigation} onDidFinishLoadingMap={onDidFinishLoadingMap} />
       <FocusAwareStatusBar barStyle="dark-content"  backgroundColor={"transparent"}
                            translucent={true} />
+
       <TouchableOpacity
         onPress={() => slidePanel.current?.show(RFValue(400))}
         style={styles.button}>
@@ -71,6 +90,9 @@ const Marketplace = ({ navigation }) => {
         <CustomTextMedium style={{color: '#FFF', fontSize:RFValue(12)}}>{t("market_list")}</CustomTextMedium>
       </TouchableOpacity>
 
+      <View style={appMapStyle.watermark}>
+      <MapilioBetaWatermark  />
+      </View>
       <SlidingUpPanel
         allowDragging={!onScroll}
         showBackdrop={false}
@@ -103,6 +125,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: RFValue(18),
     borderRadius: RFValue(18),
     flexDirection: "row",
+    zIndex: 2,
   }
 });
 

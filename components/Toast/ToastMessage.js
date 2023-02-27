@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {ActivityIndicator} from "react-native-paper";
 import {
   CloseIcon,
   ErrorIcon,
@@ -19,6 +20,7 @@ const ToastMessage = ({ options: { id, type, message } }) => {
     error: <ErrorIcon />,
     warning: <WarningIcon />,
     info: <Icon />,
+    loading: <ActivityIndicator size={"small"} color="white" />,
   };
 
   const handleClose = () => toast.hide(id);
@@ -81,6 +83,9 @@ const styles = StyleSheet.create({
   },
   errorBg: {
     backgroundColor: "#EC4E2C",
+  },
+  loadingBg: {
+    backgroundColor: "#191919",
   },
 });
 

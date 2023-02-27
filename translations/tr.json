@@ -44,10 +44,14 @@
     "mission_ready": "Göreve Hazır",
     "mission_detail": "Çekim yaparken hangi yolu izlemeniz gerektiğini bilgi kısmından öğrenebilirsiniz.",
     "start_capture": "Çekimi Başlat",
-    "or": "yada",
+    "or": "ya da",
     "back_to_the": "<0>Market</0>'e dön",
     "far_location": "Konumunuz proje alanından çok uzakta",
-    "tooltip": "İhtiyaç duyulan yerlerde yeni harita verileri oluşturmak için görüntü toplama ve veri doğrulama projelerinde yardımda bulun veya sunun."
+    "tooltip": "İhtiyaç duyulan yerlerde yeni harita verileri oluşturmak için görüntü toplama ve veri doğrulama projelerinde yardımda bulun veya sunun.",
+    "map_loading": "Market haritası yükleniyor..."
+  },
+  "map": {
+    "map_loading": "Harita ve bölgeler yükleniyor..."
   },
   "profile_settings": {
     "profile_edit": "Profil Düzenleme",

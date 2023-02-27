@@ -30,6 +30,7 @@ const CaptureTabBarButton = () => {
 
   const handlePress = () => cameraPermission(() => {
     vibrate("light")
+    toast.hideAll()
     navigation.reset({index: 0, routes: [{name: "CameraTab"}]})
   })
 
