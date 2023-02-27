@@ -2,6 +2,7 @@ import {store} from "../store/store";
 import {GET_TOKEN_START, GET_TOKEN_SUCCESS} from "../store/actionsName";
 import {getUserInformation} from "../store/reducers/loginReducer/getUserInformation";
 import {api} from "../util/helpers/api";
+import Config from "react-native-config";
 
 export const fetchLogin = async (email, password) => {
   store.dispatch({type: GET_TOKEN_START})
@@ -10,8 +11,8 @@ export const fetchLogin = async (email, password) => {
     const data = new FormData();
     data.append("email", email);
     data.append("password", password);
-    data.append("client_id", "9");
-    data.append("client_secret", "your_client_secret");
+    data.append("client_id", Config.AUTH_CLIENT_ID);
+    data.append("client_secret", Config.AUTH_CLIENT_SECRET);
     data.append("grant_type", "password");
     data.append("device_type", "mobile");
 

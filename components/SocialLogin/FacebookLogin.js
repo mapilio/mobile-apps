@@ -39,6 +39,7 @@ const FacebookLogin = ({ navigation }) => {
               state: stateKey,
               client_id: Config.AUTH_CLIENT_ID,
               client_secret: Config.AUTH_CLIENT_SECRET,
+              device_type: "mobile"
             }).then((res) => {
               dispatch({type: SET_CREDENTIAL, payload: {...json, type: 'facebook'}});
               dispatch({type: GET_TOKEN_SUCCESS, payload: res});
