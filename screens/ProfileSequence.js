@@ -15,6 +15,7 @@ import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import {api} from "../util/helpers/api";
+import { FocusAwareStatusBar } from "../components";
 
 const UserSequence = ({ navigation, route }) => {
   const {t} = useTranslation("profile");
@@ -120,6 +121,7 @@ const UserSequence = ({ navigation, route }) => {
 
   return (
     <View style={{ flex: 1, height: Dimensions.get("screen").height }}>
+      <FocusAwareStatusBar barStyle="dark-content" />
       <ScrollView onScroll={scrollHandler} scrollEventThrottle={400} scrollEnabled={active === "image"}>
         <View style={userSequenceStyles.tabBar}>
           <SwitchSelector

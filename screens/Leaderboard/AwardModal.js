@@ -13,7 +13,7 @@ const AwardModal = () => {
   useEffect(() => {
     if (showGifts) {
       slidePanel.current?.present();
-      vibrate("success ");
+      vibrate("success");
       dispatch({ type: SET_SHOW_GIFTS, payload: false });
     }
   }, []);
