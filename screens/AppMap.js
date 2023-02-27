@@ -22,6 +22,8 @@ import {
 } from "../components/Map/layers";
 import { CenterToUserButton, ProfileButton, Pano } from "../components/Map";
 import { MapilioBetaWatermark } from "../assets/svg/illustrations";
+import MapLoading from "../components/Map/MapLoading";
+import { useTranslation } from "react-i18next";
 
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
@@ -31,12 +33,16 @@ const AppMap = ({ navigation }) => {
   const [showPano, setShowPano] = useState(false);
   const [userCoordinate, setUserCoordinate] = useState(undefined);
   const [initialCoord, setInitialCoord] = useState(undefined);
+  const [isMapReady, setIsMapReady] = useState(false);
   const [showUser, setShowUser] = useState(true);
-  const {connection} = useSelector((state) => state.generalReducer);
+  const { welcomeWalkthroughStatus } = useSelector(
+    (state) => state.generalReducer
+  );  const {connection} = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
   const {top} = useSafeAreaInsets();
   const {auth} = useSelector((state) => state.getTokenReducer);
+  const {t} = useTranslation("map");
 
   useEffect(() => {
     !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
@@ -53,6 +59,17 @@ const AppMap = ({ navigation }) => {
       setInitialCoord([coords.longitude, coords.latitude])
      })
   }, [showUser]);
+
+  useEffect(() => {
+    if (!isMapReady && welcomeWalkthroughStatus ) {
+     toast.show(t("map_loading"), {
+        type: "loading",
+        duration: 20000,
+      });
+    } else {
+      toast.hideAll();
+    }
+  }, [isMapReady]);
 
 
   const zoomPoint = (coordinate) => {
@@ -109,10 +126,19 @@ const AppMap = ({ navigation }) => {
   const mapStyles = {
     ...appMapStyle.map,
     height: showPano ? "50%" : "100%",
+    backgroundColor: "white",
+  };
+
+  const onDidFinishLoadingMap = () => {
+   setTimeout(() => {
+    setIsMapReady(true);
+   }, 500);
   };
 
   return (
     <View style={{ flex: 1 }}>
+     {!isMapReady && <MapLoading />}
+     
       <FocusAwareStatusBar
         barStyle="dark-content"
         backgroundColor={"transparent"}
@@ -124,7 +150,7 @@ const AppMap = ({ navigation }) => {
           imageInformation={imageInformations}
           navigation={navigation}
         />) }
-      <MapView mapStyle={mapStyles} mapRef={mapRef}>
+      <MapView mapStyle={mapStyles} mapRef={mapRef} onDidFinishLoadingMap={onDidFinishLoadingMap}>
         <Camera
           animationMode={"none"}
           ref={cameraRef}

@@ -14,8 +14,8 @@ import {setGeoJson} from "../helper/geojson";
 import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
-import {api} from "../util/helpers/api";
 import { FocusAwareStatusBar } from "../components";
+import {api} from "../util/helpers/api";
 
 const UserSequence = ({ navigation, route }) => {
   const {t} = useTranslation("profile");

@@ -8,7 +8,7 @@ export const appMapStyle = StyleSheet.create({
     position: "relative",
     height: "100%",
   },
-  topWrapper:{position:"absolute", justifyContent:"center", alignItems:"center", width:"100%"},
+  topWrapper:{position:"absolute", justifyContent:"center", alignItems:"center", width:"100%", zIndex:2},
   search: {
     alignItems: "center",
     ...globalStyles.shadow,
@@ -24,10 +24,10 @@ export const appMapStyle = StyleSheet.create({
   },
   currentIcon: {
     backgroundColor: "rgba(255,255,255,0.9)",
-    width: RFValue(40),
-    height: RFValue(40),
+    width: RFValue(35),
+    height: RFValue(35),
     position: "absolute",
-    zIndex: 8,
+    zIndex: 2,
     right: RFValue(15),
     bottom: RFValue(12),
     alignItems: "center",
@@ -39,7 +39,7 @@ export const appMapStyle = StyleSheet.create({
     position:"absolute",
     bottom:RFValue(10),
     left:RFValue(10),
-    zIndex:1,
+    zIndex:2,
     resizeMode:"contain"
   },
   minimizePano: {

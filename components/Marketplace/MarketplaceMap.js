@@ -4,7 +4,7 @@ import {appMapStyle} from "../../styles/appMapStyle";
 import MapboxGL from "@rnmapbox/maps";
 import {useSelector} from "react-redux";
 
-const MarketplaceMap = ({navigation}) => {
+const MarketplaceMap = ({navigation, onDidFinishLoadingMap}) => {
   const {marketplaceCenter, zoomLevel, marketplaceData} = useSelector((status) => status.marketplaceReducer);
   const camera = useRef();
 
@@ -26,7 +26,7 @@ const MarketplaceMap = ({navigation}) => {
   }
 
   return (
-    <MapView mapStyle={appMapStyle.map}>
+    <MapView mapStyle={appMapStyle.map} onDidFinishLoadingMap={onDidFinishLoadingMap}>
       <MapboxGL.Camera animationMode={"none"} ref={camera}/>
       {_drawPolygon(marketplaceData, navigation)}
     </MapView>
