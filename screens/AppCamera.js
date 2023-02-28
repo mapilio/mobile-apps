@@ -90,7 +90,7 @@ const AppCamera = () => {
     dispatch({type: GROUP_ID, payload: uuid.v4()});
     dispatch({type: UPDATE_PHOTO_AMOUNT, payload: 0})
 
-    activateKeepAwake("camera");
+    activateKeepAwake("camera").catch((error) => toast.show(`${error}`, {type: "error"}));
     BackHandler.addEventListener('hardwareBackPress', closeHandler);
     const id = watchPosition()
     StatusBar.setHidden(true)
@@ -111,7 +111,7 @@ const AppCamera = () => {
     return () => {
       Geolocation.clearWatch(id)
       BackHandler.removeEventListener('hardwareBackPress', closeHandler);
-      deactivateKeepAwake("camera")
+      deactivateKeepAwake("camera").catch((error) => toast.show(`${error}`, {type: "error"}))
     }
   }, []);
 

@@ -2,11 +2,11 @@ import { ScrollView } from "react-native";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import Content from "./Content";
 
-const Award = ({ isModal = false }) => {
+const Award = ({ isModal = false, slidePanel }) => {
   if (isModal)
     return (
       <BottomSheetScrollView>
-        <Content />
+        <Content slidePanel={slidePanel} />
       </BottomSheetScrollView>
     );
 
