@@ -40,7 +40,7 @@ const AwardModal = () => {
       handleIndicatorStyle={{ backgroundColor: "#D8D8D8" }}
       backdropComponent={renderBackdrop}
     >
-      <Award isModal />
+      <Award slidePanel={slidePanel} isModal />
     </BottomSheetModal>
   );
 };

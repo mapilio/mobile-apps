@@ -4,6 +4,7 @@ import {
   Text,
   View,
   useWindowDimensions,
+  TouchableOpacity,
 } from "react-native";
 import Lottie from "lottie-react-native";
 import { Fragment } from "react";
@@ -16,7 +17,7 @@ import { Routes } from "../../navigator/Routes";
 import LinearGradient from "react-native-linear-gradient";
 import { AwardCompanies } from "../../assets/svg/illustrations";
 
-const Content = () => {
+const Content = ({slidePanel}) => {
   const awards = [
     {
       medal: require("../../assets/images/goldMedal.png"),
@@ -153,6 +154,21 @@ const Content = () => {
         opacity: 0.8,
       },
     },
+    rules: {
+      color: "#191919",
+      fontFamily: "Poppins",
+      fontSize: RFValue(14),
+      textAlign: "center",
+      marginHorizontal: RFValue(20),
+      paddingHorizontal: RFValue(20),
+      marginBottom: RFValue(10),
+
+      link: {
+        color: "#0056F1",
+        fontFamily: "Poppins-Medium",
+        textDecorationLine: "underline",
+      },
+    },
   });
 
   return (
@@ -232,6 +248,24 @@ const Content = () => {
             onPress={pressHandler}
           />
 
+          <TouchableOpacity onPress={() => {
+            slidePanel?.current && slidePanel.current.dismiss();
+
+            navigation.navigate(Routes.stackNavigator, {
+              screen: Routes.profileNavigator, params: {
+                screen: Routes.webview, params: {url: "https://mapilio.com/rules-of-contest-webview"}
+              }
+            })
+          }}>
+            <Text style={styles.rules}>
+              <Trans
+                t={t}
+                i18nKey={"rules_of_contest"}
+                components={[<Text style={styles.rules.link}/>]}
+              />
+            </Text>
+          </TouchableOpacity>
+
           <View style={styles.finalContent}>
             <Text style={styles.finalContent.title}>
               {t("final_content.title")}
@@ -243,7 +277,7 @@ const Content = () => {
         </View>
 
         <View style={styles.bottomContent}>
-        <AwardCompanies width={width} height={(width * .75)} />
+          <AwardCompanies width={width} height={(width * .75)} />
 
           <LinearGradient
             colors={[

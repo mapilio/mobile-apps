@@ -326,7 +326,8 @@
     "final_content": {
       "title": "Mapilio ilk mücadeleye başladı.",
       "description": "Mapilio ile her çekim yaptığınızda kazanabilirsiniz. Puan toplayın, liderlik tablolarında rekabet edin ve kazanın."
-    }
+    },
+    "rules_of_contest": "Yarışma için <0>şartlar ve koşullar</0>."
   },
   "tooltip": {
     "tabBar": {
