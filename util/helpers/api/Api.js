@@ -43,7 +43,6 @@ axiosInstance.interceptors.response.use(
 
     if (error?.response?.status === 401) {
       config.retry -= 1;
-      console.log('refresh token', config.retry)
       try {
         const user = await refreshToken();
         axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${user.access_token || user.token}`;
