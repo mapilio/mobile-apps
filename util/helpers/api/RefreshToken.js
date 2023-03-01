@@ -14,6 +14,8 @@ export const refreshToken = async () => {
         client_id: Config.AUTH_CLIENT_ID,
         client_secret: Config.AUTH_CLIENT_SECRET,
         refresh_token: auth.refresh_token,
+      }, {
+        retry: 0,
       });
 
       store.dispatch({type: "GET_TOKEN_SUCCESS", payload: user});
