@@ -26,6 +26,6 @@ export const fetchLogin = async (email, password) => {
     store.dispatch(getUserInformation(user));
     return user
   } catch (err) {
-    throw new Error(err.response.data.message || "There was an error with the server, please try again later.");
+    throw(err || "There was an error with the server, please try again later.");
   }
 }
