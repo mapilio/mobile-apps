@@ -11,7 +11,7 @@ import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
 import {Heading} from "../components/Map";
 import {setGeoJson} from "../helper/geojson";
 import Config from "react-native-config";
-import {Panorama} from "../components";
+import {FocusAwareStatusBar, Panorama} from "../components";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 const ProfileUploadDetail = ({ navigation, route }) => {
@@ -60,6 +60,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
 
   return (
     <View>
+      <FocusAwareStatusBar barStyle="dark-content" />
       <View style={sequenceDetailStyles.imageArea}>
         <Panorama image={image} height={(height - RFValue(63) - bottom) / 2}/>
       </View>

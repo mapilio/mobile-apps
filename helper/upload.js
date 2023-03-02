@@ -7,8 +7,8 @@ import {calculate} from "./calculator";
 import md5 from "md5";
 import i18n from "i18next";
 import {api, cdn} from "../util/helpers/api";
-let apiController = {};
-let cdnController = {};
+let apiController;
+let cdnController;
 
 const translate = (key) => i18n.t(key, {ns: "upload"})
 

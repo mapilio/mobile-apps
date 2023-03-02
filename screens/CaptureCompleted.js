@@ -15,6 +15,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Routes} from "../navigator/Routes";
 import {useNavigation} from "@react-navigation/native";
 import {Upload} from "../components/Uploads";
+import { FocusAwareStatusBar } from "../components";
 
 const CaptureCompleted = () => {
   const [totalSize, setTotalSize] = useState(0);
@@ -81,6 +82,7 @@ const CaptureCompleted = () => {
 
   return (
     <View style={{...styles.container, marginTop: top}}>
+      <FocusAwareStatusBar barStyle="dark-content" />
       <Text style={styles.title}>
         <Trans
           t={t}
