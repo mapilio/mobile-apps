@@ -49,7 +49,11 @@ const FeedList = () => {
     const url = `/api/user-uploads-v2?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
 
     try {
-      const {data, pagination} = await api.get(url)
+      const {data, pagination} = await api.get(url, {
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
 
       if (!!pagination) {
         setPage(pagination?.current_page + 1)

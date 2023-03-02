@@ -16,7 +16,11 @@ export const fetchLogin = async (email, password) => {
     data.append("grant_type", "password");
     data.append("device_type", "mobile");
 
-    const user = await api.post('/api/v2/login', data)
+    const user = await api.post('/api/v2/login', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    })
 
     store.dispatch({type: GET_TOKEN_SUCCESS, payload: user});
     store.dispatch(getUserInformation(user));
