@@ -32,6 +32,9 @@ const ForgotPassword = ({navigation}) => {
 			callback: Config.FORGOT_URL,
 			"success-params": "tverification=true",
 			"error-params": "tverification=false",
+		}, {
+			headers: {
+				'Content-Type': 'multipart/form-data'}
 		}).then(() => {
 			navigation.reset({index: 0, routes: [{name: Routes.login}]})
 			toast.show(t("reset_success"), {type: "success"})

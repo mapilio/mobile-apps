@@ -269,7 +269,8 @@
     "pass_min_character": "Password must be at least {{min}} characters",
     "account_created": "Your account has been created, check your e-mail address.",
     "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy policy</0>"
+    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy policy</0>",
+    "register_error": "There was an error with the server, please try again later."
   },
   "forgot": {
     "title": "Forgot your password?",

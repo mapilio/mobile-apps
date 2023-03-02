@@ -46,13 +46,21 @@ const Register = ({ navigation }) => {
       callback: `https://mapilio.com?deeplink=mapilio://`,
       "success-params": "tverification=true",
       "error-params": "tverification=false",
+    }, {
+      headers: {
+        'Content-Type': 'multipart/form-data'}
     }).then(() => {
       navigation.reset({index: 0, routes: [{name: Routes.login}]})
       toast.show(t("account_created"), {type: "success"})
     }).catch((err) => {
-      Object.values(err.response.data).map((item, _i) => {
-        toast.show(`${item[0]}`, {type: "error"})
-      });
+      if(Object.keys(err).length === 0){
+        toast.show(t("register_error"), {type: "error"})
+      }else{
+        Object.values(err.response.data).map((item, _i) => {
+          toast.show(`${item[0]}`, {type: "error"})
+        });
+      }
+      
     }).finally(() => setLoading(false))
   }
 
