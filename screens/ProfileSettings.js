@@ -61,6 +61,10 @@ const ProfileSettings = ({navigation}) => {
           renderItem={({item: {name, url}}) => <ListItem name={name} onPress={() => handlePress(url)}/>}
         />
 
+        <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.webview, {url: 'https://mapilio.com/rules-of-contest-webview'})}>
+          <CustomText style={styles.listText}>{t("contest_rules")}</CustomText>
+        </Pressable>
+
         <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.language)}>
           <CustomText style={styles.listText}>{t("change_language")}</CustomText>
         </Pressable>
