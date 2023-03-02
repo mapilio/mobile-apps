@@ -7,7 +7,8 @@ import {calculate} from "./calculator";
 import md5 from "md5";
 import i18n from "i18next";
 import {api, cdn} from "../util/helpers/api";
-let apiController;
+import axios from "axios";
+let apiController ;
 let cdnController;
 
 const translate = (key) => i18n.t(key, {ns: "upload"})
@@ -51,7 +52,9 @@ export const getImagesBySequence = async (sequence) => {
 }
 
 export const getHash = async (image) => {
-  cdnController = new AbortController();
+  const CancelToken = axios.CancelToken;
+  cdnController = CancelToken.source();
+
   const {userInformation} = store.getState().getTokenReducer
 
   if (image.hash) {
@@ -72,23 +75,23 @@ export const getHash = async (image) => {
       formData.append("project_key", image.project_key);
     }
 
-    const response = await cdn.post('/api/upload/mobile', formData, {signal: cdnController?.signal})
+    const response = await cdn.post('/api/upload/mobile', formData, {cancelToken: cdnController?.token, headers: {'Content-Type': 'multipart/form-data'}}).catch((e) => {
+      throw new Error(e.message);
+    });
 
     await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE id=${image.id}`)
     return {status: 'success', hash: response.files[0].hash}
 
 
   } catch (e) {
-    if (e.name === 'CanceledError') {
-      return {status: 'warning', message: translate('you_cancelled_upload')}
-    }
-
     throw new Error(e?.response?.data?.message || e.message);
   }
 }
 
 export const imageryUpload = async (index, pictures) => {
   const {userInformation} = store.getState().getTokenReducer
+  const CancelToken = axios.CancelToken;
+  apiController = CancelToken.source();
 
   let files = {
     options: {
@@ -188,8 +191,9 @@ export const imageryUpload = async (index, pictures) => {
       files.options.parameters.summary.Information.group_key = picture.group_id;
 
       if (pictures[index].length - 1 === i) {
-        apiController = new AbortController();
-        const response = await api.post('/api/function/mapilio/imagery/upload', files, {signal: apiController?.signal,})
+        const response = await api.post('/api/function/mapilio/imagery/upload', files, { cancelToken: apiController?.token }).catch((e) => {
+          throw new Error(e.message);
+        });
 
         if (response.status) {
           await deleteSequence(picture.sequence_uuid)
@@ -223,6 +227,8 @@ export const percentage = (partialValue, totalValue) => {
 };
 
 export const closeRequest = () => {
-  apiController?.abort()
-  cdnController?.abort()
+
+  apiController?.cancel()
+  cdnController?.cancel()
+
 }

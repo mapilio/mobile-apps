@@ -70,7 +70,11 @@ const ProfileEdit = () => {
 
     const url = `${Config.SERVICE_URL}/api/function/user_profile/profile/updateProfile`
 
-    api.post(url, data).then(() => {
+    api.post(url, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    }).then(() => {
       dispatch(getUserInformation());
       toast.show(`Update is successfully`, {type: 'success'})
     }).catch((error) => {

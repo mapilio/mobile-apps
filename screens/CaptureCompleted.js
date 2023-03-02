@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: RFValue(20),
     paddingTop: RFValue(20),
+    backgroundColor:"#fff"
   },
   title: {
     fontSize: RFValue(20),

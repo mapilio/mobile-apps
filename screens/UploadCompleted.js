@@ -20,7 +20,7 @@ const UploadCompleted = () => {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1,backgroundColor:"#fff"}}>
       <FocusAwareStatusBar barStyle="dark-content"/>
       <View style={{
         alignItems: "center",
