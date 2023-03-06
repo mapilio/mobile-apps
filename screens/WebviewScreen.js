@@ -8,7 +8,7 @@ const WebviewScreen = ({route}) => {
   const {url} = route.params
 
   return <Fragment>
-    <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white"/>
+    <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff"/>
     <WebView
       source={{uri: url}}
       style={{opacity: 0.99}}

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {createStackNavigator} from "@react-navigation/stack";
+import {createStackNavigator, TransitionPresets} from "@react-navigation/stack";
 import TabNavigator from "./TabNavigator";
 import NetInfo from "@react-native-community/netinfo";
 import {UPDATE_CONNECTION_STATUS} from "../store/actionsName";
@@ -24,7 +24,7 @@ const MainNavigator = () => {
   }, []);
 
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}} >
+    <Stack.Navigator screenOptions={{headerShown: false, ...TransitionPresets.SlideFromRightIOS}} >
       <Stack.Screen name={Routes.tabNavigator} component={TabNavigator}/>
       <Stack.Screen name={Routes.stackNavigator} component={StackNavigator}/>
     </Stack.Navigator>

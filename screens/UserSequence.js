@@ -136,7 +136,7 @@ const UserSequence = ({navigation}) => {
        <ArrowLeft width={RFValue(17)} height={RFValue(30)} />
       </TouchableOpacity>
 
-      <FocusAwareStatusBar barStyle="dark-content"/>
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
 
       <MapView style={{flex: 1}} pitchEnabled={false}>
         <MapboxGL.Camera

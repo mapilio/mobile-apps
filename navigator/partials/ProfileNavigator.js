@@ -1,4 +1,4 @@
-import {createStackNavigator} from "@react-navigation/stack";
+import {createStackNavigator, TransitionPresets} from "@react-navigation/stack";
 import {
   Language,
   ProfileEdit,
@@ -24,6 +24,7 @@ const screenOptions = {
   headerTintColor: navigatorStyle.headerTintColor,
   headerTitleAlign: navigatorStyle.headerTitleAlign,
   cardStyle: navigatorStyle.cardStyle,
+  ...TransitionPresets.SlideFromRightIOS
 }
 
 const ProfileNavigator = ({navigation}) => {

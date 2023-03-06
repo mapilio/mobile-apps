@@ -1,4 +1,4 @@
-import {createStackNavigator} from "@react-navigation/stack";
+import {createStackNavigator, TransitionPresets} from "@react-navigation/stack";
 import {loginStyles} from "../../styles/loginStyles";
 import {Back, SignInButton, SignUpButton} from "../../components/Login";
 import {Routes} from "../Routes";
@@ -10,7 +10,11 @@ const Stack = createStackNavigator();
 
 const AuthNavigator = ({navigation}) => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={
+        {...TransitionPresets.SlideFromRightIOS}
+      }
+      >
       <Stack.Group
         screenOptions={{
           presentation: "card",

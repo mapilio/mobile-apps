@@ -121,7 +121,7 @@ const UserSequence = ({ navigation, route }) => {
 
   return (
     <View style={{ flex: 1, height: Dimensions.get("screen").height }}>
-      <FocusAwareStatusBar barStyle="dark-content" />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <ScrollView onScroll={scrollHandler} scrollEventThrottle={400} scrollEnabled={active === "image"}>
         <View style={userSequenceStyles.tabBar}>
           <SwitchSelector

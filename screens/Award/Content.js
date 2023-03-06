@@ -173,7 +173,7 @@ const Content = ({slidePanel}) => {
 
   return (
     <Fragment>
-      <FocusAwareStatusBar barStyle="dark-content" />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor={"#fff"} />
       <Lottie
         source={require("../../assets/animations/award.json")}
         style={styles.confetti}

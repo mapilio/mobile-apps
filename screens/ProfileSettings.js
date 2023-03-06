@@ -49,7 +49,7 @@ const ProfileSettings = ({navigation}) => {
 
   return (
     <View style={styles.wrapper}>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white"/>
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff"/>
       <View>
         <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.profileEdit)}>
           <CustomText style={styles.listText}>{t("profile_edit")}</CustomText>

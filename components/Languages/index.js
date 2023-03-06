@@ -80,7 +80,7 @@ const Language = ({ onPress, isBottomSheet = false }) => {
 
   return (
     <View style={{flex:1}}>
-      <FocusAwareStatusBar barStyle="dark-content" />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <FlatList
       style={{ paddingHorizontal: RFValue(15) }}
       keyExtractor={(item) => item}

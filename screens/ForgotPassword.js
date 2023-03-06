@@ -44,7 +44,7 @@ const ForgotPassword = ({navigation}) => {
 
 	return (
 		<View style={loginStyles.container}>
-			<FocusAwareStatusBar barStyle="dark-content"/>
+			<FocusAwareStatusBar barStyle="dark-content" backgroundColor={"#fff"} translucent/>
 			<View style={{marginBottom: RFValue(30)}}>
 				<CustomTextBold style={loginStyles.primaryText}>
 					{t("title")}
