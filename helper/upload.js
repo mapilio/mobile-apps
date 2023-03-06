@@ -146,12 +146,11 @@ export const imageryUpload = async (index, pictures) => {
       const horizontal = ImageWidth || PixelXDimension;
       const vertical = ImageLength || PixelYDimension;
 
-      const fov = calculate.fov(
-        horizontal > vertical ? horizontal : vertical,
-        horizontal < vertical ? horizontal : vertical,
-        exif.FocalLength,
-        "horizontal"
-      );
+      const horizontal_pixel = horizontal > vertical ? horizontal : vertical;
+      const vertical_pixel = horizontal < vertical ? horizontal : vertical;
+
+      const horizontal_fov = calculate.fov(horizontal_pixel, vertical_pixel, exif.FocalLength, "horizontal");
+      const vertical_fov = calculate.fov(horizontal_pixel, vertical_pixel, exif.FocalLength, "vertical");
 
       if (picture.project_key && picture.organization_key) {
         files.options.parameters.summary.Information.organization_key = picture.organization_key;
@@ -171,7 +170,8 @@ export const imageryUpload = async (index, pictures) => {
         deviceMake: Make || LensMake,
         deviceModel: Model || LensModel,
         imageSize: `${ImageWidth || PixelXDimension}x${ImageLength || PixelYDimension}`,
-        fov: fov,
+        fov: horizontal_fov,
+        vfov: vertical_fov,
         sequenceUuid: picture.sequence_uuid,
         photoUuid: md5(userInformation.email + (DateTime || DateTimeOriginal)),
         filename: fileName,
@@ -212,11 +212,10 @@ export const imageryUpload = async (index, pictures) => {
 const deleteSequence = async (sequence) => {
   const files = await db.getCapturesBySequenceIdAsync(sequence);
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
-    await db.deleteById(file.id)
-    const info = await FileSystem.getInfoAsync(FileSystem.documentDirectory + file.path)
-    info.exists && await FileSystem.deleteAsync(FileSystem.documentDirectory + file.path)
+  for (const element of files) {
+    await db.deleteById(element.id)
+    const info = await FileSystem.getInfoAsync(FileSystem.documentDirectory + element.path)
+    info.exists && await FileSystem.deleteAsync(FileSystem.documentDirectory + element.path)
   }
 }
 

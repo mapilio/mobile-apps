@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {AppState, View, Pressable} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
-import Database from "../db";
+import db from "../db";
 import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -16,7 +16,6 @@ import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {Accelerometer, Gyroscope} from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
-import db from "../db";
 import {setNewUUID} from "../helper/camera";
 
 const AutoActionButton = ({navigation}) => {
@@ -170,7 +169,7 @@ const AutoActionButton = ({navigation}) => {
 
 		await FileSystem.copyAsync({from: `file://${imageUri}`, to: newPath});
 		image.uri = newPath;
-		Database.insertToDB({
+		db.insertToDB({
 			exif: JSON.stringify({
 				...image.metadata,
 				...image.metadata["{Exif}"],
