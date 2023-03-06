@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Text, View, TextInput, TouchableOpacity, ActivityIndicator} from "react-native";
+import {Text, View, TextInput, TouchableOpacity} from "react-native";
 import * as yup from "yup";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
@@ -11,6 +11,7 @@ import {CustomText, CustomTextBold} from "../highordercomponents";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import {api} from "../util/helpers/api";
+import { ActivityIndicator } from "react-native-paper";
 
 
 const forgotValidationSchema = yup.object().shape({
@@ -43,7 +44,7 @@ const ForgotPassword = ({navigation}) => {
 
 	return (
 		<View style={loginStyles.container}>
-			<FocusAwareStatusBar barStyle="dark-content" backgroundColor={"#130C47"}/>
+			<FocusAwareStatusBar barStyle="dark-content"/>
 			<View style={{marginBottom: RFValue(30)}}>
 				<CustomTextBold style={loginStyles.primaryText}>
 					{t("title")}
@@ -70,7 +71,7 @@ const ForgotPassword = ({navigation}) => {
 			)}/>
 			<TouchableOpacity style={loginStyles.button} onPress={handleSubmit((values) => forgotPassword(values))}>
 				<Text style={loginStyles.buttonText}>
-					{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : t("reset_link")}
+					{loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : t("reset_link")}
 				</Text>
 			</TouchableOpacity>
 

@@ -3,17 +3,20 @@ import {RFValue} from "react-native-responsive-fontsize";
 
 export default StyleSheet.create({
   header: {
+    paddingTop: RFValue(20),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginHorizontal: RFValue(10),
+    paddingHorizontal: RFValue(10),
     borderBottomColor: "#EAEAEA",
     borderBottomWidth: 1,
+    paddingBottom: RFValue(10),
   },
   score: {
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: RFValue(5),
+    height: RFValue(40),
   },
   scoreText: {
     fontSize: RFValue(16),
@@ -21,9 +24,14 @@ export default StyleSheet.create({
     marginLeft: RFValue(5),
     color:"#191919"
   },
-  button: {
-    minWidth: RFValue(160),
-  },
+  button:{
+    marginBottom:0,
+    margin:0,
+    padding:0,
+    height: RFValue(40),
+    width: RFValue(150),
+    justifyContent: "center",
+  },  
   content: {
     flex: 1,
     paddingHorizontal: RFValue(10),
@@ -82,7 +90,7 @@ export default StyleSheet.create({
   clearSelectionText: {
     fontSize: RFValue(12),
     fontFamily: "Poppins",
-    color: "#3F8BE9",
+    color: "#0056F1",
     textDecorationLine: "underline",
   },
   trashIcon: {

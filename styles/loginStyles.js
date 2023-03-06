@@ -36,14 +36,14 @@ export const loginStyles = StyleSheet.create({
     fontFamily:"Poppins"
   },
   secondaryText: {
-    fontSize: RFValue(12),
+    fontSize: RFValue(14),
     color: "#808080",
-    fontFamily:"Poppins"
+    fontFamily:"Poppins",
   },
   input: {
     backgroundColor: "#ECECEC",
     borderRadius: RFValue(24),
-    height: RFValue(44),
+    height: RFValue(46),
     paddingHorizontal: RFValue(21),
     fontSize: RFValue(15),
     fontFamily:"Poppins-Light"
@@ -59,7 +59,8 @@ export const loginStyles = StyleSheet.create({
     backgroundColor: "#0056F1",
     display: "flex",
     alignItems: "center",
-    padding: RFValue(11),
+    height: RFValue(48),
+    justifyContent: "center",
   },
   buttonOutline: {
     borderRadius: RFValue(4),
@@ -72,6 +73,7 @@ export const loginStyles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontSize: RFValue(16),
+
   },
   errorText: {
     textAlign: "right",

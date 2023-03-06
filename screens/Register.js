@@ -3,7 +3,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Linking, ActivityIndicator,
+  Linking,
 } from "react-native";
 import * as yup from "yup";
 import { loginStyles } from "../styles/loginStyles";
@@ -20,6 +20,7 @@ import {MapilioLogoBeta} from "../assets/svg/logos";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {Trans, useTranslation} from "react-i18next";
 import {api} from "../util/helpers/api";
+import { ActivityIndicator } from "react-native-paper";
 
 
 
@@ -153,7 +154,7 @@ const Register = ({ navigation }) => {
           <CustomText
             style={{ ...loginStyles.secondaryText, color: "#fff" }}
           >
-            {loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : t("signup")}
+            {loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : t("signup")}
           </CustomText>
         </TouchableOpacity>
         <View style={{marginTop: RFValue(18)}}>
