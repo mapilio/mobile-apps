@@ -47,18 +47,19 @@ const AppMap = ({ navigation }) => {
   const watchID = useRef();
   const appState = useRef(AppState.currentState);
 
-  useEffect(() => {
-    !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
-
-    watchID.current = Geolocation.watchPosition(({coords}) => {
+  const watchLocation = () => {
+     watchID.current =  Geolocation.watchPosition(({coords}) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords));
     });
+  }
 
+  useEffect(() => {
+    !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
+    
+    watchLocation()
     const subscription = AppState.addEventListener("change", (state) => {
         if(appState.current.match(/inactive|background/) && state === "active") {
-            watchID.current = Geolocation.watchPosition(({coords}) => {
-              setUserCoordinate(point([coords.longitude, coords.latitude], coords));
-            });
+          watchLocation()
         }else{
             Geolocation.clearWatch(watchID.current);
         }
