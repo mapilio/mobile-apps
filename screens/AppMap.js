@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState} from "react";
-import { View } from "react-native";
+import { AppState, View } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -44,14 +44,32 @@ const AppMap = ({ navigation }) => {
   const {auth} = useSelector((state) => state.getTokenReducer);
   const {t} = useTranslation("map");
 
+  const watchID = useRef();
+  const appState = useRef(AppState.currentState);
+
   useEffect(() => {
     !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
 
-    const watchId = Geolocation.watchPosition(({coords}) => {
+    watchID.current = Geolocation.watchPosition(({coords}) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords));
     });
 
-    return () => Geolocation.clearWatch(watchId);
+    const subscription = AppState.addEventListener("change", (state) => {
+        if(appState.current.match(/inactive|background/) && state === "active") {
+            watchID.current = Geolocation.watchPosition(({coords}) => {
+              setUserCoordinate(point([coords.longitude, coords.latitude], coords));
+            });
+        }else{
+            Geolocation.clearWatch(watchID.current);
+        }
+        appState.current = state;
+
+    });
+
+    return () => {
+      Geolocation.clearWatch(watchID.current);
+      subscription.remove();
+    };
   }, []);
 
   useEffect(() => {
