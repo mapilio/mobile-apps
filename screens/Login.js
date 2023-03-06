@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ActivityIndicator, ScrollView, TextInput, TouchableOpacity, View} from "react-native";
+import {ScrollView, TextInput, TouchableOpacity, View} from "react-native";
 import * as yup from "yup";
 import {loginStyles} from "../styles/loginStyles";
 import {Routes} from "../navigator/Routes";
@@ -18,6 +18,7 @@ import {useTranslation} from "react-i18next";
 import {LanguageModal} from "../components/Login";
 import {useDispatch} from "react-redux";
 import {SET_CREDENTIAL} from "../store/actionsName";
+import {ActivityIndicator} from "react-native-paper";
 
 const Login = ({navigation}) => {
 	const {t} = useTranslation("login");
@@ -108,7 +109,7 @@ const Login = ({navigation}) => {
 					disabled={loading}
 				>
 					<CustomText style={{...loginStyles.secondaryText, color: "#fff"}}>
-						{loading ? (<ActivityIndicator size={"large"} color={"#FFFFFF"}/>) : t("login")}
+						{loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : t("login")}
 					</CustomText>
 				</TouchableOpacity>
 				<TouchableOpacity style={{alignItems:"center"}} onPress={() => navigation.navigate(Routes.forgotPassword)}>

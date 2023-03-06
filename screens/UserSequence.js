@@ -133,7 +133,7 @@ const UserSequence = ({navigation}) => {
         onPress={goBack}
         style={{...styles.backButton, top: top + RFValue(20)}}
       >
-        <ArrowLeft />
+       <ArrowLeft width={RFValue(17)} height={RFValue(30)} />
       </TouchableOpacity>
 
       <FocusAwareStatusBar barStyle="dark-content"/>
@@ -171,10 +171,11 @@ const UserSequence = ({navigation}) => {
       <BottomSheet
         ref={bottomSheetModalRef}
         snapPoints={snapPoints}
-        index={1}
+        index={2}
         handleIndicatorStyle={{...styles.indicatorStyle, backgroundColor: imageDetail ? "#FFF" : "#D8D8D8"}}
         handleStyle={styles.handleStyle}
         style={{backgroundColor: 'transparent'}}
+        containerStyle={{zIndex:2}}
       >
         <GetContent/>
       </BottomSheet>
@@ -190,9 +191,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: RFValue(20),
     zIndex: 1,
-    width: RFValue(30),
-    height: RFValue(30),
-    borderRadius: RFValue(30),
+    width: RFValue(34),
+    height: RFValue(34),
+    paddingLeft: RFValue(3),
+    borderRadius: RFValue(34),
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",

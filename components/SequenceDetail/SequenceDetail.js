@@ -79,7 +79,7 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
           </Text>
         </View>
 
-        <Upload group_uuid={info.group_id} style={styles.button} />
+        <Upload group_uuid={info.group_id} buttonStyle={styles.button} />
       </View>
 
       <View style={styles.content}>
