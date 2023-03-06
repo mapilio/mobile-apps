@@ -115,7 +115,7 @@ const ProfileEdit = () => {
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
 
           <View style={styles.formWrapper}>
-          <FocusAwareStatusBar barStyle="dark-content" backgroundColor="white"/>
+          <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff"/>
 
             <View>
               <View style={{alignItems: "center", paddingTop: RFValue(30)}}>

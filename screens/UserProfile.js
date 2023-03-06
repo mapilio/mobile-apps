@@ -25,7 +25,7 @@ const UserProfile = () => {
         paddingTop: RFValue(34),
       }}
     >
-      <FocusAwareStatusBar barStyle="dark-content" />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <UserInfos />
       <View style={{ height: RFValue(20) }} />
       <FeedList />

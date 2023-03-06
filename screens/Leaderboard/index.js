@@ -44,18 +44,24 @@ const Leaderboard = () => {
          style={{paddingTop:RFValue(10)}}
           screenOptions={({route}) => ({
             tabBarLabel: ({focused}) => (
-               <Text
-                style={{
+               <View style={{flex:1, flexDirection:"row",width:"100%", justifyContent:"center"}}>
+                 <Text
+                  style={{
                   color: focused ? "#191919" : "#666666",
                   fontFamily: focused ? "Poppins-SemiBold" : "Poppins",
                   fontSize: RFValue(14),
-                  paddingHorizontal:RFValue(5),
                 }}
               >
                 {route.name}
               </Text>
+               </View>
             ),
-            
+            tabBarAndroidRipple:false,
+            tabBarStyle:{
+              backgroundColor:"#fff",
+              elevation:0,
+            },
+            tabBarPressColor:"transparent",
           })}
           initialRouteName="Users"
         >

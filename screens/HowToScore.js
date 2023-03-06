@@ -27,7 +27,7 @@ const HowToScore = () => {
 
   return (
     <ScrollView style={{...styles.wrapper, paddingBottom: bottom}}>
-      <FocusAwareStatusBar barStyle="dark-content" />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor={"#fff"} />
       <Text style={styles.h1}>
         {t("title")}
       </Text>

@@ -22,6 +22,7 @@ import { tabHeight } from "../util/consts/ui";
 import { vibrate } from "../util/helpers";
 import LeaderHeaderLeft from "../screens/Leaderboard/LeaderHeaderLeft";
 import LeaderHeaderRight from "../screens/Leaderboard/LeaderHeaderRight";
+import { TransitionPresets } from "@react-navigation/stack";
 
 const Tab = createBottomTabNavigator();
 
@@ -104,6 +105,7 @@ const TabNavigator = () => {
             {children}
           </Pressable>
         ),
+        ...TransitionPresets.SlideFromRightIOS
       }}
       screenListeners={screenListener}
     >
@@ -158,7 +160,6 @@ const TabNavigator = () => {
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,
           headerShadowVisible: false,
-
         }}
       />
     </Tab.Navigator>

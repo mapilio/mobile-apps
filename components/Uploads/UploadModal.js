@@ -15,7 +15,7 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
 
   return (
     <Modal animationType="slide" transparent={false} visible={visible}>
-      <FocusAwareStatusBar barStyle="dark-content" />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <View style={userUploadModalStyles.container}>
         <View style={userUploadModalStyles.header}>
           <CustomTextBold style={userUploadModalStyles.title}>

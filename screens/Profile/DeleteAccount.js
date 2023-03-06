@@ -77,7 +77,7 @@ const DeleteAccount = () => {
 
   return (
     <View style={styles.container}>
-      <FocusAwareStatusBar barStyle="dark-content"  />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff"  />
       <View style={styles.content}>
         <SadWorld />
         <Text style={styles.title}>{t("title")}</Text>

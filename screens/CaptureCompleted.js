@@ -82,7 +82,7 @@ const CaptureCompleted = () => {
 
   return (
     <View style={{...styles.container, marginTop: top}}>
-      <FocusAwareStatusBar barStyle="dark-content" />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <Text style={styles.title}>
         <Trans
           t={t}

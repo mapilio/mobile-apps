@@ -50,7 +50,7 @@ const Login = ({navigation}) => {
 
 	return (
 		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
-			<FocusAwareStatusBar barStyle="dark-content"  />
+			      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor={"#fff"} />
 				<ScrollView>
 				<View style={loginStyles.logo}>
 					<MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>

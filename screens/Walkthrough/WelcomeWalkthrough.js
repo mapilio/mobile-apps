@@ -77,8 +77,8 @@ const WelcomeWalkthrough = () => {
     <SafeAreaView style={styles.wrapper}>
       <FocusAwareStatusBar
         barStyle="dark-content"
-        translucent={false}
-        backgroundColor={"white"}
+        translucent={true}
+        backgroundColor={"#fff"}
       />
 
       {!isLastStep && <Skip />}

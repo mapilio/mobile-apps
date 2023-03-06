@@ -97,6 +97,7 @@ const TooltipWrapper = ({
     });
   };
 
+  const isAndroidOrTablet = Platform.OS === "android" || Platform.isPad;
   const styles = {
     angle: {
       padding: RFValue(20),
@@ -126,11 +127,13 @@ const TooltipWrapper = ({
       position: "absolute",
       opacity: 1,
       borderRadius:
-        Platform.isPad || Platform.OS === "android"
+        isAndroidOrTablet
           ? name === "capture"
             ? RFValue(70)
             : RFValue(10)
           : RFValue(50),
+      borderBottomLeftRadius: isAndroidOrTablet ? name === "capture" ? RFValue(70) : 0 : RFValue(50),
+      borderBottomRightRadius: isAndroidOrTablet ? name === "capture" ? RFValue(70) : 0 : RFValue(50),
     },
   };
 

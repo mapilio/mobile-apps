@@ -60,7 +60,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
 
   return (
     <View>
-      <FocusAwareStatusBar barStyle="dark-content" />
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <View style={sequenceDetailStyles.imageArea}>
         <Panorama image={image} height={(height - RFValue(63) - bottom) / 2}/>
       </View>
