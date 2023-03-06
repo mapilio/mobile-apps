@@ -25,7 +25,7 @@ export const refreshToken = async () => {
 
     isTokenExpired()
   } catch (error) {
-    isTokenExpired(err)
+    isTokenExpired(error)
   }
 }
 
