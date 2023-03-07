@@ -1,6 +1,7 @@
 import {GET_USER_INDEX_TYPE, GET_USER_INFORMATION} from "../../actionsName";
 import OneSignal from "react-native-onesignal";
 import {api} from "../../../util/helpers/api";
+import * as Sentry from "@sentry/react-native";
 
 export const getUserInformation = () => (dispatch) => {
   api.get(`/api/function/user_profile/profile/getProfile`).then(({data}) => {
@@ -25,6 +26,7 @@ export const getUserInformation = () => (dispatch) => {
     })
 
     dispatch({type: GET_USER_INFORMATION, payload: data[0]});
+    Sentry.setUser({id: id.toString(), email: email});
     OneSignal.setExternalUserId(id.toString())
     OneSignal.setEmail(email)
   })
