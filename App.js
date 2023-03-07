@@ -41,7 +41,7 @@ function App() {
     compatibilityJSON: 'v3',
     resources: translations(),
     lng: language
-  }).catch((err) => toast.show(`${err}`, {type: "error"}));
+  });
 
   useEffect(() => {
     db.startDB();
@@ -57,7 +57,7 @@ function App() {
     if (fontsLoaded) {
       SplashScreen.hideAsync().then(async () => {
         initialPermissions()
-      }).catch((err) => toast.show(`${err}`, {type: "error"}));
+      });
     }
   }, [fontsLoaded]);
 

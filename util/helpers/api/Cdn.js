@@ -10,6 +10,7 @@ const cdnInstance = axios.create({
   timeout: 10000,
   retry: 5,
   retryDelay: 1000,
+  timeoutErrorMessage: translate("timeout", "errors"),
 });
 
 cdnInstance.interceptors.request.use(
@@ -35,7 +36,7 @@ cdnInstance.interceptors.response.use(
       throw new Error(error.response?.data.message || error || translate("server_error", "errors"));
     }
 
-    if (error?.response?.status === 502) {
+    if (error?.response?.status === 502 || error?.code === 'ECONNABORTED') {
       config.retry -= 1;
       await new Promise((resolve) => setTimeout(resolve, config.retryDelay));
       return cdnInstance(config);

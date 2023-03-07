@@ -10,6 +10,7 @@ const axiosInstance = axios.create({
   timeout: 10000,
   retry: 5,
   retryDelay: 1000,
+  timeoutErrorMessage: translate("timeout", "errors"),
 });
 
 axiosInstance.interceptors.request.use(
