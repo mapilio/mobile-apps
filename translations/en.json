@@ -367,7 +367,8 @@
   },
   "errors": {
     "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again."
+    "token_expired": "Your session has expired. Please login again.",
+    "timeout": "The server is not responding. Please try again later."
   },
   "report": {
     "cancel": "Cancel",

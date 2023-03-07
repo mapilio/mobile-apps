@@ -75,7 +75,10 @@ export const getHash = async (image) => {
       formData.append("project_key", image.project_key);
     }
 
-    const response = await cdn.post('/api/upload/mobile', formData, {cancelToken: cdnController?.token, headers: {'Content-Type': 'multipart/form-data'}}).catch((e) => {
+    const response = await cdn.post('/api/upload/mobile', formData, {
+      cancelToken: cdnController?.token,
+      headers: {'Content-Type': 'multipart/form-data'},
+    }).catch((e) => {
       throw new Error(e.message);
     });
 

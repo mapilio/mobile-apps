@@ -368,7 +368,8 @@
   },
   "errors": {
     "server_error": "Sunucuda bir hata oluştu, lütfen daha sonra tekrar deneyin.",
-    "token_expired": "Oturumunuz sona erdi, lütfen tekrar giriş yapın."
+    "token_expired": "Oturumunuz sona erdi, lütfen tekrar giriş yapın.",
+    "timeout": "Sunucuyla bağlantı kurulamadı, lütfen daha sonra tekrar deneyin."
   },
   "report": {
     "cancel": "İptal",
