@@ -8,7 +8,6 @@ import * as Sentry from "@sentry/react-native";
 import Config from "react-native-config";
 import {useFonts} from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
-import {initialPermissions} from "./helper/helper";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import Toast from "react-native-toast-notifications";
 import {ToastMessage} from "./components";
@@ -55,9 +54,7 @@ function App() {
 
   useEffect(() => {
     if (fontsLoaded) {
-      SplashScreen.hideAsync().then(async () => {
-        initialPermissions()
-      });
+      SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
