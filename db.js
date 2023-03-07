@@ -68,11 +68,11 @@ class Database {
     });
   }
 
-  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, address}) {
+  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId}) {
     db.transaction((txn) => {
       txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, address],
+        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId],
         () => null,
         (_, error) => {
           console.log(error);

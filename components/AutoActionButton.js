@@ -184,7 +184,6 @@ const AutoActionButton = ({navigation}) => {
 			path: `${groupId}/${filename}.${"jpeg"}`,
 			filename,
 			groupId,
-			address: null,
 		});
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});

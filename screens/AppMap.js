@@ -47,8 +47,10 @@ const AppMap = ({ navigation }) => {
   const watchID = useRef();
   const appState = useRef(AppState.currentState);
 
-  const watchLocation = () => {
-     watchID.current =  Geolocation.watchPosition(({coords}) => {
+  const watchLocation = async () => {
+    await initialPermissions();
+
+    watchID.current = Geolocation.watchPosition(({coords}) => {
       setUserCoordinate(point([coords.longitude, coords.latitude], coords));
     });
   }
