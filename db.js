@@ -60,12 +60,14 @@ class Database {
    * @example
    * addColumnIfNotExist('hash', 'TEXT', 'captures')
    */
-  addColumnIfNotExist(columnName, columnType = 'TEXT DEFAULT NULL', table = 'captures') {
-    db.transaction((txn) => {
-      this.isColumnExist(columnName).then((isExist) => {
-        !isExist && txn.executeSql(`ALTER TABLE ${table} ADD COLUMN ${columnName} ${columnType}`, [])
+  async addColumnIfNotExist(columnName, columnType = 'TEXT DEFAULT NULL', table = 'captures') {
+    const isExist = await this.isColumnExist(columnName);
+
+    if (!isExist) {
+      db.transaction((txn) => {
+        txn.executeSql(`ALTER TABLE ${table} ADD COLUMN ${columnName} ${columnType}`, [])
       });
-    });
+    }
   }
 
   insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId}) {
