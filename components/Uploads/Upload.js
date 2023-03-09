@@ -79,26 +79,27 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
   }
 
   const sendImages = async (i = 0, j = 0) => {
-    return new Promise(() => {
+    return new Promise(async () => {
       if (pictures[i]) {
         if (pictures[i][j]) {
           if (pictures[i][j].hash) {
             pictures.hash = pictures[i][j].hash
-            sendImages(i, ++j)
+            await sendImages(i, ++j)
           } else {
-            getHash(pictures[i][j]).then(async (res) => {
-              if (res.status === 'success') {
+            try {
+              const hash = await getHash(pictures[i][j])
 
-                pictures.hash = res.hash;
+              if (hash.status === 'success') {
+                pictures.hash = hash.hash;
                 setSentCount(prev => prev + 1)
                 await sendImages(i, ++j)
               } else {
-                requestBroken(res.message)
-                toast.show(res.message, {type: res.status})
+                requestBroken(hash.message)
+                toast.show(hash.message, {type: hash.status})
               }
-            }).catch((err) => {
-                requestBroken(err)
-            })
+            } catch (err) {
+              requestBroken(err)
+            }
           }
         } else {
           imageryUpload(i, pictures).then(async () => {
@@ -108,7 +109,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
             })
             await sendImages(++i)
           }).catch((err) => {
-           requestBroken(err)
+            requestBroken(err)
           })
         }
       } else {
@@ -124,7 +125,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
     setModalVisible(false);
     deactivateKeepAwake('upload');
     setSentCount(0);
-    if(error.message == "CanceledError: canceled"){
+    if(error.message === "CanceledError: canceled"){
       toast.show(t("you_cancelled_upload", {
         ns:"upload"
       }), {type: "error"})

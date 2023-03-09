@@ -7,9 +7,7 @@ import {
   UPDATE_PHOTO_AMOUNT,
   UPDATE_BATTERY_LEVEL,
   UPDATE_BATTERY_STATUS,
-  UPDATE_START_ACCURACY,
   UPDATE_MOCKED_STATUS,
-  UPDATE_HIGHSPEED_STATUS,
   UPDATE_CHARGE_STATUS,
   UPDATE_UUID,
   CAMERA_REDUCER_RESET,
@@ -25,7 +23,6 @@ import {
 
 const INITIAL_STATE = {
   GPSAccuracy: false,
-  GPSStartAccuracy: false,
   cameraStatus: "",
   camera: null,
   imageSize: 3145728,
@@ -35,7 +32,6 @@ const INITIAL_STATE = {
   batteryStatus: false,
   accuracy: false,
   mocked: false,
-  highSpeed: false,
   keepUUID: null,
   isCharge: true,
   captureButtonStatus: false,
@@ -89,16 +85,6 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         ...state,
         batteryStatus: action.payload,
       };
-    case UPDATE_START_ACCURACY:
-      return {
-        ...state,
-        GPSStartAccuracy: action.payload,
-      };
-    case UPDATE_HIGHSPEED_STATUS:
-      return {
-        ...state,
-        highSpeed: action.payload,
-      };
     case UPDATE_MOCKED_STATUS:
       return {
         ...state,
@@ -123,7 +109,6 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         GPSAccuracy: false,
-        GPSStartAccuracy: false,
         GPSAccuracyLevel: 100,
         cameraStatus: "",
         camera: null,

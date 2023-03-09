@@ -48,7 +48,9 @@ const RotationLine = () => {
 
     const status = !betweenNegativeLandscape && !betweenPositiveLandscape && !betweenHighNegativeLandscape
 
-    dispatch({type: UPDATE_ROTATE_STATUS, payload: status})
+    if (status !== rotateStatus) {
+      dispatch({type: UPDATE_ROTATE_STATUS, payload: status})
+    }
 
   }, [lineDegree]);
 
