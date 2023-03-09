@@ -20,8 +20,11 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
-
-Sentry.init({dsn: `${Config.SENTRY_DSN}`, tracesSampleRate: 1.0});
+Sentry.init({
+  dsn: `${Config.SENTRY_DSN}`,
+  tracesSampleRate: 1.0,
+  environment: process.env.NODE_ENV,
+});
 
 OneSignal.setAppId(Config.ONESIGNAL_APP_ID);
 OneSignal.promptForPushNotificationsWithUserResponse();
