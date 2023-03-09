@@ -40,6 +40,7 @@ const AutoActionButton = ({navigation}) => {
 	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
 	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
 	const [timeouts, setTimeouts] = useState([]);
+	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
@@ -47,8 +48,13 @@ const AutoActionButton = ({navigation}) => {
 
 	const playHandler = () => {
 		vibrate("medium");
-		if (autoCaptureStart || !isAlert) {
-			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: !autoCaptureStart})
+
+		if (!isAlert && !autoCaptureStart && isInitialized) {
+			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: true})
+		}
+
+		if (autoCaptureStart) {
+			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false})
 		}
 	};
 
@@ -115,9 +121,7 @@ const AutoActionButton = ({navigation}) => {
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
-				setTimeout(() => {
-					db.getGroupByWithGroupID().then(() => setNewUUID())
-				}, 1000);
+				setTimeout(() => db.getGroupByWithGroupID().then(() => setNewUUID()), 1000);
 			} else {
 				appState.current = nextAppState;
 			}

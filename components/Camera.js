@@ -1,24 +1,25 @@
-import React, {useRef} from "react";
 import {Camera as VisionCamera, useCameraDevices} from "react-native-vision-camera";
+import {StyleSheet, View} from "react-native";
+import React, {useRef} from "react";
 import {cameraStyles, fakeTasksStyle} from "../styles/cameraStyles";
-import CameraFrame from "./CameraFrame";
 import RotationLine from "./RotationLine";
-import {CameraWarnings} from "../helper/camera";
+import CameraFrame from "./CameraFrame";
 import CameraProjectInfo from "./CameraProjectInfo";
-import {UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS} from "../store/actionsName";
 import {useDispatch, useSelector} from "react-redux";
-import {View, StyleSheet} from "react-native";
-import SelectProjectButton from "./SelectProjectButton";
 import {TooltipWrapper} from "./Tooltip";
 import {tooltipContents} from "../util/consts/tooltip";
+import SelectProjectButton from "./SelectProjectButton";
+import {useNavigation} from "@react-navigation/native";
+import {CameraWarnings} from "../helper/camera";
+import {UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS} from "../store/actionsName";
 
-const Camera = ({ navigation }) => {
+const Camera = () => {
+  const {back: device} = useCameraDevices();
+  const dispatch = useDispatch();
   const cameraRef = useRef(null);
+  const navigation = useNavigation();
   const {auth} = useSelector((state) => state.getTokenReducer);
   const {isActive} = useSelector((state) => state.cameraReducer);
-  const devices = useCameraDevices();
-  const device = devices.back;
-  const dispatch = useDispatch();
   const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 
   const handleCameraReady = () => {
@@ -26,17 +27,11 @@ const Camera = ({ navigation }) => {
     dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
   };
 
-  const FakeTasks = () => {
-    return (
-        <SelectProjectButton
-          navigation={navigation}
-        />
-    );
-  };
+  const FakeTasks = () => <SelectProjectButton navigation={navigation}/>
 
   if (device) {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <VisionCamera
           style={cameraStyles.camera}
           ref={cameraRef}
@@ -50,10 +45,11 @@ const Camera = ({ navigation }) => {
           enableZoomGesture={false}
           hdr={false}
         />
+
         <View style={styles.cameraContents}>
-          <RotationLine />
-          <CameraFrame navigation={navigation} />
-          {auth && <CameraProjectInfo navigation={navigation} />}
+          <RotationLine/>
+          <CameraFrame/>
+          {auth && <CameraProjectInfo/>}
           {!auth && !isInitialized && (
             <View style={fakeTasksStyle}>
               <TooltipWrapper
@@ -61,20 +57,19 @@ const Camera = ({ navigation }) => {
                 content={tooltipContents.camera.tasks}
                 placement={"bottom"}
               >
-                <FakeTasks />
+                <FakeTasks/>
               </TooltipWrapper>
             </View>
           )}
+
           {isInitialized && <CameraWarnings />}
         </View>
       </View>
     );
-  } else {
-    return (
-      <View style={{flex:1, backgroundColor:"black"}} />
-    );
   }
-};
+
+  return <View style={{flex: 1, backgroundColor: "black"}}/>
+}
 
 const styles = StyleSheet.create({
   cameraContents: {

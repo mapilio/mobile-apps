@@ -47,27 +47,34 @@ const CaptureCompleted = () => {
     return (diffTime / (1000 * 60)).toFixed(2)
   }
 
+  const checkData = async () => {
+    const data = await db.getCapturesByGroupID(groupId)
+
+    if (data.length <= 5) {
+      skipHandler()
+      return;
+    }
+
+    const line = lineString(data.map((item) => [JSON.parse(item.location).longitude, JSON.parse(item.location).latitude]))
+    const point = points(data.map((item) => [JSON.parse(item.location).longitude, JSON.parse(item.location).latitude]))
+
+    const bboxData = bbox(line)
+    const lengthData = length(line, {units: 'kilometers'})
+    const count = data.length
+
+    const {size} = await FileSystem.getInfoAsync(FileSystem.documentDirectory + groupId)
+    setTotalSize(Math.round(size / 1024 / 1024))
+
+    setLineDetail({line, point, bboxData, lengthData, count, data})
+
+    calculateTime().then((time) => setMinute(time))
+  }
+
   useEffect(() => {
-    navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
+    navigation.getParent().setOptions({tabBarStyle: {display: "none"}});
+    checkData()
 
-    db.getCapturesByGroupID(groupId).then((data) => {
-      const line = lineString(data.map((item) => [JSON.parse(item.location).longitude, JSON.parse(item.location).latitude]))
-      const point = points(data.map((item) => [JSON.parse(item.location).longitude, JSON.parse(item.location).latitude]))
-
-      const bboxData = bbox(line)
-      const lengthData = length(line, {units: 'kilometers'})
-      const count = data.length
-
-      FileSystem.getInfoAsync(FileSystem.documentDirectory + groupId).then(({size}) => {
-        setTotalSize(Math.round(size / 1024 / 1024))
-      })
-
-      setLineDetail({line, point, bboxData, lengthData, count, data})
-
-      calculateTime().then((time) => setMinute(time))
-    })
-
-    return () => navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: RFValue(63) + bottom}})
+    return () => navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: RFValue(63) + bottom}});
   }, []);
 
   const skipHandler = () => {

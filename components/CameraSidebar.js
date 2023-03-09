@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import {useRef} from "react";
 import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {CustomText, CustomTextBold} from "../highordercomponents";
@@ -14,8 +14,9 @@ import {IS_ACTIVE, UPDATE_UUID} from "../store/actionsName";
 import * as Brightness from "expo-brightness";
 import {exitCapture} from "../helper/camera";
 import {useTranslation} from "react-i18next";
-import { TooltipWrapper } from "./Tooltip";
-import { tooltipContents } from "../util/consts/tooltip";
+import {TooltipWrapper} from "./Tooltip";
+import {tooltipContents} from "../util/consts/tooltip";
+
 const CapturedComponent = ({navigation, setLowBrightness}) => {
   const {t} = useTranslation("camera");
   const permissionsGranted = useRef(false);
@@ -73,9 +74,9 @@ const CaptureComponent = ({navigation, exitHandler}) => {
         <GoBackIcon/>
       </TouchableOpacity>
 
-     <TooltipWrapper content={tooltipContents.camera.startCapture} name={"startCapture"} placement={"left"}>
-     <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
-     </TooltipWrapper>
+      <TooltipWrapper content={tooltipContents.camera.startCapture} name={"startCapture"} placement={"left"}>
+        <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
+      </TooltipWrapper>
     </>
   )
 }
