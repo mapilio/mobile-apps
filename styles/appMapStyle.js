@@ -22,7 +22,7 @@ export const appMapStyle = StyleSheet.create({
     justifyContent: "center",
     borderRadius: RFPercentage(50),
   },
-  currentIcon: {
+  mapButton: {
     backgroundColor: "rgba(255,255,255,0.9)",
     width: RFValue(35),
     height: RFValue(35),
