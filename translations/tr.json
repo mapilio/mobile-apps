@@ -291,7 +291,10 @@
     "points": "Puan",
     "points_short": "P",
     "roads": "Yol",
-    "photos": "Resim"
+    "photos": "Resim",
+    "challange": "YARIŞMA",
+    "all_time": "TÜM ZAMANLAR",
+    "join": "Katıl"
   },
   "upload_modal": {
     "title": "Daha Güncel Haritalar Oluşturalım",

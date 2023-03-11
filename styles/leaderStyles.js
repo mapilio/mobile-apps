@@ -10,14 +10,13 @@ export const leaderStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: Platform.isPad ? 20: 10,
+    paddingHorizontal: RFValue(12),
   },
   headerSubTitle: {
     fontFamily: "Poppins",
     color: "#808080",
     marginTop: 20,
-    fontSize: 15,
-    paddingTop: 5,
+    fontSize: RFValue(14),
   },
   subScreens: {
     flex: 1,
@@ -113,4 +112,16 @@ export const leaderStyles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  tabBarLabel:{
+    width:RFValue(36),
+    height:RFValue(15),
+    marginLeft:RFValue(5),
+    borderTopRightRadius:RFValue(8),
+    borderBottomLeftRadius:RFValue(8),
+    borderTopLeftRadius:RFValue(2),
+    borderBottomRightRadius:RFValue(2),
+    backgroundColor:"#EB1515",
+    justifyContent:"center",
+    alignItems:"center"
+  }
 });
