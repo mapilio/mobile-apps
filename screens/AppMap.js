@@ -195,9 +195,6 @@ const AppMap = ({ navigation }) => {
         mapRef={mapRef}
         onDidFinishLoadingMap={onDidFinishLoadingMap}
         rotateEnabled
-        compassEnabled
-        compassFadeWhenNorth
-        compassPosition={{ right:RFValue(15), bottom:RFValue(120) }}
       >
         <Camera
           animationMode={"none"}
