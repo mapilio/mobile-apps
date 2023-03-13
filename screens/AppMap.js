@@ -16,11 +16,17 @@ import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {
   ActiveSources,
+  Buildings,
   Lines,
   Points,
   Userlocation,
 } from "../components/Map/layers";
-import { CenterToUserButton, ProfileButton, Pano } from "../components/Map";
+import {
+  CenterToUserButton,
+  ProfileButton,
+  Pano,
+  ToggleBuildings,
+} from "../components/Map";
 import { MapilioBetaWatermark } from "../assets/svg/illustrations";
 import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
@@ -35,9 +41,11 @@ const AppMap = ({ navigation }) => {
   const [initialCoord, setInitialCoord] = useState(undefined);
   const [isMapReady, setIsMapReady] = useState(false);
   const [showUser, setShowUser] = useState(true);
+  const [showBuildings, setShowBuildings] = useState(false);
   const { welcomeWalkthroughStatus } = useSelector(
     (state) => state.generalReducer
-  );  const {connection} = useSelector((state) => state.generalReducer);
+  );
+  const { connection } = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
   const {top} = useSafeAreaInsets();
@@ -92,6 +100,13 @@ const AppMap = ({ navigation }) => {
     }
   }, [isMapReady]);
 
+  useEffect(() => {
+    cameraRef.current?.setCamera({
+      pitch: showBuildings ? 60 : 0,
+      heading: 0,
+      animationDuration: 300,
+    });
+  }, [showBuildings]);
 
   const zoomPoint = (coordinate) => {
     mapRef.current?.getZoom().then((zoomLevel) => {
@@ -116,6 +131,7 @@ const AppMap = ({ navigation }) => {
       highResImage: `${Config.IMAGE_API}/${properties.uploaded_hash}/${properties.filename}/1080`,
     });
     setShowPano(true);
+
   };
 
   const handleSetCenter = async () => {
@@ -123,11 +139,13 @@ const AppMap = ({ navigation }) => {
       if (res !== RESULTS.GRANTED) {
         toast.show(`Your GPS is disabled.`, { type: "error" });
       } else {
-        userCoordinate &&
-        cameraRef.current?.setCamera({
-          centerCoordinate: userCoordinate?.geometry?.coordinates,
-          zoomLevel: 15,
-        });
+          cameraRef.current?.setCamera({
+            centerCoordinate: userCoordinate.geometry.coordinates,
+            zoomLevel: 15,
+            pitch: 0,
+            animationDuration: 500,
+            heading: 0,
+          });
       }
     });
   };
@@ -170,8 +188,14 @@ const AppMap = ({ navigation }) => {
           hidePano={() => setShowPano(false)}
           imageInformation={imageInformations}
           navigation={navigation}
-        />) }
-      <MapView mapStyle={mapStyles} mapRef={mapRef} onDidFinishLoadingMap={onDidFinishLoadingMap}>
+        />
+      )}
+      <MapView
+        mapStyle={mapStyles}
+        mapRef={mapRef}
+        onDidFinishLoadingMap={onDidFinishLoadingMap}
+        rotateEnabled
+      >
         <Camera
           animationMode={"none"}
           ref={cameraRef}
@@ -180,6 +204,8 @@ const AppMap = ({ navigation }) => {
         />
         <Points touchPoint={touchPoint} />
         <Lines zoomPoint={zoomPoint} />
+
+        {showBuildings && <Buildings />}
 
         {showUser && userCoordinate && <Userlocation shape={userCoordinate} />}
 
@@ -191,17 +217,22 @@ const AppMap = ({ navigation }) => {
         )}
       </MapView>
       <View style={appMapStyle.watermark}>
-      <MapilioBetaWatermark  />
+        <MapilioBetaWatermark />
       </View>
       <CenterToUserButton
         handleSetCenter={handleSetCenter}
         setShowUser={setShowUser}
       />
+      <ToggleBuildings isActive={showBuildings}  toggleBuildings={setShowBuildings} />
       {/**  Mapbox cause overflow on early android versions. That's necessarry to call them in here for early devices. */}
-      {!showPano && <View style={[appMapStyle.topWrapper, {marginTop:top+RFValue(10)}]}>
-        <Search camera={cameraRef} />
-        <ProfileButton onPress={handleProfile} />
-      </View >}
+      {!showPano && (
+        <View
+          style={[appMapStyle.topWrapper, { marginTop: top + RFValue(10) }]}
+        >
+          <Search camera={cameraRef} />
+          <ProfileButton onPress={handleProfile} />
+        </View>
+      )}
     </View>
   );
 };
