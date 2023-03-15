@@ -49,15 +49,7 @@ const Leaderboard = () => {
           style={{ paddingTop: RFValue(10) }}
           screenOptions={({ route }) => ({
             tabBarLabel: ({ focused }) => (
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+              <View style={styles.wrapper}>
                 <Text
                   style={{
                     color: focused ? "#191919" : "#666666",
@@ -78,12 +70,7 @@ const Leaderboard = () => {
                 )}
               </View>
             ),
-            tabBarAndroidRipple: false,
-            tabBarStyle: {
-              backgroundColor: "#fff",
-              elevation: 0,
-            },
-            tabBarPressColor: "transparent",
+           ...styles.screenOptions
           })}
           initialRouteName={t("challange")}
         >

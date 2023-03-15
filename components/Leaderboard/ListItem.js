@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
 import { useTranslation } from "react-i18next";
 import FallbackImage from "./FallbackImage";
 import UserProfileImage from "./UserProfileImage";
