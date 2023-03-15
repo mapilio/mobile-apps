@@ -10,7 +10,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import AwardModal from "./AwardModal";
 import SkeletonLoading from "../../components/Leaderboard/SkeletonLoading";
 import { fetchLeaderUsers,resetLeaderboard   } from "../../store/actions/leaderboard";
-import { CustomText, CustomTextBold, CustomTextMedium } from "../../highordercomponents";
+import { CustomText, CustomTextMedium } from "../../highordercomponents";
 import ChallangeUsers from "./ChallangeUsers";
 
 const Tab = createMaterialTopTabNavigator();

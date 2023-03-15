@@ -93,7 +93,7 @@ const AppMap = ({ navigation }) => {
     if (!isMapReady && welcomeWalkthroughStatus ) {
      toast.show(t("map_loading"), {
         type: "loading",
-        duration: 20000,
+        duration: 3000,
       });
     } else {
       toast.hideAll();
