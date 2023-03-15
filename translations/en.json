@@ -282,7 +282,7 @@
   "leaderboard": {
     "title": "Leaderboard",
     "how_to_score": "How to \nscore?",
-    "description": "The challenge has begun! Collect and win the most points between <0>01.03.2023 - 31.05.2023</0>",
+    "description": "Challenge has begun! Collect and win the most points between <0>01.03.2023 - 31.05.2023</0>",
     "users": "Users",
     "organizations": "Organizations",
     "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
