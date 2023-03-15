@@ -24,7 +24,7 @@ export const leaderStyles = StyleSheet.create({
   },
   authUserListItem: {
     flexDirection: "row",
-    width: "100%",
+    marginRight: RFValue(1),
     alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 10,
