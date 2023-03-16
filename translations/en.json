@@ -282,7 +282,7 @@
   "leaderboard": {
     "title": "Leaderboard",
     "how_to_score": "How to \nscore?",
-    "description": "Top 30 community members helping grow the Mapilio!",
+    "description": "Challenge has begun! Collect and win the most points between <0>01.03.2023 - 31.05.2023</0>",
     "users": "Users",
     "organizations": "Organizations",
     "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
@@ -290,7 +290,10 @@
     "points": "Points",
     "points_short": "Pt",
     "roads": "Roads",
-    "photos": "Photos"
+    "photos": "Photos",
+    "challange": "CHALLANGE",
+    "all_time": "ALL TIME",
+    "join": "Join"
   },
   "upload_modal": {
     "title": "Lets Create More Up To\nDate Maps",
@@ -320,9 +323,9 @@
     "slogan": "<bold>Mapilio</bold> started the first challange.",
     "title": "Earn new gifts as you reach more kilometers",
     "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Mi Pro 2 Scooter",
-    "gopro_9": "GoPro 9",
-    "beats_3_headphones": "Beats 3 Headphones",
+    "mi_pro_2_scooter": "Xiaomi Scooter",
+    "gopro_9": "GoPro 360 Max",
+    "beats_3_headphones": "Beats Solo 3",
     "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>\u25CF Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>\u25CF Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>\u25CF Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>\u25CF Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>\u25CF Exact Location</bold> Location Services of your device must be on and precise.",
     "rules_of_contest": "<0>Official rules</0> for the contest",
     "final_content": {

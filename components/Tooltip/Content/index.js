@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
   },
   description: {
-    color: "white",
+    color: "#C2C2C2",
     fontSize: RFValue(13),
     fontFamily: "Poppins",
   },
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: "#3F8BE9",
+    backgroundColor: "#0056F1",
     padding: RFValue(10),
     alignItems: "center",
     borderRadius: RFValue(30),

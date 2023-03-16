@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Medium",
     textAlign: "right",
     lineHeight: RFValue(13),
-    marginRight: RFValue(3),
+    marginRight: RFValue(4),
     marginTop: RFValue(4),
   },
 });

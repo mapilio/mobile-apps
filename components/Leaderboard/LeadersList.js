@@ -5,7 +5,6 @@ import renderItem from "./RenderItem";
 import AuthUserButton from "./AuthUserButton";
 import { useDispatch } from "react-redux";
 import {
-  fetchLeaderOrganizations,
   fetchLeaderUsers,
 } from "../../store/actions/leaderboard";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -44,7 +43,7 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
       if (listType === "users") {
         dispatch(fetchLeaderUsers());
       } else {
-        dispatch(fetchLeaderOrganizations());
+        dispatch(fetchLeaderUsers("01-03-2023", "31-05-2023"));
       }
       setIsRefresh(false);
     }, 500);

@@ -40,7 +40,7 @@ const Marketplace = ({ navigation }) => {
 
   useEffect(() => {
       if(!isMapReady && isInitialized) {
-        toast.show(t("map_loading"), {type: "loading", duration:10000})
+        toast.show(t("map_loading"), {type: "loading", duration:3000})
       }
       else{
         toast.hideAll();

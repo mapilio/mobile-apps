@@ -1,23 +1,51 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { statusBarPadding } from "../util/consts/ui";
 
 export const leaderStyles = StyleSheet.create({
+  screenOptions: {
+    tabBarAndroidRipple: false,
+    tabBarStyle: {
+      backgroundColor: "#fff",
+      elevation: 0,
+    },
+    tabBarPressColor: "transparent",
+  },
+  tabBarLabel: {
+    width: RFValue(36),
+    height: RFValue(15),
+    marginLeft: RFValue(5),
+    borderTopRightRadius: RFValue(8),
+    borderBottomLeftRadius: RFValue(8),
+    borderTopLeftRadius: RFValue(2),
+    borderBottomRightRadius: RFValue(2),
+    backgroundColor: "#EB1515",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  wrapper: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   base: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-    paddingTop:statusBarPadding,
+    paddingTop: statusBarPadding,
   },
   container: {
     flex: 1,
-    paddingHorizontal: Platform.isPad ? 20: 10,
+    paddingHorizontal: RFValue(14),
   },
   headerSubTitle: {
     fontFamily: "Poppins",
     color: "#808080",
     marginTop: 20,
-    fontSize: 15,
-    paddingTop: 5,
+    fontSize: RFValue(13),
+    textAlign:"center"
+  
   },
   subScreens: {
     flex: 1,
@@ -25,7 +53,7 @@ export const leaderStyles = StyleSheet.create({
   },
   authUserListItem: {
     flexDirection: "row",
-    width: "100%",
+    marginRight: RFValue(1),
     alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 10,
@@ -83,7 +111,7 @@ export const leaderStyles = StyleSheet.create({
       fontFamily: "Poppins",
       fontSize: 16,
       marginLeft: 10,
-      color:"#191919"
+      color: "#191919",
     },
   },
   profilePhoto: {
@@ -113,4 +141,5 @@ export const leaderStyles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+ 
 });

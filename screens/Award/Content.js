@@ -105,7 +105,7 @@ const Content = ({slidePanel}) => {
     },
     awardItem: {
       flexDirection: "row",
-      alignItems: "center",
+      alignItems: "flex-end",
       marginVertical: RFValue(5),
       marginHorizontal: RFValue(15),
 
