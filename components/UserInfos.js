@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {ActivityIndicator, Image, Text, View} from "react-native";
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import {userInfoStyles} from "../styles/userProfileStyle";
-import {thousandFormatter} from "../helper/helper";
+import {maxCharacterHandler, thousandFormatter} from "../helper/helper";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {CameraFilledIcon, RoadIcon} from "../assets/svg/illustrations";
@@ -44,7 +44,7 @@ const UserInfos = () => {
       <View style={userInfoStyles.infoContainer}>
         <View>
           <Text style={userInfoStyles.username}>
-            {userInformation.username}
+            {maxCharacterHandler(userInformation.username, 12)}
           </Text>
         </View>
         <View style={userInfoStyles.infoGrid}>
