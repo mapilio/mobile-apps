@@ -11,31 +11,38 @@ import db from "../db";
 import {bbox, lineString} from "@turf/turf";
 import BottomSheet from '@gorhom/bottom-sheet';
 import UserSequenceDetail from "./UserSequenceDetail";
-import {deleteAsync, documentDirectory} from "expo-file-system";
 import {Heading} from "../components/Map";
 import {setGeoJson} from "../helper/geojson";
-import {useTranslation} from "react-i18next";
 import {UPDATE_SELECTED_IMAGES, UPLOAD_DATA} from "../store/actionsName";
 import SequenceDetail from "../components/SequenceDetail";
 import {Routes} from "../navigator/Routes";
-import { FocusAwareStatusBar } from "../components";
+import {FocusAwareStatusBar, Loading} from "../components";
 
 
 const UserSequence = ({navigation}) => {
   const cameraRef = useRef();
   const {top} = useSafeAreaInsets();
-  const {t} = useTranslation("upload");
+  const {uploadData} = useSelector((state) => state.uploadReducer);
   const {activeSequence} = useSelector((state) => state.uploadReducer);
   const [mapGeoJson, setMapGeoJson] = useState(undefined);
   const [imageDetail, setImageDetail] = useState(undefined);
+  const [loading, setLoading] = useState(false);
   const bottomSheetModalRef = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getData()
+    getData().then(() => setLoading(false));
   }, [])
 
+  useEffect(() => {
+    getData().then(() => setLoading(false));
+  }, [uploadData])
+
   const GetContent = () => {
+    if (loading) {
+      return <Loading />
+    }
+
     if (!!imageDetail) {
       return <UserSequenceDetail item={imageDetail} changeImage={changeImage} deleteHandler={deleteImages} />
     }
@@ -50,6 +57,7 @@ const UserSequence = ({navigation}) => {
   const snapPoints = useMemo(() => [...Array(9).keys()].map((e) => (e + 1) + '0%'), []);
 
   const getData = async () => {
+    setLoading(true);
     try {
       const result = await db.getCaptures(activeSequence);
 

@@ -16,7 +16,6 @@ import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {Accelerometer, Gyroscope} from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
-import {setNewUUID} from "../helper/camera";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -121,7 +120,7 @@ const AutoActionButton = ({navigation}) => {
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
-				setTimeout(() => db.getGroupByWithGroupID().then(() => setNewUUID()), 1000);
+				setTimeout(() => db.getGroupByWithGroupID().then(() => newSequence()), 1000);
 			} else {
 				appState.current = nextAppState;
 			}

@@ -293,7 +293,7 @@ class Database {
         txn.executeSql(
           query, [], (_, {rows: {_array: results}}) => {
 
-            if (results.length < 5) {
+            if (results.length < 5 && results.length > 0) {
               this.deleteByGroupID(results[0].group_id, async () => {
                 await FileSystem.deleteAsync(FileSystem.documentDirectory + `${results[0].group_id}`)
               })
@@ -434,6 +434,53 @@ class Database {
           reject(error)
         })
       })
+    })
+  }
+
+  /**
+   * Getting total image count
+   * @param group_uuid {string} Group uuid (optional)
+   * @returns {Promise<Promise<Array|Object> | Promise>} Promise with total image count (number) or error (object)
+   */
+  getTotalImageCount = async (group_uuid) => {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT COUNT(*) FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''}`,
+          [],
+          (_, results) => {
+            resolve(results.rows._array[0]['COUNT(*)'])
+          },
+          (error) => {
+            reject(error)
+          }
+        )
+      });
+    })
+  }
+
+  /**
+   * Getting grouped sequences for upload (promise) (async)
+   *
+   * @param group_uuid {string|null} Group uuid to get sequences for upload (optional)
+   * @returns {Promise<Array|Object> | Promise} Promise with sequences for upload (array) or error (object)
+   */
+  getSequencesForUpload(group_uuid) {
+    return new Promise((resolve, reject) => {
+      db.transaction((txn) => {
+        txn.executeSql(
+          `SELECT sequence_uuid FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''} GROUP BY sequence_uuid`,
+          [],
+          async (_, results) => {
+            const total = await this.getTotalImageCount(group_uuid)
+
+            resolve({sequences: results.rows._array, total})
+          },
+          (error) => {
+            reject(error)
+          }
+        )
+      });
     })
   }
 }

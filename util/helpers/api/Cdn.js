@@ -4,7 +4,6 @@ import {store} from "../../../store/store";
 import {translate} from "../index";
 import {refreshToken} from "./RefreshToken";
 
-
 const cdnInstance = axios.create({
   baseURL: Config.CDN_URL,
   timeout: 10000,
@@ -32,6 +31,10 @@ cdnInstance.interceptors.response.use(
   async function (error) {
     const {config} = error;
 
+    error.code === 'ERR_NETWORK' && (error.message = translate("server_error", "errors"));
+    error.message === "CanceledError: canceled" && (error.message = translate("you_cancelled_upload", "upload"));
+    error.message === "AxiosError: timeout of 10000ms exceeded" || error?.code === 'ECONNABORTED' && (error.message = translate("timeout", "errors"));
+
     if (!config || !config.retry) {
       throw new Error(error.response?.data.message || error || translate("server_error", "errors"));
     }
@@ -49,10 +52,10 @@ cdnInstance.interceptors.response.use(
         cdnInstance.defaults.headers.common["Authorization"] = `Bearer ${user.access_token || user.token}`;
         return cdnInstance(config);
       } catch (err) {
-        throw new Error(err.response?.data.message || err || translate("server_error", "errors"));
+        throw new Error(err);
       }
     } else {
-      throw new Error(error.response?.data.message || error || translate("server_error", "errors"));
+      throw new Error(error);
     }
   }
 );

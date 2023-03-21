@@ -4,7 +4,6 @@ import {store} from "../../../store/store";
 import {translate} from "../index";
 import {refreshToken} from "./RefreshToken";
 
-
 const axiosInstance = axios.create({
   baseURL: Config.SERVICE_URL,
   timeout: 10000,
@@ -31,6 +30,11 @@ axiosInstance.interceptors.response.use(
   ({data}) => data,
   async function (error) {
     const {config} = error;
+
+    error.code === 'ERR_NETWORK' && (error.message = translate("server_error", "errors"));
+    error.message === "CanceledError: canceled" && (error.message = translate("you_cancelled_upload", "upload"));
+    error.message === "AxiosError: timeout of 10000ms exceeded" || error?.code === 'ECONNABORTED' && (error.message = translate("timeout", "errors"));
+
 
     if (!config || !config.retry) {
       throw new Error(error.response?.data.message || error || translate("server_error", "errors"));
