@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {closeRequest, filesFilter, getHash, getImagesBySequence, imageryUpload, isWifi} from "../../helper/upload";
+import {closeRequest, deleteSequence, getHash, imageryUpload, isWifi} from "../../helper/upload";
 import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
 import db from "../../db";
 import {UPLOAD_DATA} from "../../store/actionsName";
@@ -18,30 +18,26 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
   const {t} = useTranslation("navigation");
   const {uploadData} = useSelector((state) => state.uploadReducer);
   const {connection} = useSelector((state) => state.generalReducer);
-  const { userInformation} = useSelector((state) => state.getTokenReducer);
+  const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [sequenceLength, setSequenceLength] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
   const navigation = useNavigation();
-  const pictures = []
+
+  let willDelete = [];
 
   useEffect(() => {
     let path = FileSystem.documentDirectory;
     group_uuid && (path += `/${group_uuid}`);
 
-    FileSystem.getInfoAsync(path).then(({size}) => {
-      setTotalSize(Math.round(size / 1024 / 1024))
-    })
+    FileSystem.getInfoAsync(path).then(({size}) => setTotalSize(Math.round(size / 1024 / 1024)))
 
     return () => setTotalSize(0)
   }, []);
 
   const uploadHandler = async () => {
-    setTotalImageCount(0)
-    setSentCount(0)
-
     if (!connection.connectionStatus) {
       toast.show(t("have_not_connection"), {type: 'error'});
       return;
@@ -51,91 +47,71 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
       navigation.navigate(Routes.stackNavigator, {screen: Routes.login})
       return;
     }
-    activateKeepAwake('upload');
-    setModalVisible(true)
 
-    await isWifi();
-    const files = await filesFilter(group_uuid);
+    const {status} = await isWifi();
 
-    setSequenceLength(files.length)
-
-    files.forEach(item => {
-      setTotalImageCount(prev => prev + item.count)
-    })
-
-    await getSequences(files)
-  }
-
-  const getSequences = async (sequences, index = 0) => {
-    if (sequences[index]) {
-      getImagesBySequence(sequences[index].sequence_uuid).then(images => {
-        const uploadedCount = images.filter(item => item.uploaded === 1)
-        setSentCount(prev => prev + uploadedCount.length)
-        pictures.push(images)
-      }).finally(() => getSequences(sequences, ++index))
-    } else {
-      await sendImages(0, 0)
+    if (status !== 'success') {
+      return;
     }
-  }
 
-  const sendImages = async (i = 0, j = 0) => {
-    return new Promise(async () => {
-      if (pictures[i]) {
-        if (pictures[i][j]) {
-          if (pictures[i][j].hash) {
-            pictures.hash = pictures[i][j].hash
-            await sendImages(i, ++j)
+    activateKeepAwake('upload');
+    setModalVisible(true);
+
+    const {sequences, total} = await db.getSequencesForUpload(group_uuid)
+    setTotalImageCount(total);
+    setSequenceLength(sequences.length);
+
+    sequence : for (let [index, sequence] of sequences.entries()) {
+      try {
+        const images = await db.getCapturesBySequenceIdAsync(sequence.sequence_uuid)
+
+        for (let image of images) {
+          const {status, hash, message} = await getHash(image)
+
+          if (status === 'success') {
+            image.hash = hash
+            setSentCount(prev => prev + 1)
           } else {
-            try {
-              const hash = await getHash(pictures[i][j])
+            toast.show(message, {type: 'error'});
+            break sequence;
+          }
+        }
 
-              if (hash.status === 'success') {
-                pictures.hash = hash.hash;
-                setSentCount(prev => prev + 1)
-                await sendImages(i, ++j)
-              } else {
-                requestBroken(hash.message)
-                toast.show(hash.message, {type: hash.status})
-              }
-            } catch (err) {
-              requestBroken(err)
-            }
+        const {status, message} = await imageryUpload(images, sequence.sequence_uuid)
+
+        if (status === 'success') {
+          willDelete.push(sequence.sequence_uuid)
+
+          if (index === sequences.length - 1) {
+            navigation.navigate("UploadTab", {screen: Routes.uploadCompleted})
           }
         } else {
-          imageryUpload(i, pictures).then(async () => {
-            navigation.navigate(Routes.upload);
-            db.getGroupByWithGroupID().then((data) => {
-              dispatch({type: UPLOAD_DATA, payload: data})
-            })
-            await sendImages(++i)
-          }).catch((err) => {
-            requestBroken(err)
-          })
+          toast.show(message, {type: 'error'});
+          break;
         }
-      } else {
-        setModalVisible(false)
-        dispatch(getUserInformation())
-        navigation.navigate("UploadTab", {screen: Routes.uploadCompleted})
-      }
-    })
-  }
 
-  const requestBroken = (error) => {
-    closeRequest();
-    setModalVisible(false);
+      } catch (e) {
+        toast.show(e.message, {type: 'error'});
+        break;
+      }
+    }
+
+    for (let uuid of willDelete) {
+      await deleteSequence(uuid)
+      willDelete = willDelete.filter(item => item !== uuid)
+    }
+
+    db.getGroupByWithGroupID().then((data) => dispatch({type: UPLOAD_DATA, payload: data}))
+
+    handleStop();
+    dispatch(getUserInformation())
     deactivateKeepAwake('upload');
-    setSentCount(0);
-    if(error.message === "CanceledError: canceled"){
-      toast.show(t("you_cancelled_upload", {
-        ns:"upload"
-      }), {type: "error"})
-    }else{
-    toast.show(`${error}`, {type: "error"})}
   }
 
   const handleStop = () => {
     closeRequest();
     setModalVisible(false);
+    setTotalImageCount(0);
     setSentCount(0);
   }
 
