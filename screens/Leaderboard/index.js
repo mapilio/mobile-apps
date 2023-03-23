@@ -1,37 +1,41 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import {useEffect} from "react";
-import {SafeAreaView, View, Text} from "react-native";
+import { useEffect, useState } from "react";
+import { SafeAreaView, View, Text } from "react-native";
 import { leaderStyles as styles } from "../../styles/leaderStyles";
 import { useDispatch, useSelector } from "react-redux";
 import Users from "./Users";
 import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
-import {useTranslation, Trans} from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { RFValue } from "react-native-responsive-fontsize";
 import AwardModal from "./AwardModal";
 import SkeletonLoading from "../../components/Leaderboard/SkeletonLoading";
-import { fetchLeaderUsers,resetLeaderboard   } from "../../store/actions/leaderboard";
+import {
+  fetchLeaderUsers,
+  resetLeaderboard,
+} from "../../store/actions/leaderboard";
 import { CustomText, CustomTextMedium } from "../../highordercomponents";
 import ChallangeUsers from "./ChallangeUsers";
 
 const Tab = createMaterialTopTabNavigator();
 
 const Leaderboard = () => {
-  const {t} = useTranslation("leaderboard");
+  const { t } = useTranslation("leaderboard");
   const dispatch = useDispatch();
 
-  const {users, challangeUsers} = useSelector((state) => state.leaderboardReducer);
+  const { users, challangeUsers } = useSelector(
+    (state) => state.leaderboardReducer
+  );
   const auth = useSelector((state) => state.getTokenReducer);
-
+  const [isChallange, setIsChallange] = useState(true);
 
   useEffect(() => {
     dispatch(fetchLeaderUsers());
-    dispatch(fetchLeaderUsers("01-03-2023", "31-05-2023"))
-    
+    dispatch(fetchLeaderUsers("01-03-2023", "31-05-2023"));
+
     return () => {
       dispatch(resetLeaderboard());
     };
   }, [auth]);
-
 
   return (
     <SafeAreaView style={styles.base}>
@@ -42,11 +46,26 @@ const Leaderboard = () => {
       />
       <View style={styles.container}>
         <Text style={styles.headerSubTitle}>
-          <Trans i18nKey="leaderboard:description" components={[<CustomTextMedium style={{color:"#808080"}} />]}
- />
+          {isChallange ? (
+            <Trans
+              i18nKey="leaderboard:challenge_description"
+              components={[<CustomTextMedium style={{ color: "#808080" }} />]}
+            />
+          ) : (
+            <Trans i18nKey="leaderboard:alltime_description" />
+          )}
         </Text>
         <Tab.Navigator
           style={{ paddingTop: RFValue(10) }}
+          screenListeners={({ route }) => ({
+            focus: () => {
+              if (route.name === "challenge") {
+                setIsChallange(true);
+              } else {
+                setIsChallange(false);
+              }
+            },
+          })}
           screenOptions={({ route }) => ({
             tabBarLabel: ({ focused }) => (
               <View style={styles.wrapper}>
@@ -57,9 +76,9 @@ const Leaderboard = () => {
                     fontSize: RFValue(14),
                   }}
                 >
-                  {route.name}
+                  {t(route.name)}
                 </Text>
-                {route.name === t("challange") && (
+                {route.name === "challenge" && (
                   <View style={styles.tabBarLabel}>
                     <CustomText
                       style={{ color: "white", fontSize: RFValue(10) }}
@@ -70,16 +89,16 @@ const Leaderboard = () => {
                 )}
               </View>
             ),
-           ...styles.screenOptions
+            ...styles.screenOptions,
           })}
-          initialRouteName={t("challange")}
+          initialRouteName={"challenge"}
         >
           <Tab.Screen
-            name={t("challange")}
+            name={"challenge"}
             component={!challangeUsers ? SkeletonLoading : ChallangeUsers}
           />
           <Tab.Screen
-            name={t("all_time")}
+            name={"all_time"}
             component={!users ? SkeletonLoading : Users}
           />
         </Tab.Navigator>
@@ -89,6 +108,5 @@ const Leaderboard = () => {
     </SafeAreaView>
   );
 };
-
 
 export default Leaderboard;

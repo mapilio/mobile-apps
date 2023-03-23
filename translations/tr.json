@@ -283,7 +283,8 @@
   "leaderboard": {
     "title": "Liderler",
     "how_to_score": "Nasıl \nkazanırım?",
-    "description": "Mücadele başladı! <0>01.03.2023 - 31.05.2023</0> arasında en çok puanı toplayın ve kazanın",
+    "challenge_description": "Mücadele başladı! <0>01.03.2023 - 31.05.2023</0> arasında en çok puanı toplayın ve kazanın",
+    "alltime_description": "Mapilio'nun büyümesine yardımcı olan\nen iyi 30 Topluluk üyesi!",
     "users": "Kullanıcılar",
     "organizations": "Organizasyonlar",
     "fetch_error": "Skor Tablosu getirilirken bir sorun oluştu. Lütfen tekrar deneyin.",
@@ -292,7 +293,7 @@
     "points_short": "P",
     "roads": "Yol",
     "photos": "Resim",
-    "challange": "YARIŞMA",
+    "challenge": "YARIŞMA",
     "all_time": "TÜM ZAMANLAR",
     "join": "Katıl"
   },
