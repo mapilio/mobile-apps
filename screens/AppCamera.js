@@ -122,7 +122,7 @@ const AppCamera = () => {
       >
         <Camera />
 
-        <LinearGradient colors={["#11111100", "#111111"]} angle={90} useAngle={true} style={styles.gradient}>
+        <LinearGradient colors={["rgba(51, 51, 51, 0)", "rgba(0, 0, 0, 0.8)"]} angle={90} useAngle={true} style={styles.gradient}>
           <CameraSidebar navigation={navigation} setLowBrightness={setLowBrightness}/>
         </LinearGradient>
 
@@ -133,12 +133,11 @@ const AppCamera = () => {
 
 const styles = StyleSheet.create({
   gradient:{
-    padding: RFValue(22),
-    backgroundColor: "transparent",
+    padding: RFValue(16),
     position: "absolute",
     right: 0,
     height: "100%",
-    width: "20%",
+    width: "25%",
     zIndex: 2,
   }
 });

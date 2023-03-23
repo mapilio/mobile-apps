@@ -1,39 +1,25 @@
 import React from "react";
-import {StyleSheet, View} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-import {CameraCenter} from "../assets/svg/illustrations";
-import { tooltipContents } from "../util/consts/tooltip";
+import { StyleSheet, View } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 import BatteryLevel from "./BatteryLevel";
 import GPSLevel from "./GPSLevel";
 import PhotoAmounts from "./PhotoAmounts";
 import RecordStatus from "./RecordStatus";
-import { TooltipWrapper } from "./Tooltip";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CameraFrame = () => {
-  const {left} = useSafeAreaInsets();
+  const { left } = useSafeAreaInsets();
   return (
-    <View style={{...styles.wrapper, marginLeft: left ? left : RFValue(20) }}>
-      <TooltipWrapper
-        content={tooltipContents.camera.angle}
-        name="angle"
-        placement="right"
-      >
-        <View style={styles.wrapper}>
-          <CameraCenter />
-        </View>
-      </TooltipWrapper>
-      <View style={styles.battery}>
+    <View style={{ ...styles.wrapper, marginLeft: left }}>
+      <View style={styles.batteryGps}>
         <BatteryLevel />
+        <GPSLevel />
       </View>
       <View style={styles.record}>
         <RecordStatus />
       </View>
       <View style={styles.amount}>
         <PhotoAmounts />
-      </View>
-      <View style={styles.gps}>
-        <GPSLevel />
       </View>
     </View>
   );
@@ -43,31 +29,26 @@ const styles = StyleSheet.create({
   wrapper: {
     position: "relative",
     flex: 1,
-    marginVertical: RFValue(25),
-    marginHorizontal: RFValue(20),
     justifyContent: "center",
-    alignItems: "center"
-  },
-  battery: {
-    position: "absolute",
-    top: 0,
-    left: 0
+    alignItems: "center",
   },
   record: {
     position: "absolute",
-    top: 0,
-    right: 0
+    bottom: RFValue(2),
+    right: "45%",
   },
   amount: {
     position: "absolute",
-    bottom: 0,
-    left: 0
+    bottom: RFValue(2),
+    left: 0,
   },
-  gps: {
+  batteryGps: {
+    flexDirection: "row",
     position: "absolute",
-    bottom: 0,
-    right: 0
-  }
-})
+    left: 0,
+    top: 0,
+    alignItems: "center",
+  },
+});
 
 export default CameraFrame;

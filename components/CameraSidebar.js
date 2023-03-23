@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import {Fragment, useRef} from "react";
 import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {CustomText, CustomTextBold} from "../highordercomponents";
@@ -41,17 +41,16 @@ const CapturedComponent = ({navigation, setLowBrightness}) => {
   }
 
   return (
-    <View>
+    <Fragment>
       <CustomTextBold style={styles.title}>{t("title")}</CustomTextBold>
       <CustomText style={styles.description}>{t("description")}</CustomText>
       <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
       <CustomTextBold style={styles.safeMode} onPress={lowLightHandler}>{t("safe_mode")}</CustomTextBold>
-    </View>
+    </Fragment>
   )
 }
 
 const CaptureComponent = ({navigation, exitHandler}) => {
-  const {t} = useTranslation("camera");
   const dispatch = useDispatch();
 
   const changeRoute = (route) => {
@@ -62,18 +61,20 @@ const CaptureComponent = ({navigation, exitHandler}) => {
 
   return (
     <>
-      <TouchableOpacity style={styles.settings} onPress={() => changeRoute(Routes.generalSettings)}>
-        <SettingsIcon/>
+      <View style={styles.buttons}>
+      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate(Routes.captureWalkthrough)}>
+        <InformationIcon fill={"#333333"} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.info} onPress={() => navigation.navigate(Routes.captureWalkthrough)}>
-        <InformationIcon/>
+      <TouchableOpacity style={styles.menuButton} onPress={() => changeRoute(Routes.generalSettings)}>
+        <SettingsIcon fill={"#333333"} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.exit} onPress={exitHandler}>
+      <TouchableOpacity style={{...styles.menuButton, backgroundColor:"transparent"}} onPress={exitHandler}>
         <GoBackIcon/>
       </TouchableOpacity>
-
+      </View>
+  
       <TooltipWrapper content={tooltipContents.camera.startCapture} name={"startCapture"} placement={"left"}>
         <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
       </TooltipWrapper>
@@ -101,10 +102,8 @@ const CameraSidebar = ({navigation, setLowBrightness}) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: "relative",
+    flex:1,
     justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
   },
   title: {
     color: "#FFFFFF",
@@ -125,21 +124,21 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto"
   },
-  settings: {
+  buttons:{
     position: "absolute",
     top: 0,
-    left: 0
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
   },
-  info: {
-    position: "absolute",
-    top: RFValue(40),
-    left: RFValue(2)
-  },
-  exit: {
-    position: "absolute",
-    top: 0,
-    right: 0
-  },
+  menuButton:{
+    backgroundColor: "#FFFFFF",
+    borderRadius: RFValue(50),
+    width: RFValue(40),
+    height: RFValue(40),
+    justifyContent: "center",
+    alignItems: "center",
+  }
 })
 
 export default CameraSidebar;
