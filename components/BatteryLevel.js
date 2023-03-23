@@ -41,7 +41,6 @@ const BatteryLevel = () => {
   };
 
   return (
-    <View style={styles.wrapper}>
       <View style={styles.batteryInfo}>
         <CustomText style={{color: "#FFFFFF", fontSize: RFValue(12)}}>
           {batteryLevel}%
@@ -52,25 +51,14 @@ const BatteryLevel = () => {
           </View>
         </View>
       </View>
-    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    position: "relative",
-    borderLeftWidth: 1.2,
-    borderTopWidth: 1.2,
-    borderColor: '#FFF',
-    height: RFValue(55),
-    width: RFValue(105)
-  },
+
   batteryInfo: {
     flexDirection: "row",
     alignItems:"center",
-    position: "absolute",
-    top: RFValue(10),
-    left: RFValue(10)
   },
   batteryIcon: {
     maxWidth: RFValue(48),
@@ -82,7 +70,7 @@ const styles = StyleSheet.create({
     position: "relative",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: RFValue(5)
+    marginLeft: RFValue(5),
   }
 })
 

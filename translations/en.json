@@ -350,7 +350,7 @@
     },
     "camera": {
       "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line is always opposite and horizontal",
+      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
       "startCapture": "Capture Start",
       "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
       "tasks": "Tasks",

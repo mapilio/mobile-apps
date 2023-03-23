@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {StyleSheet, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
-import {CustomTextMedium} from "../highordercomponents";
+import {CustomText, CustomTextBold, CustomTextMedium} from "../highordercomponents";
 import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_PHONE_MEMORY} from "../store/actionsName";
@@ -26,36 +26,23 @@ const PhotoAmounts = () => {
   }, [photoAmount]);
 
   return (
-    <View style={styles.wrapper}>
       <View style={styles.amountInfo}>
-        <CustomTextMedium style={{fontSize: RFValue(14), color: "#1AD971"}}>
+        <CustomTextBold style={{fontSize: RFValue(14), color: "#fff"}}>
           {amount}
-        </CustomTextMedium>
+        </CustomTextBold>
         <CustomTextMedium style={{color: "#FFFFFF", fontSize: RFValue(14), marginHorizontal: RFValue(3)}}>
           /
         </CustomTextMedium>
-        <CustomTextMedium style={{ color: "#FFFFFF", fontSize: RFValue(14) }}>
+        <CustomText style={{ color: "#FFFFFF", fontSize: RFValue(14) }}>
           {availableStorage}
-        </CustomTextMedium>
+        </CustomText>
       </View>
-    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    position: "relative",
-    borderColor: '#FFF',
-    borderBottomWidth: 1.2,
-    borderLeftWidth: 1.2,
-    height: RFValue(55),
-    width: RFValue(105)
-  },
   amountInfo: {
     flexDirection: "row",
-    position: "absolute",
-    bottom: RFValue(10),
-    left: RFValue(10)
   }
 })
 

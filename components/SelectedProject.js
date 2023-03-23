@@ -1,26 +1,37 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { maxCharacterHandler } from "../helper/helper";
-import { CustomTextMedium } from "../highordercomponents";
+import { MarketplaceIcon } from "../assets/svg/illustrations";
+import {  maxCharacterHandler } from "../helper/helper";
+import { CustomText } from "../highordercomponents";
 
 const SelectedProject = ({ projectName }) => {
-    return (
-        <View
-            style={{
-                width: RFValue(200),
-                height: RFValue(30),
-                backgroundColor: "#1AD971",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: RFValue(15),
-            }}
-        >
-            <CustomTextMedium style={{ fontSize: RFValue(14), color: "#FFFFFF" }}>
-                {maxCharacterHandler(projectName, 19)}
-            </CustomTextMedium>
-        </View>
-    );
+  return (
+    <View style={styles.wrapper}>
+      <MarketplaceIcon fill="#fff" width={RFValue(14)} height={RFValue(14)} />
+      <CustomText style={styles.text}>
+        {maxCharacterHandler(projectName, 19)}
+      </CustomText>
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    borderRadius: RFValue(15),
+    borderRadius: RFValue(20),
+    paddingHorizontal: RFValue(20),
+    borderRadius: RFValue(15),
+    backgroundColor: "#FBA63C",
+    flexDirection: "row",
+    alignItems: "center",
+    height: RFValue(30),
+  },
+  text: {
+    color: "#FFFFFF",
+    marginLeft: RFValue(4),
+    fontSize: RFValue(12),
+  },
+});
 
 export default SelectedProject;

@@ -19,12 +19,16 @@ export const cameraStyles = StyleSheet.create({
 
 export const cameraAlertStyles = StyleSheet.create({
 	container: {
-		position: "absolute", alignSelf: "center", bottom: "25%"
+		position: "absolute",
+		height: "100%",
+		justifyContent: "center",
+		width: "100%",
+		alignItems:"center",
 	},
 	card: {
 		width: RFValue(365),
 		height: RFValue(155),
-		backgroundColor: convertHexToRGBA("#130C47", 90),
+		backgroundColor: convertHexToRGBA("#191919", 90),
 		paddingHorizontal: RFValue(18),
 		paddingVertical: RFValue(25),
 		borderRadius: 8,
@@ -37,7 +41,7 @@ export const cameraAlertStyles = StyleSheet.create({
 		marginTop: RFValue(15),
 	},
 	content: {
-		color: "#FFFFFF",
+		color: "#808080",
 		fontSize: RFValue(12),
 		textAlign: "center",
 	}
@@ -47,8 +51,6 @@ export const cameraActionButtonStyles = StyleSheet.create({
 	container: {
 		width: RFValue(61),
 		height: RFValue(61),
-		marginBottom: RFValue(-55),
-		marginTop: RFValue(35),
 		marginLeft: 'auto',
 		marginRight: 'auto',
 	},

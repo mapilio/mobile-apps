@@ -8,25 +8,17 @@ import SelectedProject from "./SelectedProject";
 import SelectProjectButton from "./SelectProjectButton";
 import { TooltipWrapper } from "./Tooltip";
 
-const CameraProjectInfo = ({ navigation }) => {
+const CameraProjectInfo = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const {selectedProject, autoCaptureStart} = useSelector((state) => state.settingsReducer);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        position: "absolute",
-        marginVertical: RFValue(14),
-        marginHorizontal: RFValue(20),
-        justifyContent: "center",
-        alignItems: "center",
-        left: 0,
-        top: 0,
-        right: 0,
-      }}
-    >
-      <ProjectListModal modalVisible={modalVisible} setModalVisible={setModalVisible} navigation={navigation}/>
+    <View style={{
+      position:"absolute",
+      right: "45%",
+      marginTop: RFValue(16),
+    }}>
+      <ProjectListModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
       {selectedProject.type === "individual" ? (
         !autoCaptureStart ? (<TooltipWrapper name={"tasks"} content={tooltipContents.camera.tasks} placement="bottom">
           <SelectProjectButton setModalVisible={setModalVisible}/>

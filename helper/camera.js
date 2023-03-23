@@ -8,7 +8,7 @@ import {
   HighSpeedIcon,
   MockedIcon
 } from "../assets/svg/illustrations";
-import {CustomText} from "../highordercomponents";
+import {CustomText,CustomTextMedium} from "../highordercomponents";
 import {cameraAlertStyles} from "../styles/cameraStyles";
 import {store} from "../store/store";
 import {
@@ -29,11 +29,11 @@ const Alert = ({svg, title, content}) => {
     <View style={cameraAlertStyles.container}>
       <View style={cameraAlertStyles.card}>
         {svg}
-        <CustomText
+        <CustomTextMedium
           style={cameraAlertStyles.title}
         >
           {title}
-        </CustomText>
+        </CustomTextMedium>
         <CustomText
           style={cameraAlertStyles.content}
         >

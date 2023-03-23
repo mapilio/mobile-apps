@@ -11,13 +11,8 @@ export const SelectProjectButton = ({ setModalVisible }) => {
   return (
     <TouchableOpacity
       style={{
-        width: RFValue(200),
-        height: RFValue(30),
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
-        borderRadius: RFValue(15),
-        paddingHorizontal: RFValue(5),
       }}
       onPressIn={() => setModalVisible(true)}
     >
@@ -48,7 +43,7 @@ export const SelectProjectButton = ({ setModalVisible }) => {
         >
           {t("select_mission")}
         </CustomText>
-        <DropdownArrow />
+        <DropdownArrow color="#fff" />
       </View>
     </TouchableOpacity>
   );

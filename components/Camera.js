@@ -15,8 +15,9 @@ import SelectProjectButton from "./SelectProjectButton";
 import { useNavigation } from "@react-navigation/native";
 import { CameraWarnings } from "../helper/camera";
 import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
-
+import { RFValue } from "react-native-responsive-fontsize";
 import { DeviceMotion } from "expo-sensors";
+
 
 const Camera = () => {
   const { back: device } = useCameraDevices();
@@ -114,11 +115,12 @@ const Camera = () => {
 
 const styles = StyleSheet.create({
   cameraContents: {
-    width: "80%",
+    width: "100%",
     height: "100%",
     flex: 1,
     position: "absolute",
     zIndex: 2,
+    padding:RFValue(16),
   },
 });
 

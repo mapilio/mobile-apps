@@ -13,11 +13,13 @@ import {cameraProjectModalStyles} from "../styles/cameraStyles";
 import { Trans, useTranslation } from "react-i18next";
 import * as ScreenOrientation from "expo-screen-orientation";
 import {api} from "../util/helpers/api";
+import { useNavigation } from "@react-navigation/native";
 
-const ProjectListModal = ({navigation, modalVisible, setModalVisible}) => {
+const ProjectListModal = ({modalVisible, setModalVisible}) => {
 	const {t} = useTranslation("camera");
 	const [projects, setProjects] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const navigation = useNavigation();
 
 	useEffect(() => {
 		api.get('/api/function/projects/job/getMyJobs').then((res) => {
