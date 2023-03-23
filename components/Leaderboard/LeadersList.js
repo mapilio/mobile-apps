@@ -54,6 +54,7 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
       <FlatList
         ref={flatListRef}
         data={leaders}
+        extraData={authUserIndex}
         keyExtractor={(_, index) => index.toString()}
         onRefresh={refreshLeaderboard}
         refreshing={isRefresh}
