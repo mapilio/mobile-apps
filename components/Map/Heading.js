@@ -1,6 +1,7 @@
 import React from "react";
 import {headingPointGeoJson} from "../../helper/helper";
 import MapboxGL from "@rnmapbox/maps";
+import {RFValue} from "react-native-responsive-fontsize";
 
 const Heading = ({heading, coordinates, markerPath}) => {
 
@@ -13,7 +14,7 @@ const Heading = ({heading, coordinates, markerPath}) => {
         id={"heading"}
         style={{
           iconImage: markerPath,
-          iconSize: 0.4,
+          iconSize: .3,
           iconAllowOverlap: true,
           iconRotate: ["get", "rotate"],
           iconRotationAlignment: 'map',

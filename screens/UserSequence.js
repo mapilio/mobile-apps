@@ -170,7 +170,7 @@ const UserSequence = ({navigation}) => {
             <Heading
               coordinates={[JSON.parse(imageDetail.location).longitude, JSON.parse(imageDetail.location).latitude]}
               heading={JSON.parse(imageDetail?.location).heading}
-              markerPath={require("../assets/images/map/location.png")}
+              markerPath={require("../assets/images/heading.png")}
             />
           )
         }

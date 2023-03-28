@@ -6,7 +6,7 @@ import {refreshToken} from "./RefreshToken";
 
 const axiosInstance = axios.create({
   baseURL: Config.SERVICE_URL,
-  timeout: 10000,
+  timeout: 0,
   retry: 5,
   retryDelay: 1000,
   timeoutErrorMessage: translate("timeout", "errors"),

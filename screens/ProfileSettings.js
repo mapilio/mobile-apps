@@ -2,10 +2,10 @@ import {FlatList, Pressable, StyleSheet, Text, View} from "react-native";
 import {CustomText} from "../highordercomponents";
 import {Routes} from "../navigator/Routes";
 import {RFValue} from "react-native-responsive-fontsize";
-import {useDispatch} from "react-redux";
-import {EXIT_USER} from "../store/actionsName";
+import {useDispatch, useSelector} from "react-redux";
+import {DEBUG_MODE, EXIT_USER} from "../store/actionsName";
 import OneSignal from "react-native-onesignal";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
@@ -24,6 +24,8 @@ const ProfileSettings = ({navigation}) => {
   const dispatch = useDispatch();
   const {bottom} = useSafeAreaInsets();
   const {t} = useTranslation('profile_settings');
+  const [isDebug, setIsDebug] = useState(0);
+  const {debugMode} = useSelector((state) => state.settingsReducer);
 
   useEffect(() => {
     navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
@@ -46,6 +48,14 @@ const ProfileSettings = ({navigation}) => {
     dispatch({type: EXIT_USER});
     OneSignal.removeExternalUserId();
   }
+
+  useEffect(() => {
+    if (isDebug === 5) {
+      toast.show('Debug mode is ' + !debugMode, {type: 'warning'})
+      dispatch({type: DEBUG_MODE, payload: !debugMode});
+      setIsDebug(0);
+    }
+  }, [isDebug])
 
   return (
     <View style={styles.wrapper}>
@@ -79,8 +89,10 @@ const ProfileSettings = ({navigation}) => {
       </View>
 
       <View style={{...styles.version, bottom: RFValue(20)}}>
-        <Text style={styles.versionInfo}>{t("mapilio")}</Text>
-        <Text style={{...styles.versionInfo, fontWeight: "bold"}}> {t("version")}</Text>
+        <Pressable onPress={() => setIsDebug(prev => prev + 1)}>
+          <Text style={styles.versionInfo}>{t("mapilio")}</Text>
+        </Pressable>
+          <Text style={{...styles.versionInfo, fontWeight: "bold"}}> {t("version")}</Text>
       </View>
     </View>
   )

@@ -97,8 +97,12 @@ export const imageryUpload = async (images, sequence_uuid) => {
   }
 
   for (let image of images) {
-    const {latitude, longitude, altitude, heading, speed, accuracy: accuracy_level} = JSON.parse(image.location)
+    const {latitude, heading: gpsHeading, longitude, altitude, speed, accuracy: accuracy_level} = JSON.parse(image.location)
     const exif = JSON.parse(image.exif);
+    const heading = exif.attitude ? exif.attitude.heading : gpsHeading;
+    const pitch = exif.attitude ? exif.attitude.pitch : calculate.pitch(exif.accelerometer);
+    const roll = exif.attitude ? exif.attitude.roll : calculate.roll(exif.accelerometer);
+
     const fileName = image.path.split("/").pop();
     const {
       Orientation,
@@ -148,9 +152,9 @@ export const imageryUpload = async (images, sequence_uuid) => {
         sequenceUuid: sequence_uuid,
         photoUuid: md5(userInformation.email + (DateTime || DateTimeOriginal)),
         filename: fileName,
-        roll: calculate.roll(accelerometer),
+        roll: roll,
+        pitch: pitch,
         yaw: calculate.yaw(accelerometer),
-        pitch: calculate.pitch(accelerometer),
         car_speed: speed * 3.6,
         anomaly: 0,
         capture_address: image.address || null,
