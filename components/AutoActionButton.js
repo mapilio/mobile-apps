@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
-import {AppState, View, Pressable} from "react-native";
+import React, {Fragment, useEffect, useRef, useState} from "react";
+import {AppState, View, Pressable, Text} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import db from "../db";
 import * as FileSystem from "expo-file-system";
@@ -16,6 +16,7 @@ import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import {Accelerometer, Gyroscope} from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
+import Attitude from "react-native-attitude";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -38,8 +39,10 @@ const AutoActionButton = ({navigation}) => {
 	const [isAlert, setIsAlert] = useState(null);
 	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
 	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
+	const [attitudeData, setAttitudeData] = useState({heading: 0, pitch: 0, roll: 0, timestamp: 0});
 	const [timeouts, setTimeouts] = useState([]);
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
+	const {debugMode} = useSelector((state) => state.settingsReducer);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
@@ -108,11 +111,16 @@ const AutoActionButton = ({navigation}) => {
 		const listener = AppState.addEventListener("change", startNewSequence);
 		const accelerometer = Accelerometer.addListener(data => setAccelerometerData(data))
 		const gyroscope = Gyroscope.addListener(data => setGyroscopeData(data))
+		const attitude = Attitude.watch((payload) => {
+			payload.roll = payload.roll + 90
+			setAttitudeData(payload)
+		});
 
 		return () => {
 			accelerometer.remove();
 			gyroscope.remove();
 			listener.remove();
+			Attitude.clearWatch(attitude)
 		}
 	}, []);
 
@@ -131,11 +139,9 @@ const AutoActionButton = ({navigation}) => {
 		setIsAlert(!(GPSAccuracy && !batteryStatus && !mocked && !highSpeed))
 	}, [GPSAccuracy, batteryStatus, mocked, highSpeed]);
 
-
 	// TODO ADD TO HELPER.JS
 	const takePicture = async (location) => {
-		if (!autoCaptureStart || !accuracy.degree) {
-			calculateAmount("subtract");
+		if (!autoCaptureStart || !accuracy.degree || !attitudeData.heading) {
 			return;
 		}
 
@@ -151,6 +157,7 @@ const AutoActionButton = ({navigation}) => {
 		calculateAmount("add");
 
 		const imageUri = image.path;
+		location.heading = attitudeData.heading;
 
 		if (!imageUri) {
 			calculateAmount("subtract");
@@ -177,7 +184,8 @@ const AutoActionButton = ({navigation}) => {
 				...image.metadata,
 				...image.metadata["{Exif}"],
 				accelerometer: accelerometerData,
-				gyroscope: gyroscopeData
+				gyroscope: gyroscopeData,
+				attitude: attitudeData,
 			}),
 			location: JSON.stringify(location),
 			projectKey: selectedProject.projectKey,
@@ -209,16 +217,34 @@ const AutoActionButton = ({navigation}) => {
 	}
 
 	return (
-		<Pressable
-			disabled={!captureButtonStatus}
-			style={cameraActionButtonStyles.container}
-			onPress={playHandler}
-		>
-			<View style={cameraActionButtonStyles.button}>
-				{autoCaptureStart ? <StopIcon/> : <PlayIcon/>}
-			</View>
-			<View style={cameraActionButtonStyles.buttonBuffer}/>
-		</Pressable>
+		<Fragment>
+			<Pressable
+				disabled={!captureButtonStatus}
+				style={cameraActionButtonStyles.container}
+				onPress={playHandler}
+			>
+				<View style={cameraActionButtonStyles.button}>
+					{autoCaptureStart ? <StopIcon/> : <PlayIcon/>}
+				</View>
+				<View style={cameraActionButtonStyles.buttonBuffer}/>
+			</Pressable>
+
+			{
+				debugMode && (
+					<View style={{position: 'absolute', right: 0, bottom: 0}}>
+						<Text style={{color: '#FFF', textAlign: 'right'}}>
+							GPSAccuracy: {cameraLocation?.accuracy || 0}
+							{"\n"}
+							Heading: {attitudeData?.heading || 0}
+							{"\n"}
+							Pitch: {attitudeData?.pitch || 0}
+							{"\n"}
+							Roll: {attitudeData?.roll || 0}
+						</Text>
+					</View>
+				)
+			}
+		</Fragment>
 	)
 };
 
