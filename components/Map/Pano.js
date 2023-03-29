@@ -10,24 +10,22 @@ import ReportIcon from "../../assets/svg/illustrations/ReportIcon";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 import SwitchMapPano from "../../assets/svg/illustrations/SwitchMapPano";
 import Campus from "../../assets/svg/illustrations/Campus";
-import moment from "moment";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MaximizePano, MinimizePano } from "../../assets/svg/illustrations";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Panorama from "../Panorama";
 import { useTranslation } from "react-i18next";
 import LinearGradient from "react-native-linear-gradient";
-import { useSelector } from "react-redux";
 import { tabHeight } from "../../util/consts/ui";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import {api} from "../../util/helpers/api";
+import { dateConvert } from "../../helper/helper";
 
 const Pano = ({ imageInformation, hidePano }) => {
   const [fullHeight, setFullHeight] = useState(false);
   const [username, setUsername] = useState(null);
   const { top, bottom } = useSafeAreaInsets();
   const { height } = Dimensions.get("screen");
-  const { language } = useSelector((state) => state.generalReducer);
 
   const { showActionSheetWithOptions } = useActionSheet();
   const { t } = useTranslation("report", { nsMode: "fallback" });
@@ -48,11 +46,6 @@ const Pano = ({ imageInformation, hidePano }) => {
     });
   }, [imageInformation]);
 
-  useEffect(()=> {
-    moment.locale(language, {
-        months:t("moment.months", {returnObjects: true}),
-    })
-  }, [])
 
   const imageHeight = () => {
     const _imageHeight = height - tabHeight - bottom;
@@ -136,7 +129,7 @@ const Pano = ({ imageInformation, hidePano }) => {
        <View style={panoStyle.capturer}>
        <Text style={panoStyle.capturer.name}>{username}</Text>
         <Text style={panoStyle.capturer.date}>
-          {moment(imageInformation.date).format("MMMM DD.MM.YYYY")}
+          {dateConvert(imageInformation.date,"MMM DD, YYYY - HH:mm")}
         </Text>
        </View>
         <View

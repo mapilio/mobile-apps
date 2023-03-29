@@ -4,6 +4,7 @@ import {Alert, Dimensions, Linking, Platform} from "react-native";
 import Moment from "moment";
 import {check, PERMISSIONS, request, requestMultiple, RESULTS} from "react-native-permissions";
 import {tabHeight} from "../util/consts/ui";
+import i18next from "i18next";
 
 let isOpenOnce = false;
 Moment.suppressDeprecationWarnings = true;
@@ -121,9 +122,9 @@ const dateConvert = (datetime, format = "MMM D, YYYY") => {
     const parsedDatetime = datetime
       .split(" ")
       .map((time, i) => (i === 0 ? time.split(":").join("/") : time));
-    return Moment(new Date(parsedDatetime.join(" "))).format(format);
+    return Moment(new Date(parsedDatetime.join(" "))).locale(i18next.resolvedLanguage).format(format);
   }
-  return Moment(datetime).format(format);
+  return Moment(datetime).locale(i18next.resolvedLanguage).format(format);
 };
 
 const headingPointGeoJson = (heading, coordinates) => {

@@ -88,7 +88,7 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
           {
             dateConvert(
               info.DateTime || info.DateTimeOriginal || info.DateTimeDigitized || info["{TIFF}"].DateTime,
-              "DD MM YYYY - H:mm"
+              "MMM DD, YYYY - HH:mm"
             )
           }
         </Text>

@@ -106,7 +106,7 @@ const UploadItem = ({item, deleteFunc}) => {
             <Text style={styles.date}>
               {dateConvert(
                 exif.DateTime || exif.DateTimeOriginal || exif.DateTimeDigitized || exif["{TIFF}"].DateTime,
-                "DD MM YYYY - H:mm"
+                "MMM DD, YYYY - HH:mm"
               )}
             </Text>
 

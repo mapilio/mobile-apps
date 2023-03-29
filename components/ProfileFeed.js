@@ -53,7 +53,7 @@ const ProfileFeed = ({data, pressHandle}) => {
         </Text>
 
         <View style={userFeedStyles.subInfo}>
-          <Text style={userFeedStyles.date}>{moment(capture_time).format("DD-MM-YYYY")}</Text>
+          <Text style={userFeedStyles.date}>{moment(capture_time).format("MMM DD, YYYY - HH:mm")}</Text>
           
           <View style={userFeedStyles.status}>
         <Text style={{...userFeedStyles.status.text, ...userFeedStyles.status[last_status || "fail"]}}>
