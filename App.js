@@ -29,6 +29,7 @@ Sentry.init({
 
 OneSignal.setAppId(Config.ONESIGNAL_APP_ID);
 OneSignal.promptForPushNotificationsWithUserResponse();
+SplashScreen.preventAutoHideAsync();
 
 function App() {
   const [fontsLoaded] = useFonts({
@@ -50,10 +51,6 @@ function App() {
     db.startDB();
     db.addColumnIfNotExist('group_id');
     db.addColumnIfNotExist('address');
-
-    (async () => {
-      await SplashScreen.preventAutoHideAsync();
-    })()
   }, []);
 
   useEffect(() => {
