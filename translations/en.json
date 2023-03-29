@@ -381,23 +381,7 @@
     "low_quality": "Low Quality",
     "other": "Other",
     "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later.",
-    "moment": {
-      "months": [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-      ]
-    }
+    "report_error": "An error occurred while reporting. Please try again later."
   },
   "languages": {
     "tr": "Turkish",

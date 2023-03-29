@@ -19,6 +19,7 @@ import translations from "./translations";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import "moment/locale/tr";
 
 Sentry.init({
   dsn: `${Config.SENTRY_DSN}`,

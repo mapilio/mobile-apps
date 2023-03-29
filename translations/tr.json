@@ -382,23 +382,7 @@
     "low_quality": "Düşük Çözünürlük",
     "other": "Diğer",
     "report_success": "Rapor başarıyla gönderildi. Gerekli incelemeler yapılacak ve tarafınıza e-posta ile bilgi verilecektir.",
-    "report_error": "Rapor gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
-    "moment": {
-      "months": [
-        "Ocak",
-        "Şubat",
-        "Mart",
-        "Nisan",
-        "Mayıs",
-        "Haziran",
-        "Temmuz",
-        "Ağustos",
-        "Eylül",
-        "Ekim",
-        "Kasım",
-        "Aralık"
-      ]
-    }
+    "report_error": "Rapor gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin."
   },
   "languages": {
     "tr": "Türkçe",
