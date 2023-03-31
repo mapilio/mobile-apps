@@ -2,14 +2,12 @@ import {
   UPDATE_DISTANCE_BETWEEN,
   UPDATE_SELECTED_PROJECT,
   UPDATE_AUTOCAPTURE_START,
-  DEBUG_MODE
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   distanceBetween: 5,
   autoCaptureStart: false,
-  selectedProject: {type: "individual", key: 0, projectName: ""},
-  debugMode: false
+  selectedProject: {type: "individual", key: 0, projectName: ""}
 };
 
 const settingsReducer = (state = INITIAL_STATE, action) => {
@@ -28,11 +26,6 @@ const settingsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         autoCaptureStart: action.payload,
-      };
-    case DEBUG_MODE:
-      return {
-        ...state,
-        debugMode: action.payload,
       };
     default:
       return state;

@@ -14,7 +14,7 @@ const Heading = ({heading, coordinates, markerPath}) => {
         id={"heading"}
         style={{
           iconImage: markerPath,
-          iconSize: .3,
+          iconSize: .4,
           iconAllowOverlap: true,
           iconRotate: ["get", "rotate"],
           iconRotationAlignment: 'map',
