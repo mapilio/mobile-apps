@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.9</string>
+	<string>1.1.10</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -76,7 +76,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs to access the camera before you can take a photo. In this way, when you start shooting, it will allow you to shoot automatically every 5 meters on average. We'll keep your captures in your phone's storage until you delete or upload them.</string>
+	<string>$(PRODUCT_NAME) needs to access the camera before you can take a photo. In this way, when you start shooting, it will allow you to shoot automatically every 5 meters on average. We&apos;ll keep your captures in your phone&apos;s storage until you delete or upload them.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We need to access your location so we can put the photos in the correct location and also show your location on the map.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
