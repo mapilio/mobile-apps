@@ -13,7 +13,7 @@ import {
 } from "../store/actionsName";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
-import {Accelerometer, Gyroscope} from "expo-sensors";
+import { Accelerometer, Gyroscope, DeviceMotion } from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
 
@@ -40,10 +40,15 @@ const AutoActionButton = ({navigation}) => {
 	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
 	const [timeouts, setTimeouts] = useState([]);
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
+	const pitch = useRef(0);
+  const roll = useRef(0);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
 	const {t} = useTranslation("camera");
+
+	const LANDSCAPE_LEFT_ORIENTATION = Platform.OS === "ios" ? 90 : -90;
+  const LANDSCAPE_RIGHT_ORIENTATION = Platform.OS === "ios" ? -90 : 90;
 
 	const playHandler = () => {
 		vibrate("medium");
@@ -71,6 +76,35 @@ const AutoActionButton = ({navigation}) => {
 			takePicture(cameraLocation).catch(() => toast.show(t("something_went_wrong"), {type: "error"}));
 		}
 	}, [cameraLocation]);
+
+		Math.degrees = (radians) => {
+      return radians * (180 / Math.PI);
+    };
+    useEffect(() => {
+      const subscription = DeviceMotion.addListener((data) => {
+        const { alpha, beta, gamma } = data.rotation;
+        const { orientation } = data;
+
+        pitch.current = Math.degrees(beta);
+        /* 		  let yaw = Math.degrees(alpha);
+         */ roll.current = Math.degrees(-gamma);
+
+        if (orientation === LANDSCAPE_LEFT_ORIENTATION) {
+          const temp = pitch.current;
+          pitch.current = -roll.current;
+          roll.current = -temp;
+        } else if (
+          orientation === LANDSCAPE_RIGHT_ORIENTATION ||
+          orientation === 0
+        ) {
+          const temp = pitch.current;
+          pitch.current = roll.current;
+          roll.current = temp;
+        }
+      });
+
+      return () => subscription.remove();
+    }, []);
 
 	useEffect(() => {
 		navigation.addListener("blur", () => dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false}));
@@ -173,21 +207,23 @@ const AutoActionButton = ({navigation}) => {
 		await FileSystem.copyAsync({from: `file://${imageUri}`, to: newPath});
 		image.uri = newPath;
 		db.insertToDB({
-			exif: JSON.stringify({
-				...image.metadata,
-				...image.metadata["{Exif}"],
-				accelerometer: accelerometerData,
-				gyroscope: gyroscopeData
-			}),
-			location: JSON.stringify(location),
-			projectKey: selectedProject.projectKey,
-			organizationName: selectedProject.projectName,
-			organizationKey: selectedProject.organizationKey,
-			uuid: currentUUID,
-			path: `${groupId}/${filename}.${"jpeg"}`,
-			filename,
-			groupId,
-		});
+      exif: JSON.stringify({
+        ...image.metadata,
+        ...image.metadata["{Exif}"],
+        accelerometer: accelerometerData,
+        gyroscope: gyroscopeData,
+      }),
+      pitch: pitch.current,
+      roll: roll.current,
+      location: JSON.stringify(location),
+      projectKey: selectedProject.projectKey,
+      organizationName: selectedProject.projectName,
+      organizationKey: selectedProject.organizationKey,
+      uuid: currentUUID,
+      path: `${groupId}/${filename}.${"jpeg"}`,
+      filename,
+      groupId,
+    });
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
 	}
