@@ -82,12 +82,11 @@ const AutoActionButton = ({navigation}) => {
     };
     useEffect(() => {
       const subscription = DeviceMotion.addListener((data) => {
-        const { alpha, beta, gamma } = data.rotation;
+        const { beta, gamma } = data.rotation;
         const { orientation } = data;
 
         pitch.current = Math.degrees(beta);
-        /* 		  let yaw = Math.degrees(alpha);
-         */ roll.current = Math.degrees(-gamma);
+        roll.current = Math.degrees(-gamma);
 
         if (orientation === LANDSCAPE_LEFT_ORIENTATION) {
           const temp = pitch.current;
