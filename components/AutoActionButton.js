@@ -77,33 +77,39 @@ const AutoActionButton = ({navigation}) => {
 		}
 	}, [cameraLocation]);
 
-		Math.degrees = (radians) => {
-      return radians * (180 / Math.PI);
-    };
-    useEffect(() => {
-      const subscription = DeviceMotion.addListener((data) => {
+	Math.degrees = (radians) => {
+    return radians * (180 / Math.PI);
+  };
+
+  useEffect(() => {
+    const subscription = DeviceMotion.addListener((data) => {
+      if (data.rotation) {
         const { beta, gamma } = data.rotation;
         const { orientation } = data;
 
-        pitch.current = Math.degrees(beta);
-        roll.current = Math.degrees(-gamma);
+        // we add 90 degrees as the reference point will be taken as the horizon line
+        pitch.current = Math.degrees(beta) + 90;
+        roll.current = Math.degrees(gamma) + 90;
 
-        if (orientation === LANDSCAPE_LEFT_ORIENTATION) {
-          const temp = pitch.current;
-          pitch.current = -roll.current;
-          roll.current = -temp;
-        } else if (
-          orientation === LANDSCAPE_RIGHT_ORIENTATION ||
-          orientation === 0
-        ) {
+        const isLandscapeLeft = orientation === LANDSCAPE_LEFT_ORIENTATION;
+        const isLandscapeRight =
+          orientation === LANDSCAPE_RIGHT_ORIENTATION || orientation === 0;
+
+        // we need to adjust the values based on the orientation of the phone
+        if (isLandscapeLeft) {
           const temp = pitch.current;
           pitch.current = roll.current;
+          roll.current = -temp;
+        } else if (isLandscapeRight) {
+          const temp = pitch.current;
+          pitch.current = -roll.current;
           roll.current = temp;
         }
-      });
+      }
+    });
 
-      return () => subscription.remove();
-    }, []);
+    return () => subscription.remove();
+  }, []);
 
 	useEffect(() => {
 		navigation.addListener("blur", () => dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false}));
