@@ -87,22 +87,20 @@ const AutoActionButton = ({navigation}) => {
         const { beta, gamma } = data.rotation;
         const { orientation } = data;
 
-        // we add 90 degrees as the reference point will be taken as the horizon line
-        pitch.current = Math.degrees(beta) + 90;
-        roll.current = Math.degrees(gamma) + 90;
+        const livePitch = Math.degrees(beta)
+        const liveRoll = Math.degrees(gamma)
 
         const isLandscapeLeft = orientation === LANDSCAPE_LEFT_ORIENTATION;
         const isLandscapeRight =
           orientation === LANDSCAPE_RIGHT_ORIENTATION || orientation === 0;
 
+       	const temp = livePitch;
         // we need to adjust the values based on the orientation of the phone
         if (isLandscapeLeft) {
-          const temp = pitch.current;
-          pitch.current = roll.current;
+          pitch.current = liveRoll - 90;
           roll.current = -temp;
         } else if (isLandscapeRight) {
-          const temp = pitch.current;
-          pitch.current = -roll.current;
+          pitch.current = -liveRoll - 90;
           roll.current = temp;
         }
       }
