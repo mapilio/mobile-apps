@@ -31,7 +31,7 @@ const BatteryLevel = () => {
     });
 
     const subscriptionState = addBatteryStateListener(({batteryState}) => {
-      dispatch({type: UPDATE_CHARGE_STATUS, payload: (batteryState === 3 || batteryState === 2)});
+      dispatch({type: UPDATE_CHARGE_STATUS, payload: (batteryState !== 0)});
     });
 
     return () => {
