@@ -111,6 +111,8 @@ export const imageryUpload = async (images, sequence_uuid) => {
       ImageLength,
       gyroscope,
       accelerometer,
+      pitch,
+      roll,
     } = exif;
 
     try {
@@ -138,6 +140,8 @@ export const imageryUpload = async (images, sequence_uuid) => {
         gyroscope,
         accelerometer,
         accuracy_level,
+        pitch,
+        roll,
         captureTime: dateConvert((DateTime || DateTimeOriginal), 'YYYY-MM-D HH:mm:ss'),
         orientation: Orientation,
         deviceMake: Make || LensMake,
@@ -148,9 +152,7 @@ export const imageryUpload = async (images, sequence_uuid) => {
         sequenceUuid: sequence_uuid,
         photoUuid: md5(userInformation.email + (DateTime || DateTimeOriginal)),
         filename: fileName,
-        roll: calculate.roll(accelerometer),
         yaw: calculate.yaw(accelerometer),
-        pitch: calculate.pitch(accelerometer),
         car_speed: speed * 3.6,
         anomaly: 0,
         capture_address: image.address || null,
