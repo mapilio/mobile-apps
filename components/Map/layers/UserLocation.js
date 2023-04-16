@@ -1,22 +1,18 @@
-import MapboxGL from "@rnmapbox/maps";
+import {ShapeSource, CircleLayer, Images, SymbolLayer} from "@rnmapbox/maps";
 
-const Userlocation = ({shape}) => {
+const Userlocation = ({ shape }) => {
   return (
-    <MapboxGL.ShapeSource
-    shape={shape}
-    id={"userLocationSource"}
-    >
-      <MapboxGL.CircleLayer
+    <ShapeSource shape={shape} id={"userLocationSource"}>
+      <CircleLayer
         id={"MarkerViewCircle"}
         style={{
           circleColor: "#191919",
           circleStrokeWidth: 1,
           circleStrokeColor: "white",
           circleRadius: 10,
-
         }}
       />
-      <MapboxGL.CircleLayer
+      <CircleLayer
         id={"userLocationCircle-opacity"}
         style={{
           circleColor: "#191919",
@@ -25,17 +21,20 @@ const Userlocation = ({shape}) => {
           circleStrokeColor: "#191919",
         }}
       />
-      <MapboxGL.SymbolLayer
+      <Images
+        images={{ arrow: require("../../../assets/images/map/arrow.png") }}
+      />
+      <SymbolLayer
         id={"userLocationArrow"}
         style={{
-          iconImage: require("../../../assets/images/map/arrow.png"),
+          iconImage: "arrow",
           iconSize: 0.5,
           iconAllowOverlap: true,
           iconOffset: [0, 2],
           iconRotate: ["get", "heading"],
         }}
       />
-    </MapboxGL.ShapeSource>
+    </ShapeSource>
   );
 };
 
