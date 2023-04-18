@@ -52,40 +52,34 @@ const AppMap = ({ navigation }) => {
   const {auth} = useSelector((state) => state.getTokenReducer);
   const {t} = useTranslation("map");
 
-  const watchID = useRef();
   const appState = useRef(AppState.currentState);
 
-  const watchLocation = async () => {
-    await initialPermissions();
-
-    watchID.current = Geolocation.watchPosition(({coords}) => {
-      setUserCoordinate(point([coords.longitude, coords.latitude], coords));
-    });
-  }
 
   useEffect(() => {
     !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
     
-    watchLocation()
-    const subscription = AppState.addEventListener("change", (state) => {
-        if(appState.current.match(/inactive|background/) && state === "active") {
-          watchLocation()
-        }else{
-            Geolocation.clearWatch(watchID.current);
-        }
-        appState.current = state;
+    const locationInterval = setInterval(() => {
+      if(appState.current === "active") {
+        Geolocation.getCurrentPosition(({coords}) => {
+          setUserCoordinate(point([coords.longitude, coords.latitude]));
+        })
+      }
+    }, 3000);
 
+    const subscription = AppState.addEventListener("change", (state) => {
+        appState.current = state;
     });
 
     return () => {
-      Geolocation.clearWatch(watchID.current);
       subscription.remove();
+      clearInterval(locationInterval);
     };
   }, []);
 
   useEffect(() => {
      Geolocation.getCurrentPosition(({coords}) => {
       setInitialCoord([coords.longitude, coords.latitude])
+      setUserCoordinate(point([coords.longitude, coords.latitude]));
      })
   }, [showUser]);
 
