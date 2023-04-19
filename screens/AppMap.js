@@ -179,9 +179,9 @@ const AppMap = ({ navigation }) => {
     left: Platform.OS === "ios" ? 0 : RFValue(10),
     bottom: showPano
       ? Platform.isPad
-        ? RFValue(41)
+        ? RFValue(35)
         : RFValue(56)
-      : RFValue(35),
+      : Platform.isPad ? RFValue(29) : RFValue(35),
   };
 
   const onDidFinishLoadingMap = () => {
