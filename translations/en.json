@@ -50,7 +50,8 @@
     "map_loading": "Market map is loading..."
   },
   "map": {
-    "map_loading": "Loading map and zones..."
+    "map_loading": "Loading map and zones...",
+    "pano_error": "There was a problem while loading image. Please try again."
   },
   "profile_settings": {
     "profile_edit": "Profile Edit",

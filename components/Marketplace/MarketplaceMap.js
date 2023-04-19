@@ -3,6 +3,8 @@ import {MapView} from "../../highordercomponents";
 import {appMapStyle} from "../../styles/appMapStyle";
 import MapboxGL from "@rnmapbox/maps";
 import {useSelector} from "react-redux";
+import { Platform } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const MarketplaceMap = ({navigation, onDidFinishLoadingMap}) => {
   const {marketplaceCenter, zoomLevel, marketplaceData} = useSelector((status) => status.marketplaceReducer);
@@ -25,8 +27,14 @@ const MarketplaceMap = ({navigation, onDidFinishLoadingMap}) => {
     }
   }
 
+  const attributionStyles = {
+    left:Platform.OS === "ios" ? 0 : RFValue(10),
+    bottom: RFValue(35),
+  };
+
+
   return (
-    <MapView mapStyle={appMapStyle.map} onDidFinishLoadingMap={onDidFinishLoadingMap}>
+    <MapView mapStyle={appMapStyle.map} onDidFinishLoadingMap={onDidFinishLoadingMap} attributionStyle={attributionStyles}>
       <MapboxGL.Camera animationMode={"none"} ref={camera}/>
       {_drawPolygon(marketplaceData, navigation)}
     </MapView>

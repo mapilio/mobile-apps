@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {userFeedStyles} from "../styles/userProfileStyle";
-import moment from "moment";
 import Config from "react-native-config";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 import {Photos} from "../assets/svg/illustrations";
 import LinearGradient from "react-native-linear-gradient";
+import { dateConvert } from "../helper/helper";
 
 const SkeletonItem = ({loading}) => {
   if(!loading) return false;
@@ -53,7 +53,7 @@ const ProfileFeed = ({data, pressHandle}) => {
         </Text>
 
         <View style={userFeedStyles.subInfo}>
-          <Text style={userFeedStyles.date}>{moment(capture_time).format("MMM DD, YYYY - HH:mm")}</Text>
+          <Text style={userFeedStyles.date}>{dateConvert(capture_time, "MMM DD, YYYY - HH:mm")}</Text>
           
           <View style={userFeedStyles.status}>
         <Text style={{...userFeedStyles.status.text, ...userFeedStyles.status[last_status || "fail"]}}>

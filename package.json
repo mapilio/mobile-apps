@@ -28,7 +28,7 @@
     "@react-navigation/native": "^6.0.16",
     "@react-navigation/native-stack": "^6.9.4",
     "@react-navigation/stack": "^6.3.7",
-    "@rnmapbox/maps": "^10.0.0-beta.62",
+    "@rnmapbox/maps": "^10.0.2",
     "@sentry/react-native": "5.0.0",
     "@turf/turf": "^6.5.0",
     "@use-expo/screen-orientation": "^2.0.0",
