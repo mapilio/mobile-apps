@@ -63,6 +63,7 @@ export const sequenceCardStyles = StyleSheet.create({
 export const sequenceDetailStyles = StyleSheet.create({
   imageArea: {
     position: "relative",
+    height: "50%",
   },
   image: {
     width: "100%",
