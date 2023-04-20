@@ -21,7 +21,7 @@ import { useActionSheet } from "@expo/react-native-action-sheet";
 import {api} from "../../util/helpers/api";
 import { dateConvert } from "../../helper/helper";
 
-const Pano = ({ imageInformation, hidePano }) => {
+const Pano = ({ pointInformation, hidePano }) => {
   const [fullHeight, setFullHeight] = useState(false);
   const [username, setUsername] = useState(null);
   const { top, bottom } = useSafeAreaInsets();
@@ -31,21 +31,25 @@ const Pano = ({ imageInformation, hidePano }) => {
   const { t } = useTranslation("report", { nsMode: "fallback" });
 
   useEffect(() => {
-    api.get(`/api/search-user?options[parameters][id]=${imageInformation.user}`).then((res) => {
-      if (res && Object.keys(res.data).length > 0 ) {
-        let name = res.data[0].username;
-        name.length > 20 ? (name = name.slice(0, 20) + "...") : name;
+    api
+      .get(
+        `/api/search-user?options[parameters][id]=${pointInformation.user}`
+      )
+      .then((res) => {
+        if (res && Object.keys(res.data).length > 0) {
+          let name = res.data[0].username;
+          name.length > 20 ? (name = name.slice(0, 20) + "...") : name;
 
-        setUsername("@" + name);
-      } else {
+          setUsername("@" + name);
+        } else {
+          setUsername(null);
+        }
+      })
+      .catch((err) => {
         setUsername(null);
-      }
-    }).catch((err) => {
-      setUsername(null);
-      toast.show(err, {type: "error"});
-    });
-  }, [imageInformation]);
-
+        toast.show(err, { type: "error" });
+      });
+  }, [pointInformation]);
 
   const imageHeight = () => {
     const _imageHeight = height - tabHeight - bottom;
@@ -54,18 +58,21 @@ const Pano = ({ imageInformation, hidePano }) => {
   };
 
   const report = (reason) => {
-    api.post('/api/image-report', {
-      options: {
-        parameters: {
-          imagery_id: imageInformation.pointID,
-          message: reason,
+    api
+      .post("/api/image-report", {
+        options: {
+          parameters: {
+            imagery_id: pointInformation.pointID,
+            message: reason,
+          },
         },
-      },
-    }).then(() => {
-      toast.show(t("report_success"), {type: "info"});
-    }).catch(() => {
-      toast.show(t("report_error"), {type: "error"});
-    });
+      })
+      .then(() => {
+        toast.show(t("report_success"), { type: "info" });
+      })
+      .catch(() => {
+        toast.show(t("report_error"), { type: "error" });
+      });
   };
   const reportImage = () => {
     showActionSheetWithOptions(
@@ -93,7 +100,7 @@ const Pano = ({ imageInformation, hidePano }) => {
             report("Low Quality");
             break;
           case 4:
-            report("Other")
+            report("Other");
             break;
           default:
             break;
@@ -120,20 +127,25 @@ const Pano = ({ imageInformation, hidePano }) => {
       </View>
 
       <Panorama
-        image={imageInformation.highResImage}
+        image={pointInformation.highResImage}
         height={imageHeight()}
-        resolution={imageInformation.resolution}
+        resolution={pointInformation.resolution}
       />
 
       <View style={panoStyle.info}>
-       <View style={panoStyle.capturer}>
-       <Text style={panoStyle.capturer.name}>{username}</Text>
-        <Text style={panoStyle.capturer.date}>
-          {dateConvert(imageInformation.date,"MMM DD, YYYY - HH:mm")}
-        </Text>
-       </View>
-        <View
-          style={{ transform: [{ rotate: `${imageInformation.heading}deg` }], position:"absolute", right:RFValue(10), bottom:0 }}
+        <View style={panoStyle.capturer}>
+          <Text style={panoStyle.capturer.name}>{username}</Text>
+          <Text style={panoStyle.capturer.date}>
+            {dateConvert(pointInformation.date, "MMM DD, YYYY - HH:mm")}
+          </Text>
+        </View>
+       <View
+          style={{
+            transform: [{ rotate: `${pointInformation.heading}deg` }],
+            position: "absolute",
+            right: RFValue(10),
+            bottom: 0,
+          }}
         >
           <Campus />
         </View>

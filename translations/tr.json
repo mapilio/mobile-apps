@@ -51,7 +51,8 @@
     "map_loading": "Market haritası yükleniyor..."
   },
   "map": {
-    "map_loading": "Harita ve bölgeler yükleniyor..."
+    "map_loading": "Harita ve bölgeler yükleniyor...",
+    "pano_error": "Görüntü yüklenirken bir sorun oluştu. Lütfen tekrar deneyin."
   },
   "profile_settings": {
     "profile_edit": "Profil Düzenleme",

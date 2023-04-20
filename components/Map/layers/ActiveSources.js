@@ -3,7 +3,7 @@ import MapboxGL from "@rnmapbox/maps";
 import Config from "react-native-config";
 import Heading from "..//Heading";
 
-const ActiveSources = ({ imageInformations, clickedCoord }) => {
+const ActiveSources = ({ pointInformation, clickedCoord }) => {
   return (
     <Fragment>
       <MapboxGL.VectorSource
@@ -15,7 +15,7 @@ const ActiveSources = ({ imageInformations, clickedCoord }) => {
           sourceLayerID={Config.MAPBOX_ROAD_ID}
           filter={[
             "all",
-            ["==", "sequence_uuid", imageInformations.sequenceID],
+            ["==", "sequence_uuid", pointInformation.sequenceID],
           ]}
           style={{
             lineColor: "#0BBE3D",
@@ -38,7 +38,7 @@ const ActiveSources = ({ imageInformations, clickedCoord }) => {
           }}
           filter={[
             "all",
-            ["==", "sequence_uuid", imageInformations.sequenceID],
+            ["==", "sequence_uuid", pointInformation.sequenceID],
           ]}
 
         />
@@ -51,12 +51,12 @@ const ActiveSources = ({ imageInformations, clickedCoord }) => {
           }}
           filter={[
             "all",
-            ["==", "sequence_uuid", imageInformations.sequenceID],
+            ["==", "sequence_uuid", pointInformation.sequenceID],
           ]}
         />
       </MapboxGL.VectorSource>
       <Heading
-        heading={imageInformations ? imageInformations.heading : 0}
+        heading={pointInformation ? pointInformation.heading : 0}
         coordinates={clickedCoord}
         markerPath={require("../../../assets/images/heading.png")}
       />
