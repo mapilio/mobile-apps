@@ -54,7 +54,7 @@
         "@rnmapbox/maps",
         {
           "RNMapboxMapsImpl": "mapbox",
-          "RNMapboxMapsDownloadToken": "pk.your_mapbox_public_token"
+          "RNMapboxMapsDownloadToken": "***REMOVED***"
         }
       ],
       [
