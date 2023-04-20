@@ -11,7 +11,7 @@ install! 'cocoapods',
 
 # @generated begin @rnmapbox/maps-rnmapboxmapsimpl - expo prebuild (DO NOT MODIFY) sync-4f406504fc557e300cd3ddefb401efcfe9471f26
 $RNMapboxMapsImpl = 'mapbox'
-$RNMapboxMapsDownloadToken = 'pk.your_mapbox_public_token'
+$RNMapboxMapsDownloadToken = '***REMOVED***'
 # @generated end @rnmapbox/maps-rnmapboxmapsimpl
 target 'Mapilio' do
   use_expo_modules!
