@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ActivityIndicator, Dimensions, Image, View} from "react-native";
+import {ActivityIndicator, Dimensions, Image, Platform, View} from "react-native";
 import {sequenceDetailStyles} from "../styles/userSequenceStyle";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import MapboxGL from "@rnmapbox/maps";
@@ -62,11 +62,10 @@ const ProfileUploadDetail = ({ navigation, route }) => {
     <View>
       <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <View style={sequenceDetailStyles.imageArea}>
-        <Panorama image={image} height={(height - RFValue(63) - bottom) / 2}/>
+        <Panorama image={image} height={height / 2}/>
       </View>
       <MapView
-        mapStyle={{ ...appMapStyle.map, height: RFPercentage(64) }}
-        attributionPosition={{ bottom: 26, right: 8 }}
+        mapStyle={{ ...appMapStyle.map, height: "50%" }}
       >
         <MapboxGL.Camera
           zoomLevel={17}

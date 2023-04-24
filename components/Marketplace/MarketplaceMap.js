@@ -29,7 +29,7 @@ const MarketplaceMap = ({navigation, onDidFinishLoadingMap}) => {
 
   const attributionStyles = {
     left:Platform.OS === "ios" ? 0 : RFValue(10),
-    bottom: RFValue(35),
+    bottom: Platform.isPad ? RFValue(29) : RFValue(35),
   };
 
 
