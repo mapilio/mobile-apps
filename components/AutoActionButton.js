@@ -38,8 +38,8 @@ const AutoActionButton = ({navigation}) => {
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
-	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
-	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
+	const {accelerometerData} = useRef({x: 0, y: 0, z: 0})
+	const {gyroscopeData} = useRef({x: 0, y: 0, z: 0});
 	const [timeouts, setTimeouts] = useState([]);
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 	const pitch = useRef(0);
@@ -145,8 +145,12 @@ const AutoActionButton = ({navigation}) => {
 
 	useEffect(() => {
 		const listener = AppState.addEventListener("change", startNewSequence);
-		const accelerometer = Accelerometer.addListener(data => setAccelerometerData(data))
-		const gyroscope = Gyroscope.addListener(data => setGyroscopeData(data))
+		const accelerometer = Accelerometer.addListener(data => {
+			accelerometerData.current = data;
+		})
+		const gyroscope = Gyroscope.addListener(data => {
+			gyroscopeData.current = data;
+		})
 
 		return () => {
 			accelerometer.remove();
@@ -219,8 +223,8 @@ const AutoActionButton = ({navigation}) => {
       exif: JSON.stringify({
         ...image.metadata,
         ...image.metadata["{Exif}"],
-        accelerometer: accelerometerData,
-        gyroscope: gyroscopeData,
+        accelerometer: accelerometerData.current,
+        gyroscope: gyroscopeData.current,
 		exifPitch: pitch.current,
 		exifRoll: roll.current,
       }),
