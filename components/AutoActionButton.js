@@ -16,6 +16,7 @@ import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import { Accelerometer, Gyroscope, DeviceMotion } from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
+import * as ImageManipulator from "expo-image-manipulator";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -207,7 +208,11 @@ const AutoActionButton = ({navigation}) => {
 		const filename = ((Math.random() + 1).toString(36).substring(7) + Math.round(new Date().getTime() / 1000)).toString();
 		const newPath = FileSystem.documentDirectory + `${groupId}/${filename}.${"jpeg"}`;
 
-		await FileSystem.copyAsync({from: `file://${imageUri}`, to: newPath});
+		const compressedImage = await ImageManipulator.manipulateAsync(imageUri, [{resize: {width: image.width, height:image.height}}], {compress: 0.5, format: ImageManipulator.SaveFormat.JPEG})
+		await FileSystem.moveAsync({from: compressedImage.uri, to: newPath});
+
+		FileSystem.deleteAsync(`file://${imageUri}`, {idempotent: true});
+		
 		image.uri = newPath;
 		db.insertToDB({
       exif: JSON.stringify({
