@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
-import {AppState, View, Pressable} from "react-native";
+import React, {Fragment, useEffect, useRef, useState} from "react";
+import {AppState, View, Pressable,Text} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import db from "../db";
 import * as FileSystem from "expo-file-system";
@@ -20,6 +20,7 @@ import * as ImageManipulator from "expo-image-manipulator";
 
 const AutoActionButton = ({navigation}) => {
 	const {
+		debugMode,
 		camera,
 		photoAmount,
 		accuracy,
@@ -253,6 +254,7 @@ const AutoActionButton = ({navigation}) => {
 	}
 
 	return (
+		<Fragment>
 		<Pressable
 			disabled={!captureButtonStatus}
 			style={cameraActionButtonStyles.container}
@@ -263,6 +265,22 @@ const AutoActionButton = ({navigation}) => {
 			</View>
 			<View style={cameraActionButtonStyles.buttonBuffer}/>
 		</Pressable>
+		{
+				debugMode && (
+						<View style={{justifyContent:"center", alignItems:"center"}}>
+							<Text style={{color: '#FFF', textAlign: 'left'}}>
+							GPSAccuracy: {cameraLocation?.accuracy.toFixed(2) || 0}
+							{"\n"}
+							Heading: {cameraLocation?.heading || 0}
+							{"\n"}
+							Pitch: {pitch.current}
+							{"\n"}
+							Roll: {roll.current}
+						</Text>
+						</View>
+				)
+			}
+		</Fragment>
 	)
 };
 
