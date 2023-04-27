@@ -38,8 +38,8 @@ const AutoActionButton = ({navigation}) => {
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
-	const {accelerometerData} = useRef({x: 0, y: 0, z: 0})
-	const {gyroscopeData} = useRef({x: 0, y: 0, z: 0});
+	const accelerometerData = useRef({x: 0, y: 0, z: 0})
+	const gyroscopeData = useRef({x: 0, y: 0, z: 0});
 	const [timeouts, setTimeouts] = useState([]);
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 	const pitch = useRef(0);
@@ -159,7 +159,7 @@ const AutoActionButton = ({navigation}) => {
 		}
 	}, []);
 
-	let startNewSequence = (nextAppState) => {
+	const startNewSequence = (nextAppState) => {
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
