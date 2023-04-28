@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
-import {AppState, View, Pressable} from "react-native";
+import React, {Fragment, useEffect, useRef, useState} from "react";
+import {AppState, View, Pressable,Text} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import db from "../db";
 import * as FileSystem from "expo-file-system";
@@ -16,9 +16,11 @@ import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import { Accelerometer, Gyroscope, DeviceMotion } from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
+import * as ImageManipulator from "expo-image-manipulator";
 
 const AutoActionButton = ({navigation}) => {
 	const {
+		debugMode,
 		camera,
 		photoAmount,
 		accuracy,
@@ -36,8 +38,8 @@ const AutoActionButton = ({navigation}) => {
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
-	const [accelerometerData, setAccelerometerData] = useState({x: 0, y: 0, z: 0});
-	const [gyroscopeData, setGyroscopeData] = useState({x: 0, y: 0, z: 0});
+	const accelerometerData = useRef({x: 0, y: 0, z: 0})
+	const gyroscopeData = useRef({x: 0, y: 0, z: 0});
 	const [timeouts, setTimeouts] = useState([]);
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 	const pitch = useRef(0);
@@ -143,8 +145,12 @@ const AutoActionButton = ({navigation}) => {
 
 	useEffect(() => {
 		const listener = AppState.addEventListener("change", startNewSequence);
-		const accelerometer = Accelerometer.addListener(data => setAccelerometerData(data))
-		const gyroscope = Gyroscope.addListener(data => setGyroscopeData(data))
+		const accelerometer = Accelerometer.addListener(data => {
+			accelerometerData.current = data;
+		})
+		const gyroscope = Gyroscope.addListener(data => {
+			gyroscopeData.current = data;
+		})
 
 		return () => {
 			accelerometer.remove();
@@ -153,7 +159,7 @@ const AutoActionButton = ({navigation}) => {
 		}
 	}, []);
 
-	let startNewSequence = (nextAppState) => {
+	const startNewSequence = (nextAppState) => {
 		if (autoCaptureStart) {
 			if (appState.current.match(/inactive|background/) && nextAppState === "active") {
 				appState.current = nextAppState;
@@ -207,14 +213,18 @@ const AutoActionButton = ({navigation}) => {
 		const filename = ((Math.random() + 1).toString(36).substring(7) + Math.round(new Date().getTime() / 1000)).toString();
 		const newPath = FileSystem.documentDirectory + `${groupId}/${filename}.${"jpeg"}`;
 
-		await FileSystem.copyAsync({from: `file://${imageUri}`, to: newPath});
+		const compressedImage = await ImageManipulator.manipulateAsync(imageUri, [{resize: {width: image.width, height:image.height}}], {compress: 0.5, format: ImageManipulator.SaveFormat.JPEG})
+		await FileSystem.moveAsync({from: compressedImage.uri, to: newPath});
+
+		FileSystem.deleteAsync(`file://${imageUri}`, {idempotent: true});
+		
 		image.uri = newPath;
 		db.insertToDB({
       exif: JSON.stringify({
         ...image.metadata,
         ...image.metadata["{Exif}"],
-        accelerometer: accelerometerData,
-        gyroscope: gyroscopeData,
+        accelerometer: accelerometerData.current,
+        gyroscope: gyroscopeData.current,
 		exifPitch: pitch.current,
 		exifRoll: roll.current,
       }),
@@ -248,6 +258,7 @@ const AutoActionButton = ({navigation}) => {
 	}
 
 	return (
+		<Fragment>
 		<Pressable
 			disabled={!captureButtonStatus}
 			style={cameraActionButtonStyles.container}
@@ -258,6 +269,22 @@ const AutoActionButton = ({navigation}) => {
 			</View>
 			<View style={cameraActionButtonStyles.buttonBuffer}/>
 		</Pressable>
+		{
+				debugMode && (
+						<View style={{justifyContent:"center", alignItems:"center"}}>
+							<Text style={{color: '#FFF', textAlign: 'left'}}>
+							GPSAccuracy: {cameraLocation?.accuracy.toFixed(2) || 0}
+							{"\n"}
+							Heading: {cameraLocation?.heading || 0}
+							{"\n"}
+							Pitch: {pitch.current}
+							{"\n"}
+							Roll: {roll.current}
+						</Text>
+						</View>
+				)
+			}
+		</Fragment>
 	)
 };
 

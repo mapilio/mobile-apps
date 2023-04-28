@@ -2,8 +2,8 @@ import {FlatList, Pressable, StyleSheet, Text, View} from "react-native";
 import {CustomText} from "../highordercomponents";
 import {Routes} from "../navigator/Routes";
 import {RFValue} from "react-native-responsive-fontsize";
-import {useDispatch} from "react-redux";
-import {EXIT_USER} from "../store/actionsName";
+import {useDispatch, useSelector} from "react-redux";
+import {EXIT_USER, SET_DEBUG_MODE} from "../store/actionsName";
 import OneSignal from "react-native-onesignal";
 import {useEffect} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -24,11 +24,23 @@ const ProfileSettings = ({navigation}) => {
   const dispatch = useDispatch();
   const {bottom} = useSafeAreaInsets();
   const {t} = useTranslation('profile_settings');
+  const {debugMode} = useSelector((status) => status.cameraReducer);
 
   useEffect(() => {
     navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
     return () => navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: RFValue(63) + bottom}})
   }, []);
+
+  const setDebugMode = () => {
+    if(debugMode){
+      dispatch({type: SET_DEBUG_MODE, payload: false})
+      toast.show("Debug mode enabled", {type: "error"})
+    }else{
+      dispatch({type: SET_DEBUG_MODE, payload: true})
+      toast.show("Debug mode disabled", {type: "success"})
+      
+    }
+  }
 
   const lists = [
     {name: 'licences', url: 'https://mapilio.com/licenses-webview'},
@@ -78,10 +90,10 @@ const ProfileSettings = ({navigation}) => {
         </Pressable>
       </View>
 
-      <View style={{...styles.version, bottom: RFValue(20)}}>
+      <Pressable style={{...styles.version, bottom: RFValue(20)}} onLongPress={setDebugMode}>
         <Text style={styles.versionInfo}>{t("mapilio")}</Text>
         <Text style={{...styles.versionInfo, fontWeight: "bold"}}> {t("version")}</Text>
-      </View>
+      </Pressable>
     </View>
   )
 }

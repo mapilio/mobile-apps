@@ -19,6 +19,7 @@ import {
   IS_ACTIVE,
   GROUP_ID,
   TOGGLE_ROTATE_ALERT,
+  SET_DEBUG_MODE,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -41,6 +42,7 @@ const INITIAL_STATE = {
   isFirstOpen: true,
   isActive: true,
   groupId: null,
+  debugMode:false
 };
 
 const cameraReducer = (state = INITIAL_STATE, action) => {
@@ -59,6 +61,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         camera: action.payload,
+      };
+    case SET_DEBUG_MODE:
+      return {
+        ...state,
+        debugMode: action.payload,
       };
     case UPDATE_IMAGE_SIZE:
       return {

@@ -45,7 +45,7 @@
     "plugins": [
       "expo-facebook",
       [
-        "react-native-vision-camera",
+        "@dogukany/react-native-vision-camera",
         {
           "cameraPermissionText": "$(PRODUCT_NAME) needs access to the camera before you can capture photos."
         }

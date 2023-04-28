@@ -1,7 +1,7 @@
 import {
   Camera as VisionCamera,
   useCameraDevices,
-} from "react-native-vision-camera";
+} from "@dogukany/react-native-vision-camera";
 import { Platform, StyleSheet, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { cameraStyles, fakeTasksStyle } from "../styles/cameraStyles";
