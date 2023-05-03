@@ -55,12 +55,13 @@ const ProfileEdit = () => {
     }
   });
 
-  const onSubmit = ({user_bio, display_name}) => {
+  const onSubmit = ({user_bio, display_name, username}) => {
     setIsLoading(true)
 
     let data = new FormData()
     data.append("options[parameters][user_bio]", user_bio);
     data.append("options[parameters][display_name]", display_name);
+    data.append("options[parameters][username]", username);
 
     if (selectedImage) {
       const image = {uri: selectedImage.uri, name: selectedImage.fileName, type: selectedImage.type}
@@ -140,9 +141,8 @@ const ProfileEdit = () => {
                     onChangeText={onChange}
                     onBlur={onBlur}
                     value={value}
-                    editable={false}
                     autoCapitalize={"none"}
-                    style={{color: "#3F8BE9", fontSize: RFValue(14)}}
+                    style={{color: "#333333", fontSize: RFValue(14), fontWeight: "500"}}
                   />
                 </View>
               )}/>
