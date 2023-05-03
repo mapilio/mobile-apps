@@ -130,7 +130,7 @@
     "warning": {
       "battery": {
         "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 20%. In this case, shooting is not possible."
+        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
       },
       "mocked": {
         "title": "Fake GPS",

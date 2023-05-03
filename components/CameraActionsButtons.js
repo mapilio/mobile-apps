@@ -12,7 +12,6 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
     batteryLevel,
     mocked,
     highSpeed,
-    isCharge,
     accuracy,
     batteryStatus
   } = useSelector((state) => state.cameraReducer);
@@ -29,7 +28,7 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
     if (!waitGPS) {
       dispatch({type: CAPTURE_BUTTON_STATUS, payload: (GPSAccuracy || !batteryStatus || !highSpeed || !mocked || accuracy.isTrue)});
     }
-  }, [GPSAccuracy, waitGPS, isCharge, highSpeed, mocked, batteryLevel, accuracy]);
+  }, [GPSAccuracy, waitGPS, highSpeed, mocked, batteryLevel, accuracy]);
 
 
   return (
