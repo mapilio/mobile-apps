@@ -8,11 +8,14 @@ import {
   UPDATE_BATTERY_STATUS,
 } from "../store/actionsName";
 import { useDispatch, useSelector } from "react-redux";
-import { addBatteryStateListener, getBatteryLevelAsync } from "expo-battery";
+import { addBatteryStateListener, getBatteryLevelAsync, getBatteryStateAsync } from "expo-battery";
+import { ChargeIcon } from "../assets/svg/illustrations";
 
 const BatteryLevel = () => {
   const dispatch = useDispatch();
   const [chargeStatus, setChargeStatus] = useState(null);
+
+  const isCharging = chargeStatus === 2;
 
   const { batteryLevel } = useSelector(
     (state) => state.cameraReducer
@@ -20,6 +23,7 @@ const BatteryLevel = () => {
 
   useEffect(() => {
     setBatteryLevel();
+    setBatteryState();
     const batteryInterval = setInterval(() => {
       setBatteryLevel();
     }, 60000);
@@ -34,6 +38,12 @@ const BatteryLevel = () => {
     };
   }, []);
 
+  const setBatteryState = () => {
+    getBatteryStateAsync().then((batteryState) => {
+      setChargeStatus(batteryState);
+    });
+  }
+
   const setBatteryLevel = () => {
     getBatteryLevelAsync().then((batteryLevel) => {
       dispatch({
@@ -44,7 +54,7 @@ const BatteryLevel = () => {
   };
 
   useEffect(() => {
-    const isLowBattery = batteryLevel <= 15 && chargeStatus !== 2;
+    const isLowBattery = batteryLevel <= 15 && !isCharging;
     
     dispatch({
       type: UPDATE_BATTERY_STATUS,
@@ -62,12 +72,28 @@ const BatteryLevel = () => {
           <View
             style={{
               width: `${batteryLevel}%`,
-              backgroundColor: "#FFFFFF",
+              backgroundColor: chargeStatus === 2 ? "#38B35A" : "#FFFFFF",
               height: RFValue(6),
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 2,
             }}
-          />
+          >
+          {isCharging && (<ChargeIcon />)}
+          </View>
         </View>
+      
       </View>
+        <View 
+          style={{
+            backgroundColor: convertHexToRGBA("#FFFFFF", 40),
+            borderRadius: RFValue(2),
+            marginLeft: RFValue(1),
+            width: RFValue(2),
+            height: RFValue(6),
+            borderBottomLeftRadius: 0,
+            borderTopLeftRadius: 0,
+          }} />
     </View>
   );
 };
@@ -83,7 +109,7 @@ const styles = StyleSheet.create({
     height: RFValue(10),
     borderWidth: RFValue(1),
     borderColor: convertHexToRGBA("#FFFFFF", 40),
-    borderRadius: 2,
+    borderRadius: 5,
     position: "relative",
     alignItems: "center",
     justifyContent: "center",

@@ -131,7 +131,7 @@
     "warning": {
       "battery": {
         "title": "Pil seviyesi düşük",
-        "description": "Şarjınız %20'nin altında olduğu için GPS doğruluğu azalacaktır. Bu durumda çekim yapılamaz."
+        "description": "Şarjınız %15'in altında olduğu için GPS doğruluğu azalacaktır. Bu durumda çekim yapılamaz."
       },
       "mocked": {
         "title": "Sahte GPS",
