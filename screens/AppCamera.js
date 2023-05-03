@@ -51,20 +51,6 @@ const AppCamera = () => {
     })
   }
 
-  const orientationChange = async () => {
-    const currentOrientation = await ScreenOrientation.getOrientationAsync();
-
-    const landscapes = [
-      ScreenOrientation.Orientation.LANDSCAPE_LEFT,
-      ScreenOrientation.Orientation.LANDSCAPE_RIGHT,
-      ScreenOrientation.OrientationLock.LANDSCAPE
-    ]
-
-    if (!landscapes.some(landscape => landscape === currentOrientation)) {
-      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
-    }
-  }
-
   const closeHandler = useCallback(() => {
     navigation.reset({
       index: 0,
@@ -88,7 +74,7 @@ const AppCamera = () => {
     activateKeepAwake("camera").catch((error) => toast.show(`${error}`, {type: "error"}));
     const id = watchPosition()
     BackHandler.addEventListener('hardwareBackPress', closeHandler);
-    orientationChange().catch((error) => toast.show(`${error}`, {type: "error"}));
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
 
     return () => {
       deactivateKeepAwake("camera").catch((error) => toast.show(`${error}`, {type: "error"}));
@@ -112,6 +98,7 @@ const AppCamera = () => {
   if (orientation !== "LANDSCAPE") {
     return <Loading backgroundColor="black" indicatorColor="white" />
   }
+
 
   return (
     <SafeAreaProvider>
