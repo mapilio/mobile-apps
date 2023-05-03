@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { convertHexToRGBA } from "../helper/helper";
 import { CustomText } from "../highordercomponents";
 import {
   UPDATE_BATTERY_LEVEL,
   UPDATE_BATTERY_STATUS,
-  UPDATE_CHARGE_STATUS,
 } from "../store/actionsName";
 import { useDispatch, useSelector } from "react-redux";
 import { addBatteryStateListener, getBatteryLevelAsync } from "expo-battery";
 
 const BatteryLevel = () => {
   const dispatch = useDispatch();
+  const [chargeStatus, setChargeStatus] = useState(null);
 
-  const { batteryLevel, isCharge } = useSelector(
+  const { batteryLevel } = useSelector(
     (state) => state.cameraReducer
   );
 
@@ -25,7 +25,7 @@ const BatteryLevel = () => {
     }, 60000);
 
     const subscriptionState = addBatteryStateListener(({batteryState} ) => {
-      dispatch({ type: UPDATE_CHARGE_STATUS, payload: (batteryState !== 0 && batteryState !== 1) });
+      setChargeStatus(batteryState);
     });
 
     return () => {
@@ -44,12 +44,13 @@ const BatteryLevel = () => {
   };
 
   useEffect(() => {
-    const alertLevel = Platform.OS === "ios" ? 101 : 15;
+    const isLowBattery = batteryLevel <= 15 && chargeStatus !== 2;
+    
     dispatch({
       type: UPDATE_BATTERY_STATUS,
-      payload: !isCharge && batteryLevel <= alertLevel,
+      payload: isLowBattery,
     });
-  }, [batteryLevel, isCharge]);
+  }, [batteryLevel, chargeStatus]);
 
   return (
     <View style={styles.batteryInfo}>

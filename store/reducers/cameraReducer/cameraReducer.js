@@ -34,7 +34,6 @@ const INITIAL_STATE = {
   accuracy: false,
   mocked: false,
   keepUUID: null,
-  isCharge: true,
   captureButtonStatus: false,
   rotateStatus: false,
   showRotateAlert: true,
@@ -101,11 +100,6 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         keepUUID: action.payload,
-      };
-    case UPDATE_CHARGE_STATUS:
-      return {
-        ...state,
-        isCharge: action.payload,
       };
     case UPDATE_ACCURACY:
       return {
