@@ -20,7 +20,6 @@ import * as ImageManipulator from "expo-image-manipulator";
 
 const AutoActionButton = ({navigation}) => {
 	const {
-		debugMode,
 		camera,
 		photoAmount,
 		accuracy,
@@ -36,6 +35,7 @@ const AutoActionButton = ({navigation}) => {
 		groupId,
 	} = useSelector((status) => status.cameraReducer);
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
+	const {debugMode} = useSelector((status) => status.generalReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
 	const accelerometerData = useRef({x: 0, y: 0, z: 0})

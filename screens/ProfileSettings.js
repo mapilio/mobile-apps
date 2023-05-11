@@ -3,7 +3,7 @@ import {CustomText} from "../highordercomponents";
 import {Routes} from "../navigator/Routes";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useDispatch, useSelector} from "react-redux";
-import {EXIT_USER, SET_DEBUG_MODE} from "../store/actionsName";
+import {EXIT_USER, SET_DEBUG_MODE, SET_MAP_MODE} from "../store/actionsName";
 import OneSignal from "react-native-onesignal";
 import {useEffect} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -24,7 +24,7 @@ const ProfileSettings = ({navigation}) => {
   const dispatch = useDispatch();
   const {bottom} = useSafeAreaInsets();
   const {t} = useTranslation('profile_settings');
-  const {debugMode} = useSelector((status) => status.cameraReducer);
+  const {debugMode, mapShown} = useSelector((status) => status.generalReducer);
 
   useEffect(() => {
     navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
@@ -34,11 +34,21 @@ const ProfileSettings = ({navigation}) => {
   const setDebugMode = () => {
     if(debugMode){
       dispatch({type: SET_DEBUG_MODE, payload: false})
-      toast.show("Debug mode enabled", {type: "error"})
+      toast.show("Debug mode disabled", {type: "error"})
     }else{
       dispatch({type: SET_DEBUG_MODE, payload: true})
-      toast.show("Debug mode disabled", {type: "success"})
+      toast.show("Debug mode enabled", {type: "success"})
       
+    }
+  }
+
+  const setMapShownMode = () => {
+    if(mapShown){
+      dispatch({type: SET_MAP_MODE, payload: false})
+      toast.show("Map disabled", {type: "error"})
+    }else{
+      dispatch({type: SET_MAP_MODE, payload: true})
+      toast.show("Map enabled", {type: "success"})
     }
   }
 
@@ -85,6 +95,10 @@ const ProfileSettings = ({navigation}) => {
           <CustomText style={styles.listText}>{t("delete_account")}</CustomText>
         </Pressable>
 
+        {debugMode && (<Pressable style={styles.listItem} onLongPress={setMapShownMode}>
+          <CustomText style={styles.appSettingsText}>{t("Map On/Off")}</CustomText>
+        </Pressable>)}
+
         <Pressable onPress={exitHandle}>
           <CustomText style={styles.signOut}>{t("sign_out")}</CustomText>
         </Pressable>
@@ -112,6 +126,10 @@ const styles = StyleSheet.create({
   },
   listText: {
     color: '#808080',
+    fontSize: RFValue(16),
+  },
+  appSettingsText:{
+    color: 'black',
     fontSize: RFValue(16),
   },
   signOut: {

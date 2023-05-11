@@ -4,7 +4,9 @@ import {
   UPDATE_CURRENT_DB,
   UPDATE_CURRENT_FEED_SEQUENCE,
   UPDATE_LANGUAGE,
-  SET_CURRENT_POSITION
+  SET_CURRENT_POSITION,
+  SET_DEBUG_MODE,
+  SET_MAP_MODE
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -14,6 +16,8 @@ const INITIAL_STATE = {
   currentFeedSequence: null,
   language: 'en',
   currentPosition: undefined,
+  debugMode: false,
+  mapShown: true,
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -47,6 +51,16 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentPosition: action.payload
+      }
+    case SET_DEBUG_MODE:
+      return {
+        ...state,
+        debugMode: action.payload,
+      }
+    case SET_MAP_MODE:
+      return {
+        ...state,
+        mapShown: action.payload,
       }
     default:
       return state;
