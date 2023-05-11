@@ -84,7 +84,6 @@ const AppCamera = () => {
       appState.current.match(/inactive|background/) &&
       nextAppState === "active"
     ) {
-      console.log("appstate girdi");
       watchPosition();
     } else {
       removeWatchPosition();
