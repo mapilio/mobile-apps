@@ -1,8 +1,8 @@
-import {ShapeSource, CircleLayer, Images, SymbolLayer} from "@rnmapbox/maps";
+import {CircleLayer, Images, SymbolLayer, UserLocation} from "@rnmapbox/maps";
 
-const Userlocation = ({ shape }) => {
+const Userlocations = ({visible}) => {
   return (
-    <ShapeSource shape={shape} id={"userLocationSource"}>
+     <UserLocation visible={visible}>
       <CircleLayer
         id={"MarkerViewCircle"}
         style={{
@@ -34,8 +34,8 @@ const Userlocation = ({ shape }) => {
           iconRotate: ["get", "heading"],
         }}
       />
-    </ShapeSource>
+      </UserLocation>
   );
 };
 
-export default Userlocation;
+export default Userlocations;

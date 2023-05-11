@@ -1,11 +1,10 @@
 import React, { memo, useEffect, useRef, useState} from "react";
-import { AppState, Platform, View } from "react-native";
+import { Platform, View } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
 import Config from "react-native-config";
-import Geolocation from "@react-native-community/geolocation";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
@@ -31,6 +30,7 @@ import { MapilioBetaWatermark } from "../assets/svg/illustrations";
 import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
+import { getCurrentPositionAsync } from "expo-location";
 
 MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
 
@@ -53,32 +53,17 @@ const AppMap = ({ navigation }) => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { t } = useTranslation("map");
 
-  const appState = useRef(AppState.currentState);
-
   useEffect(() => {
     !connection.connectionStatus &&
       navigation.navigate(Routes.noInternetAccess);
 
-    const locationInterval = setInterval(() => {
-      if (appState.current === "active") {
-        Geolocation.getCurrentPosition(({ coords }) => {
-          setUserCoordinate(point([coords.longitude, coords.latitude]));
-        });
-      }
-    }, 3000);
-
-    const subscription = AppState.addEventListener("change", (state) => {
-      appState.current = state;
-    });
-
-    return () => {
-      subscription.remove();
-      clearInterval(locationInterval);
-    };
+      return () => MapboxGL.locationManager.stop();
   }, []);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(({ coords }) => {
+    getCurrentPositionAsync({
+      accuracy: 3,
+    }).then(({coords}) => {
       setInitialCoord([coords.longitude, coords.latitude]);
       setUserCoordinate(point([coords.longitude, coords.latitude]));
     });
@@ -224,7 +209,7 @@ const AppMap = ({ navigation }) => {
 
         {showBuildings && <Buildings />}
 
-        {showUser && userCoordinate && <Userlocation shape={userCoordinate} />}
+        <Userlocation visible={showUser} />
 
         {clickedCoord && showPano && (
           <ActiveSources

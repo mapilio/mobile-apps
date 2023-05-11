@@ -81,9 +81,10 @@ const Camera = () => {
           photo={true}
           enableDepthData={true}
           onInitialized={handleCameraReady}
-          enableHighQualityPhotos={false}
+          enableHighQualityPhotos={true}
           zoom={1}
           enableZoomGesture={false}
+          preset="photo"
           hdr={false}
           orientation={cameraOrientation}
         />
