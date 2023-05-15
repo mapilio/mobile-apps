@@ -103,7 +103,7 @@ const AppCamera = () => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{ name: Routes.uploadTab }],
+        routes: [{name: Routes.uploadTab, params: {screen: Routes.captureCompleted}}]
       })
     );
   }, []);

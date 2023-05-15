@@ -1,9 +1,9 @@
-import {CircleLayer, Images, SymbolLayer, UserLocation} from "@rnmapbox/maps";
+import MapLibre from "@maplibre/maplibre-react-native";
 
-const Userlocations = ({visible}) => {
+const Userlocations = () => {
   return (
-     <UserLocation visible={visible}>
-      <CircleLayer
+     <MapLibre.UserLocation>
+      <MapLibre.CircleLayer
         id={"MarkerViewCircle"}
         style={{
           circleColor: "#191919",
@@ -12,7 +12,7 @@ const Userlocations = ({visible}) => {
           circleRadius: 10,
         }}
       />
-      <CircleLayer
+      <MapLibre.CircleLayer
         id={"userLocationCircle-opacity"}
         style={{
           circleColor: "#191919",
@@ -21,20 +21,18 @@ const Userlocations = ({visible}) => {
           circleStrokeColor: "#191919",
         }}
       />
-      <Images
-        images={{ arrow: require("../../../assets/images/map/arrow.png") }}
-      />
-      <SymbolLayer
+
+      <MapLibre.SymbolLayer
         id={"userLocationArrow"}
         style={{
-          iconImage: "arrow",
+          iconImage: require("../../../assets/images/map/arrow.png"),
           iconSize: 0.5,
           iconAllowOverlap: true,
           iconOffset: [0, 2],
           iconRotate: ["get", "heading"],
         }}
       />
-      </UserLocation>
+      </MapLibre.UserLocation>
   );
 };
 

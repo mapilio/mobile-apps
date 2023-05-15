@@ -1,28 +1,24 @@
 import React from "react";
 import {headingPointGeoJson} from "../../helper/helper";
-import {SymbolLayer, ShapeSource, Images} from "@rnmapbox/maps";
+import MapLibreGL from "@maplibre/maplibre-react-native";
 
 const Heading = ({heading, coordinates, markerPath}) => {
-
   return (
-    <ShapeSource
+    <MapLibreGL.ShapeSource
       id={"headingShape"}
       shape={headingPointGeoJson(heading, coordinates)}
     >
-      <Images
-        images={{marker: markerPath}}
-      />
-      <SymbolLayer
+      <MapLibreGL.SymbolLayer
         id={"heading"}
         style={{
-          iconImage: "marker",
+          iconImage: markerPath,
           iconSize: .4,
           iconAllowOverlap: true,
           iconRotate: ["get", "rotate"],
           iconRotationAlignment: 'map',
         }}
       />
-    </ShapeSource>
+    </MapLibreGL.ShapeSource>
   )
 };
 

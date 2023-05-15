@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useRef, useState} from "react";
 import { Platform, View } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
-import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
 import Config from "react-native-config";
@@ -10,7 +9,7 @@ import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
 import { RESULTS } from "react-native-permissions";
 import { point } from "@turf/turf";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {
@@ -31,8 +30,11 @@ import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
 import { getCurrentPositionAsync } from "expo-location";
+import MapLibre from "@maplibre/maplibre-react-native";
+import { SET_LOCATION_MODE } from "../store/actionsName";
 
-MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
+MapLibre.setAccessToken(null);
+
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
@@ -41,11 +43,11 @@ const AppMap = ({ navigation }) => {
   const [userCoordinate, setUserCoordinate] = useState(undefined);
   const [initialCoord, setInitialCoord] = useState(undefined);
   const [isMapReady, setIsMapReady] = useState(false);
-  const [showUser, setShowUser] = useState(true);
   const [showBuildings, setShowBuildings] = useState(false);
-  const { welcomeWalkthroughStatus } = useSelector(
+  const { welcomeWalkthroughStatus, showLocation } = useSelector(
     (state) => state.generalReducer
   );
+  const dispatch = useDispatch();
   const { connection } = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
@@ -57,7 +59,6 @@ const AppMap = ({ navigation }) => {
     !connection.connectionStatus &&
       navigation.navigate(Routes.noInternetAccess);
 
-      return () => MapboxGL.locationManager.stop();
   }, []);
 
   useEffect(() => {
@@ -67,7 +68,7 @@ const AppMap = ({ navigation }) => {
       setInitialCoord([coords.longitude, coords.latitude]);
       setUserCoordinate(point([coords.longitude, coords.latitude]));
     });
-  }, [showUser]);
+  }, [showLocation]);
 
   useEffect(() => {
     if (!isMapReady && welcomeWalkthroughStatus) {
@@ -96,6 +97,7 @@ const AppMap = ({ navigation }) => {
       });
     });
   };
+
 
   const touchPoint = async (e) => {
     const { geometry, properties } = e.features[0];
@@ -198,8 +200,8 @@ const AppMap = ({ navigation }) => {
         rotateEnabled
         attributionStyle={attributionStyles}
       >
-        <Camera
-          animationMode={"none"}
+        <MapLibre.Camera
+          animationMode={"flyTo"}
           ref={cameraRef}
           zoomLevel={4}
           centerCoordinate={initialCoord}
@@ -209,7 +211,7 @@ const AppMap = ({ navigation }) => {
 
         {showBuildings && <Buildings />}
 
-        <Userlocation visible={showUser} />
+       {showLocation &&  <Userlocation />}
 
         {clickedCoord && showPano && (
           <ActiveSources
@@ -223,12 +225,17 @@ const AppMap = ({ navigation }) => {
       </View>
       <CenterToUserButton
         handleSetCenter={handleSetCenter}
-        setShowUser={setShowUser}
+        setShowUser={()=>{
+          dispatch({
+            type: SET_LOCATION_MODE,
+            payload: !showLocation,
+          })
+        }}
       />
-      <ToggleBuildings
+     {/*  <ToggleBuildings
         isActive={showBuildings}
         toggleBuildings={setShowBuildings}
-      />
+      /> */}
       {/**  Mapbox cause overflow on early android versions. That's necessarry to call them in here for early devices. */}
       {!showPano && (
         <View

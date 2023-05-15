@@ -9,7 +9,7 @@ import db from "../db";
 import {dateConvert} from "../helper/helper";
 import * as FileSystem from "expo-file-system";
 import {lineString, bbox, length, points} from "@turf/turf";
-import MapboxGL from "@rnmapbox/maps";
+import MapLibreGL from "@maplibre/maplibre-react-native";
 import Loading from "../components/Loading";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Routes} from "../navigator/Routes";
@@ -110,7 +110,7 @@ const CaptureCompleted = () => {
           rotateEnabled={false}
           onDidFinishLoadingMap={() => setMapLoading(false)}
         >
-          <MapboxGL.Camera
+          <MapLibreGL.Camera
             zoomLevel={10}
             ref={cameraRef}
             animationDuration={0}
@@ -121,13 +121,13 @@ const CaptureCompleted = () => {
             }}
           />
 
-          <MapboxGL.ShapeSource id={"capturedShape"} shape={lineDetail.line}>
-            <MapboxGL.LineLayer id="capturedLine" style={styles.line}/>
-          </MapboxGL.ShapeSource>
+          <MapLibreGL.ShapeSource id={"capturedShape"} shape={lineDetail.line}>
+            <MapLibreGL.LineLayer id="capturedLine" style={styles.line}/>
+          </MapLibreGL.ShapeSource>
 
-          <MapboxGL.ShapeSource id={"capturedPoint"} shape={lineDetail.point}>
-            <MapboxGL.CircleLayer id="capturedCircle" style={styles.point}/>
-          </MapboxGL.ShapeSource>
+          <MapLibreGL.ShapeSource id={"capturedPoint"} shape={lineDetail.point}>
+            <MapLibreGL.CircleLayer id="capturedCircle" style={styles.point}/>
+          </MapLibreGL.ShapeSource>
 
         </MapView>
       </View>

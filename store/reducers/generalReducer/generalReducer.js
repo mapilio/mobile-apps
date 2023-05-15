@@ -6,7 +6,8 @@ import {
   UPDATE_LANGUAGE,
   SET_CURRENT_POSITION,
   SET_DEBUG_MODE,
-  SET_MAP_MODE
+  SET_MAP_MODE,
+  SET_LOCATION_MODE
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -18,6 +19,7 @@ const INITIAL_STATE = {
   currentPosition: undefined,
   debugMode: false,
   mapShown: true,
+  showLocation: true,
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -61,6 +63,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         mapShown: action.payload,
+      }
+    case SET_LOCATION_MODE:
+      return {
+        ...state,
+        showLocation: action.payload,
       }
     default:
       return state;

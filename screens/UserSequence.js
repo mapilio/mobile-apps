@@ -5,7 +5,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {MapView} from "../highordercomponents";
 import {ArrowLeft} from "../assets/svg/illustrations";
 import {globalStyles} from "../styles/globalStyles";
-import MapboxGL from "@rnmapbox/maps";
+import MapLibre from "@maplibre/maplibre-react-native";
 import {useDispatch, useSelector} from "react-redux";
 import db from "../db";
 import {bbox, lineString} from "@turf/turf";
@@ -147,7 +147,7 @@ const UserSequence = ({navigation}) => {
       <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
 
       <MapView style={{flex: 1}} pitchEnabled={false}>
-        <MapboxGL.Camera
+        <MapLibre.Camera
           ref={cameraRef}
           bounds={{
             ne: [mapGeoJson?.bboxData[2], mapGeoJson?.bboxData[3]],
@@ -157,13 +157,13 @@ const UserSequence = ({navigation}) => {
           animationDuration={0}
         />
 
-        <MapboxGL.ShapeSource id={"LineShape"} shape={mapGeoJson?.line}>
-          <MapboxGL.LineLayer id="lineLayer" style={styles.lineStyles}/>
-        </MapboxGL.ShapeSource>
+        <MapLibre.ShapeSource id={"LineShape"} shape={mapGeoJson?.line}>
+          <MapLibre.LineLayer id="lineLayer" style={styles.lineStyles}/>
+        </MapLibre.ShapeSource>
 
-        <MapboxGL.ShapeSource id={"PointShape"} shape={mapGeoJson?.point} onPress={onPointClick}>
-          <MapboxGL.CircleLayer id="pointLayer" style={styles.circleStyles} />
-        </MapboxGL.ShapeSource>
+        <MapLibre.ShapeSource id={"PointShape"} shape={mapGeoJson?.point} onPress={onPointClick}>
+          <MapLibre.CircleLayer id="pointLayer" style={styles.circleStyles} />
+        </MapLibre.ShapeSource>
 
         {
           !!imageDetail && (

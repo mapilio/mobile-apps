@@ -1,12 +1,12 @@
-import MapboxGL from "@rnmapbox/maps";
+import MapLibreGL from "@maplibre/maplibre-react-native";
 
 const Buildings = () => {
   return (
-    <MapboxGL.FillExtrusionLayer
-      id="add-3d-buildings"
-      sourceID="composite"
+    <MapLibreGL.FillExtrusionLayer
+      id="3d-buildings"
+      sourceID='maptiler-source'
       sourceLayerID="building"
-      filter={["==", "extrude", "true"]}
+      filter={['==', 'extrude', 'true']}
       minZoomLevel={15}
       style={{
         fillExtrusionColor: "#aaa",
