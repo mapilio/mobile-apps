@@ -1,5 +1,8 @@
 import React, {memo, useEffect, useState} from "react";
-import MapLibreGL from "@maplibre/maplibre-react-native";
+import MapLibreGL, {Logger} from "@maplibre/maplibre-react-native";
+
+MapLibreGL.setAccessToken(null);
+Logger.setLogLevel("error");
 
 const MapView = ({children, mapRef, attributionStyle, regionChange, mapStyle, onPress, onDidFinishLoadingMap, ...props}) => {
   const [didFinishLoadingMap, setDidFinishLoadingMap] = useState(false);
@@ -8,16 +11,15 @@ const MapView = ({children, mapRef, attributionStyle, regionChange, mapStyle, on
     return () => setDidFinishLoadingMap(false)
   }, []);
 
-
   return (
     <MapLibreGL.MapView
       style={mapStyle}
+      styleURL="https://api.maptiler.com/maps/streets-v2/style.json?key=***REMOVED***"
       ref={mapRef}
       attributionPosition={attributionStyle || {left: 5, bottom: 5}}
       onRegionDidChange={regionChange}
       logoEnabled={false}
       compassEnabled={false}
-      
       attributionEnabled={true}
       scaleBarEnabled={false}
       logoPosition={{bottom: 20, left: 25}}
@@ -29,16 +31,6 @@ const MapView = ({children, mapRef, attributionStyle, regionChange, mapStyle, on
       }}
       {...props}
     >
-       <MapLibreGL.RasterSource
-          id="maptiler-source"
-          tileSize={512}
-          url="https://api.maptiler.com/maps/basic-v2-light/tiles.json?key=***REMOVED***">
-          <MapLibreGL.RasterLayer
-            id="maptiler-layer"
-            sourceID="maptiler-source"
-            
-          />
-        </MapLibreGL.RasterSource>
       {didFinishLoadingMap && children}
     </MapLibreGL.MapView>
   )

@@ -4,14 +4,13 @@ const Buildings = () => {
   return (
     <MapLibreGL.FillExtrusionLayer
       id="3d-buildings"
-      sourceID='maptiler-source'
+      sourceID="openmaptiles"
       sourceLayerID="building"
-      filter={['==', 'extrude', 'true']}
       minZoomLevel={15}
       style={{
         fillExtrusionColor: "#aaa",
-        fillExtrusionHeight: ["get", "height"],
-        fillExtrusionBase: ["get", "min_height"],
+        fillExtrusionHeight:  15,
+        fillExtrusionBase:["get", "min_height"],
         fillExtrusionOpacity: 0.6,
       }}
     />

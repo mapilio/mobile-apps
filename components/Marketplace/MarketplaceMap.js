@@ -11,7 +11,7 @@ const MarketplaceMap = ({navigation, onDidFinishLoadingMap}) => {
   const camera = useRef();
 
   useEffect(() => {
-    camera.current?.setCamera({centerCoordinate: marketplaceCenter, zoomLevel: zoomLevel})
+    camera.current?.setCamera({centerCoordinate: marketplaceCenter, zoomLevel: zoomLevel,animationDuration: 500,})
   }, [marketplaceCenter, zoomLevel]);
 
   const _drawPolygon = (geoJson) => {
@@ -35,7 +35,7 @@ const MarketplaceMap = ({navigation, onDidFinishLoadingMap}) => {
 
   return (
     <MapView mapStyle={appMapStyle.map} onDidFinishLoadingMap={onDidFinishLoadingMap} attributionStyle={attributionStyles}>
-      <MapLibre.Camera animationMode={"moveTo"} ref={camera}/>
+      <MapLibre.Camera animationMode={"linearTo"} ref={camera} zoomLevel={3}/>
       {_drawPolygon(marketplaceData, navigation)}
     </MapView>
   )

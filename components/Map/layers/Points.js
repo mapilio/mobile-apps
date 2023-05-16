@@ -15,21 +15,20 @@ const Points = ({touchPoint}) => {
           id={"road-points"}
           sourceLayerID={Config.MAPBOX_POINT_ID}
           style={styles.circles}
-          minZoomLevel={14}
+          belowLayerID={"road-points-opacity"}
+          //only shows zoom 14 and above
+          minZoomLevel={6}
         />
-      </MapLibre.VectorSource>
-
-      <MapLibre.VectorSource
-        id={"road-points-opacity"}
-        tileUrlTemplates={[Config.MAPBOX_POINT_URL]}
-      >
         <MapLibre.CircleLayer
           id={"road-points-opacity"}
           sourceLayerID={Config.MAPBOX_POINT_ID}
           style={styles.circlesOpacity}
-          maxZoomLevel={15}
+          minZoomLevel={6}
+         
         />
       </MapLibre.VectorSource>
+
+     
     </Fragment>
   );
 };

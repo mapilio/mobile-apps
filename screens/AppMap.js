@@ -30,11 +30,7 @@ import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
 import { getCurrentPositionAsync } from "expo-location";
-import MapLibre from "@maplibre/maplibre-react-native";
 import { SET_LOCATION_MODE } from "../store/actionsName";
-
-MapLibre.setAccessToken(null);
-
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
@@ -200,7 +196,7 @@ const AppMap = ({ navigation }) => {
         rotateEnabled
         attributionStyle={attributionStyles}
       >
-        <MapLibre.Camera
+        <MapLibreGL.Camera
           animationMode={"flyTo"}
           ref={cameraRef}
           zoomLevel={4}
@@ -232,10 +228,10 @@ const AppMap = ({ navigation }) => {
           })
         }}
       />
-     {/*  <ToggleBuildings
+      <ToggleBuildings
         isActive={showBuildings}
         toggleBuildings={setShowBuildings}
-      /> */}
+      />
       {/**  Mapbox cause overflow on early android versions. That's necessarry to call them in here for early devices. */}
       {!showPano && (
         <View

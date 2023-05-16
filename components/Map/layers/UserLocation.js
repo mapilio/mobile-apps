@@ -2,14 +2,14 @@ import MapLibre from "@maplibre/maplibre-react-native";
 
 const Userlocations = () => {
   return (
-     <MapLibre.UserLocation>
-      <MapLibre.CircleLayer
+     <MapLibre.UserLocation showsUserHeadingIndicator renderMode="native" animated >
+      {/* <MapLibre.CircleLayer
         id={"MarkerViewCircle"}
         style={{
           circleColor: "#191919",
           circleStrokeWidth: 1,
           circleStrokeColor: "white",
-          circleRadius: 10,
+          circleRadius: 10, 
         }}
       />
       <MapLibre.CircleLayer
@@ -31,7 +31,7 @@ const Userlocations = () => {
           iconOffset: [0, 2],
           iconRotate: ["get", "heading"],
         }}
-      />
+      /> */}
       </MapLibre.UserLocation>
   );
 };
