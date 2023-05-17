@@ -24,6 +24,7 @@ const Points = ({touchPoint}) => {
           sourceLayerID={Config.MAPBOX_POINT_ID}
           style={styles.circlesOpacity}
           minZoomLevel={6}
+          maxZoomLevel={13}
          
         />
       </MapLibre.VectorSource>

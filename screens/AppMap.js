@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState} from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Platform, View } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -14,7 +14,6 @@ import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {
   ActiveSources,
-  Buildings,
   Lines,
   Points,
   Userlocation,
@@ -23,7 +22,7 @@ import {
   CenterToUserButton,
   ProfileButton,
   Pano,
-  ToggleBuildings,
+  AttributionButton,
 } from "../components/Map";
 import { MapilioBetaWatermark } from "../assets/svg/illustrations";
 import MapLoading from "../components/Map/MapLoading";
@@ -31,6 +30,7 @@ import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
 import { getCurrentPositionAsync } from "expo-location";
 import { SET_LOCATION_MODE } from "../store/actionsName";
+import MapLibreGL from "@maplibre/maplibre-react-native";
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
@@ -39,11 +39,10 @@ const AppMap = ({ navigation }) => {
   const [userCoordinate, setUserCoordinate] = useState(undefined);
   const [initialCoord, setInitialCoord] = useState(undefined);
   const [isMapReady, setIsMapReady] = useState(false);
-  const [showBuildings, setShowBuildings] = useState(false);
-  const { welcomeWalkthroughStatus, showLocation } = useSelector(
+  const [showLocation, setShowLocation] = useState(true);
+  const { welcomeWalkthroughStatus } = useSelector(
     (state) => state.generalReducer
   );
-  const dispatch = useDispatch();
   const { connection } = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
@@ -54,13 +53,12 @@ const AppMap = ({ navigation }) => {
   useEffect(() => {
     !connection.connectionStatus &&
       navigation.navigate(Routes.noInternetAccess);
-
   }, []);
 
   useEffect(() => {
     getCurrentPositionAsync({
       accuracy: 3,
-    }).then(({coords}) => {
+    }).then(({ coords }) => {
       setInitialCoord([coords.longitude, coords.latitude]);
       setUserCoordinate(point([coords.longitude, coords.latitude]));
     });
@@ -77,14 +75,6 @@ const AppMap = ({ navigation }) => {
     }
   }, [isMapReady]);
 
-  useEffect(() => {
-    cameraRef.current?.setCamera({
-      pitch: showBuildings ? 60 : 0,
-      heading: 0,
-      animationDuration: 300,
-    });
-  }, [showBuildings]);
-
   const zoomPoint = (coordinate) => {
     mapRef.current?.getZoom().then((zoomLevel) => {
       cameraRef.current?.setCamera({
@@ -93,7 +83,6 @@ const AppMap = ({ navigation }) => {
       });
     });
   };
-
 
   const touchPoint = async (e) => {
     const { geometry, properties } = e.features[0];
@@ -164,7 +153,9 @@ const AppMap = ({ navigation }) => {
       ? Platform.isPad
         ? RFValue(35)
         : RFValue(56)
-      : Platform.isPad ? RFValue(29) : RFValue(35),
+      : Platform.isPad
+      ? RFValue(29)
+      : RFValue(35),
   };
 
   const onDidFinishLoadingMap = () => {
@@ -193,8 +184,8 @@ const AppMap = ({ navigation }) => {
         mapStyle={mapStyles}
         mapRef={mapRef}
         onDidFinishLoadingMap={onDidFinishLoadingMap}
-        rotateEnabled
-        attributionStyle={attributionStyles}
+        rotateEnabled={false}
+        isBaseMap={true}
       >
         <MapLibreGL.Camera
           animationMode={"flyTo"}
@@ -204,10 +195,8 @@ const AppMap = ({ navigation }) => {
         />
         <Points touchPoint={touchPoint} />
         <Lines zoomPoint={zoomPoint} />
-
-        {showBuildings && <Buildings />}
-
-       {showLocation &&  <Userlocation />}
+        
+        {showLocation && <Userlocation />}
 
         {clickedCoord && showPano && (
           <ActiveSources
@@ -219,19 +208,15 @@ const AppMap = ({ navigation }) => {
       <View style={appMapStyle.watermark}>
         <MapilioBetaWatermark />
       </View>
-      <CenterToUserButton
-        handleSetCenter={handleSetCenter}
-        setShowUser={()=>{
-          dispatch({
-            type: SET_LOCATION_MODE,
-            payload: !showLocation,
-          })
-        }}
-      />
-      <ToggleBuildings
-        isActive={showBuildings}
-        toggleBuildings={setShowBuildings}
-      />
+      <AttributionButton />
+      <View style={{ ...appMapStyle.mapButtons, marginBottom: RFValue(20) }}>
+        <CenterToUserButton
+          handleSetCenter={handleSetCenter}
+          setShowUser={() => {
+            setShowLocation(!showLocation);
+          }}
+        />
+      </View>
       {/**  Mapbox cause overflow on early android versions. That's necessarry to call them in here for early devices. */}
       {!showPano && (
         <View

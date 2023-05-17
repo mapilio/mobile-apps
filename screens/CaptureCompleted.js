@@ -99,7 +99,7 @@ const CaptureCompleted = () => {
         />
       </Text>
 
-      <View>
+      <View style={{marginVertical: RFValue(15) }}>
         {mapLoading && <MapLoader/>}
 
         <MapView
@@ -202,7 +202,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: Dimensions.get('window').height * 0.4,
     overflow: 'hidden',
-    marginVertical: RFValue(15),
     borderRadius: RFValue(10),
   },
   mapLoader: {

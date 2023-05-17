@@ -24,7 +24,7 @@ const ProfileSettings = ({navigation}) => {
   const dispatch = useDispatch();
   const {bottom} = useSafeAreaInsets();
   const {t} = useTranslation('profile_settings');
-  const {debugMode, mapShown} = useSelector((status) => status.generalReducer);
+  const {debugMode} = useSelector((status) => status.generalReducer);
 
   useEffect(() => {
     navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
@@ -39,16 +39,6 @@ const ProfileSettings = ({navigation}) => {
       dispatch({type: SET_DEBUG_MODE, payload: true})
       toast.show("Debug mode enabled", {type: "success"})
       
-    }
-  }
-
-  const setMapShownMode = () => {
-    if(mapShown){
-      dispatch({type: SET_MAP_MODE, payload: false})
-      toast.show("Map disabled", {type: "error"})
-    }else{
-      dispatch({type: SET_MAP_MODE, payload: true})
-      toast.show("Map enabled", {type: "success"})
     }
   }
 
@@ -94,10 +84,6 @@ const ProfileSettings = ({navigation}) => {
         <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.deleteAccount)}>
           <CustomText style={styles.listText}>{t("delete_account")}</CustomText>
         </Pressable>
-
-        {debugMode && (<Pressable style={styles.listItem} onLongPress={setMapShownMode}>
-          <CustomText style={styles.appSettingsText}>{t("Map On/Off")}</CustomText>
-        </Pressable>)}
 
         <Pressable onPress={exitHandle}>
           <CustomText style={styles.signOut}>{t("sign_out")}</CustomText>

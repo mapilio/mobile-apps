@@ -6,7 +6,7 @@ import { vibrate } from "../../util/helpers";
 const CenterToUserButton = ({ handleSetCenter, setShowUser }) => {
   return (
     <TouchableOpacity
-      style={[appMapStyle.mapButton]}
+      style={[appMapStyle.centerButton]}
       onPress={() => {
         handleSetCenter();
       }}
