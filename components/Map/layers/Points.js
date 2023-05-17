@@ -17,14 +17,14 @@ const Points = ({touchPoint}) => {
           style={styles.circles}
           belowLayerID={"road-points-opacity"}
           //only shows zoom 14 and above
-          minZoomLevel={6}
+          minZoomLevel={13}
         />
         <MapLibre.CircleLayer
           id={"road-points-opacity"}
           sourceLayerID={Config.MAPBOX_POINT_ID}
           style={styles.circlesOpacity}
-          minZoomLevel={6}
-          maxZoomLevel={13}
+          minZoomLevel={13}
+          maxZoomLevel={17}
          
         />
       </MapLibre.VectorSource>

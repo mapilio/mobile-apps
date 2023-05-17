@@ -14,7 +14,6 @@ const MapView = ({
   regionChange,
   mapStyle,
   onPress,
-  isBaseMap,
   onDidFinishLoadingMap,
   ...props
 }) => {

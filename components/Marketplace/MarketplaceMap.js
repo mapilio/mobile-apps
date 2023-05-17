@@ -3,15 +3,13 @@ import {MapView} from "../../highordercomponents";
 import {appMapStyle} from "../../styles/appMapStyle";
 import MapLibre from "@maplibre/maplibre-react-native";
 import {useSelector} from "react-redux";
-import { Platform } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
 
 const MarketplaceMap = ({navigation, onDidFinishLoadingMap}) => {
   const {marketplaceCenter, zoomLevel, marketplaceData} = useSelector((status) => status.marketplaceReducer);
   const camera = useRef();
 
   useEffect(() => {
-    camera.current?.setCamera({centerCoordinate: marketplaceCenter, zoomLevel: zoomLevel,animationDuration: 500,})
+    camera.current?.setCamera({centerCoordinate: marketplaceCenter, zoomLevel: zoomLevel,animationDuration: 100,})
   }, [marketplaceCenter, zoomLevel]);
 
   const _drawPolygon = (geoJson) => {
@@ -27,15 +25,9 @@ const MarketplaceMap = ({navigation, onDidFinishLoadingMap}) => {
     }
   }
 
-  const attributionStyles = {
-    left:Platform.OS === "ios" ? 0 : RFValue(10),
-    bottom: Platform.isPad ? RFValue(29) : RFValue(35),
-  };
-
-
   return (
-    <MapView mapStyle={appMapStyle.map} onDidFinishLoadingMap={onDidFinishLoadingMap} attributionStyle={attributionStyles}>
-      <MapLibre.Camera animationMode={"linearTo"} ref={camera} zoomLevel={3}/>
+    <MapView mapStyle={appMapStyle.map} onDidFinishLoadingMap={onDidFinishLoadingMap}>
+      <MapLibre.Camera animationMode={"flyTo"} ref={camera} zoomLevel={3}/>
       {_drawPolygon(marketplaceData, navigation)}
     </MapView>
   )

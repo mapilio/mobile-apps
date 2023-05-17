@@ -12,12 +12,7 @@ import { point } from "@turf/turf";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {
-  ActiveSources,
-  Lines,
-  Points,
-  Userlocation,
-} from "../components/Map/layers";
+import { ActiveSources, Lines, Points } from "../components/Map/layers";
 import {
   CenterToUserButton,
   ProfileButton,
@@ -29,15 +24,12 @@ import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
 import { getCurrentPositionAsync } from "expo-location";
-import { SET_LOCATION_MODE } from "../store/actionsName";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
   const [clickedCoord, setClickedCoord] = useState(null);
   const [showPano, setShowPano] = useState(false);
-  const [userCoordinate, setUserCoordinate] = useState(undefined);
-  const [initialCoord, setInitialCoord] = useState(undefined);
   const [isMapReady, setIsMapReady] = useState(false);
   const [showLocation, setShowLocation] = useState(true);
   const { welcomeWalkthroughStatus } = useSelector(
@@ -49,6 +41,7 @@ const AppMap = ({ navigation }) => {
   const { top } = useSafeAreaInsets();
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { t } = useTranslation("map");
+  const userCoordinate = useRef(null);
 
   useEffect(() => {
     !connection.connectionStatus &&
@@ -59,8 +52,7 @@ const AppMap = ({ navigation }) => {
     getCurrentPositionAsync({
       accuracy: 3,
     }).then(({ coords }) => {
-      setInitialCoord([coords.longitude, coords.latitude]);
-      setUserCoordinate(point([coords.longitude, coords.latitude]));
+      userCoordinate.current = point([coords.longitude, coords.latitude]);
     });
   }, [showLocation]);
 
@@ -117,7 +109,7 @@ const AppMap = ({ navigation }) => {
         toast.show(`Your GPS is disabled.`, { type: "error" });
       } else {
         cameraRef.current?.setCamera({
-          centerCoordinate: userCoordinate.geometry.coordinates,
+          centerCoordinate: userCoordinate.current?.geometry.coordinates,
           zoomLevel: 15,
           pitch: 0,
           animationDuration: 500,
@@ -147,17 +139,6 @@ const AppMap = ({ navigation }) => {
     backgroundColor: "white",
   };
 
-  const attributionStyles = {
-    left: Platform.OS === "ios" ? 0 : RFValue(10),
-    bottom: showPano
-      ? Platform.isPad
-        ? RFValue(35)
-        : RFValue(56)
-      : Platform.isPad
-      ? RFValue(29)
-      : RFValue(35),
-  };
-
   const onDidFinishLoadingMap = () => {
     setTimeout(() => {
       setIsMapReady(true);
@@ -185,18 +166,37 @@ const AppMap = ({ navigation }) => {
         mapRef={mapRef}
         onDidFinishLoadingMap={onDidFinishLoadingMap}
         rotateEnabled={false}
-        isBaseMap={true}
       >
         <MapLibreGL.Camera
           animationMode={"flyTo"}
           ref={cameraRef}
-          zoomLevel={4}
-          centerCoordinate={initialCoord}
+          zoomLevel={6}
+          centerCoordinate={userCoordinate.current?.geometry?.coordinates}
         />
         <Points touchPoint={touchPoint} />
         <Lines zoomPoint={zoomPoint} />
-        
-        {showLocation && <Userlocation />}
+
+        {showLocation && (
+          <MapLibreGL.UserLocation
+            renderMode={Platform.OS === "ios" ? "native" : "normal"}
+            animated
+            onUpdate={(e) => {
+              if(!userCoordinate.current){
+                cameraRef.current?.setCamera({
+                  centerCoordinate: [
+                    e.coords.longitude,
+                    e.coords.latitude,
+                  ],
+                  zoomLevel: 10,
+                  heading: 0,
+                  pitch: 0,
+                  bearing: 0,
+                });
+              }
+              userCoordinate.current = point([e.coords.longitude, e.coords.latitude]);
+            }}
+          />
+        )}
 
         {clickedCoord && showPano && (
           <ActiveSources
