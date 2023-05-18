@@ -23,7 +23,6 @@ import { MapilioBetaWatermark } from "../assets/svg/illustrations";
 import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
-import { getCurrentPositionAsync } from "expo-location";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 
 const AppMap = ({ navigation }) => {
@@ -46,15 +45,9 @@ const AppMap = ({ navigation }) => {
   useEffect(() => {
     !connection.connectionStatus &&
       navigation.navigate(Routes.noInternetAccess);
+      initialPermissions();
   }, []);
 
-  useEffect(() => {
-    getCurrentPositionAsync({
-      accuracy: 3,
-    }).then(({ coords }) => {
-      userCoordinate.current = point([coords.longitude, coords.latitude]);
-    });
-  }, [showLocation]);
 
   useEffect(() => {
     if (!isMapReady && welcomeWalkthroughStatus) {
@@ -191,6 +184,7 @@ const AppMap = ({ navigation }) => {
                   heading: 0,
                   pitch: 0,
                   bearing: 0,
+                  animationDuration: 500,
                 });
               }
               userCoordinate.current = point([e.coords.longitude, e.coords.latitude]);

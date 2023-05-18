@@ -7,7 +7,7 @@ import {
   SET_CURRENT_POSITION,
   SET_DEBUG_MODE,
   SET_MAP_MODE,
-  SET_LOCATION_MODE
+  SET_MAINTENANCE_MODE
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -19,6 +19,7 @@ const INITIAL_STATE = {
   currentPosition: undefined,
   debugMode: false,
   mapShown: true,
+  maintenanceMode: false,
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -62,6 +63,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         mapShown: action.payload,
+      }
+    case SET_MAINTENANCE_MODE:
+      return {
+        ...state,
+        maintenanceMode: action.payload,
       }
     default:
       return state;

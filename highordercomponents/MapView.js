@@ -23,7 +23,7 @@ const MapView = ({
     <Fragment>
       <MapLibreGL.MapView
         style={mapStyle}
-        styleJSON="https://api.maptiler.com/maps/e89f843a-5ea0-49ff-a432-6cc7f6a29716/style.json?key=***REMOVED***"
+        styleURL={"https://api.maptiler.com/maps/basic-v2-light/style.json?key=***REMOVED***"}
         ref={mapRef ? mapRef : localMapRef}
         onRegionDidChange={regionChange}
         logoEnabled={false}

@@ -17,7 +17,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
   const dispatch = useDispatch();
   const {t} = useTranslation("navigation");
   const {uploadData} = useSelector((state) => state.uploadReducer);
-  const {connection} = useSelector((state) => state.generalReducer);
+  const {connection, maintenanceMode} = useSelector((state) => state.generalReducer);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
@@ -119,10 +119,11 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
     <View style={style}>
       {(!!uploadData.length || group_uuid) && (
         <TouchableOpacity
-          style={{...styles.uploadButton, ...buttonStyle}}
+          style={{...styles.uploadButton, ...buttonStyle, backgroundColor: maintenanceMode ? '#ECECEC' : '#0056F1',}}
           onPress={uploadHandler}
+          disabled={maintenanceMode}
         >
-          <Text style={styles.uploadButtonText}>{t("start_upload", {ns: 'upload'})}</Text>
+          <Text style={{...styles.uploadButtonText, color: maintenanceMode ? '#C2C2C2' : '#fff'}}>{t("start_upload", {ns: 'upload'})}</Text>
         </TouchableOpacity>
       )}
 
@@ -141,7 +142,6 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
 
 const styles = StyleSheet.create({
   uploadButton: {
-    backgroundColor: '#0056F1',
     padding: RFValue(15),
     margin: RFValue(15),
     marginBottom: RFValue(25),
@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   uploadButtonText: {
-    color: '#FFF',
     fontSize: RFValue(14),
     fontFamily: 'Poppins-Medium',
   },

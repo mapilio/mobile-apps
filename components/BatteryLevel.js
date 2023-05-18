@@ -89,8 +89,8 @@ const BatteryLevel = () => {
             backgroundColor: convertHexToRGBA("#FFFFFF", 40),
             borderRadius: RFValue(2),
             marginLeft: RFValue(1),
-            width: RFValue(2),
-            height: RFValue(6),
+            width: RFValue(1.5),
+            height: RFValue(5),
             borderBottomLeftRadius: 0,
             borderTopLeftRadius: 0,
           }} />
