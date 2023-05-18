@@ -1,16 +1,16 @@
 import React, { Fragment } from "react";
-import MapboxGL from "@rnmapbox/maps";
+import MapLibre from "@maplibre/maplibre-react-native";
 import Config from "react-native-config";
 import Heading from "..//Heading";
 
 const ActiveSources = ({ pointInformation, clickedCoord }) => {
   return (
     <Fragment>
-      <MapboxGL.VectorSource
+      <MapLibre.VectorSource
         id={"road-lines-stroke"}
         tileUrlTemplates={[Config.MAPBOX_ROAD_URL]}
       >
-        <MapboxGL.LineLayer
+        <MapLibre.LineLayer
           id={"road-lines-stroke"}
           sourceLayerID={Config.MAPBOX_ROAD_ID}
           filter={[
@@ -22,12 +22,12 @@ const ActiveSources = ({ pointInformation, clickedCoord }) => {
             lineWidth: 5,
           }}
         />
-      </MapboxGL.VectorSource>
-      <MapboxGL.VectorSource
+      </MapLibre.VectorSource>
+      <MapLibre.VectorSource
         id={"road-points-stroke"}
         tileUrlTemplates={[Config.MAPBOX_POINT_URL]}
       >
-        <MapboxGL.CircleLayer
+        <MapLibre.CircleLayer
           minZoomLevel={16}
           id={"road-points-stroke-opacity"}
           sourceLayerID={Config.MAPBOX_POINT_ID}
@@ -42,7 +42,7 @@ const ActiveSources = ({ pointInformation, clickedCoord }) => {
           ]}
 
         />
-        <MapboxGL.CircleLayer
+        <MapLibre.CircleLayer
           id={"road-points-stroke"}
           sourceLayerID={Config.MAPBOX_POINT_ID}
           style={{
@@ -54,7 +54,7 @@ const ActiveSources = ({ pointInformation, clickedCoord }) => {
             ["==", "sequence_uuid", pointInformation.sequenceID],
           ]}
         />
-      </MapboxGL.VectorSource>
+      </MapLibre.VectorSource>
       <Heading
         heading={pointInformation ? pointInformation.heading : 0}
         coordinates={clickedCoord}

@@ -66,7 +66,7 @@ const initialPermissions = () => {
 
 const cameraPermission = (onPress) => {
   const permissions = Platform.OS === 'ios' ?
-    [PERMISSIONS.IOS.LOCATION_WHEN_IN_USE, PERMISSIONS.IOS.CAMERA] :
+    [PERMISSIONS.IOS.LOCATION_WHEN_IN_USE, PERMISSIONS.IOS.LOCATION_WHEN_IN_USE] :
     [PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION, PERMISSIONS.ANDROID.CAMERA]
 
   requestMultiple(permissions).then((stat) => {

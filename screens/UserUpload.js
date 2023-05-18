@@ -15,6 +15,7 @@ import {useTranslation} from "react-i18next";
 const UserUpload = () => {
   const dispatch = useDispatch();
   const {uploadData} = useSelector((status) => status.uploadReducer);
+  const {mapShown} = useSelector((status) => status.generalReducer);
   const [deleteItem, setDeleteItem] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const {t} = useTranslation("upload");
@@ -60,7 +61,7 @@ const UserUpload = () => {
           scrollEnabled={uploadData.length > 0}
           data={uploadData}
           ListEmptyComponent={<EmptyList/>}
-          renderItem={({item}) => <UploadItem item={item} deleteFunc={setDeleteItem}/>}
+          renderItem={({item}) => mapShown ? <UploadItem item={item} deleteFunc={setDeleteItem}/> : null}
           keyExtractor={(item) => item.sequence_uuid}
           ListFooterComponent={<View/>}
           ListFooterComponentStyle={{paddingBottom: RFValue(100)}}

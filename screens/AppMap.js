@@ -1,48 +1,37 @@
-import React, { memo, useEffect, useRef, useState} from "react";
-import { AppState, Platform, View } from "react-native";
+import React, { memo, useEffect, useRef, useState } from "react";
+import { Platform, View } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
-import MapboxGL, { Camera } from "@rnmapbox/maps";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
 import Config from "react-native-config";
-import Geolocation from "@react-native-community/geolocation";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
 import { RESULTS } from "react-native-permissions";
 import { point } from "@turf/turf";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {
-  ActiveSources,
-  Buildings,
-  Lines,
-  Points,
-  Userlocation,
-} from "../components/Map/layers";
+import { ActiveSources, Lines, Points } from "../components/Map/layers";
 import {
   CenterToUserButton,
   ProfileButton,
   Pano,
-  ToggleBuildings,
+  AttributionButton,
 } from "../components/Map";
 import { MapilioBetaWatermark } from "../assets/svg/illustrations";
 import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
-
-MapboxGL.setAccessToken(Config.MAPBOX_ACCESS_TOKEN);
+import { getCurrentPositionAsync } from "expo-location";
+import MapLibreGL from "@maplibre/maplibre-react-native";
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
   const [clickedCoord, setClickedCoord] = useState(null);
   const [showPano, setShowPano] = useState(false);
-  const [userCoordinate, setUserCoordinate] = useState(undefined);
-  const [initialCoord, setInitialCoord] = useState(undefined);
   const [isMapReady, setIsMapReady] = useState(false);
-  const [showUser, setShowUser] = useState(true);
-  const [showBuildings, setShowBuildings] = useState(false);
+  const [showLocation, setShowLocation] = useState(true);
   const { welcomeWalkthroughStatus } = useSelector(
     (state) => state.generalReducer
   );
@@ -52,37 +41,20 @@ const AppMap = ({ navigation }) => {
   const { top } = useSafeAreaInsets();
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { t } = useTranslation("map");
-
-  const appState = useRef(AppState.currentState);
+  const userCoordinate = useRef(null);
 
   useEffect(() => {
     !connection.connectionStatus &&
       navigation.navigate(Routes.noInternetAccess);
-
-    const locationInterval = setInterval(() => {
-      if (appState.current === "active") {
-        Geolocation.getCurrentPosition(({ coords }) => {
-          setUserCoordinate(point([coords.longitude, coords.latitude]));
-        });
-      }
-    }, 3000);
-
-    const subscription = AppState.addEventListener("change", (state) => {
-      appState.current = state;
-    });
-
-    return () => {
-      subscription.remove();
-      clearInterval(locationInterval);
-    };
   }, []);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(({ coords }) => {
-      setInitialCoord([coords.longitude, coords.latitude]);
-      setUserCoordinate(point([coords.longitude, coords.latitude]));
+    getCurrentPositionAsync({
+      accuracy: 3,
+    }).then(({ coords }) => {
+      userCoordinate.current = point([coords.longitude, coords.latitude]);
     });
-  }, [showUser]);
+  }, [showLocation]);
 
   useEffect(() => {
     if (!isMapReady && welcomeWalkthroughStatus) {
@@ -94,14 +66,6 @@ const AppMap = ({ navigation }) => {
       toast.hideAll();
     }
   }, [isMapReady]);
-
-  useEffect(() => {
-    cameraRef.current?.setCamera({
-      pitch: showBuildings ? 60 : 0,
-      heading: 0,
-      animationDuration: 300,
-    });
-  }, [showBuildings]);
 
   const zoomPoint = (coordinate) => {
     mapRef.current?.getZoom().then((zoomLevel) => {
@@ -145,7 +109,7 @@ const AppMap = ({ navigation }) => {
         toast.show(`Your GPS is disabled.`, { type: "error" });
       } else {
         cameraRef.current?.setCamera({
-          centerCoordinate: userCoordinate.geometry.coordinates,
+          centerCoordinate: userCoordinate.current?.geometry.coordinates,
           zoomLevel: 15,
           pitch: 0,
           animationDuration: 500,
@@ -175,15 +139,6 @@ const AppMap = ({ navigation }) => {
     backgroundColor: "white",
   };
 
-  const attributionStyles = {
-    left: Platform.OS === "ios" ? 0 : RFValue(10),
-    bottom: showPano
-      ? Platform.isPad
-        ? RFValue(35)
-        : RFValue(56)
-      : Platform.isPad ? RFValue(29) : RFValue(35),
-  };
-
   const onDidFinishLoadingMap = () => {
     setTimeout(() => {
       setIsMapReady(true);
@@ -210,21 +165,38 @@ const AppMap = ({ navigation }) => {
         mapStyle={mapStyles}
         mapRef={mapRef}
         onDidFinishLoadingMap={onDidFinishLoadingMap}
-        rotateEnabled
-        attributionStyle={attributionStyles}
+        rotateEnabled={false}
       >
-        <Camera
-          animationMode={"none"}
+        <MapLibreGL.Camera
+          animationMode={"flyTo"}
           ref={cameraRef}
-          zoomLevel={4}
-          centerCoordinate={initialCoord}
+          zoomLevel={6}
+          centerCoordinate={userCoordinate.current?.geometry?.coordinates}
         />
         <Points touchPoint={touchPoint} />
         <Lines zoomPoint={zoomPoint} />
 
-        {showBuildings && <Buildings />}
-
-        {showUser && userCoordinate && <Userlocation shape={userCoordinate} />}
+        {showLocation && (
+          <MapLibreGL.UserLocation
+            renderMode={Platform.OS === "ios" ? "native" : "normal"}
+            animated
+            onUpdate={(e) => {
+              if(!userCoordinate.current){
+                cameraRef.current?.setCamera({
+                  centerCoordinate: [
+                    e.coords.longitude,
+                    e.coords.latitude,
+                  ],
+                  zoomLevel: 10,
+                  heading: 0,
+                  pitch: 0,
+                  bearing: 0,
+                });
+              }
+              userCoordinate.current = point([e.coords.longitude, e.coords.latitude]);
+            }}
+          />
+        )}
 
         {clickedCoord && showPano && (
           <ActiveSources
@@ -236,14 +208,15 @@ const AppMap = ({ navigation }) => {
       <View style={appMapStyle.watermark}>
         <MapilioBetaWatermark />
       </View>
-      <CenterToUserButton
-        handleSetCenter={handleSetCenter}
-        setShowUser={setShowUser}
-      />
-      <ToggleBuildings
-        isActive={showBuildings}
-        toggleBuildings={setShowBuildings}
-      />
+      <AttributionButton />
+      <View style={{ ...appMapStyle.mapButtons, marginBottom: RFValue(20) }}>
+        <CenterToUserButton
+          handleSetCenter={handleSetCenter}
+          setShowUser={() => {
+            setShowLocation(!showLocation);
+          }}
+        />
+      </View>
       {/**  Mapbox cause overflow on early android versions. That's necessarry to call them in here for early devices. */}
       {!showPano && (
         <View

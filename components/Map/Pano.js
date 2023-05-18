@@ -36,7 +36,8 @@ const Pano = ({ pointInformation, hidePano }) => {
         `/api/search-user?options[parameters][id]=${pointInformation.user}`
       )
       .then((res) => {
-        if (res && Object.keys(res.data).length > 0) {
+        
+        if (res.data && Object.keys(res.data).length > 0) {
           let name = res.data[0].username;
           name.length > 20 ? (name = name.slice(0, 20) + "...") : name;
 

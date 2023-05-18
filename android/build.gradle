@@ -2,10 +2,11 @@
 
 buildscript {
     ext {
-        buildToolsVersion = findProperty('android.buildToolsVersion') ?: '31.0.0'
+        buildToolsVersion = findProperty('android.buildToolsVersion') ?: '33'
         minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '21')
-        compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '31')
-        targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '31')
+        compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '33')
+        targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '33')
+        kotlinVersion = '1.6.10'
         if (findProperty('android.kotlinVersion')) {
             kotlinVersion = findProperty('android.kotlinVersion')
         }
@@ -20,7 +21,6 @@ buildscript {
             ndkVersion = '21.4.7075529'
         }
 
-        RNMapboxMapsImpl = "mapbox"
     }
     repositories {
         google()
@@ -38,19 +38,6 @@ buildscript {
 def REACT_NATIVE_VERSION = new File(['node', '--print', "JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
 
 allprojects {
-// @generated begin @rnmapbox/maps-v2-maven - expo prebuild (DO NOT MODIFY) sync-0e526367eddae0ed29455795568b1e03640a4087
-    repositories {
-        maven {
-            url 'https://api.mapbox.com/downloads/v2/releases/maven'
-            authentication { basic(BasicAuthentication) }
-            credentials {
-                username = 'mapbox'
-                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
-            }
-        }
-    }
-
-// @generated end @rnmapbox/maps-v2-maven
     configurations.all {
         resolutionStrategy {
             force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION

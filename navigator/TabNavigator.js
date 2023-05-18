@@ -3,10 +3,10 @@ import {Routes} from "./Routes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {cameraPermission} from "../helper/helper";
-import { Pressable, TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View, Button } from "react-native";
 import {navigatorStyle} from "../styles/navigatorStyle";
 import {CaptureIcon} from "../assets/svg/illustrations";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {
   CameraNavigator,
   MapNavigator,
@@ -23,6 +23,7 @@ import { vibrate } from "../util/helpers";
 import LeaderHeaderLeft from "../screens/Leaderboard/LeaderHeaderLeft";
 import LeaderHeaderRight from "../screens/Leaderboard/LeaderHeaderRight";
 import { TransitionPresets } from "@react-navigation/stack";
+import { SET_MAP_MODE } from "../store/actionsName";
 
 const Tab = createBottomTabNavigator();
 
@@ -51,9 +52,11 @@ const CaptureTabBarButton = () => {
 const TabNavigator = () => {
   const {auth} = useSelector((state) => state.getTokenReducer);
   const {bottom} = useSafeAreaInsets();
-  const {connection} = useSelector((state) => state.generalReducer);
+  const {connection, mapShown} = useSelector((state) => state.generalReducer);
   const {isFirstOpen} = useSelector((state) => state.cameraReducer);
   const {uploadData} = useSelector((state) => state.uploadReducer);
+
+  const dispatch = useDispatch();
 
   const offlineTabs = ['CameraTab', 'UploadTab'];
   const firstLogin = ['CameraTab'];
@@ -84,6 +87,14 @@ const TabNavigator = () => {
     }
   })
 
+  const GoSettings = () => {
+    return <View style={{flex:1, justifyContent:"center"}}>
+      <Button title="Enable Map" color={"black"} onPress={()=>{
+        dispatch({type: SET_MAP_MODE, payload: true})
+      }} />
+    </View>
+  }
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -111,7 +122,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name={"MapTab"}
-        component={MapNavigator}
+        component={mapShown ? MapNavigator : GoSettings}
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcons focused={focused} tab={"map"} />
@@ -120,7 +131,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name={"MarketplaceTab"}
-        component={MarketplaceNavigator}
+        component={mapShown ? MarketplaceNavigator : View}
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcons focused={focused} tab={"market"} />

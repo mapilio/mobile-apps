@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {TouchableOpacity, View, StyleSheet} from "react-native";
+import {TouchableOpacity, View, StyleSheet, Platform} from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
 import {RFValue} from "react-native-responsive-fontsize";
 import {List, MarketplaceMap} from "../components/Marketplace";
@@ -10,7 +10,6 @@ import Config from "react-native-config";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { CustomTextMedium} from "../highordercomponents";
 import {Document} from "../assets/svg/illustrations";
-import Geolocation from "@react-native-community/geolocation";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
 import { useSelector } from "react-redux";
@@ -18,6 +17,7 @@ import MapLoading from "../components/Map/MapLoading";
 import { MapilioBetaWatermark } from "../assets/svg/illustrations";
 import { appMapStyle } from "../styles/appMapStyle";
 import {api} from "../util/helpers/api";
+import { getCurrentPositionAsync } from "expo-location/build/Location";
 
 const Marketplace = ({ navigation }) => {
   const {t} = useTranslation("marketplace");
@@ -33,9 +33,11 @@ const Marketplace = ({ navigation }) => {
   const DEFAULT_FRICTION = isInitialized ? 0.998 : 0;
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
-      setCurrentCoordinate({latitude: latitude, longitude: longitude})
-    })
+    getCurrentPositionAsync({
+      accuracy: Platform.OS === "ios" ? 3 : 6,
+    }).then(({coords: {latitude, longitude}}) => {
+      setCurrentCoordinate({latitude, longitude});
+    });
   }, []);
 
   useEffect(() => {

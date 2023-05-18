@@ -4,7 +4,7 @@ import ListProfileUploads from "../components/ListProfileUploads";
 import {userSequenceStyles} from "../styles/userSequenceStyle";
 import {CustomText, MapView} from "../highordercomponents";
 import {appMapStyle} from "../styles/appMapStyle";
-import MapboxGL from "@rnmapbox/maps";
+import MapLibre from "@maplibre/maplibre-react-native";
 import SwitchSelector from "react-native-switch-selector";
 import {RFValue} from "react-native-responsive-fontsize";
 import {styles} from "../styles/circleStyles";
@@ -181,14 +181,14 @@ const UserSequence = ({ navigation, route }) => {
           </View>
         ) : (
           <MapView mapStyle={{...appMapStyle.map, height: Dimensions.get("screen").height - bottom}}>
-            <MapboxGL.Camera
-              animationMode={"none"}
+            <MapLibre.Camera
+              animationMode={"flyTo"}
               animationDuration={0}
               centerCoordinate={center.length !== 0 && [center[0] + 0.0009, center[1]]}
               zoomLevel={16}
             />
             {!!Object.keys(points).length && (
-              <MapboxGL.ShapeSource
+              <MapLibre.ShapeSource
                 id={"pointsProfileShape"}
                 shape={points}
                 onPress={(point) => {
@@ -204,17 +204,17 @@ const UserSequence = ({ navigation, route }) => {
                   });
                 }}
               >
-                <MapboxGL.CircleLayer id={"circle5"} style={styles.circles} />
-                <MapboxGL.CircleLayer
+                <MapLibre.CircleLayer id={"circle5"} style={styles.circles} />
+                <MapLibre.CircleLayer
                   id={"circleBuffer5"}
                   style={styles.circlesOpacity}
                 />
-              </MapboxGL.ShapeSource>
+              </MapLibre.ShapeSource>
             )}
             {!!Object.keys(coordinates).length && (
-              <MapboxGL.ShapeSource id={"uploadedShape"} shape={coordinates}>
-                <MapboxGL.LineLayer id="linelayer2" style={styles.lineStyles} />
-              </MapboxGL.ShapeSource>
+              <MapLibre.ShapeSource id={"uploadedShape"} shape={coordinates}>
+                <MapLibre.LineLayer id="linelayer2" style={styles.lineStyles} />
+              </MapLibre.ShapeSource>
             )}
           </MapView>
         )}

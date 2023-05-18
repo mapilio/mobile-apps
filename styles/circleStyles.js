@@ -55,5 +55,6 @@ export const styles = {
   },
   lineStyles: {
     lineColor: "#146aff",
+    lineWidth: 3
   },
 };

@@ -20,7 +20,6 @@ import * as ImageManipulator from "expo-image-manipulator";
 
 const AutoActionButton = ({navigation}) => {
 	const {
-		debugMode,
 		camera,
 		photoAmount,
 		accuracy,
@@ -36,6 +35,7 @@ const AutoActionButton = ({navigation}) => {
 		groupId,
 	} = useSelector((status) => status.cameraReducer);
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
+	const {debugMode} = useSelector((status) => status.generalReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(null);
 	const accelerometerData = useRef({x: 0, y: 0, z: 0})
@@ -43,14 +43,14 @@ const AutoActionButton = ({navigation}) => {
 	const [timeouts, setTimeouts] = useState([]);
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 	const pitch = useRef(0);
-  const roll = useRef(0);
+  	const roll = useRef(0);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
 	const {t} = useTranslation("camera");
 
 	const LANDSCAPE_LEFT_ORIENTATION = Platform.OS === "ios" ? 90 : -90;
-  const LANDSCAPE_RIGHT_ORIENTATION = Platform.OS === "ios" ? -90 : 90;
+  	const LANDSCAPE_RIGHT_ORIENTATION = Platform.OS === "ios" ? -90 : 90;
 
 	const playHandler = () => {
 		vibrate("medium");
@@ -275,11 +275,11 @@ const AutoActionButton = ({navigation}) => {
 							<Text style={{color: '#FFF', textAlign: 'left'}}>
 							GPSAccuracy: {cameraLocation?.accuracy.toFixed(2) || 0}
 							{"\n"}
-							Heading: {cameraLocation?.heading || 0}
+							Heading: {cameraLocation?.heading.toFixed(2) || 0}
 							{"\n"}
-							Pitch: {pitch.current}
+							Pitch: {pitch.current.toFixed(2) || 0}
 							{"\n"}
-							Roll: {roll.current}
+							Roll: {roll.current.toFixed(2) || 0}
 						</Text>
 						</View>
 				)
