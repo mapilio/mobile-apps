@@ -72,9 +72,9 @@ const AppCamera = () => {
         dispatch({ type: SET_CAMERA_LOCATION, payload: coords });
         dispatch({
           type: UPDATE_GPS_ACCURACY,
-          payload: coords.accuracy <= 50,
+          payload: coords.accuracy <= 35,
         });
-        accuracyRef.current = coords.accuracy <= 50;
+        accuracyRef.current = coords.accuracy <= 35;
       }
     );
   };
@@ -93,10 +93,7 @@ const AppCamera = () => {
 
   const removeWatchPosition = () => {
     locationSubscription.current && locationSubscription.current.remove();
-    locationSubscription.current = null;
-    accuracyRef.current = null;
-  };
-
+};
   const closeHandler = useCallback(() => {
     exitCapture();
 
