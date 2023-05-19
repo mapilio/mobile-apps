@@ -28,6 +28,7 @@ Sentry.init({
 });
 
 OneSignal.setAppId(Config.ONESIGNAL_APP_ID);
+OneSignal.promptForPushNotificationsWithUserResponse();
 SplashScreen.preventAutoHideAsync();
 
 function App() {
