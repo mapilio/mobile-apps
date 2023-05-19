@@ -9,7 +9,7 @@ import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
 import { RESULTS } from "react-native-permissions";
 import { point } from "@turf/turf";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import { ActiveSources, Lines, Points } from "../components/Map/layers";
@@ -41,6 +41,7 @@ const AppMap = ({ navigation }) => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { t } = useTranslation("map");
   const userCoordinate = useRef(null);
+  const initialCoordinate = useRef(null);
 
   useEffect(() => {
     !connection.connectionStatus &&
@@ -65,6 +66,7 @@ const AppMap = ({ navigation }) => {
       cameraRef.current?.setCamera({
         centerCoordinate: coordinate,
         zoomLevel: zoomLevel + 5,
+        animationDuration: 800,
       });
     });
   };
@@ -164,7 +166,7 @@ const AppMap = ({ navigation }) => {
           animationMode={"flyTo"}
           ref={cameraRef}
           zoomLevel={6}
-          centerCoordinate={userCoordinate.current?.geometry?.coordinates}
+          centerCoordinate={initialCoordinate.current?.geometry?.coordinates}
         />
         <Points touchPoint={touchPoint} />
         <Lines zoomPoint={zoomPoint} />
@@ -172,9 +174,9 @@ const AppMap = ({ navigation }) => {
         {showLocation && (
           <MapLibreGL.UserLocation
             renderMode={Platform.OS === "ios" ? "native" : "normal"}
-            animated
             onUpdate={(e) => {
               if(!userCoordinate.current){
+                initialCoordinate.current = point([e.coords.longitude, e.coords.latitude]);
                 cameraRef.current?.setCamera({
                   centerCoordinate: [
                     e.coords.longitude,
@@ -184,7 +186,6 @@ const AppMap = ({ navigation }) => {
                   heading: 0,
                   pitch: 0,
                   bearing: 0,
-                  animationDuration: 500,
                 });
               }
               userCoordinate.current = point([e.coords.longitude, e.coords.latitude]);

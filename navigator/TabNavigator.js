@@ -60,15 +60,17 @@ const TabNavigator = () => {
   const dispatch = useDispatch();
 
   const checkMaintenance = async () => {
-    cdn.get('/v1/hearbeat-check').then((res) => {
-      if (res.mode) {
-        dispatch({type:SET_MAINTENANCE_MODE, payload: true})
-      }else{
-        dispatch({type:SET_MAINTENANCE_MODE, payload: false})
-      }
-    }).catch(() => {
-        dispatch({type:SET_MAINTENANCE_MODE, payload: true})
-    })
+    if(connection.connectionStatus){
+      cdn.get('/v1/hearbeat-check').then((res) => {
+        if (res.mode) {
+          dispatch({type:SET_MAINTENANCE_MODE, payload: true})
+        }else{
+          dispatch({type:SET_MAINTENANCE_MODE, payload: false})
+        }
+      }).catch(() => {
+          dispatch({type:SET_MAINTENANCE_MODE, payload: true})
+      })
+    }
 }
   useEffect(() => {
     checkMaintenance()
@@ -103,13 +105,6 @@ const TabNavigator = () => {
     }
   })
 
-  const GoSettings = () => {
-    return <View style={{flex:1, justifyContent:"center"}}>
-      <Button title="Enable Map" color={"black"} onPress={()=>{
-        dispatch({type: SET_MAP_MODE, payload: true})
-      }} />
-    </View>
-  }
 
   return (
     <Tab.Navigator
