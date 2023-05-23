@@ -64,6 +64,9 @@ const GeneralSettings = ({ navigation }) => {
         onDismiss={() => {
           setShowSnackbar(false);
         }}
+        wrapperStyle={{
+          zIndex: 2,
+        }}
         action={{
           label: t("ok"),
           color: "#fff",
