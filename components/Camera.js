@@ -27,6 +27,7 @@ const Camera = () => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { isActive } = useSelector((state) => state.cameraReducer);
   const { isInitialized } = useSelector((state) => state.tooltipReducer.camera);
+  const {lowResolution} = useSelector((state) => state.settingsReducer);
   const [cameraOrientation, setCameraOrientation] = useState("landscapeRight");
 
   const handleCameraReady = () => {
@@ -81,10 +82,10 @@ const Camera = () => {
           photo={true}
           enableDepthData={true}
           onInitialized={handleCameraReady}
-          enableHighQualityPhotos={true}
+          enableHighQualityPhotos={lowResolution ? undefined : true}
           zoom={1}
           enableZoomGesture={false}
-          preset="photo"
+          preset={lowResolution ? undefined : "photo"}
           hdr={false}
           orientation={cameraOrientation}
         />
