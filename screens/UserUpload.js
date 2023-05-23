@@ -1,10 +1,10 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {FlatList, StyleSheet, View, Dimensions} from "react-native";
+import { FlatList, StyleSheet, View, Text } from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {AlertModal, EmptyList, UploadItem} from "../components";
+import {AlertModal, EmptyList, UploadItem, MaintenanceButton} from "../components";
 import * as FileSystem from "expo-file-system";
-import {UPLOAD_DATA} from "../store/actionsName";
+import { UPLOAD_DATA} from "../store/actionsName";
 import {Upload} from "../components/Uploads";
 import db from "../db";
 import MaskedView from "@react-native-masked-view/masked-view";
@@ -15,7 +15,9 @@ import {useTranslation} from "react-i18next";
 const UserUpload = () => {
   const dispatch = useDispatch();
   const {uploadData} = useSelector((status) => status.uploadReducer);
-  const {mapShown} = useSelector((status) => status.generalReducer);
+  const { mapShown, maintenanceMode } = useSelector(
+    (status) => status.generalReducer
+  );
   const [deleteItem, setDeleteItem] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const {t} = useTranslation("upload");
@@ -50,25 +52,33 @@ const UserUpload = () => {
 
   return (
     <Fragment>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true}/>
-
+      <FocusAwareStatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent={true}
+      />
+      {maintenanceMode && uploadData.length > 0 && <MaintenanceButton />}
       <MaskedView
         androidRenderingMode={null}
-        maskElement={<MaskItem/>}
+        maskElement={<MaskItem />}
         style={styles.maskedView}
       >
         <FlatList
           scrollEnabled={uploadData.length > 0}
           data={uploadData}
-          ListEmptyComponent={<EmptyList/>}
-          renderItem={({item}) => mapShown ? <UploadItem item={item} deleteFunc={setDeleteItem}/> : null}
+          ListEmptyComponent={<EmptyList />}
+          renderItem={({ item }) =>
+            mapShown ? (
+              <UploadItem item={item} deleteFunc={setDeleteItem} />
+            ) : null
+          }
           keyExtractor={(item) => item.sequence_uuid}
-          ListFooterComponent={<View/>}
-          ListFooterComponentStyle={{paddingBottom: RFValue(100)}}
+          ListFooterComponent={<View />}
+          ListFooterComponentStyle={{ paddingBottom: RFValue(100) }}
         />
       </MaskedView>
 
-      <Upload style={styles.upload}/>
+      <Upload style={styles.upload} />
 
       <AlertModal
         visible={!!deleteItem}
@@ -76,8 +86,8 @@ const UserUpload = () => {
         description={t("delete_message")}
         loading={loading}
         buttons={{
-          cancel: {text: t("no"), onPress: () => setDeleteItem(undefined)},
-          confirm: {text: t("yes"), onPress: deleteSequence,}
+          cancel: { text: t("no"), onPress: () => setDeleteItem(undefined) },
+          confirm: { text: t("yes"), onPress: deleteSequence },
         }}
       />
     </Fragment>

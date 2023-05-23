@@ -25,7 +25,6 @@ import { useOrientation } from "../hooks/ui";
 import {
   LocationAccuracy,
   watchPositionAsync,
-  enableNetworkProviderAsync,
 } from "expo-location";
 
 const AppCamera = () => {
@@ -117,10 +116,6 @@ const AppCamera = () => {
     refreshGeolocationIfNotAvailable();
     BackHandler.addEventListener("hardwareBackPress", closeHandler);
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-
-    enableNetworkProviderAsync().catch((error) =>
-      toast.show(`${error}`, { type: "error" })
-    );
 
     const subscription = AppState.addEventListener("change", AppStateHandler);
 

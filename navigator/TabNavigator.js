@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Routes} from "./Routes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -23,7 +23,8 @@ import { vibrate } from "../util/helpers";
 import LeaderHeaderLeft from "../screens/Leaderboard/LeaderHeaderLeft";
 import LeaderHeaderRight from "../screens/Leaderboard/LeaderHeaderRight";
 import { TransitionPresets } from "@react-navigation/stack";
-import { SET_MAP_MODE } from "../store/actionsName";
+import { SET_MAINTENANCE_MODE, SET_MAP_MODE } from "../store/actionsName";
+import { cdn } from "../util/helpers/api";
 
 const Tab = createBottomTabNavigator();
 
@@ -52,11 +53,28 @@ const CaptureTabBarButton = () => {
 const TabNavigator = () => {
   const {auth} = useSelector((state) => state.getTokenReducer);
   const {bottom} = useSafeAreaInsets();
-  const {connection, mapShown} = useSelector((state) => state.generalReducer);
+  const {connection} = useSelector((state) => state.generalReducer);
   const {isFirstOpen} = useSelector((state) => state.cameraReducer);
   const {uploadData} = useSelector((state) => state.uploadReducer);
 
   const dispatch = useDispatch();
+
+  const checkMaintenance = async () => {
+    if(connection.connectionStatus){
+      cdn.get('/v1/hearbeat-check').then((res) => {
+        if (res.mode) {
+          dispatch({type:SET_MAINTENANCE_MODE, payload: true})
+        }else{
+          dispatch({type:SET_MAINTENANCE_MODE, payload: false})
+        }
+      }).catch(() => {
+          dispatch({type:SET_MAINTENANCE_MODE, payload: true})
+      })
+    }
+}
+  useEffect(() => {
+    checkMaintenance()
+  }, []);  
 
   const offlineTabs = ['CameraTab', 'UploadTab'];
   const firstLogin = ['CameraTab'];
@@ -87,13 +105,6 @@ const TabNavigator = () => {
     }
   })
 
-  const GoSettings = () => {
-    return <View style={{flex:1, justifyContent:"center"}}>
-      <Button title="Enable Map" color={"black"} onPress={()=>{
-        dispatch({type: SET_MAP_MODE, payload: true})
-      }} />
-    </View>
-  }
 
   return (
     <Tab.Navigator
@@ -122,7 +133,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name={"MapTab"}
-        component={mapShown ? MapNavigator : GoSettings}
+        component={MapNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcons focused={focused} tab={"map"} />
@@ -131,7 +142,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name={"MarketplaceTab"}
-        component={mapShown ? MarketplaceNavigator : View}
+        component={MarketplaceNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <TabIcons focused={focused} tab={"market"} />

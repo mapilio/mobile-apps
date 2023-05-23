@@ -9,7 +9,7 @@ import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
 import { RESULTS } from "react-native-permissions";
 import { point } from "@turf/turf";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import { ActiveSources, Lines, Points } from "../components/Map/layers";
@@ -23,7 +23,6 @@ import { MapilioBetaWatermark } from "../assets/svg/illustrations";
 import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
-import { getCurrentPositionAsync } from "expo-location";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 
 const AppMap = ({ navigation }) => {
@@ -42,19 +41,14 @@ const AppMap = ({ navigation }) => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { t } = useTranslation("map");
   const userCoordinate = useRef(null);
+  const initialCoordinate = useRef(null);
 
   useEffect(() => {
     !connection.connectionStatus &&
       navigation.navigate(Routes.noInternetAccess);
+      initialPermissions();
   }, []);
 
-  useEffect(() => {
-    getCurrentPositionAsync({
-      accuracy: 3,
-    }).then(({ coords }) => {
-      userCoordinate.current = point([coords.longitude, coords.latitude]);
-    });
-  }, [showLocation]);
 
   useEffect(() => {
     if (!isMapReady && welcomeWalkthroughStatus) {
@@ -72,6 +66,7 @@ const AppMap = ({ navigation }) => {
       cameraRef.current?.setCamera({
         centerCoordinate: coordinate,
         zoomLevel: zoomLevel + 5,
+        animationDuration: 800,
       });
     });
   };
@@ -171,7 +166,7 @@ const AppMap = ({ navigation }) => {
           animationMode={"flyTo"}
           ref={cameraRef}
           zoomLevel={6}
-          centerCoordinate={userCoordinate.current?.geometry?.coordinates}
+          centerCoordinate={initialCoordinate.current?.geometry?.coordinates}
         />
         <Points touchPoint={touchPoint} />
         <Lines zoomPoint={zoomPoint} />
@@ -179,9 +174,9 @@ const AppMap = ({ navigation }) => {
         {showLocation && (
           <MapLibreGL.UserLocation
             renderMode={Platform.OS === "ios" ? "native" : "normal"}
-            animated
             onUpdate={(e) => {
               if(!userCoordinate.current){
+                initialCoordinate.current = point([e.coords.longitude, e.coords.latitude]);
                 cameraRef.current?.setCamera({
                   centerCoordinate: [
                     e.coords.longitude,

@@ -387,5 +387,9 @@
   "languages": {
     "tr": "Turkish",
     "en": "English"
+  },
+  "alerts": {
+    "maintenanceModeTitle": "Our services are in maintenance mode.",
+    "maintenanceModeDescription": "Please upload your imagery later."
   }
 }

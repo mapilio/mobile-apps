@@ -388,5 +388,9 @@
   "languages": {
     "tr": "Türkçe",
     "en": "İngilizce"
+  },
+  "alerts": {
+    "maintenanceModeTitle": "Şu anda servislerimiz bakım modunda.",
+    "maintenanceModeDescription": "Lütfen daha sonra tekrar deneyin."
   }
 }

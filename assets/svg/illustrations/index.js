@@ -77,3 +77,4 @@ export {default as MapilioBetaWatermark} from "./MapilioBetaWatermark";
 export {default as Rec} from "./Rec";
 export {default as CameraLine} from "./CameraLine";
 export {default as ChargeIcon} from "./ChargeIcon";
+export {default as WarningFilled} from "./WarningFilled"
