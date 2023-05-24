@@ -6,7 +6,7 @@ import LinearGradient from "react-native-linear-gradient";
 import {dateConvert} from "../helper/helper";
 import db from "../db";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import {ArrowLeft, ArrowRight, Trash} from "../assets/svg/illustrations";
+import {ArrowLeft, Trash} from "../assets/svg/illustrations";
 import {useTranslation} from "react-i18next";
 import LogoWatermark from "../assets/svg/illustrations/LogoWatermark";
 import {AlertModal} from "../components";

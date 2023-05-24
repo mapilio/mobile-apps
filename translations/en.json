@@ -177,7 +177,11 @@
     "distance_between": "Distance between images",
     "camera_settings": "Camera Settings",
     "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level"
+    "battery_level": "Battery level",
+    "ok": "OK",
+    "enable_low_resolution": "Enable low resolution",
+    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
+    "settings_saved": "Camera needs to be restarted for the changes to take effect."
   },
   "capture_completed": {
     "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",

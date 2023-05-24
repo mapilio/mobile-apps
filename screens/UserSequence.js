@@ -134,6 +134,10 @@ const UserSequence = ({navigation}) => {
     }
   }
 
+  if (!mapGeoJson) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
 

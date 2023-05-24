@@ -1,20 +1,28 @@
-import React, { useEffect } from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { Fragment, useEffect, useState } from "react";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { IS_ACTIVE, UPDATE_DISTANCE_BETWEEN } from "../store/actionsName";
+import {
+  IS_ACTIVE,
+  UPDATE_DISTANCE_BETWEEN,
+  UPDATE_LOW_RESOLUTION,
+} from "../store/actionsName";
 import { CustomText, CustomTextMedium } from "../highordercomponents";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Slider } from "@miblanchard/react-native-slider";
+import { Snackbar, Switch } from "react-native-paper";
 
 const GeneralSettings = ({ navigation }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation("camera_settings");
-  const { distanceBetween } = useSelector((state) => state.settingsReducer);
+  const { distanceBetween, lowResolution } = useSelector(
+    (state) => state.settingsReducer
+  );
   const { photoAmount, batteryLevel, phoneMemory } = useSelector(
     (state) => state.cameraReducer
   );
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const { left, right } = useSafeAreaInsets();
 
@@ -26,9 +34,14 @@ const GeneralSettings = ({ navigation }) => {
   }, []);
 
   const changeDistanceValue = (value) => {
-    if(distanceBetween !== value[0]) {
+    if (distanceBetween !== value[0]) {
       dispatch({ type: UPDATE_DISTANCE_BETWEEN, payload: value[0] });
     }
+  };
+
+  const onToggleSwitch = () => {
+    setShowSnackbar(true);
+    dispatch({ type: UPDATE_LOW_RESOLUTION, payload: !lowResolution });
   };
 
   useEffect(() => {
@@ -45,6 +58,23 @@ const GeneralSettings = ({ navigation }) => {
 
   return (
     <View style={styles.wrapper}>
+      <Snackbar
+        visible={showSnackbar}
+        duration={3000}
+        onDismiss={() => {
+          setShowSnackbar(false);
+        }}
+        wrapperStyle={{
+          zIndex: 2,
+        }}
+        action={{
+          label: t("ok"),
+          color: "#fff",
+        }}
+      >
+        {t("settings_saved")}
+      </Snackbar>
+
       <View style={styles.item}>
         <View style={safeAreaPaddings}>
           <CustomText style={styles.itemMenuTitle}>
@@ -58,7 +88,7 @@ const GeneralSettings = ({ navigation }) => {
               minimumValue={5}
               maximumValue={15}
               step={1}
-               value={distanceBetween}
+              value={distanceBetween}
               onValueChange={changeDistanceValue}
               containerStyle={{ width: "90%" }}
               minimumTrackTintColor={"#3F8BE9"}
@@ -71,6 +101,26 @@ const GeneralSettings = ({ navigation }) => {
               {distanceBetween} m
             </CustomTextMedium>
           </View>
+          {Platform.OS === "ios" && (
+            <Fragment>
+              <View style={styles.seperator} />
+              <View style={styles.row}>
+                <View style={{ flexDirection: "column" }}>
+                  <CustomText style={styles.itemTitle}>
+                    {t("enable_low_resolution")}
+                  </CustomText>
+                  <CustomText style={{ color: "grey" }}>
+                    {t("enable_low_resolution_desc")}
+                  </CustomText>
+                </View>
+                <Switch
+                  value={lowResolution}
+                  onChange={onToggleSwitch}
+                  color="#0056F1"
+                />
+              </View>
+            </Fragment>
+          )}
         </View>
       </View>
       <View style={styles.padding} />
@@ -118,7 +168,6 @@ const styles = StyleSheet.create({
     color: "#666666",
     marginBottom: RFValue(6),
     fontFamily: "Poppins-Medium",
-
   },
   seperator: {
     height: RFValue(2),

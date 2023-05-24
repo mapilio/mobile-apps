@@ -2,11 +2,13 @@ import {
   UPDATE_DISTANCE_BETWEEN,
   UPDATE_SELECTED_PROJECT,
   UPDATE_AUTOCAPTURE_START,
+  UPDATE_LOW_RESOLUTION,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   distanceBetween: 5,
   autoCaptureStart: false,
+  lowResolution: false,
   selectedProject: {type: "individual", key: 0, projectName: ""}
 };
 
@@ -26,6 +28,11 @@ const settingsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         autoCaptureStart: action.payload,
+      };
+    case UPDATE_LOW_RESOLUTION:
+      return {
+        ...state,
+        lowResolution: action.payload,
       };
     default:
       return state;

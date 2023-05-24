@@ -112,8 +112,17 @@ const AutoActionButton = ({navigation}) => {
   }, []);
 
 	useEffect(() => {
-		navigation.addListener("blur", () => dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false}));
-		return () => navigation.removeListener("blur");
+		navigation.addListener("focus", () => {
+			newSequence();
+		});
+
+		navigation.addListener("blur", () => {
+			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false})
+		});
+		return () =>{
+			navigation.removeListener("blur")
+			navigation.removeListener("focus")
+		};
 	}, [navigation]);
 
 	useEffect(() => {
@@ -192,7 +201,6 @@ const AutoActionButton = ({navigation}) => {
 
 	const savePicture = async (image, location) => {
 		calculateAmount("add");
-
 		const imageUri = image.path;
 
 		if (!imageUri) {
