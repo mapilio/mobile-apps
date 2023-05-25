@@ -213,22 +213,22 @@ const styles = StyleSheet.create({
     ...globalStyles.shadow,
   },
   lineStyles: {
-    lineColor: "#3F8BE9",
+    lineColor: "#0056F1",
     lineWidth: 2,
   },
   circleStyles: {
-    circleColor: "#3F8BE9",
+    circleColor: "#0056F1",
     circleRadius: 5,
     circleStrokeOpacity: .5,
     circleStrokeWidth: 2.5,
-    circleStrokeColor: "#3F8BE9",
+    circleStrokeColor: "#0056F1",
   },
   currentCircle: {
     circleColor: "red",
     circleRadius: 10,
     circleStrokeOpacity: .5,
     circleStrokeWidth: 2.5,
-    circleStrokeColor: "#3F8BE9",
+    circleStrokeColor: "#0056F1",
   },
   handleStyle: {
     position: 'absolute',

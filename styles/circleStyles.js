@@ -1,5 +1,6 @@
 export const styles = {
   circles: {
+    circleColor: "#146aff",
     circleRadius: [
       "interpolate",
       ["linear"],
@@ -16,6 +17,8 @@ export const styles = {
     circleBlur: ["interpolate", ["linear"], ["zoom"], 14, 0, 22, 0.5],
   },
   circlesOpacity: {
+    circleColor: "#146aff",
+    circleStrokeColor: "#146aff",
     circleStrokeOpacity: 0.4,
     circleStrokeWidth: [
       "interpolate",
@@ -51,6 +54,7 @@ export const styles = {
     ],
   },
   lineStyles: {
-    lineWidth: 3
+    lineWidth: 3,
+    lineColor: "#146aff",
   },
 };
