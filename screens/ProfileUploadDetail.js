@@ -100,16 +100,6 @@ const ProfileUploadDetail = ({ navigation, route }) => {
             />
           </MapLibre.ShapeSource>
         )}
-
-        <Heading
-          heading={coord ? coord.heading : `${route.params.heading}deg`}
-          coordinates={
-            coord
-              ? [Number(coord.longitude), Number(coord.latitude)]
-              : route.params.coordinate
-          }
-          markerPath={require("../assets/images/heading.png")}
-        />
         {!!Object.keys(coordinates).length && (
           <MapLibre.ShapeSource id={"uploadedShape"} shape={coordinates}>
             <MapLibre.LineLayer
@@ -118,6 +108,15 @@ const ProfileUploadDetail = ({ navigation, route }) => {
             />
           </MapLibre.ShapeSource>
         )}
+         <Heading
+          heading={coord ? coord.heading : `${route.params.heading}deg`}
+          coordinates={
+            coord
+              ? [Number(coord.longitude), Number(coord.latitude)]
+              : route.params.coordinate
+          }
+          markerPath={require("../assets/images/heading.png")}
+        />
       </MapView>
     </View>
   );

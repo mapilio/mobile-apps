@@ -255,12 +255,12 @@ const styles = StyleSheet.create({
     borderRadius: RFValue(24),
   },
   line: {
-    lineColor: "#1AD971",
+    lineColor: "#0056F1",
     lineWidth: 2,
   },
   point: {
-    circleColor: "#1AD971",
-    circleStrokeColor: "#1AD971",
+    circleColor: "#0056F1",
+    circleStrokeColor: "#0056F1",
     circleStrokeOpacity: 0.4,
     circleStrokeWidth: 3,
   }
