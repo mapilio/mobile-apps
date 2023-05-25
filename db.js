@@ -469,7 +469,7 @@ class Database {
     return new Promise((resolve, reject) => {
       db.transaction((txn) => {
         txn.executeSql(
-          `SELECT sequence_uuid FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''} GROUP BY sequence_uuid`,
+          `SELECT sequence_uuid FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''} GROUP BY sequence_uuid ORDER BY id ASC`,
           [],
           async (_, results) => {
             const total = await this.getTotalImageCount(group_uuid)
