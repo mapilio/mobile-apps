@@ -145,13 +145,13 @@ const Content = ({slidePanel}) => {
     bottomContent: {
       transform: [{ scale: 1.3 }, { translateX: 16 }],
       paddingTop: RFValue(10),
-
       gradient: {
         position: "absolute",
         flex: 1,
         width: "100%",
-        height: "100%",
+        height: "50%",
         opacity: 0.8,
+        bottom:0
       },
     },
     rules: {

@@ -29,4 +29,3 @@ export { default as Button } from "./Button";
 export { default as ToastMessage } from "./Toast/ToastMessage";
 export { default as Loading} from "./Loading";
 export { default as AlertModal} from "./AlertModal";
-export { default as MaintenanceButton} from "./MaintenanceButton";

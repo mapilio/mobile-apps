@@ -300,7 +300,8 @@
     "photos": "Resim",
     "challenge": "YARIŞMA",
     "all_time": "TÜM ZAMANLAR",
-    "join": "Katıl"
+    "join": "Katıl",
+    "challenge_finished": "Yarışma <0>31.05.2023</0> tarihinde sona erdi. Bu tarihten sonra yapılan çekimlerin puanları tüm zamanlar bölümüne yansıtılacaktır."
   },
   "upload_modal": {
     "title": "Daha Güncel Haritalar Oluşturalım",
@@ -394,7 +395,6 @@
     "en": "İngilizce"
   },
   "alerts": {
-    "maintenanceModeTitle": "Şu anda servislerimiz bakım modunda.",
-    "maintenanceModeDescription": "Lütfen daha sonra tekrar deneyin."
+    "maintenanceMode": "Şu anda servislerimiz bakım modunda.\nLütfen daha sonra tekrar deneyin."
   }
 }

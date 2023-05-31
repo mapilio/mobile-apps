@@ -25,6 +25,7 @@ import LeaderHeaderRight from "../screens/Leaderboard/LeaderHeaderRight";
 import { TransitionPresets } from "@react-navigation/stack";
 import { SET_MAINTENANCE_MODE, SET_MAP_MODE } from "../store/actionsName";
 import { cdn } from "../util/helpers/api";
+import { useTranslation } from "react-i18next";
 
 const Tab = createBottomTabNavigator();
 
@@ -56,6 +57,7 @@ const TabNavigator = () => {
   const {connection} = useSelector((state) => state.generalReducer);
   const {isFirstOpen} = useSelector((state) => state.cameraReducer);
   const {uploadData} = useSelector((state) => state.uploadReducer);
+  const {t} = useTranslation("leaderboard");
 
   const dispatch = useDispatch();
 
@@ -182,6 +184,7 @@ const TabNavigator = () => {
           headerTintColor: navigatorStyle.headerTintColor,
           headerTitleAlign: navigatorStyle.headerTitleAlign,
           headerShadowVisible: false,
+          headerTitle: t("title"),
         }}
       />
     </Tab.Navigator>

@@ -299,7 +299,8 @@
     "photos": "Photos",
     "challenge": "CHALLENGE",
     "all_time": "ALL TIME",
-    "join": "Join"
+    "join": "Join",
+    "challenge_finished": "The challenge has ended as of <0>31.05.2023.</0> Scores of the captures after this date will be reflected in the all time section."
   },
   "upload_modal": {
     "title": "Lets Create More Up To\nDate Maps",
@@ -393,7 +394,6 @@
     "en": "English"
   },
   "alerts": {
-    "maintenanceModeTitle": "Our services are in maintenance mode.",
-    "maintenanceModeDescription": "Please upload your imagery later."
+    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later."
   }
 }

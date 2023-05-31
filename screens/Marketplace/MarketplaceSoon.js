@@ -3,6 +3,7 @@ import { CustomText, CustomTextBold } from "../../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import { FocusAwareStatusBar } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
+import { MarketplaceSoonIcon } from "../../assets/svg/illustrations";
 
 const MarketplaceSoon = () => {
   return (
@@ -13,10 +14,7 @@ const MarketplaceSoon = () => {
         backgroundColor={"#fff"}
       />
       <View>
-        <Image
-          style={{ width: RFValue(319), height: RFValue(307) }}
-          source={require("../../assets/images/marketplace/marketsoon.png")}
-        />
+        <MarketplaceSoonIcon />
         <LinearGradient
           colors={[
             "#FFFFFF00",
