@@ -4,13 +4,13 @@ import {
   CustomText,
   CustomTextBold,
   CustomTextMedium,
-} from "../highordercomponents";
+} from "../../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
-import { globalStyles } from "../styles/globalStyles";
-import { marketplaceDetailStyles } from "../styles/marketplaceStyles";
-import { Routes } from "../navigator/Routes";
+import { globalStyles } from "../../styles/globalStyles";
+import { marketplaceDetailStyles } from "../../styles/marketplaceStyles";
+import { Routes } from "../../navigator/Routes";
 import Moment from "moment";
-import {api} from "../util/helpers/api";
+import {api} from "../../util/helpers/api";
 
 const MarketplaceDetail = ({navigation, route}) => {
   const applyProject = () => {
@@ -54,12 +54,12 @@ const MarketplaceDetail = ({navigation, route}) => {
           </CustomText>
           <View style={marketplaceDetailStyles.imageArea}>
             <Image
-              source={require("../assets/images/capture_zone.png")}
+              source={require("../../assets/images/capture_zone.png")}
               resizeMode={"contain"}
               style={marketplaceDetailStyles.image}
             />
             <Image
-              source={require("../assets/images/gopro.png")}
+              source={require("../../assets/images/gopro.png")}
               resizeMode={"contain"}
               style={marketplaceDetailStyles.image}
             />

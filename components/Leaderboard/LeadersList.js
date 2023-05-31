@@ -4,14 +4,16 @@ import { leaderStyles as styles } from "../../styles/leaderStyles";
 import renderItem from "./RenderItem";
 import AuthUserButton from "./AuthUserButton";
 import { useDispatch } from "react-redux";
-import {
-  fetchLeaderUsers,
-} from "../../store/actions/leaderboard";
+import { fetchLeaderUsers } from "../../store/actions/leaderboard";
 import { RFValue } from "react-native-responsive-fontsize";
 import { vibrate } from "../../util/helpers";
+import InfoBox from "../InfoBox/InfoBox";
+import { Trans, useTranslation } from "react-i18next";
+import { CustomTextBold } from "../../highordercomponents";
 
 const LeadersList = ({ leaders, authUserIndex, listType }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation("leaderboard");
 
   const [isAuthUserVisible, setIsAuthUserVisible] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
@@ -63,13 +65,31 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
         onScrollToIndexFailed={() => {
           flatListRef.current.scrollToEnd();
         }}
+        ListHeaderComponent={() =>
+          listType === "challange_users" && (
+            <View style={{ paddingVertical: RFValue(10) }}>
+              <InfoBox
+                type="info"
+                content={
+                  <Trans
+                    t={t}
+                    i18nKey={"challenge_finished"}
+                    components={[
+                      <CustomTextBold />,
+                    ]}
+                  />
+                }
+              />
+            </View>
+          )
+        }
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         renderItem={({ item, index }) =>
           renderItem({ item, index }, authUserIndex, listType)
         }
-        ListFooterComponent={() => (
+        ListFooterComponent={() =>
           authUserIndex > 0 && <View style={{ height: 90 }} />
-        )}
+        }
       />
       {AuthUserInLeadersAndVisible ? (
         <TouchableOpacity

@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {AlertModal, EmptyList, UploadItem, MaintenanceButton} from "../components";
+import {AlertModal, EmptyList, UploadItem} from "../components";
 import * as FileSystem from "expo-file-system";
 import { UPLOAD_DATA} from "../store/actionsName";
 import {Upload} from "../components/Uploads";
@@ -11,6 +11,7 @@ import MaskedView from "@react-native-masked-view/masked-view";
 import LinearGradient from "react-native-linear-gradient";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
+import InfoBox from "../components/InfoBox/InfoBox";
 
 const UserUpload = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const UserUpload = () => {
   );
   const [deleteItem, setDeleteItem] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const {t} = useTranslation("upload");
+  const {t} = useTranslation(["upload", "alerts"]);
 
   useEffect(() => getData(), []);
 
@@ -57,7 +58,7 @@ const UserUpload = () => {
         backgroundColor="transparent"
         translucent={true}
       />
-      {maintenanceMode && uploadData.length > 0 && <MaintenanceButton />}
+      {maintenanceMode && uploadData.length > 0 &&  <InfoBox type={"warning"} content={t("alerts:maintenanceMode")}  />}
       <MaskedView
         androidRenderingMode={null}
         maskElement={<MaskItem />}
@@ -82,12 +83,12 @@ const UserUpload = () => {
 
       <AlertModal
         visible={!!deleteItem}
-        title={t("delete_capture")}
-        description={t("delete_message")}
+        title={t("upload:delete_capture")}
+        description={t("upload:delete_message")}
         loading={loading}
         buttons={{
-          cancel: { text: t("no"), onPress: () => setDeleteItem(undefined) },
-          confirm: { text: t("yes"), onPress: deleteSequence },
+          cancel: { text: t("upload:no"), onPress: () => setDeleteItem(undefined) },
+          confirm: { text: t("upload:yes"), onPress: deleteSequence },
         }}
       />
     </Fragment>

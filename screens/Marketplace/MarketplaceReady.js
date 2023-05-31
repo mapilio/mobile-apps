@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Image } from "react-native";
-import { CustomText, CustomTextMedium } from "../highordercomponents";
-import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
-import { Routes } from "../navigator/Routes";
+import { CustomText, CustomTextMedium } from "../../highordercomponents";
+import { marketplaceReceivedStyles } from "../../styles/marketplaceStyles";
+import { Routes } from "../../navigator/Routes";
 import { RFValue } from "react-native-responsive-fontsize";
-import { UPDATE_SELECTED_PROJECT } from "../store/actionsName";
+import { UPDATE_SELECTED_PROJECT } from "../../store/actionsName";
 import { useDispatch } from "react-redux";
 import {Trans, useTranslation} from "react-i18next";
 
@@ -19,7 +19,7 @@ const MarketplaceReady = ({ navigation, route }) => {
   return (
     <View style={marketplaceReceivedStyles.container}>
       <Image
-        source={require("../assets/images/ready.png")}
+        source={require("../../assets/images/ready.png")}
         resizeMode={"contain"}
         style={marketplaceReceivedStyles.image}
       />

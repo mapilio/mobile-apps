@@ -78,3 +78,5 @@ export {default as Rec} from "./Rec";
 export {default as CameraLine} from "./CameraLine";
 export {default as ChargeIcon} from "./ChargeIcon";
 export {default as WarningFilled} from "./WarningFilled"
+export {default as InfoFilled} from "./InfoFilled"
+export {default as MarketplaceSoonIcon} from "./Marketplace/MarketplaceSoonIcon"

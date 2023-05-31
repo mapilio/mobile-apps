@@ -1,16 +1,15 @@
 import React from "react";
 import { View, Image } from "react-native";
-import { CustomText, CustomTextMedium } from "../highordercomponents";
-import { marketplaceReceivedStyles } from "../styles/marketplaceStyles";
-import Info from "../assets/svg/illustrations/Info";
-import { Routes } from "../navigator/Routes";
+import { CustomText, CustomTextMedium } from "../../highordercomponents";
+import { marketplaceReceivedStyles } from "../../styles/marketplaceStyles";
+import { Routes } from "../../navigator/Routes";
 import { RFValue } from "react-native-responsive-fontsize";
 
 const MarketplaceReceived = ({ navigation }) => {
   return (
     <View style={marketplaceReceivedStyles.container}>
       <Image
-        source={require("../assets/images/received.png")}
+        source={require("../../assets/images/received.png")}
         resizeMode={"contain"}
         style={marketplaceReceivedStyles.image}
       />

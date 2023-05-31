@@ -22,7 +22,7 @@
     "upload_detail": "Yükeleme Detay",
     "sign_up": "Kayıt ol",
     "sign_in": "Giriş yap",
-    "go_map": "Haritaya Dön",
+    "go_map": "Harita",
     "settings": "Ayarlar"
   },
   "panorama": {
@@ -48,7 +48,9 @@
     "back_to_the": "<0>Market</0>'e dön",
     "far_location": "Konumunuz proje alanından çok uzakta",
     "tooltip": "İhtiyaç duyulan yerlerde yeni harita verileri oluşturmak için görüntü toplama ve veri doğrulama projelerinde yardımda bulun veya sunun.",
-    "map_loading": "Market haritası yükleniyor..."
+    "map_loading": "Market haritası yükleniyor...",
+    "soon_description": "Mapilio, kullanıcıların belirli bölgelerin haritalanmasını isteyebileceği bir haritalama pazarı sunar. Katkıda bulunanlar ödüllendirilir ve görüntü doğruluğunu doğrulamak için ücretsiz bir hizmet mevcuttur.",
+    "very_soon": "Çok Yakında"
   },
   "map": {
     "map_loading": "Harita ve bölgeler yükleniyor...",
@@ -300,7 +302,8 @@
     "photos": "Resim",
     "challenge": "YARIŞMA",
     "all_time": "TÜM ZAMANLAR",
-    "join": "Katıl"
+    "join": "Katıl",
+    "challenge_finished": "Yarışma <0>31.05.2023</0> tarihinde sona erdi. Bu tarihten sonra yapılan çekimlerin puanları tüm zamanlar bölümüne yansıtılacaktır."
   },
   "upload_modal": {
     "title": "Daha Güncel Haritalar Oluşturalım",
@@ -394,7 +397,6 @@
     "en": "İngilizce"
   },
   "alerts": {
-    "maintenanceModeTitle": "Şu anda servislerimiz bakım modunda.",
-    "maintenanceModeDescription": "Lütfen daha sonra tekrar deneyin."
+    "maintenanceMode": "Şu anda servislerimiz bakım modunda.\nLütfen daha sonra tekrar deneyin."
   }
 }
