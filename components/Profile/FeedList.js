@@ -101,6 +101,7 @@ const FeedList = () => {
       <FlatList
         data={data}
         style={styles.list}
+        automaticallyAdjustsScrollIndicatorInsets={false}
         onEndReached={() => !gettingData && nextPage()}
         ListEmptyComponent={() => <EmptyComponent/>}
         ListFooterComponent={() => gettingData && <ActivityIndicator size={"small"}/>}
