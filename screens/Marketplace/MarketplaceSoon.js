@@ -4,8 +4,10 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { FocusAwareStatusBar } from "../../components";
 import LinearGradient from "react-native-linear-gradient";
 import { MarketplaceSoonIcon } from "../../assets/svg/illustrations";
+import { useTranslation } from "react-i18next";
 
 const MarketplaceSoon = () => {
+  const { t } = useTranslation("marketplace");
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar
@@ -29,7 +31,7 @@ const MarketplaceSoon = () => {
           style={styles.content.gradient}
         />
         <View style={styles.row}>
-          <CustomText style={styles.content.soon}>Very soon</CustomText>
+          <CustomText style={styles.content.soon}>{t("very_soon")}</CustomText>
           <Image
             style={{
               width: RFValue(22),
@@ -50,12 +52,11 @@ const MarketplaceSoon = () => {
       </View>
 
       <CustomTextBold style={styles.content.marketplace}>
-        Marketplace
+        {t("marketplace")}
       </CustomTextBold>
 
       <CustomText style={styles.content.description}>
-        Lorem ipsum is placeholder the text commonly used in the graphic, print,
-        and publ resetting.
+        {t("soon_description")}
       </CustomText>
     </View>
   );
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
       marginTop: RFValue(5),
       color: "#808080",
       fontSize: RFValue(14),
+      textAlign: "center",
     },
     gradient: {
       position: "absolute",

@@ -47,7 +47,9 @@
     "back_to_the": "back to the <0>Marketplace</0>",
     "far_location": "Your location is too far from the project area",
     "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading..."
+    "map_loading": "Market map is loading...",
+    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
+    "very_soon": "Very Soon"
   },
   "map": {
     "map_loading": "Loading map and zones...",
@@ -300,7 +302,7 @@
     "challenge": "CHALLENGE",
     "all_time": "ALL TIME",
     "join": "Join",
-    "challenge_finished": "The challenge has ended as of <0>31.05.2023.</0> Scores of the captures after this date will be reflected in the all time section."
+    "challenge_finished": "The challenge has ended as of <0>31.05.2023</0>. Scores of the captures after this date will be reflected in the all time section."
   },
   "upload_modal": {
     "title": "Lets Create More Up To\nDate Maps",
