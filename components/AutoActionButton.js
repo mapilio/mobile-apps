@@ -37,7 +37,7 @@ const AutoActionButton = ({navigation}) => {
 	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
 	const {debugMode} = useSelector((status) => status.generalReducer);
 	const appState = useRef(AppState.currentState);
-	const [isAlert, setIsAlert] = useState(null);
+	const [isAlert, setIsAlert] = useState(true);
 	const accelerometerData = useRef({x: 0, y: 0, z: 0})
 	const gyroscopeData = useRef({x: 0, y: 0, z: 0});
 	const [timeouts, setTimeouts] = useState([]);

@@ -59,7 +59,6 @@ export default StyleSheet.create({
     fontSize: RFValue(12),
   },
   deleteAction: {
-    backgroundColor: '#D33030',
     justifyContent: 'center',
     width: RFValue(75),
     alignItems: 'center',
