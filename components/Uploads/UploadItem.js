@@ -1,4 +1,4 @@
-import {Alert, Dimensions, Image, Modal, Pressable, Text, TouchableOpacity, View} from "react-native";
+import { Dimensions, Image, Text, TouchableOpacity, View} from "react-native";
 import * as FileSystem from "expo-file-system";
 import styles from './UploadItem.styles';
 import {dateConvert} from "../../helper/helper";
@@ -6,7 +6,7 @@ import LinearGradient from "react-native-linear-gradient";
 import React, {useEffect, useState} from "react";
 import {userFeedStyles} from "../../styles/userProfileStyle";
 import {Photos, PointIcon, Trash} from "../../assets/svg/illustrations";
-import {Swipeable} from "react-native-gesture-handler";
+import {RectButton, Swipeable} from "react-native-gesture-handler";
 import {RFValue} from "react-native-responsive-fontsize";
 import {Trans, useTranslation} from "react-i18next";
 import {ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES} from "../../store/actionsName";
@@ -84,8 +84,8 @@ const UploadItem = ({item, deleteFunc}) => {
   }
 
   return (
-    <Swipeable renderRightActions={renderRightActions} containerStyle={styles.container}>
-      <Pressable onPress={goToDetail}>
+    <Swipeable renderRightActions={renderRightActions} containerStyle={styles.container} overshootRight={false} useNativeAnimations>
+      <RectButton onPress={goToDetail}>
         <View>
           <LinearGradient
             colors={['#00000000', '#000000BF']}
@@ -122,7 +122,7 @@ const UploadItem = ({item, deleteFunc}) => {
             </Text>
           </View>
         </View>
-      </Pressable>
+      </RectButton>
     </Swipeable>
   )
 }
