@@ -302,7 +302,8 @@
     "challenge": "CHALLENGE",
     "all_time": "ALL TIME",
     "join": "Join",
-    "challenge_finished": "The challenge has ended as of <0>31.05.2023</0>. Scores of the captures after this date will be reflected in the all time section."
+    "challenge_finished": "The challenge has ended as of <0>31.05.2023</0>. Scores of the captures after this date will be reflected in the all time section.",
+    "winners_title": "And the winners of \n Mapilio"
   },
   "upload_modal": {
     "title": "Lets Create More Up To\nDate Maps",

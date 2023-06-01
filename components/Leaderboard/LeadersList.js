@@ -3,13 +3,14 @@ import { FlatList, View, TouchableOpacity } from "react-native";
 import { leaderStyles as styles } from "../../styles/leaderStyles";
 import renderItem from "./RenderItem";
 import AuthUserButton from "./AuthUserButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchLeaderUsers } from "../../store/actions/leaderboard";
 import { RFValue } from "react-native-responsive-fontsize";
 import { vibrate } from "../../util/helpers";
 import InfoBox from "../InfoBox/InfoBox";
 import { Trans, useTranslation } from "react-i18next";
 import { CustomTextBold } from "../../highordercomponents";
+import WinnersBox from "./WinnersBox";
 
 const LeadersList = ({ leaders, authUserIndex, listType }) => {
   const dispatch = useDispatch();
@@ -18,6 +19,10 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
   const [isAuthUserVisible, setIsAuthUserVisible] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const flatListRef = useRef(null);
+
+  const challengeWinners = useSelector(
+    (state) => state.leaderboardReducer.challengeWinners
+  );
 
   const onViewableItemsChanged = ({ viewableItems }) => {
     const isAuthUserExistInVisibleIndex =
@@ -51,6 +56,29 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
     }, 500);
   };
 
+  const InfoHeader = () => {
+    if (listType === "challange_users") {
+      if (challengeWinners.is_calculated && challengeWinners.leaderboard.length > 0) {
+        return <WinnersBox winners={challengeWinners.leaderboard} />;
+      } else {
+        return (
+          <View style={{ paddingVertical: RFValue(10) }}>
+            <InfoBox
+              type="info"
+              content={
+                <Trans
+                  t={t}
+                  i18nKey={"challenge_finished"}
+                  components={[<CustomTextBold />]}
+                />
+              }
+            />
+          </View>
+        );
+      }
+    }
+  }
+
   return (
     <View style={styles.subScreens}>
       <FlatList
@@ -65,24 +93,7 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
         onScrollToIndexFailed={() => {
           flatListRef.current.scrollToEnd();
         }}
-        ListHeaderComponent={() =>
-          listType === "challange_users" && (
-            <View style={{ paddingVertical: RFValue(10) }}>
-              <InfoBox
-                type="info"
-                content={
-                  <Trans
-                    t={t}
-                    i18nKey={"challenge_finished"}
-                    components={[
-                      <CustomTextBold />,
-                    ]}
-                  />
-                }
-              />
-            </View>
-          )
-        }
+        ListHeaderComponent={() => <InfoHeader />}
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         renderItem={({ item, index }) =>
           renderItem({ item, index }, authUserIndex, listType)

@@ -3,7 +3,8 @@ import {
   SET_LEADERBOARD_USERS,
   RESET_LEADERBOARD,
   SET_SHOW_GIFTS,
-  SET_LEADERBOARD_CHALLANGE_USERS,
+  SET_LEADERBOARD_CHALLENGE_USERS,
+  SET_LEADERBOARD_CHALLENGE_WINNERS,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -11,6 +12,10 @@ const INITIAL_STATE = {
   organizations: null,
   showGifts: true,
   challangeUsers: null,
+  challengeWinners: {
+    is_calculated: false,
+    winners: [],
+  },
 };
 
 const leaderboardReducer = (state = INITIAL_STATE, action) => {
@@ -25,7 +30,7 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         ...state,
         organizations: action.payload,
       };
-    case SET_LEADERBOARD_CHALLANGE_USERS:
+    case SET_LEADERBOARD_CHALLENGE_USERS:
       return {
         ...state,
         challangeUsers: action.payload,
@@ -42,6 +47,11 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         ...state,
         showGifts: action.payload,
       };
+      case SET_LEADERBOARD_CHALLENGE_WINNERS:
+        return {
+          ...state,
+          challengeWinners: action.payload,
+        };
 
     default:
       return state;

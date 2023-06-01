@@ -14,7 +14,7 @@ const UserProfileImage = ({ source, spinnerColor = "gray" }) => {
           height: 42,
           cache: "force-cache",
         }}
-        style={[{ borderRadius: 50 }, isLoading && { opacity: 0 }]}
+        style={[{ borderRadius: 50, backgroundColor: "#F5F5F6"}, isLoading && { opacity: 0 }]}
         onLoadEnd={() => setIsLoading(false)}
       />
       {isLoading && (
