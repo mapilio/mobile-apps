@@ -11,6 +11,7 @@ import AwardModal from "./AwardModal";
 import SkeletonLoading from "../../components/Leaderboard/SkeletonLoading";
 import {
   fetchLeaderUsers,
+  fetchLeaderboardWinners,
   resetLeaderboard,
 } from "../../store/actions/leaderboard";
 import { CustomText, CustomTextMedium } from "../../highordercomponents";
@@ -31,6 +32,7 @@ const Leaderboard = () => {
   useEffect(() => {
     dispatch(fetchLeaderUsers());
     dispatch(fetchLeaderUsers("01-03-2023", "31-05-2023"));
+    dispatch(fetchLeaderboardWinners("01-03-2023", "31-05-2023"));
 
     return () => {
       dispatch(resetLeaderboard());

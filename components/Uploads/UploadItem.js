@@ -1,4 +1,4 @@
-import { Dimensions, Image, Text, TouchableOpacity, View} from "react-native";
+import { Dimensions, Image, Text, Pressable, View} from "react-native";
 import * as FileSystem from "expo-file-system";
 import styles from './UploadItem.styles';
 import {dateConvert} from "../../helper/helper";
@@ -64,9 +64,15 @@ const UploadItem = ({item, deleteFunc}) => {
 
   const renderRightActions = () => {
     return (
-      <TouchableOpacity style={styles.deleteAction} onPress={() => deleteFunc(item.group_id)}>
+      <Pressable  style={({pressed}) => [
+        styles.deleteAction,
+        {
+          backgroundColor: pressed ? '#9C0E0E' : '#D33030',
+        },
+        ]} 
+       onPress={() => deleteFunc(item.group_id)}>
         <Trash width={RFValue(21)} height={RFValue(30)}/>
-      </TouchableOpacity>
+      </Pressable>
     )
   }
 

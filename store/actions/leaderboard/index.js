@@ -2,7 +2,8 @@ import {
   SET_LEADERBOARD_USERS,
   SET_LEADERBOARD_ORGANIZATIONS,
   RESET_LEADERBOARD,
-  SET_LEADERBOARD_CHALLANGE_USERS,
+  SET_LEADERBOARD_CHALLENGE_USERS,
+  SET_LEADERBOARD_CHALLENGE_WINNERS,
 } from "../../actionsName";
 import { translate } from "../../../util/helpers";
 import {api} from "../../../util/helpers/api";
@@ -32,7 +33,7 @@ export const fetchLeaderUsers = (startDate, finishDate) => {
     api.get(`/api/leaderboard${date}`)
       .then((res) => {
         dispatch({
-          type: date ? SET_LEADERBOARD_CHALLANGE_USERS : SET_LEADERBOARD_USERS,
+          type: date ? SET_LEADERBOARD_CHALLENGE_USERS : SET_LEADERBOARD_USERS,
           payload: res.data.leaderboard,
         });
       })
@@ -53,6 +54,31 @@ export const fetchLeaderOrganizations = () => {
       })
       .catch(() => {
         toast.show(translate("fetch_error", "leaderboard"),{ type: "warning" });
+      });
+  };
+};
+
+export const fetchLeaderboardWinners = (startDate, finishDate) => {
+  let date = "";
+  if (startDate && finishDate) {
+    date = `?start_at=${startDate}&finish_at=${finishDate}`;
+  }
+  return (dispatch) => {
+    api
+      .get(`/api/leaderboard-winner${date}`)
+      .then((res) => {
+        
+        if(res.data){
+          dispatch({
+            type: SET_LEADERBOARD_CHALLENGE_WINNERS,
+            payload: res.data,
+          });
+        }
+      })
+      .catch(() => {
+        toast.show(translate("fetch_error", "leaderboard"), {
+          type: "warning",
+        });
       });
   };
 };
