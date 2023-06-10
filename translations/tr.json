@@ -56,7 +56,7 @@
   "map": {
     "map_loading": "Harita ve bölgeler yükleniyor...",
     "pano_error": "Görüntü yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.",
-    "gps_disabled": "Gps devre dışı."
+    "gps_disabled": "GPS devre dışı."
   },
   "profile_settings": {
     "profile_edit": "Profil Düzenleme",
