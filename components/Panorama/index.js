@@ -51,6 +51,7 @@ const Panorama = ({image, height, resolution = '1920x1080'}) => {
         source={{uri: image}}
         style={{height: height, width: imageWidth, resizeMode: "cover"}}
         onLoadEnd={onLoad}
+        onLoadStart={() => setLoading(true)}
       />
     </ScrollView>
   )
