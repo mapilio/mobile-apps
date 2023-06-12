@@ -101,7 +101,7 @@ const AppMap = ({ navigation }) => {
   const handleSetCenter = async () => {
     initialPermissions().then((res) => {
       if (res !== RESULTS.GRANTED) {
-        toast.show(`Your GPS is disabled.`, { type: "error" });
+        toast.show(t("gps_disabled"), { type: "error" });
       } else {
         cameraRef.current?.setCamera({
           centerCoordinate: userCoordinate.current?.geometry.coordinates,

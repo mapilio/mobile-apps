@@ -64,6 +64,7 @@ const ProfileNavigator = ({navigation}) => {
       }}/>
 
       <Stack.Screen name={Routes.language} component={Language} options={{
+        title: t("language"),
         headerLeft: () => <ProfileSettingsNavigatorLeft/>,
       }}/>
 

@@ -22,7 +22,8 @@
     "sign_up": "Sign up",
     "sign_in": "Sign in",
     "go_map": "Map",
-    "settings": "Settings"
+    "settings": "Settings",
+    "language": "Language"
   },
   "search": {
     "search": "Search",
@@ -53,7 +54,8 @@
   },
   "map": {
     "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again."
+    "pano_error": "There was a problem while loading image. Please try again.",
+    "gps_disabled": "Your GPS is disabled."
   },
   "profile_settings": {
     "profile_edit": "Profile Edit",

@@ -78,7 +78,7 @@ const GeneralSettings = ({ navigation }) => {
       <View style={styles.item}>
         <View style={safeAreaPaddings}>
           <CustomText style={styles.itemMenuTitle}>
-            {t("Camera Settings")}
+            {t("camera_settings")}
           </CustomText>
           <CustomText style={styles.itemTitle}>
             {t("distance_between")}
@@ -128,7 +128,7 @@ const GeneralSettings = ({ navigation }) => {
       <View style={styles.item}>
         <View style={safeAreaPaddings}>
           <CustomText style={styles.itemMenuTitle}>
-            {"Capture Settings"}
+            {t("capture_settings")}
           </CustomText>
           <View style={styles.row}>
             <CustomText style={styles.itemTitle}>

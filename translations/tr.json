@@ -23,7 +23,8 @@
     "sign_up": "Kayıt ol",
     "sign_in": "Giriş yap",
     "go_map": "Harita",
-    "settings": "Ayarlar"
+    "settings": "Ayarlar",
+    "language": "Dil"
   },
   "panorama": {
     "image_report": "Resmi raporla"
@@ -54,7 +55,8 @@
   },
   "map": {
     "map_loading": "Harita ve bölgeler yükleniyor...",
-    "pano_error": "Görüntü yüklenirken bir sorun oluştu. Lütfen tekrar deneyin."
+    "pano_error": "Görüntü yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.",
+    "gps_disabled": "GPS devre dışı."
   },
   "profile_settings": {
     "profile_edit": "Profil Düzenleme",
