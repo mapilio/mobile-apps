@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Platform, View } from "react-native";
+import { Platform, View, StyleSheet, ActivityIndicator } from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
@@ -30,6 +30,7 @@ const AppMap = ({ navigation }) => {
   const [clickedCoord, setClickedCoord] = useState(null);
   const [showPano, setShowPano] = useState(false);
   const [isMapReady, setIsMapReady] = useState(false);
+  const [isPanoLoading, setIsPanoLoading] = useState(false);
   const [showLocation, setShowLocation] = useState(true);
   const { welcomeWalkthroughStatus } = useSelector(
     (state) => state.generalReducer
@@ -74,7 +75,9 @@ const AppMap = ({ navigation }) => {
   const touchPoint = async (e) => {
     const { geometry, properties } = e.features[0];
     setClickedCoord(geometry.coordinates);
-
+    if(!showPano){
+      setIsPanoLoading(true);
+    }
     const filter = `&CQL_FILTER=id=${properties.id}&PropertyName=(sequence_uuid,uploaded_hash,filename,heading,resolution,capture_time,created_by_id)`;
     const imageURL = Config.MAPBOX_INFO_URL + filter;
     const imageDetails = await api
@@ -95,6 +98,7 @@ const AppMap = ({ navigation }) => {
       highResImage: `${Config.IMAGE_API}/${imageDetails.properties.uploaded_hash}/${imageDetails.properties.filename}/1080`,
     });
 
+    setIsPanoLoading(false);
     setShowPano(true);
   };
 
@@ -140,9 +144,25 @@ const AppMap = ({ navigation }) => {
     }, 500);
   };
 
+  const PanoLoading = () => {
+    return (
+      <View
+        style={{
+          zIndex: 2,
+          justifyContent: "center",
+          ...StyleSheet.absoluteFillObject,
+        }}
+        pointerEvents="none"
+      >
+        <ActivityIndicator size="large" color="#191919" />
+      </View>
+    );
+  }
+
   return (
     <View style={{ flex: 1 }}>
       {!isMapReady && <MapLoading />}
+      {isPanoLoading && <PanoLoading />}
 
       <FocusAwareStatusBar
         barStyle="dark-content"
