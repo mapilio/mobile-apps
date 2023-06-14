@@ -79,7 +79,10 @@ const Register = ({ navigation }) => {
 
 
   return (
-    <SafeAreaView style={[globalStyles.container, loginStyles.container]}>
+    <SafeAreaView style={[globalStyles.container, loginStyles.container, {
+			paddingBottom:0,
+			paddingVertical:0,
+		}]}>
       <FocusAwareStatusBar
         barStyle="dark-content"
         translucent
