@@ -20,12 +20,15 @@ import { tabHeight } from "../../util/consts/ui";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import {api} from "../../util/helpers/api";
 import { dateConvert } from "../../helper/helper";
+import { useNavigation } from "@react-navigation/native";
+import { Routes } from "../../navigator/Routes";
 
 const Pano = ({ pointInformation, hidePano }) => {
   const [fullHeight, setFullHeight] = useState(false);
   const [username, setUsername] = useState(null);
   const { top, bottom } = useSafeAreaInsets();
   const { height } = Dimensions.get("screen");
+  const navigation = useNavigation();
 
   const { showActionSheetWithOptions } = useActionSheet();
   const { t } = useTranslation("report", { nsMode: "fallback" });
@@ -135,7 +138,13 @@ const Pano = ({ pointInformation, hidePano }) => {
 
       <View style={panoStyle.info}>
         <View style={panoStyle.capturer}>
+          <TouchableOpacity onPress={()=>{
+               navigation.navigate(Routes.stackNavigator, { screen: Routes.stackUserFeed, params:{
+                userID: pointInformation.user,
+               }});
+          }}>
           <Text style={panoStyle.capturer.name}>{username}</Text>
+          </TouchableOpacity>
           <Text style={panoStyle.capturer.date}>
             {dateConvert(pointInformation.date, "MMM DD, YYYY - HH:mm")}
           </Text>

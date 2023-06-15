@@ -29,8 +29,13 @@ const StackNavigator = ({route}) => {
       </Stack.Group>
 
       <Stack.Group>
-        <Stack.Screen name={Routes.stackUserFeed} component={UserFeedList}/>
-        <Stack.Screen name={Routes.stackUserFeedDetail} component={UserFeedDetails}/>
+        <Stack.Screen name={Routes.stackUserFeed} component={UserFeedList} options={{
+          headerShown: true,
+          title: "Profile",
+        }}/>
+        <Stack.Screen name={Routes.stackUserFeedDetail} component={UserFeedDetails} options={{
+          headerShown: false,
+        }}/>
       </Stack.Group>
     </Stack.Navigator>
   )
