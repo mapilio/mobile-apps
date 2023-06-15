@@ -38,4 +38,6 @@ export const Routes = {
   captureCompleted: "CaptureCompleted",
   award: "Award",
   deleteAccount: "DeleteAccount",
+  stackUserFeed: "StackUserFeed",
+  stackUserFeedDetail: "StackUserFeedDetail",
 };

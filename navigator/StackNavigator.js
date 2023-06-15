@@ -2,6 +2,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import {Routes} from "./Routes";
 import {AuthNavigator, ProfileNavigator} from "./partials";
 import {Award, HowToScore, WelcomeWalkthrough} from "../screens";
+import {UserFeedList, UserFeedDetails} from "../screens/UserFeed";
 import {BackButton} from "../components";
 import {StyleSheet} from "react-native";
 
@@ -25,6 +26,11 @@ const StackNavigator = ({route}) => {
         <Stack.Screen name={Routes.welcomeWalkthrough} component={WelcomeWalkthrough}/>
         <Stack.Screen name={Routes.howToScore} component={HowToScore} options={options}/>
         <Stack.Screen name={Routes.award} component={Award} options={options}/>
+      </Stack.Group>
+
+      <Stack.Group>
+        <Stack.Screen name={Routes.stackUserFeed} component={UserFeedList}/>
+        <Stack.Screen name={Routes.stackUserFeedDetail} component={UserFeedDetails}/>
       </Stack.Group>
     </Stack.Navigator>
   )
