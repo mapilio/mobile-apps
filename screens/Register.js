@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   Linking,
+  ScrollView,
 } from "react-native";
 import * as yup from "yup";
 import { loginStyles } from "../styles/loginStyles";
@@ -78,100 +79,146 @@ const Register = ({ navigation }) => {
 
 
   return (
-    <SafeAreaView style={[globalStyles.container, loginStyles.container]}>
-			<FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
-      <View>
+    <SafeAreaView style={[globalStyles.container, loginStyles.container, {
+			paddingBottom:0,
+			paddingVertical:0,
+		}]}>
+      <FocusAwareStatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="#fff"
+      />
+      <ScrollView showsVerticalScrollIndicator={false} >
         <View style={loginStyles.logo}>
-          <MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>
+          <MapilioLogoBeta width={RFValue(218)} height={RFValue(43)} />
         </View>
-        <View style={{marginBottom: RFValue(30)}}>
-          <CustomText style={loginStyles.headerText}>
-            {t("title")}
-          </CustomText>
+        <View style={{ marginBottom: RFValue(30) }}>
+          <CustomText style={loginStyles.headerText}>{t("title")}</CustomText>
         </View>
 
-        <Controller name={"name"} control={control} render={({field: {onChange, onBlur, value}}) => (
-          <View style={loginStyles.formGroup}>
-            {errors.name && <CustomText style={loginStyles.errorText}>{errors.name.message}</CustomText>}
-            <TextInput
-              name="name"
-              placeholder={t("name")}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              keyboardType="default"
-              style={errors.name ? {...loginStyles.input,...loginStyles.errorInput} : loginStyles.input}
-            />
-          </View>
-        )}/>
-        <Controller name={"email"} control={control} render={({field: {onChange, onBlur, value}}) => (
-          <View style={loginStyles.formGroup}>
-            {errors.email && <CustomText style={loginStyles.errorText}>{errors.email.message}</CustomText>}
-            <TextInput
-              name="email"
-              placeholder={t("email")}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              style={errors.email ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
-            />
-          </View>
-        )}/>
-        <Controller name={"password"} control={control} render={({field: {onChange, onBlur, value}}) => (
-          <View style={loginStyles.formGroup}>
-            <View style={{ justifyContent: "center" }}>
-              {errors.password && <CustomText style={loginStyles.errorText}>{errors.password.message}</CustomText>}
-
+        <Controller
+          name={"name"}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={loginStyles.formGroup}>
+              {errors.name && (
+                <CustomText style={loginStyles.errorText}>
+                  {errors.name.message}
+                </CustomText>
+              )}
               <TextInput
-                name="password"
-                placeholder={t("password")}
-                onChangeText={(e) => {
-                  setToggleEye(!!e.length)
-                  onChange(e)
-                }}
+                name="name"
+                placeholder={t("name")}
+                onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
-                style={errors.password ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
-                secureTextEntry={securePassword}
+                keyboardType="default"
+                style={
+                  errors.name
+                    ? { ...loginStyles.input, ...loginStyles.errorInput }
+                    : loginStyles.input
+                }
               />
-              <TouchableOpacity
-                style={loginStyles.passwordIcon}
-                onPressIn={() => setSecurePassword(false)}
-                onPressOut={() => setSecurePassword(true)}
-              >
-                {toggleEye && <Eye/>}
-              </TouchableOpacity>
             </View>
-          </View>
-        )} />
+          )}
+        />
+        <Controller
+          name={"email"}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={loginStyles.formGroup}>
+              {errors.email && (
+                <CustomText style={loginStyles.errorText}>
+                  {errors.email.message}
+                </CustomText>
+              )}
+              <TextInput
+                name="email"
+                placeholder={t("email")}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                style={
+                  errors.email
+                    ? { ...loginStyles.input, ...loginStyles.errorInput }
+                    : loginStyles.input
+                }
+              />
+            </View>
+          )}
+        />
+        <Controller
+          name={"password"}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={loginStyles.formGroup}>
+              <View style={{ justifyContent: "center" }}>
+                {errors.password && (
+                  <CustomText style={loginStyles.errorText}>
+                    {errors.password.message}
+                  </CustomText>
+                )}
+
+                <TextInput
+                  name="password"
+                  placeholder={t("password")}
+                  onChangeText={(e) => {
+                    setToggleEye(!!e.length);
+                    onChange(e);
+                  }}
+                  onBlur={onBlur}
+                  value={value}
+                  style={
+                    errors.password
+                      ? { ...loginStyles.input, ...loginStyles.errorInput }
+                      : loginStyles.input
+                  }
+                  secureTextEntry={securePassword}
+                />
+                <TouchableOpacity
+                  style={loginStyles.passwordIcon}
+                  onPressIn={() => setSecurePassword(false)}
+                  onPressOut={() => setSecurePassword(true)}
+                >
+                  {toggleEye && <Eye />}
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+        />
         <TouchableOpacity
           style={loginStyles.button}
           disabled={loading}
           onPress={handleSubmit((values) => register(values))}
         >
-          <CustomText
-            style={{ ...loginStyles.secondaryText, color: "#fff" }}
-          >
-            {loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : t("signup")}
+          <CustomText style={{ ...loginStyles.secondaryText, color: "#fff" }}>
+            {loading ? (
+              <ActivityIndicator size={"small"} color={"#FFFFFF"} />
+            ) : (
+              t("signup")
+            )}
           </CustomText>
         </TouchableOpacity>
-        <View style={{marginTop: RFValue(18)}}>
+        <View style={{ marginTop: RFValue(18) }}>
           <SocialLogin navigation={navigation} />
         </View>
-      </View>
-      <View style={loginStyles.policy}>
-
-        <CustomText style={loginStyles.privacyText}>
-          <Trans
-            t={t}
-            i18nKey={"policy"}
-            components={[<CustomText style={loginStyles.link} onPress={redirectBrowser}/>]}
-          />
-        </CustomText>
-      </View>
-
+        <View style={loginStyles.policy}>
+          <CustomText style={loginStyles.privacyText}>
+            <Trans
+              t={t}
+              i18nKey={"policy"}
+              components={[
+                <CustomText
+                  style={loginStyles.link}
+                  onPress={redirectBrowser}
+                />,
+              ]}
+            />
+          </CustomText>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

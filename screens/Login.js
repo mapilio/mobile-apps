@@ -49,9 +49,12 @@ const Login = ({navigation}) => {
 	}
 
 	return (
-		<SafeAreaView style={[globalStyles.container, loginStyles.container]}>
+		<SafeAreaView style={[globalStyles.container, loginStyles.container, {
+			paddingBottom:0,
+			paddingVertical:0,
+		}]}>
 			      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor={"#fff"} />
-				<ScrollView>
+				<ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
 				<View style={loginStyles.logo}>
 					<MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>
 				</View>
@@ -90,6 +93,7 @@ const Login = ({navigation}) => {
 							}}
 							onBlur={onBlur}
 							value={value}
+							autoCapitalize="none"
 							style={passwordError ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
 							secureTextEntry={securePassword}
 						/>
@@ -121,9 +125,12 @@ const Login = ({navigation}) => {
 				</TouchableOpacity>
 
 				<SocialLogin navigation={navigation}/>
-				</ScrollView>
-
+				<View style={{paddingTop:RFValue(20), marginRight:RFValue(10)}}>
 			<LanguageModal />
+
+				</View>
+
+				</ScrollView>
 		</SafeAreaView>
 	);
 };
