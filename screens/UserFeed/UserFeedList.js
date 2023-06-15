@@ -1,12 +1,23 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, StyleSheet } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
+import { FeedList, UserInfos } from "../../components";
 
-const UserFeedList = () => {
+const UserFeedList = ({ route }) => {
+  const { userDetails } = route.params;
   return (
-    <View>
-      <Text>UserFeedList</Text>
+    <View style={styles.container}>
+      <UserInfos userDetails={userDetails} />
     </View>
-  )
-}
+  );
+};
 
-export default UserFeedList
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: RFValue(20),
+    paddingTop: RFValue(20),
+    backgroundColor: "#fff",
+  },
+});
+
+export default UserFeedList;
