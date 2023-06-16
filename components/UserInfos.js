@@ -8,9 +8,7 @@ import { useTranslation } from "react-i18next";
 import {
   CameraFilledIcon,
   RoadIcon,
-  Profile,
 } from "../assets/svg/illustrations";
-import { RFValue } from "react-native-responsive-fontsize";
 
 const UserInfos = ({ userDetails }) => {
   const { t } = useTranslation("profile");
@@ -44,24 +42,11 @@ const UserInfos = ({ userDetails }) => {
 
   return (
     <View style={userInfoStyles.profileContainer}>
-      {photoURL ? (
         <Image
           style={{ ...userInfoStyles.imageStyle }}
           source={{ uri: photoURL }}
           onLoadEnd={finishLoad}
         />
-      ) : (
-        <View
-          style={{
-            ...userInfoStyles.imageStyle,
-            backgroundColor: "#C2C2C2",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Profile width={RFValue(26)} height={RFValue(26)} fill="#FFFFFF" />
-        </View>
-      )}
 
       {avatarLoading && photoURL && (
         <ActivityIndicator
