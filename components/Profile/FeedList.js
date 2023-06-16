@@ -35,7 +35,7 @@ const EmptyComponent = () => {
   )
 }
 
-const FeedList = () => {
+const FeedList = ({userDetails}) => {
   const {userInformation} = useSelector((state) => state.getTokenReducer);
   const {t} = useTranslation("profile");
   const navigation = useNavigation();
@@ -46,7 +46,8 @@ const FeedList = () => {
   const [gettingData, setGettingData] = useState(false);
 
   const getData = async () => {
-    const url = `/api/user-uploads-v2?options[parameters][user_id]=${userInformation?.id}&options[limit]=10&page=${page}`
+    const userid = userDetails?.id || userInformation?.id
+    const url = `/api/user-uploads-v2?options[parameters][user_id]=${userid}&options[limit]=10&page=${page}`
 
     try {
       const {data, pagination} = await api.get(url, {
@@ -92,8 +93,10 @@ const FeedList = () => {
     return <SkeletonList />
   }
 
-  const pressHandler = (group_key) => {
-    navigation.navigate(Routes.profileSequence, {id: group_key, user_id: userInformation.id});
+  const pressHandler = (group_key, start_address, capture_time) => {
+    const nextURL = userDetails ? Routes.stackUserFeedDetail : Routes.profileSequence;
+    const userID = userDetails?.id || userInformation?.id;
+    navigation.navigate(nextURL, {id: group_key, user_id: userID, start_address, capture_time});
   }
 
   return (
@@ -105,7 +108,7 @@ const FeedList = () => {
         onEndReached={() => !gettingData && nextPage()}
         ListEmptyComponent={() => <EmptyComponent/>}
         ListFooterComponent={() => gettingData && <ActivityIndicator size={"small"}/>}
-        renderItem={({item}) => <ProfileFeed data={item} pressHandle={() => pressHandler(item.group_key)}/>}
+        renderItem={({item}) => <ProfileFeed data={item} pressHandle={() => pressHandler(item.group_key, item.start_address, item.capture_time)}/>}
       />
     </View>
   )
