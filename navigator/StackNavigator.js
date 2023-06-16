@@ -32,9 +32,12 @@ const StackNavigator = ({route}) => {
         <Stack.Screen name={Routes.stackUserFeed} component={UserFeedList} options={{
           headerShown: true,
           title: "Profile",
+          headerBackTitle: "Map",
+          headerLeft: (props) => <BackButton {...props} />,
         }}/>
         <Stack.Screen name={Routes.stackUserFeedDetail} component={UserFeedDetails} options={{
           headerShown: false,
+
         }}/>
       </Stack.Group>
     </Stack.Navigator>
