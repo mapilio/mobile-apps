@@ -80,3 +80,4 @@ export {default as ChargeIcon} from "./ChargeIcon";
 export {default as WarningFilled} from "./WarningFilled"
 export {default as InfoFilled} from "./InfoFilled"
 export {default as MarketplaceSoonIcon} from "./Marketplace/MarketplaceSoonIcon"
+export {default as ToggleOrientation} from "./UserFeed/ToggleOrientation"

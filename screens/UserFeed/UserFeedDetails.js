@@ -49,7 +49,7 @@ const UserFeedDetails = ({ route }) => {
   }, []);
 
   const snapPoints = useMemo(() => {
-    return activeImage ? ["30%"] : ["30%", "80%"];
+    return activeImage ? ["40%"] : ["40%", "80%"];
   }, [activeImage]);
 
   const handleBack = () => {
@@ -69,7 +69,7 @@ const UserFeedDetails = ({ route }) => {
         }}
         onPress={handleBack}
       >
-        <ArrowLeft width={RFValue(16)} height={RFValue(16)} />
+        <ArrowLeft width={RFValue(20)} height={RFValue(20)} />
       </TouchableOpacity>
     );
   };
@@ -126,6 +126,8 @@ const UserFeedDetails = ({ route }) => {
           <ActiveImage
             imgCode={activeImage.img_code}
             filename={activeImage.filename}
+            captureDate={capture_time}
+            sequenceName={start_address}
           />
         )}
 
