@@ -1,10 +1,10 @@
-import { View, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground , TouchableOpacity} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import Config from "react-native-config";
 import { ArrowLeft, ToggleOrientation } from "../../assets/svg/illustrations";
 import { CustomText, CustomTextBold } from "../../highordercomponents";
 import LinearGradient from "react-native-linear-gradient";
-import { dateConvert } from "../../helper/helper";
+import { dateConvert, maxCharacterHandler } from "../../helper/helper";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 
 const ActiveImage = ({
@@ -14,6 +14,7 @@ const ActiveImage = ({
   captureDate,
   totalImages = 34,
   activeImageIndex = 12,
+  changeImage,
 }) => {
   const uri = `${Config.IMAGE_API}/${imgCode}/${filename}/1080`;
 
@@ -21,13 +22,18 @@ const ActiveImage = ({
     <View style={styles.imageWrapper}>
       <ImageBackground
         source={{ uri }}
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor:"#fff" }}
         imageStyle={styles.activeImage}
         resizeMode="cover"
+        progressiveRenderingEnabled
       >
         <LinearGradient
           colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)"]}
           style={styles.gradientBackground}
+        />
+        <LinearGradient
+          colors={["rgba(0,0,0,0.25)","rgba(0,0,0,0)"]}
+          style={styles.gradientBackgroundTop}
         />
 
         <View style={styles.count}>
@@ -44,22 +50,26 @@ const ActiveImage = ({
           />
         </View>
 
-        <View style={[styles.buttonBase, styles.leftButton]}>
+        <TouchableOpacity style={[styles.buttonBase, styles.leftButton]} onPress={()=>{
+          changeImage("prev")
+        }}>
           <ArrowLeft color="white" width={RFValue(15)} height={RFValue(15)} />
-        </View>
+        </TouchableOpacity>
 
-        <View style={[styles.buttonBase, styles.rightButton]}>
+        <TouchableOpacity style={[styles.buttonBase, styles.rightButton]} onPress={()=>{
+          changeImage("next")
+        }}>
           <ArrowLeft color="white" width={RFValue(15)} height={RFValue(15)} />
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.infoArea}>
           <CustomTextBold style={styles.h1}>
-            {sequenceName ? sequenceName : "No Addres"}
+            {sequenceName ? maxCharacterHandler(sequenceName, 30) : "No Address"}
           </CustomTextBold>
           <CustomText style={styles.h2}>
             {dateConvert(captureDate, "MMM DD, YYYY - HH:mm")}
           </CustomText>
-          <LogoWatermark width={60} height={18} />
+          <LogoWatermark width={70} height={21} />
         </View>
       </ImageBackground>
     </View>
@@ -72,7 +82,6 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     zIndex: 3,
-    backgroundColor: "#fff",
   },
   activeImage: {
     height: "100%",
@@ -86,6 +95,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: "100%",
+  },
+  gradientBackgroundTop: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top:0,
+    height: "20%",
   },
   count: {
     width: "100%",

@@ -6,7 +6,7 @@ import { api } from "../../util/helpers/api";
 import Config from "react-native-config";
 import { CustomText, CustomTextBold, MapView } from "../../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
-import { dateConvert } from "../../helper/helper";
+import { dateConvert, maxCharacterHandler } from "../../helper/helper";
 import { setGeoJson } from "../../helper/geojson";
 import { styles as mapStyles } from "../../styles/circleStyles";
 import { bbox } from "@turf/turf";
@@ -14,6 +14,8 @@ import { ArrowLeft } from "../../assets/svg/illustrations";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import ActiveImage from "../../components/UserFeed/ActiveImage";
+import { Heading } from "../../components/Map";
+import {FocusAwareStatusBar} from "../../components";
 
 const UserFeedDetails = ({ route }) => {
   const navigation = useNavigation();
@@ -28,6 +30,7 @@ const UserFeedDetails = ({ route }) => {
 
   const [activeImage, setActiveImage] = useState(null);
   const bottomSheetRef = useRef(null);
+  const cameraRef = useRef(null);
 
   const getData = async () => {
     await api
@@ -40,6 +43,18 @@ const UserFeedDetails = ({ route }) => {
           points: setGeoJson(res.data, "point"),
           lines: setGeoJson(res.data, "line"),
           bbox: bbox(setGeoJson(res.data, "line")),
+          totalPhotos: res.data.length,
+        });
+         cameraRef.current?.setCamera({
+          bounds:{
+            ne: [parseFloat(res.data[0].longitude),parseFloat(res.data[0].latitude)],
+            sw: [parseFloat(res.data[res.data.length - 1].longitude),parseFloat(res.data[res.data.length - 1].latitude)],
+            paddingTop: 100,
+            paddingBottom: 400,
+            paddingLeft: 100,
+            paddingRight: 100,
+          },
+          animationDuration: 300,
         });
       });
   };
@@ -69,30 +84,55 @@ const UserFeedDetails = ({ route }) => {
         }}
         onPress={handleBack}
       >
-        <ArrowLeft width={RFValue(20)} height={RFValue(20)} />
+        <ArrowLeft width={RFValue(18)} height={RFValue(18)} />
       </TouchableOpacity>
     );
   };
 
+  useEffect(() => {
+    if (activeImage) {
+      cameraRef.current.setCamera({
+        centerCoordinate: [parseFloat(activeImage.longitude), parseFloat(activeImage.latitude)],
+        animationDuration: 300,
+      });
+    }
+  }, [activeImage]);
+  
+  const changeImage = (type) => {
+    const index = mapData.sequenceData.findIndex(
+      ({ id }) => id === activeImage.id
+    );
+    const newIndex = type === "next" ? index + 1 : index - 1;
+
+    if (newIndex < 0 || newIndex > mapData.sequenceData.length - 1) return;
+
+    setActiveImage({
+      img_code: mapData.sequenceData[newIndex].img_code,
+      filename: mapData.sequenceData[newIndex].filename,
+      id: mapData.sequenceData[newIndex].id,
+      longitude: mapData.sequenceData[newIndex].longitude,
+      latitude: mapData.sequenceData[newIndex].latitude,
+      heading: mapData.sequenceData[newIndex].heading,
+    });
+  };
+
   return (
     <View style={{ flex: 1 }}>
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
       <BackButton />
-      <MapView style={{ flex: 1 }} isAttributionsEnabled={false} pitchEnabled={false}>
-        {mapData.bbox?.length > 0 && (
-          <Fragment>
-            <MapLibreGL.Camera
-              bounds={{
-                ne: [mapData?.bbox[2], mapData?.bbox[3]],
-                sw: [mapData?.bbox[0], mapData?.bbox[1]],
-                paddingTop: 100,
-                paddingBottom: 300,
-                paddingLeft: 100,
-                paddingRight: 100,
-              }}
-              animationMode={"flyTo"}
-              animationDuration={1000}
+      <MapView
+        style={{ flex: 1 }}
+        isAttributionsEnabled={false}
+        pitchEnabled={false}
+      >
+         <MapLibreGL.Camera
+              ref={cameraRef}
+              animationDuration={500}
             />
-
+            
+        {mapData.bbox.length > 0 && (
+          <Fragment>
+           
             <MapLibreGL.ShapeSource id={"LineShape"} shape={mapData?.lines}>
               <MapLibreGL.LineLayer
                 id="lineLayer"
@@ -106,6 +146,10 @@ const UserFeedDetails = ({ route }) => {
                 setActiveImage({
                   img_code: e.features[0].properties.item.img_code,
                   filename: e.features[0].properties.item.filename,
+                  id: e.features[0].properties.item.id,
+                  longitude: e.features[0].properties.item.longitude,
+                  latitude: e.features[0].properties.item.latitude,
+                  heading: e.features[0].properties.item.heading,
                 });
               }}
             >
@@ -116,11 +160,23 @@ const UserFeedDetails = ({ route }) => {
             </MapLibreGL.ShapeSource>
           </Fragment>
         )}
+          {activeImage && (
+              <Heading
+                coordinates={[
+                  parseFloat(activeImage.longitude),
+                  parseFloat(activeImage.latitude),
+                ]}
+                heading={activeImage.heading}
+                markerPath={require("../../assets/images/heading.png")}
+              />
+            )}
       </MapView>
 
-
-      <BottomSheet snapPoints={snapPoints} index={0} ref={bottomSheetRef}
-        handleStyle={{display:"none"}}
+      <BottomSheet
+        snapPoints={snapPoints}
+        index={0}
+        ref={bottomSheetRef}
+        handleStyle={{ display: "none" }}
       >
         {activeImage && (
           <ActiveImage
@@ -128,19 +184,23 @@ const UserFeedDetails = ({ route }) => {
             filename={activeImage.filename}
             captureDate={capture_time}
             sequenceName={start_address}
+            changeImage={changeImage}
+            totalImages={mapData.sequenceData.length}
+            activeImageIndex={mapData.sequenceData.findIndex(
+              ({ id }) => id === activeImage.id
+            )}
           />
         )}
 
-        <View style={{ zIndex:2, height:RFValue(20) }}>
+        <View style={{ zIndex: 2, height: RFValue(20)}}>
           <View style={styles.indicator} />
         </View>
 
-
         <View style={styles.listWrapper}>
-          <CustomTextBold style={{ color: "#333333", fontSize: RFValue(16) }}>
-            {start_address ? start_address : "No Adress"}
+          <CustomTextBold style={styles.h1} adjustFontSize={false}>
+            {start_address ? maxCharacterHandler(start_address, 30) : "No Adress"}
           </CustomTextBold>
-          <CustomText style={{ color: "#666666", fontSize: RFValue(12) }}>
+          <CustomText style={styles.h2} adjustFontSize={false}>
             {capture_time
               ? dateConvert(capture_time, "MMM DD, YYYY - HH:mm")
               : "No Time"}
@@ -158,6 +218,10 @@ const UserFeedDetails = ({ route }) => {
                   setActiveImage({
                     img_code: item.img_code,
                     filename: item.filename,
+                    id: item.id,
+                    longitude: item.longitude,
+                    latitude: item.latitude,
+                    heading: item.heading,
                   });
                 }}
               >
@@ -223,5 +287,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: RFValue(10),
   },
+  h1:{ color: "#333333", fontSize: RFValue(16) },
+  h2:{ color: "#666666", fontSize: RFValue(12) }
 });
 export default UserFeedDetails;
