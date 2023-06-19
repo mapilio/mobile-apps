@@ -1,4 +1,4 @@
-import { View, StyleSheet, ImageBackground , TouchableOpacity} from "react-native";
+import { View, StyleSheet, ImageBackground , TouchableOpacity, Platform} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import Config from "react-native-config";
 import { ArrowLeft, ToggleOrientation } from "../../assets/svg/illustrations";
@@ -6,8 +6,11 @@ import { CustomText, CustomTextBold } from "../../highordercomponents";
 import LinearGradient from "react-native-linear-gradient";
 import { dateConvert, maxCharacterHandler } from "../../helper/helper";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useEffect } from "react";
+import * as ScreenOrientation from "expo-screen-orientation";
 
-const ActiveImage = ({
+  const ActiveImage = ({
   imgCode,
   filename,
   sequenceName = "Deneme",
@@ -15,9 +18,29 @@ const ActiveImage = ({
   totalImages = 34,
   activeImageIndex = 12,
   changeImage,
+  setModalVisible,
+  isFullScreen
 }) => {
   const uri = `${Config.IMAGE_API}/${imgCode}/${filename}/1080`;
+  const {top} = useSafeAreaInsets();
 
+  useEffect(() => {
+    if (Platform.OS === "android" && isFullScreen) {
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+      );
+    }
+  }, []);
+
+
+  const toggleClose = async()=>{
+    if (isFullScreen && Platform.OS === "android") {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT_UP
+      );
+    }
+    setModalVisible((prev) => !prev);
+  }
   return (
     <View style={styles.imageWrapper}>
       <ImageBackground
@@ -36,19 +59,21 @@ const ActiveImage = ({
           style={styles.gradientBackgroundTop}
         />
 
+        <View style={[{flex:1}, isFullScreen && {marginHorizontal:top}]}>
         <View style={styles.count}>
           <CustomTextBold style={styles.h1}>
             {activeImageIndex + 1}/{totalImages}
           </CustomTextBold>
         </View>
 
-        <View style={[styles.buttonBase, styles.rotateButton]}>
+        <TouchableOpacity style={[styles.buttonBase, styles.rotateButton ]} onPress={toggleClose}>
           <ToggleOrientation
             color="white"
             width={RFValue(20)}
             height={RFValue(20)}
           />
-        </View>
+        </TouchableOpacity>
+        
 
         <TouchableOpacity style={[styles.buttonBase, styles.leftButton]} onPress={()=>{
           changeImage("prev")
@@ -70,6 +95,7 @@ const ActiveImage = ({
             {dateConvert(captureDate, "MMM DD, YYYY - HH:mm")}
           </CustomText>
           <LogoWatermark width={70} height={21} />
+        </View>
         </View>
       </ImageBackground>
     </View>

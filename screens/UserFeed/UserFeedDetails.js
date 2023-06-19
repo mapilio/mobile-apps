@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View,  StyleSheet, Image, TouchableOpacity, Modal, Platform } from "react-native";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
@@ -21,6 +21,7 @@ const UserFeedDetails = ({ route }) => {
   const navigation = useNavigation();
   const { top } = useSafeAreaInsets();
   const { id, user_id, start_address, capture_time } = route.params;
+  const [modalVisible, setModalVisible] = useState(false);
   const [mapData, setMapData] = useState({
     sequenceData: [],
     points: {},
@@ -120,6 +121,30 @@ const UserFeedDetails = ({ route }) => {
     <View style={{ flex: 1 }}>
       <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
       <BackButton />
+      <Modal
+        statusBarTranslucent={Platform.OS === "android"}
+        visible={modalVisible}
+        supportedOrientations={['landscape']}
+        presentationStyle="fullScreen"
+        animationType={ Platform.OS === "ios" ? "slide" : "fade"}
+        >
+       {activeImage && (
+          <ActiveImage
+            imgCode={activeImage.img_code}
+            filename={activeImage.filename}
+            captureDate={capture_time}
+            sequenceName={start_address}
+            changeImage={changeImage}
+            isFullScreen
+            setModalVisible={setModalVisible}
+            modalVisible={modalVisible}
+            totalImages={mapData.sequenceData.length}
+            activeImageIndex={mapData.sequenceData.findIndex(
+              ({ id }) => id === activeImage.id
+            )}
+          />
+        )}
+      </Modal>
       <MapView
         style={{ flex: 1 }}
         isAttributionsEnabled={false}
@@ -132,7 +157,6 @@ const UserFeedDetails = ({ route }) => {
             
         {mapData.bbox.length > 0 && (
           <Fragment>
-           
             <MapLibreGL.ShapeSource id={"LineShape"} shape={mapData?.lines}>
               <MapLibreGL.LineLayer
                 id="lineLayer"
@@ -185,6 +209,8 @@ const UserFeedDetails = ({ route }) => {
             captureDate={capture_time}
             sequenceName={start_address}
             changeImage={changeImage}
+            setModalVisible={setModalVisible} 
+            modalVisible={modalVisible}
             totalImages={mapData.sequenceData.length}
             activeImageIndex={mapData.sequenceData.findIndex(
               ({ id }) => id === activeImage.id
@@ -249,7 +275,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: RFValue(8),
     borderRadius: RFValue(20),
-    left: 20,
+    left: RFValue(20),
     zIndex: 2,
   },
   activeImageWrapper: {
