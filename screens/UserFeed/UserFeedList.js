@@ -1,13 +1,47 @@
 import { View, StyleSheet } from "react-native";
-import { FeedList, UserInfos, FocusAwareStatusBar } from "../../components";
+import {
+  FeedList,
+  UserInfos,
+  FocusAwareStatusBar,
+  Loading,
+} from "../../components";
+import { api } from "../../util/helpers/api";
+import { useState, useEffect } from "react";
 
 const UserFeedList = ({ route }) => {
-  const { userDetails } = route.params;
+  const { userID } = route.params;
+  const [userDetails, setUserDetails] = useState(null);
+
+  const getUserDetails = () => {
+    api
+      .get(`/api/search-user?options[parameters][id]=${userID}`)
+      .then((res) => {
+        if (res.data && Object.keys(res.data).length > 0) {
+          setUserDetails(res.data[0]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setUserDetails(null);
+      });
+  };
+
+  useEffect(() => {
+    getUserDetails();
+  }, [userID]);
+
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <UserInfos userDetails={userDetails} />
-      <FeedList userDetails={userDetails} />
+      {userDetails ? (
+        <View style={styles.container}>
+          <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#fff" />
+          <UserInfos userDetails={userDetails} />
+          <FeedList userDetails={userDetails} />
+        </View>
+      ) : (
+        <Loading  />
+      )}
     </View>
   );
 };

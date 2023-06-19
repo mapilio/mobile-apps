@@ -135,7 +135,7 @@ const Pano = ({ pointInformation, hidePano }) => {
         <View style={panoStyle.capturer}>
           <TouchableOpacity onPress={()=>{
                navigation.navigate(Routes.stackNavigator, { screen: Routes.stackUserFeed, params:{
-                userDetails: userDetails,
+                userID: userDetails && userDetails.id,
                }});
           }}>
           <Text style={panoStyle.capturer.name}>{userDetails && userDetails.username}</Text>

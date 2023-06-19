@@ -29,7 +29,7 @@ const UserInfos = ({ userDetails }) => {
       </View>
     );
   };
-  if (!userInformation) return null;
+  if (!userInformation && !userDetails) return null;
 
   const username = userDetails
     ? userDetails.username
