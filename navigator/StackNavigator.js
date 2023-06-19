@@ -33,6 +33,7 @@ const StackNavigator = ({route}) => {
           headerShown: true,
           title: "Profile",
           headerBackTitle: "Map",
+          headerTitleAlign: "center",
           headerLeft: (props) => <BackButton {...props} />,
         }}/>
         <Stack.Screen name={Routes.stackUserFeedDetail} component={UserFeedDetails} options={{
