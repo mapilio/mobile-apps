@@ -1,10 +1,11 @@
 import { View, StyleSheet } from "react-native";
-import { FeedList, UserInfos } from "../../components";
+import { FeedList, UserInfos, FocusAwareStatusBar } from "../../components";
 
 const UserFeedList = ({ route }) => {
   const { userDetails } = route.params;
   return (
     <View style={styles.container}>
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#fff" />
       <UserInfos userDetails={userDetails} />
       <FeedList userDetails={userDetails} />
     </View>
