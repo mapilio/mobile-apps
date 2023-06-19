@@ -15,17 +15,18 @@ import * as ScreenOrientation from "expo-screen-orientation";
   filename,
   sequenceName = "Deneme",
   captureDate,
-  totalImages = 34,
-  activeImageIndex = 12,
+  totalImages,
+  activeImageIndex,
   changeImage,
   setModalVisible,
   isFullScreen
 }) => {
   const uri = `${Config.IMAGE_API}/${imgCode}/${filename}/1080`;
   const {top} = useSafeAreaInsets();
+  const isAndroid = Platform.OS === "android";
 
   useEffect(() => {
-    if (Platform.OS === "android" && isFullScreen) {
+    if (isAndroid && isFullScreen) {
       ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
       );
@@ -34,7 +35,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
 
 
   const toggleClose = async()=>{
-    if (isFullScreen && Platform.OS === "android") {
+    if (isAndroid && isFullScreen) {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
@@ -66,7 +67,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
           </CustomTextBold>
         </View>
 
-        <TouchableOpacity style={[styles.buttonBase, styles.rotateButton ]} onPress={toggleClose}>
+        <TouchableOpacity style={[styles.buttonBase, styles.rotateButton, isFullScreen && isAndroid && {top}]} onPress={toggleClose}>
           <ToggleOrientation
             color="white"
             width={RFValue(20)}
