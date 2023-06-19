@@ -3,11 +3,12 @@ import { RFValue } from "react-native-responsive-fontsize";
 import Config from "react-native-config";
 import { ArrowLeft, ToggleOrientation } from "../../assets/svg/illustrations";
 import { CustomText, CustomTextBold } from "../../highordercomponents";
+import Loading from "../Loading"
 import LinearGradient from "react-native-linear-gradient";
 import { dateConvert, maxCharacterHandler } from "../../helper/helper";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as ScreenOrientation from "expo-screen-orientation";
 
   const ActiveImage = ({
@@ -24,6 +25,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
   const uri = `${Config.IMAGE_API}/${imgCode}/${filename}/1080`;
   const {top} = useSafeAreaInsets();
   const isAndroid = Platform.OS === "android";
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (isAndroid && isFullScreen) {
@@ -46,57 +48,79 @@ import * as ScreenOrientation from "expo-screen-orientation";
     <View style={styles.imageWrapper}>
       <ImageBackground
         source={{ uri }}
-        style={{ flex: 1, backgroundColor:"#fff" }}
+        style={{ flex: 1, backgroundColor: "#fff" }}
         imageStyle={styles.activeImage}
         resizeMode="cover"
         progressiveRenderingEnabled
+        onLoadEnd={() => {
+          setLoading(false);
+        }}
       >
+        {loading && (
+          <View style={{ position: "absolute", width: "100%", height: "100%" }}>
+            <Loading />
+          </View>
+        )}
         <LinearGradient
           colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)"]}
           style={styles.gradientBackground}
         />
         <LinearGradient
-          colors={["rgba(0,0,0,0.25)","rgba(0,0,0,0)"]}
+          colors={["rgba(0,0,0,0.25)", "rgba(0,0,0,0)"]}
           style={styles.gradientBackgroundTop}
         />
 
-        <View style={[{flex:1}, isFullScreen && {marginHorizontal:top}]}>
-        <View style={styles.count}>
-          <CustomTextBold style={styles.h1}>
-            {activeImageIndex + 1}/{totalImages}
-          </CustomTextBold>
-        </View>
+        <View style={[{ flex: 1 }, isFullScreen && { marginHorizontal: top }]}>
+          <View style={styles.count}>
+            <CustomTextBold style={styles.h1}>
+              {activeImageIndex + 1}/{totalImages}
+            </CustomTextBold>
+          </View>
 
-        <TouchableOpacity style={[styles.buttonBase, styles.rotateButton, isFullScreen && isAndroid && {top}]} onPress={toggleClose}>
-          <ToggleOrientation
-            color="white"
-            width={RFValue(20)}
-            height={RFValue(20)}
-          />
-        </TouchableOpacity>
-        
+          <TouchableOpacity
+            style={[
+              styles.buttonBase,
+              styles.rotateButton,
+              isFullScreen && isAndroid && { top },
+            ]}
+            onPress={toggleClose}
+          >
+            <ToggleOrientation
+              color="white"
+              width={RFValue(20)}
+              height={RFValue(20)}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.buttonBase, styles.leftButton]} onPress={()=>{
-          changeImage("prev")
-        }}>
-          <ArrowLeft color="white" width={RFValue(15)} height={RFValue(15)} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.buttonBase, styles.leftButton]}
+            onPress={() => {
+              changeImage("prev");
+            }}
+          >
+            <ArrowLeft color="white" width={RFValue(15)} height={RFValue(15)} />
+          </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.buttonBase, styles.rightButton]} onPress={()=>{
-          changeImage("next")
-        }}>
-          <ArrowLeft color="white" width={RFValue(15)} height={RFValue(15)} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.buttonBase, styles.rightButton]}
+            onPress={() => {
+              changeImage("next");
+            }}
+          >
+            <ArrowLeft color="white" width={RFValue(15)} height={RFValue(15)} />
+          </TouchableOpacity>
 
-        <View style={styles.infoArea}>
-          <CustomTextBold style={styles.h1}>
-            {sequenceName ? maxCharacterHandler(sequenceName, 30) : "No Address"}
-          </CustomTextBold>
-          <CustomText style={styles.h2}>
-            {dateConvert(captureDate, "MMM DD, YYYY - HH:mm")}
-          </CustomText>
-          <LogoWatermark width={70} height={21} />
-        </View>
+          <View style={styles.infoArea}>
+            <CustomTextBold style={styles.h1}>
+              {sequenceName
+                ? maxCharacterHandler(sequenceName, 30)
+                : "No Address"}
+            </CustomTextBold>
+            <CustomText style={styles.h2}>
+              {dateConvert(captureDate, "MMM DD, YYYY - HH:mm")}
+            </CustomText>
+            <LogoWatermark width={70} height={21} />
+          </View>
         </View>
       </ImageBackground>
     </View>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, Image, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { CustomText, CustomTextBold } from "../highordercomponents";
 import { userInfoStyles } from "../styles/userProfileStyle";
 import { maxCharacterHandler, thousandFormatter } from "../helper/helper";
@@ -9,6 +9,7 @@ import {
   CameraFilledIcon,
   RoadIcon,
 } from "../assets/svg/illustrations";
+import Loading from "./Loading";
 
 const UserInfos = ({ userDetails }) => {
   const { t } = useTranslation("profile");
@@ -49,10 +50,7 @@ const UserInfos = ({ userDetails }) => {
         />
 
       {avatarLoading && photoURL && (
-        <ActivityIndicator
-          color={"#AFAFAF"}
-          style={userInfoStyles.indicatorStyle}
-        />
+        <View style={userInfoStyles.indicatorStyle}><Loading  /></View>
       )}
 
       <View style={userInfoStyles.infoContainer}>
