@@ -66,6 +66,7 @@ export const userFeedStyles = StyleSheet.create({
     position: "absolute",
     right: RFValue(10),
     bottom: RFValue(60),
+    zIndex: 10,
     justifyContent: "center",
     alignItems: "center",
     text:{
