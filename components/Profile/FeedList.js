@@ -104,6 +104,8 @@ const FeedList = ({userDetails}) => {
       <FlatList
         data={data}
         style={styles.list}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
         automaticallyAdjustsScrollIndicatorInsets={false}
         onEndReached={() => !gettingData && nextPage()}
         ListEmptyComponent={() => <EmptyComponent/>}
