@@ -32,7 +32,11 @@ const UserFeedList = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#fff" />
+       <FocusAwareStatusBar
+        translucent={true}
+        barStyle="dark-content"
+        backgroundColor={"transparent"}
+      />
       {userDetails ? (
         <View style={styles.container}>
           <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#fff" />

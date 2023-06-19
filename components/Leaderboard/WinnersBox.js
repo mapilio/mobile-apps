@@ -1,11 +1,14 @@
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { CustomTextBold, CustomText } from "../../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import { maxCharacterHandler } from "../../helper/helper";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
+import { Routes } from "../../navigator/Routes";
 
 const WinnersBox = ({ winners }) => {
   const { t } = useTranslation("leaderboard");
+  const navigation = useNavigation();
   const Badge = ({ rankIndex }) => {
     const RankBadges = [
       require("../../assets/images/goldMedal.png"),
@@ -47,14 +50,18 @@ const WinnersBox = ({ winners }) => {
               marginHorizontal: index === 1 ? RFValue(20) : 0,
             }}
           >
-            <View>
+            <TouchableOpacity onPress={()=>{
+             navigation.navigate(Routes.stackNavigator, { screen: Routes.stackUserFeed, params:{
+              userID: winner.id,
+             }});
+          }}>
               <Image
                 source={{ uri: winner.user_profile_photo }}
                 style={styles.photo}
                 resizeMethod="resize"
               />
               <Badge rankIndex={winner.rank} />
-            </View>
+            </TouchableOpacity>
             <CustomText style={{ color: "#191919", fontSize: 14 }}>
               {maxCharacterHandler(winner.display_name, 10)}
             </CustomText>
