@@ -22,12 +22,11 @@ const UserProfile = () => {
         ...globalStyles.container,
         paddingBottom: 0,
         paddingHorizontal: RFValue(6),
-        paddingTop: RFValue(34),
+        paddingTop: 0,
       }}
     >
       <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <UserInfos />
-      <View style={{ height: RFValue(20) }} />
       <FeedList />
     </View>
   );

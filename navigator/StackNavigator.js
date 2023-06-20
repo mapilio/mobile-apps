@@ -5,9 +5,11 @@ import {Award, HowToScore, WelcomeWalkthrough} from "../screens";
 import {UserFeedList, UserFeedDetails} from "../screens/UserFeed";
 import {BackButton} from "../components";
 import {StyleSheet} from "react-native";
+import { useTranslation } from "react-i18next";
 
 const Stack = createStackNavigator();
 const StackNavigator = ({route}) => {
+  const {t} = useTranslation("navigation")
 
   const options = {
     headerShown: true,
@@ -31,7 +33,7 @@ const StackNavigator = ({route}) => {
       <Stack.Group>
         <Stack.Screen name={Routes.stackUserFeed} component={UserFeedList} options={{
           headerShown: true,
-          title: "Profile",
+          title: t("profile"),
           headerBackTitle: "Map",
           headerTitleAlign: "center",
           headerLeft: (props) => <BackButton {...props} />,
