@@ -1,4 +1,11 @@
-import { View,  StyleSheet, Image, TouchableOpacity, Modal, Platform } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Modal,
+  Platform,
+} from "react-native";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
@@ -15,7 +22,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import ActiveImage from "../../components/UserFeed/ActiveImage";
 import { Heading } from "../../components/Map";
-import {FocusAwareStatusBar} from "../../components";
+import { FocusAwareStatusBar } from "../../components";
+import Toast from "react-native-toast-notifications";
+import { ToastMessage } from "../../components";
 
 const UserFeedDetails = ({ route }) => {
   const navigation = useNavigation();
@@ -32,6 +41,7 @@ const UserFeedDetails = ({ route }) => {
   const [activeImage, setActiveImage] = useState(null);
   const bottomSheetRef = useRef(null);
   const cameraRef = useRef(null);
+  const toastRef = useRef(null);
 
   const getData = async () => {
     await api
@@ -46,10 +56,16 @@ const UserFeedDetails = ({ route }) => {
           bbox: bbox(setGeoJson(res.data, "line")),
           totalPhotos: res.data.length,
         });
-         cameraRef.current?.setCamera({
-          bounds:{
-            ne: [parseFloat(res.data[0].longitude),parseFloat(res.data[0].latitude)],
-            sw: [parseFloat(res.data[res.data.length - 1].longitude),parseFloat(res.data[res.data.length - 1].latitude)],
+        cameraRef.current?.setCamera({
+          bounds: {
+            ne: [
+              parseFloat(res.data[0].longitude),
+              parseFloat(res.data[0].latitude),
+            ],
+            sw: [
+              parseFloat(res.data[res.data.length - 1].longitude),
+              parseFloat(res.data[res.data.length - 1].latitude),
+            ],
             paddingTop: 100,
             paddingBottom: 400,
             paddingLeft: 100,
@@ -93,12 +109,15 @@ const UserFeedDetails = ({ route }) => {
   useEffect(() => {
     if (activeImage) {
       cameraRef.current.setCamera({
-        centerCoordinate: [parseFloat(activeImage.longitude), parseFloat(activeImage.latitude)],
+        centerCoordinate: [
+          parseFloat(activeImage.longitude),
+          parseFloat(activeImage.latitude),
+        ],
         animationDuration: 300,
       });
     }
   }, [activeImage]);
-  
+
   const changeImage = (type) => {
     const index = mapData.sequenceData.findIndex(
       ({ id }) => id === activeImage.id
@@ -117,25 +136,43 @@ const UserFeedDetails = ({ route }) => {
     });
   };
 
+  const hideToast = () => toastRef.current?.hideAll();
+  const showToast = (message, options) =>
+    toastRef.current?.show(message, options);
+
   return (
     <View style={{ flex: 1 }}>
-      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+      <FocusAwareStatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <BackButton />
       <Modal
         statusBarTranslucent={Platform.OS === "android"}
         visible={modalVisible}
-        supportedOrientations={['landscape']}
+        supportedOrientations={["landscape"]}
         presentationStyle="fullScreen"
-        animationType={ Platform.OS === "ios" ? "slide" : "fade"}
-        >
-       {activeImage && (
+        animationType={Platform.OS === "ios" ? "slide" : "fade"}
+      >
+        <Toast
+          ref={toastRef}
+          renderToast={(options) => <ToastMessage options={options} />}
+          placement="top"
+          swipeEnabled={true}
+          duration={3000}
+        />
+        {activeImage && (
           <ActiveImage
             imgCode={activeImage.img_code}
             filename={activeImage.filename}
             captureDate={capture_time}
             sequenceName={start_address}
             changeImage={changeImage}
+            imageID={activeImage.id}
             isFullScreen
+            showToast={showToast}
+            hideToast={hideToast}
             setModalVisible={setModalVisible}
             modalVisible={modalVisible}
             totalImages={mapData.sequenceData.length}
@@ -150,11 +187,7 @@ const UserFeedDetails = ({ route }) => {
         isAttributionsEnabled={false}
         pitchEnabled={false}
       >
-         <MapLibreGL.Camera
-              ref={cameraRef}
-              animationDuration={500}
-            />
-            
+        <MapLibreGL.Camera ref={cameraRef} animationDuration={500} />
         {mapData.bbox.length > 0 && (
           <Fragment>
             <MapLibreGL.ShapeSource id={"LineShape"} shape={mapData?.lines}>
@@ -184,16 +217,16 @@ const UserFeedDetails = ({ route }) => {
             </MapLibreGL.ShapeSource>
           </Fragment>
         )}
-          {activeImage && (
-              <Heading
-                coordinates={[
-                  parseFloat(activeImage.longitude),
-                  parseFloat(activeImage.latitude),
-                ]}
-                heading={activeImage.heading}
-                markerPath={require("../../assets/images/heading.png")}
-              />
-            )}
+        {activeImage && (
+          <Heading
+            coordinates={[
+              parseFloat(activeImage.longitude),
+              parseFloat(activeImage.latitude),
+            ]}
+            heading={activeImage.heading}
+            markerPath={require("../../assets/images/heading.png")}
+          />
+        )}
       </MapView>
 
       <BottomSheet
@@ -209,7 +242,8 @@ const UserFeedDetails = ({ route }) => {
             captureDate={capture_time}
             sequenceName={start_address}
             changeImage={changeImage}
-            setModalVisible={setModalVisible} 
+            setModalVisible={setModalVisible}
+            imageID={activeImage.id}
             modalVisible={modalVisible}
             totalImages={mapData.sequenceData.length}
             activeImageIndex={mapData.sequenceData.findIndex(
@@ -218,13 +252,15 @@ const UserFeedDetails = ({ route }) => {
           />
         )}
 
-        <View style={{ zIndex: 2, height: RFValue(20)}}>
+        <View style={{ zIndex: 2, height: RFValue(20) }}>
           <View style={styles.indicator} />
         </View>
 
         <View style={styles.listWrapper}>
           <CustomTextBold style={styles.h1} adjustFontSize={false}>
-            {start_address ? maxCharacterHandler(start_address, 30) : "No Adress"}
+            {start_address
+              ? maxCharacterHandler(start_address, 30)
+              : "No Adress"}
           </CustomTextBold>
           <CustomText style={styles.h2} adjustFontSize={false}>
             {capture_time
@@ -234,6 +270,8 @@ const UserFeedDetails = ({ route }) => {
           <BottomSheetFlatList
             data={mapData.sequenceData}
             numColumns={3}
+            initialNumToRender={10}
+            maxToRenderPerBatch={10}
             keyExtractor={(item) => item.id}
             style={styles.listContent}
             renderItem={({ item }) => (
@@ -313,7 +351,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: RFValue(10),
   },
-  h1:{ color: "#333333", fontSize: RFValue(16) },
-  h2:{ color: "#666666", fontSize: RFValue(12) }
+  h1: { color: "#333333", fontSize: RFValue(16) },
+  h2: { color: "#666666", fontSize: RFValue(12) },
 });
 export default UserFeedDetails;

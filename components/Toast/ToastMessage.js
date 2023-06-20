@@ -12,7 +12,7 @@ import {
 } from "../../assets/svg/illustrations";
 import { vibrate } from "../../util/helpers";
 
-const ToastMessage = ({ options: { id, type, message } }) => {
+const ToastMessage = ({ options: { id, type, message, hideToast } }) => {
 
   const { top } = useSafeAreaInsets();
   const icons = {
@@ -23,7 +23,13 @@ const ToastMessage = ({ options: { id, type, message } }) => {
     loading: <ActivityIndicator size={"small"} color="white" />,
   };
 
-  const handleClose = () => toast.hide(id);
+  const handleClose = () => {
+    if(hideToast){
+      hideToast();
+    }else{
+      toast.hide(id);
+    }
+  }
 
   useEffect(() => {
     vibrate(type);

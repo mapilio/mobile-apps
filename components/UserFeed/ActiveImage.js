@@ -8,8 +8,12 @@ import LinearGradient from "react-native-linear-gradient";
 import { dateConvert, maxCharacterHandler } from "../../helper/helper";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import * as ScreenOrientation from "expo-screen-orientation";
+import ReportIcon from "../../assets/svg/illustrations/ReportIcon";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useTranslation } from "react-i18next";
+import { api } from "../../util/helpers/api";
 
   const ActiveImage = ({
   imgCode,
@@ -17,6 +21,9 @@ import * as ScreenOrientation from "expo-screen-orientation";
   sequenceName = "Deneme",
   captureDate,
   totalImages,
+  pointID,
+  showToast,
+  hideToast,
   activeImageIndex,
   changeImage,
   setModalVisible,
@@ -26,6 +33,8 @@ import * as ScreenOrientation from "expo-screen-orientation";
   const {top} = useSafeAreaInsets();
   const isAndroid = Platform.OS === "android";
   const [loading, setLoading] = useState(true);
+  const { showActionSheetWithOptions } = useActionSheet();
+  const { t } = useTranslation("report", { nsMode: "fallback" });
 
   useEffect(() => {
     if (isAndroid && isFullScreen) {
@@ -35,8 +44,60 @@ import * as ScreenOrientation from "expo-screen-orientation";
     }
   }, []);
 
+  const report = (reason) => {
+    api
+      .post("/api/image-report", {
+        options: {
+          parameters: {
+            imagery_id: pointID,
+            message: reason,
+          },
+        },
+      })
+      .then(() => {
+        isFullScreen ? showToast(t("report_success"), { type: "success", hideToast }) : toast.show(t("report_success"), { type: "success" });
+      })
+      .catch(() => {
+        isFullScreen ? showToast(t("report_error"), { type: "error", hideToast }) : toast.show(t("report_error"), { type: "error" });
+      });
+  };
 
-  const toggleClose = async()=>{
+  const reportImage = () => {
+    showActionSheetWithOptions(
+      {
+        options: [
+          t("cancel"),
+          t("privacy_violation"),
+          t("inappropriate_content"),
+          t("low_quality"),
+          t("other"),
+        ],
+        cancelButtonIndex: 0,
+        useModal: true,
+        showSeparators: true,
+      },
+      (buttonIndex) => {
+        switch (buttonIndex) {
+          case 1:
+            report("Privacy Violation");
+            break;
+          case 2:
+            report("Inappropriate Content");
+            break;
+          case 3:
+            report("Low Quality");
+            break;
+          case 4:
+            report("Other");
+            break;
+          default:
+            break;
+        }
+      }
+    );
+  };
+
+  const toggleFullScreen = async()=>{
     if (isAndroid && isFullScreen) {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
@@ -83,7 +144,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
               styles.rotateButton,
               isFullScreen && isAndroid && { top },
             ]}
-            onPress={toggleClose}
+            onPress={toggleFullScreen}
           >
             <ToggleOrientation
               color="white"
@@ -121,6 +182,9 @@ import * as ScreenOrientation from "expo-screen-orientation";
             </CustomText>
             <LogoWatermark width={70} height={21} />
           </View>
+          <TouchableOpacity style={styles.report} onPress={reportImage}>
+            <ReportIcon width={RFValue(16)} height={RFValue(16)} />
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
@@ -134,6 +198,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 3,
   },
+  report:{
+    position:"absolute",
+    bottom:RFValue(20),
+    right:RFValue(20),
+    flexDirection:"row",
+    alignItems:"center"
+  },  
   activeImage: {
     height: "100%",
     width: "auto",
