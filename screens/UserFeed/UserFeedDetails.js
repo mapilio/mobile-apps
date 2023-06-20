@@ -25,10 +25,12 @@ import { Heading } from "../../components/Map";
 import { FocusAwareStatusBar } from "../../components";
 import Toast from "react-native-toast-notifications";
 import { ToastMessage } from "../../components";
+import { useTranslation } from "react-i18next";
 
 const UserFeedDetails = ({ route }) => {
   const navigation = useNavigation();
   const { top } = useSafeAreaInsets();
+  const {t} = useTranslation("profile");
   const { id, user_id, start_address, capture_time } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [mapData, setMapData] = useState({
@@ -260,12 +262,12 @@ const UserFeedDetails = ({ route }) => {
           <CustomTextBold style={styles.h1} adjustFontSize={false}>
             {start_address
               ? maxCharacterHandler(start_address, 30)
-              : "No Adress"}
+              : t("no_address")}
           </CustomTextBold>
           <CustomText style={styles.h2} adjustFontSize={false}>
             {capture_time
               ? dateConvert(capture_time, "MMM DD, YYYY - HH:mm")
-              : "No Time"}
+              : null}
           </CustomText>
           <BottomSheetFlatList
             data={mapData.sequenceData}

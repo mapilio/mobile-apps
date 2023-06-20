@@ -7,10 +7,12 @@ import {
 } from "../../components";
 import { api } from "../../util/helpers/api";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const UserFeedList = ({ route }) => {
   const { userID } = route.params;
   const [userDetails, setUserDetails] = useState(null);
+  const { t } = useTranslation("profile");
 
   const getUserDetails = () => {
     api
@@ -20,8 +22,10 @@ const UserFeedList = ({ route }) => {
           setUserDetails(res.data[0]);
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        toast.show(t("fetch_error"), {
+          type: "error",
+        });
         setUserDetails(null);
       });
   };
