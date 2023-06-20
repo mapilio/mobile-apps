@@ -1,7 +1,6 @@
 import {
   View,
   StyleSheet,
-  Image,
   TouchableOpacity,
   Modal,
   Platform,
@@ -10,7 +9,6 @@ import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { api } from "../../util/helpers/api";
-import Config from "react-native-config";
 import { CustomText, CustomTextBold, MapView } from "../../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import { dateConvert, maxCharacterHandler } from "../../helper/helper";
@@ -26,6 +24,7 @@ import { FocusAwareStatusBar } from "../../components";
 import Toast from "react-native-toast-notifications";
 import { ToastMessage } from "../../components";
 import { useTranslation } from "react-i18next";
+import ListImage from "../../components/UserFeed/ListImage";
 
 const UserFeedDetails = ({ route }) => {
   const navigation = useNavigation();
@@ -142,6 +141,19 @@ const UserFeedDetails = ({ route }) => {
   const hideToast = () => toastRef.current?.hideAll();
   const showToast = (message, options) =>
     toastRef.current?.show(message, options);
+  
+  const onImagePress = (item) => {
+    bottomSheetRef.current?.snapToIndex(0);
+    setActiveImage({
+      img_code: item.img_code,
+      filename: item.filename,
+      id: item.id,
+      longitude: item.longitude,
+      latitude: item.latitude,
+      heading: item.heading,
+      capture_time: item.capture_time,
+    });
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -280,31 +292,7 @@ const UserFeedDetails = ({ route }) => {
             maxToRenderPerBatch={10}
             keyExtractor={(item) => item.id}
             style={styles.listContent}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.listItem}
-                onPress={() => {
-                  bottomSheetRef.current.snapToIndex(0);
-                  setActiveImage({
-                    img_code: item.img_code,
-                    filename: item.filename,
-                    id: item.id,
-                    longitude: item.longitude,
-                    latitude: item.latitude,
-                    heading: item.heading,
-                    capture_time: item.capture_time,
-                  });
-                }}
-              >
-                <Image
-                  source={{
-                    uri: `${Config.IMAGE_API}/${item.img_code}/${item.filename}`,
-                  }}
-                  style={styles.listImage}
-                  resizeMode="cover"
-                />
-              </TouchableOpacity>
-            )}
+            renderItem={({ item }) => (<ListImage item={item} onPress={onImagePress} /> )}
           />
         </View>
       </BottomSheet>
@@ -339,16 +327,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: RFValue(10),
     paddingRight: RFValue(10),
-  },
-  listItem: {
-    flex: 1,
-    height: RFValue(75),
-    margin: RFValue(2),
-  },
-  listImage: {
-    height: "100%",
-    width: "auto",
-    borderRadius: RFValue(5),
   },
   indicator: {
     width: RFValue(40),

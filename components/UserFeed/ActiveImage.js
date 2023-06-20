@@ -109,7 +109,7 @@ import { api } from "../../util/helpers/api";
     <View style={styles.imageWrapper}>
       <ImageBackground
         source={{ uri }}
-        style={{ flex: 1, backgroundColor: "#fff" }}
+        style={{ flex: 1, backgroundColor: "#fff", borderRadius:RFValue(10) }}
         imageStyle={styles.activeImage}
         resizeMode="cover"
         progressiveRenderingEnabled
