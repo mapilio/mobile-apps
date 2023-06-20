@@ -180,10 +180,10 @@ import { api } from "../../util/helpers/api";
             <CustomText style={styles.h2}>
               {dateConvert(captureDate, "MMM DD, YYYY - HH:mm")}
             </CustomText>
-            <LogoWatermark width={70} height={21} />
+            <LogoWatermark width={80} height={25} />
           </View>
           <TouchableOpacity style={styles.report} onPress={reportImage}>
-            <ReportIcon width={RFValue(16)} height={RFValue(16)} />
+            <ReportIcon width={RFValue(17)} height={RFValue(17)} />
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     zIndex: 3,
+    borderRadius: RFValue(20),
   },
   report:{
     position:"absolute",
@@ -205,6 +206,7 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     alignItems:"center"
   },  
+  reportText:{color:"#D8D8D8", paddingLeft:RFValue(5), textDecorationLine: 'underline'},
   activeImage: {
     height: "100%",
     width: "auto",
@@ -217,6 +219,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: "100%",
+    borderRadius:RFValue(10),
   },
   gradientBackgroundTop: {
     position: "absolute",
@@ -224,6 +227,7 @@ const styles = StyleSheet.create({
     right: 0,
     top:0,
     height: "20%",
+    borderRadius:RFValue(10)
   },
   count: {
     width: "100%",
