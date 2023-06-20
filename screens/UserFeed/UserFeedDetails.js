@@ -274,6 +274,8 @@ const UserFeedDetails = ({ route }) => {
           <BottomSheetFlatList
             data={mapData.sequenceData}
             numColumns={3}
+            disableIntervalMomentum={true}
+            pagingEnabled={true}
             initialNumToRender={10}
             maxToRenderPerBatch={10}
             keyExtractor={(item) => item.id}
