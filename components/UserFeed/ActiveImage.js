@@ -34,7 +34,7 @@ import { api } from "../../util/helpers/api";
   const isAndroid = Platform.OS === "android";
   const [loading, setLoading] = useState(true);
   const { showActionSheetWithOptions } = useActionSheet();
-  const { t } = useTranslation("report", { nsMode: "fallback" });
+  const { t } = useTranslation(["report", "profile"], { nsMode: "fallback" });
 
   useEffect(() => {
     if (isAndroid && isFullScreen) {
@@ -175,7 +175,7 @@ import { api } from "../../util/helpers/api";
             <CustomTextBold style={styles.h1}>
               {sequenceName
                 ? maxCharacterHandler(sequenceName, 30)
-                : "No Address"}
+                : t("no_address")}
             </CustomTextBold>
             <CustomText style={styles.h2}>
               {dateConvert(captureDate, "MMM DD, YYYY - HH:mm")}

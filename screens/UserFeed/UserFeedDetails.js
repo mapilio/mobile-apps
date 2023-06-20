@@ -135,6 +135,7 @@ const UserFeedDetails = ({ route }) => {
       longitude: mapData.sequenceData[newIndex].longitude,
       latitude: mapData.sequenceData[newIndex].latitude,
       heading: mapData.sequenceData[newIndex].heading,
+      capture_time: mapData.sequenceData[newIndex].capture_time,
     });
   };
 
@@ -168,7 +169,7 @@ const UserFeedDetails = ({ route }) => {
           <ActiveImage
             imgCode={activeImage.img_code}
             filename={activeImage.filename}
-            captureDate={capture_time}
+            captureDate={activeImage.capture_time}
             sequenceName={start_address}
             changeImage={changeImage}
             imageID={activeImage.id}
@@ -209,6 +210,7 @@ const UserFeedDetails = ({ route }) => {
                   longitude: e.features[0].properties.item.longitude,
                   latitude: e.features[0].properties.item.latitude,
                   heading: e.features[0].properties.item.heading,
+                  capture_time: e.features[0].properties.item.capture_time,
                 });
               }}
             >
@@ -241,7 +243,7 @@ const UserFeedDetails = ({ route }) => {
           <ActiveImage
             imgCode={activeImage.img_code}
             filename={activeImage.filename}
-            captureDate={capture_time}
+            captureDate={activeImage.capture_time}
             sequenceName={start_address}
             changeImage={changeImage}
             setModalVisible={setModalVisible}
@@ -288,6 +290,7 @@ const UserFeedDetails = ({ route }) => {
                     longitude: item.longitude,
                     latitude: item.latitude,
                     heading: item.heading,
+                    capture_time: item.capture_time,
                   });
                 }}
               >
