@@ -1,67 +1,78 @@
-import React, {useState} from "react";
-import {ActivityIndicator, Image, Text, View} from "react-native";
-import {CustomText, CustomTextBold} from "../highordercomponents";
-import {userInfoStyles} from "../styles/userProfileStyle";
-import {maxCharacterHandler, thousandFormatter} from "../helper/helper";
-import {useSelector} from "react-redux";
-import {useTranslation} from "react-i18next";
-import {CameraFilledIcon, RoadIcon} from "../assets/svg/illustrations";
+import { useState } from "react";
+import { Image, Text, View } from "react-native";
+import { CustomText, CustomTextBold } from "../highordercomponents";
+import { userInfoStyles } from "../styles/userProfileStyle";
+import { maxCharacterHandler, thousandFormatter } from "../helper/helper";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import {
+  CameraFilledIcon,
+  RoadIcon,
+} from "../assets/svg/illustrations";
+import Loading from "./Loading";
 
-const UserInfos = () => {
-  const {t} = useTranslation("profile");
-  const {userInformation} = useSelector((state) => state.getTokenReducer);
+const UserInfos = ({ userDetails }) => {
+  const { t } = useTranslation("profile");
+  const { userInformation } = useSelector((state) => state.getTokenReducer);
   const [avatarLoading, setAvatarLoading] = useState(true);
 
-  const CustomInfo = ({value, subtitle, icon}) => {
+  const finishLoad = () => setAvatarLoading(false);
+
+  const CustomInfo = ({ value, subtitle, icon }) => {
     return (
       <View>
         <CustomTextBold style={userInfoStyles.infoValue} lineCount={1}>
           {value}
         </CustomTextBold>
         <CustomText style={userInfoStyles.infoTitle} lineCount={1}>
-          {icon}
-          {" "}
-          {t(subtitle)}
+          {icon} {t(subtitle)}
         </CustomText>
       </View>
     );
   };
+  if (!userInformation && !userDetails) return null;
 
-  const finishLoad = () => setAvatarLoading(false);
-
-  if (!userInformation) return false;
+  const username = userDetails
+    ? userDetails.username
+    : userInformation.username;
+  const photoURL = userDetails
+    ? userDetails.user_profile_photo
+    : userInformation.user_profile_photo;
+  const photos = userDetails ? userDetails.photos : userInformation.photos;
+  const roads = userDetails ? userDetails.km : userInformation.meters;
 
   return (
     <View style={userInfoStyles.profileContainer}>
-      <Image
-        style={{...userInfoStyles.imageStyle}}
-        source={{uri: userInformation.user_profile_photo}}
-        onLoadEnd={finishLoad}
-      />
+        <Image
+          style={{ ...userInfoStyles.imageStyle }}
+          source={{ uri: photoURL }}
+          onLoadEnd={finishLoad}
+        />
 
-      {avatarLoading && <ActivityIndicator color={"#AFAFAF"} style={userInfoStyles.indicatorStyle}/>}
+      {avatarLoading && photoURL && (
+        <View style={userInfoStyles.indicatorStyle}><Loading  /></View>
+      )}
 
       <View style={userInfoStyles.infoContainer}>
         <View>
           <Text style={userInfoStyles.username}>
-            {maxCharacterHandler(userInformation.username, 12)}
+            {maxCharacterHandler(username, 12)}
           </Text>
         </View>
         <View style={userInfoStyles.infoGrid}>
           <CustomInfo
-            value={thousandFormatter(userInformation.photos)}
+            value={thousandFormatter(photos)}
             subtitle={"photos"}
-            icon={<CameraFilledIcon/>}
+            icon={<CameraFilledIcon />}
           />
 
-          <View style={userInfoStyles.separator}/>
+          <View style={userInfoStyles.separator} />
 
           <CustomInfo
-            value={Math.floor(userInformation.meters) + "km"}
-            subtitle={"roads"}
+            value={thousandFormatter(roads)}
+            subtitle={"Km"}
             icon={<RoadIcon />}
           />
-
         </View>
       </View>
     </View>

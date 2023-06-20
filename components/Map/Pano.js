@@ -19,13 +19,16 @@ import LinearGradient from "react-native-linear-gradient";
 import { tabHeight } from "../../util/consts/ui";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import {api} from "../../util/helpers/api";
-import { dateConvert } from "../../helper/helper";
+import { dateConvert, maxCharacterHandler } from "../../helper/helper";
+import { useNavigation } from "@react-navigation/native";
+import { Routes } from "../../navigator/Routes";
 
 const Pano = ({ pointInformation, hidePano }) => {
   const [fullHeight, setFullHeight] = useState(false);
-  const [username, setUsername] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
   const { top, bottom } = useSafeAreaInsets();
   const { height } = Dimensions.get("screen");
+  const navigation = useNavigation();
 
   const { showActionSheetWithOptions } = useActionSheet();
   const { t } = useTranslation("report", { nsMode: "fallback" });
@@ -38,12 +41,7 @@ const Pano = ({ pointInformation, hidePano }) => {
       .then((res) => {
         
         if (res.data && Object.keys(res.data).length > 0) {
-          let name = res.data[0].username;
-          name.length > 20 ? (name = name.slice(0, 20) + "...") : name;
-
-          setUsername("@" + name);
-        } else {
-          setUsername(null);
+          setUserDetails(res.data[0]);
         }
       })
       .catch((err) => {
@@ -135,7 +133,13 @@ const Pano = ({ pointInformation, hidePano }) => {
 
       <View style={panoStyle.info}>
         <View style={panoStyle.capturer}>
-          <Text style={panoStyle.capturer.name}>{username}</Text>
+          <TouchableOpacity onPress={()=>{
+               navigation.navigate(Routes.stackNavigator, { screen: Routes.stackUserFeed, params:{
+                userID: userDetails && userDetails.id,
+               }});
+          }}>
+          <Text style={panoStyle.capturer.name}>{userDetails && maxCharacterHandler(userDetails.username, 12)}</Text>
+          </TouchableOpacity>
           <Text style={panoStyle.capturer.date}>
             {dateConvert(pointInformation.date, "MMM DD, YYYY - HH:mm")}
           </Text>

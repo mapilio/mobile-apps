@@ -19,7 +19,7 @@ const ProfileSettingsNavigatorLeft = () => {
         navigation.canGoBack() ? navigation.goBack() : navigation.navigate('ProfileTab', {screen: Routes.profile})
       }}
     >
-      <ArrowLeft color={'#D8D8D8'}/>
+      <ArrowLeft />
       <CustomText style={sequenceLeft.backTitle}>
         {t("back")}
       </CustomText>

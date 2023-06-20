@@ -15,7 +15,7 @@ const Back = ({route}) => {
       style={styles.backButton}
       onPress={handleBack}
     >
-      <ArrowLeft color={"#808080"} width={RFValue(17)} height={RFValue(30)} />
+      <ArrowLeft width={RFValue(16)} height={RFValue(16)} />
     </TouchableOpacity>
   );
 }
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginLeft: RFValue(28),
-    paddingLeft: RFValue(3),
     marginTop: RFValue(10)
   },
 });

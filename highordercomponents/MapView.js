@@ -17,6 +17,7 @@ const MapView = ({
   mapStyle,
   onPress,
   onDidFinishLoadingMap,
+  isAttributionsEnabled = true,
   ...props
 }) => {
   const { showActionSheetWithOptions } = useActionSheet();
@@ -63,11 +64,11 @@ const MapView = ({
       >
         {children}
       </MapLibreGL.MapView>
-      <View style={{ ...appMapStyle.mapButtons, width: RFValue(35) }}>
+      {isAttributionsEnabled && <View style={{ ...appMapStyle.mapButtons, width: RFValue(35) }}>
         <AttributionButton
           showAttribution={showAttributions}
         />
-      </View>
+      </View>}
     </Fragment>
   );
 };

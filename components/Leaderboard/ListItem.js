@@ -11,7 +11,11 @@ import FallbackImage from "./FallbackImage";
 import UserProfileImage from "./UserProfileImage";
 import Rank from "./Rank";
 import { CustomText, CustomTextBold } from "../../highordercomponents";
-import { CameraFilledIcon, RoadIcon } from "../../assets/svg/illustrations";
+import { ArrowLeft, ArrowRight, CameraFilledIcon, RoadIcon } from "../../assets/svg/illustrations";
+import { thousandFormatter } from "../../helper/helper";
+import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from "@react-navigation/native";
+import { Routes } from "../../navigator/Routes";
 
 const ListItem = ({
   baseStyle,
@@ -22,10 +26,12 @@ const ListItem = ({
   item,
 }) => {
   const { t } = useTranslation("leaderboard");
-
   const [expanded, setExpanded] = useState(false);
-
   const height = useRef(new Animated.Value(60)).current;
+
+  const navigation = useNavigation();
+
+
 
   useEffect(() => {
     Animated.timing(height, {
@@ -90,7 +96,7 @@ const ListItem = ({
               adjustFontSize={false}
             >
               {" "}
-              {item.total_images ? item.total_images : 0}
+              {item.total_images ? thousandFormatter(item.total_images) : 0}
             </CustomTextBold>
           </View>
           <View style={styles.bottomSeperator} />
@@ -107,9 +113,17 @@ const ListItem = ({
               adjustFontSize={false}
             >
               {" "}
-              {item.total_length ? item.total_length : 0} km
+              {item.total_length ? thousandFormatter(item.total_length) : 0} km
             </CustomTextBold>
+           
           </View>
+          <TouchableOpacity onPress={()=>{
+             navigation.navigate(Routes.stackNavigator, { screen: Routes.stackUserFeed, params:{
+              userID: item.id
+             }});
+          }}  style={{position:"absolute",backgroundColor:"black", padding:5, borderRadius:20, transform: [{ rotateY: "180deg" }], right:0}}>
+              <ArrowLeft color="#fff" width={RFValue(12)} height={RFValue(12)} />
+            </TouchableOpacity>
         </View>
       )}
     </Animated.View>
@@ -136,6 +150,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     flex: 1,
+    width: "100%",
   },
   bottomSeperator: {
     width: 1,
