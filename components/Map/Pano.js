@@ -19,7 +19,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { tabHeight } from "../../util/consts/ui";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import {api} from "../../util/helpers/api";
-import { dateConvert } from "../../helper/helper";
+import { dateConvert, maxCharacterHandler } from "../../helper/helper";
 import { useNavigation } from "@react-navigation/native";
 import { Routes } from "../../navigator/Routes";
 
@@ -138,7 +138,7 @@ const Pano = ({ pointInformation, hidePano }) => {
                 userID: userDetails && userDetails.id,
                }});
           }}>
-          <Text style={panoStyle.capturer.name}>{userDetails && userDetails.username}</Text>
+          <Text style={panoStyle.capturer.name}>{userDetails && maxCharacterHandler(userDetails.username, 12)}</Text>
           </TouchableOpacity>
           <Text style={panoStyle.capturer.date}>
             {dateConvert(pointInformation.date, "MMM DD, YYYY - HH:mm")}
