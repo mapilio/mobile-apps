@@ -108,7 +108,7 @@ const FeedList = ({userDetails}) => {
         maxToRenderPerBatch={10}
         automaticallyAdjustsScrollIndicatorInsets={false}
         onEndReached={() => !gettingData && nextPage()}
-        ListEmptyComponent={() => <EmptyComponent/>}
+        ListEmptyComponent={() => !userDetails ? <EmptyComponent /> : null}
         ListFooterComponent={() => gettingData && <ActivityIndicator size={"small"}/>}
         renderItem={({item}) => <ProfileFeed data={item} pressHandle={() => pressHandler(item.group_key, item.start_address, item.capture_time)}/>}
       />
