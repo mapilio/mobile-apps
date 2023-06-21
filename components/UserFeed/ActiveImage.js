@@ -105,12 +105,15 @@ import { api } from "../../util/helpers/api";
     }
     setModalVisible((prev) => !prev);
   }
+
+  const fullScreenBorder = !isFullScreen && { borderTopLeftRadius: RFValue(10), borderTopRightRadius: RFValue(10) }
+
   return (
-    <View style={styles.imageWrapper}>
+    <View style={[styles.imageWrapper, fullScreenBorder]}>
       <ImageBackground
         source={{ uri }}
-        style={{ flex: 1, backgroundColor: "#fff", borderRadius:RFValue(10) }}
-        imageStyle={styles.activeImage}
+        style={[{ flex: 1, backgroundColor: "#fff" }, !isFullScreen && {borderRadius:RFValue(10)}]}
+        imageStyle={[styles.activeImage, fullScreenBorder]}
         resizeMode="cover"
         progressiveRenderingEnabled
         onLoadEnd={() => {
@@ -124,11 +127,11 @@ import { api } from "../../util/helpers/api";
         )}
         <LinearGradient
           colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)"]}
-          style={styles.gradientBackground}
+          style={[styles.gradientBackground,{bottom:0,height:"100%"}, fullScreenBorder]}
         />
         <LinearGradient
           colors={["rgba(0,0,0,0.25)", "rgba(0,0,0,0)"]}
-          style={styles.gradientBackgroundTop}
+          style={[styles.gradientBackground,{top:0,height:"25%"}, fullScreenBorder]}
         />
 
         <View style={[{ flex: 1 }, isFullScreen && { marginHorizontal: top }]}>
@@ -197,7 +200,6 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     zIndex: 3,
-    borderRadius: RFValue(20),
   },
   report:{
     position:"absolute",
@@ -210,24 +212,11 @@ const styles = StyleSheet.create({
   activeImage: {
     height: "100%",
     width: "auto",
-    borderTopLeftRadius: RFValue(10),
-    borderTopRightRadius: RFValue(10),
   },
-  gradientBackground: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: "100%",
-    borderRadius:RFValue(10),
-  },
-  gradientBackgroundTop: {
+  gradientBackground:{
     position: "absolute",
     left: 0,
     right: 0,
-    top:0,
-    height: "20%",
-    borderRadius:RFValue(10)
   },
   count: {
     width: "100%",
