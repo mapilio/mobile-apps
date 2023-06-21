@@ -21,7 +21,7 @@ const UserProfile = () => {
       style={{
         ...globalStyles.container,
         paddingBottom: 0,
-        paddingHorizontal: RFValue(6),
+        paddingHorizontal: RFValue(0),
         paddingTop: 0,
       }}
     >
