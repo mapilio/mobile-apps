@@ -145,7 +145,7 @@ const UserSequence = ({navigation}) => {
         onPress={goBack}
         style={{...styles.backButton, top: top + RFValue(20)}}
       >
-       <ArrowLeft width={RFValue(17)} height={RFValue(30)} />
+       <ArrowLeft width={RFValue(18)} height={RFValue(18)} />
       </TouchableOpacity>
 
       <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
@@ -203,9 +203,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: RFValue(20),
     zIndex: 1,
-    width: RFValue(34),
-    height: RFValue(34),
-    paddingLeft: RFValue(3),
+    padding:RFValue(8),
     borderRadius: RFValue(34),
     backgroundColor: "#fff",
     alignItems: "center",

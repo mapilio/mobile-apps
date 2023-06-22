@@ -94,9 +94,8 @@ const FeedList = ({userDetails}) => {
   }
 
   const pressHandler = (group_key, start_address, capture_time) => {
-    const nextURL = userDetails ? Routes.stackUserFeedDetail : Routes.profileSequence;
     const userID = userDetails?.id || userInformation?.id;
-    navigation.navigate(nextURL, {id: group_key, user_id: userID, start_address, capture_time});
+    navigation.navigate(Routes.stackUserFeedDetail , {id: group_key, user_id: userID, start_address, capture_time});
   }
 
   return (
