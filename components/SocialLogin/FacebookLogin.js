@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import FacebookLogo from "../../assets/svg/logos/FacebookLogo";
 import { AccessToken, LoginManager } from "react-native-fbsdk-next";
