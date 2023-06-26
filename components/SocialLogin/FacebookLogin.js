@@ -39,15 +39,15 @@ const FacebookLogin = ({ navigation }) => {
         setLoading(false);
         return;
       }
-      const userAccess = await AccessToken.getCurrentAccessToken();
+      const userData = await AccessToken.getCurrentAccessToken();
 
-      if (!userAccess) {
+      if (!userData) {
         setLoading(false);
         return;
       }
 
       const json = await api.get(
-        `${Config.FACEBOOK_REQUEST_URL}${userAccess.accessToken}`
+        `${Config.FACEBOOK_REQUEST_URL}${userData.accessToken}`
       );
 
       if (!json.email) {
