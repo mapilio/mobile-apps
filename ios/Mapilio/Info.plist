@@ -51,6 +51,9 @@
 	<string>563319300844-1ui5kbrs3h68ldk5bc5jr94r9oev220m.apps.googleusercontent.com</string>
 	<key>FacebookAppID</key>
 	<string>254795350007625</string>
+	<key>FacebookClientToken</key>
+	<string>CLIENT-TOKEN</string>
+	<key>2325b96dc40366ce272152cb6711ff7b</key>
 	<key>FacebookDisplayName</key>
 	<string>Mapilio</string>
 	<key>LSApplicationQueriesSchemes</key>

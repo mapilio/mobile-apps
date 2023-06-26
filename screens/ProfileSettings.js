@@ -9,6 +9,7 @@ import {useEffect} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
+import { LoginManager, Profile } from "react-native-fbsdk-next";
 
 const ListItem = ({name, onPress}) => {
   const {t} = useTranslation('profile_settings');
@@ -55,6 +56,10 @@ const ProfileSettings = ({navigation}) => {
 
   const exitHandle = () => {
     navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
+    const profile = Profile.getCurrentProfile();
+    if(profile){
+      LoginManager.logOut();
+    }
     dispatch({type: EXIT_USER});
     OneSignal.removeExternalUserId();
   }
