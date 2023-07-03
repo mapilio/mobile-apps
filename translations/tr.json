@@ -265,7 +265,10 @@
     "forgot_password": "Parolanızı mı unuttunuz?",
     "languages": "Diller",
     "login_error": "Giriş sırasında bir hata oluştu, lütfen tekrar deneyin.",
-    "or": "ya da"
+    "or": "ya da",
+    "login_success": "Giriş başarılı ",
+    "error": "Bir hata oluştu, daha sonra tekrar deneyin.",
+    "mail_error": "E-posta adresinize erişemediğimiz için üye değilsiniz. Lütfen posta izni verin veya üye olmak için başka bir seçenek seçin."
   },
   "register": {
     "title": "Haritanızda neler olduğunu görmek için kaydolun.",

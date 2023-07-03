@@ -7,6 +7,8 @@
 #import <React/RCTConvert.h>
 
 #import <React/RCTAppSetupUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit-swift.h>
+
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
@@ -55,6 +57,8 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                      didFinishLaunchingWithOptions:launchOptions];
   [super application:application didFinishLaunchingWithOptions:launchOptions];
 
   return YES;
@@ -96,8 +100,13 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 }
 
 // Linking API
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-  return [super application:application openURL:url options:options] || [RCTLinkingManager application:application openURL:url options:options];
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [[FBSDKApplicationDelegate sharedInstance]application:app
+                                                      openURL:url
+                                                      options:options];
 }
 
 // Universal Links
