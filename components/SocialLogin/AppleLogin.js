@@ -28,7 +28,7 @@ const AppleLogin = ({ navigation }) => {
     if (credential.email) {
       url = `/oauth-api/callbackV2`;
       params.email = credential.email;
-      params.name = credential.fullName.givenName + credential.fullName.familyName;
+      params.name = credential.fullName.givenName + " " + credential.fullName.familyName;
     }
 
     api.post(url, params).then((res) => {

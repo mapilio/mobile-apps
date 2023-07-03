@@ -56,7 +56,7 @@ const UserInfos = ({ userDetails }) => {
       <View style={userInfoStyles.infoContainer}>
         <View>
           <Text style={userInfoStyles.username}>
-            {maxCharacterHandler(username, 12)}
+            {maxCharacterHandler(username, 10)}
           </Text>
         </View>
         <View style={userInfoStyles.infoGrid}>

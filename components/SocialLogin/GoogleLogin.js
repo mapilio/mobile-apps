@@ -9,6 +9,7 @@ import {GET_TOKEN_SUCCESS, SET_CREDENTIAL} from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import Config from "react-native-config";
 import {api} from "../../util/helpers/api";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -76,7 +77,7 @@ const GoogleLogin = ({ navigation }) => {
       ) : (
         <TouchableOpacity onPress={handleLogin} style={{justifyContent: "center", alignItems: "center"}}>
           <View>
-            <GoogleLogo />
+            <GoogleLogo width={RFValue(12)} height={RFValue(12)} />
           </View>
         </TouchableOpacity>
       )}

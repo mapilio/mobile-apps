@@ -3,11 +3,9 @@ import { globalStyles } from "../styles/globalStyles";
 import React, { useEffect } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import { FeedList, FocusAwareStatusBar, UserInfos } from "../components";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { getUserInformation } from "../store/reducers/loginReducer/getUserInformation";
 import { useDispatch } from "react-redux";
 
-const Tab = createMaterialTopTabNavigator();
 
 const UserProfile = () => {
   const dispatch = useDispatch();
