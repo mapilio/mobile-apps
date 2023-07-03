@@ -9,6 +9,7 @@ import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from "../../store/actionsName";
 import Config from "react-native-config";
 import { api } from "../../util/helpers/api";
 import { useTranslation } from "react-i18next";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -86,7 +87,7 @@ const FacebookLogin = ({ navigation }) => {
         </View>
       ) : (
         <TouchableOpacity onPress={handleLogin}>
-          <FacebookLogo />
+          <FacebookLogo width={RFValue(12)} height={RFValue(12)} />
         </TouchableOpacity>
       )}
     </View>
