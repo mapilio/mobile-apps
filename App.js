@@ -21,11 +21,13 @@ import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import "moment/locale/tr";
 
-Sentry.init({
-  dsn: `${Config.SENTRY_DSN}`,
-  tracesSampleRate: 1.0,
-  environment: process.env.NODE_ENV,
-});
+if(!__DEV__){
+  Sentry.init({
+    dsn: `${Config.SENTRY_DSN}`,
+    tracesSampleRate: 1.0,
+    environment: process.env.NODE_ENV,
+  });
+}
 
 OneSignal.setAppId(Config.ONESIGNAL_APP_ID);
 OneSignal.promptForPushNotificationsWithUserResponse();
