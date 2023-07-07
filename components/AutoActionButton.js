@@ -16,6 +16,7 @@ import {cameraActionButtonStyles} from "../styles/cameraStyles";
 import { Accelerometer, Gyroscope, DeviceMotion } from "expo-sensors";
 import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
+import {distance} from "@turf/turf";
 import * as ImageManipulator from "expo-image-manipulator";
 
 const AutoActionButton = ({navigation}) => {
@@ -44,6 +45,7 @@ const AutoActionButton = ({navigation}) => {
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 	const pitch = useRef(0);
   	const roll = useRef(0);
+	const lastLocation = useRef([0, 0]);
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
@@ -71,13 +73,21 @@ const AutoActionButton = ({navigation}) => {
 
 	useEffect(() => {
 		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
-			if (!!photo && photo % 250 === 0) {
-				newSequence();
-			}
 
-			takePicture(cameraLocation).catch(() => toast.show(t("something_went_wrong"), {type: "error"}));
-		}
-	}, [cameraLocation]);
+			const lastLocationCoords = [lastLocation.current.longitude, lastLocation.current.latitude];
+      		const newLocationCoords = [cameraLocation.longitude, cameraLocation.latitude];
+
+      		const distanceBetweenLastLocation = distance(lastLocationCoords, newLocationCoords, {units: "meters"});
+
+     		 if ((!!photo && photo % 250 === 0) || distanceBetweenLastLocation > 50) {
+     		   newSequence();
+     		 }
+	  
+			takePicture(cameraLocation).catch(() =>
+        		toast.show(t("something_went_wrong"), { type: "error" })
+      		);
+    }
+  }, [cameraLocation]);
 
 	Math.degrees = (radians) => {
     return radians * (180 / Math.PI);
@@ -195,7 +205,7 @@ const AutoActionButton = ({navigation}) => {
 			qualityPrioritization: 'speed',
 			flash: "off",
 		}
-
+		lastLocation.current = location;
 		camera.takePhoto(options).then((image) => savePicture(image, location))
 	};
 
