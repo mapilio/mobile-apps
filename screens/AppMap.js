@@ -91,7 +91,7 @@ const AppMap = ({ navigation }) => {
 
     setPointInformation({
       sequenceID: properties.sequence_uuid,
-      date: imageDetails.capture_date,
+      date: imageDetails.capture_time,
       user: properties.created_by_id,
       pointID: properties.id,
       heading: imageDetails.heading,
