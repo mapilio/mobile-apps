@@ -78,24 +78,26 @@ const AppMap = ({ navigation }) => {
     if(!showPano){
       setIsPanoLoading(true);
     }
-    const filter = `&CQL_FILTER=id=${properties.id}&PropertyName=(sequence_uuid,uploaded_hash,filename,heading,resolution,capture_time,created_by_id)`;
-    const imageURL = Config.MAPBOX_INFO_URL + filter;
+
     const imageDetails = await api
-      .get(imageURL)
-      .then((res) => res.features[0])
+      .get("/api/sequence-detail?sequence_uuid=" + properties.sequence_uuid) 
+      .then((res) => {
+        const image = res.data.find((image) => image.id === properties.id);
+        return image;
+      })
       .catch(() => {
         toast.show(t("pano_error"), { type: "error" });
       });
 
     setPointInformation({
       sequenceID: properties.sequence_uuid,
-      date: properties.created_at,
+      date: imageDetails.capture_date,
       user: properties.created_by_id,
       pointID: properties.id,
-      heading: imageDetails.properties.heading,
-      resolution: imageDetails.properties.resolution,
-      image: `${Config.IMAGE_API}/${imageDetails.properties.uploaded_hash}/${imageDetails.properties.filename}/480`,
-      highResImage: `${Config.IMAGE_API}/${imageDetails.properties.uploaded_hash}/${imageDetails.properties.filename}/1080`,
+      heading: imageDetails.heading,
+      resolution: imageDetails.resolution,
+      image: `${Config.IMAGE_API}/${imageDetails.uploaded_hash}/${imageDetails.filename}/480`,
+      highResImage: `${Config.IMAGE_API}/${imageDetails.uploaded_hash}/${imageDetails.filename}/1080`,
     });
 
     setIsPanoLoading(false);
