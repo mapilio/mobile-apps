@@ -115,7 +115,7 @@ const UserSequence = ({navigation}) => {
 
     dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
 
-    await getData();
+    getData().then(() => setLoading(false));
   }
 
   const onPointClick = (e) => {
