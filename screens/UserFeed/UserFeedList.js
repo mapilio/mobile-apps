@@ -3,7 +3,6 @@ import {
   FeedList,
   UserInfos,
   FocusAwareStatusBar,
-  Loading,
 } from "../../components";
 import { api } from "../../util/helpers/api";
 import { useState, useEffect } from "react";
@@ -41,15 +40,12 @@ const UserFeedList = ({ route }) => {
         barStyle="dark-content"
         backgroundColor={"transparent"}
       />
-      {userDetails ? (
+      {userDetails &&
         <View style={styles.container}>
           <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#fff" />
           <UserInfos userDetails={userDetails} />
           <FeedList userDetails={userDetails} />
-        </View>
-      ) : (
-        <Loading  />
-      )}
+        </View>}
     </View>
   );
 };
