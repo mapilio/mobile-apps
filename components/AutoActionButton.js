@@ -45,7 +45,10 @@ const AutoActionButton = ({navigation}) => {
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 	const pitch = useRef(0);
   	const roll = useRef(0);
-	const lastLocation = useRef([0, 0]);
+	const lastLocation = useRef({
+		longitude: 0,
+		latitude: 0,
+	});
 	let photo = photoAmount;
 	let currentUUID = keepUUID;
 	const dispatch = useDispatch();
@@ -79,10 +82,11 @@ const AutoActionButton = ({navigation}) => {
 
       		const distanceBetweenLastLocation = distance(lastLocationCoords, newLocationCoords, {units: "meters"});
 
-     		 if ((!!photo && photo % 250 === 0) || distanceBetweenLastLocation > 50) {
+     		 if ((!!photo && photo % 250 === 0) || distanceBetweenLastLocation >= 50) {
      		   newSequence();
      		 }
-	  
+
+			lastLocation.current = cameraLocation;
 			takePicture(cameraLocation).catch(() =>
         		toast.show(t("something_went_wrong"), { type: "error" })
       		);
@@ -205,7 +209,6 @@ const AutoActionButton = ({navigation}) => {
 			qualityPrioritization: 'speed',
 			flash: "off",
 		}
-		lastLocation.current = location;
 		camera.takePhoto(options).then((image) => savePicture(image, location))
 	};
 

@@ -9,12 +9,15 @@ import {useNavigation} from "@react-navigation/native";
 import {NoFeed} from "../../assets/svg/illustrations";
 import {Routes} from "../../navigator/Routes";
 import {api} from "../../util/helpers/api";
+import { RFValue } from "react-native-responsive-fontsize";
 
 const SkeletonList = () => (
-  [...Array(6)].map((_v, i) => (
-    <SkeletonPlaceholder key={i}><View style={styles.skeletonItem}/></SkeletonPlaceholder>
-  ))
-)
+  <SkeletonPlaceholder>
+    {[...Array(6)].map((_v, i) => (
+      <View style={styles.skeletonItem} key={i} />
+    ))}
+  </SkeletonPlaceholder>
+);
 
 const EmptyComponent = () => {
   const navigation = useNavigation();
@@ -90,7 +93,7 @@ const FeedList = ({userDetails}) => {
   }
 
   if (loading) {
-    return <SkeletonList />
+    return <View style={{marginHorizontal:RFValue(10)}}><SkeletonList /></View>
   }
 
   const pressHandler = (group_key, start_address, capture_time) => {

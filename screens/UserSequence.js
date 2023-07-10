@@ -40,7 +40,7 @@ const UserSequence = ({navigation}) => {
 
   const GetContent = () => {
     if (loading) {
-      return <Loading />
+      return <Loading containerStyle={{height:"30%", flex:0}} />
     }
 
     if (!!imageDetail) {
