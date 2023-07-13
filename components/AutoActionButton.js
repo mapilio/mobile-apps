@@ -9,7 +9,6 @@ import {
 	UPDATE_AUTOCAPTURE_START,
 	UPDATE_IMAGE_SIZE,
 	UPDATE_PHOTO_AMOUNT,
-	UPDATE_UUID
 } from "../store/actionsName";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
@@ -22,15 +21,12 @@ import * as ImageManipulator from "expo-image-manipulator";
 const AutoActionButton = ({navigation}) => {
 	const {
 		camera,
-		photoAmount,
 		accuracy,
-		keepUUID,
 		GPSAccuracy,
 		rotateStatus,
 		showRotateAlert,
 		batteryStatus,
 		mocked,
-		highSpeed,
 		captureButtonStatus,
 		cameraLocation,
 		groupId,
@@ -49,10 +45,11 @@ const AutoActionButton = ({navigation}) => {
 		longitude: 0,
 		latitude: 0,
 	});
-	let photo = photoAmount;
-	let currentUUID = keepUUID;
+	const currentUUID = useRef(null);
 	const dispatch = useDispatch();
 	const {t} = useTranslation("camera");
+	const captureCount = useRef(0);
+	const isSessionStarted = useRef(false);
 
 	const LANDSCAPE_LEFT_ORIENTATION = Platform.OS === "ios" ? 90 : -90;
   	const LANDSCAPE_RIGHT_ORIENTATION = Platform.OS === "ios" ? -90 : 90;
@@ -70,8 +67,7 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	const newSequence = () => {
-		currentUUID = uuid.v4();
-		dispatch({type: UPDATE_UUID, payload: currentUUID});
+		currentUUID.current = uuid.v4();
 	}
 
 	useEffect(() => {
@@ -82,8 +78,9 @@ const AutoActionButton = ({navigation}) => {
 
       		const distanceBetweenLastLocation = distance(lastLocationCoords, newLocationCoords, {units: "meters"});
 
-     		 if ((!!photo && photo % 250 === 0) || distanceBetweenLastLocation >= 50) {
+     		 if (!isSessionStarted || distanceBetweenLastLocation >= 50) {
      		   newSequence();
+			   isSessionStarted.current = true;	
      		 }
 
 			lastLocation.current = cameraLocation;
@@ -194,32 +191,34 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	useEffect(() => {
-		setIsAlert(!(GPSAccuracy && !batteryStatus && !mocked && !highSpeed))
-	}, [GPSAccuracy, batteryStatus, mocked, highSpeed]);
+		setIsAlert(!(GPSAccuracy && !batteryStatus && !mocked ))
+	}, [GPSAccuracy, batteryStatus, mocked]);
 
 
 	// TODO ADD TO HELPER.JS
 	const takePicture = async (location) => {
-		if (!autoCaptureStart || !accuracy.degree) {
-			calculateAmount("subtract");
-			return;
-		}
+		if (!autoCaptureStart || !accuracy.degree) return;
 
 		const options = {
 			qualityPrioritization: 'speed',
 			flash: "off",
 		}
-		camera.takePhoto(options).then((image) => savePicture(image, location))
+
+		//states persist on the func call but ref values are updated immediately, so we need to get the "call time" values for save picture
+		const sensorData = {
+			accelerometer: accelerometerData.current,
+			gyroscope: gyroscopeData.current,
+			pitch: pitch.current,
+			roll: roll.current,
+		}
+		camera.takePhoto(options).then((image) => savePicture(image, location, sensorData))
 	};
 
-	const savePicture = async (image, location) => {
-		calculateAmount("add");
+	const savePicture = async (image, location, sensorData) => {
 		const imageUri = image.path;
 
-		if (!imageUri) {
-			calculateAmount("subtract");
-			return;
-		}
+		if (!imageUri) return;
+
 		const metaDataDir = await FileSystem.getInfoAsync(FileSystem.documentDirectory + `${groupId}`);
 		const isDir = metaDataDir.isDirectory;
 
@@ -227,7 +226,7 @@ const AutoActionButton = ({navigation}) => {
 			try {
 				await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + `${groupId}`, {intermediates: true});
 			} catch (e) {
-				calculateAmount("subtract");
+				toast.show(t("something_went_wrong"), {type: "error"});
 			}
 		}
 
@@ -244,34 +243,38 @@ const AutoActionButton = ({navigation}) => {
       exif: JSON.stringify({
         ...image.metadata,
         ...image.metadata["{Exif}"],
-        accelerometer: accelerometerData.current,
-        gyroscope: gyroscopeData.current,
-		exifPitch: pitch.current,
-		exifRoll: roll.current,
+        accelerometer: sensorData.accelerometer,
+        gyroscope: sensorData.gyroscope,
+		exifPitch: sensorData.pitch,
+		exifRoll: sensorData.roll,
       }),
       location: JSON.stringify(location),
       projectKey: selectedProject.projectKey,
       organizationName: selectedProject.projectName,
       organizationKey: selectedProject.organizationKey,
-      uuid: currentUUID,
+      uuid: currentUUID.current,
       path: `${groupId}/${filename}.${"jpeg"}`,
       filename,
       groupId,
     });
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
+		calculateAmount("add");
+		if(captureCount.current % 250 === 0 && isSessionStarted) {
+			newSequence();
+		}
 	}
 
 	/**@param operator {string ?: "add" | "subtract"}*/
 	const calculateAmount = (operator) => {
 		switch (operator) {
 			case "add":
-				photo = photo + 1;
-				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
+				captureCount.current += 1;
+				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: captureCount.current});
 				break;
 			case "subtract":
-				photo = photo - 1;
-				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: photo});
+				captureCount.current -= 1;
+				dispatch({type: UPDATE_PHOTO_AMOUNT, payload: captureCount.current});
 				break;
 			default:
 				break;

@@ -5,7 +5,6 @@ import {
   BatteryLevelIcon,
   CameraRotate,
   GPSSearch,
-  HighSpeedIcon,
   MockedIcon
 } from "../assets/svg/illustrations";
 import {CustomText,CustomTextMedium} from "../highordercomponents";
@@ -16,9 +15,7 @@ import {
   UPDATE_AUTOCAPTURE_START,
   UPDATE_PHOTO_AMOUNT,
   UPDATE_SELECTED_PROJECT,
-  UPDATE_UUID
 } from "../store/actionsName";
-import uuid from "react-native-uuid";
 import * as ScreenOrientation from "expo-screen-orientation";
 import i18n from 'i18next';
 
@@ -63,15 +60,6 @@ const cameraAlerts = {
       />
     )
   },
-  highSpeed: () => {
-    return (
-      <Alert
-        svg={<HighSpeedIcon/>}
-        title={translate("warning.speed.title")}
-        content={translate("warning.speed.description")}
-      />
-    )
-  },
   gpsAlert: () => {
     return (
       <Alert
@@ -113,8 +101,6 @@ export const CameraWarnings = () => {
       return cameraAlerts.battery()
     } else if (cameraReducers.mocked) {
       return cameraAlerts.mocked()
-    } else if (cameraReducers.highSpeed) {
-      return cameraAlerts.highSpeed()
     }
   }
 
@@ -130,10 +116,6 @@ export const CameraWarnings = () => {
  */
 export const degreeCalculate = (x, y) => {
   return Math.floor(((Math.atan2(y, x) * (180 / Math.PI) + 90 + 360) % 360));
-}
-
-export const setNewUUID = () => {
-  store.dispatch({ type: UPDATE_UUID, payload: uuid.v4() });
 }
 
 export const exitCapture = () => {

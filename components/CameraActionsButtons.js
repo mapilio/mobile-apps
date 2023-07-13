@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import AutoActionButton from "./AutoActionButton";
-import ManuelActionButton from "./ManuelActionButton";
 import {CAPTURE_BUTTON_STATUS} from "../store/actionsName";
 
 const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
@@ -11,7 +10,6 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
     GPSStartAccuracy,
     batteryLevel,
     mocked,
-    highSpeed,
     accuracy,
     batteryStatus
   } = useSelector((state) => state.cameraReducer);
@@ -26,9 +24,9 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
 
   useEffect(() => {
     if (!waitGPS) {
-      dispatch({type: CAPTURE_BUTTON_STATUS, payload: (GPSAccuracy || !batteryStatus || !highSpeed || !mocked || accuracy.isTrue)});
+      dispatch({type: CAPTURE_BUTTON_STATUS, payload: (GPSAccuracy || !batteryStatus || !mocked || accuracy.isTrue)});
     }
-  }, [GPSAccuracy, waitGPS, highSpeed, mocked, batteryLevel, accuracy]);
+  }, [GPSAccuracy, waitGPS, mocked, batteryLevel, accuracy]);
 
 
   return (

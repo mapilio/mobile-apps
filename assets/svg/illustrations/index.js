@@ -33,7 +33,6 @@ export {default as Eye} from "./Eye";
 export {default as EyeSlash} from "./EyeSlash";
 export {default as SignOutIcon} from "./SignOut";
 export {default as MockedIcon} from "./Mocked";
-export {default as HighSpeedIcon} from "./HighSpeed";
 export {default as NorthArrow} from "./NorthArrow";
 export {default as LowLight} from "./LowLight";
 export {default as Road} from "./Road";

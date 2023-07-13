@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as ScreenOrientation from "expo-screen-orientation";
 import uuid from "react-native-uuid";
 import { activateKeepAwake, deactivateKeepAwake } from "expo-keep-awake";
-import { exitCapture, setNewUUID } from "../helper/camera";
+import { exitCapture } from "../helper/camera";
 import { Routes } from "../navigator/Routes";
 import { useOrientation } from "../hooks/ui";
 import {
@@ -138,8 +138,6 @@ const AppCamera = () => {
       closeHandler();
     }
   }, [autoCaptureStart]);
-
-  useEffect(() => setNewUUID(), [selectedProject]);
 
   if (orientation !== "LANDSCAPE") {
     return <Loading backgroundColor="black" indicatorColor="white" />;
