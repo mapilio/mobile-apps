@@ -17,6 +17,7 @@ import {useTranslation} from "react-i18next";
 import {vibrate} from "../util/helpers";
 import {distance} from "@turf/turf";
 import * as ImageManipulator from "expo-image-manipulator";
+import {cloneDeep} from "lodash";
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -205,12 +206,12 @@ const AutoActionButton = ({navigation}) => {
 		}
 
 		//states persist on the func call but ref values are updated immediately, so we need to get the "call time" values for save picture
-		const sensorData = {
+		const sensorData = cloneDeep({
 			accelerometer: accelerometerData.current,
 			gyroscope: gyroscopeData.current,
 			pitch: pitch.current,
 			roll: roll.current,
-		}
+		})
 		camera.takePhoto(options).then((image) => savePicture(image, location, sensorData))
 	};
 
