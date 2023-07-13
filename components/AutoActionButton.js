@@ -9,7 +9,6 @@ import {
 	UPDATE_AUTOCAPTURE_START,
 	UPDATE_IMAGE_SIZE,
 	UPDATE_PHOTO_AMOUNT,
-	UPDATE_UUID
 } from "../store/actionsName";
 import uuid from "react-native-uuid";
 import {cameraActionButtonStyles} from "../styles/cameraStyles";
@@ -23,13 +22,11 @@ const AutoActionButton = ({navigation}) => {
 	const {
 		camera,
 		accuracy,
-		keepUUID,
 		GPSAccuracy,
 		rotateStatus,
 		showRotateAlert,
 		batteryStatus,
 		mocked,
-		highSpeed,
 		captureButtonStatus,
 		cameraLocation,
 		groupId,
@@ -48,10 +45,11 @@ const AutoActionButton = ({navigation}) => {
 		longitude: 0,
 		latitude: 0,
 	});
-	let currentUUID = keepUUID;
+	const currentUUID = useRef(null);
 	const dispatch = useDispatch();
 	const {t} = useTranslation("camera");
 	const captureCount = useRef(0);
+	const isSessionStarted = useRef(false);
 
 	const LANDSCAPE_LEFT_ORIENTATION = Platform.OS === "ios" ? 90 : -90;
   	const LANDSCAPE_RIGHT_ORIENTATION = Platform.OS === "ios" ? -90 : 90;
@@ -69,20 +67,20 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	const newSequence = () => {
-		currentUUID = uuid.v4();
-		dispatch({type: UPDATE_UUID, payload: currentUUID});
+		currentUUID.current = uuid.v4();
 	}
 
 	useEffect(() => {
-		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
+		if (captureButtonStatus  && autoCaptureStart && cameraLocation) {
 
 			const lastLocationCoords = [lastLocation.current.longitude, lastLocation.current.latitude];
       		const newLocationCoords = [cameraLocation.longitude, cameraLocation.latitude];
 
       		const distanceBetweenLastLocation = distance(lastLocationCoords, newLocationCoords, {units: "meters"});
 
-     		 if (captureCount.current === 0 || distanceBetweenLastLocation >= 50) {
+     		 if (!isSessionStarted || distanceBetweenLastLocation >= 50) {
      		   newSequence();
+			   isSessionStarted.current = true;	
      		 }
 
 			lastLocation.current = cameraLocation;
@@ -193,8 +191,8 @@ const AutoActionButton = ({navigation}) => {
 	};
 
 	useEffect(() => {
-		setIsAlert(!(GPSAccuracy && !batteryStatus && !mocked && !highSpeed))
-	}, [GPSAccuracy, batteryStatus, mocked, highSpeed]);
+		setIsAlert(!(GPSAccuracy && !batteryStatus && !mocked ))
+	}, [GPSAccuracy, batteryStatus, mocked]);
 
 
 	// TODO ADD TO HELPER.JS
@@ -254,7 +252,7 @@ const AutoActionButton = ({navigation}) => {
       projectKey: selectedProject.projectKey,
       organizationName: selectedProject.projectName,
       organizationKey: selectedProject.organizationKey,
-      uuid: currentUUID,
+      uuid: currentUUID.current,
       path: `${groupId}/${filename}.${"jpeg"}`,
       filename,
       groupId,
@@ -262,7 +260,7 @@ const AutoActionButton = ({navigation}) => {
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
 		calculateAmount("add");
-		if(captureCount.current % 250 === 0) {
+		if(captureCount.current % 250 === 0 && isSessionStarted) {
 			newSequence();
 		}
 	}

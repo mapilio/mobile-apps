@@ -8,7 +8,6 @@ import {
   UPDATE_BATTERY_LEVEL,
   UPDATE_BATTERY_STATUS,
   UPDATE_MOCKED_STATUS,
-  UPDATE_UUID,
   CAMERA_REDUCER_RESET,
   UPDATE_ACCURACY,
   CAPTURE_BUTTON_STATUS,
@@ -31,7 +30,6 @@ const INITIAL_STATE = {
   batteryStatus: false,
   accuracy: false,
   mocked: false,
-  keepUUID: null,
   captureButtonStatus: false,
   rotateStatus: false,
   showRotateAlert: true,
@@ -87,11 +85,6 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         mocked: action.payload,
-      };
-    case UPDATE_UUID:
-      return {
-        ...state,
-        keepUUID: action.payload,
       };
     case UPDATE_ACCURACY:
       return {
