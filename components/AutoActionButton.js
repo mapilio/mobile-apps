@@ -71,7 +71,7 @@ const AutoActionButton = ({navigation}) => {
 	}
 
 	useEffect(() => {
-		if (captureButtonStatus  && autoCaptureStart && cameraLocation) {
+		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
 
 			const lastLocationCoords = [lastLocation.current.longitude, lastLocation.current.latitude];
       		const newLocationCoords = [cameraLocation.longitude, cameraLocation.latitude];
