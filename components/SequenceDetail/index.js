@@ -1,1 +1,1 @@
-export default from "./SequenceDetail";
+export {default} from "./SequenceDetail";
