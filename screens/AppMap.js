@@ -24,6 +24,7 @@ import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
 import MapLibreGL from "@maplibre/maplibre-react-native";
+import Animated,{FadeIn, FadeOut} from "react-native-reanimated";
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
@@ -163,7 +164,9 @@ const AppMap = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {!isMapReady && <MapLoading />}
+      {!isMapReady && <Animated.View exiting={FadeOut} entering={FadeIn}  >
+      <MapLoading />
+      </Animated.View>}
       {isPanoLoading && <PanoLoading />}
 
       <FocusAwareStatusBar
