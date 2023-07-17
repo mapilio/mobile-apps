@@ -155,11 +155,11 @@ const styles = StyleSheet.create({
   },
     leftButton: {
     top: "45%",
-    left: 10,
+    left: RFValue(10),
   },
     rightButton: {
     top: "45%",
-    right: 10,
+    right: RFValue(10),
     transform: [{ rotateY: "180deg" }],
   },
   address: {
@@ -171,23 +171,6 @@ const styles = StyleSheet.create({
     fontSize: RFValue(12),
     fontFamily: 'Poppins',
     color: '#C2C2C2'
-  },
-  prevButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: 'rgba(255,255,255, .3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  nextButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: 'rgba(255,255,255, .3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    transform: [{rotate: '180deg'}]
   },
   imageCount: {
     position: 'absolute',
