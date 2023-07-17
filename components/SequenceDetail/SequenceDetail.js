@@ -59,7 +59,7 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
         onPress={() => handleClick(item)}
         onLongPress={() => selectImage(item)}
       >
-        <Image source={{uri: imagePath, cache: 'force-cache'}} style={styles.image} resizeMode={"cover"}/>
+        <Image source={{uri: imagePath, cache: 'force-cache'}} defaultSource={{uri:imagePath}} style={styles.image} resizeMode={"cover"}/>
         {isSelected && (
           <View style={styles.selectedWrapper}>
             <View style={styles.selectedIcon}><CheckIcon/></View>
@@ -93,6 +93,7 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
           }
         </Text>
 
+        <BottomSheetFlatList data={sequence} keyExtractor={(item) => item.id} numColumns={3} renderItem={_renderItem}/>
         {
           !!selectedImages.length && (
             <Fragment>
@@ -119,7 +120,6 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
           )
         }
 
-        <BottomSheetFlatList data={sequence} keyExtractor={(item) => item.id} numColumns={3} renderItem={_renderItem}/>
       </View>
     </View>
   );
