@@ -1,6 +1,6 @@
-import {Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {documentDirectory} from "expo-file-system";
-import React, {Fragment, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {RFValue} from "react-native-responsive-fontsize";
 import LinearGradient from "react-native-linear-gradient";
 import {dateConvert} from "../helper/helper";
@@ -11,6 +11,7 @@ import {useTranslation} from "react-i18next";
 import LogoWatermark from "../assets/svg/illustrations/LogoWatermark";
 import {AlertModal} from "../components";
 import {search} from "../util/helpers/api";
+import { CustomTextBold } from "../highordercomponents";
 
 const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
   const {t} = useTranslation("upload");
@@ -19,9 +20,6 @@ const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
   const [isDelete, setIsDelete] = useState(false);
 
   useEffect(() => {
-    Image.getSize(documentDirectory + path, (width, height) => {
-      setImageInfo(prev => ({...prev, width: width / 2, height}))
-    })
 
     const date = dateConvert(
       JSON.parse(exif).DateTime
@@ -51,6 +49,7 @@ const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
           width={Dimensions.get('window').width / 2}
           height={20}
           borderRadius={4}
+          opacity={0.2}
           style={{marginTop: 8}}
         />
       }/>
@@ -59,17 +58,24 @@ const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView horizontal={true} contentContainerStyle={{width: imageInfo.width}}>
         <ImageBackground
           source={{uri: documentDirectory + path}}
-          style={{width: imageInfo.width, height: imageInfo.height}}
+          style={{flex:1}}
+          resizeMode={'cover'}
+          progressiveRenderingEnabled
+          defaultSource={{
+            uri : documentDirectory + path,
+          }}
         >
           <LinearGradient
-            colors={['transparent', '#00000022', '#00000055', '#00000077', '#000000']}
-            style={styles.imageGradient}
+          colors={["rgba(0,0,0,0)", "rgba(0,0,0,0.5)"]}
+          style={[styles.gradientBackground, {bottom:0,height:"100%"}]}
+          />
+           <LinearGradient
+          colors={["rgba(0,0,0,0.25)", "rgba(0,0,0,0)"]}
+          style={[styles.gradientBackground, {top:0,height:"25%"}]}
           />
         </ImageBackground>
-      </ScrollView>
       <View style={styles.infoWrapper}>
         <Text style={styles.address} numberOfLines={1}>
           {imageInfo.address ? imageInfo.address : <AddressPlaceholder/>}
@@ -80,30 +86,25 @@ const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
         </Text>
       </View>
 
-      <Fragment>
-        <View style={styles.prev}>
-          <TouchableOpacity style={styles.prevButton} onPress={() => changeImage("prev")}>
-            <ArrowLeft color={'#FFF'}/>
+          <TouchableOpacity style={[styles.buttonBase, styles.leftButton]} onPress={() => changeImage("prev")}>
+            <ArrowLeft  width={RFValue(15)} height={RFValue(15)} color={'#FFF'}/>
           </TouchableOpacity>
-        </View>
 
-        <View style={styles.next}>
-          <TouchableOpacity style={styles.nextButton} onPress={() => changeImage("next")}>
-            <ArrowLeft color={'#FFF'}/>
+          <TouchableOpacity  style={[styles.buttonBase, styles.rightButton]} onPress={() => changeImage("next")}>
+            <ArrowLeft  width={RFValue(15)} height={RFValue(15)} color={'#FFF'}/>
           </TouchableOpacity>
-        </View>
 
         <View style={styles.imageCount}>
-          <Text style={styles.imageCountText}>
-            <Text style={{fontFamily: 'Poppins-SemiBold'}}>{current}</Text> / {total}
-          </Text>
+          <CustomTextBold style={styles.imageCountText}>
+            {current}  / {total}
+          </CustomTextBold>
         </View>
 
-        <View style={styles.delete}>
-          <TouchableOpacity style={styles.deleteButton} onPress={() => setIsDelete(true)}>
-            <Trash color={'#FFF'} width={RFValue(17)} height={RFValue(24)} />
-            <Text style={styles.deleteText}> {t("delete")}</Text>
+        <View style={[styles.buttonBase, styles.deleteButton]}>
+          <TouchableOpacity onPress={() => setIsDelete(true)}>
+            <Trash color={'#FFF'} width={RFValue(20)} height={RFValue(20)} />
           </TouchableOpacity>
+        </View>
 
           <AlertModal
             visible={isDelete}
@@ -114,12 +115,10 @@ const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
               confirm: {text: t("yes"), onPress: () => deleteHandler([{id, path}])}
             }}
           />
-        </View>
 
         <View style={styles.watermark}>
           <LogoWatermark />
         </View>
-      </Fragment>
     </View>
   )
 }
@@ -133,7 +132,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     position: 'relative',
   },
-  header: {},
   title: {
     position: 'absolute',
     backgroundColor: '#FFFFFF',
@@ -141,11 +139,28 @@ const styles = StyleSheet.create({
   infoWrapper: {
     padding: RFValue(16),
     position: 'absolute',
-    bottom: RFValue(40)
+    bottom: RFValue(30)
   },
-  imageGradient: {
-    flex: 1,
-    marginTop: 'auto'
+  gradientBackground:{
+    position: "absolute",
+    left: 0,
+    right: 0,
+  },
+  buttonBase:{
+    position: "absolute",
+    zIndex: 2,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    padding: RFValue(10),
+    borderRadius: RFValue(50),
+  },
+    leftButton: {
+    top: "45%",
+    left: 10,
+  },
+    rightButton: {
+    top: "45%",
+    right: 10,
+    transform: [{ rotateY: "180deg" }],
   },
   address: {
     fontSize: RFValue(16),
@@ -157,13 +172,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins',
     color: '#C2C2C2'
   },
-  prev: {
-    position: 'absolute',
-    justifyContent: 'center',
-    top: 0,
-    bottom: 0,
-    left: RFValue(10),
-  },
   prevButton: {
     width: 50,
     height: 50,
@@ -171,13 +179,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255, .3)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  next: {
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: RFValue(10),
   },
   nextButton: {
     width: 50,
@@ -197,27 +198,16 @@ const styles = StyleSheet.create({
   imageCountText: {
     textAlign: 'center',
     color: '#FFFFFF',
-    fontFamily: 'Poppins',
-    fontSize: RFValue(12)
-  },
-  delete: {
-    position: 'absolute',
-    top: RFValue(20),
-    right: RFValue(10),
+    fontSize: RFValue(16)
   },
   deleteButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  deleteText: {
-    color: '#FFFFFF',
-    fontFamily: 'Poppins',
-    fontSize: RFValue(12)
+    top: RFValue(10),
+    right: RFValue(10),
   },
   watermark: {
     position: 'absolute',
     bottom: RFValue(20),
-    right: RFValue(10),
+    marginLeft: RFValue(16),
   }
 })
 

@@ -1,11 +1,11 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
-import {StyleSheet, TouchableOpacity, View} from "react-native";
+import {useEffect, useMemo, useRef, useState} from "react";
+import {StyleSheet, TouchableOpacity, View, ActivityIndicator} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {MapView} from "../highordercomponents";
 import {ArrowLeft} from "../assets/svg/illustrations";
 import {globalStyles} from "../styles/globalStyles";
-import MapLibre from "@maplibre/maplibre-react-native";
+import MapLibreGL from "@maplibre/maplibre-react-native";
 import {useDispatch, useSelector} from "react-redux";
 import db from "../db";
 import {bbox, lineString} from "@turf/turf";
@@ -16,31 +16,39 @@ import {setGeoJson} from "../helper/geojson";
 import {UPDATE_SELECTED_IMAGES, UPLOAD_DATA} from "../store/actionsName";
 import SequenceDetail from "../components/SequenceDetail";
 import {Routes} from "../navigator/Routes";
-import {FocusAwareStatusBar, Loading} from "../components";
-
+import {FocusAwareStatusBar, Loading, } from "../components";
+import {MapLoading} from "../components/Map"
+import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 
 const UserSequence = ({navigation}) => {
   const cameraRef = useRef();
   const {top} = useSafeAreaInsets();
   const {uploadData} = useSelector((state) => state.uploadReducer);
   const {activeSequence} = useSelector((state) => state.uploadReducer);
-  const [mapGeoJson, setMapGeoJson] = useState(undefined);
-  const [imageDetail, setImageDetail] = useState(undefined);
-  const [loading, setLoading] = useState(false);
+  const [mapGeoJson, setMapGeoJson] = useState(null);
+  const [imageDetail, setImageDetail] = useState(null);
+  const [loading, setLoading] = useState(true);
   const bottomSheetModalRef = useRef(null);
   const dispatch = useDispatch();
+  const [isMapLoading, setIsMapLoading] = useState(true);
 
   useEffect(() => {
-    getData().then(() => setLoading(false));
-  }, [])
+    getData()
+  }, [uploadData]);
 
   useEffect(() => {
-    getData().then(() => setLoading(false));
-  }, [uploadData])
+    if(imageDetail){
+      cameraRef.current.setCamera({
+        centerCoordinate: [JSON.parse(imageDetail.location).longitude, JSON.parse(imageDetail.location).latitude],
+        animationDuration: 300,
+      });
+    }
+  }, [imageDetail]);
+
 
   const GetContent = () => {
     if (loading) {
-      return <Loading containerStyle={{height:"30%", flex:0}} />
+      return (<Loading />);
     }
 
     if (!!imageDetail) {
@@ -48,16 +56,22 @@ const UserSequence = ({navigation}) => {
     }
 
     if (!!mapGeoJson) {
-      return <SequenceDetail sequence={mapGeoJson?.result} onClick={setImageDetail} deleteHandler={deleteImages}/>
+      return <SequenceDetail sequence={mapGeoJson?.result} onClick={(imageData)=>{
+        bottomSheetModalRef.current?.snapToIndex(0);
+        setImageDetail(imageData);
+      }} deleteHandler={deleteImages}/>
     }
 
     return null;
   }
 
-  const snapPoints = useMemo(() => [...Array(9).keys()].map((e) => (e + 1) + '0%'), []);
+
+  const snapPoints = useMemo(() => {
+   return (imageDetail || loading) ? ['40%'] : ["40%", "80%"]
+  }, [imageDetail, loading]);
 
   const getData = async () => {
-    setLoading(true);
+
     try {
       const result = await db.getCaptures(activeSequence);
 
@@ -69,6 +83,9 @@ const UserSequence = ({navigation}) => {
 
 
       setMapGeoJson({line, point, bboxData, result});
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
     } catch {
       db.getGroupByWithGroupID().then((data) => {
         dispatch({type: UPLOAD_DATA, payload: data})
@@ -109,13 +126,12 @@ const UserSequence = ({navigation}) => {
    * @returns {Promise<void>}
    */
   const deleteImages = async (images) => {
-    setImageDetail(undefined);
-
+    changeImage('next');
     await db.deleteCapturesByIds(images)
 
     dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
 
-    getData().then(() => setLoading(false));
+    getData()
   }
 
   const onPointClick = (e) => {
@@ -126,6 +142,7 @@ const UserSequence = ({navigation}) => {
       cameraRef.current?.fitBounds([clickedBbox[0], clickedBbox[1]], [clickedBbox[2], clickedBbox[3]], [20, 20], 500);
 
     } else {
+      bottomSheetModalRef.current?.snapToIndex(0);
       const item = e.features[0].properties.item;
       item.total = mapGeoJson?.result.length;
       item.current = mapGeoJson?.result.findIndex(({id}) => id === item?.id) + 1;
@@ -134,62 +151,88 @@ const UserSequence = ({navigation}) => {
     }
   }
 
-  if (!mapGeoJson) {
-    return null;
-  }
 
   return (
     <View style={styles.container}>
-
+      <FocusAwareStatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="transparent"
+      />
       <TouchableOpacity
         onPress={goBack}
-        style={{...styles.backButton, top: top + RFValue(20)}}
+        style={{ ...styles.backButton, top: top + RFValue(20) }}
       >
-       <ArrowLeft width={RFValue(18)} height={RFValue(18)} />
+        <ArrowLeft width={RFValue(18)} height={RFValue(18)} />
       </TouchableOpacity>
-
-      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
-
-      <MapView style={{flex: 1}} pitchEnabled={false}>
-        <MapLibre.Camera
-          ref={cameraRef}
-          bounds={{
-            ne: [mapGeoJson?.bboxData[2], mapGeoJson?.bboxData[3]],
-            sw: [mapGeoJson?.bboxData[0], mapGeoJson?.bboxData[1]],
-            paddingTop: 100, paddingBottom: 100, paddingLeft: 100, paddingRight: 100,
+      {isMapLoading && (
+        <Animated.View exiting={FadeOut} entering={FadeIn}>
+          <MapLoading />
+        </Animated.View>
+      )}
+      {mapGeoJson && (
+        <MapView
+          style={{ height: "100%" }}
+          pitchEnabled={false}
+          onDidFinishLoadingMap={() => {
+              setTimeout(() => {
+                setIsMapLoading(false);
+              }, 300);
           }}
-          animationDuration={0}
-        />
+        >
+          <MapLibreGL.Camera
+            bounds={{
+              ne: [mapGeoJson?.bboxData[2], mapGeoJson?.bboxData[3]],
+              sw: [mapGeoJson?.bboxData[0], mapGeoJson?.bboxData[1]],
+              paddingTop: 100,
+              paddingBottom: 300,
+              paddingLeft: 100,
+              paddingRight: 100,
+            }}
+            ref={cameraRef}
+            animationDuration={0}
+          />
 
-        <MapLibre.ShapeSource id={"LineShape"} shape={mapGeoJson?.line}>
-          <MapLibre.LineLayer id="lineLayer" style={styles.lineStyles}/>
-        </MapLibre.ShapeSource>
+          <MapLibreGL.ShapeSource id={"LineShape"} shape={mapGeoJson?.line}>
+            <MapLibreGL.LineLayer id="lineLayer" style={styles.lineStyles} />
+          </MapLibreGL.ShapeSource>
 
-        <MapLibre.ShapeSource id={"PointShape"} shape={mapGeoJson?.point} onPress={onPointClick}>
-          <MapLibre.CircleLayer id="pointLayer" style={styles.circleStyles} />
-        </MapLibre.ShapeSource>
-
-        {
-          !!imageDetail && (
+          <MapLibreGL.ShapeSource
+            id={"PointShape"}
+            shape={mapGeoJson?.point}
+            onPress={onPointClick}
+          >
+            <MapLibreGL.CircleLayer
+              id="pointLayer"
+              style={styles.circleStyles}
+            />
+          </MapLibreGL.ShapeSource>
+          {imageDetail && (
             <Heading
-              coordinates={[JSON.parse(imageDetail.location).longitude, JSON.parse(imageDetail.location).latitude]}
+              coordinates={[
+                JSON.parse(imageDetail.location).longitude,
+                JSON.parse(imageDetail.location).latitude,
+              ]}
               heading={JSON.parse(imageDetail?.location).heading}
               markerPath={require("../assets/images/heading.png")}
             />
-          )
-        }
-      </MapView>
+          )}
+        </MapView>
+      )}
 
       <BottomSheet
         ref={bottomSheetModalRef}
         snapPoints={snapPoints}
-        index={2}
-        handleIndicatorStyle={{...styles.indicatorStyle, backgroundColor: imageDetail ? "#FFF" : "#D8D8D8"}}
+        index={0}
+        handleIndicatorStyle={{
+          ...styles.indicatorStyle,
+          backgroundColor: imageDetail ? "#FFF" : "#D8D8D8",
+        }}
         handleStyle={styles.handleStyle}
-        style={{backgroundColor: 'transparent'}}
-        containerStyle={{zIndex:2}}
+        style={{ backgroundColor: "transparent" }}
+        containerStyle={{ zIndex: 2 }}
       >
-        <GetContent/>
+        <GetContent />
       </BottomSheet>
     </View>
   );
