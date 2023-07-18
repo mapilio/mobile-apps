@@ -59,7 +59,7 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
         onPress={() => handleClick(item)}
         onLongPress={() => selectImage(item)}
       >
-        <Image source={{uri: imagePath, cache: 'force-cache'}} defaultSource={{uri:imagePath}} style={styles.image} resizeMode={"cover"}/>
+        <Image source={{uri: imagePath, cache: 'force-cache'}} style={styles.image} resizeMode={"cover"}/>
         {isSelected && (
           <View style={styles.selectedWrapper}>
             <View style={styles.selectedIcon}><CheckIcon/></View>

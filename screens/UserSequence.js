@@ -18,7 +18,6 @@ import SequenceDetail from "../components/SequenceDetail";
 import {Routes} from "../navigator/Routes";
 import {FocusAwareStatusBar, Loading, } from "../components";
 import {MapLoading} from "../components/Map"
-import Animated, {FadeIn, FadeOut} from "react-native-reanimated";
 
 const UserSequence = ({navigation}) => {
   const cameraRef = useRef();
@@ -165,11 +164,7 @@ const UserSequence = ({navigation}) => {
       >
         <ArrowLeft width={RFValue(18)} height={RFValue(18)} />
       </TouchableOpacity>
-      {isMapLoading && (
-        <Animated.View exiting={FadeOut} entering={FadeIn}>
-          <MapLoading />
-        </Animated.View>
-      )}
+      {isMapLoading && <MapLoading />}
       {mapGeoJson && (
         <MapView
           style={{ height: "100%" }}
