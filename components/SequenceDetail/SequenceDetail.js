@@ -93,6 +93,7 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
           }
         </Text>
 
+        <BottomSheetFlatList data={sequence} keyExtractor={(item) => item.id} numColumns={3} renderItem={_renderItem}/>
         {
           !!selectedImages.length && (
             <Fragment>
@@ -119,7 +120,6 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
           )
         }
 
-        <BottomSheetFlatList data={sequence} keyExtractor={(item) => item.id} numColumns={3} renderItem={_renderItem}/>
       </View>
     </View>
   );

@@ -12,9 +12,11 @@ import LinearGradient from "react-native-linear-gradient";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 import InfoBox from "../components/InfoBox/InfoBox";
+import { useNavigation } from "@react-navigation/native";
 
 const UserUpload = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const {uploadData} = useSelector((status) => status.uploadReducer);
   const { mapShown, maintenanceMode } = useSelector(
     (status) => status.generalReducer
@@ -23,7 +25,14 @@ const UserUpload = () => {
   const [loading, setLoading] = useState(false);
   const {t} = useTranslation(["upload", "alerts"]);
 
-  useEffect(() => getData(), []);
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      getData()
+    })
+    return () => {
+      navigation.removeListener('focus')
+    }
+  }, []);
 
   const getData = () => {
     db.getGroupByWithGroupID().then(data => dispatch({type: UPLOAD_DATA, payload: data}))

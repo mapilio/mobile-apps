@@ -4,9 +4,9 @@ import { View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { RFValue } from "react-native-responsive-fontsize";
 
-const MapLoading = () => {
+const MapLoading = ({style}) => {
   return (
-    <View style={{ height: "100%", width: "100%", zIndex:2}}>
+    <View style={{ height: "100%", width: "100%", zIndex:2, ...style}}>
       <LinearGradient
         colors={["rgba(255,255,255,0.5)", "rgba(255,255,255,0.1)"]}
         style={{
