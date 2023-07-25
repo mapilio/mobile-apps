@@ -122,7 +122,7 @@ import { api } from "../../util/helpers/api";
       >
         {loading && (
           <View style={{ position: "absolute", width: "100%", height: "100%" }}>
-            <Loading />
+            <Loading containerStyle={{borderRadius:RFValue(10)}} />
           </View>
         )}
         <LinearGradient
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     zIndex: 3,
+    backgroundColor: "red"
   },
   report:{
     position:"absolute",
