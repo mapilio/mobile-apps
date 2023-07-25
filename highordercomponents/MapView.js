@@ -46,7 +46,7 @@ const MapView = ({
     <Fragment>
       <MapLibreGL.MapView
         style={mapStyle}
-        styleURL={styleURL + styleKey}
+        styleURL={__DEV__ ? undefined : `${styleURL}${styleKey}`}
         ref={mapRef}
         onRegionDidChange={regionChange}
         logoEnabled={false}
