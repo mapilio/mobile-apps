@@ -74,6 +74,21 @@ const UserSequence = ({navigation}) => {
     try {
       const result = await db.getCaptures(activeSequence);
 
+      const splitSequences = result.reduce((acc, item) => {
+        const sequence_uuid = item.sequence_uuid;
+        if (acc[sequence_uuid]) {
+          acc[sequence_uuid].push(item);
+        } else {
+          acc[sequence_uuid] = [item];
+        }
+        return acc;
+      }, {});
+      
+      const lines = Object.keys(splitSequences).reduce((acc, key) => {
+        acc[key] = lineString(splitSequences[key].map(({location}) => [JSON.parse(location).longitude, JSON.parse(location).latitude]));
+        return acc;
+      }, {});
+
       const coordinates = result.map(({location}) => [JSON.parse(location).longitude, JSON.parse(location).latitude]);
 
       const point = setGeoJson(result, 'point');
@@ -81,7 +96,7 @@ const UserSequence = ({navigation}) => {
       const bboxData = bbox(line);
 
 
-      setMapGeoJson({line, point, bboxData, result});
+      setMapGeoJson({lines, point, bboxData, result});
       setTimeout(() => {
         setLoading(false);
       }, 300);
@@ -170,9 +185,9 @@ const UserSequence = ({navigation}) => {
           style={{ height: "100%" }}
           pitchEnabled={false}
           onDidFinishLoadingMap={() => {
-              setTimeout(() => {
-                setIsMapLoading(false);
-              }, 300);
+            setTimeout(() => {
+              setIsMapLoading(false);
+            }, 300);
           }}
         >
           <MapLibreGL.Camera
@@ -188,9 +203,17 @@ const UserSequence = ({navigation}) => {
             animationDuration={0}
           />
 
-          <MapLibreGL.ShapeSource id={"LineShape"} shape={mapGeoJson?.line}>
-            <MapLibreGL.LineLayer id="lineLayer" style={styles.lineStyles} />
-          </MapLibreGL.ShapeSource>
+          {Object.keys(mapGeoJson?.lines).map((key, index) => {
+            return (
+              <MapLibreGL.ShapeSource
+                id={key}
+                key={index}
+                shape={mapGeoJson?.lines[key]}
+              >
+                <MapLibreGL.LineLayer id={key} style={styles.lineStyles} />
+              </MapLibreGL.ShapeSource>
+            );
+          })}
 
           <MapLibreGL.ShapeSource
             id={"PointShape"}
