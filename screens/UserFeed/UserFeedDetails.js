@@ -45,15 +45,17 @@ const UserFeedDetails = ({ route }) => {
   const toastRef = useRef(null);
 
   const getData = async () => {
+    const linesRes = await api.get("/api/get-uploaded-roads-group?group_key=" + id).then((res) => res.data);
+
     await api
       .get(
-        `/api/user-uploads-detail-v2?options[parameters][user_id]=${user_id}&options[parameters][group_key]=${id}&options[limit]=1000&page=1`
+        `/api/user-uploads-detail-v2?options[parameters][user_id]=${user_id}&options[parameters][group_key]=${id}&options[limit]=3000&page=1`
       )
       .then((res) => {
         setMapData({
           sequenceData: res.data,
           points: setGeoJson(res.data, "point"),
-          lines: setGeoJson(res.data, "line"),
+          lines: linesRes,
           bbox: bbox(setGeoJson(res.data, "line")),
           totalPhotos: res.data.length,
         });
@@ -205,12 +207,18 @@ const UserFeedDetails = ({ route }) => {
         <MapLibreGL.Camera ref={cameraRef} animationDuration={500} />
         {mapData.bbox.length > 0 && (
           <Fragment>
-            <MapLibreGL.ShapeSource id={"LineShape"} shape={mapData?.lines}>
-              <MapLibreGL.LineLayer
-                id="lineLayer"
-                style={mapStyles.lineStyles}
-              />
-            </MapLibreGL.ShapeSource>
+           {mapData?.lines.map((line, index) => (
+              <MapLibreGL.ShapeSource
+                id={"LineShape" + index}
+                shape={JSON.parse(line.linefeature)}
+                key={index}
+              >
+                <MapLibreGL.LineLayer
+                  id={"LineLayer" + index}
+                  style={mapStyles.lineStyles}
+                />
+              </MapLibreGL.ShapeSource>
+            ))}
             <MapLibreGL.ShapeSource
               id={"PointShape"}
               shape={mapData?.points}
