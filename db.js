@@ -20,7 +20,8 @@ class Database {
                                 uploaded BOOLEAN DEFAULT 0,
                                 filename TEXT NOT NULL,
                                 group_id TEXT DEFAULT NULL,
-                                address TEXT DEFAULT NULL
+                                address TEXT DEFAULT NULL,
+                                capture_id INTEGER DEFAULT NULL
                                 )`,
         []
       );
@@ -70,11 +71,11 @@ class Database {
     }
   }
 
-  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId}) {
+  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID}) {
     db.transaction((txn) => {
       txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId],
+        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, capture_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID],
         () => null,
         (_, error) => {
           console.log(error);
@@ -137,11 +138,11 @@ class Database {
     })
   }
 
-  getCapturesBySequenceIdAsync(sequence_uuid) {
+  getCapturesBySequenceIdAsync(sequence_uuid, orderBY = 'id ASC') {
     return new Promise((resolve, reject) => {
       db.transaction((txn) => {
         txn.executeSql(
-          `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}"`,
+          `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}" ORDER BY ${orderBY}`,
           [],
           (_, result) => {
             resolve(result.rows._array)
@@ -154,6 +155,12 @@ class Database {
     })
   }
 
+  //check if the capture_id of the sequence_uuid is null for all rows
+  async isCaptureIdNull(sequence_uuid) {
+    const result = await this.queryAsync(`SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}" AND capture_id IS NULL`)
+    return result.length > 0
+  }
+  
   getGroupByWithColumn(callback) {
     console.warn('getGroupByWithColumn() is deprecated. You can use getGroupByWithSequenceUUID()')
 

@@ -53,6 +53,7 @@ function App() {
     db.startDB();
     db.addColumnIfNotExist('group_id');
     db.addColumnIfNotExist('address');
+    db.addColumnIfNotExist('capture_id',"INTEGER DEFAULT NULL");
   }, []);
 
   useEffect(() => {

@@ -63,7 +63,9 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
 
     sequence : for (let [index, sequence] of sequences.entries()) {
       try {
-        const images = await db.getCapturesBySequenceIdAsync(sequence.sequence_uuid)
+        const isCaptureIDNull = await db.isCaptureIdNull(sequence.sequence_uuid)
+        const orderBy = isCaptureIDNull ? 'id ASC' : 'capture_id ASC'
+        const images = await db.getCapturesBySequenceIdAsync(sequence.sequence_uuid, orderBy)
 
         for (let image of images) {
           const {status, hash, message} = await getHash(image)

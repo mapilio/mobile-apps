@@ -51,6 +51,7 @@ const AutoActionButton = ({navigation}) => {
 	const {t} = useTranslation("camera");
 	const captureCount = useRef(0);
 	const isSessionStarted = useRef(false);
+	const captureID = useRef(0);
 
 	const LANDSCAPE_LEFT_ORIENTATION = Platform.OS === "ios" ? 90 : -90;
   	const LANDSCAPE_RIGHT_ORIENTATION = Platform.OS === "ios" ? -90 : 90;
@@ -85,9 +86,10 @@ const AutoActionButton = ({navigation}) => {
      		 }
 
 			lastLocation.current = cameraLocation;
-			takePicture(cameraLocation).catch(() =>
+			takePicture(cameraLocation, captureID.current).catch(() =>
         		toast.show(t("something_went_wrong"), { type: "error" })
       		);
+			captureID.current++;
     }
   }, [cameraLocation]);
 
@@ -197,7 +199,7 @@ const AutoActionButton = ({navigation}) => {
 
 
 	// TODO ADD TO HELPER.JS
-	const takePicture = async (location) => {
+	const takePicture = async (location, captureID) => {
 		if (!autoCaptureStart || !accuracy.degree) return;
 
 		const options = {
@@ -212,10 +214,10 @@ const AutoActionButton = ({navigation}) => {
 			pitch: pitch.current,
 			roll: roll.current,
 		})
-		camera.takePhoto(options).then((image) => savePicture(image, location, sensorData))
+		camera.takePhoto(options).then((image) => savePicture(image, location, sensorData, captureID))
 	};
 
-	const savePicture = async (image, location, sensorData) => {
+	const savePicture = async (image, location, sensorData, captureID) => {
 		const imageUri = image.path;
 
 		if (!imageUri) return;
@@ -257,6 +259,7 @@ const AutoActionButton = ({navigation}) => {
       path: `${groupId}/${filename}.${"jpeg"}`,
       filename,
       groupId,
+	  captureID
     });
 		const fileInfo = await FileSystem.getInfoAsync(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
