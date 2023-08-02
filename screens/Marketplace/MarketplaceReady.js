@@ -19,7 +19,7 @@ const MarketplaceReady = ({ navigation, route }) => {
 
   return (
     <View style={marketplaceReceivedStyles.container}>
-      <FocusAwareStatusBar barStyle={"dark-content"} backgroundColor={"#fff"} />
+      <FocusAwareStatusBar barStyle={"dark-content"} backgroundColor={"#fff"} translucent />
       <ReadyIcon />
       <CustomTextMedium style={marketplaceReceivedStyles.title}>
         {t("mission_ready")}
