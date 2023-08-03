@@ -7,6 +7,7 @@ import {
 } from "../../screens/Marketplace";
 import { Fragment, useEffect, useState } from "react";
 import { api } from "../../util/helpers/api";
+import Config from "react-native-config";
 
 const Stack = createStackNavigator();
 const MarketplaceNavigator = () => {
@@ -18,9 +19,9 @@ const MarketplaceNavigator = () => {
 
   const checkMarketplaceReady = async () => {
     api
-      .get("/general-config.json")
+      .get("/config/general?token=" + Config.APP_CONFIG_TOKEN)
       .then((res) => {
-        setIsMarketplaceReady(res.isMarketplace);
+        setIsMarketplaceReady(res.config.isMarketplace);
       })
       .catch(() => {
         setIsMarketplaceReady(false);
