@@ -66,8 +66,14 @@ const Register = ({ navigation }) => {
     }).finally(() => setLoading(false))
   }
 
-  const redirectBrowser = () => {
+  const redirectPrivacyPolicy = () => {
     Linking.openURL("https://mapilio.com/privacy").catch(() => {
+      toast.show(t("redirect_error"), {type: "error"})
+    });
+  };
+
+  const redirectTermsConditions = () => {
+    Linking.openURL("https://mapilio.com/terms").catch(() => {
       toast.show(t("redirect_error"), {type: "error"})
     });
   };
@@ -212,7 +218,11 @@ const Register = ({ navigation }) => {
               components={[
                 <CustomText
                   style={loginStyles.link}
-                  onPress={redirectBrowser}
+                  onPress={redirectPrivacyPolicy}
+                />,
+                <CustomText
+                  style={loginStyles.link}
+                  onPress={redirectTermsConditions}
                 />,
               ]}
             />
