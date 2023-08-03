@@ -5,32 +5,16 @@ import {
   MarketplaceReady,
   MarketplaceSoon,
 } from "../../screens/Marketplace";
-import { Fragment, useEffect, useState } from "react";
-import { api } from "../../util/helpers/api";
-import Config from "react-native-config";
+import { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
 const MarketplaceNavigator = () => {
-  const [isMarketplaceReady, setIsMarketplaceReady] = useState(false);
-
-  useEffect(() => {
-    checkMarketplaceReady();
-  }, []);
-
-  const checkMarketplaceReady = async () => {
-    api
-      .get("/config/general?token=" + Config.APP_CONFIG_TOKEN)
-      .then((res) => {
-        setIsMarketplaceReady(res.config.isMarketplace);
-      })
-      .catch(() => {
-        setIsMarketplaceReady(false);
-      });
-  };
+  const {config: {isMarketOpen}} = useSelector((state) => state.generalReducer);
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {isMarketplaceReady ? (
+      {isMarketOpen ? (
         <Fragment>
           <Stack.Screen name={Routes.marketplace} component={Marketplace} />
           <Stack.Screen
