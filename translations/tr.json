@@ -282,7 +282,7 @@
     "pass_min_character": "Şifre en az {{min}} karakter olmalıdır",
     "account_created": "Hesabınız oluşturuldu, e-posta adresinizi kontrol edin.",
     "redirect_error": "Yönlendirme sırasında bir hata oluştu, lütfen tekrar deneyin.",
-    "policy": "\"Kaydol\" düğmesini tıklayarak\n <0>Gizlilik politikamızı</0> kabul etmiş olursunuz.",
+    "policy": "\"Kaydol\" düğmesini tıklayarak\n <0>Gizlilik Politikamızı</0> ve <1>Şartlar & Koşullar</1>'ı kabul etmiş olursunuz.",
     "register_error": "Kayıt sırasında bir hata oluştu, lütfen tekrar deneyin."
   },
   "forgot": {

@@ -3,7 +3,7 @@ import {Routes} from "./Routes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {cameraPermission} from "../helper/helper";
-import { Pressable, TouchableOpacity, View, Button } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import {navigatorStyle} from "../styles/navigatorStyle";
 import {CaptureIcon} from "../assets/svg/illustrations";
 import {useSelector, useDispatch} from "react-redux";
@@ -23,9 +23,10 @@ import { vibrate } from "../util/helpers";
 import LeaderHeaderLeft from "../screens/Leaderboard/LeaderHeaderLeft";
 import LeaderHeaderRight from "../screens/Leaderboard/LeaderHeaderRight";
 import { TransitionPresets } from "@react-navigation/stack";
-import { SET_MAINTENANCE_MODE, SET_MAP_MODE } from "../store/actionsName";
-import { cdn } from "../util/helpers/api";
+import { SET_CONFIG, SET_MAINTENANCE_MODE } from "../store/actionsName";
+import { api, cdn } from "../util/helpers/api";
 import { useTranslation } from "react-i18next";
+import Config from "react-native-config";
 
 const Tab = createBottomTabNavigator();
 
@@ -74,8 +75,26 @@ const TabNavigator = () => {
       })
     }
 }
+
+const getConfig = () => {
+    api
+      .get("/config/general?token=" + Config.APP_CONFIG_TOKEN)
+      .then((res) => {
+        dispatch({type:SET_CONFIG, payload: {
+          isMarketOpen: res.config.isMarketOpen,
+          isChallengeOpen: res.config.isChallangeOpen,
+        }})
+      })
+      .catch(() => {
+        dispatch({type:SET_CONFIG, payload: {
+          isMarketOpen: false,
+          isChallengeOpen: false,
+        }})
+      });
+}  
   useEffect(() => {
     checkMaintenance()
+    getConfig()
   }, []);  
 
   const offlineTabs = ['CameraTab', 'UploadTab'];

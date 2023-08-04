@@ -125,35 +125,37 @@ export const marketplaceDetailStyles = StyleSheet.create({
 
 export const marketplaceReceivedStyles = StyleSheet.create({
   container: {
+    flex:1,
     alignItems: "center",
-    marginTop: "auto",
+    justifyContent: "center",
     marginBottom: "auto",
-    marginHorizontal: RFValue(40),
+    backgroundColor: "#FFF",
   },
   image: {
     height: RFValue(150),
     marginBottom: RFValue(35),
   },
   title: {
-    color: "#000",
+    color: "#191919",
     fontSize: RFValue(18),
+    fontFamily: "Poppins-SemiBold",
   },
   description: {
-    color: "#4A4A4A",
+    color: "#808080",
     fontSize: RFValue(14),
     lineHeight: RFValue(21),
-    textAlign: "center",
+    textAlign: "left",
     marginBottom: RFValue(22),
   },
   link: {
-    color: "#00D878",
+    color: "#0056F1",
     textDecorationLine: "underline",
   },
   button: {
-    backgroundColor: "#3F8BE9",
+    backgroundColor: "#0056F1",
     marginLeft: "auto",
     marginRight: "auto",
-    marginVertical: RFValue(20),
+    marginBottom: RFValue(20),
     paddingHorizontal: RFValue(25),
     paddingVertical: RFValue(13),
     borderRadius: RFValue(24),
@@ -162,10 +164,14 @@ export const marketplaceReceivedStyles = StyleSheet.create({
   },
   startCapture: {
     color: "#FFF",
-    fontSize: RFValue(16),
+    fontSize: RFValue(14),
   },
   or: {
     fontSize: RFValue(14),
-    marginTop: RFValue(-12),
+    color: "#191919",
   },
+  backToMarket:{
+    color:"#191919",
+    marginTop: RFValue(10),
+  }
 });

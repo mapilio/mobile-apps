@@ -22,6 +22,7 @@ export const Routes = {
   marketplaceDetail: "MarketplaceDetail",
   marketplaceReceived: "MarketplaceReceived",
   marketplaceReady: "MarketplaceReady",
+  marketplaceSoon: "MarketplaceSoon",
   tabHome: "Home",
   captureWalkthrough: "CaptureWalkthrough",
   welcomeWalkthrough: "WelcomeWalkthrough",
