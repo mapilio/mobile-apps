@@ -24,6 +24,10 @@ const INITIAL_STATE = {
   config:{
     isMarketOpen: false,
     isChallengeOpen: false,
+    challengeDescTR: '',
+    challengeDescEN: '',
+    challengeURL: '',
+    challengeDates: [],
   }
 };
 
