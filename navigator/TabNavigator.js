@@ -83,9 +83,9 @@ const getConfig = () => {
         dispatch({type:SET_CONFIG, payload: {
           isMarketOpen: res.config.isMarketOpen,
           isChallengeOpen: res.config.isChallangeOpen,
-          challengeDescEN: res.config.challengeDescEn,
-          challengeDescTR: res.config.challengeDescTr,
-          challengeURL: res.config.challengeUrl,
+          challengeDescEN: res.config.challengeDescEN,
+          challengeDescTR: res.config.challengeDescTR,
+          challengeURL: res.config.challengeURL,
           challengeDates: res.config.challengeDates.split('-'),
         }})
       })
