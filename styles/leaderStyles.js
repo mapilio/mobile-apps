@@ -35,15 +35,13 @@ export const leaderStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: RFValue(14),
+    paddingHorizontal: RFValue(10),
   },
   headerSubTitle: {
     fontFamily: "Poppins",
     color: "#808080",
     marginTop: 20,
     fontSize: RFValue(13),
-    textAlign:"center"
-  
   },
   subScreens: {
     flex: 1,
