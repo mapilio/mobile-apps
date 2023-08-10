@@ -4,7 +4,7 @@ import { leaderStyles as styles } from "../../styles/leaderStyles";
 import renderItem from "./RenderItem";
 import AuthUserButton from "./AuthUserButton";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLeaderUsers } from "../../store/actions/leaderboard";
+import { fetchLeaderUsers, fetchLeaderUsersWeek, fetchLeaderUsersMonth } from "../../store/actions/leaderboard";
 import { RFValue } from "react-native-responsive-fontsize";
 import { vibrate } from "../../util/helpers";
 import InfoBox from "../InfoBox/InfoBox";
@@ -13,7 +13,7 @@ import { CustomTextBold } from "../../highordercomponents";
 import WinnersBox from "./WinnersBox";
 import i18next from "i18next";
 
-const LeadersList = ({ leaders, authUserIndex, listType }) => {
+const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation("leaderboard");
 
@@ -25,7 +25,7 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
     (state) => state.leaderboardReducer.challengeWinners
   );
 
-  const {config:{isInfoBoxOpen, infoBoxDescTR, infoBoxDescEN}} = useSelector((state) => state.generalReducer);
+  const {config:{isInfoBoxOpen, infoBoxDescTR, infoBoxDescEN, challengeDates}} = useSelector((state) => state.generalReducer);
 
   const onViewableItemsChanged = ({ viewableItems }) => {
     const isAuthUserExistInVisibleIndex =
@@ -50,10 +50,14 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
   const refreshLeaderboard = () => {
     setIsRefresh(true);
     setTimeout(() => {
-      if (listType === "users") {
+      if (usersType === "all") {
         dispatch(fetchLeaderUsers());
+      } else if (usersType === "week") {
+        dispatch(fetchLeaderUsersWeek());
+      } else if (usersType === "month") {
+        dispatch(fetchLeaderUsersMonth());
       } else {
-        dispatch(fetchLeaderUsers("01-03-2023", "31-05-2023"));
+        dispatch(fetchLeaderUsers(challengeDates[0], challengeDates[1], true));
       }
       setIsRefresh(false);
     }, 500);

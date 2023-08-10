@@ -2,7 +2,6 @@ import {
   SET_LEADERBOARD_ORGANIZATIONS,
   SET_LEADERBOARD_USERS,
   RESET_LEADERBOARD,
-  SET_SHOW_GIFTS,
   SET_LEADERBOARD_CHALLENGE_USERS,
   SET_LEADERBOARD_CHALLENGE_WINNERS,
   SET_LEADERBOARD_USERS_MONTH,
@@ -14,7 +13,6 @@ const INITIAL_STATE = {
   usersMonth: null,
   usersWeek: null,
   organizations: null,
-  showGifts: true,
   challengeUsers: null,
   challengeWinners: {
     is_calculated: false,
@@ -58,11 +56,6 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         usersMonth: [],
         usersWeek: [],
         
-      };
-    case SET_SHOW_GIFTS:
-      return {
-        ...state,
-        showGifts: action.payload,
       };
       case SET_LEADERBOARD_CHALLENGE_WINNERS:
         return {

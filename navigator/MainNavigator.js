@@ -64,7 +64,7 @@ const MainNavigator = () => {
           type: SET_CONFIG,
           payload: {
             isMarketOpen: res.config.isMarketOpen,
-            challengeDates: challengeDates.split("-"),
+            challengeDates: challengeDates.split(","),
             isChallengeOpen,
             challengeDescEN,
             challengeDescTR,

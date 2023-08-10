@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 import { useTranslation, Trans } from "react-i18next";
 import { RFValue } from "react-native-responsive-fontsize";
-import AwardModal from "./AwardModal";
 import SkeletonLoading from "../../components/Leaderboard/SkeletonLoading";
 import {
   fetchLeaderUsers,
@@ -32,7 +31,7 @@ const Leaderboard = () => {
   );
 
   const auth = useSelector((state) => state.getTokenReducer);
-  const { config:{isChallengeOpen, challengeDescEN, challengeDescTR}} = useSelector((state) => state.generalReducer);
+  const { config:{isChallengeOpen, challengeDescEN, challengeDescTR, challengeDates}} = useSelector((state) => state.generalReducer);
   const [isChallange, setIsChallange] = useState(true);
 
 
@@ -40,8 +39,8 @@ const Leaderboard = () => {
     dispatch(fetchLeaderUsers());
     dispatch(fetchLeaderUsersWeek());
     dispatch(fetchLeaderUsersMonth());
-    dispatch(fetchLeaderUsers("01-03-2023", "31-05-2023", true));
-    dispatch(fetchLeaderboardWinners("01-03-2023", "31-05-2023"));
+    dispatch(fetchLeaderUsers(challengeDates[0], challengeDates[1], true));
+    dispatch(fetchLeaderboardWinners("01-08-2023", "31-08-2023"));
     return () => {
       dispatch(resetLeaderboard());
     };
@@ -119,7 +118,6 @@ const Leaderboard = () => {
         </Tab.Navigator>
       </View>
 
-      <AwardModal />
     </SafeAreaView>
   );
 };

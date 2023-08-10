@@ -25,6 +25,7 @@ const Users = ({route}) => {
       leaders={typeOfUsers}
       authUserIndex={authUserIndex}
       listType={"users"}
+      usersType={type}
     />
   );
 };
