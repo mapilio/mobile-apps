@@ -48,13 +48,13 @@ export const leaderStyles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   authUserListItem: {
-    flexDirection: "row",
+    flexDirection: "column",
+    alignItems: "flex-start",
     marginRight: RFValue(1),
     alignItems: "center",
-    paddingVertical: 10,
     paddingHorizontal: 10,
     backgroundColor: "#0056F1",
-    borderRadius: 5,
+    borderRadius: 15,
     rank: {
       text: {
         fontFamily: "Poppins-Medium",
