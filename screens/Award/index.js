@@ -1,19 +1,33 @@
-import { ScrollView } from "react-native";
-import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import Content from "./Content";
+import WebView from "react-native-webview";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { Routes } from "../../navigator/Routes";
 
-const Award = ({ isModal = false, slidePanel }) => {
-  if (isModal)
-    return (
-      <BottomSheetScrollView>
-        <Content slidePanel={slidePanel} />
-      </BottomSheetScrollView>
-    );
+const Award = () => {
+  const {config:{challengeURL}} = useSelector((state) => state.generalReducer);
+  const navigation = useNavigation();
+  
+  const injectedJavaScript = `(function() {
+    window.postMessage = function(data) {
+      window.ReactNativeWebView.postMessage(data);
+    };
+  })();`;
 
   return (
-    <ScrollView>
-      <Content />
-    </ScrollView>
+    <WebView
+      source={{
+        uri: challengeURL,
+      }}
+      onMessage={(event) => {
+        const message = event.nativeEvent.data;
+
+        if (message === "openCamera") {
+          navigation.navigate(Routes.cameraTab)
+        }
+      }}
+      startInLoadingState={true}
+      injectedJavaScript={injectedJavaScript}
+    />
   );
 };
 

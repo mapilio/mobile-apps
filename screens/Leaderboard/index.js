@@ -39,8 +39,10 @@ const Leaderboard = () => {
     dispatch(fetchLeaderUsers());
     dispatch(fetchLeaderUsersWeek());
     dispatch(fetchLeaderUsersMonth());
-    dispatch(fetchLeaderUsers(challengeDates[0], challengeDates[1], true));
-    dispatch(fetchLeaderboardWinners(challengeDates[0], challengeDates[1]));
+    if(isChallengeOpen){
+      dispatch(fetchLeaderUsers(challengeDates[0], challengeDates[1], true));
+      dispatch(fetchLeaderboardWinners(challengeDates[0], challengeDates[1]));
+    }
     return () => {
       dispatch(resetLeaderboard());
     };
