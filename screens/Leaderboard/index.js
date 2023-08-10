@@ -40,7 +40,7 @@ const Leaderboard = () => {
     dispatch(fetchLeaderUsersWeek());
     dispatch(fetchLeaderUsersMonth());
     dispatch(fetchLeaderUsers(challengeDates[0], challengeDates[1], true));
-    dispatch(fetchLeaderboardWinners("01-08-2023", "31-08-2023"));
+    dispatch(fetchLeaderboardWinners(challengeDates[0], challengeDates[1]));
     return () => {
       dispatch(resetLeaderboard());
     };
