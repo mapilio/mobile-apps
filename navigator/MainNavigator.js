@@ -63,7 +63,7 @@ const MainNavigator = () => {
           type: SET_CONFIG,
           payload: {
             isMarketOpen: res.config.isMarketOpen,
-            isChallengeOpen: res.config.leaderboard.isChallangeOpen,
+            isChallengeOpen: res.config.leaderboard.isChallengeOpen,
             challengeDescEN: res.config.leaderboard.challengeDescEN,
             challengeDescTR: res.config.leaderboard.challengeDescTR,
             challengeURL: res.config.leaderboard.challengeURL,
