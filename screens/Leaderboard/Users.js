@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import LeadersList from "../../components/Leaderboard/LeadersList";
 
-const Users = () => {
-  const leaderboardUsers = useSelector(
-    (state) => state.leaderboardReducer.users
+const Users = ({route}) => {
+  const type = route.params.type;
+
+  const {users, usersWeek, usersMonth} = useSelector(
+    (state) => state.leaderboardReducer
   );
 
   const authUserUsername = useSelector((state) => {
@@ -12,13 +14,15 @@ const Users = () => {
     }
     return null;
   });
-  const authUserIndex = leaderboardUsers.findIndex((user) =>
+  
+  const typeOfUsers = type === "all" ? users : type === "month" ? usersMonth : usersWeek;
+  const authUserIndex = typeOfUsers.findIndex((user) =>
     authUserUsername ? user.username === authUserUsername : null
   );
 
   return (
     <LeadersList
-      leaders={leaderboardUsers}
+      leaders={typeOfUsers}
       authUserIndex={authUserIndex}
       listType={"users"}
     />

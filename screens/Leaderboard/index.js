@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { SafeAreaView, View, Text } from "react-native";
 import { leaderStyles as styles } from "../../styles/leaderStyles";
 import { useDispatch, useSelector } from "react-redux";
-import Users from "./Users";
 import FocusAwareStatusBar from "../../components/FocusAwareStatusBar";
 import { useTranslation, Trans } from "react-i18next";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -11,29 +10,38 @@ import AwardModal from "./AwardModal";
 import SkeletonLoading from "../../components/Leaderboard/SkeletonLoading";
 import {
   fetchLeaderUsers,
+  fetchLeaderUsersMonth,
   fetchLeaderboardWinners,
+  fetchLeaderUsersWeek,
   resetLeaderboard,
 } from "../../store/actions/leaderboard";
 import { CustomText, CustomTextMedium } from "../../highordercomponents";
 import ChallangeUsers from "./ChallangeUsers";
+import Board from "../../components/Leaderboard/Board";
+import i18next from "i18next";
 
 const Tab = createMaterialTopTabNavigator();
 
 const Leaderboard = () => {
   const { t } = useTranslation("leaderboard");
+
   const dispatch = useDispatch();
 
-  const { users, challangeUsers } = useSelector(
+  const { challengeUsers } = useSelector(
     (state) => state.leaderboardReducer
   );
+
   const auth = useSelector((state) => state.getTokenReducer);
+  const { config:{isChallengeOpen, challengeDescEN, challengeDescTR}} = useSelector((state) => state.generalReducer);
   const [isChallange, setIsChallange] = useState(true);
+
 
   useEffect(() => {
     dispatch(fetchLeaderUsers());
-    dispatch(fetchLeaderUsers("01-03-2023", "31-05-2023"));
+    dispatch(fetchLeaderUsersWeek());
+    dispatch(fetchLeaderUsersMonth());
+    dispatch(fetchLeaderUsers("01-03-2023", "31-05-2023", true));
     dispatch(fetchLeaderboardWinners("01-03-2023", "31-05-2023"));
-
     return () => {
       dispatch(resetLeaderboard());
     };
@@ -50,7 +58,7 @@ const Leaderboard = () => {
         <Text style={styles.headerSubTitle}>
           {isChallange ? (
             <Trans
-              i18nKey="leaderboard:challenge_description"
+              defaults={i18next.language === "en" ? challengeDescEN : challengeDescTR}
               components={[<CustomTextMedium style={{ color: "#808080" }} />]}
             />
           ) : (
@@ -93,15 +101,20 @@ const Leaderboard = () => {
             ),
             ...styles.screenOptions,
           })}
-          initialRouteName={"challenge"}
+          initialRouteName={isChallengeOpen ? "challenge" : "board"}
         >
-          <Tab.Screen
+           {isChallengeOpen &&  <Tab.Screen
             name={"challenge"}
-            component={!challangeUsers ? SkeletonLoading : ChallangeUsers}
-          />
+            component={!challengeUsers ? SkeletonLoading : ChallangeUsers}
+          />}
           <Tab.Screen
-            name={"all_time"}
-            component={!users ? SkeletonLoading : Users}
+            name={"board"}
+            component={Board}
+            options={{
+              tabBarStyle:{
+                display: isChallengeOpen ? "flex" : "none"
+              }
+            }}
           />
         </Tab.Navigator>
       </View>
