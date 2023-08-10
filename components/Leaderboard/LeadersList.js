@@ -11,6 +11,7 @@ import InfoBox from "../InfoBox/InfoBox";
 import { Trans, useTranslation } from "react-i18next";
 import { CustomTextBold } from "../../highordercomponents";
 import WinnersBox from "./WinnersBox";
+import i18next from "i18next";
 
 const LeadersList = ({ leaders, authUserIndex, listType }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
   const challengeWinners = useSelector(
     (state) => state.leaderboardReducer.challengeWinners
   );
+
+  const {config:{isInfoBoxOpen, infoBoxDescTR, infoBoxDescEN}} = useSelector((state) => state.generalReducer);
 
   const onViewableItemsChanged = ({ viewableItems }) => {
     const isAuthUserExistInVisibleIndex =
@@ -58,23 +61,24 @@ const LeadersList = ({ leaders, authUserIndex, listType }) => {
 
   const InfoHeader = () => {
     if (listType === "challange_users") {
-      if (challengeWinners.is_calculated && challengeWinners.leaderboard.length > 0) {
-        return <WinnersBox winners={challengeWinners.leaderboard} />;
-      } else {
+     if(isInfoBoxOpen) {
         return (
           <View style={{ paddingVertical: RFValue(10) }}>
             <InfoBox
               type="info"
               content={
                 <Trans
-                  t={t}
-                  i18nKey={"challenge_finished"}
+                  defaults={i18next.language === "en" ? infoBoxDescEN : infoBoxDescTR}
                   components={[<CustomTextBold />]}
                 />
               }
             />
           </View>
         );
+      }else if (challengeWinners.is_calculated && challengeWinners.leaderboard.length > 0) {
+        return <WinnersBox winners={challengeWinners.leaderboard} />;
+      } else{
+        return null
       }
     }
   }

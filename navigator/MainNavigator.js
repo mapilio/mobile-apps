@@ -59,18 +59,19 @@ const MainNavigator = () => {
     api
       .get("/config/general?token=" + Config.APP_CONFIG_TOKEN)
       .then((res) => {
+        const {isChallengeOpen, challengeDescEN, challengeDescTR, challengeURL, challengeDates, isInfoBoxOpen, infoBoxDescTR, infoBoxDescEN} = res.config.leaderboard;
         dispatch({
           type: SET_CONFIG,
           payload: {
             isMarketOpen: res.config.isMarketOpen,
-            isChallengeOpen: res.config.leaderboard.isChallengeOpen,
-            challengeDescEN: res.config.leaderboard.challengeDescEN,
-            challengeDescTR: res.config.leaderboard.challengeDescTR,
-            challengeURL: res.config.leaderboard.challengeURL,
-            challengeDates: res.config.leaderboard.challengeDates.split("-"),
-            isInfoBoxOpen: res.config.leaderboard.isInfoBoxOpen,
-            infoBoxTextTR: res.config.leaderboard.infoBoxTextTR,
-            infoBoxTextEN: res.config.leaderboard.infoBoxTextEN,
+            challengeDates: challengeDates.split("-"),
+            isChallengeOpen,
+            challengeDescEN,
+            challengeDescTR,
+            challengeURL,
+            isInfoBoxOpen,
+            infoBoxDescTR,
+            infoBoxDescEN,
           },
         });
       })
