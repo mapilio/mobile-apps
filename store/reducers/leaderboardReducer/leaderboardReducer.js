@@ -15,7 +15,7 @@ const INITIAL_STATE = {
   usersWeek: null,
   organizations: null,
   showGifts: true,
-  challangeUsers: null,
+  challengeUsers: null,
   challengeWinners: {
     is_calculated: false,
     winners: [],
@@ -47,7 +47,7 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
     case SET_LEADERBOARD_CHALLENGE_USERS:
       return {
         ...state,
-        challangeUsers: action.payload,
+        challengeUsers: action.payload,
       };
     case RESET_LEADERBOARD:
       return {
