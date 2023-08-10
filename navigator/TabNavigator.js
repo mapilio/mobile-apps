@@ -163,7 +163,7 @@ const TabNavigator = () => {
           headerRight:LeaderHeaderRight,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          headerTitleAlign: isChallengeOpen ? "center" : "left",
           headerShadowVisible: false,
           headerTitle: t("title"),
         }}
