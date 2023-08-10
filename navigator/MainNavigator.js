@@ -63,11 +63,14 @@ const MainNavigator = () => {
           type: SET_CONFIG,
           payload: {
             isMarketOpen: res.config.isMarketOpen,
-            isChallengeOpen: res.config.isChallangeOpen,
-            challengeDescEN: res.config.challengeDescEN,
-            challengeDescTR: res.config.challengeDescTR,
-            challengeURL: res.config.challengeURL,
-            challengeDates: res.config.challengeDates.split("-"),
+            isChallengeOpen: res.config.leaderboard.isChallangeOpen,
+            challengeDescEN: res.config.leaderboard.challengeDescEN,
+            challengeDescTR: res.config.leaderboard.challengeDescTR,
+            challengeURL: res.config.leaderboard.challengeURL,
+            challengeDates: res.config.leaderboard.challengeDates.split("-"),
+            isInfoBoxOpen: res.config.leaderboard.isInfoBoxOpen,
+            infoBoxTextTR: res.config.leaderboard.infoBoxTextTR,
+            infoBoxTextEN: res.config.leaderboard.infoBoxTextEN,
           },
         });
       })

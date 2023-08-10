@@ -5,10 +5,14 @@ import {
   SET_SHOW_GIFTS,
   SET_LEADERBOARD_CHALLENGE_USERS,
   SET_LEADERBOARD_CHALLENGE_WINNERS,
+  SET_LEADERBOARD_USERS_MONTH,
+  SET_LEADERBOARD_USERS_WEEK,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   users: null,
+  usersMonth: null,
+  usersWeek: null,
   organizations: null,
   showGifts: true,
   challangeUsers: null,
@@ -24,6 +28,16 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         users: action.payload,
+      };
+    case SET_LEADERBOARD_USERS_MONTH:
+      return {
+        ...state,
+        usersMonth: action.payload,
+      };
+    case SET_LEADERBOARD_USERS_WEEK:
+      return {
+        ...state,
+        usersWeek: action.payload,
       };
     case SET_LEADERBOARD_ORGANIZATIONS:
       return {
@@ -41,6 +55,9 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         users: null,
         organizations: null,
         challangeUsers: null,
+        usersMonth: [],
+        usersWeek: [],
+        
       };
     case SET_SHOW_GIFTS:
       return {

@@ -28,6 +28,9 @@ const INITIAL_STATE = {
     challengeDescEN: '',
     challengeURL: '',
     challengeDates: [],
+    isInfoBoxOpen: false,
+    infoBoxTextTR: '',
+    infoBoxTextEN: '',
   }
 };
 
