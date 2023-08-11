@@ -7,7 +7,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { CustomTextBold, CustomText } from "../../highordercomponents";
 import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect } from "react";
-import { CameraFilledIcon, RoadIcon,ArrowLeft } from "../../assets/svg/illustrations";
+import { CameraFilledIcon, RoadIcon } from "../../assets/svg/illustrations";
 import { thousandFormatter } from "../../helper/helper";
 
 const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
@@ -64,7 +64,7 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
     {expanded && (
         <View style={styles.bottomView}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <CameraFilledIcon fill="white" width={14} height={14} />
+            <CameraFilledIcon fill="rgba(255,255,255,0.8)" width={14} height={14} />
             <View style={{ width: 5 }} />
             <Text style={styles.infoTitle}>
               {t("photos")}
@@ -79,7 +79,7 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
           </View>
           <View style={styles.bottomSeperator} />
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <RoadIcon fill="white" width={14} height={14} />
+            <RoadIcon fill="rgba(255,255,255,0.8)" width={14} height={14} />
             <View style={{ width: 5 }} />
             <CustomText
               style={styles.infoTitle}
@@ -103,6 +103,8 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
   );
 };
 
+//white rgba color is rgba(255,255,255,0.5)
+
 const styles = StyleSheet.create({
   bottomView: {
     flexDirection: "row",
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   infoTitle:{
-    color: "white", fontSize: 14, lineHeight: 20
+    color: "rgba(255,255,255,0.8)", fontSize: 14, lineHeight: 20
   },
   infoSubTitle:{
     color: "white", fontSize: 14, lineHeight: 20
