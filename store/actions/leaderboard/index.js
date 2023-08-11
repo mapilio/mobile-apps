@@ -24,7 +24,7 @@ export const resetLeaderboard = () => {
  * @example  fetchLeaderUsers("2020-01-01", "2020-01-31", true)
  * @example  fetchLeaderUsers() // for all time
  */
-export const fetchLeaderUsers = (startDate, finishDate, isChallange) => {
+export const fetchLeaderUsers = (startDate, finishDate, isChallenge) => {
 
 
   let date = "";
@@ -36,7 +36,7 @@ export const fetchLeaderUsers = (startDate, finishDate, isChallange) => {
     api.get(`/api/leaderboard${date}`)
       .then((res) => {
         dispatch({
-          type: isChallange ? SET_LEADERBOARD_CHALLENGE_USERS : SET_LEADERBOARD_USERS,
+          type: isChallenge ? SET_LEADERBOARD_CHALLENGE_USERS : SET_LEADERBOARD_USERS,
           payload: res.data.leaderboard,
         });
       })
