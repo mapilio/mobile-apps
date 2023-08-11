@@ -22,11 +22,11 @@ const Board = () => {
         component={!users ? SkeletonLoading : Users}
         initialParams={{ type: "all" }}
       />
-      {usersMonth && usersMonth.length > 6 && <Tab.Screen
+      <Tab.Screen
         name="This Month"
         component={!usersMonth ? SkeletonLoading : Users}
         initialParams={{ type: "month" }}
-      />}
+      />
 
       {usersWeek && usersWeek.length > 6 && (
         <Tab.Screen
