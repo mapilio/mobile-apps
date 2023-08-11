@@ -49,8 +49,9 @@ export const fetchLeaderUsers = (startDate, finishDate, isChallange) => {
 
 export const fetchLeaderUsersMonth = () => {
 
-  const firstDayOfCurrentMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 2).toISOString().split('T')[0];
-  const lastDayOfCurrentMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString().split('T')[0];
+  const date = new Date();
+  const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().split('T')[0];
+  const lastDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth()+1, 1).toISOString().split('T')[0];
 
   return (dispatch) => {
     api.get(`/api/leaderboard?start_at=${firstDayOfCurrentMonth}&finish_at=${lastDayOfCurrentMonth}`)
@@ -67,8 +68,9 @@ export const fetchLeaderUsersMonth = () => {
 }
 
 export const fetchLeaderUsersWeek = () => {
-  const firstDayOfCurrentWeek = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - new Date().getDay() + 1).toISOString().split('T')[0];
-  const lastDayOfCurrentWeek = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - new Date().getDay() + 7).toISOString().split('T')[0];
+  const date = new Date();
+  const firstDayOfCurrentWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 2).toISOString().split('T')[0];
+  const lastDayOfCurrentWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 8).toISOString().split('T')[0];
 
   return (dispatch) => {
     api.get(`/api/leaderboard?start_at=${firstDayOfCurrentWeek}&finish_at=${lastDayOfCurrentWeek}`)

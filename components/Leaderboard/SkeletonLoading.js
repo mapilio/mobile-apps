@@ -16,8 +16,8 @@ const SkeletonLoading = () => {
         >
           <SkeletonPlaceholder.Item
             style={styles.listItem.rank.rankers}
-            width={RFValue(33)}
-            height={RFValue(22)}
+            width={RFValue(25)}
+            height={RFValue(25)}
           />
 
           <SkeletonPlaceholder.Item
