@@ -1,5 +1,4 @@
 import { RFValue } from "react-native-responsive-fontsize";
-import { Dimensions, Platform } from "react-native";
 
 export const navigatorStyle = {
   headerStyle: {
@@ -21,7 +20,7 @@ export const navigatorStyle = {
     backgroundColor: '#FFF',
   },
   headerTintColor: "#ffffff",
-  headerTitleAlign: "center",
+  headerTitleAlign: "left",
   captureButtonWrapperStyle: {
     width: RFValue(71),
     height: RFValue(71),

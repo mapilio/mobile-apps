@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {Routes} from "./Routes";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -6,7 +6,7 @@ import {cameraPermission} from "../helper/helper";
 import { Pressable, TouchableOpacity, View } from "react-native";
 import {navigatorStyle} from "../styles/navigatorStyle";
 import {CaptureIcon} from "../assets/svg/illustrations";
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 import {
   CameraNavigator,
   MapNavigator,
@@ -23,15 +23,13 @@ import { vibrate } from "../util/helpers";
 import LeaderHeaderLeft from "../screens/Leaderboard/LeaderHeaderLeft";
 import LeaderHeaderRight from "../screens/Leaderboard/LeaderHeaderRight";
 import { TransitionPresets } from "@react-navigation/stack";
-import { SET_CONFIG, SET_MAINTENANCE_MODE } from "../store/actionsName";
-import { api, cdn } from "../util/helpers/api";
 import { useTranslation } from "react-i18next";
-import Config from "react-native-config";
 
 const Tab = createBottomTabNavigator();
 
 const CaptureTabBarButton = () => {
   const navigation = useNavigation()
+  const {config:{isChallengeOpen}} = useSelector((state) => state.generalReducer)
 
   const handlePress = () => cameraPermission(() => {
     vibrate("light")
@@ -59,43 +57,7 @@ const TabNavigator = () => {
   const {isFirstOpen} = useSelector((state) => state.cameraReducer);
   const {uploadData} = useSelector((state) => state.uploadReducer);
   const {t} = useTranslation("leaderboard");
-
-  const dispatch = useDispatch();
-
-  const checkMaintenance = async () => {
-    if(connection.connectionStatus){
-      cdn.get('/v1/hearbeat-check').then((res) => {
-        if (res.mode) {
-          dispatch({type:SET_MAINTENANCE_MODE, payload: true})
-        }else{
-          dispatch({type:SET_MAINTENANCE_MODE, payload: false})
-        }
-      }).catch(() => {
-          dispatch({type:SET_MAINTENANCE_MODE, payload: true})
-      })
-    }
-}
-
-const getConfig = () => {
-    api
-      .get("/config/general?token=" + Config.APP_CONFIG_TOKEN)
-      .then((res) => {
-        dispatch({type:SET_CONFIG, payload: {
-          isMarketOpen: res.config.isMarketOpen,
-          isChallengeOpen: res.config.isChallangeOpen,
-        }})
-      })
-      .catch(() => {
-        dispatch({type:SET_CONFIG, payload: {
-          isMarketOpen: false,
-          isChallengeOpen: false,
-        }})
-      });
-}  
-  useEffect(() => {
-    checkMaintenance()
-    getConfig()
-  }, []);  
+  const {config: {isChallengeOpen}} = useSelector((state) => state.generalReducer);
 
   const offlineTabs = ['CameraTab', 'UploadTab'];
   const firstLogin = ['CameraTab'];
@@ -197,11 +159,11 @@ const getConfig = () => {
             <TabIcons focused={focused} tab={"leader"} />
           ),
           headerShown: true,
-          headerLeft: LeaderHeaderLeft,
+          headerLeft: isChallengeOpen ? LeaderHeaderLeft : null,
           headerRight:LeaderHeaderRight,
           headerTitleStyle: navigatorStyle.headerTitleStyle,
           headerTintColor: navigatorStyle.headerTintColor,
-          headerTitleAlign: navigatorStyle.headerTitleAlign,
+          headerTitleAlign: isChallengeOpen ? "center" : "left",
           headerShadowVisible: false,
           headerTitle: t("title"),
         }}

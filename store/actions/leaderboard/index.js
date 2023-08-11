@@ -4,6 +4,8 @@ import {
   RESET_LEADERBOARD,
   SET_LEADERBOARD_CHALLENGE_USERS,
   SET_LEADERBOARD_CHALLENGE_WINNERS,
+  SET_LEADERBOARD_USERS_MONTH,
+  SET_LEADERBOARD_USERS_WEEK,
 } from "../../actionsName";
 import { translate } from "../../../util/helpers";
 import {api} from "../../../util/helpers/api";
@@ -19,10 +21,11 @@ export const resetLeaderboard = () => {
  * @param { string } startDate 
  * @param { string } endDate
  * @returns { void }
- * @example  fetchLeaderUsers("2020-01-01", "2020-01-31")
+ * @example  fetchLeaderUsers("2020-01-01", "2020-01-31", true)
  * @example  fetchLeaderUsers() // for all time
  */
-export const fetchLeaderUsers = (startDate, finishDate) => {
+export const fetchLeaderUsers = (startDate, finishDate, isChallenge) => {
+
 
   let date = "";
   if (startDate && finishDate) {
@@ -33,7 +36,7 @@ export const fetchLeaderUsers = (startDate, finishDate) => {
     api.get(`/api/leaderboard${date}`)
       .then((res) => {
         dispatch({
-          type: date ? SET_LEADERBOARD_CHALLENGE_USERS : SET_LEADERBOARD_USERS,
+          type: isChallenge ? SET_LEADERBOARD_CHALLENGE_USERS : SET_LEADERBOARD_USERS,
           payload: res.data.leaderboard,
         });
       })
@@ -42,6 +45,46 @@ export const fetchLeaderUsers = (startDate, finishDate) => {
       });
   };
 };
+
+
+export const fetchLeaderUsersMonth = () => {
+
+  const date = new Date();
+  const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().split('T')[0];
+  const lastDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth()+1, 1).toISOString().split('T')[0];
+
+  return (dispatch) => {
+    api.get(`/api/leaderboard?start_at=${firstDayOfCurrentMonth}&finish_at=${lastDayOfCurrentMonth}`)
+      .then((res) => {
+        dispatch({
+          type: SET_LEADERBOARD_USERS_MONTH,
+          payload: res.data.leaderboard,
+        });
+      })
+      .catch(() => {
+        toast.show(translate("fetch_error", "leaderboard"), { type: "warning" });
+      });
+  };
+}
+
+export const fetchLeaderUsersWeek = () => {
+  const date = new Date();
+  const firstDayOfCurrentWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 2).toISOString().split('T')[0];
+  const lastDayOfCurrentWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 8).toISOString().split('T')[0];
+
+  return (dispatch) => {
+    api.get(`/api/leaderboard?start_at=${firstDayOfCurrentWeek}&finish_at=${lastDayOfCurrentWeek}`)
+      .then((res) => {
+        dispatch({
+          type: SET_LEADERBOARD_USERS_WEEK,
+          payload: res.data.leaderboard,
+        });
+      })
+      .catch(() => {
+        toast.show(translate("fetch_error", "leaderboard"), { type: "warning" });
+      });
+  }
+}
 
 export const fetchLeaderOrganizations = () => {
   return (dispatch) => {

@@ -20,6 +20,7 @@ const renderItem = ({ item, index }, authUserIndex, screenType) => {
         authUser={item}
         displayName={displayName}
         rankIndex={index}
+        type={"insideList"}
       />
     );
   }

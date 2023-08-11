@@ -2,16 +2,18 @@ import {
   SET_LEADERBOARD_ORGANIZATIONS,
   SET_LEADERBOARD_USERS,
   RESET_LEADERBOARD,
-  SET_SHOW_GIFTS,
   SET_LEADERBOARD_CHALLENGE_USERS,
   SET_LEADERBOARD_CHALLENGE_WINNERS,
+  SET_LEADERBOARD_USERS_MONTH,
+  SET_LEADERBOARD_USERS_WEEK,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
   users: null,
+  usersMonth: null,
+  usersWeek: null,
   organizations: null,
-  showGifts: true,
-  challangeUsers: null,
+  challengeUsers: null,
   challengeWinners: {
     is_calculated: false,
     winners: [],
@@ -25,6 +27,16 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         ...state,
         users: action.payload,
       };
+    case SET_LEADERBOARD_USERS_MONTH:
+      return {
+        ...state,
+        usersMonth: action.payload,
+      };
+    case SET_LEADERBOARD_USERS_WEEK:
+      return {
+        ...state,
+        usersWeek: action.payload,
+      };
     case SET_LEADERBOARD_ORGANIZATIONS:
       return {
         ...state,
@@ -33,7 +45,7 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
     case SET_LEADERBOARD_CHALLENGE_USERS:
       return {
         ...state,
-        challangeUsers: action.payload,
+        challengeUsers: action.payload,
       };
     case RESET_LEADERBOARD:
       return {
@@ -41,11 +53,9 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         users: null,
         organizations: null,
         challangeUsers: null,
-      };
-    case SET_SHOW_GIFTS:
-      return {
-        ...state,
-        showGifts: action.payload,
+        usersMonth: [],
+        usersWeek: [],
+        
       };
       case SET_LEADERBOARD_CHALLENGE_WINNERS:
         return {

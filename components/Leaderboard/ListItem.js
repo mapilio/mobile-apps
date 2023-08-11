@@ -121,8 +121,8 @@ const ListItem = ({
              navigation.navigate(Routes.stackNavigator, { screen: Routes.stackUserFeed, params:{
               userID: item.id
              }});
-          }}  style={{position:"absolute",backgroundColor:"black", padding:5, borderRadius:20, transform: [{ rotateY: "180deg" }], right:0}}>
-              <ArrowLeft color="#fff" width={RFValue(12)} height={RFValue(12)} />
+          }}  style={{position:"absolute",backgroundColor:"black", padding:8, borderRadius:20, transform: [{ rotateY: "180deg" }], right:0}}>
+              <ArrowLeft color="#fff" width={RFValue(10)} height={RFValue(10)} />
             </TouchableOpacity>
         </View>
       )}
