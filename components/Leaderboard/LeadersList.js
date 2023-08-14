@@ -113,7 +113,7 @@ const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
       />
       {AuthUserInLeadersAndVisible ? (
         <TouchableOpacity
-          style={{ ...styles.authUserInList, marginBottom: RFValue(21) }}
+          style={{ ...styles.authUserInList, marginBottom: RFValue(21), paddingHorizontal:RFValue(10) }}
           onPress={scrollToIndex}
         >
           <AuthUserButton
