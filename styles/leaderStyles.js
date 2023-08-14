@@ -33,8 +33,7 @@ export const leaderStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-  container: {
-    flex: 1,
+  header: {
     paddingHorizontal: RFValue(10),
   },
   headerSubTitle: {
@@ -74,12 +73,13 @@ export const leaderStyles = StyleSheet.create({
     height: 1,
     width: "100%",
     backgroundColor: "#ECECEC",
-    marginVertical: 3,
+    marginTop: 3,
     marginHorizontal: 5,
   },
   listItem: {
+    flex:1,
     flexDirection: "column",
-    width: "100%",
+    paddingTop:3,
     alignItems: "flex-start",
     paddingHorizontal: 10,
     borderRadius: 15,

@@ -90,6 +90,7 @@ const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
   return (
     <View style={styles.subScreens}>
       <FlatList
+        style={{paddingHorizontal:RFValue(10)}}
         ref={flatListRef}
         data={leaders}
         extraData={authUserIndex}

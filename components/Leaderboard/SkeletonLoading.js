@@ -38,7 +38,7 @@ const SkeletonLoading = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={{ flex: 1, backgroundColor: "white", paddingHorizontal:RFValue(10) }}>
       {Array(15)
         .fill(0)
         .map((_, index) => {
