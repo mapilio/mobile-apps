@@ -305,6 +305,9 @@
     "photos": "Photos",
     "challenge": "CHALLENGE",
     "board": "BOARD",
+    "all_time": "All Time",
+    "last_month": "Last Month",
+    "last_week": "Last Week",
     "join": "Join",
     "winners_title": "And the winners of \n Mapilio"
   },
