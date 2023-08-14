@@ -29,7 +29,7 @@ const LeaderboardTabBar = ({ state, descriptors, navigation, position }) => {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate({ name: route.name, merge: false });
+            navigation.navigate({ name: route.name, merge: true });
           }
         };
 
@@ -90,12 +90,12 @@ const styles = StyleSheet.create({
     paddingVertical: RFValue(10),
   },
   tabBarButton: {
-    width: "30%",
     backgroundColor: "#F9F9F9",
     height: RFValue(30),
     borderRadius: RFValue(20),
     justifyContent: "center",
     alignItems: "center",
+    flex: 1,
   },
   tabBarText: {
     color: "#C2C2C2",

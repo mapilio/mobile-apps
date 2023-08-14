@@ -9,7 +9,9 @@ const Tab = createMaterialTopTabNavigator();
 LogBox.ignoreLogs(["Sending"]);
 
 const Board = () => {
-  const { users, usersWeek, usersMonth } = useSelector((state) => state.leaderboardReducer);
+  const { users, usersWeek, usersMonth } = useSelector(
+    (state) => state.leaderboardReducer
+  );
 
   return (
     <Tab.Navigator
@@ -31,7 +33,7 @@ const Board = () => {
       {usersWeek && usersWeek.length > 6 && (
         <Tab.Screen
           name="This Week"
-          component={!users ? SkeletonLoading : Users}
+          component={!usersWeek ? SkeletonLoading : Users}
           initialParams={{ type: "week" }}
         />
       )}
