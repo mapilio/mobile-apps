@@ -22,14 +22,16 @@ const LeaderboardTabBar = ({ state, descriptors, navigation, position }) => {
         const isFocused = state.index === index;
 
         const onPress = () => {
-          const event = navigation.emit({
-            type: "tabPress",
-            target: route.key,
-            canPreventDefault: true,
-          });
-
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate({ name: route.name, merge: true });
+          if(route?.key && route?.name){
+            const event = navigation.emit({
+              type: "tabPress",
+              target: route.key,
+              canPreventDefault: true,
+            });
+  
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate({ name: route.name, merge: true });
+            }
           }
         };
 

@@ -50,11 +50,15 @@ export const fetchLeaderUsers = (startDate, finishDate, isChallenge) => {
 export const fetchLeaderUsersMonth = () => {
 
   const date = new Date();
-  const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().split('T')[0];
-  const lastDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth()+1, 1).toISOString().split('T')[0];
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const dayOfMonth = date.getDate();
+
+  const firstDayOfLastMonth = new Date(year, month, dayOfMonth - 30).toISOString().split('T')[0];
+  const lastDayOfLastMonth = new Date(year, month, dayOfMonth + 1).toISOString().split('T')[0];
 
   return (dispatch) => {
-    api.get(`/api/leaderboard?start_at=${firstDayOfCurrentMonth}&finish_at=${lastDayOfCurrentMonth}`)
+    api.get(`/api/leaderboard?start_at=${firstDayOfLastMonth}&finish_at=${lastDayOfLastMonth}`)
       .then((res) => {
         dispatch({
           type: SET_LEADERBOARD_USERS_MONTH,
@@ -68,12 +72,18 @@ export const fetchLeaderUsersMonth = () => {
 }
 
 export const fetchLeaderUsersWeek = () => {
+
   const date = new Date();
-  const firstDayOfCurrentWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 2).toISOString().split('T')[0];
-  const lastDayOfCurrentWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 8).toISOString().split('T')[0];
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const dayOfMonth = date.getDate();
+
+  const firstDayOfLastWeek = new Date(year, month, dayOfMonth - 6).toISOString().split('T')[0];
+  const lastDayOfLastWeek = new Date(year, month, dayOfMonth + 1).toISOString().split('T')[0];
+
 
   return (dispatch) => {
-    api.get(`/api/leaderboard?start_at=${firstDayOfCurrentWeek}&finish_at=${lastDayOfCurrentWeek}`)
+    api.get(`/api/leaderboard?start_at=${firstDayOfLastWeek}&finish_at=${lastDayOfLastWeek}`)
       .then((res) => {
         dispatch({
           type: SET_LEADERBOARD_USERS_WEEK,
