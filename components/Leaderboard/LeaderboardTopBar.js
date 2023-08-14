@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingBottom: RFValue(5),
     paddingVertical: RFValue(10),
+    paddingHorizontal: RFValue(10),
   },
   tabBarButton: {
     backgroundColor: "#F9F9F9",

@@ -11,7 +11,7 @@ import FallbackImage from "./FallbackImage";
 import UserProfileImage from "./UserProfileImage";
 import Rank from "./Rank";
 import { CustomText, CustomTextBold } from "../../highordercomponents";
-import { ArrowLeft, ArrowRight, CameraFilledIcon, RoadIcon } from "../../assets/svg/illustrations";
+import { ArrowLeft, CameraFilledIcon, RoadIcon } from "../../assets/svg/illustrations";
 import { thousandFormatter } from "../../helper/helper";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
@@ -30,8 +30,6 @@ const ListItem = ({
   const height = useRef(new Animated.Value(60)).current;
 
   const navigation = useNavigation();
-
-
 
   useEffect(() => {
     Animated.timing(height, {
@@ -148,8 +146,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 10,
-    paddingVertical: 10,
-    flex: 1,
+    paddingVertical: 15,
     width: "100%",
   },
   bottomSeperator: {

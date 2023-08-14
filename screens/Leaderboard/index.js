@@ -50,12 +50,12 @@ const Leaderboard = () => {
 
   return (
     <SafeAreaView style={styles.base}>
-      <FocusAwareStatusBar
+       <FocusAwareStatusBar
         translucent={true}
         barStyle="dark-content"
         backgroundColor={"transparent"}
       />
-      <View style={styles.container}>
+      <View style={styles.header}>
         <Text style={styles.headerSubTitle}>
           {isChallange ? (
             <Trans
@@ -66,6 +66,7 @@ const Leaderboard = () => {
             <Trans i18nKey="leaderboard:alltime_description" />
           )}
         </Text>
+        </View>
         <Tab.Navigator
           style={{ paddingTop: RFValue(10) }}
           screenListeners={({ route }) => ({
@@ -118,7 +119,6 @@ const Leaderboard = () => {
             }}
           />
         </Tab.Navigator>
-      </View>
 
     </SafeAreaView>
   );
