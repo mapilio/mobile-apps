@@ -22,7 +22,7 @@ const Board = () => {
       initialRouteName="all_time"
       tabBar={(props) => <LeaderboardTabBar {...props} />}
     >
-      {usersWeek.length > 6 ? (
+      {usersWeek.length < 6 ? (
         <Tab.Group>
           <Tab.Screen
             name="all_time"
