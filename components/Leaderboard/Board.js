@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 const Tab = createMaterialTopTabNavigator();
 LogBox.ignoreLogs(["Sending"]);
 
-//TODO: Find a better way to handle the conditional rendering of the board tabs. Currently tab wont rerender whe we wont use the grouped tabs. This is a workaround. 
 const Board = () => {
   const { users, usersWeek, usersMonth } = useSelector(
     (state) => state.leaderboardReducer
@@ -22,52 +21,31 @@ const Board = () => {
       initialRouteName="all_time"
       tabBar={(props) => <LeaderboardTabBar {...props} />}
     >
-      {usersWeek.length < 6 ? (
-        <Tab.Group>
-          <Tab.Screen
-            name="all_time"
-            component={!users ? SkeletonLoading : Users}
-            initialParams={{ type: "all" }}
-            options={{
-              tabBarLabel: t("all_time"),
-            }}
-          />
-          <Tab.Screen
-            name="last_month"
-            component={!usersMonth ? SkeletonLoading : Users}
-            initialParams={{ type: "month" }}
-            options={{
-              tabBarLabel: t("last_month"),
-            }}
-          />
-        </Tab.Group>
-      ) : (
-        <Tab.Group>
-          <Tab.Screen
-            name="all_time"
-            component={!users ? SkeletonLoading : Users}
-            initialParams={{ type: "all" }}
-            options={{
-              tabBarLabel: t("all_time"),
-            }}
-          />
-          <Tab.Screen
-            name="last_month"
-            component={!usersMonth ? SkeletonLoading : Users}
-            initialParams={{ type: "month" }}
-            options={{
-              tabBarLabel: t("last_month"),
-            }}
-          />
-          <Tab.Screen
-            name="last_week"
-            component={!usersWeek ? SkeletonLoading : Users}
-            initialParams={{ type: "week" }}
-            options={{
-              tabBarLabel: t("last_week"),
-            }}
-          />
-        </Tab.Group>
+      <Tab.Screen
+        name="all_time"
+        component={!users ? SkeletonLoading : Users}
+        initialParams={{ type: "all" }}
+        options={{
+          tabBarLabel: t("all_time"),
+        }}
+      />
+      <Tab.Screen
+        name="last_month"
+        component={!usersMonth ? SkeletonLoading : Users}
+        initialParams={{ type: "month" }}
+        options={{
+          tabBarLabel: t("last_month"),
+        }}
+      />
+      {usersWeek && usersWeek.length > 6 && (
+        <Tab.Screen
+          name="last_week"
+          component={!usersWeek ? SkeletonLoading : Users}
+          initialParams={{ type: "week" }}
+          options={{
+            tabBarLabel: t("last_week"),
+          }}
+        />
       )}
     </Tab.Navigator>
   );

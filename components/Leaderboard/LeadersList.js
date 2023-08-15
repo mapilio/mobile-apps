@@ -8,14 +8,13 @@ import { fetchLeaderUsers, fetchLeaderUsersWeek, fetchLeaderUsersMonth } from ".
 import { RFValue } from "react-native-responsive-fontsize";
 import { vibrate } from "../../util/helpers";
 import InfoBox from "../InfoBox/InfoBox";
-import { Trans, useTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
 import { CustomTextBold } from "../../highordercomponents";
 import WinnersBox from "./WinnersBox";
 import i18next from "i18next";
 
 const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation("leaderboard");
 
   const [isAuthUserVisible, setIsAuthUserVisible] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);

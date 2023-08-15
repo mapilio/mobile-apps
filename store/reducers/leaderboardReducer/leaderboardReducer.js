@@ -53,8 +53,8 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         users: null,
         organizations: null,
         challangeUsers: null,
-        usersMonth: [],
-        usersWeek: [],
+        usersMonth: null,
+        usersWeek: null,
         
       };
       case SET_LEADERBOARD_CHALLENGE_WINNERS:
