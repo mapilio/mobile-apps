@@ -112,6 +112,22 @@ export const fetchLeaderOrganizations = () => {
 };
 
 export const fetchLeaderboardWinners = (startDate, finishDate) => {
+
+  const today = new Date()
+  const finishDateParsed = new Date(finishDate)
+  
+  if(today < finishDateParsed){
+    return (dispatch) => {
+      dispatch({
+        type: SET_LEADERBOARD_CHALLENGE_WINNERS,
+        payload: {
+          is_calculated: false,
+          winners: [],
+        },
+      })
+    }
+  }
+
   let date = "";
   if (startDate && finishDate) {
     date = `?start_at=${startDate}&finish_at=${finishDate}`;
