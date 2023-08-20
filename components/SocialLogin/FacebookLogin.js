@@ -62,6 +62,7 @@ const FacebookLogin = ({ navigation }) => {
             client_id: Config.AUTH_CLIENT_ID,
             client_secret: Config.AUTH_CLIENT_SECRET,
             device_type: "mobile",
+            login_type: "facebook",
           })
           .then((res) => {
             dispatch({

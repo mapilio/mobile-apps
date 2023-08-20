@@ -55,7 +55,8 @@ const GoogleLogin = ({ navigation }) => {
       state: stateKey,
       client_id: Config.AUTH_CLIENT_ID,
       client_secret: Config.AUTH_CLIENT_SECRET,
-      device_type: "mobile"
+      device_type: "mobile",
+      login_type: "google",
     }
     api.post('/oauth-api/callbackV2', data).then((res) => {
       dispatch({type: SET_CREDENTIAL, payload: {...response, type: 'google'}});

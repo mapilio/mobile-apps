@@ -21,7 +21,8 @@ const AppleLogin = ({ navigation }) => {
       state: stateKey,
       client_id: Config.AUTH_CLIENT_ID,
       client_secret: Config.AUTH_CLIENT_SECRET,
-      device_type: "mobile"
+      device_type: "mobile",
+      login_type: "apple",
     };
     let url = `/oauth-api/w-tokenV2`;
 

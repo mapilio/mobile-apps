@@ -15,6 +15,7 @@ export const fetchLogin = async (email, password) => {
     data.append("client_secret", Config.AUTH_CLIENT_SECRET);
     data.append("grant_type", "password");
     data.append("device_type", "mobile");
+    data.append("login_type", "credentials");
 
     const user = await api.post('/api/v2/login', data, {
       headers: {
