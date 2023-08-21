@@ -108,13 +108,19 @@ const Leaderboard = () => {
            {isChallengeOpen &&  <Tab.Screen
             name={"challenge"}
             component={!challengeUsers ? SkeletonLoading : ChallangeUsers}
+            options={{
+             tabBarStyle:{
+              marginHorizontal: RFValue(10),
+             }
+            }}
           />}
           <Tab.Screen
             name={"board"}
             component={Board}
             options={{
               tabBarStyle:{
-                display: isChallengeOpen ? "flex" : "none"
+                display: isChallengeOpen ? "flex" : "none",
+                marginHorizontal: RFValue(10),
               }
             }}
           />
