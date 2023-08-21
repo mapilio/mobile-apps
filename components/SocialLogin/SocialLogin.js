@@ -6,9 +6,17 @@ import GoogleLogin from "./GoogleLogin";
 import FacebookLogin from "./FacebookLogin";
 import AppleLogin from "./AppleLogin";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const SocialLogin = ({ navigation }) => {
-  const {t} = useTranslation("login");
+  const { t } = useTranslation("login");
+
+  const {
+    config: {
+      socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled },
+    },
+  } = useSelector((state) => state.generalReducer);
+
   return (
     <View style={socialLoginStyles.container}>
       <View style={socialLoginStyles.topContainer}>
@@ -18,9 +26,9 @@ const SocialLogin = ({ navigation }) => {
       </View>
 
       <View style={socialLoginStyles.bottomContainer}>
-        <AppleLogin navigation={navigation} />
-        <FacebookLogin navigation={navigation} />
-        <GoogleLogin navigation={navigation} />
+        {isAppleEnabled && <AppleLogin navigation={navigation} />}
+        {isFacebookEnabled && <FacebookLogin navigation={navigation} />}
+        {isGoogleEnabled && <GoogleLogin navigation={navigation} />}
       </View>
     </View>
   );

@@ -59,7 +59,19 @@ const MainNavigator = () => {
     api
       .get("/config/general?token=" + Config.APP_CONFIG_TOKEN)
       .then((res) => {
-        const {isChallengeOpen, challengeDescEN, challengeDescTR, challengeURL, challengeDates, isInfoBoxOpen, infoBoxDescTR, infoBoxDescEN} = res.config.leaderboard;
+        const {
+          leaderboard: {
+            isChallengeOpen,
+            challengeDescEN,
+            challengeDescTR,
+            challengeURL,
+            challengeDates,
+            isInfoBoxOpen,
+            infoBoxDescTR,
+            infoBoxDescEN,
+          },
+          socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled },
+        } = res.config;
         dispatch({
           type: SET_CONFIG,
           payload: {
@@ -72,6 +84,11 @@ const MainNavigator = () => {
             isInfoBoxOpen,
             infoBoxDescTR,
             infoBoxDescEN,
+            socialLogin: {
+              isFacebookEnabled,
+              isGoogleEnabled,
+              isAppleEnabled,
+            },
           },
         });
       })
