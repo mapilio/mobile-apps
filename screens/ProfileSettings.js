@@ -56,10 +56,13 @@ const ProfileSettings = ({navigation}) => {
 
   const exitHandle = () => {
     navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
-    const profile = Profile.getCurrentProfile();
-    if(profile){
+   Profile.getCurrentProfile().then((currentProfile) => {
+    console.log(currentProfile);
+    if(currentProfile){
       LoginManager.logOut();
     }
+   });
+    
     dispatch({type: EXIT_USER});
     OneSignal.removeExternalUserId();
   }

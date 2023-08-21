@@ -30,23 +30,21 @@ const Board = () => {
         }}
       />
       <Tab.Screen
-        name="last_month"
+        name="this_month"
         component={!usersMonth ? SkeletonLoading : Users}
         initialParams={{ type: "month" }}
         options={{
-          tabBarLabel: t("last_month"),
+          tabBarLabel: t("this_month"),
         }}
       />
-      {usersWeek && usersWeek.length > 6 && (
         <Tab.Screen
-          name="last_week"
+          name="this_week"
           component={!usersWeek ? SkeletonLoading : Users}
           initialParams={{ type: "week" }}
           options={{
-            tabBarLabel: t("last_week"),
+            tabBarLabel: t("this_week"),
           }}
         />
-      )}
     </Tab.Navigator>
   );
 };

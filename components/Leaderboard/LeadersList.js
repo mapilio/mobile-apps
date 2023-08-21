@@ -107,7 +107,7 @@ const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
           renderItem({ item, index }, authUserIndex, listType)
         }
         ListFooterComponent={() =>
-          authUserIndex > 0 && <View style={{ height: 90 }} />
+          <View style={{ height: RFValue(24) }} />
         }
       />
       {AuthUserInLeadersAndVisible ? (
