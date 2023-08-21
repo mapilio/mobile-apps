@@ -200,7 +200,6 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     zIndex: 3,
-    backgroundColor: "red"
   },
   report:{
     position:"absolute",
