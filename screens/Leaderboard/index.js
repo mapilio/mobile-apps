@@ -30,7 +30,7 @@ const Leaderboard = () => {
     (state) => state.leaderboardReducer
   );
 
-  const auth = useSelector((state) => state.getTokenReducer);
+  const {auth} = useSelector((state) => state.getTokenReducer);
   const { config:{isChallengeOpen, challengeDescEN, challengeDescTR, challengeDates}} = useSelector((state) => state.generalReducer);
   const [isChallange, setIsChallange] = useState(true);
 
