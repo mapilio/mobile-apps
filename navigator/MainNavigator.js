@@ -69,6 +69,7 @@ const MainNavigator = () => {
             isInfoBoxOpen,
             infoBoxDescTR,
             infoBoxDescEN,
+            showWeek,
           },
           socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled },
         } = res.config;
@@ -84,6 +85,7 @@ const MainNavigator = () => {
             isInfoBoxOpen,
             infoBoxDescTR,
             infoBoxDescEN,
+            showWeek,
             socialLogin: {
               isFacebookEnabled,
               isGoogleEnabled,

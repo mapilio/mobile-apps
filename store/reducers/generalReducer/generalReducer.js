@@ -31,6 +31,7 @@ const INITIAL_STATE = {
     isInfoBoxOpen: false,
     infoBoxDescTR: '',
     infoBoxDescEN: '',
+    showWeek: true,
     socialLogin: {
       isFacebookEnabled: false,
       isGoogleEnabled: false,

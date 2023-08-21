@@ -13,6 +13,8 @@ const Board = () => {
   const { users, usersWeek, usersMonth } = useSelector(
     (state) => state.leaderboardReducer
   );
+  const { config:{showWeek}} = useSelector((state) => state.generalReducer);
+
   const { t } = useTranslation("leaderboard");
 
   return (
@@ -37,14 +39,14 @@ const Board = () => {
           tabBarLabel: t("this_month"),
         }}
       />
-        <Tab.Screen
+        {showWeek && <Tab.Screen
           name="this_week"
           component={!usersWeek ? SkeletonLoading : Users}
           initialParams={{ type: "week" }}
           options={{
             tabBarLabel: t("this_week"),
           }}
-        />
+        />}
     </Tab.Navigator>
   );
 };
