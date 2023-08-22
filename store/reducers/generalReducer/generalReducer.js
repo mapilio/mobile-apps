@@ -31,6 +31,11 @@ const INITIAL_STATE = {
     isInfoBoxOpen: false,
     infoBoxDescTR: '',
     infoBoxDescEN: '',
+    socialLogin: {
+      isFacebookEnabled: false,
+      isGoogleEnabled: false,
+      isAppleEnabled: false
+    }
   }
 };
 
@@ -84,7 +89,10 @@ const generalReducer = (state = INITIAL_STATE, action) => {
     case SET_CONFIG:
       return {
         ...state,
-        config: action.payload,
+        config: {
+          ...state.config,
+          ...action.payload
+        }
       }
     default:
       return state;

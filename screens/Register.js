@@ -45,6 +45,7 @@ const Register = ({ navigation }) => {
       username: values.name,
       email: values.email,
       password: values.password,
+      register_type: "credentials",
       callback: `https://mapilio.com?deeplink=mapilio://`,
       "success-params": "tverification=true",
       "error-params": "tverification=false",

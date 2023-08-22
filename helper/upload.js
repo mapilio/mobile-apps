@@ -150,7 +150,6 @@ export const imageryUpload = async (images, sequence_uuid) => {
         fov: horizontal_fov,
         vfov: vertical_fov,
         sequenceUuid: sequence_uuid,
-        photoUuid: md5(userInformation.email + (DateTime || DateTimeOriginal)),
         filename: fileName,
         yaw: calculate.yaw(accelerometer),
         car_speed: speed * 3.6,
