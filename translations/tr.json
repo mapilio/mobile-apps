@@ -307,8 +307,8 @@
     "challenge": "YARIŞMA",
     "board": "PANO",
     "all_time": "Tüm zamanlar",
-    "last_month": "Son Ay",
-    "last_week": "Son Hafta",
+    "this_month": "Bu Ay",
+    "this_week": "Bu Hafta",
     "join": "Katıl",
     "winners_title": "Mapilio'nun Kazananları"
   },

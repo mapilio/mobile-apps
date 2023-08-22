@@ -20,7 +20,7 @@ export const navigatorStyle = {
     backgroundColor: '#FFF',
   },
   headerTintColor: "#ffffff",
-  headerTitleAlign: "left",
+  headerTitleAlign: "center",
   captureButtonWrapperStyle: {
     width: RFValue(71),
     height: RFValue(71),
