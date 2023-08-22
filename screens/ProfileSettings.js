@@ -57,7 +57,6 @@ const ProfileSettings = ({navigation}) => {
   const exitHandle = () => {
     navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
    Profile.getCurrentProfile().then((currentProfile) => {
-    console.log(currentProfile);
     if(currentProfile){
       LoginManager.logOut();
     }
