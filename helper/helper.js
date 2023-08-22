@@ -36,7 +36,7 @@ const fetchHandler = ({ ...args } = {}) => {
 const thousandFormatter = (num, shortCode = "k") => {
   return Math.abs(num) > 999
     ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + shortCode
-    : Math.sign(num) * Math.abs(num);
+    : (Math.sign(num) * Math.abs(num)).toFixed(1)
 };
 
 const maxCharacterHandler = (text, maxLength) => {
