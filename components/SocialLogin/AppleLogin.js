@@ -76,7 +76,7 @@ const AppleLogin = ({ navigation }) => {
   if (available) {
     return (
       <Fragment>
-        <Modal visible={loading} transparent={true} animationType="fade">
+        <Modal visible={loading} transparent={true} animationType="fade" statusBarTranslucent>
           <View style={socialLoginStyles.modal}>
             <ActivityIndicator size="large" color="white" />
           </View>

@@ -70,7 +70,7 @@ const GoogleLogin = ({ navigation }) => {
       style={socialLoginStyles.googleButton}
       onPress={handleLogin}
     >
-      <Modal visible={loading} transparent={true} animationType="fade">
+      <Modal visible={loading} transparent={true} animationType="fade" statusBarTranslucent>
         <View style={socialLoginStyles.modal}>
           <ActivityIndicator size="large" color="white" />
         </View>
