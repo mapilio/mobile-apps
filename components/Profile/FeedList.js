@@ -1,7 +1,7 @@
 import {ActivityIndicator, FlatList, Text, TouchableOpacity, View} from "react-native";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {ProfileFeed} from "../index";
+import ProfileFeed from "../ProfileFeed";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import styles from './FeedList.styles'
 import {useTranslation} from "react-i18next";

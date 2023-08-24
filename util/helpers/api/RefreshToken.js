@@ -18,14 +18,14 @@ export const refreshToken = async () => {
         retry: 0,
       });
 
-      store.dispatch({type: "GET_TOKEN_SUCCESS", payload: user});
+      store.dispatch({type: GET_TOKEN_SUCCESS, payload: user});
 
       return user;
     }
 
     isTokenExpired()
-  } catch (error) {
-    isTokenExpired(error)
+  } catch {
+    isTokenExpired()
   }
 }
 
