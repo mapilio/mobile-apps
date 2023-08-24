@@ -58,8 +58,10 @@ const FacebookLogin = ({ navigation }) => {
             navigation.goBack();
             toast.show(t("login_success") + json.name, { type: "success" });
           })
-          .catch(() => toast.show(t("error"), { type: "error" }))
-          .finally(() => setLoading(false));
+          .catch(() => {
+            setLoading(false);
+            toast.show(t("error"), { type: "error" })
+          })
       }
     } catch {
       setLoading(false);

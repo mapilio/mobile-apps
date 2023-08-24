@@ -48,8 +48,10 @@ const AppleLogin = ({ navigation }) => {
         setLoading(false);
         navigation.goBack();
       })
-      .catch(({response}) => toast.show(response?.data?.message || t("error"), {type: 'error'}))
-      .finally(() => setLoading(false));
+      .catch(({response}) =>{ 
+        setLoading(false)
+        toast.show(response?.data?.message || t("error"), {type: 'error'})
+      })
   };
 
   const loginHandler = () => {

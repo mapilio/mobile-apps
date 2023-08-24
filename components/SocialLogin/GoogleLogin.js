@@ -58,11 +58,9 @@ const GoogleLogin = ({ navigation }) => {
         navigation.goBack();
       })
       .catch(() => {
+        setLoading(false);
         toast.show(t("error"), { type: "error" });
       })
-      .finally(() => {
-        setLoading(false);
-      });
   };
 
   return (
