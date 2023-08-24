@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Modal, TouchableOpacity, View } from "react-native";
 import FacebookLogo from "../../assets/svg/logos/FacebookLogo";
 import { AccessToken, LoginManager } from "react-native-fbsdk-next";
 import { socialLoginStyles } from "../../styles/loginStyles";
@@ -16,20 +16,7 @@ const FacebookLogin = ({ navigation }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation("login");
 
-  const handleLogin = () => {
-    setLoading(true);
-    api
-      .get("/oauth-api/generate-state")
-      .then(({ data }) => {
-        facebookAccess(data.state);
-      })
-      .catch(() => {
-        toast.show(t("error"), { type: "error" });
-      })
-      .finally(() => setLoading(false));
-  };
-
-  const facebookAccess = async (stateKey) => {
+  const facebookAccess = async () => {
     try {
       const authResult = await LoginManager.logInWithPermissions([
         "public_profile",
@@ -40,40 +27,39 @@ const FacebookLogin = ({ navigation }) => {
         setLoading(false);
         return;
       }
-      const userData = await AccessToken.getCurrentAccessToken();
+      setLoading(true);
 
-      if (!userData) {
+      const { accessToken } = await AccessToken.getCurrentAccessToken();
+
+      if (!accessToken) {
         setLoading(false);
         return;
       }
 
       const json = await api.get(
-        `${Config.FACEBOOK_REQUEST_URL}${userData.accessToken}`
+        `${Config.FACEBOOK_REQUEST_URL}${accessToken}`
       );
 
       if (!json.email) {
         toast.show(t("mail_error"), { type: "error" });
       } else {
-        await api
-          .post("/oauth-api/callbackV2", {
-            email: json.email,
-            name: json.name,
-            state: stateKey,
-            client_id: Config.AUTH_CLIENT_ID,
-            client_secret: Config.AUTH_CLIENT_SECRET,
-            device_type: "mobile",
-            login_type: "facebook",
-          })
+        api
+          .post(
+            `/oauth-api/facebook/authenticate?token=${accessToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&device_type=mobile&login_type=facebook`
+          )
           .then((res) => {
             dispatch({
               type: SET_CREDENTIAL,
               payload: { ...json, type: "facebook" },
             });
             dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
-            dispatch(getUserInformation(res));
+            dispatch(getUserInformation());
+            setLoading(false);
             navigation.goBack();
             toast.show(t("login_success") + json.name, { type: "success" });
-          });
+          })
+          .catch(() => toast.show(t("error"), { type: "error" }))
+          .finally(() => setLoading(false));
       }
     } catch {
       setLoading(false);
@@ -81,17 +67,18 @@ const FacebookLogin = ({ navigation }) => {
   };
 
   return (
-    <View style={socialLoginStyles.facebookButton}>
-      {loading ? (
-        <View>
-          <ActivityIndicator size="small" color="#000" />
+    <TouchableOpacity
+      style={socialLoginStyles.facebookButton}
+      onPress={facebookAccess}
+    >
+      <Modal visible={loading} transparent={true} animationType="fade">
+        <View style={socialLoginStyles.modal}>
+          <ActivityIndicator size="large" color="white" />
         </View>
-      ) : (
-        <TouchableOpacity onPress={handleLogin}>
-          <FacebookLogo width={RFValue(12)} height={RFValue(12)} />
-        </TouchableOpacity>
-      )}
-    </View>
+      </Modal>
+
+      <FacebookLogo width={RFValue(12)} height={RFValue(12)} />
+    </TouchableOpacity>
   );
 };
 

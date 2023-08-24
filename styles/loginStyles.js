@@ -172,4 +172,10 @@ export const socialLoginStyles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
 });
