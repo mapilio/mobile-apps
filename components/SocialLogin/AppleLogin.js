@@ -48,9 +48,7 @@ const AppleLogin = ({ navigation }) => {
         setLoading(false);
         navigation.goBack();
       })
-      .catch(() =>
-        toast.show(t("error"), { type: "error" })
-      )
+      .catch(({response}) => toast.show(response.data.message || t("error"), {type: 'error'}))
       .finally(() => setLoading(false));
   };
 
