@@ -404,6 +404,10 @@
     "en": "İngilizce"
   },
   "alerts": {
-    "maintenanceMode": "Şu anda servislerimiz bakım modunda.\nLütfen daha sonra tekrar deneyin."
+    "maintenanceMode": "Şu anda servislerimiz bakım modunda.\nLütfen daha sonra tekrar deneyin.",
+    "update_required_title": "Güncelleme Gerekli",
+    "update_required_description": "Uygulamayı kullanabilmek için güncellemeniz gerekmektedir.",
+    "update": "Güncelle",
+    "later": "Daha sonra"
   }
 }

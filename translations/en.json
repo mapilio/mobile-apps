@@ -403,6 +403,10 @@
     "en": "English"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later."
+    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
+    "update_required_title": "Update Required",
+    "update_required_description": "You must update the application to continue using it.",
+    "update": "Update",
+    "later": "Later"
   }
 }
