@@ -36,6 +36,16 @@ const INITIAL_STATE = {
       isFacebookEnabled: false,
       isGoogleEnabled: false,
       isAppleEnabled: false
+    },
+    versions:{
+      ios:{
+        version: 0,
+        minVersion: 0
+      },
+      android:{
+        version: 0,
+        minVersion: 0
+      }
     }
   }
 };
