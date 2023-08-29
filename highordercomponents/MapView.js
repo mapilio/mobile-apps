@@ -6,6 +6,7 @@ import { Platform, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import * as Linking from "expo-linking";
+import { useSelector } from "react-redux";
 
 MapLibreGL.setAccessToken(null);
 Logger.setLogLevel("error");
@@ -21,8 +22,10 @@ const MapView = ({
   ...props
 }) => {
   const { showActionSheetWithOptions } = useActionSheet();
-  
-  const styleKey = Platform.OS === "ios" ? "***REMOVED***" : "yd65qARZZ9UC92nUNfyK";
+
+  const {config:{map: {iosToken, androidToken}}} = useSelector(state => state.generalReducer)
+
+  const styleKey = Platform.OS === "ios" ? iosToken : androidToken
   const styleURL ="https://api.maptiler.com/maps/basic-v2-light/style.json?key="
 
   const showAttributions = () => {
