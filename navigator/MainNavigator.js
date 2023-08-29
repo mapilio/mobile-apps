@@ -9,7 +9,7 @@ import { UPDATE_CONNECTION_STATUS } from "../store/actionsName";
 import { useDispatch } from "react-redux";
 import { Routes } from "./Routes";
 import StackNavigator from "./StackNavigator";
-import { getConfig, checkMaintenance } from "../util/helpers/general";
+import { getConfig, checkMaintenance } from "../store/actions/generalReducer";
 
 const Stack = createStackNavigator();
 
@@ -31,9 +31,9 @@ const MainNavigator = () => {
   }, []);
 
   useEffect(() => {
-    getConfig()
-    checkMaintenance();
-  }, []); 
+    dispatch(getConfig());
+    dispatch(checkMaintenance());
+  }, []);
 
   return (
       <Stack.Navigator
