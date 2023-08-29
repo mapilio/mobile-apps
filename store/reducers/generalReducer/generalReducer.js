@@ -48,8 +48,8 @@ const INITIAL_STATE = {
       }
     },
     map:{
-      androidToken: undefined,
-      iosToken: undefined
+      androidToken: " ",
+      iosToken: " "
     }
   }
 };
