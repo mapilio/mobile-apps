@@ -1,4 +1,4 @@
-import {Languages} from "../index";
+import {FocusAwareStatusBar, Languages} from "../index";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import {DropdownArrow, Flags} from "../../assets/svg/illustrations";
 import { TouchableOpacity, StyleSheet, View} from "react-native";
@@ -16,7 +16,7 @@ const LanguageModal = () => {
   const snapPoints = useMemo(() => [ "25%"], []);
 
   const renderBackdrop = useCallback(
-    (props) => <BottomSheetBackdrop {...props} opacity={0.6} appearsOnIndex={0} disappearsOnIndex={-1} />,
+    (props) => <BottomSheetBackdrop {...props} opacity={0.4} appearsOnIndex={0} disappearsOnIndex={-1} />,
     []
   );
 
@@ -43,6 +43,7 @@ const LanguageModal = () => {
         handleIndicatorStyle={styles.separator}
       >
         <Fragment>
+      <FocusAwareStatusBar translucent backgroundColor="transparent" />
           <View style={styles.header}>
             <CustomTextBold style={styles.title}>
               {t('languages')}
