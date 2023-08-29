@@ -132,6 +132,8 @@ export const checkMaintenance = () => {
             dispatch({ type: SET_MAINTENANCE_MODE, payload: true });
           });
       }
-    })
+    }).catch(() => {
+      dispatch({ type: SET_MAINTENANCE_MODE, payload: false });
+    }) 
   }
 };
