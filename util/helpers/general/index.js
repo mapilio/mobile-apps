@@ -119,9 +119,11 @@ export const getConfig = async () => {
 };
 
 export const checkMaintenance = async () => {
-  const { isInternetReachable } = await Network.getNetworkStateAsync();
+  const { isConnected } = await Network.getNetworkStateAsync().catch(() => ({
+    isConnected: false,
+  }));
 
-  if (isInternetReachable) {
+  if (isConnected) {
     try {
       const { mode } = await cdn.get("/v1/hearbeat-check");
       store.dispatch({ type: SET_MAINTENANCE_MODE, payload: mode });
