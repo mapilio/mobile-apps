@@ -5,6 +5,7 @@ import { SET_CONFIG, SET_MAINTENANCE_MODE } from "../../../store/actionsName";
 import * as Application from "expo-application";
 import { Alert, Platform, Linking } from "react-native";
 import { translate } from "..";
+import * as Network from "expo-network";
 
 export const checkVersion = (versionData) => {
   const platform = Platform.OS;
@@ -117,23 +118,15 @@ export const getConfig = async () => {
   }
 };
 
-export const checkMaintenance = () => {
-  const {
-    connection: { connectionStatus },
-  } = store.getState().generalReducer;
+export const checkMaintenance = async () => {
+  const { isInternetReachable } = await Network.getNetworkStateAsync();
 
-  if (connectionStatus) {
-    cdn
-      .get("/v1/hearbeat-check")
-      .then((res) => {
-        if (res.mode) {
-          store.dispatch({ type: SET_MAINTENANCE_MODE, payload: true });
-        } else {
-          store.dispatch({ type: SET_MAINTENANCE_MODE, payload: false });
-        }
-      })
-      .catch(() => {
-        store.dispatch({ type: SET_MAINTENANCE_MODE, payload: true });
-      });
+  if (isInternetReachable) {
+    try {
+      const { mode } = await cdn.get("/v1/hearbeat-check");
+      store.dispatch({ type: SET_MAINTENANCE_MODE, payload: mode });
+    } catch {
+      store.dispatch({ type: SET_MAINTENANCE_MODE, payload: true });
+    }
   }
 };
