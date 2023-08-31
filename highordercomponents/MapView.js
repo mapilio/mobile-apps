@@ -23,9 +23,9 @@ const MapView = ({
 }) => {
   const { showActionSheetWithOptions } = useActionSheet();
 
-  const {config:{map: {iosToken, androidToken}}} = useSelector(state => state.generalReducer)
+  const {config} = useSelector(state => state.generalReducer)
 
-  const styleKey = Platform.OS === "ios" ? iosToken : androidToken
+  const styleKey = Platform.OS === "ios" ? config.mapTokens?.iosToken : config.mapTokens?.androidToken
   const styleURL ="https://api.maptiler.com/maps/basic-v2-light/style.json?key="
 
   const showAttributions = () => {
