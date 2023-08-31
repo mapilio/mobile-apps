@@ -97,6 +97,11 @@ const AppMap = ({ navigation }) => {
   };
 
   const touchPoint = async (e) => {
+    cameraRef.current?.setCamera({
+      centerCoordinate: e.features[0]?.geometry?.coordinates,
+      animationDuration: 200,
+    });
+
     const { geometry, properties } = e.features[0];
     setClickedCoord(geometry.coordinates);
     if (!showPano) {
