@@ -1,5 +1,11 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Platform, View, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  Platform,
+  View,
+  StyleSheet,
+  ActivityIndicator,
+  AppState,
+} from "react-native";
 import { appMapStyle } from "../styles/appMapStyle";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
@@ -9,7 +15,7 @@ import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
 import { RESULTS } from "react-native-permissions";
 import { point } from "@turf/turf";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import { ActiveSources, Lines, Points } from "../components/Map/layers";
@@ -24,6 +30,7 @@ import MapLoading from "../components/Map/MapLoading";
 import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
 import MapLibreGL from "@maplibre/maplibre-react-native";
+import { getConfig, checkMaintenance } from "../store/actions/generalReducer";
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
@@ -43,13 +50,31 @@ const AppMap = ({ navigation }) => {
   const { t } = useTranslation("map");
   const userCoordinate = useRef(null);
   const initialCoordinate = useRef(null);
+  const appState = useRef(AppState.currentState);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     !connection.connectionStatus &&
       navigation.navigate(Routes.noInternetAccess);
-      initialPermissions();
+    initialPermissions();
+    
+    const listener = AppState.addEventListener("change", handleAppStateChange);
+    return () => {
+      listener.remove();
+    };
   }, []);
 
+  const handleAppStateChange = (nextAppState) => {
+    if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
+      console.log("App has come to the foreground!");
+      dispatch(getConfig());
+      dispatch(checkMaintenance());
+    }
+    appState.current = nextAppState;
+  };
 
   useEffect(() => {
     if (!isMapReady && welcomeWalkthroughStatus) {
@@ -75,12 +100,12 @@ const AppMap = ({ navigation }) => {
   const touchPoint = async (e) => {
     const { geometry, properties } = e.features[0];
     setClickedCoord(geometry.coordinates);
-    if(!showPano){
+    if (!showPano) {
       setIsPanoLoading(true);
     }
 
     const imageDetails = await api
-      .get("/api/sequence-detail?sequence_uuid=" + properties.sequence_uuid) 
+      .get("/api/sequence-detail?sequence_uuid=" + properties.sequence_uuid)
       .then((res) => {
         const image = res.data.find((image) => image.id === properties.id);
         return image;
