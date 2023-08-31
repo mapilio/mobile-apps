@@ -3,6 +3,7 @@ import Config from "react-native-config";
 import { styles } from "../../../styles/circleStyles";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useSelector } from "react-redux";
+import turf from "@turf/turf";
 
 const Lines = ({ zoomPoint }) => {
   const { maintenanceMode } = useSelector((state) => state.generalReducer);
@@ -11,7 +12,9 @@ const Lines = ({ zoomPoint }) => {
       <MapLibreGL.VectorSource
         id={"road-lines"}
         tileUrlTemplates={[Config.MAPBOX_ROAD_URL]}
-        onPress={(e) => zoomPoint(e.features[0].geometry.coordinates[0])}
+        onPress={(e) => {
+          zoomPoint(e.coordinates)
+        }}
       >
         <MapLibreGL.LineLayer
           id={"road-lines"}

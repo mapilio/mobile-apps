@@ -86,11 +86,11 @@ const AppMap = ({ navigation }) => {
     }
   }, [isMapReady]);
 
-  const zoomPoint = (coordinate) => {
+  const zoomPoint = (coordinates) => {
     mapRef.current?.getZoom().then((zoomLevel) => {
       cameraRef.current?.setCamera({
-        centerCoordinate: coordinate,
-        zoomLevel: zoomLevel + 5,
+        centerCoordinate: [coordinates?.longitude, coordinates?.latitude],
+        zoomLevel: zoomLevel + 3,
         animationDuration: 800,
       });
     });
