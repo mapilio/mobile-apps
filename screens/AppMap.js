@@ -69,7 +69,6 @@ const AppMap = ({ navigation }) => {
       appState.current.match(/inactive|background/) &&
       nextAppState === "active"
     ) {
-      console.log("App has come to the foreground!");
       dispatch(getConfig());
       dispatch(checkMaintenance());
     }
