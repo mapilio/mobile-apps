@@ -3,7 +3,6 @@ import Config from "react-native-config";
 import { styles } from "../../../styles/circleStyles";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useSelector } from "react-redux";
-import turf from "@turf/turf";
 
 const Lines = ({ zoomPoint }) => {
   const { maintenanceMode } = useSelector((state) => state.generalReducer);
