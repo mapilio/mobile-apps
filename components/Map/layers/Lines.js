@@ -11,7 +11,9 @@ const Lines = ({ zoomPoint }) => {
       <MapLibreGL.VectorSource
         id={"road-lines"}
         tileUrlTemplates={[Config.MAPBOX_ROAD_URL]}
-        onPress={(e) => zoomPoint(e.features[0].geometry.coordinates[0])}
+        onPress={(e) => {
+          zoomPoint(e.coordinates)
+        }}
       >
         <MapLibreGL.LineLayer
           id={"road-lines"}

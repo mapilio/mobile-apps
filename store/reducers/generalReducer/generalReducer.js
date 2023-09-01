@@ -47,9 +47,9 @@ const INITIAL_STATE = {
         minVersion: 0
       }
     },
-    map:{
-      androidToken: undefined,
-      iosToken: undefined
+    mapTokens:{
+      androidToken: "",
+      iosToken: ""
     }
   }
 };

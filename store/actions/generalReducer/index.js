@@ -71,7 +71,7 @@ export const getConfig = () => {
           },
           socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled },
           versions: { ios, android },
-          map:{
+          mapTokens:{
             androidToken,
             iosToken
           }
@@ -108,7 +108,7 @@ export const getConfig = () => {
                 minVersion: android.minVersion,
               },
             },
-            map:{
+            mapTokens:{
               androidToken,
               iosToken
             }
