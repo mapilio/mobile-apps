@@ -22,7 +22,7 @@ const ProgressCircle = ({ value = 0, width = 150, height = 150 }) => {
   });
 
   useEffect(() => {
-    progressValue.value = withTiming(value, { duration: 2000 });
+    progressValue.value = withTiming(value, { duration: 1500 });
   }, [value]);
 
   return (
