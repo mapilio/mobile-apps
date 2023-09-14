@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: RFValue(13),
-    padding: RFValue(5),
   },
   seeAll: {
     fontSize: RFValue(13),
