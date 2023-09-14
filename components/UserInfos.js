@@ -73,8 +73,6 @@ const UserInfos = ({ userDetails }) => {
 
 const styles = StyleSheet.create({
   profileContainer: {
-    paddingHorizontal: RFValue(10),
-    paddingTop: RFValue(10),
     backgroundColor: '#FFF',
     alignItems: 'center',
   },
