@@ -38,16 +38,20 @@ const UserInfos = ({ userDetails }) => {
       </View>
 
       <View style={styles.statsWrapper}>
+      <View style={styles.statsBlock}>
         <CameraFilledIcon fill="#808080" width={RFValue(16)} />
         <CustomTextMedium style={styles.statsText}>{thousandFormatter(photos)}</CustomTextMedium>
+        </View>
 
         <View style={styles.verticalSeperator} />
 
+        <View style={styles.statsBlock}>
         <RoadIcon fill="#808080" width={RFValue(16)} />
         <CustomTextMedium style={styles.statsText}>
           {thousandFormatter(roads, 'k')}
           {'km'}
         </CustomTextMedium>
+        </View>
       </View>
 
       <View style={styles.socialWrapper}>
@@ -105,9 +109,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: RFValue(3),
   },
+  statsBlock:{
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   statsText: {
     fontSize: RFValue(14),
-    marginLeft: RFValue(0),
+    marginLeft: RFValue(5),
     color: '#000000',
   },
   verticalSeperator: {
