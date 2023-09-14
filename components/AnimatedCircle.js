@@ -26,7 +26,7 @@ const ProgressCircle = ({ value = 0, width = 150, height = 150 }) => {
   }, [value]);
 
   return (
-    <Svg width={width} height={height}>
+    <Svg width={width} height={height} style={{position:"absolute"}}>
       <Circle
         cx={width / 2}
         cy={height / 2}

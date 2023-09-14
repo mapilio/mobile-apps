@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { globalStyles } from "../styles/globalStyles";
 import React, { useEffect } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
-import { FeedList, FocusAwareStatusBar, UserInfos } from "../components";
+import { FeedList, FocusAwareStatusBar } from "../components";
 import { getUserInformation } from "../store/reducers/loginReducer/getUserInformation";
 import { useDispatch } from "react-redux";
 
@@ -24,7 +24,6 @@ const UserProfile = () => {
       }}
     >
       <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
-      <UserInfos />
       <FeedList />
     </View>
   );
