@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   socialWrapper: {
     marginTop: RFValue(10),
-    width: '90%',
+    width: '85%',
   },
   rankWrapper: {
     flexDirection: 'row',
