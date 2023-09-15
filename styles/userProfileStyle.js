@@ -1,5 +1,5 @@
-import { Platform, StyleSheet } from "react-native";
-import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
+import {StyleSheet } from "react-native";
+import { RFValue} from "react-native-responsive-fontsize";
 
 const colors = {
   completed: {color: '#2DAE51'},
@@ -87,67 +87,5 @@ export const userFeedStyles = StyleSheet.create({
     completed: {backgroundColor: colors.completed.color},
     processing: {backgroundColor: colors.processing.color},
     fail: {backgroundColor: colors.fail.color},
-  }
-});
-
-export const userInfoStyles = StyleSheet.create({
-  profileContainer: {
-    flexDirection: "row",
-    paddingHorizontal: RFValue(16),
-    paddingVertical: RFValue(20),
-  },
-  imageStyle: {
-    borderRadius: RFPercentage(50),
-    borderWidth: RFValue(1),
-    borderColor: '#EAEAEA',
-    resizeMode: "cover",
-    width: RFValue(81),
-    height: RFValue(81),
-    marginRight: RFValue(18),
-    zIndex: 9,
-  },
-  indicatorStyle: {
-    backgroundColor: "rgba(74,74,74,0.1)",
-    position: "absolute",
-    left: 0,
-    bottom: 0,
-    right: 0,
-    top: 0,
-    zIndex: 10,
-  },
-  username: {
-    color: "#0056F1",
-    fontSize: RFValue(18),
-    fontFamily: "Poppins-Medium",
-  },
-  accountType: {
-    color: "#4a4a4a",
-    fontSize: RFValue(12),
-    marginTop: Platform.OS === "android" ? RFValue(-4) : 0,
-  },
-  infoGrid: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-  },
-  infoTitle: {
-    fontSize: RFValue(12),
-    color: "#C2C2C2",
-  },
-  infoValue: {
-    fontSize: RFValue(18),
-    color: "#191919",
-  },
-  infoContainer: {
-    flex: .8,
-    flexDirection: "column",
-    marginRight: RFValue(10),
-  },
-  separator: {
-    borderLeftWidth: 1,
-    borderLeftColor: "#D8D8D8",
-    height: "50%",
-    marginBottom: 10,
   }
 });
