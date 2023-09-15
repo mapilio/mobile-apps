@@ -8,12 +8,13 @@ import {useTranslation} from "react-i18next";
 import {Photos} from "../assets/svg/illustrations";
 import LinearGradient from "react-native-linear-gradient";
 import { dateConvert } from "../helper/helper";
+import  {CustomText} from "../highordercomponents"
 
 const SkeletonItem = ({loading}) => {
   if(!loading) return false;
 
   return (
-    <SkeletonPlaceholder speed={1000}>
+    <SkeletonPlaceholder speed={1000} borderRadius={RFValue(8)}>
       <SkeletonPlaceholder.Item height={RFValue(100)} />
     </SkeletonPlaceholder>
   )
@@ -32,7 +33,7 @@ const ProfileFeed = ({data, pressHandle}) => {
 
         <LinearGradient
           colors={['#00000000', '#000000BF']}
-          angle={90}
+          angle={180}
           useAngle={true}
           style={userFeedStyles.imageGradient}
         />
@@ -54,13 +55,14 @@ const ProfileFeed = ({data, pressHandle}) => {
 
         <View style={userFeedStyles.subInfo}>
           <Text style={userFeedStyles.date}>{dateConvert(capture_time, "MMM DD, YYYY - HH:mm")}</Text>
-          
-          <View style={userFeedStyles.status}>
-        <Text style={{...userFeedStyles.status.text, ...userFeedStyles.status[last_status || "fail"]}}>
-          {t(last_status || "fail")}
-        </Text>
-      </View>
         </View>
+      </View>
+
+      <View style={userFeedStyles.status}>
+        <View style={{...userFeedStyles.status.flag,...userFeedStyles.status[last_status || "fail"]}} ></View>
+        <CustomText style={userFeedStyles.status.text}>
+          {t(last_status || "fail")}
+        </CustomText>
       </View>
     </TouchableOpacity>
   );

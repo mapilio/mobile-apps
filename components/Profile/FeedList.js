@@ -166,7 +166,7 @@ const FeedList = ({ userDetails }) => {
 
        {!userDetails && <Badges  />  }
 
-        <CustomTextBold style={styles.sectionTitle}>{t('Feed')}</CustomTextBold>
+        <CustomTextBold style={styles.sectionTitle}>{t('Feeds')}</CustomTextBold>
 
         {data?.length > 0 ? (
           data.map((item, index) => (
