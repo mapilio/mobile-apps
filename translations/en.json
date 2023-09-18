@@ -267,7 +267,9 @@
     "or": "or",
     "login_success": "Login successful ",
     "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way."
+    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
+    "mail_request_title": "Your email safe with us!",
+    "mail_request_desc": "We'll never share it with any third-party providers."
   },
   "register": {
     "title": "Sign up to see what's on your map.",
