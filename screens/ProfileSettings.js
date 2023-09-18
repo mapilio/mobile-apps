@@ -26,6 +26,7 @@ const ProfileSettings = ({navigation}) => {
   const {bottom} = useSafeAreaInsets();
   const {t} = useTranslation('profile_settings');
   const {debugMode} = useSelector((status) => status.generalReducer);
+  const {credential} = useSelector((status) => status.getTokenReducer);
 
   useEffect(() => {
     navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
@@ -56,11 +57,13 @@ const ProfileSettings = ({navigation}) => {
 
   const exitHandle = () => {
     navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
-   Profile.getCurrentProfile().then((currentProfile) => {
-    if(currentProfile){
-      LoginManager.logOut();
-    }
-   });
+    if(credential?.type === "facebook"){
+      Profile.getCurrentProfile().then((currentProfile) => {
+        if(currentProfile){
+          LoginManager.logOut();
+        }
+       });
+     }
     
     dispatch({type: EXIT_USER});
     OneSignal.logoutEmail();
