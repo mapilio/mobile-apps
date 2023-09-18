@@ -27,7 +27,16 @@ export const getUserInformation = () => (dispatch) => {
 
     dispatch({type: GET_USER_INFORMATION, payload: data[0]});
     Sentry.setUser({id: id.toString(), email: email});
-    OneSignal.setExternalUserId(id.toString())
-    OneSignal.setEmail(email)
+
+    const userData = new FormData();
+    userData.append("options[parameters][email]", email);
+
+    api.post(`/api/onesignal/identity-verification`, userData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    }).then((res) => {
+      OneSignal.setEmail(email, res?.response?.hash);
+    })
   })
 };

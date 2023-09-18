@@ -63,7 +63,7 @@ const ProfileSettings = ({navigation}) => {
    });
     
     dispatch({type: EXIT_USER});
-    OneSignal.removeExternalUserId();
+    OneSignal.logoutEmail();
   }
 
   return (

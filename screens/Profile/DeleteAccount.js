@@ -26,7 +26,7 @@ const DeleteAccount = () => {
 
       navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
       dispatch({type: EXIT_USER});
-      OneSignal.removeExternalUserId();
+      OneSignal.logoutEmail();
 
     } catch (e) {
       throw new Error(e)
