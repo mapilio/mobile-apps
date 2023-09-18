@@ -35,7 +35,8 @@ const INITIAL_STATE = {
     socialLogin: {
       isFacebookEnabled: false,
       isGoogleEnabled: false,
-      isAppleEnabled: false
+      isAppleEnabled: false,
+      isOSMEnabled: false
     },
     versions:{
       ios:{

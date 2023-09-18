@@ -69,7 +69,7 @@ export const getConfig = () => {
             infoBoxDescEN,
             showWeek,
           },
-          socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled },
+          socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled,isOSMEnabled },
           versions: { ios, android },
           mapTokens:{
             androidToken,
@@ -97,6 +97,7 @@ export const getConfig = () => {
               isFacebookEnabled,
               isGoogleEnabled,
               isAppleEnabled,
+              isOSMEnabled
             },
             versions: {
               ios: {
