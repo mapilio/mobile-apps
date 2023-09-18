@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const t = useTranslation("login");
+  const {t} = useTranslation("login");
   const dispatch = useDispatch();
   const [_request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: Config.GOOGLE_IOS_CLIENT_ID,
