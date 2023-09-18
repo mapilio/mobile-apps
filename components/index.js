@@ -31,3 +31,4 @@ export { default as Loading} from "./Loading";
 export { default as AlertModal} from "./AlertModal";
 export { default as LeaderboardTopBar} from "./Leaderboard/LeaderboardTopBar";
 export { default as AnimatedCircle} from "./AnimatedCircle";
+export { default as NewsletterModal} from "./NewsletterModal";

@@ -31,6 +31,7 @@ import { useTranslation } from "react-i18next";
 import { api } from "../util/helpers/api";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { getConfig, checkMaintenance } from "../store/actions/generalReducer";
+import { NewsletterModal } from "../components";
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
@@ -194,6 +195,8 @@ const AppMap = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       {!isMapReady && <MapLoading />}
       {isPanoLoading && <PanoLoading />}
+
+      <NewsletterModal />
 
       <FocusAwareStatusBar
         barStyle="dark-content"
