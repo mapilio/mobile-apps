@@ -72,3 +72,4 @@ export const SET_DEBUG_MODE = "SET_DEBUG_MODE";
 export const SET_MAP_MODE = "SET_MAP_MODE";
 export const SET_MAINTENANCE_MODE = "SET_MAINTENANCE_MODE";
 export const SET_CONFIG = "SET_CONFIG";
+export const SET_OSM_MODAL_SHOWN = "SET_OSM_MODAL_SHOWN";

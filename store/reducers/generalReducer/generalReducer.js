@@ -8,7 +8,8 @@ import {
   SET_DEBUG_MODE,
   SET_MAP_MODE,
   SET_MAINTENANCE_MODE,
-  SET_CONFIG
+  SET_CONFIG,
+  SET_OSM_MODAL_SHOWN
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -21,6 +22,7 @@ const INITIAL_STATE = {
   debugMode: false,
   mapShown: true,
   maintenanceMode: false,
+  isOSMModalShown: false,
   config:{
     isMarketOpen: false,
     isChallengeOpen: false,
@@ -109,6 +111,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
           ...state.config,
           ...action.payload
         }
+      }
+    case SET_OSM_MODAL_SHOWN:
+      return {
+        ...state,
+        isOSMModalShown: action.payload,
       }
     default:
       return state;
