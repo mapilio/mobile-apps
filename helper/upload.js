@@ -110,6 +110,8 @@ export const imageryUpload = async (images, sequence_uuid) => {
       accelerometer,
       exifPitch,
       exifRoll,
+      ImageWidth,
+      ImageHeight,
       captureWidth,
       captureHeight,
       focalLength,
