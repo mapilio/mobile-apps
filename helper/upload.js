@@ -4,7 +4,6 @@ import db from "../db";
 import * as FileSystem from "expo-file-system";
 import {dateConvert} from "./helper";
 import {calculate} from "./calculator";
-import md5 from "md5";
 import i18n from "i18next";
 import {api, cdn} from "../util/helpers/api";
 import axios from "axios";
@@ -107,19 +106,21 @@ export const imageryUpload = async (images, sequence_uuid) => {
       LensMake,
       LensModel,
       DateTimeOriginal,
-      ImageWidth,
-      ImageLength,
       gyroscope,
       accelerometer,
       exifPitch,
       exifRoll,
+      captureWidth,
+      captureHeight,
+      focalLength,
+      focalLength35,
     } = exif;
 
     try {
       const fileInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory + image.path)
 
-      const horizontal = ImageWidth || PixelXDimension;
-      const vertical = ImageLength || PixelYDimension;
+      const horizontal = captureWidth || PixelXDimension;
+      const vertical = captureHeight || PixelYDimension;
 
       const horizontal_pixel = horizontal > vertical ? horizontal : vertical;
       const vertical_pixel = horizontal < vertical ? horizontal : vertical;
@@ -140,13 +141,15 @@ export const imageryUpload = async (images, sequence_uuid) => {
         gyroscope,
         accelerometer,
         accuracy_level,
+        focalLength,
+        focalLength35,
         pitch: exifPitch || calculate.pitch(accelerometer),
         roll: exifRoll || calculate.roll(accelerometer),
         captureTime: dateConvert((DateTime || DateTimeOriginal), 'YYYY-MM-D HH:mm:ss'),
         orientation: Orientation,
         deviceMake: Make || LensMake,
         deviceModel: Model || LensModel,
-        imageSize: `${ImageWidth || PixelXDimension}x${ImageLength || PixelYDimension}`,
+        imageSize: `${horizontal}x${vertical}`,
         fov: horizontal_fov,
         vfov: vertical_fov,
         sequenceUuid: sequence_uuid,
