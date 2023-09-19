@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02E58AF1E96096FE7250F4EF /* libPods-MapilioNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0277F1F62BD2750E1B18A78D /* libPods-MapilioNotificationServiceExtension.a */; };
+		0B435D9BABF874DD8CEF4F4E /* libPods-MapilioNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51D82413561AEC30FDB1376E /* libPods-MapilioNotificationServiceExtension.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -17,9 +17,9 @@
 		59467F0ADDC84B41AB0FB38C /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8FFE69B5249A1A6FA3E3F /* noop-file.swift */; };
 		738547442940791A00F3F9F8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738547432940791A00F3F9F8 /* NotificationService.swift */; };
 		738547482940791A00F3F9F8 /* MapilioNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 738547412940791A00F3F9F8 /* MapilioNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		778FD717EABAFC03CE66D932 /* libPods-Mapilio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F7EE9FC18CD81BEBA430E6 /* libPods-Mapilio.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		D7AE9875C8F2695D8DA405C1 /* libPods-Mapilio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF546CFBE9727B0BD6997C1 /* libPods-Mapilio.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,26 +48,26 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		0277F1F62BD2750E1B18A78D /* libPods-MapilioNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MapilioNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* Mapilio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mapilio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Mapilio/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Mapilio/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Mapilio/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Mapilio/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Mapilio/main.m; sourceTree = "<group>"; };
-		2195769D1F290EE5DA6CAB7D /* Pods-MapilioNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapilioNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-MapilioNotificationServiceExtension/Pods-MapilioNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
-		31E7C7DFD824ECE1A893E42F /* Pods-Mapilio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapilio.release.xcconfig"; path = "Target Support Files/Pods-Mapilio/Pods-Mapilio.release.xcconfig"; sourceTree = "<group>"; };
-		538F9761DC5D2E47840E204D /* Pods-MapilioNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapilioNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-MapilioNotificationServiceExtension/Pods-MapilioNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		2040C8FD5413FCC927D9B909 /* Pods-Mapilio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapilio.release.xcconfig"; path = "Target Support Files/Pods-Mapilio/Pods-Mapilio.release.xcconfig"; sourceTree = "<group>"; };
+		328C6B1C01D4EE01B902FCE3 /* Pods-Mapilio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapilio.debug.xcconfig"; path = "Target Support Files/Pods-Mapilio/Pods-Mapilio.debug.xcconfig"; sourceTree = "<group>"; };
+		51D82413561AEC30FDB1376E /* libPods-MapilioNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MapilioNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AF546CFBE9727B0BD6997C1 /* libPods-Mapilio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mapilio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7311E02929407AB100A30BCC /* MapilioNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapilioNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		738547412940791A00F3F9F8 /* MapilioNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MapilioNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		738547432940791A00F3F9F8 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		738547452940791A00F3F9F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C56DA2287C2ECB5A5C6B042 /* Pods-MapilioNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapilioNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-MapilioNotificationServiceExtension/Pods-MapilioNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		8EA8FFE69B5249A1A6FA3E3F /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "Mapilio/noop-file.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Mapilio/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		E9F7EE9FC18CD81BEBA430E6 /* libPods-Mapilio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mapilio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD955325F14E92C10334FDA6 /* Pods-MapilioNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapilioNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-MapilioNotificationServiceExtension/Pods-MapilioNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F0BA60272F58A01E5E972A0B /* Pods-Mapilio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapilio.debug.xcconfig"; path = "Target Support Files/Pods-Mapilio/Pods-Mapilio.debug.xcconfig"; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Mapilio/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,7 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33435BD52A11321400AB6FA0 /* Mapbox in Frameworks */,
-				778FD717EABAFC03CE66D932 /* libPods-Mapilio.a in Frameworks */,
+				D7AE9875C8F2695D8DA405C1 /* libPods-Mapilio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33435BD62A11321400AB6FA0 /* Mapbox in Frameworks */,
-				02E58AF1E96096FE7250F4EF /* libPods-MapilioNotificationServiceExtension.a in Frameworks */,
+				0B435D9BABF874DD8CEF4F4E /* libPods-MapilioNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,8 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				E9F7EE9FC18CD81BEBA430E6 /* libPods-Mapilio.a */,
-				0277F1F62BD2750E1B18A78D /* libPods-MapilioNotificationServiceExtension.a */,
+				5AF546CFBE9727B0BD6997C1 /* libPods-Mapilio.a */,
+				51D82413561AEC30FDB1376E /* libPods-MapilioNotificationServiceExtension.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -181,10 +181,10 @@
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F0BA60272F58A01E5E972A0B /* Pods-Mapilio.debug.xcconfig */,
-				31E7C7DFD824ECE1A893E42F /* Pods-Mapilio.release.xcconfig */,
-				538F9761DC5D2E47840E204D /* Pods-MapilioNotificationServiceExtension.debug.xcconfig */,
-				2195769D1F290EE5DA6CAB7D /* Pods-MapilioNotificationServiceExtension.release.xcconfig */,
+				328C6B1C01D4EE01B902FCE3 /* Pods-Mapilio.debug.xcconfig */,
+				2040C8FD5413FCC927D9B909 /* Pods-Mapilio.release.xcconfig */,
+				BD955325F14E92C10334FDA6 /* Pods-MapilioNotificationServiceExtension.debug.xcconfig */,
+				7C56DA2287C2ECB5A5C6B042 /* Pods-MapilioNotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -204,7 +204,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Mapilio" */;
 			buildPhases = (
-				E34AB4B3D3C92DFE9993B9E9 /* [CP] Check Pods Manifest.lock */,
+				482FB682EB6A4153E7D0614D /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -212,8 +212,8 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				738547492940791B00F3F9F8 /* Embed Foundation Extensions */,
 				69FF9180D64541ACA577A66F /* Upload Debug Symbols to Sentry */,
-				6D68AA7313DC2C88C1912FD1 /* [CP] Embed Pods Frameworks */,
-				AE5FDD9619EB32E996143EED /* [CP] Copy Pods Resources */,
+				62AF4F6923096ED9D61AAB9F /* [CP] Embed Pods Frameworks */,
+				273ECC462DF5C084C8BCBADE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,7 +232,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7385474C2940791B00F3F9F8 /* Build configuration list for PBXNativeTarget "MapilioNotificationServiceExtension" */;
 			buildPhases = (
-				46073478B591992DFF71EB53 /* [CP] Check Pods Manifest.lock */,
+				0DEAD5F302474BF49D5A7CAD /* [CP] Check Pods Manifest.lock */,
 				7385473D2940791A00F3F9F8 /* Sources */,
 				7385473E2940791A00F3F9F8 /* Frameworks */,
 				7385473F2940791A00F3F9F8 /* Resources */,
@@ -326,7 +326,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nif [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" $PROJECT_ROOT ios relative | tail -n 1)\"\nfi\n\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode `\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
 		};
-		46073478B591992DFF71EB53 /* [CP] Check Pods Manifest.lock */ = {
+		0DEAD5F302474BF49D5A7CAD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -348,21 +348,51 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		69FF9180D64541ACA577A66F /* Upload Debug Symbols to Sentry */ = {
+		273ECC462DF5C084C8BCBADE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mapilio/Pods-Mapilio-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
-			name = "Upload Debug Symbols to Sentry";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mapilio/Pods-Mapilio-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
-		6D68AA7313DC2C88C1912FD1 /* [CP] Embed Pods Frameworks */ = {
+		482FB682EB6A4153E7D0614D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mapilio-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62AF4F6923096ED9D61AAB9F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -398,49 +428,19 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mapilio/Pods-Mapilio-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AE5FDD9619EB32E996143EED /* [CP] Copy Pods Resources */ = {
+		69FF9180D64541ACA577A66F /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Mapilio/Pods-Mapilio-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "Upload Debug Symbols to Sentry";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mapilio/Pods-Mapilio-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E34AB4B3D3C92DFE9993B9E9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Mapilio-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -496,7 +496,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0BA60272F58A01E5E972A0B /* Pods-Mapilio.debug.xcconfig */;
+			baseConfigurationReference = 328C6B1C01D4EE01B902FCE3 /* Pods-Mapilio.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -516,7 +516,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.27;
+				MARKETING_VERSION = 1.1.29;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -534,7 +534,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31E7C7DFD824ECE1A893E42F /* Pods-Mapilio.release.xcconfig */;
+			baseConfigurationReference = 2040C8FD5413FCC927D9B909 /* Pods-Mapilio.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -549,7 +549,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.27;
+				MARKETING_VERSION = 1.1.29;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -566,7 +566,7 @@
 		};
 		7385474A2940791B00F3F9F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 538F9761DC5D2E47840E204D /* Pods-MapilioNotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = BD955325F14E92C10334FDA6 /* Pods-MapilioNotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -591,7 +591,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.27;
+				MARKETING_VERSION = 1.1.29;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
@@ -608,7 +608,7 @@
 		};
 		7385474B2940791B00F3F9F8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2195769D1F290EE5DA6CAB7D /* Pods-MapilioNotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = 7C56DA2287C2ECB5A5C6B042 /* Pods-MapilioNotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -634,7 +634,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.27;
+				MARKETING_VERSION = 1.1.29;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapilio.main.MapilioNotificationServiceExtension;
