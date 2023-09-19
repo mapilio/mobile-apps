@@ -106,8 +106,6 @@ export const imageryUpload = async (images, sequence_uuid) => {
       LensMake,
       LensModel,
       DateTimeOriginal,
-      ImageWidth,
-      ImageLength,
       gyroscope,
       accelerometer,
       exifPitch,
