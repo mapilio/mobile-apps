@@ -107,7 +107,7 @@ export const imageryUpload = async (images, sequence_uuid) => {
       LensModel,
       DateTimeOriginal,
       ImageWidth,
-      ImageHeight,
+      ImageLength,
       gyroscope,
       accelerometer,
       exifPitch,
@@ -123,7 +123,7 @@ export const imageryUpload = async (images, sequence_uuid) => {
 
       //for back compatibility sometimes PixelXDimension and PixelYDimension are not available but ImageWidth and ImageHeight are
       const horizontal = captureWidth || ImageWidth || PixelXDimension;
-      const vertical = captureHeight || ImageHeight || PixelYDimension;
+      const vertical = captureHeight || ImageLength || PixelYDimension;
 
       const horizontal_pixel = horizontal > vertical ? horizontal : vertical;
       const vertical_pixel = horizontal < vertical ? horizontal : vertical;
