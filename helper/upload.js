@@ -121,7 +121,7 @@ export const imageryUpload = async (images, sequence_uuid) => {
     try {
       const fileInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory + image.path)
 
-      //for back compatibility sometimes PixelXDimension and PixelYDimension are not available but ImageWidth and ImageHeight are
+      //for back compatibility sometimes PixelXDimension and PixelYDimension are not available but ImageWidth and ImageLength (Height) are
       const horizontal = captureWidth || ImageWidth || PixelXDimension;
       const vertical = captureHeight || ImageLength || PixelYDimension;
 
