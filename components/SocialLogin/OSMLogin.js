@@ -1,4 +1,4 @@
-import { View, ActivityIndicator, Modal,TouchableOpacity, Image,Platform } from "react-native";
+import { View, ActivityIndicator, Modal,TouchableOpacity, Image } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import {
   makeRedirectUri,
@@ -27,6 +27,7 @@ const codeChallenge = pkceChallenge();
 
 const redirectUri = makeRedirectUri({
   scheme: Application.applicationId,
+  path: "redirect",
 });
 
 WebBrowser.maybeCompleteAuthSession()
@@ -87,7 +88,6 @@ const OSMLogin = ({navigation}) => {
         },
       });
 
-      console.log("getAccessToken", code);
 
       getAccessToken.performAsync(discovery).then(({accessToken}) => {
         loginToMapilio(accessToken);
