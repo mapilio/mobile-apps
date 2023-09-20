@@ -72,7 +72,6 @@ const OSMLogin = ({navigation}) => {
   };
 
   useEffect(() => {
-    console.log("response", response?.type);
     if (response?.type === "success") {
       const { code } = response.params;
 
