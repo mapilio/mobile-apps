@@ -14,9 +14,9 @@ const cdnInstance = axios.create({
 
 cdnInstance.interceptors.request.use(
   async (config) => {
+    config.withCredentials = false;
     config.headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
     config.headers.Expires = 0;
-
     const auth = store.getState().getTokenReducer.auth;
     if (auth?.access_token) {
       config.headers.Authorization = `Bearer ${auth.access_token || auth.token}`;
