@@ -16,7 +16,6 @@ axiosInstance.interceptors.request.use(
   async (config) => {
     config.withCredentials = false;
     config.headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-    config.headers.Pragma = "no-cache";
     config.headers.Expires = 0;
     const auth = store.getState().getTokenReducer.auth;
     if (auth?.access_token) {
