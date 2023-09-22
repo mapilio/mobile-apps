@@ -1,27 +1,20 @@
 import { View, Modal, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { CustomText, CustomTextMedium } from "../highordercomponents"
+import { CustomText, CustomTextMedium } from "../../highordercomponents"
 import AnimatedLottieView from "lottie-react-native";
-import { CloseIcon } from "../assets/svg/illustrations";
+import { CloseIcon } from "../../assets/svg/illustrations";
 import { useTranslation } from "react-i18next";
-import { useSelector, useDispatch } from "react-redux";
-import { SET_OSM_MODAL_SHOWN } from "../store/actionsName";
 
-const NewsletterModal = () => {
+const NewsletterModal = ({
+  visible = false,
+  setVisible
+}) => {
   const {t} = useTranslation("login")
-  const dispatch = useDispatch()
-  const {isOSMModalShown} = useSelector(state => state.generalReducer)
-  const {credential} = useSelector((state) => state.getTokenReducer);
-
-
-  const setOSMModalShown = () => {
-    dispatch({type:SET_OSM_MODAL_SHOWN, payload:true})
-  }
-
+  
 
   return (
     <Modal
-      visible={!isOSMModalShown && credential?.type ==="openstreetmap"}
+      visible={visible}
       statusBarTranslucent
       transparent
       animationType="fade"
@@ -29,13 +22,15 @@ const NewsletterModal = () => {
       <View style={styles.container} >
         <View style={styles.wrapper}>
         <TouchableOpacity 
-        style={styles.closeButton} onPress={setOSMModalShown}>
+        style={styles.closeButton} onPress={()=>{
+          setVisible(false)
+        }}>
       <CloseIcon color="white" />
         </TouchableOpacity>
           <View style={styles.profileIcon}>
           <AnimatedLottieView 
             style={{height:"100%", alignSelf:"center", transform:[{scale:1.2}]}}
-          source={require("../assets/animations/mailSubs.json")} autoPlay loop />
+          source={require("../../assets/animations/mailSubs.json")} autoPlay loop />
           </View>
           <CustomTextMedium style={styles.title}>{t("mail_request_title")}</CustomTextMedium>
           <CustomText style={styles.description}>
