@@ -56,10 +56,12 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then(() => {
-          toast.show(t("login_success"), { type: "success" });
-          setVisible(false);
-          navigation.goBack();
+      .then((res) => {
+          if(res.status){
+            setVisible(false);
+            navigation.goBack();
+          }
+          throw new Error("error");
       })
       .catch(() => {
         setVisible(false);
