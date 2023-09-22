@@ -75,7 +75,7 @@ const OSMLogin = ({navigation}) => {
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
         dispatch(getUserInformation());
         toast.show(`Login Success`, { type: "success" });
-        setLoading(false);
+        setLoading(false)
         checkMail();
       })
       .catch(() => {
@@ -113,6 +113,7 @@ const OSMLogin = ({navigation}) => {
 
   return (
      <TouchableOpacity style={socialLoginStyles.osmButton} onPress={()=>{
+      setLoading(true);
       promptAsync();
      }}>
       <Modal visible={loading} transparent={true} animationType="fade" statusBarTranslucent>
