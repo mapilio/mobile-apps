@@ -56,16 +56,16 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => {
-        if (res.status) {
+      .then(() => {
+          toast.show(`Login Success`, { type: "success" });
           setVisible(false);
           navigation.goBack();
-        } else {
-          setVisible(false);
-        }
       })
       .catch(() => {
         setVisible(false);
+        toast.show(t("login_error"), { type: "error" });
+
+        navigation.goBack();
       });
   };
 
