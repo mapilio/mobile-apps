@@ -74,7 +74,8 @@ export const getConfig = () => {
           mapTokens:{
             androidToken,
             iosToken
-          }
+          },
+          osmModal
         } = config;
 
         const versionData = Platform.OS === "ios" ? ios : android;
@@ -112,6 +113,12 @@ export const getConfig = () => {
             mapTokens:{
               androidToken,
               iosToken
+            },
+            osmModal:{
+              titleTR: osmModal.titleTR,
+              titleEN: osmModal.titleEN,
+              descriptionTR: osmModal.descriptionTR,
+              descriptionEN: osmModal.descriptionEN,
             }
           },
         });

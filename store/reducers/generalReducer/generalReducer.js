@@ -51,7 +51,13 @@ const INITIAL_STATE = {
     mapTokens:{
       androidToken: "",
       iosToken: ""
-    }
+    },
+    osmModal:{
+      titleTR: "",
+      titleEN: "",
+      descriptionTR: "",
+      descriptionEN: ""
+    },
   }
 };
 
