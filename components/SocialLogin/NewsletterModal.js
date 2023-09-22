@@ -1,43 +1,59 @@
-import { View, Modal, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Modal,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  KeyboardAvoidingView,
+} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { CustomText, CustomTextMedium } from "../../highordercomponents"
+import { CustomText, CustomTextMedium } from "../../highordercomponents";
 import AnimatedLottieView from "lottie-react-native";
 import { CloseIcon } from "../../assets/svg/illustrations";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { useSelector } from "react-redux";
 import { api } from "../../util/helpers/api";
-import {useForm, Controller} from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
-
-const NewsletterModal = ({
-  visible = false,
-  setVisible,
-  navigation
-}) => {
-
+const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
   const config = useSelector((state) => state.generalReducer.config);
+  const {t} = useTranslation("login");
 
-  const {control, handleSubmit} = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
-      mail: ""
-    }
+      email: "",
+    },
   });
 
-  const setMail = (mail) => {
-    api.post("/api/function/user_profile/profile/updateMail", {
-      mail
-    }).then((res) => {
-      if(res){
-        setVisible(false)
-        navigation.goBack()
-      }
-    })
-  }
+  const setMail = (email) => {
+    const emailData = new FormData();
 
-  const onSubmit = ({mail}) => {
-    setMail(mail)
-  }
+    emailData.append("options[parameters][email]", email);
+
+    api
+      .post("/api/function/user_profile/profile/updateMail", emailData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        if (res.status) {
+          setVisible(false);
+          navigation.goBack();
+        } else {
+          setVisible(false);
+        }
+      })
+      .catch(() => {
+        setVisible(false);
+      });
+  };
+
+  const onSubmit = ({ email }) => {
+    setMail(email);
+  };
 
   return (
     <Modal
@@ -46,48 +62,74 @@ const NewsletterModal = ({
       transparent
       animationType="fade"
     >
-      <View style={styles.container} >
-        <View style={styles.wrapper}>
-          <TouchableOpacity
-            style={styles.closeButton} onPress={() => {
-              setVisible(false)
-            }}>
-            <CloseIcon color="white" />
-          </TouchableOpacity>
-          <View style={styles.profileIcon}>
-            <AnimatedLottieView
-              style={{ height: "100%", alignSelf: "center", transform: [{ scale: 1.2 }] }}
-              source={require("../../assets/animations/mailSubs.json")} autoPlay loop />
-          </View>
-          <CustomTextMedium style={styles.title}>
-          <Trans
-            defaults={i18next.language === "en" ? config?.osmModal?.titleEN : config?.osmModal?.titleTR}
-           
-          />
-          </CustomTextMedium>
-          <CustomText style={styles.description}>
-          <Trans
-            defaults={i18next.language === "en" ? config?.osmModal?.descriptionEN: config?.osmModal?.descriptionTR}
-          />
-          </CustomText>
-         <Controller
-          name="mail"
-          control={control}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              autoCapitalize="none"
-              placeholder="Provide your mail"
-              style={styles.input}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <View style={styles.container}>
+          <View style={styles.wrapper}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => {
+                setVisible(false);
+                navigation.goBack();
+              }}
+            >
+              <CloseIcon color="white" />
+            </TouchableOpacity>
+            <View style={styles.profileIcon}>
+              <AnimatedLottieView
+                style={{
+                  height: "100%",
+                  alignSelf: "center",
+                  transform: [{ scale: 1.2 }],
+                }}
+                source={require("../../assets/animations/mailSubs.json")}
+                autoPlay
+                loop
+              />
+            </View>
+            <CustomTextMedium style={styles.title}>
+              <Trans
+                defaults={
+                  i18next.language === "en"
+                    ? config?.osmModal?.titleEN
+                    : config?.osmModal?.titleTR
+                }
+              />
+            </CustomTextMedium>
+            <CustomText style={styles.description}>
+              <Trans
+                defaults={
+                  i18next.language === "en"
+                    ? config?.osmModal?.descriptionEN
+                    : config?.osmModal?.descriptionTR
+                }
+              />
+            </CustomText>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  autoCapitalize="none"
+                  placeholder={t("enter_email")}
+                  style={styles.input}
+                />
+              )}
             />
-          )} />
-          <TouchableOpacity style={styles.buttonApply} onPress={handleSubmit(onSubmit)}>
-            <CustomText style={styles.buttonText}>Verify</CustomText>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonApply}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <CustomText style={styles.buttonText}>Verify</CustomText>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -103,6 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width: "90%",
     height: "45%",
+    minHeight: RFValue(300),
     borderRadius: 20,
     marginBottom: RFValue(60),
     justifyContent: "center",
