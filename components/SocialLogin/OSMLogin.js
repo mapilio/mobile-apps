@@ -41,11 +41,13 @@ const OSMLogin = ({navigation}) => {
   const checkMail = () => {
     api.post("/api/function/user_profile/profile/checkIsModalShown").then((res) => {
       if(res.status){
+        toast.show(`Login Success`, { type: "success" });
         navigation.goBack()
       }else{
         setMailModalShown(true)
       }
     }).catch(() => {
+      toast.show(t("login_error"), { type: "error" });
       navigation.goBack()
     })
   }
@@ -74,7 +76,6 @@ const OSMLogin = ({navigation}) => {
         });
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
         dispatch(getUserInformation());
-        toast.show(`Login Success`, { type: "success" });
         setLoading(false)
         checkMail();
       })
@@ -102,6 +103,7 @@ const OSMLogin = ({navigation}) => {
 
 
       getAccessToken.performAsync(discovery).then(({accessToken}) => {
+        setLoading(true);
         loginToMapilio(accessToken);
       }).catch(() => {
         toast.show(t("error"), { type: "error" });
@@ -113,7 +115,6 @@ const OSMLogin = ({navigation}) => {
 
   return (
      <TouchableOpacity style={socialLoginStyles.osmButton} onPress={()=>{
-      setLoading(true);
       promptAsync();
      }}>
       <Modal visible={loading} transparent={true} animationType="fade" statusBarTranslucent>
