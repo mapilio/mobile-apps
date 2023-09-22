@@ -18,6 +18,8 @@ import { api } from "../../util/helpers/api";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Fragment } from "react";
+
 
 const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
   const config = useSelector((state) => state.generalReducer.config);
@@ -127,7 +129,7 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
               name="email"
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
-                <View>
+                <Fragment>
                   <TextInput
                     onChangeText={onChange}
                     onBlur={onBlur}
@@ -141,7 +143,7 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
                       {t(emailError.message, { ns: "register" })}
                     </CustomText>
                   )}
-                </View>
+                </Fragment>
               )}
             />
             <TouchableOpacity
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width: "90%",
     height: "45%",
-    minHeight: RFValue(300),
+    minHeight: RFValue(320),
     borderRadius: 20,
     marginBottom: RFValue(60),
     justifyContent: "center",
