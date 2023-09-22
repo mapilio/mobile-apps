@@ -16,15 +16,31 @@ import i18next from "i18next";
 import { useSelector } from "react-redux";
 import { api } from "../../util/helpers/api";
 import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
   const config = useSelector((state) => state.generalReducer.config);
-  const {t} = useTranslation("login");
+  const { t } = useTranslation(["login", "register"], { nsMode: "fallback" });
 
-  const { control, handleSubmit } = useForm({
+  const emailValidationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .required("email_required")
+      .email("email_required"),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: {
+      errors: { email: emailError },
+    },
+  } = useForm({
     defaultValues: {
       email: "",
     },
+    resolver: yupResolver(emailValidationSchema),
   });
 
   const setMail = (email) => {
@@ -111,14 +127,21 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
               name="email"
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  autoCapitalize="none"
-                  placeholder={t("enter_email")}
-                  style={styles.input}
-                />
+                <View>
+                  <TextInput
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    autoCapitalize="none"
+                    placeholder={t("enter_email")}
+                    style={styles.input}
+                  />
+                  {emailError && (
+                    <CustomText style={styles.infoText}>
+                      {t(emailError.message, { ns: "register" })}
+                    </CustomText>
+                  )}
+                </View>
               )}
             />
             <TouchableOpacity
