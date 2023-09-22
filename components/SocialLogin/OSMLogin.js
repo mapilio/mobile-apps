@@ -45,6 +45,8 @@ const OSMLogin = ({navigation}) => {
       }else{
         setMailModalShown(true)
       }
+    }).catch(() => {
+      navigation.goBack()
     })
   }
 
