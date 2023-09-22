@@ -16,6 +16,7 @@ import { api } from "../../util/helpers/api";
 import { useDispatch } from "react-redux";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import * as Application from 'expo-application';
+import NewsletterModal from "./NewsletterModal";
 
 
 const discovery = {
@@ -35,13 +36,23 @@ const OSMLogin = ({navigation}) => {
   const {t} = useTranslation("login")
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const [mailModalShown, setMailModalShown] = useState(false)
+
+  const checkMail = () => {
+    api.post("/api/function/user_profile/profile/checkIsModalShown").then((res) => {
+      if(res.status){
+        navigation.goBack()
+      }else{
+        setMailModalShown(true)
+      }
+    })
+  }
 
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: Config.OSM_CLIENT_ID,
       scopes: ["read_prefs", "read_gpx"],
       redirectUri: redirectUri,
-      
       codeChallengeMethod: "S256",
       usePKCE: true,
       codeChallenge: codeChallenge.codeVerifier,
@@ -63,7 +74,7 @@ const OSMLogin = ({navigation}) => {
         dispatch(getUserInformation());
         toast.show(`Login Success`, { type: "success" });
         setLoading(false);
-        navigation.goBack();
+        checkMail();
       })
       .catch(() => {
         setLoading(false);
@@ -107,6 +118,7 @@ const OSMLogin = ({navigation}) => {
           <ActivityIndicator size="large" color="white" />
         </View>
       </Modal>
+      <NewsletterModal visible={mailModalShown} setVisible={setMailModalShown} navigation={navigation} />
       <Image source={require('../../assets/images/osm.png')} style={{width:RFValue(12),height:RFValue(12)}} />
       </TouchableOpacity>
   );

@@ -3,14 +3,41 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { CustomText, CustomTextMedium } from "../../highordercomponents"
 import AnimatedLottieView from "lottie-react-native";
 import { CloseIcon } from "../../assets/svg/illustrations";
-import { useTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
+import i18next from "i18next";
+import { useSelector } from "react-redux";
+import { api } from "../../util/helpers/api";
+import {useForm, Controller} from "react-hook-form";
+
 
 const NewsletterModal = ({
   visible = false,
-  setVisible
+  setVisible,
+  navigation
 }) => {
-  const {t} = useTranslation("login")
-  
+
+  const config = useSelector((state) => state.generalReducer.config);
+
+  const {control, handleSubmit} = useForm({
+    defaultValues: {
+      mail: ""
+    }
+  });
+
+  const setMail = (mail) => {
+    api.post("/api/function/user_profile/profile/updateMail", {
+      mail
+    }).then((res) => {
+      if(res){
+        setVisible(false)
+        navigation.goBack()
+      }
+    })
+  }
+
+  const onSubmit = ({mail}) => {
+    setMail(mail)
+  }
 
   return (
     <Modal
@@ -21,23 +48,42 @@ const NewsletterModal = ({
     >
       <View style={styles.container} >
         <View style={styles.wrapper}>
-        <TouchableOpacity 
-        style={styles.closeButton} onPress={()=>{
-          setVisible(false)
-        }}>
-      <CloseIcon color="white" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.closeButton} onPress={() => {
+              setVisible(false)
+            }}>
+            <CloseIcon color="white" />
+          </TouchableOpacity>
           <View style={styles.profileIcon}>
-          <AnimatedLottieView 
-            style={{height:"100%", alignSelf:"center", transform:[{scale:1.2}]}}
-          source={require("../../assets/animations/mailSubs.json")} autoPlay loop />
+            <AnimatedLottieView
+              style={{ height: "100%", alignSelf: "center", transform: [{ scale: 1.2 }] }}
+              source={require("../../assets/animations/mailSubs.json")} autoPlay loop />
           </View>
-          <CustomTextMedium style={styles.title}>{t("mail_request_title")}</CustomTextMedium>
+          <CustomTextMedium style={styles.title}>
+          <Trans
+            defaults={i18next.language === "en" ? config?.osmModal?.titleEN : config?.osmModal?.titleTR}
+           
+          />
+          </CustomTextMedium>
           <CustomText style={styles.description}>
-        {t("mail_request_desc")}
+          <Trans
+            defaults={i18next.language === "en" ? config?.osmModal?.descriptionEN: config?.osmModal?.descriptionTR}
+          />
           </CustomText>
-          <TextInput style={styles.input} placeholder="Enter your mail" />
-          <TouchableOpacity style={styles.buttonApply} onPress={()=>{}}>
+         <Controller
+          name="mail"
+          control={control}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              autoCapitalize="none"
+              placeholder="Provide your mail"
+              style={styles.input}
+            />
+          )} />
+          <TouchableOpacity style={styles.buttonApply} onPress={handleSubmit(onSubmit)}>
             <CustomText style={styles.buttonText}>Verify</CustomText>
           </TouchableOpacity>
         </View>
@@ -64,19 +110,19 @@ const styles = StyleSheet.create({
     padding: RFValue(10),
     paddingTop: RFValue(20),
   },
-  closeButton:{
-    position:"absolute",
-    right:RFValue(10),
-    top:RFValue(10),
-    width:RFValue(25),
-    height:RFValue(25),
-    backgroundColor:"#d8d8d8",
-    justifyContent:"center",
-    alignItems:"center",
-    borderRadius:RFValue(25),
+  closeButton: {
+    position: "absolute",
+    right: RFValue(10),
+    top: RFValue(10),
+    width: RFValue(25),
+    height: RFValue(25),
+    backgroundColor: "#d8d8d8",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: RFValue(25),
   },
   profileIcon: {
-    width:"100%",
+    width: "100%",
     height: RFValue(77),
   },
   title: {
