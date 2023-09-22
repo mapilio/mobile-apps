@@ -195,7 +195,6 @@ const AppMap = ({ navigation }) => {
       {!isMapReady && <MapLoading />}
       {isPanoLoading && <PanoLoading />}
 
-
       <FocusAwareStatusBar
         barStyle="dark-content"
         backgroundColor={"transparent"}
