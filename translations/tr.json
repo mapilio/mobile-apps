@@ -268,7 +268,8 @@
     "or": "ya da",
     "login_success": "Giriş başarılı ",
     "error": "Bir hata oluştu, daha sonra tekrar deneyin.",
-    "mail_error": "E-posta adresinize erişemediğimiz için üye değilsiniz. Lütfen posta izni verin veya üye olmak için başka bir seçenek seçin."
+    "mail_error": "E-posta adresinize erişemediğimiz için üye değilsiniz. Lütfen posta izni verin veya üye olmak için başka bir seçenek seçin.",
+    "enter_email": "E-posta adresinizi girin"
   },
   "register": {
     "title": "Haritanızda neler olduğunu görmek için kaydolun.",
