@@ -57,13 +57,13 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
         },
       })
       .then(() => {
-          toast.show(`Login Success`, { type: "success" });
+          toast.show(t("login_success"), { type: "success" });
           setVisible(false);
           navigation.goBack();
       })
       .catch(() => {
         setVisible(false);
-        toast.show(t("login_error"), { type: "error" });
+        toast.show(t("error"), { type: "error" });
 
         navigation.goBack();
       });

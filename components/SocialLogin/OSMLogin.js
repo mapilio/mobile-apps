@@ -41,13 +41,13 @@ const OSMLogin = ({navigation}) => {
   const checkMail = () => {
     api.post("/api/function/user_profile/profile/checkIsModalShown").then((res) => {
       if(res.status){
-        toast.show(`Login Success`, { type: "success" });
+        toast.show(t("login_success"), { type: "success" });
         navigation.goBack()
       }else{
         setMailModalShown(true)
       }
     }).catch(() => {
-      toast.show(t("login_error"), { type: "error" });
+      toast.show(t("error"), { type: "error" });
       navigation.goBack()
     })
   }
