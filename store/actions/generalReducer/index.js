@@ -69,12 +69,13 @@ export const getConfig = () => {
             infoBoxDescEN,
             showWeek,
           },
-          socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled },
+          socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled,isOSMEnabled },
           versions: { ios, android },
           mapTokens:{
             androidToken,
             iosToken
-          }
+          },
+          osmModal
         } = config;
 
         const versionData = Platform.OS === "ios" ? ios : android;
@@ -97,6 +98,7 @@ export const getConfig = () => {
               isFacebookEnabled,
               isGoogleEnabled,
               isAppleEnabled,
+              isOSMEnabled
             },
             versions: {
               ios: {
@@ -111,6 +113,12 @@ export const getConfig = () => {
             mapTokens:{
               androidToken,
               iosToken
+            },
+            osmModal:{
+              titleTR: osmModal.titleTR,
+              titleEN: osmModal.titleEN,
+              descriptionTR: osmModal.descriptionTR,
+              descriptionEN: osmModal.descriptionEN,
             }
           },
         });

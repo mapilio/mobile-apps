@@ -8,7 +8,7 @@ import {
   SET_DEBUG_MODE,
   SET_MAP_MODE,
   SET_MAINTENANCE_MODE,
-  SET_CONFIG
+  SET_CONFIG,
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -35,7 +35,8 @@ const INITIAL_STATE = {
     socialLogin: {
       isFacebookEnabled: false,
       isGoogleEnabled: false,
-      isAppleEnabled: false
+      isAppleEnabled: false,
+      isOSMEnabled: false
     },
     versions:{
       ios:{
@@ -50,7 +51,13 @@ const INITIAL_STATE = {
     mapTokens:{
       androidToken: "",
       iosToken: ""
-    }
+    },
+    osmModal:{
+      titleTR: "",
+      titleEN: "",
+      descriptionTR: "",
+      descriptionEN: ""
+    },
   }
 };
 
