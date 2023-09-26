@@ -40,7 +40,7 @@ const Register = ({ navigation }) => {
   const register = (values) => {
     setLoading(true)
 
-    api.post("/api/register", {
+    api.post("/api/register&is_mobile=true", {
       name: values.name,
       username: values.name,
       email: values.email,
