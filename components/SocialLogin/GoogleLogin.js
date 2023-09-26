@@ -44,7 +44,7 @@ const GoogleLogin = ({ navigation }) => {
   const loginToMapilio = (user, accessToken) => {
     api
       .post(
-        `/oauth-api/google/authenticate?token=${accessToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&device_type=mobile&login_type=google`
+        `/oauth-api/google/authenticate?token=${accessToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&is_mobile=true`
       )
       .then((res) => {
         dispatch({
