@@ -12,6 +12,7 @@ import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import {getUserInformation} from "../../store/reducers/loginReducer/getUserInformation";
+import * as Sentry from "@sentry/react-native";
 
 const Upload = ({group_uuid = null, style, buttonStyle}) => {
   const dispatch = useDispatch();
@@ -93,6 +94,11 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
         }
 
       } catch (e) {
+        Sentry.captureException(e, {
+          tags: {
+            function: 'uploadHandler'
+          }
+        })
         toast.show(e.message, {type: 'error'});
         break;
       }
