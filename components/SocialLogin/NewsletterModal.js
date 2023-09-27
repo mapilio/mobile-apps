@@ -63,7 +63,6 @@ const NewsletterModal = () => {
           if(res.status){
             dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
           }
-          throw new Error("error");
       })
       .catch(() => {
         dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
