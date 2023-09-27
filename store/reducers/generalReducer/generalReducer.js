@@ -9,6 +9,7 @@ import {
   SET_MAP_MODE,
   SET_MAINTENANCE_MODE,
   SET_CONFIG,
+  SET_MAIL_MODAL_SHOWN
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -21,6 +22,7 @@ const INITIAL_STATE = {
   debugMode: false,
   mapShown: true,
   maintenanceMode: false,
+  shouldShowMailModal: false,
   config:{
     isMarketOpen: false,
     isChallengeOpen: false,
@@ -107,6 +109,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         maintenanceMode: action.payload,
+      }
+    case SET_MAIL_MODAL_SHOWN:
+      return {
+        ...state,
+        shouldShowMailModal: action.payload,
       }
     case SET_CONFIG:
       return {
