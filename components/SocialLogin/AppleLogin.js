@@ -8,6 +8,7 @@ import { api } from "../../util/helpers/api";
 import Config from "react-native-config";
 import { Modal, View, ActivityIndicator } from "react-native";
 import { useTranslation } from "react-i18next";
+import {captureException} from "@sentry/react-native";
 
 const AppleLogin = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -36,7 +37,12 @@ const AppleLogin = ({ navigation }) => {
         setLoading(false);
         navigation.goBack();
       })
-      .catch(() => {
+      .catch((err) => {
+        captureException(err, {
+          tags: {
+            functionName: "signInToApple",
+          },
+        });
         setLoading(false);
         toast.show(t("error"), { type: "error" });
       });

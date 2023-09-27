@@ -10,6 +10,8 @@ import Config from "react-native-config";
 import { api } from "../../util/helpers/api";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTranslation } from "react-i18next";
+import {captureException} from "@sentry/react-native";
+
 
 const GoogleLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -57,7 +59,12 @@ const GoogleLogin = ({ navigation }) => {
         setLoading(false);
         navigation.goBack();
       })
-      .catch(() => {
+      .catch((err) => {
+        captureException(err, {
+          tags: {
+            functionName: "loginToMapilioGoogle",
+          },
+        });
         setLoading(false);
         toast.show(t("error"), { type: "error" });
       })

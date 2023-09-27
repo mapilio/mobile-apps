@@ -22,6 +22,7 @@ import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {Trans, useTranslation} from "react-i18next";
 import {api} from "../util/helpers/api";
 import { ActivityIndicator } from "react-native-paper";
+import {captureException} from "@sentry/react-native";
 
 
 
@@ -56,6 +57,11 @@ const Register = ({ navigation }) => {
       navigation.reset({index: 0, routes: [{name: Routes.login}]})
       toast.show(t("account_created"), {type: "success"})
     }).catch((err) => {
+      captureException(err, {
+        tags: {
+          functionName: 'register',
+        },
+      })
       if(Object.keys(err).length === 0){
         toast.show(t("register_error"), {type: "error"})
       }else{

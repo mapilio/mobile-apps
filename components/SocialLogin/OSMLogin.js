@@ -16,6 +16,7 @@ import { api } from "../../util/helpers/api";
 import { useDispatch } from "react-redux";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import * as Application from 'expo-application';
+import {captureException} from "@sentry/react-native";
 
 
 const discovery = {
@@ -45,7 +46,12 @@ const OSMLogin = ({navigation}) => {
         dispatch({type:SET_MAIL_MODAL_SHOWN,payload:true})
       }
       navigation.goBack()
-    }).catch(() => {
+    }).catch((err) => {
+      captureException(err, {
+        tags: {
+          functionName: "checkMail",
+        },
+      });
       toast.show(t("error"), { type: "error" });
       navigation.goBack()
     })

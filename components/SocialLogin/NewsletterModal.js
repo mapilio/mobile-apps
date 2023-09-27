@@ -20,6 +20,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Fragment } from "react";
 import { SET_MAIL_MODAL_SHOWN } from "../../store/actionsName";
+import {captureException} from "@sentry/react-native";
 
 
 const NewsletterModal = () => {
@@ -64,7 +65,12 @@ const NewsletterModal = () => {
             dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
           }
       })
-      .catch(() => {
+      .catch((err) => {
+        captureException(err, {
+          tags: {
+            functionName: "setMail",
+          },
+        });
         dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
         toast.show(t("error"), { type: "error" });
 
