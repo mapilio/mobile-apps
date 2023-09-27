@@ -7,7 +7,7 @@ import {calculate} from "./calculator";
 import i18n from "i18next";
 import {api, cdn} from "../util/helpers/api";
 import axios from "axios";
-import * as Sentry from "@sentry/react-native";
+import {captureException} from "@sentry/react-native";
 
 let apiController;
 let cdnController;
@@ -61,9 +61,9 @@ export const getHash = async (image) => {
     await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE id=${image.id}`)
     return {status: 'success', hash: response.files[0].hash}
   } catch (error) {
-    Sentry.captureException(error, {
+    captureException(error, {
       tags: {
-        function: 'getHash'
+        functionName: 'getHash'
       }
     })
     return {status: 'error', message: throwMessage(error)}
@@ -177,9 +177,9 @@ export const imageryUpload = async (images, sequence_uuid) => {
       files.options.parameters.summary.Information.group_key = image.group_id;
 
     } catch (e) {
-      Sentry.captureException(e, {
+      captureException(e, {
         tags: {
-          function: 'jsonUpload'
+          functionName: 'jsonUpload'
         }
       })
       return {status: 'error', message: throwMessage(e)}
@@ -196,9 +196,9 @@ export const imageryUpload = async (images, sequence_uuid) => {
     return {status: 'warning', message: translate('upload_failed') + ' ' + response.message}
 
   } catch (e) {
-    Sentry.captureException(e,{
+    captureException(e,{
       tags: {
-        function: 'imageryUpload'
+        functionName: 'imageryUpload'
       }
     })
     return {status: 'error', message: throwMessage(e)}

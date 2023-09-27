@@ -19,6 +19,8 @@ import {LanguageModal} from "../components/Login";
 import {useDispatch} from "react-redux";
 import {SET_CREDENTIAL} from "../store/actionsName";
 import {ActivityIndicator} from "react-native-paper";
+import {captureException} from "@sentry/react-native";
+
 
 const Login = ({navigation}) => {
 	const {t} = useTranslation("login");
@@ -44,6 +46,11 @@ const Login = ({navigation}) => {
 			dispatch({type: SET_CREDENTIAL, payload: {type: 'default', ...res}});
 			navigation.goBack();
 		}).catch((err) => {
+			captureException(err, {
+				tags: {
+					functionName: 'handleLoginCredentials',
+				},
+			})	
 			toast.show(`${err}`, {type: "error"})
 		}).finally(() => setLoading(false))
 	}
