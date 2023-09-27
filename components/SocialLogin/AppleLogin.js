@@ -60,7 +60,12 @@ const AppleLogin = ({ navigation }) => {
       .then((credential) => {
         signInToApple(credential);
       })
-      .catch(() => {
+      .catch((err) => {
+        captureException(err, {
+          tags: {
+            functionName: "loginHandlerApple",
+          },
+        });
         toast.show(t("error"), { type: "error" });
         setLoading(false);
       });
