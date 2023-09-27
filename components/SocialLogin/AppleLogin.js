@@ -1,12 +1,12 @@
 import React, { useEffect, useState, Fragment } from "react";
 import * as AppleAuthentication from "expo-apple-authentication";
-import {GET_TOKEN_SUCCESS, SET_CREDENTIAL} from "../../store/actionsName";
+import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from "../../store/actionsName";
 import { useDispatch } from "react-redux";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
-import {socialLoginStyles} from "../../styles/loginStyles";
-import {api} from "../../util/helpers/api";
+import { socialLoginStyles } from "../../styles/loginStyles";
+import { api } from "../../util/helpers/api";
 import Config from "react-native-config";
-import {Modal, View, ActivityIndicator} from "react-native";
+import { Modal, View, ActivityIndicator } from "react-native";
 import { useTranslation } from "react-i18next";
 
 const AppleLogin = ({ navigation }) => {
@@ -16,28 +16,16 @@ const AppleLogin = ({ navigation }) => {
   const { t } = useTranslation("login");
 
   useEffect(() => {
-    AppleAuthentication.isAvailableAsync().then(status => setAvailable(status))
+    AppleAuthentication.isAvailableAsync().then((status) =>
+      setAvailable(status)
+    );
   }, []);
 
-  const signInToApple = (credential, stateKey) => {
-    let params = {
-      token: credential.user,
-      state: stateKey,
-      client_id: Config.AUTH_CLIENT_ID,
-      client_secret: Config.AUTH_CLIENT_SECRET,
-      device_type: "mobile",
-      login_type: "apple",
-    };
-    let url = `/oauth-api/w-tokenV2`;
-
-    if (credential.email) {
-      url = `/oauth-api/callbackV2`;
-      params.email = credential.email;
-      params.name = credential.fullName.givenName + " " + credential.fullName.familyName;
-    }
-
+  const signInToApple = (credential) => {
     api
-      .post(url, params)
+      .post(
+        `/oauth-api/apple/authenticate?token=${credential.identityToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&device_type=mobile&login_type=google`
+      )
       .then((res) => {
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
         dispatch({
@@ -48,10 +36,10 @@ const AppleLogin = ({ navigation }) => {
         setLoading(false);
         navigation.goBack();
       })
-      .catch(({response}) =>{ 
-        setLoading(false)
-        toast.show(response?.data?.message || t("error"), {type: 'error'})
-      })
+      .catch(() => {
+        setLoading(false);
+        toast.show(t("error"), { type: "error" });
+      });
   };
 
   const loginHandler = () => {
@@ -59,26 +47,28 @@ const AppleLogin = ({ navigation }) => {
       requestedScopes: [
         AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
         AppleAuthentication.AppleAuthenticationScope.EMAIL,
-      ]
-    }
+      ],
+    };
 
-    AppleAuthentication.signInAsync(options).then((credential) => {
-      api.get('/oauth-api/generate-state').then(({data}) => {
-        setLoading(true);
-        signInToApple(credential, data.state)
-      }).catch(({response}) => {
+    AppleAuthentication.signInAsync(options)
+      .then((credential) => {
+        signInToApple(credential);
+      })
+      .catch(() => {
+        toast.show(t("error"), { type: "error" });
         setLoading(false);
-        toast.show(`${response?.data?.message || t("error")}`, {type: 'error'})
       });
-    }).catch(() => {
-      setLoading(false);
-    });
-  }
+  };
 
   if (available) {
     return (
       <Fragment>
-        <Modal visible={loading} transparent={true} animationType="fade" statusBarTranslucent>
+        <Modal
+          visible={loading}
+          transparent={true}
+          animationType="fade"
+          statusBarTranslucent
+        >
           <View style={socialLoginStyles.modal}>
             <ActivityIndicator size="large" color="white" />
           </View>
