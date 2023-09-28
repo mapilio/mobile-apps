@@ -10,6 +10,7 @@ import Config from "react-native-config";
 import { api } from "../../util/helpers/api";
 import { useTranslation } from "react-i18next";
 import { RFValue } from "react-native-responsive-fontsize";
+import {captureException} from "@sentry/react-native";
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -58,7 +59,12 @@ const FacebookLogin = ({ navigation }) => {
             navigation.goBack();
             toast.show(t("login_success") + json.name, { type: "success" });
           })
-          .catch(() => {
+          .catch((err) => {
+            captureException(err, {
+              tags:{
+                functionName: "facebookAccess"
+              }
+            });
             setLoading(false);
             toast.show(t("error"), { type: "error" })
           })

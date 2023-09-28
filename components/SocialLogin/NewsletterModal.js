@@ -13,17 +13,21 @@ import AnimatedLottieView from "lottie-react-native";
 import { CloseIcon } from "../../assets/svg/illustrations";
 import { Trans, useTranslation } from "react-i18next";
 import i18next from "i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../util/helpers/api";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Fragment } from "react";
+import { SET_MAIL_MODAL_SHOWN } from "../../store/actionsName";
+import {captureException} from "@sentry/react-native";
 
 
-const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
+const NewsletterModal = () => {
   const config = useSelector((state) => state.generalReducer.config);
   const { t } = useTranslation(["login", "register"], { nsMode: "fallback" });
+  const generalState = useSelector((state) => state.generalReducer);
+  const dispatch = useDispatch();
 
   const emailValidationSchema = yup.object().shape({
     email: yup
@@ -58,16 +62,26 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
       })
       .then((res) => {
           if(res.status){
-            setVisible(false);
-            navigation.goBack();
+            dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
+          }else{
+            dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
+            toast.show(t("error"), { type: "error" });
+            captureException(res, {
+              tags: {
+                functionName: "setMail",
+              },
+            });
           }
-          throw new Error("error");
       })
-      .catch(() => {
-        setVisible(false);
+      .catch((err) => {
+        captureException(err, {
+          tags: {
+            functionName: "setMail",
+          },
+        });
+        dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
         toast.show(t("error"), { type: "error" });
 
-        navigation.goBack();
       });
   };
 
@@ -77,7 +91,7 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
 
   return (
     <Modal
-      visible={visible}
+      visible={!!generalState?.shouldShowMailModal}
       statusBarTranslucent
       transparent
       animationType="fade"
@@ -91,8 +105,7 @@ const NewsletterModal = ({ visible = false, setVisible, navigation }) => {
             <TouchableOpacity
               style={styles.closeButton}
               onPress={() => {
-                setVisible(false);
-                navigation.goBack();
+                dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
               }}
             >
               <CloseIcon color="white" />

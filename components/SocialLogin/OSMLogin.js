@@ -7,7 +7,7 @@ import {
 } from "expo-auth-session";
 import { useEffect, useState} from "react";
 import { RFValue } from "react-native-responsive-fontsize";
-import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from "../../store/actionsName";
+import { GET_TOKEN_SUCCESS, SET_CREDENTIAL, SET_MAIL_MODAL_SHOWN } from "../../store/actionsName";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import Config from "react-native-config";
 import { useTranslation } from "react-i18next";
@@ -16,7 +16,7 @@ import { api } from "../../util/helpers/api";
 import { useDispatch } from "react-redux";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import * as Application from 'expo-application';
-import NewsletterModal from "./NewsletterModal";
+import {captureException} from "@sentry/react-native";
 
 
 const discovery = {
@@ -36,17 +36,22 @@ const OSMLogin = ({navigation}) => {
   const {t} = useTranslation("login")
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [mailModalShown, setMailModalShown] = useState(false)
 
   const checkMail = () => {
     api.post("/api/function/user_profile/profile/checkIsModalShown").then((res) => {
       if(res.status){
         toast.show(t("login_success"), { type: "success" });
-        navigation.goBack()
+        dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
       }else{
-        setMailModalShown(true)
+        dispatch({type:SET_MAIL_MODAL_SHOWN,payload:true})
       }
-    }).catch(() => {
+      navigation.goBack()
+    }).catch((err) => {
+      captureException(err, {
+        tags: {
+          functionName: "checkMail",
+        },
+      });
       toast.show(t("error"), { type: "error" });
       navigation.goBack()
     })
@@ -122,7 +127,6 @@ const OSMLogin = ({navigation}) => {
           <ActivityIndicator size="large" color="white" />
         </View>
       </Modal>
-      <NewsletterModal visible={mailModalShown} setVisible={setMailModalShown} navigation={navigation} />
       <Image source={require('../../assets/images/osm.png')} style={{width:RFValue(12),height:RFValue(12)}} />
       </TouchableOpacity>
   );
