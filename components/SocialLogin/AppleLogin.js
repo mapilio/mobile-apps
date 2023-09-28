@@ -25,7 +25,7 @@ const AppleLogin = ({ navigation }) => {
   const signInToApple = (credential) => {
     api
       .post(
-        `/oauth-api/apple/authenticate?token=${credential.identityToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&device_type=mobile&login_type=google`
+        `/oauth-api/apple/authenticate?token=${credential.identityToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&is_mobile=true`
       )
       .then((res) => {
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
@@ -38,6 +38,7 @@ const AppleLogin = ({ navigation }) => {
         navigation.goBack();
       })
       .catch((err) => {
+        console.log(err)
         captureException(err, {
           tags: {
             functionName: "signInToApple",

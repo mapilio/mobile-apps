@@ -63,6 +63,14 @@ const NewsletterModal = () => {
       .then((res) => {
           if(res.status){
             dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
+          }else{
+            dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
+            toast.show(t("error"), { type: "error" });
+            captureException(res, {
+              tags: {
+                functionName: "setMail",
+              },
+            });
           }
       })
       .catch((err) => {
