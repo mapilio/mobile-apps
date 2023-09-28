@@ -38,7 +38,6 @@ const AppleLogin = ({ navigation }) => {
         navigation.goBack();
       })
       .catch((err) => {
-        console.log(err)
         captureException(err, {
           tags: {
             functionName: "signInToApple",
