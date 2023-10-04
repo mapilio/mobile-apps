@@ -29,7 +29,7 @@ const UserInfos = ({ userDetails }) => {
       <ProfileBackground />
       <View style={styles.profileImageWrapper}>
         <Image style={styles.profileImage} source={{ uri: photoURL }} />
-        <AnimatedCircle value={90} width={RFValue(85)} height={RFValue(85)} />
+        <AnimatedCircle value={90} width={RFValue(105)} height={RFValue(105)} />
       </View>
 
       <View style={styles.scoreWrapper}>
@@ -49,7 +49,7 @@ const UserInfos = ({ userDetails }) => {
         <RoadIcon fill="#808080" width={RFValue(16)} />
         <CustomTextMedium style={styles.statsText}>
           {thousandFormatter(roads, 'k')}
-          {'km'}
+          {' km'}
         </CustomTextMedium>
         </View>
       </View>
@@ -80,13 +80,13 @@ const styles = StyleSheet.create({
   profileImageWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: RFValue(90),
+    height: RFValue(110),
   },
   profileImage: {
     borderRadius: RFPercentage(50),
     resizeMode: 'cover',
-    width: RFValue(65),
-    height: RFValue(65),
+    width: RFValue(85),
+    height: RFValue(85),
   },
   scoreWrapper: {
     flexDirection: 'row',

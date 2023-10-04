@@ -90,8 +90,8 @@ const FeedList = ({ userDetails }) => {
 
   if (loading) {
     return (
-      <View style={{ marginHorizontal: RFValue(10) }}>
-        <SkeletonList />
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size={'large'} />
       </View>
     );
   }
@@ -154,8 +154,7 @@ const FeedList = ({ userDetails }) => {
               useNativeDriver: false,
             })(e);
           }
-
-          if (isCloseToBottom(e.nativeEvent)) {
+          if (isCloseToBottom(e.nativeEvent) && data?.length > 0) {
             nextPage();
           }
         }}>
