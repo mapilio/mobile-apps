@@ -54,7 +54,7 @@ const UserInfos = ({ userDetails }) => {
         </View>
       </View>
 
-      <View style={styles.socialWrapper}>
+     {/*  <View style={styles.socialWrapper}>
         <View style={styles.rankWrapper}>
           <CustomText style={styles.rankTitle}>Leaderboard Rank</CustomText>
           <CustomTextBold style={styles.rankDesc}>#12</CustomTextBold>
@@ -66,7 +66,7 @@ const UserInfos = ({ userDetails }) => {
             <CustomText style={styles.osmText}>OSM Profile</CustomText>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DCDCDC',
     marginHorizontal: 10,
   },
-  socialWrapper: {
+/*   socialWrapper: {
     marginTop: RFValue(10),
     width: '85%',
   },
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   rankTitle: { fontSize: RFValue(13), color: '#666666' },
-  rankDesc: { fontSize: RFValue(13), color: '#000000' },
+  rankDesc: { fontSize: RFValue(13), color: '#000000' }, */
 });
 
 export default UserInfos;
