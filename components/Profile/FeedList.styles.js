@@ -47,7 +47,6 @@ export default StyleSheet.create({
     fontSize: RFValue(16),
     color: "#191919",
     textAlign: "center",
-    paddingTop: RFValue(20)
   },
   noFeedDescription: {
     fontFamily: "Poppins",

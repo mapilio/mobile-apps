@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../navigator/Routes';
-import { NoFeed } from '../../assets/svg/illustrations';
 import styles from './FeedList.styles';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +10,6 @@ const EmptyComponent = () => {
 
   return (
     <View style={styles.noFeedWrapper}>
-      <NoFeed />
       <Text style={styles.noFeedTitle}>{t('no_feed')}</Text>
       <Text style={styles.noFeedDescription}>{t('no_feed_desc')}</Text>
       <TouchableOpacity

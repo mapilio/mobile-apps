@@ -254,7 +254,17 @@
     "image": "Image",
     "map": "Map",
     "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "no_address": "No address",
+    "feeds": "Feeds",
+    "badges": "Badges",
+    "see_all": "See All >",
+    "score": "Score",
+    "pt": "pt",
+    "ok": "Ok",
+    "close": "Close",
+    "hello": "Hello ",
+    "contributor": "Contributor ",
+    "bar_desc": "Your Mapilio map looks very colorful"
   },
   "login": {
     "title": "Sign in to see what's on your map.",

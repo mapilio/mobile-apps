@@ -11,9 +11,11 @@ import {
 } from '../assets/svg/illustrations';
 import { thousandFormatter } from '../helper/helper';
 import { StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const UserInfos = ({ userDetails, scoreDetails }) => {
   const { userInformation } = useSelector((state) => state.getTokenReducer);
+  const {t} = useTranslation("profile");
 
   if (!userInformation && !userDetails) return null;
 
@@ -35,7 +37,7 @@ const UserInfos = ({ userDetails, scoreDetails }) => {
       </View>
 
       <View style={styles.scoreWrapper}>
-        <CustomText style={styles.scoreText}>Score</CustomText>
+        <CustomText style={styles.scoreText}>{t("score")}</CustomText>
         <CustomTextBold style={styles.pointsText}>{scoreDetails?.point}</CustomTextBold>
       </View>
 
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
   },
   statsWrapper: {
     flexDirection: 'row',
-    width: '60%',
+    width: '50%',
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingTop: RFValue(3),

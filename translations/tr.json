@@ -255,7 +255,17 @@
     "image": "Resimler",
     "map": "Harita",
     "fetch_error": "Profil bilgileri getirilirken bir sorun oluştu. Lütfen tekrar deneyin.",
-    "no_address": "Adres bulunamadı"
+    "no_address": "Adres bulunamadı",
+    "feeds": "Yüklemeler",
+    "badges": "Rozetler",
+    "see_all": "Tümünü Gör",
+    "score": "Puan",
+    "pt": "p",
+    "ok": "Tamam",
+    "close": "Kapat",
+    "hello": "Merhaba ",
+    "contributor": "Katılımcı ",
+    "bar_desc": "Haritanız çok renkli görünüyor "
   },
   "login": {
     "title": "Haritanızda neler olduğunu görmek için oturum açın.",

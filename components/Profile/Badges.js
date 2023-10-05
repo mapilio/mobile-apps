@@ -7,10 +7,12 @@ import { BottomSheetModal, BottomSheetBackdrop, BottomSheetFlatList } from '@gor
 import { Fragment, useRef, useMemo, useCallback, useState } from 'react';
 import CustomFooter from './CustomFooter';
 import BadgeInfo from './BadgeInfo';
+import { useTranslation } from 'react-i18next';
 
 const Badges = ({ badgeDetails }) => {
   const bottomSheetRef = useRef(null);
   const [selectedBadgeDetails, setSelectedBadgeDetails] = useState(null);
+  const {t} = useTranslation('profile');
 
   const snapPoints = useMemo(
     () => (selectedBadgeDetails ? ['45%'] : ['45%', '90%']),
@@ -53,7 +55,7 @@ const Badges = ({ badgeDetails }) => {
         snapPoints={snapPoints}
         handleIndicatorStyle={{ backgroundColor: '#D8D8D8' }}
         ref={bottomSheetRef}>
-        <CustomTextBold style={styles.title}>Badges</CustomTextBold>
+        <CustomTextBold style={styles.title}>{t("badges")}</CustomTextBold>
         <BottomSheetFlatList
           numColumns={3}
           data={badgeDetails}
@@ -70,7 +72,7 @@ const Badges = ({ badgeDetails }) => {
                   <View style={styles.badgePointWrapper}>
                     <CustomTextBold style={styles.badgePoint}>
                       {item?.point}
-                      {'pt'}
+                      {t("pt")}
                     </CustomTextBold>
                   </View>
                 </View>
@@ -84,9 +86,9 @@ const Badges = ({ badgeDetails }) => {
 
       <View style={styles.container}>
         <View style={styles.header}>
-          <CustomTextBold style={styles.title}>Badges</CustomTextBold>
+          <CustomTextBold style={styles.title}>{t("badges")}</CustomTextBold>
           <TouchableOpacity onPress={() => bottomSheetRef.current?.present()}>
-            <CustomText style={styles.seeAll}>See all {'>'} </CustomText>
+            <CustomText style={styles.seeAll}>{t("see_all")}</CustomText>
           </TouchableOpacity>
         </View>
         <ScrollView

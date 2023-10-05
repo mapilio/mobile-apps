@@ -148,17 +148,19 @@ const FeedList = ({ userDetails }) => {
         <View style={styles.topBarContent}>
           <View style={{ flexDirection: 'row' }}>
             <CustomText style={styles.welcomeTitle}>
-              {userDetails ? 'Contributor ' : 'Hello '}
+              {userDetails ? t('contributor') : t('hello')}
             </CustomText>
             <CustomTextBold style={styles.welcomeTitle}>{display_name}</CustomTextBold>
           </View>
-          <CustomText style={styles.welcomeDesc}>
-            Your Mapilio map looks very colorful{' '}
-            <Image
-              source={require('../../assets/images/walkthrough/party.png')}
-              style={styles.topBarImage}
-            />
-          </CustomText>
+          {!userDetails && (
+            <CustomText style={styles.welcomeDesc}>
+              {t('bar_desc')}
+              <Image
+                source={require('../../assets/images/walkthrough/party.png')}
+                style={styles.topBarImage}
+              />
+            </CustomText>
+          )}
         </View>
       </View>
 
@@ -181,7 +183,7 @@ const FeedList = ({ userDetails }) => {
 
         {!userDetails && <Badges badgeDetails={scoreDetails?.badges} />}
 
-        <CustomTextBold style={styles.sectionTitle}>{t('Feeds')}</CustomTextBold>
+        <CustomTextBold style={styles.sectionTitle}>{t('feeds')}</CustomTextBold>
 
         {data?.length > 0 ? (
           data.map((item, index) => (

@@ -3,13 +3,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { CustomText } from '../../highordercomponents';
 import { StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const CustomFooter = ({ animatedFooterPosition, onPress, isBadgeSelected }) => {
+  const {t} = useTranslation("profile");
   return (
     <BottomSheetFooter animatedFooterPosition={animatedFooterPosition} style={styles.footerWrapper}>
       <TouchableOpacity onPress={onPress} style={styles.closeButton}>
         <CustomText style={styles.buttonTitle}>
-          {isBadgeSelected ? "Ok" : "Close"}</CustomText>
+          {isBadgeSelected ? t("ok") : t("close")}</CustomText>
       </TouchableOpacity>
     </BottomSheetFooter>
   );
