@@ -11,6 +11,13 @@ export default StyleSheet.create({
   topBar:{
     flexDirection: 'row', alignItems: 'center', paddingBottom: RFValue(10)
   },
+  topBarImage:{
+    width: RFValue(13), height: RFValue(13), resizeMode: 'cover'
+  },
+  topBarContent:{
+    flexDirection: 'column',
+    marginLeft: RFValue(10)
+  },
   container: {
     flex: 1,
     paddingTop:RFValue(10),
