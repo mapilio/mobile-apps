@@ -1,413 +1,413 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "地图",
+    "market": "市场",
+    "upload": "上传",
+    "leader": "领导者"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "后退",
+    "are_you_sure": "你确定吗？",
+    "delete_photo": "您确定要删除这张照片吗",
+    "yes": "是的",
+    "no": "不",
+    "delete_error": "删除时出现问题！再试一次。",
+    "delete": "删除",
+    "have_not_connection": "您没有有效的互联网连接",
+    "profile": "轮廓",
+    "profile_edit": "个人资料编辑",
+    "delete_account": "删除帐户",
+    "your_uploads": "您上传的内容",
+    "upload_detail": "上传详情",
+    "sign_up": "报名",
+    "sign_in": "登入",
+    "go_map": "地图",
+    "settings": "设置",
+    "language": "语言"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "搜索",
+    "recent_searches": "最近的搜索",
+    "clear": "清除",
+    "empty_search": "最近发现和使用的物品将在这里",
+    "no_results": "未找到结果",
+    "another_search": "请再次搜索。"
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "影像报告"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "市场",
+    "market_list": "市场列表",
+    "equipment": "设备",
+    "apply_project": "申请到这个项目",
+    "mission_ready": "任务准备就绪",
+    "mission_detail": "您可以从信息部分了解捕捉时要遵循的路径。",
+    "start_capture": "开始捕捉",
+    "or": "或者",
+    "back_to_the": "返回<0>市场</0>",
+    "far_location": "您所在的位置距离项目区域太远",
+    "tooltip": "查找或提供有关图像收集和数据验证项目的帮助，以便在需要的位置创建新的地图数据。",
+    "map_loading": "市场地图正在加载...",
+    "soon_description": "Mapilio 提供了一个地图市场，用户可以在其中请求特定区域的地图。贡献者将获得奖励，并且有免费服务来验证图像准确性。",
+    "very_soon": "很快"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "正在加载地图和区域...",
+    "pano_error": "加载图像时出现问题。请再试一次。",
+    "gps_disabled": "您的 GPS 已禁用。"
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
-    "mapilio": "mapilio",
-    "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "profile_edit": "个人资料编辑",
+    "licences": "许可证",
+    "terms_and_conditions": "条款及条件",
+    "privacy": "隐私政策",
+    "about": "关于",
+    "contest_rules": "比赛规则",
+    "change_language": "改变语言",
+    "mapilio": "马皮利奥",
+    "version": "版本1.0.2",
+    "sign_out": "登出",
+    "delete_account": "删除帐户"
   },
   "profile_edit": {
-    "username": "Username",
-    "name": "Name",
-    "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "username": "用户名",
+    "name": "姓名",
+    "bio": "简介",
+    "hide_my_username": "隐藏我的用户名",
+    "save": "节省"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
-    "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "title": "感谢您对 Mapilio 的贡献！",
+    "description": "很抱歉您想要删除您的帐户，但您之前的贡献仍然会支持社区。",
+    "alert_title": "您确定要删除您的帐户吗？",
+    "alert_description": "您确定要删除您的帐户吗？此操作无法撤消。",
+    "delete": "删除",
+    "cancel": "取消",
+    "delete_account": "删除帐户",
+    "login_again": "您必须重新登录",
+    "login_again_description": "您必须重新登录才能删除您的帐户。您将被重定向到登录页面。",
+    "ok": "好的",
+    "delete_error": "删除时出现问题！再试一次。"
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "上传完成",
+    "description": "您的数据正在处理...当您的图像在 Mapilio 上发布时，您将收到电子邮件通知。",
+    "go_to_map": "前往地图"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "拍一拍",
+      "subtitle": "在街道层面",
+      "description": "捕获街道图像并贡献地图。"
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "上传捕获",
+      "subtitle": "贡献",
+      "description": "上传您的图像以收集积分并在排行榜中获得较高的位置。"
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "赚取礼物",
+      "subtitle": "完成任务",
+      "description": "通过您贡献的任务有机会赢得礼物。"
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "为了获得更多奖励",
+      "subtitle": "继续前行",
+      "description": "我们每天都在扩大我们的礼品范围。"
     },
-    "next": "Next",
-    "skip": "Skip",
-    "start": "Start"
+    "next": "下一个",
+    "skip": "跳过",
+    "start": "开始"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "捕获已开始",
+    "description": "同时，请确保相机的角度正确且稳定。",
+    "safe_mode": "电源安全模式",
+    "advanced": "先进的",
+    "getting_ready": "相机正在准备中。请稍等。",
+    "something_went_wrong": "出了些问题。请再试一次。",
+    "tasks": "任务",
+    "select_mission": "选择任务",
+    "empty_mission_title": "没有您参与的项目。",
+    "empty_mission_description": "您可以在 <0>Marketplace 上浏览项目</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "电池电量低",
+        "description": "GPS 准确度会降低，因为您的电量低于 15%。在这种情况下，无法进行拍摄。"
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "假GPS",
+        "description": "已检测到虚假 GPS 使用情况，请使用设备的 GPS 位置继续！"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "高速",
+        "description": "您超出了高速限制。为了精确起见，您的速度最大应为 70 公里/小时。"
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "GPS精度太低",
+        "description": "当 GPS 警报图标变为绿色时，拍摄将继续。"
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "GPS搜索",
+        "description": "请处于 GPS 捕捉到的空旷区域。此过程最多可能需要 30 秒。"
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "调整相机角度",
+        "description": "当您的旋转正确时，射击将继续。"
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "聚焦道路",
+      "description": "通过触摸屏幕将焦点设置为路径。"
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "干净的图像",
+      "description": "确保车辆引擎盖和其他物体在图像中不可见。"
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "相机方向",
+      "description": "调整相机的位置以记录与地面平行的图像。"
     },
-    "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "next": "下一个",
+    "prev": "上一篇",
+    "finish": "结束"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
-    "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
-    "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "general_settings": "常规设置",
+    "capture_settings": "捕捉设置",
+    "distance_between": "图像之间的距离",
+    "camera_settings": "相机设置",
+    "remaining_images": "拍摄的图像/剩余图像",
+    "battery_level": "电池电量",
+    "ok": "好的",
+    "enable_low_resolution": "启用低分辨率",
+    "enable_low_resolution_desc": "启用低分辨率模式以获得更好的电池性能和更快的拍摄速度。",
+    "settings_saved": "需要重新启动相机才能使更改生效。"
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}公里</0>\n公路捕获已完成",
+    "detail": "<0>{{count}} 张图片</0>/ {{size}}",
+    "upload_now": "立即上传",
+    "upload_later": "稍后上传"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "上传",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "找不到要上传的捕获",
+      "description": "为了上传，您需要从“捕获”部分进行拍摄。您的影片将出现在这里。"
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "上传照片",
+    "subtitle": "您可以从这里上传图像。",
+    "image_count": "{{count}} 张图片",
+    "are_you_sure": "你确定吗？",
+    "delete_capture": "删除捕获",
+    "delete_message": "您想删除您的捕获吗？",
+    "yes": "是的",
+    "no": "不",
+    "start_upload": "开始上传",
+    "is_cellular_data": "您确定要通过蜂窝数据发送吗？",
+    "you_cancelled_upload": "您取消了上传",
+    "sequences_deleted": "序列已删除",
+    "upload_completed": "上传完成",
+    "upload_failed": "上传失败",
+    "no_address": "无地址",
+    "point": "~<0>{{count}}</0>分",
+    "clear_selections": "清除选择",
+    "delete": "删除",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "无障碍世界",
+      "description": "在纽约市中心或非洲的一个村庄。为地图做出贡献，通过每次捕捉让人类的生活变得更轻松。"
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "为我们的环境做出贡献",
+      "description": "我们都梦想一个更清洁、更方便的世界，让我们通过贡献 Mapilio 为每个人创建更好的地图。"
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "交通问题",
+      "description": "您是否知道，我们每年在交通中花费的时间超过 102 小时。由于燃油消耗和错过时间，每年损失 1,739 美元。"
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "地震和紧急情况",
+      "description": "有助于发现无法到达的道路，并对可能出现的健康和生命状况进行早期干预。"
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "个人账户",
+    "organization_account": "组织账户",
+    "no_feed": "无饲料",
+    "no_feed_desc": "没有可显示的提要。您可以通过立即开始捕获来做出贡献。",
+    "start_capture": "开始捕捉",
+    "select_organization": "选择组织",
+    "images": "图片",
+    "uploaded": "已上传",
+    "completed": "完全的",
+    "processing": "加工",
+    "fail": "失败",
+    "sequences": "序列",
+    "photos": "相片",
+    "roads": "道路",
+    "uploaded_title": "您上传的图片",
+    "uploaded_subtitle": "在这里您可以看到上传的图片。",
+    "image": "图像",
+    "map": "地图",
+    "fetch_error": "获取个人资料时出现问题。请再试一次。",
+    "no_address": "无地址"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "登录即可查看地图上的内容。",
+    "email_username": "电子邮件或用户名",
+    "password": "密码",
+    "login": "登录",
+    "forgot_password": "忘记密码了吗？",
+    "languages": "语言",
+    "login_error": "服务器出现错误，请稍后重试。",
+    "or": "或者",
+    "login_success": "登陆成功 ",
+    "error": "发生错误，请稍后再试。",
+    "mail_error": "您不是会员，因为我们无法访问您的电子邮件地址。请给予邮件许可或以其他方式注册。",
+    "enter_email": "请输入您的电子邮件地址。"
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
-    "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "title": "注册即可查看地图上的内容。",
+    "name": "姓名",
+    "email": "电子邮件地址",
+    "password": "密码",
+    "signup": "报名",
+    "name_required": "姓名为必填项",
+    "email_required": "电子邮件地址为必填项",
+    "email_not_valid": "请输入有效的电子邮件",
+    "pass_min_character": "密码必须至少为 {{min}} 字符",
+    "account_created": "您的帐户已创建，请检查您的电子邮件地址。",
+    "redirect_error": "重定向时发生错误，请重试。",
+    "policy": "单击“注册”按钮即表示您同意我们的\n <0>隐私政策</0>和<1>条款和条件</1>。",
+    "register_error": "服务器出现错误，请稍后再试。"
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "忘记密码了吗？",
+    "description": "输入与您的 Mapilio 帐户关联的电子邮件。我们将向您发送一个链接以重置您的密码。",
+    "email": "电子邮件地址",
+    "reset_link": "发送重置链接",
+    "reset_success": "重置请求已发送至该电子邮件地址。"
   },
   "leaderboard": {
-    "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
-    "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "title": "排行榜",
+    "how_to_score": "怎么得 \n分？",
+    "alltime_description": "帮助发展 Mapilio 的前 30 名社区成员！",
+    "users": "用户",
+    "organizations": "组织机构",
+    "fetch_error": "获取排行榜时出现问题。请再试一次。",
+    "join_the_race": "加入\n竞赛",
+    "points": "积分",
+    "points_short": "铂",
+    "roads": "道路",
+    "photos": "相片",
+    "challenge": "挑战",
+    "board": "木板",
+    "all_time": "整天",
+    "this_month": "这个月",
+    "this_week": "本星期",
+    "join": "加入",
+    "winners_title": "以及 \n Mapilio 的获奖者"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "让我们创建更多最多\n日期的地图",
+    "subtitle": "在您所在的地区产生积极影响，为可靠的地图绘制做出贡献，在排行榜上占据较高位置",
+    "sequences": "序列",
+    "images": "图片",
+    "stop_upload": "停止上传"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "您没有互联网连接",
+    "description": "您没有互联网连接。确保您的移动蜂窝网络或 WiFi 已打开。"
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "电子邮件地址为必填项",
+    "please_enter_valid_email": "请输入有效的电子邮件",
+    "password_required": "密码是必需的"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "评分系统如何运作？",
+    "summary": "与来自世界各地的 Mapilio 贡献者竞争并赢得丰厚奖品！",
+    "paragraph": "<h2>Mapilio 奖励系统</h2> <p>\n\n可以从 Mapilio 的射击中收集积分并赢得奖品\n\n<h3>评分系统</h3>\n全球排行榜将允许您将您的本地贡献与其他参与者进行比较。排行榜将有一个评分系统，该系统将考虑贡献的多个要素。以下是构成分数的变量：\n\n<h3>● 独特公里数 (UKM)：</h3>\n这是在先前未覆盖的区域中贡献的序列的总距离。例如，如果您行驶了 10 公里，其中 7 公里没有现有图像，则该行驶的 UKM 将为 7 公里。\n\n<h3>● 图片：</h3>\n贡献者在挑战期间上传的图片总数\n\n<h3>● 参与者：</h3>\n这是参与您本地挑战的人数。这个想法是鼓励和奖励合作。\n\n分数计算公式如下： 分数 = (UKM 贡献总数 + (图像/1000)) * (1 + (参与者数量/10))\n\n<h3>记住；</h3>\n要获得奖品，您的最低分数必须达到 100 分。为了从您的照片中获得分数，地点必须清晰，图像必须在足够明亮的光线下拍摄，并且不得在天气条件，例如雾、雨或其他导致图像变形的天气条件。\n\n\n<h3center>现在您可以开始占领、收集积分并争夺领先地位。</h3center></p>",
+    "start_now_capture": "立即开始捕捉"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
-    "gopro_9": "GoPro 360 Max",
-    "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "summary": "你准备好用<0>Mapilio 🌍🏆领取奖励了吗</0>",
+    "start_capture_now": "立即开始捕捉",
+    "slogan": "<bold>Mapilio</bold> 开始第一个挑战。",
+    "title": "当您行驶更多公里数时即可获得新礼物",
+    "description": "你准备好迎接挑战了吗？ <date>01.03.2023</date> 至 <date>31.05.2023</date> 期间得分最高的 3 位参赛者将赢得丰厚奖品。",
+    "mi_pro_2_scooter": "小米滑板车",
+    "gopro_9": "GoPro 360 最大",
+    "beats_3_headphones": "节拍独奏 3",
+    "content": "<title>参加非常简单</title>\n\n尽可能多地捕获，收集比其他竞争对手更多的积分获得奖励。当你捕捉时，几乎没有什么事情；\n\n<bold>● 聚焦道路</bold> 通过触摸屏幕将焦点设置为路径。\n\n<bold>● 干净的图像</bold> 确保图像中看不到汽车引擎盖和其他物体。\n\n<bold>● 相机方向</bold> 调整相机的位置，使拍摄的图像与地面平行。\n\n<bold>● 不宜拍摄的情况</bold> 请勿在黑暗、雨天、雪天、图像模糊等情况下进行拍摄。\n\n<bold>● 精确位置</bold> 您设备的定位服务必须开启且精确。",
+    "rules_of_contest": "<0>官方规则</0>为了比赛",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "马皮里奥开始了第一个挑战。",
+      "description": "每次使用 Mapilio 射击，您都可以获得胜利。收集积分，在排行榜上竞争并获胜。"
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
-      "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "map": "地图",
+      "map_desc": "在地图视图上查看您当前的位置、道路、地点、建筑物和其他详细信息。还可以在这里观察已经占领的区域。",
+      "marketplace": "市场",
+      "marketplace_desc": "对于某些区域，我们有特殊要求，要求您可以在其中赚取现金或优惠券作为回报。它们在市场页面上可见。",
+      "upload": "上传",
+      "upload_desc": "您完成捕获了吗？然后单击上传所有图像。",
+      "leaderboard": "排行榜",
+      "leaderboard_desc": "排行榜显示您的投篮得分以及您在排名中的位置",
+      "capture": "捕获",
+      "capture_desc": "现在就开始捕捉并贡献更好的地图",
+      "next": "下一个",
+      "done": "完毕"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
-      "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "angle": "直角",
+      "angle_desc": "保持相机角度，使地平线\n始终相对且水平",
+      "startCapture": "捕捉开始",
+      "start_capture_desc": "灯光、位置、电池……一切都准备好了吗？让我们开始捕捉吧。",
+      "tasks": "任务",
+      "tasks_desc": "您可以在屏幕上看到必须执行的任务。",
+      "next": "下一个",
+      "done": "完毕"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "市场",
+      "list_desc": "在这里您可以查看您所在区域的拍摄请求。您可以获得现金或优惠券作为回报。",
+      "apply": "申请",
+      "apply_desc": "您可以通过单击“应用”按钮来申请该请求。",
+      "next": "下一个",
+      "done": "完毕"
     },
-    "skip": "Skip"
+    "skip": "跳过"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "服务器出现错误，请稍后再试。",
+    "token_expired": "您的会话已过期。请重新登录。",
+    "timeout": "服务器没有响应。请稍后再试。"
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "取消",
+    "privacy_violation": "侵犯隐私",
+    "inappropriate_content": "不适当的内容",
+    "low_quality": "低质量",
+    "other": "其他",
+    "report_success": "您的报告已成功发送。我们将进行必要的调查，并通过电子邮件通知您。",
+    "report_error": "报告时发生错误。请稍后再试。"
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "土耳其",
+    "en": "英语"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
-    "update": "Update",
-    "later": "Later"
+    "maintenanceMode": "我们的服务处于维护模式。\n请稍后上传您的图像。",
+    "update_required_title": "需要更新",
+    "update_required_description": "您必须更新应用程序才能继续使用它。",
+    "update": "更新",
+    "later": "之后"
   }
 }
