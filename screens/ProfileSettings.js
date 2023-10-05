@@ -10,6 +10,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import { LoginManager, Profile } from "react-native-fbsdk-next";
+import * as Application from "expo-application";
 
 const ListItem = ({name, onPress}) => {
   const {t} = useTranslation('profile_settings');
@@ -83,9 +84,9 @@ const ProfileSettings = ({navigation}) => {
           renderItem={({item: {name, url}}) => <ListItem name={name} onPress={() => handlePress(url)}/>}
         />
 
-        <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.webview, {url: 'https://mapilio.com/rules-of-contest-webview'})}>
+       {/*  <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.webview, {url: 'https://mapilio.com/rules-of-contest-webview'})}>
           <CustomText style={styles.listText}>{t("contest_rules")}</CustomText>
-        </Pressable>
+        </Pressable> */}
 
         <Pressable style={styles.listItem} onPress={() => navigation.navigate(Routes.language)}>
           <CustomText style={styles.listText}>{t("change_language")}</CustomText>
@@ -102,7 +103,7 @@ const ProfileSettings = ({navigation}) => {
 
       <Pressable style={{...styles.version, bottom: RFValue(20)}} onLongPress={setDebugMode}>
         <Text style={styles.versionInfo}>{t("mapilio")}</Text>
-        <Text style={{...styles.versionInfo, fontWeight: "bold"}}> {t("version")}</Text>
+        <Text style={{...styles.versionInfo, fontWeight: "bold"}}> {Application.nativeApplicationVersion}</Text>
       </Pressable>
     </View>
   )
