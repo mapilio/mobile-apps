@@ -1,412 +1,412 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "Kaart",
+    "market": "Markt",
+    "upload": "Uploaden",
+    "leader": "Leider"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Rug",
+    "are_you_sure": "Weet je het zeker?",
+    "delete_photo": "Weet u zeker dat u deze foto wilt verwijderen?",
+    "yes": "Ja",
+    "no": "Nee",
+    "delete_error": "Er is een probleem opgetreden tijdens het verwijderen! Probeer het nog eens.",
+    "delete": "Verwijderen",
+    "have_not_connection": "U heeft geen actieve internetverbinding",
+    "profile": "Profiel",
+    "profile_edit": "Profiel bewerken",
+    "delete_account": "Account verwijderen",
+    "your_uploads": "Jouw uploads",
+    "upload_detail": "Uploaddetails",
+    "sign_up": "Aanmelden",
+    "sign_in": "Aanmelden",
+    "go_map": "Kaart",
+    "settings": "Instellingen",
+    "language": "Taal"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "Zoekopdracht",
+    "recent_searches": "recente zoekopdrachten",
+    "clear": "Duidelijk",
+    "empty_search": "Recent gevonden en gebruikte items zullen hier te vinden zijn",
+    "no_results": "geen resultaten gevonden",
+    "another_search": "Voer een nieuwe zoekopdracht uit."
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "Beeldrapport"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "Marktplaats",
+    "market_list": "Marktlijst",
+    "equipment": "APPARATUUR",
+    "apply_project": "Solliciteer op dit project",
+    "mission_ready": "Missie klaar",
+    "mission_detail": "In het informatiegedeelte kunt u leren welk pad u moet volgen tijdens het vangen.",
+    "start_capture": "Start vastleggen",
+    "or": "of",
+    "back_to_the": "terug naar de <0>Marktplaats</0>",
+    "far_location": "Uw locatie ligt te ver van het projectgebied",
+    "tooltip": "Zoek of bied hulp bij projecten voor het verzamelen van afbeeldingen en gegevensverificatie om nieuwe kaartgegevens te creëren op locaties waar deze nodig zijn.",
+    "map_loading": "Marktkaart wordt geladen...",
+    "soon_description": "Mapilio biedt een marktplaats voor kaarten waar gebruikers kaarten van specifieke regio's kunnen aanvragen. Bijdragers worden beloond en er is een gratis service om de nauwkeurigheid van afbeeldingen te verifiëren.",
+    "very_soon": "Zeer snel"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "Kaart en zones laden...",
+    "pano_error": "Er is een probleem opgetreden bij het laden van de afbeelding. Probeer het opnieuw.",
+    "gps_disabled": "Uw GPS is uitgeschakeld."
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
+    "profile_edit": "Profiel bewerken",
+    "licences": "Licenties",
+    "terms_and_conditions": "algemene voorwaarden",
+    "privacy": "Privacybeleid",
+    "about": "Over",
+    "contest_rules": "Wedstrijdregels",
+    "change_language": "Taal wijzigen",
     "mapilio": "mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "sign_out": "Afmelden",
+    "delete_account": "Account verwijderen"
   },
   "profile_edit": {
-    "username": "Username",
-    "name": "Name",
+    "username": "Gebruikersnaam",
+    "name": "Naam",
     "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "hide_my_username": "Verberg mijn gebruikersnaam",
+    "save": "Redden"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
+    "title": "Bedankt voor je bijdrage aan Mapilio!",
+    "description": "Het spijt ons dat u uw account wilt verwijderen, maar uw eerdere bijdragen ondersteunen nog steeds de community.",
+    "alert_title": "Weet u zeker dat u uw account wilt verwijderen?",
+    "alert_description": "Weet u zeker dat u uw account wilt verwijderen? Deze actie kan niet ongedaan gemaakt worden.",
+    "delete": "Verwijderen",
+    "cancel": "Annuleren",
+    "delete_account": "Account verwijderen",
+    "login_again": "U moet opnieuw inloggen",
+    "login_again_description": "U moet opnieuw inloggen om uw account te verwijderen. U wordt doorgestuurd naar de inlogpagina.",
     "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "delete_error": "Er is een probleem opgetreden tijdens het verwijderen! Probeer het nog eens."
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "Uploaden voltooid",
+    "description": "Uw gegevens worden verwerkt... U wordt per e-mail op de hoogte gesteld wanneer uw afbeeldingen op Mapilio worden gepubliceerd.",
+    "go_to_map": "Ga naar kaart"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "Neem een kans",
+      "subtitle": "Op straatniveau",
+      "description": "Leg beelden op straatniveau vast en draag bij aan de kaart."
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "Opnames uploaden",
+      "subtitle": "Bijdragen",
+      "description": "Upload uw afbeeldingen om punten te verzamelen en een hoge positie in het klassement te bereiken."
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "Verdien cadeaus",
+      "subtitle": "Voltooi missies",
+      "description": "Maak kans op cadeaus via de taken die u bijdraagt."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "Voor meer beloningen",
+      "subtitle": "Ga verder",
+      "description": "Wij breiden ons cadeau-assortiment elke dag uit."
     },
-    "next": "Next",
-    "skip": "Skip",
-    "start": "Start"
+    "next": "Volgende",
+    "skip": "Overslaan",
+    "start": "Begin"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "Het vastleggen is gestart",
+    "description": "Zorg er ondertussen voor dat de hoek van uw camera correct en stabiel is.",
+    "safe_mode": "Energieveilige modus",
+    "advanced": "Geavanceerd",
+    "getting_ready": "Camera maakt zich klaar. Even geduld aub.",
+    "something_went_wrong": "Er is iets fout gegaan. Probeer het opnieuw.",
+    "tasks": "Taken",
+    "select_mission": "Selecteer Missie",
+    "empty_mission_title": "Er is geen project waarbij u betrokken bent.",
+    "empty_mission_description": "U kunt door projecten bladeren op <0>Marketplace</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "Batterijniveau laag",
+        "description": "De GPS-nauwkeurigheid neemt af omdat uw lading lager is dan 15%. In dit geval is fotograferen niet mogelijk."
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "Valse GPS",
+        "description": "Er is nep-GPS-gebruik gedetecteerd. Gebruik de GPS-locatie van het apparaat om verder te gaan!"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "Hoge snelheid",
+        "description": "Je hebt de hoge snelheidslimiet overschreden. Voor precisie moet uw snelheid maximaal 70 km/u zijn."
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "De GPS-nauwkeurigheid is te laag",
+        "description": "De opname gaat door wanneer het GPS-waarschuwingspictogram groen wordt."
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "GPS-zoeken",
+        "description": "Zorg ervoor dat u zich in het open gebied bevindt waar de GPS gegevens vastlegt. Dit proces kan maximaal 30 seconden duren."
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "Pas uw camerahoek aan",
+        "description": "Het fotograferen gaat door als uw rotatie waar is."
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "Focus de weg",
+      "description": "Stel de focus in als het pad door het scherm aan te raken."
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "Schoon beeld",
+      "description": "Zorg ervoor dat de motorkap en andere voorwerpen niet zichtbaar zijn in de afbeelding."
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "Camerarichting",
+      "description": "Pas de positie van de camera aan om het beeld evenwijdig aan de grond op te nemen."
     },
-    "next": "Next",
-    "prev": "Prev",
+    "next": "Volgende",
+    "prev": "Vorige",
     "finish": "Finish"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
-    "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
+    "general_settings": "Algemene instellingen",
+    "capture_settings": "Instellingen vastleggen",
+    "distance_between": "Afstand tussen afbeeldingen",
+    "camera_settings": "Camera instellingen",
+    "remaining_images": "Opgenomen beelden / Resterende beelden",
+    "battery_level": "Batterijniveau",
     "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "enable_low_resolution": "Schakel lage resolutie in",
+    "enable_low_resolution_desc": "Schakel de lage-resolutiemodus in voor betere batterijprestaties en snellere opnamen.",
+    "settings_saved": "De camera moet opnieuw worden opgestart om de wijzigingen door te voeren."
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}km</0> Weg\nvastleggen is voltooid",
+    "detail": "<0>{{count}} afbeeldingen</0> / {{size}}",
+    "upload_now": "Upload nu",
+    "upload_later": "Later uploaden"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "Uploaden",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "Geen opname gevonden om te uploaden",
+      "description": "Om te kunnen uploaden, moet je vanuit het gedeelte 'Capture' fotograferen. Je beeldmateriaal verschijnt hier."
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "Foto's uploaden",
+    "subtitle": "U kunt vanaf hier afbeeldingen uploaden.",
+    "image_count": "{{count}} afbeeldingen",
+    "are_you_sure": "Weet je het zeker?",
+    "delete_capture": "Vastlegging verwijderen",
+    "delete_message": "Wil je je opname verwijderen?",
+    "yes": "Ja",
+    "no": "Nee",
+    "start_upload": "Begin het uploaden",
+    "is_cellular_data": "Weet u zeker dat u via mobiele data wilt verzenden?",
+    "you_cancelled_upload": "Je hebt de upload geannuleerd",
+    "sequences_deleted": "Reeksen verwijderd",
+    "upload_completed": "Uploaden voltooid",
+    "upload_failed": "Upload mislukt",
+    "no_address": "Geen adres",
+    "point": "~<0>{{count}}</0> punten",
+    "clear_selections": "Selecties wissen",
+    "delete": "Verwijderen",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "Toegankelijke wereld",
+      "description": "In het centrum van New York of in een dorp in Afrika. Draag bij aan kaarten en maak het leven van de mensheid gemakkelijker met elke opname."
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "Draag bij aan ons milieu",
+      "description": "We dromen allemaal van een schonere en toegankelijke wereld. Laten we een betere kaart voor iedereen maken door Mapilio bij te dragen."
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "Verkeersprobleem",
+      "description": "Wist u dat wij ruim 102 uur per jaar in de file staan? $ 1.739 per jaar aan verliezen als gevolg van brandstofverbruik en gemiste tijd."
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "Aardbevingen en noodsituaties",
+      "description": "Bijdragen aan de ontdekking van onbereikbare wegen en vroegtijdige interventie in gezondheids- en vitale situaties die zich kunnen voordoen."
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "Individuele rekening",
+    "organization_account": "Organisatieaccount",
+    "no_feed": "Geen voer",
+    "no_feed_desc": "Er zijn geen feeds om weer te geven. U kunt een bijdrage leveren door nu met de vangst te beginnen.",
+    "start_capture": "Start vastleggen",
+    "select_organization": "Selecteer organisatie",
+    "images": "afbeeldingen",
+    "uploaded": "Geüpload",
+    "completed": "Voltooid",
+    "processing": "Verwerken",
+    "fail": "Mislukking",
+    "sequences": "Opeenvolgingen",
+    "photos": "Foto's",
+    "roads": "Wegen",
+    "uploaded_title": "Afbeeldingen die je hebt geüpload",
+    "uploaded_subtitle": "Hier kunt u geüploade foto's bekijken.",
+    "image": "Afbeelding",
+    "map": "Kaart",
+    "fetch_error": "Er is een probleem opgetreden bij het ophalen van Profiel. Probeer het opnieuw.",
+    "no_address": "Geen adres"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "Meld u aan om te zien wat er op uw kaart staat.",
+    "email_username": "E-mail of gebruikersnaam",
+    "password": "Wachtwoord",
+    "login": "Log in",
+    "forgot_password": "Je wachtwoord vergeten?",
+    "languages": "Talen",
+    "login_error": "Er is een fout opgetreden met de server. Probeer het later opnieuw.",
+    "or": "of",
+    "login_success": "Succesvol ingelogd ",
+    "error": "Er is een fout opgetreden. Probeer het later opnieuw.",
+    "mail_error": "U bent geen lid omdat wij geen toegang hebben tot uw e-mailadres. Geef mail toestemming of meld je op een andere manier aan.",
+    "enter_email": "Vul alstublieft uw e-mail adres in."
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
-    "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "title": "Meld u aan om te zien wat er op uw kaart staat.",
+    "name": "Naam",
+    "email": "E-mailadres",
+    "password": "Wachtwoord",
+    "signup": "Aanmelden",
+    "name_required": "Naam is vereist",
+    "email_required": "E-mailadres is vereist",
+    "email_not_valid": "Voer een geldig emailadres in",
+    "pass_min_character": "Wachtwoord moet minimaal {{min}} tekens bevatten",
+    "account_created": "Uw account is aangemaakt, controleer uw e-mailadres.",
+    "redirect_error": "Er is een fout opgetreden tijdens het omleiden. Probeer het opnieuw.",
+    "policy": "Door op de knop \"Aanmelden\" te klikken, gaat u akkoord met ons\n <0>Privacybeleid</0> en <1>Algemene voorwaarden</1> .",
+    "register_error": "Er is een fout opgetreden met de server. Probeer het later opnieuw."
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "Je wachtwoord vergeten?",
+    "description": "Voer uw e-mailadres in dat is gekoppeld aan uw Mapilio-account. We sturen u een link om uw wachtwoord opnieuw in te stellen.",
+    "email": "E-mailadres",
+    "reset_link": "Resetlink verzenden",
+    "reset_success": "Het resetverzoek is naar het e-mailadres verzonden."
   },
   "leaderboard": {
-    "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
+    "title": "Scorebord",
+    "how_to_score": "Hoe \nscoren?",
+    "alltime_description": "Top 30 communityleden die helpen de Mapilio te laten groeien!",
+    "users": "Gebruikers",
+    "organizations": "Organisaties",
+    "fetch_error": "Er is een probleem opgetreden bij het ophalen van Leaderboard. Probeer het opnieuw.",
+    "join_the_race": "doe mee aan de\n-race",
+    "points": "Punten",
     "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "roads": "Wegen",
+    "photos": "Foto's",
+    "challenge": "UITDAGING",
+    "board": "BORD",
+    "all_time": "Altijd",
+    "this_month": "Deze maand",
+    "this_week": "Deze week",
+    "join": "Meedoen",
+    "winners_title": "En de winnaars van \n Mapilio"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "Laten we meer actuele kaarten tot\nmaken",
+    "subtitle": "Maak een positieve impact in uw regio, draag bij aan betrouwbare kaarten, verover uw hoge positie op het scorebord",
+    "sequences": "Opeenvolgingen",
+    "images": "Afbeeldingen",
+    "stop_upload": "Stop met uploaden"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "Je hebt geen internetverbinding",
+    "description": "Je hebt geen internetverbinding. Zorg ervoor dat uw mobiele telefoon of wifi is ingeschakeld."
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "E-mailadres is vereist",
+    "please_enter_valid_email": "Voer een geldig emailadres in",
+    "password_required": "Een wachtwoord is verplicht"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "Hoe werkt het scoresysteem?",
+    "summary": "Concurreer met Mapilio-bijdragers van over de hele wereld en win geweldige prijzen!",
+    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nHet is mogelijk om punten te verzamelen bij schietpartijen in Mapilio en prijzen te winnen\n\n<h3>Scoresysteem</h3>\nMet een mondiaal klassement kunt u uw lokale bijdragen vergelijken met die van andere deelnemers. Het klassement zal een scoresysteem hebben dat rekening houdt met meerdere bijdrage-elementen. Dit zijn de variabelen waaruit de score bestaat:\n\n<h3>● Unieke kilometers (UKM):</h3>\ndit is de totale afstand van sequenties die zijn bijgedragen in gebieden zonder eerdere dekking. Als u bijvoorbeeld 10 km hebt gereden en 7 km daarvan niet over bestaande beelden beschikt, zou uw UKM voor die rit 7 km zijn.\n\n<h3>● Afbeeldingen:</h3>\nhet totaal aantal afbeeldingen dat de bijdrager heeft geüpload tijdens de uitdaging\n\n<h3>● Deelnemers:</h3>\ndit is het aantal mensen dat meedoet aan uw lokale uitdaging. Het idee is om samenwerking te stimuleren en te belonen.\n\nDe formule om de score te berekenen is als volgt: Score = (totaal UKM bijgedragen + (afbeeldingen/1000)) * (1 + (aantal deelnemers/10))\n\n<h3>Onthoud;</h3>\nOm voor een prijs in aanmerking te komen, moet je een minimale score van 100 behalen. Om scores te krijgen voor je opnames moet de locatie duidelijk zijn, moeten de beelden bij helder genoeg licht zijn gemaakt en mogen ze niet in weersomstandigheden zoals mist, regen of andere weersomstandigheden die het beeld vervormen.\n\n\n<h3center>Nu kun je beginnen met veroveren, punten verzamelen en strijden om de leiding.</h3center></p>",
+    "start_now_capture": "Begin nu met vastleggen"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
+    "summary": "Ben je klaar om beloningen te verzamelen met <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Begin nu met vastleggen",
+    "slogan": "<bold>Mapilio</bold> is begonnen aan de eerste uitdaging.",
+    "title": "Verdien nieuwe geschenken naarmate u meer kilometers bereikt",
+    "description": "Ben jij klaar voor een uitdaging? De 3 deelnemers die tussen <date>01.03.2023</date> en <date>31.05.2023</date> de meeste punten scoren, winnen mooie prijzen.",
+    "mi_pro_2_scooter": "Xiaomi-scooter",
     "gopro_9": "GoPro 360 Max",
-    "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "beats_3_headphones": "Beats Solo3",
+    "content": "<title>Het is heel eenvoudig om deel te nemen.</title>\n\nVerzamel zoveel mogelijk, verzamel meer punten dan andere concurrenten jouw beloning krijgen. Er zijn een paar dingen als je vastlegt;\n\n<bold>● Focus op de weg</bold> Stel de focus in als het pad door het scherm aan te raken.\n\n<bold>● Afbeeldingen zuiveren</bold> Zorg ervoor dat de motorkap en andere objecten niet zichtbaar zijn in de afbeelding.\n\n<bold>● Camerarichting</bold> Pas de positie van de camera aan om het beeld evenwijdig aan de grond op te nemen.\n\n<bold>● Situaties waarin geen opnamen mogen worden gemaakt</bold> Opnamen mogen niet worden gemaakt in donker, regenachtig of besneeuwd weer, omdat het beeld onscherp is.\n\n<bold>● Exacte locatie</bold> Locatieservices op uw apparaat moeten ingeschakeld en nauwkeurig zijn.",
+    "rules_of_contest": "<0>Officiële regels</0> voor de wedstrijd",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "Mapilio begon aan de eerste uitdaging.",
+      "description": "Elke keer dat u met Mapilio schiet, kunt u winnen. Verzamel punten, strijd in de klassementen en win."
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
-      "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "map": "Kaart",
+      "map_desc": "Bekijk uw huidige locatie, wegen, plaatsen, gebouwen en andere details op de kaartweergave. Ook reeds vastgelegde gebieden kunnen hier worden waargenomen.",
+      "marketplace": "Marktplaats",
+      "marketplace_desc": "Voor sommige gebieden hebben wij speciale verzoeken voor een opname waarbij u in ruil daarvoor contant geld of kortingsbonnen kunt verdienen. Ze zijn zichtbaar op de Marktplaats-pagina.",
+      "upload": "Uploaden",
+      "upload_desc": "Ben je klaar met vastleggen? Klik vervolgens om alle afbeeldingen te uploaden.",
+      "leaderboard": "Scorebord",
+      "leaderboard_desc": "Het klassement toont de punten die u heeft gescoord voor uw schietpartij en uw positie op de ranglijst",
+      "capture": "Vastlegging",
+      "capture_desc": "Begin nu met het vastleggen en bijdragen van betere kaarten",
+      "next": "Volgende",
+      "done": "Klaar"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
-      "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "angle": "Juiste hoek",
+      "angle_desc": "Houd de camerahoek zo dat de horizonlijn\naltijd tegenovergesteld en horizontaal is",
+      "startCapture": "Opname starten",
+      "start_capture_desc": "Licht, locatie, batterij... Alles klaar? Laten we beginnen met vastleggen.",
+      "tasks": "Taken",
+      "tasks_desc": "Op het scherm zie je welke taken je moet uitvoeren.",
+      "next": "Volgende",
+      "done": "Klaar"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "Marktplaats",
+      "list_desc": "Hier ziet u de aanvragen voor vastlegging bij u in de buurt. In ruil daarvoor kunt u contant geld of coupons verdienen.",
+      "apply": "Toepassen",
+      "apply_desc": "U kunt de aanvraag indienen door op de knop Toepassen te klikken.",
+      "next": "Volgende",
+      "done": "Klaar"
     },
-    "skip": "Skip"
+    "skip": "Overslaan"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "Er is een fout opgetreden met de server. Probeer het later opnieuw.",
+    "token_expired": "Uw sessie is verlopen. Log alsjeblieft nogmaals in.",
+    "timeout": "De server reageert niet. Probeer het later opnieuw."
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "Annuleren",
+    "privacy_violation": "Schending van privacy",
+    "inappropriate_content": "Ongepaste inhoud",
+    "low_quality": "Lage kwaliteit",
+    "other": "Ander",
+    "report_success": "Uw rapport is succesvol verzonden. Noodzakelijke onderzoeken zullen worden uitgevoerd en u wordt per e-mail geïnformeerd.",
+    "report_error": "Er is een fout opgetreden tijdens het rapporteren. Probeer het later opnieuw."
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "Turks",
+    "en": "Engels"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
+    "maintenanceMode": "Onze diensten bevinden zich in de onderhoudsmodus.\nUpload uw afbeeldingen later.",
+    "update_required_title": "Update vereist",
+    "update_required_description": "U moet de applicatie bijwerken om deze te kunnen blijven gebruiken.",
     "update": "Update",
     "later": "Later"
   }
