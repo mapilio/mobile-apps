@@ -1,413 +1,413 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "Карта",
+    "market": "Ринок",
+    "upload": "Завантажити",
+    "leader": "Лідер"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Назад",
+    "are_you_sure": "Ти впевнений?",
+    "delete_photo": "Ви впевнені, що хочете видалити цю фотографію?",
+    "yes": "Так",
+    "no": "Немає",
+    "delete_error": "Виникла проблема під час видалення! Спробуйте знову.",
+    "delete": "Видалити",
+    "have_not_connection": "У вас немає активного підключення до Інтернету",
+    "profile": "Профіль",
+    "profile_edit": "Редагування профілю",
+    "delete_account": "Видалити аккаунт",
+    "your_uploads": "Ваші завантаження",
+    "upload_detail": "Завантажити деталі",
+    "sign_up": "Зареєструватися",
+    "sign_in": "Увійти",
+    "go_map": "Карта",
+    "settings": "Налаштування",
+    "language": "Мова"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "Пошук",
+    "recent_searches": "Останні пошуки",
+    "clear": "ясно",
+    "empty_search": "Тут будуть нещодавно знайдені та використані речі",
+    "no_results": "Нічого не знайдено",
+    "another_search": "Зробіть інший пошук."
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "Звіт про зображення"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "Ринок",
+    "market_list": "Список ринку",
+    "equipment": "ОБЛАДНАННЯ",
+    "apply_project": "Подайте заявку на цей проект",
+    "mission_ready": "Готовність до місії",
+    "mission_detail": "Ви можете дізнатися, яким шляхом слідувати під час лову, з інформаційного розділу.",
+    "start_capture": "Почати захоплення",
+    "or": "або",
+    "back_to_the": "повернутися до <0>ринку</0>",
+    "far_location": "Ваше місцезнаходження надто далеко від зони проекту",
+    "tooltip": "Знайдіть або запропонуйте допомогу щодо проектів збору зображень і перевірки даних, щоб створити свіжі картографічні дані в місцях, де це необхідно.",
+    "map_loading": "Карта ринку завантажується...",
+    "soon_description": "Mapilio пропонує картографічний ринок, де користувачі можуть запитувати картографування певних регіонів. Автори отримають винагороду, а також є безкоштовний сервіс для перевірки точності зображень.",
+    "very_soon": "Дуже скоро"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "Завантаження карти та зон...",
+    "pano_error": "Виникла проблема під час завантаження зображення. Будь ласка спробуйте ще раз.",
+    "gps_disabled": "Ваш GPS вимкнено."
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
+    "profile_edit": "Редагування профілю",
+    "licences": "Ліцензії",
+    "terms_and_conditions": "Правила та умови",
+    "privacy": "Політика конфіденційності",
+    "about": "про",
+    "contest_rules": "Правила конкурсу",
+    "change_language": "Змінити мову",
     "mapilio": "mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "sign_out": "Вийти з аккаунта",
+    "delete_account": "Видалити аккаунт"
   },
   "profile_edit": {
-    "username": "Username",
-    "name": "Name",
-    "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "username": "Ім'я користувача",
+    "name": "Ім'я",
+    "bio": "біографія",
+    "hide_my_username": "Приховати моє ім'я користувача",
+    "save": "зберегти"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
-    "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "title": "Дякуємо за внесок у Mapilio!",
+    "description": "Нам шкода, що ви хочете видалити свій обліковий запис, але ваші попередні внески підтримуватимуть спільноту.",
+    "alert_title": "Ви впевнені, що хочете видалити свій обліковий запис?",
+    "alert_description": "Ви впевнені, що хочете видалити свій обліковий запис? Цю дію не можна скасувати.",
+    "delete": "Видалити",
+    "cancel": "Скасувати",
+    "delete_account": "Видалити аккаунт",
+    "login_again": "Ви повинні увійти знову",
+    "login_again_description": "Ви повинні увійти знову, щоб видалити свій обліковий запис. Ви будете перенаправлені на сторінку входу.",
+    "ok": "в порядку",
+    "delete_error": "Виникла проблема під час видалення! Спробуйте знову."
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "Завантаження завершено",
+    "description": "Ваші дані обробляються... Ви отримаєте сповіщення електронною поштою, коли ваші зображення будуть опубліковані на Mapilio.",
+    "go_to_map": "Перейти до карти"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "Зробіть знімок",
+      "subtitle": "На рівні вулиці",
+      "description": "Зробіть знімки вулиць і додайте карту."
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "Завантажити знімки",
+      "subtitle": "Внести свій внесок",
+      "description": "Завантажуйте свої зображення, щоб збирати бали та займати високу позицію в таблиці лідерів."
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "Заробляйте подарунки",
+      "subtitle": "Виконуйте місії",
+      "description": "Отримайте шанс виграти подарунки, виконавши завдання, які ви виконуєте."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "Щоб отримати більше нагород",
+      "subtitle": "Рухайся",
+      "description": "Кожен день ми розширюємо асортимент подарунків."
     },
-    "next": "Next",
-    "skip": "Skip",
-    "start": "Start"
+    "next": "Далі",
+    "skip": "Пропустити",
+    "start": "старт"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "Захоплення розпочато",
+    "description": "Тим часом переконайтеся, що кут камери правильний і стабільний.",
+    "safe_mode": "Енергобезпечний режим",
+    "advanced": "Просунутий",
+    "getting_ready": "Камера готується. Будь ласка, зачекайте.",
+    "something_went_wrong": "Щось пішло не так. Будь ласка спробуйте ще раз.",
+    "tasks": "завдання",
+    "select_mission": "Виберіть Місія",
+    "empty_mission_title": "Немає жодного проекту, у якому ви берете участь.",
+    "empty_mission_description": "Ви можете переглядати проекти на <0>Marketplace</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "Низький рівень заряду батареї",
+        "description": "Точність GPS знизиться, оскільки ваш заряд менше 15%. У цьому випадку зйомка неможлива."
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "Фальшивий GPS",
+        "description": "Було виявлено підроблене використання GPS. Щоб продовжити, скористайтеся GPS-місцезнаходженням пристрою!"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "Висока швидкість",
+        "description": "Ви перевищили максимальну швидкість. Для точності ваша швидкість має становити максимум 70 км/год."
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "Точність GPS занадто низька",
+        "description": "Зйомка продовжиться, коли піктограма сповіщення GPS стане зеленою."
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "Пошук GPS",
+        "description": "Перебувайте, будь ласка, на відкритій території, де зніматиме GPS. Цей процес може тривати до 30 секунд."
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "Відрегулюйте кут камери",
+        "description": "Зйомка продовжиться, коли ваше обертання вірне."
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "Зосередьтеся на дорозі",
+      "description": "Установіть фокус як шлях, торкнувшись екрана."
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "Чисте зображення",
+      "description": "Переконайтеся, що капот автомобіля та інші об’єкти не видно на зображенні."
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "Напрямок камери",
+      "description": "Відрегулюйте положення камери, щоб знімати зображення паралельно землі."
     },
-    "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "next": "Далі",
+    "prev": "попередня",
+    "finish": "Закінчити"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
-    "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
-    "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "general_settings": "Загальні налаштування",
+    "capture_settings": "Налаштування захоплення",
+    "distance_between": "Відстань між зображеннями",
+    "camera_settings": "Налаштування камери",
+    "remaining_images": "Зроблені зображення / Залишкові зображення",
+    "battery_level": "Рівень заряду батареї",
+    "ok": "в порядку",
+    "enable_low_resolution": "Увімкнути низьку роздільну здатність",
+    "enable_low_resolution_desc": "Увімкніть режим низької роздільної здатності для кращої роботи акумулятора та швидшої зйомки.",
+    "settings_saved": "Щоб зміни набули чинності, потрібно перезапустити камеру."
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}км</0> Захоплення дороги\nвиконано",
+    "detail": "<0>{{count}} зображень</0> / {{size}}Мб",
+    "upload_now": "Завантажити зараз",
+    "upload_later": "Завантажити пізніше"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "Завантажити",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "Не знайдено запису для завантаження",
+      "description": "Щоб завантажити, вам потрібно зробити зйомку з розділу «Захоплення». Ваші кадри з’являться тут."
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "Завантажити фотографії",
+    "subtitle": "Ви можете завантажити зображення звідси.",
+    "image_count": "{{count}} зображень",
+    "are_you_sure": "Ти впевнений?",
+    "delete_capture": "Видалити запис",
+    "delete_message": "Ви бажаєте видалити свій запис?",
+    "yes": "Так",
+    "no": "Немає",
+    "start_upload": "Розпочати завантаження",
+    "is_cellular_data": "Ви впевнені, що хочете надіслати через мобільний Інтернет?",
+    "you_cancelled_upload": "Ви скасували завантаження",
+    "sequences_deleted": "Послідовності видалено",
+    "upload_completed": "Завантаження завершено",
+    "upload_failed": "Помилка завантаження",
+    "no_address": "Без адреси",
+    "point": "~<0>{{count}}</0> очки",
+    "clear_selections": "Очистити вибір",
+    "delete": "Видалити",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "Доступний світ",
+      "description": "У центрі Нью-Йорка чи в селі в Африці. Робіть внесок у створення карт і полегшуйте життя людства з кожним захопленням."
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "Зробіть внесок у наше довкілля",
+      "description": "Ми всі мріємо про чистіший і доступніший світ. Давайте створимо кращу карту для всіх, додавши Mapilio."
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "Проблема руху",
+      "description": "Чи знаєте ви, що ми витрачаємо понад 102 години на рік, сидячи в пробках. 1739 доларів на рік втрат через споживання палива та пропущений час."
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "Землетруси та надзвичайні ситуації",
+      "description": "Сприяти виявленню недоступних доріг і ранньому втручанню в здоров'я і життєво важливі ситуації, які можуть виникнути."
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "Індивідуальний рахунок",
+    "organization_account": "Обліковий запис організації",
+    "no_feed": "Без корму",
+    "no_feed_desc": "Немає каналів для відображення. Ви можете зробити свій внесок, розпочавши відлов зараз.",
+    "start_capture": "Почати захоплення",
+    "select_organization": "Виберіть організацію",
+    "images": "зображення",
+    "uploaded": "Завантажено",
+    "completed": "Виконано",
+    "processing": "Обробка",
+    "fail": "Невдача",
+    "sequences": "Послідовності",
+    "photos": "Фотографії",
+    "roads": "Дороги",
+    "uploaded_title": "Зображення, які ви завантажили",
+    "uploaded_subtitle": "Тут ви можете переглянути завантажені фотографії.",
+    "image": "Зображення",
+    "map": "Карта",
+    "fetch_error": "Виникла проблема під час отримання профілю. Будь ласка спробуйте ще раз.",
+    "no_address": "Без адреси"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "Увійдіть, щоб побачити, що є на вашій карті.",
+    "email_username": "Електронна пошта або ім'я користувача",
+    "password": "Пароль",
+    "login": "Увійти",
+    "forgot_password": "Забули свій пароль?",
+    "languages": "Мови",
+    "login_error": "Виникла помилка на сервері, спробуйте пізніше.",
+    "or": "або",
+    "login_success": "Вхід успішний ",
+    "error": "Сталася помилка, повторіть спробу пізніше.",
+    "mail_error": "Ви не є учасником, оскільки ми не можемо отримати доступ до вашої адреси електронної пошти. Будь ласка, дайте дозвіл на пошту або зареєструйтеся іншим способом.",
+    "enter_email": "Будь ласка, введіть адресу електронної пошти."
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
-    "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "title": "Зареєструйтеся, щоб побачити, що є на вашій карті.",
+    "name": "Ім'я",
+    "email": "Адреса електронної пошти",
+    "password": "Пароль",
+    "signup": "Зареєструватися",
+    "name_required": "Необхідно вказати ім'я",
+    "email_required": "Необхідно вказати адресу електронної пошти",
+    "email_not_valid": "Введіть дійсну адресу електронної пошти",
+    "pass_min_character": "Пароль має бути не менше {{min}} символів",
+    "account_created": "Ваш обліковий запис створено, перевірте адресу електронної пошти.",
+    "redirect_error": "Під час перенаправлення сталася помилка. Повторіть спробу.",
+    "policy": "Натискаючи кнопку «Зареєструватися», ви погоджуєтеся з нашою\n <0>Політикою конфіденційності</0> і <1>Загальні положення та умови</1> .",
+    "register_error": "Виникла помилка на сервері, спробуйте пізніше."
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "Забули свій пароль?",
+    "description": "Введіть свою електронну адресу, пов’язану з обліковим записом Mapilio. Ми надішлемо вам посилання для скидання пароля.",
+    "email": "Адреса електронної пошти",
+    "reset_link": "Надіслати посилання для скидання",
+    "reset_success": "Запит на скидання надіслано на адресу електронної пошти."
   },
   "leaderboard": {
-    "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
-    "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "title": "Таблиця лідерів",
+    "how_to_score": "Як отримати \nочок?",
+    "alltime_description": "30 найкращих учасників спільноти, які допомагають розвивати Mapilio!",
+    "users": "Користувачі",
+    "organizations": "організації",
+    "fetch_error": "Виникла проблема з отриманням таблиці лідерів. Будь ласка спробуйте ще раз.",
+    "join_the_race": "приєднатися до гонки\n",
+    "points": "Очки",
+    "points_short": "Пт",
+    "roads": "Дороги",
+    "photos": "Фотографії",
+    "challenge": "ВИКЛИК",
+    "board": "ДОШКА",
+    "all_time": "Весь час",
+    "this_month": "Цього місяця",
+    "this_week": "Цього тижня",
+    "join": "Приєднуйтесь",
+    "winners_title": "І переможці \n Mapilio"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "Давайте створимо більше до\nкарт дат",
+    "subtitle": "Зробіть позитивний вплив на свій регіон, сприяйте створенню надійних карт, займіть високу позицію в таблиці лідерів",
+    "sequences": "Послідовності",
+    "images": "Зображення",
+    "stop_upload": "Зупинити завантаження"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "У вас немає підключення до Інтернету",
+    "description": "У вас немає підключення до Інтернету. Переконайтеся, що ваш мобільний стільниковий зв’язок або Wi-Fi увімкнено."
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "Адреса електронної пошти обов'язкова",
+    "please_enter_valid_email": "Введіть дійсну адресу електронної пошти",
+    "password_required": "Необхідно ввести пароль"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "Як працює система нарахування балів?",
+    "summary": "Змагайтеся з дописувачами Mapilio з усього світу та вигравайте чудові призи!",
+    "paragraph": "<h2>Система нагородження Mapilio</h2> <p>\n\nУ Mapilio можна збирати бали зі зйомок і вигравати призи\n\n<h3>Система підрахунку балів</h3>\nГлобальна таблиця лідерів дозволить вам порівняти свій місцевий внесок з іншими учасниками. Таблиця лідерів матиме систему підрахунку балів, яка враховуватиме численні елементи внеску. Ось змінні, які складають оцінку:\n\n<h3>● Унікальні кілометри (UKM):</h3>\nце загальна відстань послідовностей, доданих у областях, які раніше не охоплювалися. Наприклад, якщо ви проїхали 10 км, а 7 км із них не мали наявних зображень, ваш UKM для цієї поїздки становитиме 7 км.\n\n<h3>● Зображення:</h3>\nзагальна кількість зображень, які учасник завантажив під час змагання\n\n<h3>● Учасники:</h3>\nце кількість людей, які беруть участь у вашому локальному змаганні. Ідея полягає в тому, щоб заохочувати та винагороджувати співпрацю.\n\nФормула для розрахунку балів така: Оцінка = (загальна кількість наданих УКМ + (зображень/1000)) * (1 + (кількість учасників/10))\n\n<h3>Запам’ятайте;</h3>\nЩоб мати право на приз, ви повинні набрати мінімум 100 балів. Щоб отримати бали за свої знімки, місце розташування має бути чітким, зображення мають бути зроблені при достатньо яскравому освітленні та не повинні бути зроблені в погодні умови, такі як туман, дощ або інші погодні умови, які спотворюють зображення.\n\n\n<h3center>Тепер ви можете почати захоплення, збирати очки та змагатися за лідерство.</h3center></p>",
+    "start_now_capture": "Почніть зараз знімати"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
-    "gopro_9": "GoPro 360 Max",
-    "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "summary": "Чи готові ви отримати винагороду з <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Почніть зйомку зараз",
+    "slogan": "<bold>Mapilio</bold> розпочав перший виклик.",
+    "title": "Заробляйте нові подарунки, набираючи більше кілометрів",
+    "description": "Ви готові до виклику? 3 учасники, які наберуть найбільшу кількість балів від <date>01.03.2023</date> до <date>31.05.2023</date> , отримають чудові призи.",
+    "mi_pro_2_scooter": "Скутер Xiaomi",
+    "gopro_9": "GoPro 360 Макс",
+    "beats_3_headphones": "Перемагає Соло 3",
+    "content": "<title>Відвідати дуже просто</title>\n\nЗахопіть якомога більше, зберіть більше очок, ніж інші конкуренти, отримайте вашу винагороду. Є кілька речей, коли ви знімаєте;\n\n<bold>● Фокус на дорозі</bold> Встановіть фокус як шлях, торкаючись екрана.\n\n<bold>● Чисті зображення</bold> Переконайтеся, що капот автомобіля та інші об'єкти не видно на зображенні.\n\n<bold>● Напрямок камери</bold> Відрегулюйте положення камери, щоб записувати зображення паралельно землі.\n\n<bold>● Ситуації, в яких не слід знімати</bold> Зйомку не слід проводити в темну, дощову, сніжну погоду, коли зображення розмите.\n\n<bold>● Точне місцезнаходження</bold> Служби визначення місцезнаходження вашого пристрою мають бути ввімкнені та точні.",
+    "rules_of_contest": "<0>Офіційні правила</0> для конкурсу",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "Мапіліо розпочав перший виклик.",
+      "description": "Ви можете вигравати щоразу, коли стріляєте з Mapilio. Збирайте очки, змагайтеся в таблицях лідерів і перемагайте."
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
-      "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "map": "Карта",
+      "map_desc": "Перегляньте своє поточне місцезнаходження, дороги, місця, будівлі та інші деталі на карті. Також тут можна спостерігати вже захоплені ділянки.",
+      "marketplace": "Ринок",
+      "marketplace_desc": "Для деяких регіонів у нас є спеціальні запити на захоплення, де ви можете заробити готівку або купони. Їх можна побачити на сторінці Marketplace.",
+      "upload": "Завантажити",
+      "upload_desc": "Ви закінчили захоплення? Потім натисніть, щоб завантажити всі зображення.",
+      "leaderboard": "Таблиця лідерів",
+      "leaderboard_desc": "Таблиця лідерів показує бали, які ви набрали за стрільбу, і вашу позицію в рейтингу",
+      "capture": "захоплення",
+      "capture_desc": "Почніть зараз, щоб почати знімати та додавати кращі карти",
+      "next": "Далі",
+      "done": "Готово"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
-      "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "angle": "Прямий кут",
+      "angle_desc": "Зберігайте кут камери так, щоб лінія горизонту\nзавжди була протилежною та горизонтальною",
+      "startCapture": "Початок захоплення",
+      "start_capture_desc": "Світло, розташування, батарея... Все готово? Почнемо захоплення.",
+      "tasks": "завдання",
+      "tasks_desc": "На екрані можна побачити завдання, які потрібно виконати.",
+      "next": "Далі",
+      "done": "Готово"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "Ринок",
+      "list_desc": "Тут ви можете переглянути запити на відлов у вашому регіоні. Натомість ви можете заробити готівку або купони.",
+      "apply": "Застосувати",
+      "apply_desc": "Ви можете подати заявку, натиснувши кнопку Застосувати.",
+      "next": "Далі",
+      "done": "Готово"
     },
-    "skip": "Skip"
+    "skip": "Пропустити"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "Виникла помилка на сервері, спробуйте пізніше.",
+    "token_expired": "Ваш сеанс закінчився. Увійдіть ще раз.",
+    "timeout": "Сервер не відповідає. Будь-ласка спробуйте пізніше."
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "Скасувати",
+    "privacy_violation": "Порушення конфіденційності",
+    "inappropriate_content": "Невідповідний вміст",
+    "low_quality": "Низька якість",
+    "other": "Інший",
+    "report_success": "Ваш звіт успішно надіслано. Буде проведено необхідні розслідування, і ви отримаєте повідомлення електронною поштою.",
+    "report_error": "Під час звітування сталася помилка. Будь-ласка спробуйте пізніше."
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "турецька",
+    "en": "англійська"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
-    "update": "Update",
-    "later": "Later"
+    "maintenanceMode": "Наші служби працюють в режимі обслуговування.\nБудь ласка, завантажте свої зображення пізніше.",
+    "update_required_title": "Необхідне оновлення",
+    "update_required_description": "Ви повинні оновити програму, щоб продовжити її використання.",
+    "update": "оновлення",
+    "later": "Пізніше"
   }
 }
