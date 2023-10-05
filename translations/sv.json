@@ -1,413 +1,413 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "Karta",
+    "market": "Marknadsföra",
+    "upload": "Ladda upp",
+    "leader": "Ledare"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Tillbaka",
+    "are_you_sure": "Är du säker?",
+    "delete_photo": "Är du säker på att du vill ta bort det här fotot",
+    "yes": "Ja",
+    "no": "Nej",
+    "delete_error": "Det uppstod ett problem vid borttagningen! Försök igen.",
+    "delete": "Radera",
+    "have_not_connection": "Du har ingen aktiv internetanslutning",
+    "profile": "Profil",
+    "profile_edit": "Profil Redigera",
+    "delete_account": "Radera konto",
+    "your_uploads": "Dina uppladdningar",
+    "upload_detail": "Ladda upp detalj",
+    "sign_up": "Bli Medlem",
+    "sign_in": "Logga in",
+    "go_map": "Karta",
+    "settings": "inställningar",
+    "language": "Språk"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "Sök",
+    "recent_searches": "Senaste sökningar",
+    "clear": "Klar",
+    "empty_search": "Nyligen hittade och begagnade föremål kommer att finnas här",
+    "no_results": "Inga resultat funna",
+    "another_search": "Gör en ny sökning."
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "Bildrapport"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "Marknad",
+    "market_list": "Marknadslista",
+    "equipment": "UTRUSTNING",
+    "apply_project": "Ansök till detta projekt",
+    "mission_ready": "Uppdrag redo",
+    "mission_detail": "Du kan lära dig vilken väg du ska följa medan du fångar från informationssektionen.",
+    "start_capture": "Börja fånga",
+    "or": "eller",
+    "back_to_the": "tillbaka till <0>marknadsplatsen</0>",
+    "far_location": "Din plats är för långt från projektområdet",
+    "tooltip": "Hitta eller erbjuda hjälp med bildinsamling och dataverifieringsprojekt för att skapa färsk kartdata på platser där det behövs.",
+    "map_loading": "Marknadskartan laddas...",
+    "soon_description": "Mapilio erbjuder en kartmarknad där användare kan begära kartläggning av specifika regioner. Bidragsgivare kommer att belönas, och det finns en gratis tjänst för att verifiera bildens riktighet.",
+    "very_soon": "Väldigt snart"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "Laddar karta och zoner...",
+    "pano_error": "Det uppstod ett problem när bilden skulle laddas. Var god försök igen.",
+    "gps_disabled": "Din GPS är inaktiverad."
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
+    "profile_edit": "Profil Redigera",
+    "licences": "Licenser",
+    "terms_and_conditions": "Allmänna Villkor",
+    "privacy": "Integritetspolicy",
+    "about": "Handla om",
+    "contest_rules": "Tävlingsregler",
+    "change_language": "Ändra språk",
     "mapilio": "mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "sign_out": "Logga ut",
+    "delete_account": "Radera konto"
   },
   "profile_edit": {
-    "username": "Username",
-    "name": "Name",
+    "username": "Användarnamn",
+    "name": "namn",
     "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "hide_my_username": "Dölj mitt användarnamn",
+    "save": "Spara"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
+    "title": "Tack för att du bidrar till Mapilio!",
+    "description": "Vi beklagar att du vill ta bort ditt konto, men dina tidigare bidrag kommer fortfarande att stödja gruppen.",
+    "alert_title": "Är du säker på att du vill ta bort ditt konto?",
+    "alert_description": "Är du säker på att du vill ta bort ditt konto? Denna åtgärd kan inte ångras.",
+    "delete": "Radera",
+    "cancel": "Annullera",
+    "delete_account": "Radera konto",
+    "login_again": "Du måste logga in igen",
+    "login_again_description": "Du måste logga in igen för att radera ditt konto. Du kommer att omdirigeras till inloggningssidan.",
     "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "delete_error": "Det uppstod ett problem vid borttagningen! Försök igen."
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "Uppladdningen slutförd",
+    "description": "Dina uppgifter bearbetas... Du kommer att meddelas via e-post när dina bilder publiceras på Mapilio.",
+    "go_to_map": "Gå till karta"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "Ta ett skott",
+      "subtitle": "På gatuplan",
+      "description": "Fånga bilder på gatunivå och bidra med kartan."
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "Ladda upp bilder",
+      "subtitle": "Bidra",
+      "description": "Ladda upp dina bilder för att samla poäng och få en hög position på topplistan."
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "Tjäna gåvor",
+      "subtitle": "Slutföra uppdrag",
+      "description": "Få chans att vinna gåvor genom de uppgifter du bidrar med."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "För fler belöningar",
+      "subtitle": "Gå vidare",
+      "description": "Vi utökar vårt presentsortiment varje dag."
     },
-    "next": "Next",
-    "skip": "Skip",
+    "next": "Nästa",
+    "skip": "Hoppa",
     "start": "Start"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "Infångningen har börjat",
+    "description": "Under tiden, se till att vinkeln på din kamera är korrekt och stabil.",
+    "safe_mode": "Strömsäkert läge",
+    "advanced": "Avancerad",
+    "getting_ready": "Kameran gör sig redo. Vänta.",
+    "something_went_wrong": "Något gick fel. Var god försök igen.",
+    "tasks": "Uppgifter",
+    "select_mission": "Välj Uppdrag",
+    "empty_mission_title": "Det finns inget projekt du är involverad i.",
+    "empty_mission_description": "Du kan bläddra bland projekt på <0>Marketplace</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "Låg batterinivå",
+        "description": "GPS-noggrannheten minskar eftersom din laddning är under 15 %. I det här fallet är det inte möjligt att skjuta."
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "Falsk GPS",
+        "description": "Falsk GPS-användning har upptäckts, använd enhetens GPS-plats för att fortsätta!"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "Hög hastighet",
+        "description": "Du överskred den höga hastighetsgränsen. För precisionen bör din hastighet vara högst 70 km/h."
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "GPS-noggrannheten är för låg",
+        "description": "Fotograferingen fortsätter när GPS-varningsikonen blir grön."
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "GPS-sökning",
+        "description": "Vänligen befinna dig i det öppna området där GPS:en kommer att fånga. Denna process kan ta upp till 30 sekunder."
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "Justera din kameravinkel",
+        "description": "Fotograferingen fortsätter när din rotation är sann."
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "Fokusera vägen",
+      "description": "Ställ in fokus som sökväg genom att peka på skärmen."
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "Ren bild",
+      "description": "Se till att motorhuven och andra föremål inte syns på bilden."
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "Kamerariktning",
+      "description": "Justera kamerans position för att spela in bilden parallellt med marken."
     },
-    "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "next": "Nästa",
+    "prev": "Föreg",
+    "finish": "Avsluta"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
+    "general_settings": "Allmänna Inställningar",
     "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
+    "distance_between": "Avstånd mellan bilder",
+    "camera_settings": "Kamerainställningar",
+    "remaining_images": "Tagna bilder / Återstående bilder",
+    "battery_level": "Batterinivå",
     "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "enable_low_resolution": "Aktivera låg upplösning",
+    "enable_low_resolution_desc": "Aktivera lågupplöst läge för bättre batteriprestanda och snabbare fotografering.",
+    "settings_saved": "Kameran måste startas om för att ändringarna ska träda i kraft."
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}km</0> Fångst av väg\nvar klar",
+    "detail": "<0>{{count}} bilder</0> / {{size}}MB",
+    "upload_now": "Ladda upp nu",
+    "upload_later": "Ladda upp senare"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "Ladda upp",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "Ingen inspelning hittades att ladda upp",
+      "description": "För att ladda upp måste du fotografera från avsnittet \"Fånga\". Dina filmer kommer att visas här."
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "Ladda upp foton",
+    "subtitle": "Du kan ladda upp bilder härifrån.",
+    "image_count": "{{count}} bilder",
+    "are_you_sure": "Är du säker?",
+    "delete_capture": "Ta bort Capture",
+    "delete_message": "Vill du ta bort din bild?",
+    "yes": "Ja",
+    "no": "Nej",
+    "start_upload": "Börja ladda upp",
+    "is_cellular_data": "Är du säker på att du vill skicka via mobildata?",
+    "you_cancelled_upload": "Du avbröt uppladdningen",
+    "sequences_deleted": "Sekvenser raderade",
+    "upload_completed": "Uppladdningen slutförd",
+    "upload_failed": "Uppladdningen misslyckades",
+    "no_address": "Ingen adress",
+    "point": "~<0>{{count}}</0> pts",
+    "clear_selections": "Rensa val",
+    "delete": "Radera",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "Tillgänglig värld",
+      "description": "I centrum av New York eller i en by i Afrika. Bidra till kartor och gör livet lättare för mänskligheten med varje fångst."
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "Bidra till vår miljö",
+      "description": "Vi drömmer alla om en renare och tillgänglig värld. Låt oss skapa bättre karta för alla genom att bidra med Mapilio."
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "Trafikproblem",
+      "description": "Visste du att vi spenderar över 102 timmar per år i trafiken. $1 739 per år i förluster på grund av bränsleförbrukning och missad tid."
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "Jordbävningar och nödsituationer",
+      "description": "Bidra till att upptäcka oåtkomliga vägar och tidigt ingripa i hälso- och livsviktiga situationer som kan uppstå."
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "Individuellt konto",
+    "organization_account": "Organisationskonto",
+    "no_feed": "Inget foder",
+    "no_feed_desc": "Det finns inga flöden att visa. Du kan bidra genom att starta fångsten nu.",
+    "start_capture": "Börja fånga",
+    "select_organization": "Välj organisation",
+    "images": "bilder",
+    "uploaded": "Uppladdad",
+    "completed": "Avslutad",
+    "processing": "Bearbetning",
+    "fail": "Misslyckas",
+    "sequences": "Sekvenser",
+    "photos": "Foton",
+    "roads": "Vägar",
+    "uploaded_title": "Bilder du laddat upp",
+    "uploaded_subtitle": "Här kan du se uppladdade bilder.",
+    "image": "Bild",
+    "map": "Karta",
+    "fetch_error": "Det uppstod ett problem med att hämta profilen. Var god försök igen.",
+    "no_address": "Ingen adress"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "Logga in för att se vad som finns på din karta.",
+    "email_username": "Email eller användarnamn",
+    "password": "Lösenord",
+    "login": "Logga in",
+    "forgot_password": "Glömt ditt lösenord?",
+    "languages": "språk",
+    "login_error": "Det uppstod ett fel med servern, försök igen senare.",
+    "or": "eller",
+    "login_success": "Inloggningen lyckades ",
+    "error": "Ett fel uppstod, försök igen senare.",
+    "mail_error": "Du är inte medlem eftersom vi inte kan komma åt din e-postadress. Vänligen ge posttillstånd eller registrera dig på annat sätt.",
+    "enter_email": "Var god skriv in din e-postadress."
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
-    "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "title": "Registrera dig för att se vad som finns på din karta.",
+    "name": "namn",
+    "email": "E-postadress",
+    "password": "Lösenord",
+    "signup": "Bli Medlem",
+    "name_required": "Namn krävs",
+    "email_required": "E-postadress krävs",
+    "email_not_valid": "Vänligen ange giltig e-postadress",
+    "pass_min_character": "Lösenordet måste bestå av minst {{min}} tecken",
+    "account_created": "Ditt konto har skapats, kontrollera din e-postadress.",
+    "redirect_error": "Ett fel uppstod vid omdirigering, försök igen.",
+    "policy": "Genom att klicka på knappen \"Registrera dig\" godkänner du vår\n <0>sekretesspolicy</0> och <1>Allmänna villkor</1> .",
+    "register_error": "Det uppstod ett fel med servern, försök igen senare."
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "Glömt ditt lösenord?",
+    "description": "Ange din e-postadress som är kopplad till ditt Mapilio-konto. Vi skickar en länk för att återställa ditt lösenord.",
+    "email": "E-postadress",
+    "reset_link": "Skicka återställningslänk",
+    "reset_success": "Begäran om återställning har skickats till e-postadressen."
   },
   "leaderboard": {
     "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
+    "how_to_score": "Hur gör man \npoäng?",
+    "alltime_description": "Topp 30 Community-medlemmar som hjälper Mapilio!",
+    "users": "Användare",
+    "organizations": "Organisationer",
+    "fetch_error": "Det uppstod ett problem med att hämta Leaderboard. Var god försök igen.",
+    "join_the_race": "gå med i\n-loppet",
+    "points": "Poäng",
     "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "roads": "Vägar",
+    "photos": "Foton",
+    "challenge": "UTMANING",
+    "board": "STYRELSE",
+    "all_time": "Hela tiden",
+    "this_month": "Den här månaden",
+    "this_week": "Denna vecka",
+    "join": "Ansluta sig",
+    "winners_title": "Och vinnarna av \n Mapilio"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "Låt oss skapa fler upp till\ndatumkartor",
+    "subtitle": "Gör en positiv inverkan i din region, Bidra till pålitlig kartläggning, Ta din höga position på topplistan",
+    "sequences": "Sekvenser",
+    "images": "Bilder",
+    "stop_upload": "Stoppa uppladdning"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "Du har ingen internetanslutning",
+    "description": "Du har ingen internetanslutning. Se till att din mobila mobiltelefon eller wifi är påslagen."
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "E-postadress krävs",
+    "please_enter_valid_email": "Vänligen ange giltig e-postadress",
+    "password_required": "lösenord krävs"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "Hur fungerar poängsystemet?",
+    "summary": "Tävla med Mapilio-bidragsgivare från hela världen och vinn fina priser!",
+    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nDet är möjligt att samla poäng från skjutningar i Mapilio och vinna priser\n\n<h3>Poängsystem</h3>\nEn global topplista låter dig jämföra dina lokala bidrag med andra deltagare. Leaderboarden kommer att ha ett poängsystem som tar hänsyn till flera bidragselement. Här är variablerna som utgör poängen:\n\n<h3>● Unika kilometer (UKM):</h3>\ndetta är det totala avståndet för sekvenser som har bidragit i områden utan tidigare täckning. Om du till exempel körde 10 km och 7 km av den inte hade befintliga bilder, skulle din UKM för den körningen vara 7 km.\n\n<h3>● Bilder:</h3>\ndet totala antalet bilder som bidragsgivaren har laddat upp under utmaningen\n\n<h3>● Deltagare:</h3>\ndetta är antalet personer som deltar i din lokala utmaning. Tanken är att uppmuntra och belöna samarbete.\n\nFormeln för att beräkna poängen är följande: Poäng = (totalt bidrag från UKM + (bilder/1000)) * (1 + (antal deltagare/10))\n\n<h3>Kom ihåg;</h3>\nFör att vara berättigad till ett pris måste du uppnå ett minimumpoäng på 100. För att få poäng från dina bilder måste platsen vara tydlig, bilder måste tas i tillräckligt starkt ljus och de får inte ha tagits in väderförhållanden som dimma, regn eller andra väderförhållanden som förvränger bilden.\n\n\n<h3center>Nu kan du börja fånga, samla poäng och tävla om ledningen.</h3center></p>",
+    "start_now_capture": "Starta nu Capture"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
+    "summary": "Är du redo att samla belöning med <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Börja fånga nu",
+    "slogan": "<bold>Mapilio</bold> startade den första utmaningen.",
+    "title": "Tjäna nya gåvor när du når fler kilometer",
+    "description": "Är du redo för en utmaning? De 3 tävlande som får flest poäng mellan <date>01.03.2023</date> och <date>31.05.2023</date> kommer att vinna fina priser.",
+    "mi_pro_2_scooter": "Xiaomi skoter",
     "gopro_9": "GoPro 360 Max",
     "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "content": "<title>Det är väldigt enkelt att delta</title>\n\nFånga så mycket du kan, samla fler poäng än vad andra konkurrenter får din belöning. Det finns få saker när du fångar;\n\n<bold>● Fokusera vägen</bold> Ställ in fokus som väg genom att peka på skärmen.\n\n<bold>● Rengör bilder</bold> Se till att motorhuven och andra föremål inte syns på bilden.\n\n<bold>● Kamerariktning</bold> Justera kamerans position för att spela in bilden parallellt med marken.\n\n<bold>● Situationer som inte bör fotograferas</bold> Fotografering bör inte göras i mörkt, regnigt, snöigt väder när bilden är suddig.\n\n<bold>● Exakt plats</bold> Platstjänster för din enhet måste vara påslagna och exakta.",
+    "rules_of_contest": "<0>Officiella regler</0> för tävlingen",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "Mapilio startade den första utmaningen.",
+      "description": "Du kan vinna varje gång du skjuter med Mapilio. Samla poäng, tävla på topplistorna och vinn."
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
+      "map": "Karta",
+      "map_desc": "Se din nuvarande plats, vägar, platser, byggnader och andra detaljer på kartvyn. Även redan fångade områden kan observeras här.",
+      "marketplace": "Marknad",
+      "marketplace_desc": "För vissa områden har vi speciella önskemål om en fångst där du kan tjäna pengar eller kuponger i gengäld. De är synliga på Marketplace-sidan.",
+      "upload": "Ladda upp",
+      "upload_desc": "Är du klar med att fånga? Klicka sedan för att ladda upp alla bilder.",
       "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "leaderboard_desc": "Leaderboard visar poängen du fick för ditt skytte och din position i rankingen",
+      "capture": "Fånga",
+      "capture_desc": "Börja nu för att börja fånga och bidra med bättre kartor",
+      "next": "Nästa",
+      "done": "Gjort"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
+      "angle": "Rätt vinkel",
+      "angle_desc": "Håll kameravinkeln så att horisontlinjen\nalltid är motsatt och horisontell",
       "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "start_capture_desc": "Ljus, plats, batteri... Allt klart? Låt oss börja fånga.",
+      "tasks": "Uppgifter",
+      "tasks_desc": "Du kan se uppgifterna du måste göra på skärmen.",
+      "next": "Nästa",
+      "done": "Gjort"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "Marknad",
+      "list_desc": "Här kan du se förfrågningar om att fånga i ditt område. Du kan tjäna pengar eller kuponger i gengäld.",
+      "apply": "Tillämpa",
+      "apply_desc": "Du kan ansöka om förfrågan genom att klicka på knappen Ansök.",
+      "next": "Nästa",
+      "done": "Gjort"
     },
-    "skip": "Skip"
+    "skip": "Hoppa"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "Det uppstod ett fel med servern, försök igen senare.",
+    "token_expired": "Din session har gått ut. Vänligen logga in igen.",
+    "timeout": "Servern svarar inte. Vänligen försök igen senare."
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "Annullera",
+    "privacy_violation": "Integritetsintrång",
+    "inappropriate_content": "Opassande innehåll",
+    "low_quality": "Låg kvalitet",
+    "other": "Övrig",
+    "report_success": "Din rapport har skickats. Nödvändiga utredningar kommer att göras och du kommer att informeras via e-post.",
+    "report_error": "Ett fel uppstod under rapporteringen. Vänligen försök igen senare."
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "turkiska",
+    "en": "engelsk"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
-    "update": "Update",
-    "later": "Later"
+    "maintenanceMode": "Våra tjänster är i underhållsläge.\nLadda upp dina bilder senare.",
+    "update_required_title": "Uppdatering krävs",
+    "update_required_description": "Du måste uppdatera applikationen för att fortsätta använda den.",
+    "update": "Uppdatering",
+    "later": "Senare"
   }
 }
