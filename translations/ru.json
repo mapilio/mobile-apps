@@ -1,413 +1,413 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "карта",
+    "market": "Рынок",
+    "upload": "Загрузить",
+    "leader": "Лидер"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Назад",
+    "are_you_sure": "Вы уверены?",
+    "delete_photo": "Вы уверены, что хотите удалить это фото?",
+    "yes": "Да",
+    "no": "Нет",
+    "delete_error": "При удалении возникла проблема! Попробуйте еще раз.",
+    "delete": "Удалить",
+    "have_not_connection": "У вас нет активного подключения к Интернету",
+    "profile": "Профиль",
+    "profile_edit": "Профиль Редактировать",
+    "delete_account": "Удалить аккаунт",
+    "your_uploads": "Ваши загрузки",
+    "upload_detail": "Загрузить детали",
+    "sign_up": "Зарегистрироваться",
+    "sign_in": "Войти",
+    "go_map": "карта",
+    "settings": "Настройки",
+    "language": "Язык"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "Поиск",
+    "recent_searches": "Недавние поиски",
+    "clear": "Прозрачный",
+    "empty_search": "Здесь будут недавно найденные и использованные предметы.",
+    "no_results": "результатов не найдено",
+    "another_search": "Пожалуйста, сделайте еще один поиск."
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "Отчет об изображениях"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "Торговая площадка",
+    "market_list": "Список рынков",
+    "equipment": "ОБОРУДОВАНИЕ",
+    "apply_project": "Подать заявку на этот проект",
+    "mission_ready": "Миссия готова",
+    "mission_detail": "Узнать, по какому пути идти во время ловли, можно из информационного раздела.",
+    "start_capture": "Начать захват",
+    "or": "или",
+    "back_to_the": "вернуться на <0>торговую площадку</0>",
+    "far_location": "Ваше местоположение находится слишком далеко от территории проекта.",
+    "tooltip": "Найдите или предложите помощь в проектах по сбору изображений и проверке данных, чтобы создавать свежие картографические данные в тех местах, где они необходимы.",
+    "map_loading": "Карта рынка загружается...",
+    "soon_description": "Mapilio предлагает картографическую площадку, где пользователи могут запрашивать картографирование определенных регионов. Авторы будут вознаграждены, и есть бесплатный сервис для проверки точности изображений.",
+    "very_soon": "Очень скоро"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "Загрузка карты и зон...",
+    "pano_error": "Возникла проблема при загрузке изображения. Пожалуйста, попробуйте еще раз.",
+    "gps_disabled": "Ваш GPS отключен."
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
-    "mapilio": "mapilio",
-    "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "profile_edit": "Профиль Редактировать",
+    "licences": "Лицензии",
+    "terms_and_conditions": "Условия использования",
+    "privacy": "политика конфиденциальности",
+    "about": "О",
+    "contest_rules": "Правила конкурса",
+    "change_language": "Изменение языка",
+    "mapilio": "мапилио",
+    "version": "В 1.0.2",
+    "sign_out": "Выход",
+    "delete_account": "Удалить аккаунт"
   },
   "profile_edit": {
-    "username": "Username",
-    "name": "Name",
-    "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "username": "Имя пользователя",
+    "name": "Имя",
+    "bio": "Био",
+    "hide_my_username": "Скрыть мое имя пользователя",
+    "save": "Сохранять"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
-    "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "title": "Спасибо за вклад в Mapilio!",
+    "description": "Нам жаль, что вы хотите удалить свою учетную запись, но ваши предыдущие вклады по-прежнему будут поддерживать сообщество.",
+    "alert_title": "Вы уверены, что хотите удалить свою учетную запись?",
+    "alert_description": "Вы уверены, что хотите удалить свою учетную запись? Это действие не может быть отменено.",
+    "delete": "Удалить",
+    "cancel": "Отмена",
+    "delete_account": "Удалить аккаунт",
+    "login_again": "Вы должны войти снова",
+    "login_again_description": "Вам необходимо войти в систему еще раз, чтобы удалить свою учетную запись. Вы будете перенаправлены на страницу входа.",
+    "ok": "ХОРОШО",
+    "delete_error": "При удалении возникла проблема! Попробуйте еще раз."
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "Загрузка завершена",
+    "description": "Ваши данные обрабатываются... Вы будете уведомлены по электронной почте, когда ваши изображения будут опубликованы на Mapilio.",
+    "go_to_map": "Перейти на карту"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "Выстрелить",
+      "subtitle": "На уровне улицы",
+      "description": "Сделайте снимки улиц и добавьте карту."
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "Загрузить снимки",
+      "subtitle": "Способствовать",
+      "description": "Загрузите свои изображения, чтобы набрать очки и занять высокие позиции в таблице лидеров."
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "Зарабатывайте подарки",
+      "subtitle": "Выполняйте миссии",
+      "description": "Получите шанс выиграть подарки, выполняя задания."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "Чтобы получить больше наград",
+      "subtitle": "Двигаться дальше",
+      "description": "Мы расширяем ассортимент подарков каждый день."
     },
-    "next": "Next",
-    "skip": "Skip",
-    "start": "Start"
+    "next": "Следующий",
+    "skip": "Пропускать",
+    "start": "Начинать"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "Захват начался",
+    "description": "А пока убедитесь, что угол вашей камеры правильный и стабильный.",
+    "safe_mode": "Энергобезопасный режим",
+    "advanced": "Передовой",
+    "getting_ready": "Камера готовится. Пожалуйста, подождите.",
+    "something_went_wrong": "Что-то пошло не так. Пожалуйста, попробуйте еще раз.",
+    "tasks": "Задания",
+    "select_mission": "Выберите миссию",
+    "empty_mission_title": "Нет ни одного проекта, в котором вы участвуете.",
+    "empty_mission_description": "Вы можете просматривать проекты на <0>Marketplace.</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "Низкий уровень заряда батареи",
+        "description": "Точность GPS снизится, поскольку уровень заряда ниже 15 %. В этом случае стрельба невозможна."
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "Поддельный GPS",
+        "description": "Обнаружено ложное использование GPS, для продолжения используйте местоположение GPS устройства!"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "Высокоскоростной",
+        "description": "Вы превысили максимальную скорость. Для точности ваша скорость должна составлять максимум 70 км/ч."
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "Точность GPS слишком низкая",
+        "description": "Съемка продолжится, когда значок оповещения GPS станет зеленым."
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "GPS-поиск",
+        "description": "Пожалуйста, будьте на открытой местности, где GPS будет фиксировать. Этот процесс может занять до 30 секунд."
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "Отрегулируйте угол камеры",
+        "description": "Стрельба продолжится, когда ваше вращение станет верным."
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "Сосредоточьтесь на дороге",
+      "description": "Установите фокус в качестве пути, коснувшись экрана."
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "Чистое изображение",
+      "description": "Убедитесь, что на изображении не виден капот автомобиля и другие объекты."
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "Направление камеры",
+      "description": "Отрегулируйте положение камеры для записи изображения параллельно земле."
     },
-    "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "next": "Следующий",
+    "prev": "Предыдущий",
+    "finish": "Заканчивать"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
-    "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
-    "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "general_settings": "общие настройки",
+    "capture_settings": "Настройки захвата",
+    "distance_between": "Расстояние между изображениями",
+    "camera_settings": "Настройки камеры",
+    "remaining_images": "Захваченные изображения/оставшиеся изображения",
+    "battery_level": "Уровень заряда батареи",
+    "ok": "ХОРОШО",
+    "enable_low_resolution": "Включить низкое разрешение",
+    "enable_low_resolution_desc": "Включите режим низкого разрешения, чтобы повысить производительность аккумулятора и ускорить съемку.",
+    "settings_saved": "Чтобы изменения вступили в силу, необходимо перезагрузить камеру."
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}км</0> Захват дороги\nзавершен.",
+    "detail": "<0>{{count}} изображений</0> / {{size}}МБ",
+    "upload_now": "Загрузить сейчас",
+    "upload_later": "Загрузить позже"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "Загрузить",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "Не найден снимок для загрузки",
+      "description": "Для того, чтобы загрузить, нужно снимать из раздела «Съемка». Ваши кадры появятся здесь."
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "Загрузить фото",
+    "subtitle": "Вы можете загрузить изображения отсюда.",
+    "image_count": "{{count}} изображений",
+    "are_you_sure": "Вы уверены?",
+    "delete_capture": "Удалить захват",
+    "delete_message": "Вы хотите удалить свой снимок?",
+    "yes": "Да",
+    "no": "Нет",
+    "start_upload": "Начать загрузку",
+    "is_cellular_data": "Вы уверены, что хотите отправить по сотовой сети?",
+    "you_cancelled_upload": "Вы отменили загрузку",
+    "sequences_deleted": "Последовательности удалены.",
+    "upload_completed": "Загрузка завершена",
+    "upload_failed": "Загрузка не удалась",
+    "no_address": "Нет адреса",
+    "point": "~<0>{{count}}</0> баллы",
+    "clear_selections": "Очистить выбор",
+    "delete": "Удалить",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "Доступный мир",
+      "description": "В центре Нью-Йорка или в деревне в Африке. Вносите свой вклад в создание карт и облегчайте жизнь человечеству с каждым захватом."
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "Внесите свой вклад в нашу окружающую среду",
+      "description": "Мы все мечтаем о более чистом и доступном мире. Давайте создадим лучшую карту для всех, внеся вклад в Mapilio."
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "Проблема с дорожным движением",
+      "description": "Знаете ли вы, что мы проводим более 102 часов в год, сидя в пробке? 1739 долларов в год убытков из-за расхода топлива и пропущенного времени."
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "Землетрясения и чрезвычайные ситуации",
+      "description": "Способствовать обнаружению недоступных дорог и раннему вмешательству в медицинских и жизненно важных ситуациях, которые могут возникнуть."
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "Индивидуальный счет",
+    "organization_account": "Аккаунт организации",
+    "no_feed": "Нет подачи",
+    "no_feed_desc": "Нет каналов для отображения. Вы можете внести свой вклад, начав ловлю прямо сейчас.",
+    "start_capture": "Начать захват",
+    "select_organization": "Выберите организацию",
+    "images": "изображений",
+    "uploaded": "Загружено",
+    "completed": "Завершенный",
+    "processing": "Обработка",
+    "fail": "Неудача",
+    "sequences": "Последовательности",
+    "photos": "Фото",
+    "roads": "Дороги",
+    "uploaded_title": "Изображения, которые вы загрузили",
+    "uploaded_subtitle": "Здесь вы можете увидеть загруженные фотографии.",
+    "image": "Изображение",
+    "map": "карта",
+    "fetch_error": "Не удалось загрузить профиль. Пожалуйста, попробуйте еще раз.",
+    "no_address": "Нет адреса"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "Войдите в систему, чтобы увидеть, что находится на вашей карте.",
+    "email_username": "Электронная почта или имя пользователя",
+    "password": "Пароль",
+    "login": "Авторизоваться",
+    "forgot_password": "Забыли пароль?",
+    "languages": "Языки",
+    "login_error": "Произошла ошибка на сервере, повторите попытку позже.",
+    "or": "или",
+    "login_success": "Авторизация успешна ",
+    "error": "Произошла ошибка, повторите попытку позже.",
+    "mail_error": "Вы не являетесь участником, поскольку мы не можем получить доступ к вашему адресу электронной почты. Пожалуйста, дайте разрешение на почту или зарегистрируйтесь другим способом.",
+    "enter_email": "Пожалуйста, введите Ваш адрес электронной почты."
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
-    "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "title": "Зарегистрируйтесь, чтобы увидеть, что находится на вашей карте.",
+    "name": "Имя",
+    "email": "Адрес электронной почты",
+    "password": "Пароль",
+    "signup": "Зарегистрироваться",
+    "name_required": "Требуется имя",
+    "email_required": "Требуется адрес электронной почты",
+    "email_not_valid": "Пожалуйста, введите действительный адрес электронной почты",
+    "pass_min_character": "Пароль должен быть не менее {{min}} символов",
+    "account_created": "Ваша учетная запись создана, проверьте свой адрес электронной почты.",
+    "redirect_error": "При перенаправлении произошла ошибка, попробуйте еще раз.",
+    "policy": "Нажимая кнопку «Зарегистрироваться», вы соглашаетесь с нашей\n <0>Политикой конфиденциальности.</0> и <1>Правила и условия</1> .",
+    "register_error": "Произошла ошибка на сервере, повторите попытку позже."
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "Забыли пароль?",
+    "description": "Введите адрес электронной почты, связанный с вашей учетной записью Mapilio. Мы вышлем вам ссылку для сброса пароля.",
+    "email": "Адрес электронной почты",
+    "reset_link": "Отправить ссылку для сброса",
+    "reset_success": "Запрос на сброс отправлен на адрес электронной почты."
   },
   "leaderboard": {
-    "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
-    "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "title": "Таблица лидеров",
+    "how_to_score": "Как поставить \nбаллов?",
+    "alltime_description": "30 лучших участников сообщества, помогающих развивать Mapilio!",
+    "users": "Пользователи",
+    "organizations": "Организации",
+    "fetch_error": "Возникла проблема с получением таблицы лидеров. Пожалуйста, попробуйте еще раз.",
+    "join_the_race": "присоединяйтесь к гонке\n",
+    "points": "Точки",
+    "points_short": "Пт",
+    "roads": "Дороги",
+    "photos": "Фото",
+    "challenge": "ИСПЫТАНИЕ",
+    "board": "ДОСКА",
+    "all_time": "Все время",
+    "this_month": "Этот месяц",
+    "this_week": "На этой неделе",
+    "join": "Присоединиться",
+    "winners_title": "И победители \n Mapilio"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "Давайте создадим больше карт дат до\n",
+    "subtitle": "Окажите положительное влияние в своем регионе. Внесите свой вклад в составление надежных карт. Займите высокую позицию в таблице лидеров.",
+    "sequences": "Последовательности",
+    "images": "Изображений",
+    "stop_upload": "Остановить загрузку"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "У вас нет подключения к Интернету",
+    "description": "У вас нет подключения к Интернету. Убедитесь, что ваш мобильный сотовый телефон или Wi-Fi включен."
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "Требуется адрес электронной почты",
+    "please_enter_valid_email": "Пожалуйста, введите действительный адрес электронной почты",
+    "password_required": "Необходим пароль"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "Как работает система начисления баллов?",
+    "summary": "Соревнуйтесь с участниками Mapilio со всего мира и выигрывайте отличные призы!",
+    "paragraph": "<h2>Система награждения Mapilio</h2> <p>\n\nМожно набирать очки за стрельбу в Mapilio и выигрывать призы\n\n<h3>Система подсчета очков</h3>\nГлобальная таблица лидеров позволит вам сравнить ваш местный вклад с вкладом других участников. В таблице лидеров будет система подсчета очков, которая будет учитывать несколько элементов вклада. Вот переменные, составляющие оценку:\n\n<h3>● Уникальные километры (UKM):</h3>\n— это общее расстояние последовательностей, внесенных в области, ранее не охватываемые. Например, если вы проехали 10 км и на 7 км из них не было изображений, ваша UKM для этой поездки составит 7 км.\n\n<h3>● Изображения:</h3>\nобщее количество изображений, которые участник загрузил во время конкурса.\n\n<h3>● Участники:</h3>\nЭто количество людей, участвующих в вашем местном конкурсе. Идея состоит в том, чтобы поощрять и вознаграждать сотрудничество.\n\nФормула для расчета баллов следующая: Оценка = (общее количество участников UKM + (изображений/1000)) * (1 + (количество участников/10))\n\n<h3>Помните;</h3>\nЧтобы иметь право на приз, вы должны набрать минимум 100 баллов. Чтобы получить баллы за ваши снимки, локация должна быть ясной, снимки должны быть сделаны при достаточно ярком освещении и не должны быть сделаны в погодные условия, такие как туман, дождь или другие погодные условия, которые искажают изображение.\n\n\n<h3center>Теперь вы можете начать захват, набирать очки и бороться за лидерство.</h3center></p>",
+    "start_now_capture": "Начать сейчас"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
-    "gopro_9": "GoPro 360 Max",
-    "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "summary": "Готовы ли вы получить награду с помощью <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Начать съемку сейчас",
+    "slogan": "<bold>Mapilio</bold> начал первый вызов.",
+    "title": "Зарабатывайте новые подарки по мере прохождения новых километров.",
+    "description": "Готовы ли вы принять вызов? 3 участника, набравшие наибольшее количество баллов между <date>01.03.2023</date> и <date>31.05.2023</date> , получат отличные призы.",
+    "mi_pro_2_scooter": "Сяоми Скутер",
+    "gopro_9": "ГоПро 360 Макс",
+    "beats_3_headphones": "Удары соло 3",
+    "content": "<title>Принять участие очень просто</title>\n\nЗахватите как можно больше, наберите больше очков, чем другие конкуренты получат вашу награду. Когда вы снимаете, есть несколько вещей;\n\n<bold>● Фокусировка на дороге</bold> Установите фокус на путь, коснувшись экрана.\n\n<bold>● Очистка изображений</bold> Убедитесь, что на изображении не видны капот автомобиля и другие объекты.\n\n<bold>● Направление камеры</bold> Отрегулируйте положение камеры для записи изображения параллельно земле.\n\n<bold>● Ситуации, в которых не следует снимать</bold> Не следует производить съемку в темную, дождливую, снежную погоду, когда изображение размыто.\n\n<bold>● Точное местоположение</bold> Службы определения местоположения вашего устройства должны быть включены и точны.",
+    "rules_of_contest": "<0>Официальные правила</0> на конкурс",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "Мапилио начал первое испытание.",
+      "description": "Вы можете выигрывать каждый раз, когда стреляете с помощью Mapilio. Набирайте очки, соревнуйтесь в таблицах лидеров и побеждайте."
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
-      "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "map": "карта",
+      "map_desc": "Просматривайте свое текущее местоположение, дороги, места, здания и другие детали на карте. Также здесь можно увидеть уже захваченные территории.",
+      "marketplace": "Торговая площадка",
+      "marketplace_desc": "В некоторых регионах у нас есть специальные запросы на захват, за которые вы можете заработать наличные или купоны взамен. Они видны на странице Marketplace.",
+      "upload": "Загрузить",
+      "upload_desc": "Вы закончили съемку? Затем нажмите, чтобы загрузить все изображения.",
+      "leaderboard": "Таблица лидеров",
+      "leaderboard_desc": "Таблица лидеров показывает очки, которые вы набрали за стрельбу, и вашу позицию в рейтинге.",
+      "capture": "Захватывать",
+      "capture_desc": "Начните сейчас, чтобы начать захватывать и создавать лучшие карты.",
+      "next": "Следующий",
+      "done": "Сделанный"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
-      "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "angle": "Прямой угол",
+      "angle_desc": "Держите угол камеры так, чтобы линия горизонта\nвсегда была противоположной и горизонтальной.",
+      "startCapture": "Захват начала",
+      "start_capture_desc": "Свет, локация, батарея... Всё готово? Начнем снимать.",
+      "tasks": "Задания",
+      "tasks_desc": "На экране вы можете увидеть задачи, которые вам предстоит выполнить.",
+      "next": "Следующий",
+      "done": "Сделанный"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "Торговая площадка",
+      "list_desc": "Здесь вы можете увидеть запросы на отлов в вашем регионе. Взамен вы можете заработать наличные или купоны.",
+      "apply": "Применять",
+      "apply_desc": "Вы можете подать заявку на запрос, нажав кнопку «Применить».",
+      "next": "Следующий",
+      "done": "Сделанный"
     },
-    "skip": "Skip"
+    "skip": "Пропускать"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "Произошла ошибка на сервере, повторите попытку позже.",
+    "token_expired": "Время сеанса истекло. Пожалуйста, войдите снова.",
+    "timeout": "Сервер не отвечает. Пожалуйста, повторите попытку позже."
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "Отмена",
+    "privacy_violation": "Нарушение конфиденциальности",
+    "inappropriate_content": "Неприемлемый контент",
+    "low_quality": "Низкое качество",
+    "other": "Другой",
+    "report_success": "Ваш отчет успешно отправлен. Будут проведены необходимые расследования, и вы будете проинформированы по электронной почте.",
+    "report_error": "При составлении отчета произошла ошибка. Пожалуйста, повторите попытку позже."
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "турецкий",
+    "en": "Английский"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
-    "update": "Update",
-    "later": "Later"
+    "maintenanceMode": "Наши сервисы находятся в режиме технического обслуживания.\nПожалуйста, загрузите свои изображения позже.",
+    "update_required_title": "Требуется обновление",
+    "update_required_description": "Вам необходимо обновить приложение, чтобы продолжить его использование.",
+    "update": "Обновлять",
+    "later": "Позже"
   }
 }
