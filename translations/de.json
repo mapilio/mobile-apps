@@ -1,413 +1,413 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "Karte",
+    "market": "Markt",
+    "upload": "Hochladen",
+    "leader": "Führer"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Zurück",
+    "are_you_sure": "Bist du sicher?",
+    "delete_photo": "Sind Sie sicher, dass Sie dieses Foto löschen möchten?",
+    "yes": "Ja",
+    "no": "NEIN",
+    "delete_error": "Beim Löschen ist ein Problem aufgetreten! Versuchen Sie es erneut.",
+    "delete": "Löschen",
+    "have_not_connection": "Sie haben keine aktive Internetverbindung",
+    "profile": "Profil",
+    "profile_edit": "Profil bearbeiten",
+    "delete_account": "Konto löschen",
+    "your_uploads": "Ihre Uploads",
+    "upload_detail": "Details hochladen",
+    "sign_up": "Melden Sie sich an",
+    "sign_in": "anmelden",
+    "go_map": "Karte",
+    "settings": "Einstellungen",
+    "language": "Sprache"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "Suchen",
+    "recent_searches": "Aktuelle Suchanfragen",
+    "clear": "Klar",
+    "empty_search": "Hier finden Sie kürzlich gefundene und verwendete Gegenstände",
+    "no_results": "keine Ergebnisse gefunden",
+    "another_search": "Bitte führen Sie eine weitere Suche durch."
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "Bildbericht"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "Marktplatz",
+    "market_list": "Marktliste",
+    "equipment": "AUSRÜSTUNG",
+    "apply_project": "Bewerben Sie sich für dieses Projekt",
+    "mission_ready": "Missionsbereit",
+    "mission_detail": "Welchen Weg Sie beim Fangen einschlagen müssen, erfahren Sie im Informationsbereich.",
+    "start_capture": "Starten Sie die Aufnahme",
+    "or": "oder",
+    "back_to_the": "zurück zum <0>Marktplatz</0>",
+    "far_location": "Ihr Standort ist zu weit vom Projektgebiet entfernt",
+    "tooltip": "Finden Sie Hilfe bei Bilderfassungs- und Datenüberprüfungsprojekten oder bieten Sie Hilfe an, um frische Kartendaten an den Orten zu erstellen, an denen sie benötigt werden.",
+    "map_loading": "Marktkarte wird geladen...",
+    "soon_description": "Mapilio bietet einen Kartenmarktplatz, auf dem Benutzer Karten für bestimmte Regionen anfordern können. Mitwirkende werden belohnt und es gibt einen kostenlosen Service zur Überprüfung der Bildgenauigkeit.",
+    "very_soon": "Sehr bald"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "Karte und Zonen werden geladen...",
+    "pano_error": "Beim Laden des Bildes ist ein Problem aufgetreten. Bitte versuche es erneut.",
+    "gps_disabled": "Ihr GPS ist deaktiviert."
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
-    "mapilio": "mapilio",
+    "profile_edit": "Profil bearbeiten",
+    "licences": "Lizenzen",
+    "terms_and_conditions": "Terms & amp; Bedingungen",
+    "privacy": "Datenschutzrichtlinie",
+    "about": "Um",
+    "contest_rules": "Wettbewerbsregeln",
+    "change_language": "Sprache ändern",
+    "mapilio": "Mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "sign_out": "Abmelden",
+    "delete_account": "Konto löschen"
   },
   "profile_edit": {
-    "username": "Username",
+    "username": "Nutzername",
     "name": "Name",
     "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "hide_my_username": "Verstecke meinen Benutzernamen",
+    "save": "Speichern"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
+    "title": "Vielen Dank für Ihren Beitrag zu Mapilio!",
+    "description": "Es tut uns leid, dass Sie Ihr Konto löschen möchten, aber Ihre bisherigen Beiträge unterstützen die Community weiterhin.",
+    "alert_title": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?",
+    "alert_description": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "delete": "Löschen",
+    "cancel": "Stornieren",
+    "delete_account": "Konto löschen",
+    "login_again": "Sie müssen sich erneut anmelden",
+    "login_again_description": "Um Ihr Konto zu löschen, müssen Sie sich erneut anmelden. Sie werden zur Anmeldeseite weitergeleitet.",
     "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "delete_error": "Beim Löschen ist ein Problem aufgetreten! Versuchen Sie es erneut."
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "Hochladen abgeschlossen",
+    "description": "Ihre Daten werden verarbeitet... Sie werden per E-Mail benachrichtigt, wenn Ihre Bilder auf Mapilio veröffentlicht werden.",
+    "go_to_map": "Gehen Sie zur Karte"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "Mach ein Bild",
+      "subtitle": "Auf Straßenniveau",
+      "description": "Erfassen Sie Bilder auf Straßenebene und tragen Sie zur Karte bei."
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "Aufnahmen hochladen",
+      "subtitle": "Beitragen",
+      "description": "Laden Sie Ihre Bilder hoch, um Punkte zu sammeln und eine hohe Position in der Bestenliste zu erreichen."
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "Geschenke verdienen",
+      "subtitle": "Schließe Missionen ab",
+      "description": "Erhalten Sie die Chance, durch die von Ihnen beigesteuerten Aufgaben Geschenke zu gewinnen."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "Für mehr Belohnungen",
+      "subtitle": "Weitergehen",
+      "description": "Wir erweitern täglich unser Geschenksortiment."
     },
-    "next": "Next",
-    "skip": "Skip",
+    "next": "Nächste",
+    "skip": "Überspringen",
     "start": "Start"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "Die Aufnahme wurde gestartet",
+    "description": "Stellen Sie in der Zwischenzeit sicher, dass der Winkel Ihrer Kamera korrekt und stabil ist.",
+    "safe_mode": "Energiesparmodus",
+    "advanced": "Fortschrittlich",
+    "getting_ready": "Die Kamera wird vorbereitet. Bitte warten.",
+    "something_went_wrong": "Etwas ist schief gelaufen. Bitte versuche es erneut.",
+    "tasks": "Aufgaben",
+    "select_mission": "Wählen Sie Mission",
+    "empty_mission_title": "Es gibt kein Projekt, an dem Sie beteiligt sind.",
+    "empty_mission_description": "Sie können Projekte auf dem <0>Marketplace durchsuchen</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "Batteriestand niedrig",
+        "description": "Die GPS-Genauigkeit nimmt ab, da Ihr Ladestand unter 15 % liegt. In diesem Fall ist keine Aufnahme möglich."
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "Gefälschtes GPS",
+        "description": "Es wurde eine gefälschte GPS-Nutzung erkannt. Bitte verwenden Sie den GPS-Standort des Geräts, um fortzufahren!"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "Hohe Geschwindigkeit",
+        "description": "Sie haben die zulässige Höchstgeschwindigkeit überschritten. Aus Präzisionsgründen sollte Ihre Geschwindigkeit maximal 70 km/h betragen."
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "Die GPS-Genauigkeit ist zu gering",
+        "description": "Die Aufnahme wird fortgesetzt, wenn das GPS-Warnsymbol grün wird."
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "GPS-Suche",
+        "description": "Bitte halten Sie sich im offenen Bereich auf, in dem das GPS die Daten erfasst. Dieser Vorgang kann bis zu 30 Sekunden dauern."
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "Passen Sie Ihren Kamerawinkel an",
+        "description": "Das Schießen wird fortgesetzt, wenn Ihre Drehung korrekt ist."
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "Konzentrieren Sie sich auf die Straße",
+      "description": "Legen Sie den Fokus als Pfad fest, indem Sie den Bildschirm berühren."
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "Sauberes Bild",
+      "description": "Stellen Sie sicher, dass die Motorhaube und andere Objekte im Bild nicht sichtbar sind."
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "Kamerarichtung",
+      "description": "Passen Sie die Position der Kamera an, um das Bild parallel zum Boden aufzunehmen."
     },
-    "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "next": "Nächste",
+    "prev": "Vorher",
+    "finish": "Beenden"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
-    "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
+    "general_settings": "Allgemeine Einstellungen",
+    "capture_settings": "Aufnahmeeinstellungen",
+    "distance_between": "Abstand zwischen Bildern",
+    "camera_settings": "Kameraeinstellungen",
+    "remaining_images": "Aufgenommene Bilder / Verbleibende Bilder",
+    "battery_level": "Batterie Level",
     "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "enable_low_resolution": "Niedrige Auflösung aktivieren",
+    "enable_low_resolution_desc": "Aktivieren Sie den Modus mit niedriger Auflösung für eine bessere Akkuleistung und schnellere Aufnahmen.",
+    "settings_saved": "Die Kamera muss neu gestartet werden, damit die Änderungen wirksam werden."
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}km</0> Die Erfassung von Straße\nwurde durchgeführt",
+    "detail": "<0>{{count}} Bilder</0> / {{size}}MB",
+    "upload_now": "Jetzt hochladen",
+    "upload_later": "Später hochladen"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "Hochladen",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "Keine Aufnahme zum Hochladen gefunden",
+      "description": "Zum Hochladen müssen Sie über den Abschnitt „Aufnahme“ fotografieren. Ihr Filmmaterial wird hier angezeigt."
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "Fotos hochladen",
+    "subtitle": "Hier können Sie Bilder hochladen.",
+    "image_count": "{{count}} Bilder",
+    "are_you_sure": "Bist du sicher?",
+    "delete_capture": "Aufnahme löschen",
+    "delete_message": "Möchten Sie Ihre Aufnahme löschen?",
+    "yes": "Ja",
+    "no": "NEIN",
+    "start_upload": "Upload starten",
+    "is_cellular_data": "Sind Sie sicher, dass Sie über Mobilfunkdaten senden möchten?",
+    "you_cancelled_upload": "Sie haben den Upload abgebrochen",
+    "sequences_deleted": "Sequenzen gelöscht",
+    "upload_completed": "Hochladen abgeschlossen",
+    "upload_failed": "Upload fehlgeschlagen",
+    "no_address": "Keine Adresse",
+    "point": "~<0>{{count}}</0> Punkte",
+    "clear_selections": "Klare Auswahl",
+    "delete": "Löschen",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "Barrierefreie Welt",
+      "description": "Im Zentrum von New York oder in einem Dorf in Afrika. Tragen Sie zu Karten bei und machen Sie mit jeder Aufnahme das Leben der Menschheit einfacher."
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "Tragen Sie zu unserer Umwelt bei",
+      "description": "Wir alle träumen von einer saubereren und zugänglicheren Welt. Lassen Sie uns durch unseren Beitrag zu Mapilio eine bessere Karte für alle schaffen."
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "Verkehrsproblem",
+      "description": "Wussten Sie, dass wir über 102 Stunden pro Jahr im Stau verbringen? Verluste in Höhe von 1.739 US-Dollar pro Jahr aufgrund von Kraftstoffverbrauch und verpasster Zeit."
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "Erdbeben und Notfälle",
+      "description": "Tragen Sie zur Entdeckung unerreichbarer Straßen und zum frühzeitigen Eingreifen in gesundheitliche und lebenswichtige Situationen bei, die auftreten können."
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "Individuelles Konto",
+    "organization_account": "Organisationskonto",
+    "no_feed": "Kein Feed",
+    "no_feed_desc": "Es sind keine Feeds zum Anzeigen vorhanden. Sie können einen Beitrag leisten, indem Sie jetzt mit dem Fang beginnen.",
+    "start_capture": "Starten Sie die Aufnahme",
+    "select_organization": "Organisation auswählen",
+    "images": "Bilder",
+    "uploaded": "Hochgeladen",
+    "completed": "Vollendet",
+    "processing": "wird bearbeitet",
+    "fail": "Scheitern",
+    "sequences": "Sequenzen",
+    "photos": "Fotos",
+    "roads": "Straßen",
+    "uploaded_title": "Bilder, die Sie hochgeladen haben",
+    "uploaded_subtitle": "Hier können Sie hochgeladene Bilder sehen.",
+    "image": "Bild",
+    "map": "Karte",
+    "fetch_error": "Beim Abrufen des Profils ist ein Problem aufgetreten. Bitte versuche es erneut.",
+    "no_address": "Keine Adresse"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "Melden Sie sich an, um zu sehen, was sich auf Ihrer Karte befindet.",
+    "email_username": "E-Mail Adresse oder Benutzername",
+    "password": "Passwort",
+    "login": "Anmeldung",
+    "forgot_password": "Haben Sie Ihr Passwort vergessen?",
+    "languages": "Sprachen",
+    "login_error": "Beim Server ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
+    "or": "oder",
+    "login_success": "Anmeldung erfolgreich ",
+    "error": "Es ist ein Fehler aufgetreten. Versuchen Sie es später noch einmal.",
+    "mail_error": "Sie sind kein Mitglied, da wir keinen Zugriff auf Ihre E-Mail-Adresse haben. Bitte erteilen Sie eine E-Mail-Erlaubnis oder registrieren Sie sich auf andere Weise.",
+    "enter_email": "Geben Sie bitte Ihre Email-Adresse ein."
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
+    "title": "Melden Sie sich an, um zu sehen, was sich auf Ihrer Karte befindet.",
     "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "signup": "Melden Sie sich an",
+    "name_required": "Name ist erforderlich",
+    "email_required": "E-Mailadresse wird benötigt",
+    "email_not_valid": "Bitte eine gültige Email eingeben",
+    "pass_min_character": "Das Passwort muss mindestens {{min}} Zeichen lang sein",
+    "account_created": "Ihr Konto wurde erstellt. Überprüfen Sie Ihre E-Mail-Adresse.",
+    "redirect_error": "Beim Umleiten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "policy": "Durch Klicken auf die Schaltfläche „Anmelden“ stimmen Sie unserer\n <0>Datenschutzerklärung zu</0> und <1>Allgemeine Geschäftsbedingungen</1> .",
+    "register_error": "Beim Server ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "Haben Sie Ihr Passwort vergessen?",
+    "description": "Geben Sie Ihre E-Mail-Adresse ein, die mit Ihrem Mapilio-Konto verknüpft ist. Wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+    "email": "E-Mail-Adresse",
+    "reset_link": "Link zum Zurücksetzen senden",
+    "reset_success": "Die Reset-Anfrage wurde an die E-Mail-Adresse gesendet."
   },
   "leaderboard": {
-    "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
+    "title": "Bestenliste",
+    "how_to_score": "Wie erreiche ich \nPunkte?",
+    "alltime_description": "Die 30 besten Community-Mitglieder helfen beim Wachstum von Mapilio!",
+    "users": "Benutzer",
+    "organizations": "Organisationen",
+    "fetch_error": "Beim Abrufen der Bestenliste ist ein Problem aufgetreten. Bitte versuche es erneut.",
+    "join_the_race": "Nehmen Sie am\nRennen teil",
+    "points": "Punkte",
     "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "roads": "Straßen",
+    "photos": "Fotos",
+    "challenge": "HERAUSFORDERUNG",
+    "board": "PLANKE",
+    "all_time": "Alle Zeit",
+    "this_month": "Diesen Monat",
+    "this_week": "Diese Woche",
+    "join": "Verbinden",
+    "winners_title": "Und die Gewinner von \n Mapilio"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "Ermöglicht die Erstellung weiterer Karten mit einem Datum von bis zu\n",
+    "subtitle": "Machen Sie einen positiven Einfluss auf Ihre Region, tragen Sie zu einer zuverlässigen Kartierung bei und nehmen Sie Ihre Spitzenposition in der Bestenliste ein",
+    "sequences": "Sequenzen",
+    "images": "Bilder",
+    "stop_upload": "Stoppen Sie den Upload"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "Sie haben keine Internetverbindung",
+    "description": "Sie haben keine Internetverbindung. Stellen Sie sicher, dass Ihr Mobiltelefon oder WLAN eingeschaltet ist."
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "E-Mailadresse wird benötigt",
+    "please_enter_valid_email": "Bitte eine gültige Email eingeben",
+    "password_required": "Passwort wird benötigt"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "Wie funktioniert das Punktesystem?",
+    "summary": "Messen Sie sich mit Mapilio-Mitwirkenden aus der ganzen Welt und gewinnen Sie tolle Preise!",
+    "paragraph": "<h2>Mapilio-Vergabesystem</h2> <p>\n\nEs ist möglich, bei Shootings in Mapilio Punkte zu sammeln und Preise zu gewinnen.\n\n<h3>Punktesystem</h3>\nEine globale Bestenliste ermöglicht es Ihnen, Ihre lokalen Beiträge mit denen anderer Teilnehmer zu vergleichen. Die Bestenliste wird über ein Punktesystem verfügen, das mehrere Beitragselemente berücksichtigt. Hier sind die Variablen, aus denen sich die Bewertung zusammensetzt:\n\n<h3>● Eindeutige Kilometer (UKM):</h3>\nDies ist die Gesamtentfernung der Sequenzen, die in Gebieten ohne vorherige Abdeckung beigetragen haben. Wenn Sie beispielsweise 10 km gefahren sind und für 7 km davon keine Bilder vorliegen, beträgt Ihr UKM für diese Fahrt 7 km.\n\n<h3>● Bilder:</h3>\ndie Gesamtzahl der Bilder, die der Mitwirkende während der Challenge hochgeladen hat\n\n<h3>● Teilnehmer:</h3>\nDies ist die Anzahl der Personen, die an Ihrer lokalen Challenge teilnehmen. Die Idee besteht darin, die Zusammenarbeit zu fördern und zu belohnen.\n\nDie Formel zur Berechnung der Punktzahl lautet wie folgt: Punktzahl = (Gesamtbeitrag des UKM + (Bilder/1000)) * (1 + (Anzahl der Teilnehmer/10))\n\n<h3>Denken Sie daran;</h3>\nUm sich für einen Preis zu qualifizieren, müssen Sie eine Mindestpunktzahl von 100 erreichen. Um eine Punktzahl für Ihre Aufnahmen zu erhalten, muss der Standort frei sein, die Bilder müssen bei ausreichend hellem Licht aufgenommen worden sein und die Aufnahmen dürfen nicht aufgenommen worden sein Wetterbedingungen wie Nebel, Regen oder andere Wetterbedingungen, die das Bild verzerren.\n\n\n<h3center>Jetzt können Sie mit der Eroberung beginnen, Punkte sammeln und um die Führung kämpfen.</h3center></p>",
+    "start_now_capture": "Starten Sie jetzt die Aufnahme"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
+    "summary": "Sind Sie bereit, mit <0>Mapilio Belohnungen zu sammeln?</0>",
+    "start_capture_now": "Starten Sie die Aufnahme jetzt",
+    "slogan": "<bold>Mapilio</bold> startete die erste Herausforderung.",
+    "title": "Verdienen Sie neue Geschenke, wenn Sie mehr Kilometer zurücklegen",
+    "description": "Sind Sie bereit für eine Herausforderung? Die 3 Teilnehmer, die zwischen <date>01.03.2023</date> und <date>31.05.2023</date> die meisten Punkte erzielen, gewinnen tolle Preise.",
+    "mi_pro_2_scooter": "Xiaomi-Roller",
     "gopro_9": "GoPro 360 Max",
-    "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "beats_3_headphones": "Schlägt Solo 3",
+    "content": "<title>Es ist ganz einfach, dabei zu sein.</title>\n\nErfassen Sie so viel wie möglich, sammeln Sie mehr Punkte als andere Konkurrenten und erhalten Sie Ihre Belohnung. Beim Aufnehmen gibt es einige Dinge;\n\n<bold>● Fokus auf die Straße</bold> Legen Sie den Fokus als Pfad fest, indem Sie den Bildschirm berühren.\n\n<bold>● Saubere Bilder</bold> Stellen Sie sicher, dass die Motorhaube und andere Objekte auf dem Bild nicht sichtbar sind.\n\n<bold>● Kamerarichtung</bold> Passen Sie die Position der Kamera an, um das Bild parallel zum Boden aufzunehmen.\n\n<bold>● Situationen, in denen keine Aufnahmen gemacht werden sollten</bold> Aufnahmen sollten nicht bei dunklem, regnerischem oder verschneitem Wetter gemacht werden, wenn das Bild unscharf ist.\n\n<bold>● Genauer Standort</bold> Die Standortdienste Ihres Geräts müssen aktiviert und präzise sein.",
+    "rules_of_contest": "<0>Offizielle Regeln</0> für den Wettbewerb",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "Mapilio startete die erste Herausforderung.",
+      "description": "Sie können jedes Mal gewinnen, wenn Sie mit Mapilio schießen. Sammeln Sie Punkte, nehmen Sie an den Bestenlisten teil und gewinnen Sie."
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
-      "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "map": "Karte",
+      "map_desc": "Sehen Sie Ihren aktuellen Standort, Straßen, Orte, Gebäude und andere Details in der Kartenansicht. Auch bereits erfasste Gebiete können hier beobachtet werden.",
+      "marketplace": "Marktplatz",
+      "marketplace_desc": "Für einige Bereiche haben wir spezielle Anfragen für eine Erfassung, bei der Sie im Gegenzug Bargeld oder Gutscheine verdienen können. Sie sind auf der Marktplatzseite sichtbar.",
+      "upload": "Hochladen",
+      "upload_desc": "Sind Sie mit der Aufnahme fertig? Klicken Sie dann, um alle Bilder hochzuladen.",
+      "leaderboard": "Bestenliste",
+      "leaderboard_desc": "Die Bestenliste zeigt die Punkte an, die Sie für Ihr Schießen erzielt haben, und Ihre Position in der Rangliste",
+      "capture": "Erfassen",
+      "capture_desc": "Beginnen Sie jetzt mit der Erfassung und Bereitstellung besserer Karten",
+      "next": "Nächste",
+      "done": "Erledigt"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
-      "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "angle": "Rechter Winkel",
+      "angle_desc": "Halten Sie den Kamerawinkel so, dass die Horizontlinie\nimmer entgegengesetzt und horizontal ist",
+      "startCapture": "Capture-Start",
+      "start_capture_desc": "Licht, Standort, Batterie... Alles bereit? Beginnen wir mit der Aufnahme.",
+      "tasks": "Aufgaben",
+      "tasks_desc": "Auf dem Bildschirm können Sie sehen, welche Aufgaben Sie erledigen müssen.",
+      "next": "Nächste",
+      "done": "Erledigt"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "Marktplatz",
+      "list_desc": "Hier sehen Sie die Aufnahmeanfragen in Ihrer Nähe. Im Gegenzug können Sie Bargeld oder Gutscheine verdienen.",
+      "apply": "Anwenden",
+      "apply_desc": "Sie können sich für die Anfrage bewerben, indem Sie auf die Schaltfläche „Bewerben“ klicken.",
+      "next": "Nächste",
+      "done": "Erledigt"
     },
-    "skip": "Skip"
+    "skip": "Überspringen"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "Beim Server ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
+    "token_expired": "Deine Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+    "timeout": "Der Server antwortet nicht. Bitte versuchen Sie es später noch einmal."
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "Stornieren",
+    "privacy_violation": "Datenschutzverletzung",
+    "inappropriate_content": "Unpassender Inhalt",
+    "low_quality": "Geringe Qualität",
+    "other": "Andere",
+    "report_success": "Ihr Bericht wurde erfolgreich gesendet. Notwendige Untersuchungen werden durchgeführt und Sie per E-Mail informiert.",
+    "report_error": "Beim Melden ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "Türkisch",
+    "en": "Englisch"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
-    "update": "Update",
-    "later": "Later"
+    "maintenanceMode": "Unsere Dienste befinden sich im Wartungsmodus.\nBitte laden Sie Ihre Bilder später hoch.",
+    "update_required_title": "Aktualisierung erforderlich",
+    "update_required_description": "Sie müssen die Anwendung aktualisieren, um sie weiterhin verwenden zu können.",
+    "update": "Aktualisieren",
+    "later": "Später"
   }
 }
