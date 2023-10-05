@@ -13,7 +13,7 @@ import UserInfos from '../UserInfos';
 import { CustomText, CustomTextBold } from '../../highordercomponents';
 import Badges from './Badges';
 import EmptyComponent from './EmptyComponent';
-import SkeletonList from './SkeletonList';
+import { captureException } from '@sentry/react-native';
 
 const FeedList = ({ userDetails }) => {
   const { userInformation } = useSelector((state) => state.getTokenReducer);
@@ -24,6 +24,8 @@ const FeedList = ({ userDetails }) => {
   const [totalPage, setTotalPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [gettingData, setGettingData] = useState(false);
+  const [scoreDetails, setScoreDetails] = useState(null);
+  const userid = userDetails?.id || userInformation?.id;
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
@@ -47,7 +49,6 @@ const FeedList = ({ userDetails }) => {
 
   const getData = async () => {
     setGettingData(true);
-    const userid = userDetails?.id || userInformation?.id;
     const url = `/api/user-uploads-v2?options[parameters][user_id]=${userid}&options[limit]=10&page=${page}`;
 
     try {
@@ -68,6 +69,19 @@ const FeedList = ({ userDetails }) => {
     }
   };
 
+  const getScoreData = async () => {
+    try {
+      const scoreData = await api.get(`/api/gamification/badges/${userid}`);
+      setScoreDetails(scoreData);
+    } catch (e) {
+      captureException(e, {
+        tags: {
+          functionName: 'getScoreData',
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     getData()
       .then(({ data }) => {
@@ -76,6 +90,8 @@ const FeedList = ({ userDetails }) => {
       })
       .catch(() => toast.show(t('fetch_error'), { type: 'error' }))
       .finally(() => setGettingData(false));
+
+    getScoreData();
   }, []);
 
   const nextPage = async () => {
@@ -88,7 +104,7 @@ const FeedList = ({ userDetails }) => {
       .finally(() => setGettingData(false));
   };
 
-  if (loading) {
+  if (loading || !scoreDetails) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size={'large'} />
@@ -97,10 +113,9 @@ const FeedList = ({ userDetails }) => {
   }
 
   const pressHandler = (group_key, start_address, capture_time) => {
-    const userID = userDetails?.id || userInformation?.id;
     navigation.navigate(Routes.stackUserFeedDetail, {
       id: group_key,
-      user_id: userID,
+      user_id: userid,
       start_address,
       capture_time,
     });
@@ -113,7 +128,6 @@ const FeedList = ({ userDetails }) => {
   const photoURL = userDetails
     ? userDetails.user_profile_photo
     : userInformation?.user_profile_photo;
-
 
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
     return parseInt(layoutMeasurement.height + contentOffset.y) == parseInt(contentSize.height);
@@ -131,16 +145,18 @@ const FeedList = ({ userDetails }) => {
           }}
           source={{ uri: photoURL }}
         />
-        <View style={{ flexDirection: 'column', marginLeft: RFValue(10) }}>
+        <View style={styles.topBarContent}>
           <View style={{ flexDirection: 'row' }}>
-            <CustomText style={styles.welcomeTitle}>{userDetails ? "Contributor " : "Hello "}</CustomText>
+            <CustomText style={styles.welcomeTitle}>
+              {userDetails ? 'Contributor ' : 'Hello '}
+            </CustomText>
             <CustomTextBold style={styles.welcomeTitle}>{display_name}</CustomTextBold>
           </View>
           <CustomText style={styles.welcomeDesc}>
             Your Mapilio map looks very colorful{' '}
             <Image
               source={require('../../assets/images/walkthrough/party.png')}
-              style={{ width: RFValue(13), height: RFValue(13), resizeMode: 'cover' }}
+              style={styles.topBarImage}
             />
           </CustomText>
         </View>
@@ -149,7 +165,7 @@ const FeedList = ({ userDetails }) => {
       <Animated.ScrollView
         scrollEventThrottle={16}
         onScroll={(e) => {
-          if (data?.length > 2) {
+          if (data?.length > 3) {
             Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
               useNativeDriver: false,
             })(e);
@@ -160,10 +176,10 @@ const FeedList = ({ userDetails }) => {
         }}>
         <Animated.View
           style={[{ transform: [{ translateY: scaleSize }], opacity: opacityInterpolate }]}>
-          <UserInfos userDetails={userDetails} />
+          <UserInfos userDetails={userDetails} scoreDetails={scoreDetails} />
         </Animated.View>
 
-       {!userDetails && <Badges  />  }
+        {!userDetails && <Badges badgeDetails={scoreDetails?.badges} />}
 
         <CustomTextBold style={styles.sectionTitle}>{t('Feeds')}</CustomTextBold>
 

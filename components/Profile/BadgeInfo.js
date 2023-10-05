@@ -6,7 +6,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 const BadgeInfo = ({ badgeDetails }) => {
   return (
     <BottomSheetView style={styles.wrapper}>
-      <Image source={{ uri: badgeDetails.icon }} style={styles.imageWrapper} />
+      <Image source={{ uri: badgeDetails?.icon }} style={styles.imageWrapper} />
       <CustomTextBold style={styles.title}>{badgeDetails?.title}</CustomTextBold>
       <CustomText style={styles.description}>{badgeDetails?.info}</CustomText>
     </BottomSheetView>
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'column',
     paddingHorizontal: RFValue(20),
-    paddingTop: RFValue(20),
+    paddingTop: RFValue(15),
     justifyContent: 'flex-start',
     alignItems: 'center',
   },

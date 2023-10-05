@@ -1,4 +1,4 @@
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, View } from 'react-native';
 import { CustomText, CustomTextBold, CustomTextMedium } from '../highordercomponents';
 import { useSelector } from 'react-redux';
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
@@ -8,12 +8,11 @@ import {
   CameraFilledIcon,
   ProfileBackground,
   RoadIcon,
-  OpenStreetMap,
 } from '../assets/svg/illustrations';
 import { thousandFormatter } from '../helper/helper';
 import { StyleSheet } from 'react-native';
 
-const UserInfos = ({ userDetails }) => {
+const UserInfos = ({ userDetails, scoreDetails }) => {
   const { userInformation } = useSelector((state) => state.getTokenReducer);
 
   if (!userInformation && !userDetails) return null;
@@ -23,18 +22,21 @@ const UserInfos = ({ userDetails }) => {
     : userInformation.user_profile_photo;
   const photos = userDetails ? userDetails.photos : userInformation.photos;
   const roads = userDetails ? userDetails.km : userInformation.meters;
+  const scorePercent = scoreDetails?.next?.percentage;
+  const percentColor = scoreDetails?.next?.badge?.color_code;
 
   return (
     <View style={styles.profileContainer}>
       <ProfileBackground />
       <View style={styles.profileImageWrapper}>
         <Image style={styles.profileImage} source={{ uri: photoURL }} />
-        <AnimatedCircle value={90} width={RFValue(105)} height={RFValue(105)} />
+        <AnimatedCircle value={scorePercent > 100 ? 100: scorePercent} width={RFValue(105)} height={RFValue(105)} color={percentColor} />
+        <Image style={styles.badgeIcon} source={{ uri: scoreDetails?.next?.badge?.icon }} />
       </View>
 
       <View style={styles.scoreWrapper}>
         <CustomText style={styles.scoreText}>Score</CustomText>
-        <CustomTextBold style={styles.pointsText}>850 pts</CustomTextBold>
+        <CustomTextBold style={styles.pointsText}>{scoreDetails?.point}</CustomTextBold>
       </View>
 
       <View style={styles.statsWrapper}>
@@ -53,20 +55,6 @@ const UserInfos = ({ userDetails }) => {
         </CustomTextMedium>
         </View>
       </View>
-
-     {/*  <View style={styles.socialWrapper}>
-        <View style={styles.rankWrapper}>
-          <CustomText style={styles.rankTitle}>Leaderboard Rank</CustomText>
-          <CustomTextBold style={styles.rankDesc}>#12</CustomTextBold>
-        </View>
-
-        <View style={styles.osmWrapper}>
-          <OpenStreetMap fill="#808080" width={RFValue(16)} />
-          <TouchableOpacity onPress={() => {}} style={styles.osmButton}>
-            <CustomText style={styles.osmText}>OSM Profile</CustomText>
-          </TouchableOpacity>
-        </View>
-      </View> */}
     </View>
   );
 };
@@ -81,12 +69,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: RFValue(110),
+    width: RFValue(135),
   },
   profileImage: {
     borderRadius: RFPercentage(50),
     resizeMode: 'cover',
     width: RFValue(85),
     height: RFValue(85),
+  },
+  badgeIcon: {
+    position: 'absolute',
+    resizeMode: 'contain',
+    width: RFValue(45),
+    height: RFValue(45),
+    bottom: RFValue(15),
+    right: 0,
   },
   scoreWrapper: {
     flexDirection: 'row',
@@ -123,36 +120,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#DCDCDC',
     marginHorizontal: 10,
   },
-/*   socialWrapper: {
-    marginTop: RFValue(10),
-    width: '85%',
-  },
-  rankWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: RFValue(10),
-  },
-  osmWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  osmButton: {
-    borderWidth: RFValue(1),
-    width: RFValue(80),
-    alignItems: 'center',
-    padding: RFValue(3),
-    borderRadius: RFValue(10),
-    borderColor: '#C2C2C2',
-    backgroundColor: 'white',
-  },
-  osmText: {
-    fontSize: RFValue(10),
-    color: '#000000',
-  },
-  rankTitle: { fontSize: RFValue(13), color: '#666666' },
-  rankDesc: { fontSize: RFValue(13), color: '#000000' }, */
 });
 
 export default UserInfos;
