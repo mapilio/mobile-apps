@@ -65,15 +65,15 @@
     "about": "Hakkında",
     "contest_rules": "Yarışma Kuralları",
     "change_language": "Dili değiştir",
-    "mapilio": "mapilio",
-    "version": "V 1.0.2",
+    "mapilio": "Mapilio",
+    "version": "V1.0.2",
     "sign_out": "Oturumu Kapat",
     "delete_account": "Hesabı Sil"
   },
   "profile_edit": {
     "username": "Kullanıcı adı",
     "name": "İsim",
-    "bio": "Bio",
+    "bio": "Biyografi",
     "hide_my_username": "Kullanıcı adımı gizle",
     "save": "Kaydet"
   },
@@ -215,7 +215,7 @@
     "upload_failed": "Yükeleme sırasında hata oluştu",
     "no_address": "Adres bulunamadı",
     "point": "~<0>{{count}}</0>puan ",
-    "clear_selections": "Clear Selections",
+    "clear_selections": "Seçimleri Temizle",
     "delete": "Sil",
     "accessible_world": {
       "title": "Erişilebilir dünya",
@@ -341,8 +341,8 @@
     "title": "Daha fazla kilometreye ulaştıkça yeni hediyeler kazanın",
     "description": "Bir meydan okumaya hazır mısın? <date>01.03.2023</date> - <date>31.05.2023</date> tarihleri arasında en çok puan alan 3 yarışmacı büyük ödüllerin sahibi olacak.",
     "mi_pro_2_scooter": "Xiaomi Scooter",
-    "gopro_9": "GoPro 360 Max",
-    "beats_3_headphones": "Beats Solo 3",
+    "gopro_9": "GoPro 360 Maksimum",
+    "beats_3_headphones": "Solo 3'ü yener",
     "content": "<title>Katılmak çok basit</title>\n\nOlabildiğince çok çekin, diğer rakiplerinizden daha fazla puan toplayın ve ödülünüzü alın. Çekim yaparken birkaç şey vardır;\n\n<bold>● Yola Odaklanın</bold> Ekrana dokunarak odağı yol olarak ayarlayın.\n\n<bold>● Temiz Görüntüler</bold> Araç kaportasının ve diğer nesnelerin resimde görünmediğinden emin olun.\n\n<bold>● Kamera Yönü</bold> Görüntüyü yere paralel olarak kaydetmek için kameranın konumunu ayarlayın.\n\n<bold>● Çekim Yapılmaması Gereken Durumlar</bold> Karanlık, yağmurlu, karlı havalarda, görüntü bulanıkken çekim yapılmamalıdır.\n\n<bold>● Tam Konum</bold> Cihazınızın Konum Servisleri açık ve kesin olmalıdır.",
     "rules_of_contest": "Yarışma için <0>şartlar ve koşullar</0>.",
     "final_content": {
