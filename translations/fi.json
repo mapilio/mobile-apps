@@ -1,413 +1,413 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "Kartta",
+    "market": "Markkinoida",
+    "upload": "Lataa",
+    "leader": "Johtaja"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Takaisin",
+    "are_you_sure": "Oletko varma?",
+    "delete_photo": "Haluatko varmasti poistaa tämän valokuvan",
+    "yes": "Joo",
+    "no": "Ei",
+    "delete_error": "Ongelma poistettaessa! Yritä uudelleen.",
+    "delete": "Poistaa",
+    "have_not_connection": "Sinulla ei ole aktiivista Internet-yhteyttä",
+    "profile": "Profiili",
+    "profile_edit": "Profiilin muokkaus",
+    "delete_account": "Poista tili",
+    "your_uploads": "Latauksesi",
+    "upload_detail": "Lataa tiedot",
+    "sign_up": "Kirjaudu",
+    "sign_in": "Kirjaudu sisään",
+    "go_map": "Kartta",
+    "settings": "asetukset",
+    "language": "Kieli"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "Hae",
+    "recent_searches": "Viimeaikaiset haut",
+    "clear": "Asia selvä",
+    "empty_search": "Äskettäin löydetyt ja käytetyt tavarat tulevat tänne",
+    "no_results": "Ei tuloksia",
+    "another_search": "Ole hyvä ja tee uusi haku."
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "Kuvaraportti"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "Markkinapaikka",
+    "market_list": "Markkinalista",
+    "equipment": "LAITTEET",
+    "apply_project": "Hae tähän projektiin",
+    "mission_ready": "Tehtävä valmis",
+    "mission_detail": "Tietoosiosta voit oppia, mitä polkua kannattaa seurata nappaamisen aikana.",
+    "start_capture": "Käynnistä Capture",
+    "or": "tai",
+    "back_to_the": "takaisin <0>Marketplaceen</0>",
+    "far_location": "Sijaintisi on liian kaukana projektialueesta",
+    "tooltip": "Etsi tai tarjoa apua kuvien keräämiseen ja tietojen varmennusprojekteihin luodaksesi tuoreita karttatietoja paikkoihin, joissa sitä tarvitaan.",
+    "map_loading": "Markkinakartta latautuu...",
+    "soon_description": "Mapilio tarjoaa kartoitusmarkkinapaikan, josta käyttäjät voivat pyytää tiettyjen alueiden kartoitusta. Osallistujat palkitaan, ja käytettävissä on ilmainen palvelu kuvan tarkkuuden tarkistamiseksi.",
+    "very_soon": "Erittäin Pian"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "Ladataan karttaa ja vyöhykkeitä...",
+    "pano_error": "Kuvaa ladattaessa tapahtui ongelma. Yritä uudelleen.",
+    "gps_disabled": "GPS ei ole käytössä."
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
+    "profile_edit": "Profiilin muokkaus",
+    "licences": "Lisenssit",
+    "terms_and_conditions": "käyttöehdot",
+    "privacy": "Tietosuojakäytäntö",
+    "about": "Noin",
+    "contest_rules": "Kilpailun säännöt",
+    "change_language": "Vaihda kieltä",
     "mapilio": "mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "sign_out": "Kirjaudu ulos",
+    "delete_account": "Poista tili"
   },
   "profile_edit": {
-    "username": "Username",
-    "name": "Name",
+    "username": "Käyttäjätunnus",
+    "name": "Nimi",
     "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "hide_my_username": "Piilota käyttäjänimeni",
+    "save": "Tallentaa"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
+    "title": "Kiitos osallistumisestasi Mapilioon!",
+    "description": "Olemme pahoillamme, että haluat poistaa tilisi, mutta aiemmat lahjoituksesi tukevat edelleen yhteisöä.",
+    "alert_title": "Haluatko varmasti poistaa tilisi?",
+    "alert_description": "Haluatko varmasti poistaa tilisi? Tätä toimintoa ei voi kumota.",
+    "delete": "Poistaa",
+    "cancel": "Peruuttaa",
+    "delete_account": "Poista tili",
+    "login_again": "Sinun on kirjauduttava uudelleen",
+    "login_again_description": "Sinun on kirjauduttava sisään uudelleen poistaaksesi tilisi. Sinut ohjataan kirjautumissivulle.",
     "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "delete_error": "Ongelma poistettaessa! Yritä uudelleen."
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "Lataus valmis",
+    "description": "Tietojasi käsitellään... Saat ilmoituksen sähköpostitse, kun kuvasi julkaistaan Mapiliossa.",
+    "go_to_map": "Siirry karttaan"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "Ota laukaus",
+      "subtitle": "Katutasossa",
+      "description": "Ota katutason kuvia ja luo kartta."
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "Lataa kaappauksia",
+      "subtitle": "Osallistu",
+      "description": "Lataa kuvasi kerätäksesi pisteitä ja saavuttaaksesi korkean paikan tulostaulukossa."
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "Ansaitse lahjoja",
+      "subtitle": "Suorita tehtäviä",
+      "description": "Saat mahdollisuuden voittaa lahjoja tekemäsi tehtävät."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "Lisää palkintoja",
+      "subtitle": "Jatka eteenpäin",
+      "description": "Laajennamme lahjavalikoimaamme joka päivä."
     },
-    "next": "Next",
-    "skip": "Skip",
-    "start": "Start"
+    "next": "Seuraava",
+    "skip": "Ohita",
+    "start": "alkaa"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "Sieppaus on alkanut",
+    "description": "Varmista sillä välin, että kamerasi kulma on oikea ja vakaa.",
+    "safe_mode": "Virran turvatila",
+    "advanced": "Pitkälle kehittynyt",
+    "getting_ready": "Kamera valmistuu. Odota.",
+    "something_went_wrong": "Jotain meni pieleen. Yritä uudelleen.",
+    "tasks": "Tehtävät",
+    "select_mission": "Valitse Tehtävä",
+    "empty_mission_title": "Ei ole projektia, jossa olet mukana.",
+    "empty_mission_description": "Voit selata projekteja <0>Marketplacessa</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "Akun varaustaso alhainen",
+        "description": "GPS-tarkkuus heikkenee, koska lataus on alle 15 %. Tässä tapauksessa ampuminen ei ole mahdollista."
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "Väärä GPS",
+        "description": "Väärennetty GPS-käyttö on havaittu, käytä laitteen GPS-sijaintia jatkaaksesi!"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "Suuri nopeus",
+        "description": "Ylitit suurimman nopeusrajoituksen. Tarkkuuden vuoksi nopeuden tulisi olla enintään 70 km/h."
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "GPS-tarkkuus on liian alhainen",
+        "description": "Kuvaaminen jatkuu, kun GPS-hälytyskuvake muuttuu vihreäksi."
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "GPS-haku",
+        "description": "Ole avoimella alueella, jossa GPS tallentaa. Tämä prosessi voi kestää jopa 30 sekuntia."
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "Säädä kamerakulmaa",
+        "description": "Kuvaaminen jatkuu, kun kiertosi on totta."
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "Keskity tielle",
+      "description": "Aseta kohdistus poluksi koskettamalla näyttöä."
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "Puhdas kuva",
+      "description": "Varmista, että auton konepelti ja muut esineet eivät näy kuvassa."
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "Kameran suunta",
+      "description": "Säädä kameran asentoa tallentaaksesi kuvan maanpinnan suuntaisesti."
     },
-    "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "next": "Seuraava",
+    "prev": "Ed",
+    "finish": "Suorittaa loppuun"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
-    "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
+    "general_settings": "Yleiset asetukset",
+    "capture_settings": "Kaappausasetukset",
+    "distance_between": "Kuvien välinen etäisyys",
+    "camera_settings": "Kameran asetukset",
+    "remaining_images": "Otetut kuvat / jäljellä olevat kuvat",
+    "battery_level": "Akun varaustaso",
     "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "enable_low_resolution": "Ota matala resoluutio käyttöön",
+    "enable_low_resolution_desc": "Ota matalaresoluutioinen tila käyttöön parantaaksesi akun suorituskykyä ja nopeampaa kuvaamista.",
+    "settings_saved": "Kamera on käynnistettävä uudelleen, jotta muutokset tulevat voimaan."
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}km</0> Road\n-kaappaus tehtiin",
+    "detail": "<0>{{count}} kuvaa</0> / {{size}}Mt",
+    "upload_now": "Lataa nyt",
+    "upload_later": "Lataa myöhemmin"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "Lataa",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "Ladattavaa sieppausta ei löytynyt",
+      "description": "Jotta voit ladata, sinun on kuvattava \"Capture\"-osiosta. Videosi näkyvät täällä."
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "Lataa valokuvia",
+    "subtitle": "Voit ladata kuvia täältä.",
+    "image_count": "{{count}} kuvaa",
+    "are_you_sure": "Oletko varma?",
+    "delete_capture": "Poista Capture",
+    "delete_message": "Haluatko poistaa kuvakaappauksen?",
+    "yes": "Joo",
+    "no": "Ei",
+    "start_upload": "Aloita lataus",
+    "is_cellular_data": "Haluatko varmasti lähettää matkapuhelindatan kautta?",
+    "you_cancelled_upload": "Peruutit latauksen",
+    "sequences_deleted": "Jaksot poistettu",
+    "upload_completed": "Lataus valmis",
+    "upload_failed": "Lataus epäonnistui",
+    "no_address": "Ei osoitetta",
+    "point": "~<0>{{count}}</0> pts",
+    "clear_selections": "Tyhjennä valinnat",
+    "delete": "Poistaa",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "Helppokäyttöinen maailma",
+      "description": "New Yorkin keskustassa tai kylässä Afrikassa. Osallistu karttoihin ja tee ihmiskunnan elämästä helpompaa jokaisella kuvalla."
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "Osallistu ympäristöömme",
+      "description": "Me kaikki haaveilemme puhtaammasta ja helppokäyttöisemmästä maailmasta. Luodaan parempi kartta kaikille osallistumalla Mapiloon."
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "Liikenne ongelma",
+      "description": "Tiesitkö, että istumme liikenteessä yli 102 tuntia vuodessa. 1 739 dollaria vuodessa polttoaineenkulutuksesta ja poissaoloista johtuvia tappioita."
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "Maanjäristykset ja hätätilanteet",
+      "description": "Osallistu saavuttamattomien teiden löytämiseen ja varhaiseen puuttumiseen mahdollisiin terveyteen ja elintärkeisiin tilanteisiin."
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "Henkilökohtainen tili",
+    "organization_account": "Organisaation tili",
+    "no_feed": "Ei syötettä",
+    "no_feed_desc": "Näytettäviä syötteitä ei ole. Voit osallistua aloittamalla saalis nyt.",
+    "start_capture": "Käynnistä Capture",
+    "select_organization": "Valitse organisaatio",
+    "images": "kuvia",
+    "uploaded": "Ladattu",
+    "completed": "Valmis",
+    "processing": "Käsittely",
+    "fail": "Epäonnistui",
+    "sequences": "Jaksot",
+    "photos": "Kuvat",
+    "roads": "Tiet",
+    "uploaded_title": "Lataamasi kuvat",
+    "uploaded_subtitle": "Täältä näet ladatut kuvat.",
+    "image": "Kuva",
+    "map": "Kartta",
+    "fetch_error": "Profiilin noutamisessa ilmeni ongelma. Yritä uudelleen.",
+    "no_address": "Ei osoitetta"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "Kirjaudu sisään nähdäksesi mitä kartallasi on.",
+    "email_username": "Sähköpostiosoite tai käyttäjätunnus",
+    "password": "Salasana",
+    "login": "Kirjaudu sisään",
+    "forgot_password": "Unohditko salasanasi?",
+    "languages": "Kieli (kielet",
+    "login_error": "Palvelimessa tapahtui virhe. Yritä myöhemmin uudelleen.",
+    "or": "tai",
+    "login_success": "Kirjautuminen onnistui ",
+    "error": "Tapahtui virhe, yritä myöhemmin uudelleen.",
+    "mail_error": "Et ole jäsen, koska emme pääse käsiksi sähköpostiosoitteeseesi. Anna lupa sähköpostiin tai rekisteröidy muulla tavalla.",
+    "enter_email": "Anna sähköpostiosoitteesi."
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
-    "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "title": "Rekisteröidy nähdäksesi mitä kartallasi on.",
+    "name": "Nimi",
+    "email": "Sähköpostiosoite",
+    "password": "Salasana",
+    "signup": "Kirjaudu",
+    "name_required": "Nimi vaaditaan",
+    "email_required": "Sähköpostiosoite vaaditaan",
+    "email_not_valid": "Anna kelvollinen sähköpostiosoite",
+    "pass_min_character": "Salasanassa on oltava vähintään {{min}} merkkiä",
+    "account_created": "Tilisi on luotu, tarkista sähköpostiosoitteesi.",
+    "redirect_error": "Uudelleenohjauksessa tapahtui virhe. Yritä uudelleen.",
+    "policy": "Napsauttamalla \"Rekisteröidy\" -painiketta hyväksyt\n <0>tietosuojakäytäntömme</0> ja <1>käyttöehdot</1> .",
+    "register_error": "Palvelimessa tapahtui virhe. Yritä myöhemmin uudelleen."
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "Unohditko salasanasi?",
+    "description": "Kirjoita Mapilio-tiliisi yhdistetty sähköpostiosoite. Lähetämme sinulle linkin salasanan vaihtamiseen.",
+    "email": "Sähköpostiosoite",
+    "reset_link": "Lähetä nollauslinkki",
+    "reset_success": "Nollauspyyntö on lähetetty sähköpostiosoitteeseen."
   },
   "leaderboard": {
-    "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
+    "title": "Tulostaulu",
+    "how_to_score": "Kuinka saada \npisteet?",
+    "alltime_description": "30 parasta yhteisön jäsentä, jotka auttavat Mapilion kasvattamisessa!",
+    "users": "Käyttäjät",
+    "organizations": "Organisaatiot",
+    "fetch_error": "Tulostaulukon noutamisessa oli ongelma. Yritä uudelleen.",
+    "join_the_race": "liity\nkilpailuun",
+    "points": "Pisteet",
     "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "roads": "Tiet",
+    "photos": "Kuvat",
+    "challenge": "HAASTE",
+    "board": "HALLITUS",
+    "all_time": "Koko ajan",
+    "this_month": "Tässä kuussa",
+    "this_week": "Tämä viikko",
+    "join": "Liittyä seuraan",
+    "winners_title": "Ja \n Mapilion voittajat"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "Luodaan lisää\nkarttoja",
+    "subtitle": "Tee positiivinen vaikutus alueellasi, osallistu luotettavaan kartoitukseen, ota korkea asema tulostaulukossa",
+    "sequences": "Jaksot",
+    "images": "Kuvat",
+    "stop_upload": "Lopeta lataus"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "Sinulla ei ole Internet-yhteyttä",
+    "description": "Sinulla ei ole Internet-yhteyttä. Varmista, että matkapuhelimesi matkapuhelin tai wifi on päällä."
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "Sähköpostiosoite vaaditaan",
+    "please_enter_valid_email": "Anna kelvollinen sähköpostiosoite",
+    "password_required": "salasana tarvitaan"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "Miten pisteytysjärjestelmä toimii?",
+    "summary": "Kilpaile Mapilion avustajien kanssa kaikkialta maailmasta ja voita mahtavia palkintoja!",
+    "paragraph": "<h2>Mapilion palkintojärjestelmä</h2> <p>\n\nMapilion ammuksista on mahdollista kerätä pisteitä ja voittaa palkintoja\n\n<h3>Pisteytysjärjestelmä</h3>\nMaailmanlaajuisen tulostaulukon avulla voit verrata paikallisia panoksiasi muihin osallistujiin. Tulostaulukossa on pisteytysjärjestelmä, joka ottaa huomioon useita panoksen elementtejä. Tässä ovat muuttujat, jotka muodostavat pistemäärän:\n\n<h3>● Yksilölliset kilometrit (UKM):</h3>\ntämä on sekvenssien kokonaisetäisyys alueilla, joilla ei ole aiempaa kattavuutta. Jos esimerkiksi ajoit 10 kilometriä ja siitä 7 kilometriä ei ollut olemassa kuvia, UKM:si kyseiselle ajomatkalle olisi 7 kilometriä.\n\n<h3>● Kuvat:</h3>\nlähettäjän haasteen aikana lataamien kuvien kokonaismäärä\n\n<h3>● Osallistujia:</h3>\ntämä on paikalliseen haasteeseesi osallistuvien ihmisten lukumäärä. Ajatuksena on kannustaa ja palkita yhteistyötä.\n\nPistemäärän laskentakaava on seuraava: Pisteet = (UKM yhteensä + (kuvat/1000)) * (1 + (osallistujien määrä/10))\n\n<h3>Muista;</h3>\nPalkinnon saamiseksi sinun on saavutettava vähintään 100 pistettä. Jotta voit saada pisteitä kuvistasi, kuvan sijainnin on oltava selkeä, kuvien on oltava riittävän kirkkaassa valossa ja niitä ei saa olla otettu sääolosuhteet, kuten sumu, sade tai muut sääolosuhteet, jotka vääristävät kuvaa.\n\n\n<h3center>Nyt voit aloittaa vangitsemisen, kerätä pisteitä ja kilpailla johdosta.</h3center></p>",
+    "start_now_capture": "Aloita nyt Capture"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
+    "summary": "Oletko valmis keräämään palkintoa <0>Mapiliolla 🌍🏆</0>",
+    "start_capture_now": "Aloita sieppaus nyt",
+    "slogan": "<bold>Mapilio</bold> aloitti ensimmäisen haasteen.",
+    "title": "Ansaitse uusia lahjoja, kun saavutat enemmän kilometrejä",
+    "description": "Oletko valmis haasteeseen? Kolme eniten pisteitä <date></date> ja <date>31.05.2023</date> välisenä aikana kerännyt kilpailija voittaa mahtavia palkintoja.",
+    "mi_pro_2_scooter": "Xiaomi skootteri",
     "gopro_9": "GoPro 360 Max",
     "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "content": "<title>Osallistuminen on erittäin helppoa</title>\n\nOta niin paljon kuin pystyt, kerää enemmän pisteitä kuin muut kilpailijat saavat palkintosi. Kuvaamisen aikana on vähän asioita;\n\n<bold>● Tarkenna tie</bold> Aseta tarkennus poluksi koskettamalla näyttöä.\n\n<bold>● Puhtaat kuvat</bold> Varmista, että auton konepelti ja muut esineet eivät näy kuvassa.\n\n<bold>● Kameran suunta</bold> Säädä kameran asentoa tallentaaksesi kuvan maanpinnan suuntaisesti.\n\n<bold>● Tilanteet, joissa ei kannata ottaa kuvaa</bold> Kuvaamista ei saa ottaa pimeällä, sateisella tai lumisella säällä, kun kuva on epäselvä.\n\n<bold>● Tarkka sijainti</bold> Laitteesi sijaintipalveluiden on oltava päällä ja tarkkoja.",
+    "rules_of_contest": "<0>Viralliset säännöt</0> kilpailua varten",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "Mapilio aloitti ensimmäisen haasteen.",
+      "description": "Voit voittaa joka kerta, kun ammut Mapiliolla. Kerää pisteitä, kilpaile tulostaulukoissa ja voita."
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
-      "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "map": "Kartta",
+      "map_desc": "Katso nykyinen sijaintisi, tiet, paikat, rakennukset ja muut tiedot karttanäkymästä. Myös jo vangitut alueet ovat nähtävissä täällä.",
+      "marketplace": "Markkinapaikka",
+      "marketplace_desc": "Joillakin alueilla meillä on erityisiä pyyntöjä kaappaamisesta, jossa voit ansaita rahaa tai kuponkeja vastineeksi. Ne näkyvät Marketplace-sivulla.",
+      "upload": "Lataa",
+      "upload_desc": "Oletko lopettanut kuvaamisen? Napsauta sitten ladataksesi kaikki kuvat.",
+      "leaderboard": "Tulostaulu",
+      "leaderboard_desc": "Tulostaulu näyttää ampumisestasi saamasi pisteet ja sijoituksesi rankingissa",
+      "capture": "Kaapata",
+      "capture_desc": "Aloita nyt ja aloita parempien karttojen kaappaaminen ja lisääminen",
+      "next": "Seuraava",
+      "done": "Tehty"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
-      "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "angle": "Oikea kulma",
+      "angle_desc": "Pidä kamerakulma niin, että horisonttiviiva\non aina vastakkainen ja vaakasuora",
+      "startCapture": "Kaappauksen aloitus",
+      "start_capture_desc": "Valo, sijainti, akku... Kaikki valmiina? Aloitetaan kuvaaminen.",
+      "tasks": "Tehtävät",
+      "tasks_desc": "Näet tehtävät näytöllä.",
+      "next": "Seuraava",
+      "done": "Tehty"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "Markkinapaikka",
+      "list_desc": "Täältä näet alueesi kaappauspyynnöt. Voit ansaita vastineeksi käteistä tai kuponkeja.",
+      "apply": "Käytä",
+      "apply_desc": "Voit hakea hakemusta napsauttamalla Hae-painiketta.",
+      "next": "Seuraava",
+      "done": "Tehty"
     },
-    "skip": "Skip"
+    "skip": "Ohita"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "Palvelimessa tapahtui virhe. Yritä myöhemmin uudelleen.",
+    "token_expired": "Istuntosi on vanhentunut. Kirjaudu uudelleen.",
+    "timeout": "Palvelin ei vastaa. Yritä uudelleen myöhemmin."
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "Peruuttaa",
+    "privacy_violation": "Yksityisyyden loukkaus",
+    "inappropriate_content": "Sopimaton sisältö",
+    "low_quality": "Heikkolaatuinen",
+    "other": "muu",
+    "report_success": "Raporttisi on lähetetty onnistuneesti. Tarvittavat tutkimukset tehdään ja sinulle ilmoitetaan sähköpostitse.",
+    "report_error": "Raportoinnin aikana tapahtui virhe. Yritä uudelleen myöhemmin."
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "turkkilainen",
+    "en": "Englanti"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
-    "update": "Update",
-    "later": "Later"
+    "maintenanceMode": "Palvelumme ovat huoltotilassa.\nLataa kuvasi myöhemmin.",
+    "update_required_title": "Päivitys vaaditaan",
+    "update_required_description": "Sinun on päivitettävä sovellus, jotta voit jatkaa sen käyttöä.",
+    "update": "Päivittää",
+    "later": "Myöhemmin"
   }
 }
