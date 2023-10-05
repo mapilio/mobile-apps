@@ -7,7 +7,7 @@ import Animated, {
 import { RFValue } from "react-native-responsive-fontsize";
 import { Circle, Svg } from "react-native-svg";
 
-const ProgressCircle = ({ value = 0, width = 150, height = 150 }) => {
+const ProgressCircle = ({ value = 0, width = 150, height = 150, color="black" }) => {
   const progressValue = useSharedValue(1);
   const radius = width / 2 - RFValue(5);
   const circleLength = 2 * Math.PI * radius;
@@ -38,7 +38,7 @@ const ProgressCircle = ({ value = 0, width = 150, height = 150 }) => {
         cx={width / 2}
         cy={height / 2}
         r={radius}
-        stroke="#8F1AF4"
+        stroke={color}
         strokeWidth={RFValue(4)}
         fill="none"
         strokeDasharray={circleLength}
