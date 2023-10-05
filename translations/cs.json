@@ -1,413 +1,413 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "Mapa",
+    "market": "Trh",
+    "upload": "nahrát",
+    "leader": "Vůdce"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "Zadní",
+    "are_you_sure": "Jsi si jistá?",
+    "delete_photo": "Opravdu chcete tuto fotku smazat?",
+    "yes": "Ano",
+    "no": "Ne",
+    "delete_error": "Při mazání došlo k problému! Zkus to znovu.",
+    "delete": "Vymazat",
+    "have_not_connection": "Nemáte aktivní připojení k internetu",
+    "profile": "Profil",
+    "profile_edit": "Úprava profilu",
+    "delete_account": "Smazat účet",
+    "your_uploads": "Vaše nahraná videa",
+    "upload_detail": "Podrobnosti o nahrávání",
+    "sign_up": "Přihlásit se",
+    "sign_in": "Přihlásit se",
+    "go_map": "Mapa",
+    "settings": "Nastavení",
+    "language": "Jazyk"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "Vyhledávání",
+    "recent_searches": "Nedávná vyhledávání",
+    "clear": "Průhledná",
+    "empty_search": "Zde budou nedávno nalezené a použité položky",
+    "no_results": "Nebyly nalezeny žádné výsledky",
+    "another_search": "Proveďte prosím další vyhledávání."
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "Obrazová zpráva"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "Tržiště",
+    "market_list": "Seznam trhu",
+    "equipment": "ZAŘÍZENÍ",
+    "apply_project": "Přihlaste se do tohoto projektu",
+    "mission_ready": "Mise připravena",
+    "mission_detail": "Jakou cestou se při chytání vydat, se dozvíte z informační sekce.",
+    "start_capture": "Spusťte Capture",
+    "or": "nebo",
+    "back_to_the": "zpět na <0>Tržiště</0>",
+    "far_location": "Vaše poloha je příliš daleko od oblasti projektu",
+    "tooltip": "Najděte nebo nabídněte pomoc s projekty shromažďování snímků a ověřování dat, abyste mohli vytvořit nová mapová data v místech, kde jsou potřeba.",
+    "map_loading": "Mapa trhu se načítá...",
+    "soon_description": "Mapilio nabízí tržiště map, kde mohou uživatelé požádat o mapování konkrétních regionů. Přispěvatelé budou odměněni a k dispozici je bezplatná služba pro ověření přesnosti obrázků.",
+    "very_soon": "Velmi brzy"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "Načítání mapy a zón...",
+    "pano_error": "Při načítání obrázku došlo k problému. Prosím zkuste to znovu.",
+    "gps_disabled": "Vaše GPS je deaktivováno."
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
+    "profile_edit": "Úprava profilu",
+    "licences": "licence",
+    "terms_and_conditions": "Všeobecné obchodní podmínky",
+    "privacy": "Zásady ochrany osobních údajů",
+    "about": "O",
+    "contest_rules": "Pravidla soutěže",
+    "change_language": "Změnit jazyk",
     "mapilio": "mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "sign_out": "Odhlásit se",
+    "delete_account": "Smazat účet"
   },
   "profile_edit": {
-    "username": "Username",
-    "name": "Name",
+    "username": "Uživatelské jméno",
+    "name": "název",
     "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "hide_my_username": "Skrýt mé uživatelské jméno",
+    "save": "Uložit"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
+    "title": "Děkujeme za příspěvek do Mapilio!",
+    "description": "Je nám líto, že chcete smazat svůj účet, ale vaše předchozí příspěvky budou komunitu nadále podporovat.",
+    "alert_title": "Opravdu chcete smazat svůj účet?",
+    "alert_description": "Opravdu chcete smazat svůj účet? Tuto akci nelze vrátit zpět.",
+    "delete": "Vymazat",
+    "cancel": "zrušení",
+    "delete_account": "Smazat účet",
+    "login_again": "Musíte se znovu přihlásit",
+    "login_again_description": "Pro smazání účtu se musíte znovu přihlásit. Budete přesměrováni na přihlašovací stránku.",
     "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "delete_error": "Při mazání došlo k problému! Zkus to znovu."
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "Nahrávání dokončeno",
+    "description": "Vaše data se zpracovávají... Až budou vaše snímky zveřejněny na Mapilio, budete informováni e-mailem.",
+    "go_to_map": "Přejít na mapu"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "Vystřelit",
+      "subtitle": "Na úrovni ulice",
+      "description": "Zachyťte snímky na úrovni ulice a přispějte mapou."
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "Nahrát snímky",
+      "subtitle": "Přispět",
+      "description": "Nahrajte své snímky a sbírejte body a získejte vysokou pozici ve výsledkové tabulce."
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "Vydělávejte dárky",
+      "subtitle": "Dokončete mise",
+      "description": "Získejte šanci vyhrát dárky prostřednictvím úkolů, kterými přispíváte."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "Pro více odměn",
+      "subtitle": "Pohni dál",
+      "description": "Sortiment dárků každým dnem rozšiřujeme."
     },
-    "next": "Next",
-    "skip": "Skip",
+    "next": "další",
+    "skip": "Přeskočit",
     "start": "Start"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "Snímání začalo",
+    "description": "Mezitím se ujistěte, že úhel kamery je správný a stabilní.",
+    "safe_mode": "Bezpečný režim napájení",
+    "advanced": "Pokročilý",
+    "getting_ready": "Kamera se připravuje. Prosím, čekejte.",
+    "something_went_wrong": "Něco se pokazilo. Prosím zkuste to znovu.",
+    "tasks": "Úkoly",
+    "select_mission": "Vyberte Mise",
+    "empty_mission_title": "Neexistuje žádný projekt, do kterého jste zapojeni.",
+    "empty_mission_description": "Projekty můžete procházet na <0>Tržišti</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "Nízká úroveň nabití baterie",
+        "description": "Přesnost GPS se sníží, protože vaše nabití je nižší než 15 %. V tomto případě není střelba možná."
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "Falešná GPS",
+        "description": "Bylo zjištěno falešné použití GPS, pokračujte prosím pomocí GPS polohy zařízení!"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "Vysoká rychlost",
+        "description": "Překročili jste nejvyšší povolenou rychlost. Pro přesnost by vaše rychlost měla být maximálně 70 km/h."
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "Přesnost GPS je příliš nízká",
+        "description": "Snímání bude pokračovat, když se ikona výstrahy GPS změní na zelenou."
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "Vyhledávání GPS",
+        "description": "Buďte prosím v otevřeném prostoru, kde bude GPS zachycovat. Tento proces může trvat až 30 sekund."
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "Upravte úhel kamery",
+        "description": "Střelba bude pokračovat, až bude vaše rotace pravdivá."
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "Zaměřte se na cestu",
+      "description": "Nastavte zaostření jako cestu dotykem obrazovky."
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "Čistý obrázek",
+      "description": "Ujistěte se, že na obrázku nejsou vidět kapota vozidla a další předměty."
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "Směr kamery",
+      "description": "Upravte polohu kamery tak, aby byl obraz zaznamenán rovnoběžně se zemí."
     },
-    "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "next": "další",
+    "prev": "Předchozí",
+    "finish": "Dokončit"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
-    "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
+    "general_settings": "Obecné nastavení",
+    "capture_settings": "Nastavení snímání",
+    "distance_between": "Vzdálenost mezi obrázky",
+    "camera_settings": "Nastavení fotoaparátu",
+    "remaining_images": "Pořízené snímky / Zbývající snímky",
+    "battery_level": "Úroveň baterie",
     "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "enable_low_resolution": "Povolit nízké rozlišení",
+    "enable_low_resolution_desc": "Povolte režim nízkého rozlišení pro lepší výkon baterie a rychlejší fotografování.",
+    "settings_saved": "Aby se změny projevily, je třeba fotoaparát restartovat."
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}km</0> Zachycení silnice\nbylo dokončeno",
+    "detail": "<0>{{count}} obrázků</0> / {{size}}MB",
+    "upload_now": "Nahrát nyní",
+    "upload_later": "Nahrát později"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "nahrát",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "Nebyl nalezen žádný záznam k nahrání",
+      "description": "Abyste mohli nahrát, musíte střílet ze sekce 'Capture'. Zde se objeví vaše záběry."
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "Nahrát fotky",
+    "subtitle": "Zde můžete nahrávat obrázky.",
+    "image_count": "{{count}} obrázků",
+    "are_you_sure": "Jsi si jistá?",
+    "delete_capture": "Smazat snímek",
+    "delete_message": "Chcete svůj záběr smazat?",
+    "yes": "Ano",
+    "no": "Ne",
+    "start_upload": "Spusťte nahrávání",
+    "is_cellular_data": "Opravdu chcete posílat přes mobilní data?",
+    "you_cancelled_upload": "Zrušili jste nahrávání",
+    "sequences_deleted": "Sekvence smazány",
+    "upload_completed": "Nahrávání dokončeno",
+    "upload_failed": "Nahrávání selhalo",
+    "no_address": "Žádná adresa",
+    "point": "~<0>{{count}}</0> bodů",
+    "clear_selections": "Vymazat výběry",
+    "delete": "Vymazat",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "Přístupný svět",
+      "description": "V centru New Yorku nebo na vesnici v Africe. Přispějte do map a usnadněte život lidstvu každým zachycením."
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "Přispějte našemu životnímu prostředí",
+      "description": "Všichni sníme o čistším a přístupnějším světě, pojďme vytvořit lepší mapu pro každého tím, že přispějeme Mapilio."
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "Dopravní problém",
+      "description": "Věděli jste, že strávíme více než 102 hodin ročně sezením v provozu? 1 739 USD ročně na ztrátách v důsledku spotřeby paliva a promeškaného času."
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "Zemětřesení a mimořádné události",
+      "description": "Přispějte k odhalení nedosažitelných cest a včasnému zásahu do zdravotních a životně důležitých situací, které mohou nastat."
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "Osobní účet",
+    "organization_account": "Účet organizace",
+    "no_feed": "Žádné krmivo",
+    "no_feed_desc": "Nejsou k dispozici žádné zdroje k zobrazení. Můžete přispět tím, že zahájíte výlov hned teď.",
+    "start_capture": "Spusťte Capture",
+    "select_organization": "Vyberte organizaci",
+    "images": "snímky",
+    "uploaded": "Nahráno",
+    "completed": "Dokončeno",
+    "processing": "zpracovává se",
+    "fail": "Selhat",
+    "sequences": "Sekvence",
+    "photos": "Fotky",
+    "roads": "Silnice",
+    "uploaded_title": "Obrázky, které jste nahráli",
+    "uploaded_subtitle": "Zde si můžete prohlédnout nahrané obrázky.",
+    "image": "obraz",
+    "map": "Mapa",
+    "fetch_error": "Při načítání profilu došlo k problému. Prosím zkuste to znovu.",
+    "no_address": "Žádná adresa"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "Přihlaste se, abyste viděli, co je na vaší mapě.",
+    "email_username": "E-mail nebo uživatelské jméno",
+    "password": "Heslo",
+    "login": "Přihlásit se",
+    "forgot_password": "Zapomněli jste heslo?",
+    "languages": "Jazyky",
+    "login_error": "Došlo k chybě serveru, zkuste to prosím znovu později.",
+    "or": "nebo",
+    "login_success": "Přihlášení úspěšné ",
+    "error": "Došlo k chybě, zkuste to znovu později.",
+    "mail_error": "Nejste členem, protože nemáme přístup k vaší e-mailové adrese. Dejte prosím souhlas s poštou nebo se zaregistrujte jiným způsobem.",
+    "enter_email": "Prosím zadejte svou e-mailovou adresu."
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
-    "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "title": "Přihlaste se, abyste viděli, co je na vaší mapě.",
+    "name": "název",
+    "email": "Emailová adresa",
+    "password": "Heslo",
+    "signup": "Přihlásit se",
+    "name_required": "Jméno je povinné",
+    "email_required": "E-mailová adresa je povinná",
+    "email_not_valid": "Zadejte prosím platný email",
+    "pass_min_character": "Heslo musí mít alespoň {{min}} znaků",
+    "account_created": "Váš účet byl vytvořen, zkontrolujte svou e-mailovou adresu.",
+    "redirect_error": "Při přesměrování došlo k chybě, zkuste to prosím znovu.",
+    "policy": "Kliknutím na tlačítko \"Zaregistrovat se\" souhlasíte s našimi\n <0>Zásadami ochrany osobních údajů</0> a <1>Smluvní podmínky</1> .",
+    "register_error": "Došlo k chybě serveru, zkuste to prosím znovu později."
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "Zapomněli jste heslo?",
+    "description": "Zadejte svůj e-mail spojený s vaším účtem Mapilio. Zašleme vám odkaz na resetování hesla.",
+    "email": "Emailová adresa",
+    "reset_link": "Odeslat odkaz na reset",
+    "reset_success": "Žádost o reset byla odeslána na e-mailovou adresu."
   },
   "leaderboard": {
-    "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
+    "title": "Žebříček",
+    "how_to_score": "Jak dosáhnout skóre \n?",
+    "alltime_description": "30 nejlepších členů komunity, kteří pomáhají rozvíjet Mapilio!",
+    "users": "Uživatelé",
+    "organizations": "Organizace",
+    "fetch_error": "Při načítání výsledkové tabulky došlo k problému. Prosím zkuste to znovu.",
+    "join_the_race": "připojit se k závodu\n",
+    "points": "Body",
     "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "roads": "Silnice",
+    "photos": "Fotky",
+    "challenge": "VÝZVA",
+    "board": "DESKA",
+    "all_time": "Pořád",
+    "this_month": "Tento měsíc",
+    "this_week": "Tento týden",
+    "join": "Připojit",
+    "winners_title": "A vítězové \n Mapilio"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "Umožňuje vytvořit více až\ndatových map",
+    "subtitle": "Udělejte pozitivní dopad ve vašem regionu, přispějte ke spolehlivému mapování, zaujměte svou vysokou pozici ve výsledkové tabulce",
+    "sequences": "Sekvence",
+    "images": "snímky",
+    "stop_upload": "Zastavit nahrávání"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "Nemáte připojení k internetu",
+    "description": "Nemáte připojení k internetu. Ujistěte se, že máte zapnutý mobilní telefon nebo Wi-Fi."
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "E-mailová adresa je povinná",
+    "please_enter_valid_email": "Zadejte prosím platný email",
+    "password_required": "Je vyžadováno heslo"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "Jak funguje bodovací systém?",
+    "summary": "Soutěžte s přispěvateli Mapilio z celého světa a vyhrajte skvělé ceny!",
+    "paragraph": "<h2>Systém ocenění Mapilio</h2> <p>\n\nJe možné sbírat body ze střeleb v Mapiliu a vyhrávat ceny\n\n<h3>Systém bodování</h3>\nGlobální žebříček vám umožní porovnat vaše místní příspěvky s ostatními účastníky. Žebříček bude mít bodovací systém, který bude brát v úvahu více prvků příspěvku. Zde jsou proměnné, které tvoří skóre:\n\n<h3>● Jedinečné kilometry (UKM):</h3>\ntoto je celková vzdálenost sekvencí přidaných v oblastech bez předchozího pokrytí. Pokud jste například jeli 10 km a 7 km z toho nemělo žádné snímky, vaše UKM pro tuto jízdu by bylo 7 km.\n\n<h3>● Obrázky:</h3>\ncelkový počet obrázků, které přispěvatel nahrál během výzvy\n\n<h3>● Účastníci:</h3>\ntoto je počet lidí, kteří se účastní vaší místní výzvy. Cílem je podpořit a odměnit spolupráci.\n\nVzorec pro výpočet skóre je následující: Skóre = (celkový příspěvek UKM + (obrázky/1000)) * (1 + (počet účastníků/10))\n\n<h3>Pamatujte;</h3>\nAbyste měli nárok na cenu, musíte dosáhnout minimálního skóre 100. Abyste získali skóre ze svých záběrů, musí být jasné místo, snímky musí být pořízeny v dostatečně jasném světle a nesmějí být pořízeny v povětrnostní podmínky, jako je mlha, déšť nebo jiné povětrnostní podmínky, které zkreslují obraz.\n\n\n<h3center>Nyní můžete začít chytat, sbírat body a soutěžit o vedení.</h3center></p>",
+    "start_now_capture": "Začněte nyní Capture"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
+    "summary": "Jste připraveni sbírat odměnu s <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Začněte natáčet hned",
+    "slogan": "<bold>Mapilio</bold> zahájil první výzvu.",
+    "title": "Získejte nové dárky, když dosáhnete více kilometrů",
+    "description": "Jste připraveni na výzvu? 3 soutěžící, kteří získají nejvíce bodů mezi <date>01.03.2023</date> a <date>31.05.2023</date> , vyhrají skvělé ceny.",
+    "mi_pro_2_scooter": "Koloběžka Xiaomi",
     "gopro_9": "GoPro 360 Max",
     "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "content": "<title>Zúčastnit se je velmi jednoduché</title>\n\nZachyťte co nejvíce, nasbírejte více bodů, než ostatní soutěžící dostanou vaši odměnu. Při zachycování je málo věcí;\n\n<bold>● Zaostřete na cestu</bold> Dotykem obrazovky nastavte zaostření jako cestu.\n\n<bold>● Vyčistit snímky</bold> Ujistěte se, že na snímku nejsou vidět kapota vozidla a jiné předměty.\n\n<bold>● Směr kamery</bold> Upravte polohu kamery tak, aby byl obraz zaznamenán rovnoběžně se zemí.\n\n<bold>● Situace, které by se neměly fotit</bold> Fotografování by nemělo být prováděno za tmavého, deštivého nebo sněhového počasí, kdy je snímek rozmazaný.\n\n<bold>● Přesná poloha</bold> Služby určování polohy vašeho zařízení musí být zapnuté a přesné.",
+    "rules_of_contest": "<0>Oficiální pravidla</0> pro soutěž",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "Mapilio zahájil první výzvu.",
+      "description": "Můžete vyhrát pokaždé, když střílíte s Mapilio. Sbírejte body, soutěžíte v žebříčcích a vyhrajte."
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
-      "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "map": "Mapa",
+      "map_desc": "Podívejte se na svou aktuální polohu, silnice, místa, budovy a další podrobnosti na mapě. Také zde lze pozorovat již zachycené oblasti.",
+      "marketplace": "Tržiště",
+      "marketplace_desc": "Pro některé oblasti máme speciální požadavky na zachycení, kde můžete na oplátku vydělat peníze nebo kupony. Jsou viditelné na stránce Marketplace.",
+      "upload": "nahrát",
+      "upload_desc": "Už jste skončili s natáčením? Poté kliknutím nahrajte všechny snímky.",
+      "leaderboard": "Žebříček",
+      "leaderboard_desc": "Žebříček ukazuje body, které jste získali za střelbu, a vaši pozici v žebříčku",
+      "capture": "Zachyťte",
+      "capture_desc": "Začněte hned a začněte pořizovat a přispívat lepšími mapami",
+      "next": "další",
+      "done": "Hotovo"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
-      "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "angle": "Pravý úhel",
+      "angle_desc": "Udržujte úhel kamery tak, aby čára horizontu\nbyla vždy protilehlá a vodorovná",
+      "startCapture": "Spustit snímání",
+      "start_capture_desc": "Světlo, umístění, baterie... Vše připraveno? Začněme chytat.",
+      "tasks": "Úkoly",
+      "tasks_desc": "Na obrazovce vidíte úkoly, které musíte udělat.",
+      "next": "další",
+      "done": "Hotovo"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "Tržiště",
+      "list_desc": "Zde můžete vidět požadavky na odchyt ve vaší oblasti. Na oplátku můžete získat hotovost nebo kupony.",
+      "apply": "Aplikovat",
+      "apply_desc": "Žádost můžete podat kliknutím na tlačítko Použít.",
+      "next": "další",
+      "done": "Hotovo"
     },
-    "skip": "Skip"
+    "skip": "Přeskočit"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "Došlo k chybě serveru, zkuste to prosím znovu později.",
+    "token_expired": "Vaše relace vypršela. Přihlaste se prosím znovu.",
+    "timeout": "Server neodpovídá. Prosím zkuste to znovu později."
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "zrušení",
+    "privacy_violation": "Porušení soukromí",
+    "inappropriate_content": "Nevhodný obsah",
+    "low_quality": "Nízká kvalita",
+    "other": "jiný",
+    "report_success": "Vaše hlášení bylo úspěšně odesláno. Budou provedena nezbytná šetření a budete informováni e-mailem.",
+    "report_error": "Při hlášení došlo k chybě. Prosím zkuste to znovu později."
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "turečtina",
+    "en": "Angličtina"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
-    "update": "Update",
-    "later": "Later"
+    "maintenanceMode": "Naše služby jsou v režimu údržby.\nNahrajte své snímky později.",
+    "update_required_title": "Je vyžadována aktualizace",
+    "update_required_description": "Chcete-li aplikaci nadále používat, musíte ji aktualizovat.",
+    "update": "Aktualizace",
+    "later": "Později"
   }
 }
