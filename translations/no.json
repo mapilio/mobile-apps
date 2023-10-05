@@ -1,0 +1,413 @@
+{
+  "tab": {
+    "map": "Kart",
+    "market": "Marked",
+    "upload": "Laste opp",
+    "leader": "Leder"
+  },
+  "navigation": {
+    "back": "Tilbake",
+    "are_you_sure": "Er du sikker?",
+    "delete_photo": "Er du sikker på at du vil slette dette bildet",
+    "yes": "Ja",
+    "no": "Nei",
+    "delete_error": "Det oppsto et problem under slettingen! Prøv igjen.",
+    "delete": "Slett",
+    "have_not_connection": "Du har ikke en aktiv internettforbindelse",
+    "profile": "Profil",
+    "profile_edit": "Rediger profil",
+    "delete_account": "Slett konto",
+    "your_uploads": "Dine opplastinger",
+    "upload_detail": "Last opp detalj",
+    "sign_up": "Melde deg på",
+    "sign_in": "Logg inn",
+    "go_map": "Kart",
+    "settings": "Innstillinger",
+    "language": "Språk"
+  },
+  "search": {
+    "search": "Søk",
+    "recent_searches": "Nylige søk",
+    "clear": "Klar",
+    "empty_search": "Nylig funnet og brukte varer vil være her",
+    "no_results": "Ingen resultater",
+    "another_search": "Vennligst foreta et nytt søk."
+  },
+  "panorama": {
+    "image_report": "Bilderapport"
+  },
+  "marketplace": {
+    "marketplace": "Markedsplass",
+    "market_list": "Markedsliste",
+    "equipment": "UTSTYR",
+    "apply_project": "Søk på dette prosjektet",
+    "mission_ready": "Oppdrag klar",
+    "mission_detail": "Du kan lære hvilken vei du skal følge mens du fanger fra informasjonsdelen.",
+    "start_capture": "Start Capture",
+    "or": "eller",
+    "back_to_the": "tilbake til <0>markedsplassen</0>",
+    "far_location": "Plasseringen din er for langt fra prosjektområdet",
+    "tooltip": "Finn eller tilby hjelp til prosjekter for bildeinnsamling og dataverifisering for å lage ferske kartdata på steder der det er nødvendig.",
+    "map_loading": "Markedskartet lastes inn...",
+    "soon_description": "Mapilio tilbyr en kartmarkedsplass hvor brukere kan be om kartlegging av spesifikke regioner. Bidragsytere vil bli belønnet, og det er en gratis tjeneste for å bekrefte bildenøyaktighet.",
+    "very_soon": "Veldig snart"
+  },
+  "map": {
+    "map_loading": "Laster inn kart og soner...",
+    "pano_error": "Det oppsto et problem under innlasting av bildet. Vær så snill, prøv på nytt.",
+    "gps_disabled": "GPS-en din er deaktivert."
+  },
+  "profile_settings": {
+    "profile_edit": "Rediger profil",
+    "licences": "Lisenser",
+    "terms_and_conditions": "Betingelser og vilkår",
+    "privacy": "Personvernerklæring",
+    "about": "Om",
+    "contest_rules": "Konkurranseregler",
+    "change_language": "Skifte språk",
+    "mapilio": "mapilio",
+    "version": "V 1.0.2",
+    "sign_out": "Logg ut",
+    "delete_account": "Slett konto"
+  },
+  "profile_edit": {
+    "username": "Brukernavn",
+    "name": "Navn",
+    "bio": "Bio",
+    "hide_my_username": "Skjul brukernavnet mitt",
+    "save": "Lagre"
+  },
+  "delete_account": {
+    "title": "Takk for at du bidrar til Mapilio!",
+    "description": "Vi beklager at du ønsker å slette kontoen din, men dine tidligere bidrag vil fortsatt støtte fellesskapet.",
+    "alert_title": "Er du sikker på at du vil slette kontoen din?",
+    "alert_description": "Er du sikker på at du vil slette kontoen din? Denne handlingen kan ikke angres.",
+    "delete": "Slett",
+    "cancel": "Avbryt",
+    "delete_account": "Slett konto",
+    "login_again": "Du må logge på igjen",
+    "login_again_description": "Du må logge på igjen for å slette kontoen din. Du vil bli omdirigert til påloggingssiden.",
+    "ok": "OK",
+    "delete_error": "Det oppsto et problem under slettingen! Prøv igjen."
+  },
+  "upload_complete": {
+    "title": "Opplasting fullført",
+    "description": "Dine data blir behandlet... Du vil bli varslet via e-post når bildene dine publiseres på Mapilio.",
+    "go_to_map": "Gå til kart"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "Gjør et forsøk",
+      "subtitle": "På gateplan",
+      "description": "Ta bilder på gatenivå og bidra med kartet."
+    },
+    "second": {
+      "title": "Last opp opptak",
+      "subtitle": "Bidra",
+      "description": "Last opp bildene dine for å samle poeng og få en høy plassering på ledertavlen."
+    },
+    "third": {
+      "title": "Tjen gaver",
+      "subtitle": "Fullfør oppdrag",
+      "description": "Få en sjanse til å vinne gaver gjennom oppgavene du bidrar med."
+    },
+    "fourth": {
+      "title": "For flere belønninger",
+      "subtitle": "Gå videre",
+      "description": "Vi utvider gaveutvalget vårt hver dag."
+    },
+    "next": "Neste",
+    "skip": "Hopp over",
+    "start": "Start"
+  },
+  "camera": {
+    "title": "Opptaket har startet",
+    "description": "I mellomtiden må du sørge for at vinkelen på kameraet er riktig og stabil.",
+    "safe_mode": "Strømsikker modus",
+    "advanced": "Avansert",
+    "getting_ready": "Kameraet gjør seg klart. Vennligst vent.",
+    "something_went_wrong": "Noe gikk galt. Vær så snill, prøv på nytt.",
+    "tasks": "Oppgaver",
+    "select_mission": "Velg Oppdrag",
+    "empty_mission_title": "Det er ikke noe prosjekt du er involvert i.",
+    "empty_mission_description": "Du kan bla gjennom prosjekter på <0>Marketplace</0>",
+    "warning": {
+      "battery": {
+        "title": "Lavt batterinivå",
+        "description": "GPS-nøyaktigheten vil reduseres fordi ladningen din er under 15 %. I dette tilfellet er det ikke mulig å skyte."
+      },
+      "mocked": {
+        "title": "Falsk GPS",
+        "description": "Falsk GPS-bruk er oppdaget. Bruk enhetens GPS-posisjon for å fortsette!"
+      },
+      "speed": {
+        "title": "Høy hastighet",
+        "description": "Du har overskredet den høye fartsgrensen. For presisjon bør hastigheten din være maksimalt 70 km/t."
+      },
+      "bad_gps": {
+        "title": "GPS-nøyaktigheten er for lav",
+        "description": "Opptaket fortsetter når GPS-varselikonet blir grønt."
+      },
+      "gps": {
+        "title": "GPS-søking",
+        "description": "Vær i det åpne området der GPS-en vil fange opp. Denne prosessen kan ta opptil 30 sekunder."
+      },
+      "angle": {
+        "title": "Juster kameravinkelen",
+        "description": "Skyting vil fortsette når rotasjonen din er sann."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Fokuser veien",
+      "description": "Angi fokus som banen ved å berøre skjermen."
+    },
+    "second": {
+      "title": "Rent bilde",
+      "description": "Pass på at kjøretøyets panser og andre gjenstander ikke er synlige på bildet."
+    },
+    "third": {
+      "title": "Kameraretning",
+      "description": "Juster posisjonen til kameraet for å ta opp bildet parallelt med bakken."
+    },
+    "next": "Neste",
+    "prev": "Forrige",
+    "finish": "Bli ferdig"
+  },
+  "camera_settings": {
+    "general_settings": "Generelle innstillinger",
+    "capture_settings": "Capture Settings",
+    "distance_between": "Avstand mellom bilder",
+    "camera_settings": "Kamerainnstillinger",
+    "remaining_images": "Ta bilder / Gjenværende bilder",
+    "battery_level": "Batterinivå",
+    "ok": "OK",
+    "enable_low_resolution": "Aktiver lav oppløsning",
+    "enable_low_resolution_desc": "Aktiver lavoppløsningsmodus for bedre batteriytelse og raskere fotografering.",
+    "settings_saved": "Kameraet må startes på nytt for at endringene skal tre i kraft."
+  },
+  "capture_completed": {
+    "title": "<0>{{distance}}km</0> Vei\nfangst ble fullført",
+    "detail": "<0>{{count}} bilder</0> / {{size}}MB",
+    "upload_now": "Last opp nå",
+    "upload_later": "Last opp senere"
+  },
+  "upload": {
+    "upload": "Laste opp",
+    "no_data": {
+      "title": "Fant ingen opptak å laste opp",
+      "description": "For å laste opp, må du ta bilder fra \"Capture\"-delen. Opptaket ditt vises her."
+    },
+    "title": "Last opp bilder",
+    "subtitle": "Du kan laste opp bilder herfra.",
+    "image_count": "{{count}} bilder",
+    "are_you_sure": "Er du sikker?",
+    "delete_capture": "Slett Capture",
+    "delete_message": "Vil du slette opptak?",
+    "yes": "Ja",
+    "no": "Nei",
+    "start_upload": "Start opplasting",
+    "is_cellular_data": "Er du sikker på at du vil sende via mobildata?",
+    "you_cancelled_upload": "Du kansellerte opplastingen",
+    "sequences_deleted": "Sekvenser slettet",
+    "upload_completed": "Opplasting fullført",
+    "upload_failed": "Opplasting mislyktes",
+    "no_address": "Ingen adresse",
+    "point": "~<0>{{count}}</0> pkt",
+    "clear_selections": "Fjern valg",
+    "delete": "Slett",
+    "accessible_world": {
+      "title": "Tilgjengelig verden",
+      "description": "I sentrum av New York eller i en landsby i Afrika. Bidra til kart og gjør livet enklere for menneskeheten med hver fangst."
+    },
+    "contribute_to_our_environment": {
+      "title": "Bidra til miljøet vårt",
+      "description": "Vi drømmer alle om en renere og tilgjengelig verden. La oss lage bedre kart for alle ved å bidra med Mapilio."
+    },
+    "traffic_problem": {
+      "title": "Trafikkproblem",
+      "description": "Visste du at vi bruker over 102 timer per år på å sitte i trafikken. $1 739 per år i tap på grunn av drivstofforbruk og tapt tid."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Jordskjelv og nødsituasjoner",
+      "description": "Bidra til oppdagelse av uoppnåelige veier og tidlig innsats i helse- og vitale situasjoner som kan oppstå."
+    }
+  },
+  "profile": {
+    "individual_account": "Individuell konto",
+    "organization_account": "Organisasjonskonto",
+    "no_feed": "Ingen feed",
+    "no_feed_desc": "Det er ingen feeder å vise. Du kan bidra ved å starte fangsten nå.",
+    "start_capture": "Start Capture",
+    "select_organization": "Velg organisasjon",
+    "images": "Bilder",
+    "uploaded": "Lastet opp",
+    "completed": "Fullført",
+    "processing": "Behandling",
+    "fail": "Mislykket",
+    "sequences": "Sekvenser",
+    "photos": "Bilder",
+    "roads": "Veier",
+    "uploaded_title": "Bilder du lastet opp",
+    "uploaded_subtitle": "Her kan du se opplastede bilder.",
+    "image": "Bilde",
+    "map": "Kart",
+    "fetch_error": "Det oppsto et problem med å hente profilen. Vær så snill, prøv på nytt.",
+    "no_address": "Ingen adresse"
+  },
+  "login": {
+    "title": "Logg på for å se hva som er på kartet ditt.",
+    "email_username": "E-post eller brukernavn",
+    "password": "Passord",
+    "login": "Logg Inn",
+    "forgot_password": "Glemt passordet?",
+    "languages": "Språk",
+    "login_error": "Det var en feil med serveren, prøv igjen senere.",
+    "or": "eller",
+    "login_success": "Vellykket innlogging ",
+    "error": "Det oppsto en feil, prøv igjen senere.",
+    "mail_error": "Du er ikke medlem fordi vi ikke får tilgang til e-postadressen din. Gi mailtillatelse eller registrer deg på en annen måte.",
+    "enter_email": "Vennligst skriv inn E-postadressen din."
+  },
+  "register": {
+    "title": "Registrer deg for å se hva som er på kartet ditt.",
+    "name": "Navn",
+    "email": "Epostadresse",
+    "password": "Passord",
+    "signup": "Melde deg på",
+    "name_required": "Navn er påkrevd",
+    "email_required": "E-postadresse er påkrevd",
+    "email_not_valid": "Vennligst skriv inn gyldig e-post",
+    "pass_min_character": "Passordet må være på minst {{min}} tegn",
+    "account_created": "Kontoen din er opprettet, sjekk e-postadressen din.",
+    "redirect_error": "Det oppsto en feil under omdirigering. Prøv igjen.",
+    "policy": "Ved å klikke på \"Registrer deg\"-knappen godtar du vår\n <0>Personvernerklæring</0> og <1>Vilkår og betingelser</1> .",
+    "register_error": "Det var en feil med serveren, prøv igjen senere."
+  },
+  "forgot": {
+    "title": "Glemt passordet?",
+    "description": "Skriv inn e-postadressen din knyttet til Mapilio-kontoen din. Vi sender deg en lenke for å tilbakestille passordet ditt.",
+    "email": "Epostadresse",
+    "reset_link": "Send tilbakestillingslink",
+    "reset_success": "Tilbakestillingsforespørselen er sendt til e-postadressen."
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "how_to_score": "Hvordan \nscore?",
+    "alltime_description": "Topp 30 fellesskapsmedlemmer som hjelper til med å vokse Mapilio!",
+    "users": "Brukere",
+    "organizations": "Organisasjoner",
+    "fetch_error": "Det oppsto et problem med å hente Leaderboard. Vær så snill, prøv på nytt.",
+    "join_the_race": "bli med i\n-løpet",
+    "points": "Poeng",
+    "points_short": "Pt",
+    "roads": "Veier",
+    "photos": "Bilder",
+    "challenge": "UTFORDRING",
+    "board": "BORDE",
+    "all_time": "Hele tiden",
+    "this_month": "Denne måneden",
+    "this_week": "Denne uka",
+    "join": "Bli med",
+    "winners_title": "Og vinnerne av \n Mapilio"
+  },
+  "upload_modal": {
+    "title": "La oss lage flere\nkart",
+    "subtitle": "Gjør en positiv innvirkning i din region, Bidra til pålitelig kartlegging, Ta din høye plassering på ledertavlen",
+    "sequences": "Sekvenser",
+    "images": "Bilder",
+    "stop_upload": "Stopp opplasting"
+  },
+  "no_internet": {
+    "title": "Du har ikke internettforbindelse",
+    "description": "Du har ikke internettforbindelse. Sørg for at mobilnettet eller wifi er slått på."
+  },
+  "form": {
+    "email_required": "E-postadresse er påkrevd",
+    "please_enter_valid_email": "Vennligst skriv inn gyldig e-post",
+    "password_required": "Passord er påkrevd"
+  },
+  "how_to_score": {
+    "title": "Hvordan fungerer poengsystemet?",
+    "summary": "Konkurrer med Mapilio-bidragsytere fra hele verden og vinn flotte premier!",
+    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nDet er mulig å samle poeng fra skyting i Mapilio og vinne premier\n\n<h3>Poengsystem</h3>\nEn global ledertavle vil tillate deg å sammenligne dine lokale bidrag med andre deltakere. Leaderboardet vil ha et poengsystem som tar hensyn til flere elementer av bidrag. Her er variablene som utgjør poengsummen:\n\n<h3>● Unike kilometer (UKM):</h3>\ndette er den totale avstanden til sekvenser som er bidratt i områder uten tidligere dekning. Hvis du for eksempel kjørte 10 km og 7 km av den ikke hadde eksisterende bilder, vil UKM for den kjøreturen være 7 km.\n\n<h3>● Bilder:</h3>\ntotalt antall bilder bidragsyteren har lastet opp under utfordringen\n\n<h3>● Deltakere:</h3>\ndette er antall personer som deltar i din lokale utfordring. Tanken er å oppmuntre og belønne samarbeid.\n\nFormelen for å beregne poengsummen er som følger: Poengsum = (totalt bidrag med UKM + (bilder/1000)) * (1 + (antall deltakere/10))\n\n<h3>Husk;</h3>\nFor å være kvalifisert for en premie, må du oppnå en minimumsscore på 100. For å få poengsum fra bildene dine må plasseringen være tydelig, bilder må tas i sterkt nok lys, og de må ikke ha blitt tatt inn værforhold som tåke, regn eller andre værforhold som forvrenger bildet.\n\n\n<h3center>Nå kan du begynne å fange, samle poeng og konkurrere om ledelsen.</h3center></p>",
+    "start_now_capture": "Start nå Capture"
+  },
+  "award": {
+    "summary": "Er du klar til å samle belønning med <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Start Capture Now",
+    "slogan": "<bold>Mapilio</bold> startet den første utfordringen.",
+    "title": "Tjen nye gaver etter hvert som du når flere kilometer",
+    "description": "Er du klar for en utfordring? De 3 deltakerne som scorer flest poeng mellom <date>01.03.2023</date> og <date>31.05.2023</date> vil vinne flotte premier.",
+    "mi_pro_2_scooter": "Xiaomi scooter",
+    "gopro_9": "GoPro 360 Max",
+    "beats_3_headphones": "Beats Solo 3",
+    "content": "<title>Det er veldig enkelt å delta</title>\n\nFang så mye du kan, samle flere poeng enn andre konkurrenter får belønningen din. Det er få ting når du fanger;\n\n<bold>● Fokus på veien</bold> Angi fokus som banen ved å berøre skjermen.\n\n<bold>● Rengjør bilder</bold> Sørg for at kjøretøyets panser og andre gjenstander ikke er synlige på bildet.\n\n<bold>● Kameraretning</bold> Juster posisjonen til kameraet for å ta opp bildet parallelt med bakken.\n\n<bold>● Situasjoner som ikke bør fotograferes</bold> Fotografering bør ikke gjøres i mørkt, regnfullt, snøvær, når bildet er uskarpt.\n\n<bold>● Nøyaktig plassering</bold> Plasseringstjenester på enheten må være på og presise.",
+    "rules_of_contest": "<0>Offisielle regler</0> for konkurransen",
+    "final_content": {
+      "title": "Mapilio startet den første utfordringen.",
+      "description": "Du kan vinne hver gang du skyter med Mapilio. Samle poeng, konkurrer på topplistene og vinn."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Kart",
+      "map_desc": "Se din nåværende posisjon, veier, steder, bygninger og andre detaljer på kartvisning. Også allerede fangede områder kan observeres her.",
+      "marketplace": "Markedsplass",
+      "marketplace_desc": "For noen områder har vi spesielle forespørsler om en fangst hvor du kan tjene penger eller kuponger i retur. De er synlige på Marketplace-siden.",
+      "upload": "Laste opp",
+      "upload_desc": "Er du ferdig med å fange? Klikk deretter for å laste opp alle bildene.",
+      "leaderboard": "Leaderboard",
+      "leaderboard_desc": "Leaderboard viser poengene du fikk for skytingen din og din plassering i rangeringen",
+      "capture": "Fangst",
+      "capture_desc": "Begynn nå for å begynne å fange og bidra med bedre kart",
+      "next": "Neste",
+      "done": "Ferdig"
+    },
+    "camera": {
+      "angle": "Rett vinkel",
+      "angle_desc": "Hold kameravinkelen slik at horisontlinjen\nalltid er motsatt og horisontal",
+      "startCapture": "Capture Start",
+      "start_capture_desc": "Lys, plassering, batteri... Alt klart? La oss begynne å fange.",
+      "tasks": "Oppgaver",
+      "tasks_desc": "Du kan se oppgavene du må gjøre på skjermen.",
+      "next": "Neste",
+      "done": "Ferdig"
+    },
+    "marketplace": {
+      "list": "Markedsplass",
+      "list_desc": "Her kan du se forespørslene om fangst i ditt område. Du kan tjene penger eller kuponger i retur.",
+      "apply": "Søke om",
+      "apply_desc": "Du kan søke om forespørselen ved å klikke på Søk-knappen.",
+      "next": "Neste",
+      "done": "Ferdig"
+    },
+    "skip": "Hopp over"
+  },
+  "errors": {
+    "server_error": "Det var en feil med serveren, prøv igjen senere.",
+    "token_expired": "Økten din har utløpt. Vennligst logg på igjen.",
+    "timeout": "Serveren svarer ikke. Prøv igjen senere."
+  },
+  "report": {
+    "cancel": "Avbryt",
+    "privacy_violation": "Personvernbrudd",
+    "inappropriate_content": "Upassende innhold",
+    "low_quality": "Lav kvalitet",
+    "other": "Annen",
+    "report_success": "Rapporten din er sendt. Nødvendige undersøkelser vil bli gjort og du vil bli informert på e-post.",
+    "report_error": "Det oppsto en feil under rapporteringen. Prøv igjen senere."
+  },
+  "languages": {
+    "tr": "tyrkisk",
+    "en": "Engelsk"
+  },
+  "alerts": {
+    "maintenanceMode": "Våre tjenester er i vedlikeholdsmodus.\nLast opp bildene dine senere.",
+    "update_required_title": "Oppdatering kreves",
+    "update_required_description": "Du må oppdatere applikasjonen for å fortsette å bruke den.",
+    "update": "Oppdater",
+    "later": "Seinere"
+  }
+}

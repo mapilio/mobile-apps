@@ -1,0 +1,413 @@
+{
+  "tab": {
+    "map": "지도",
+    "market": "시장",
+    "upload": "업로드",
+    "leader": "지도자"
+  },
+  "navigation": {
+    "back": "뒤쪽에",
+    "are_you_sure": "확실합니까?",
+    "delete_photo": "이 사진을 삭제하시겠습니까?",
+    "yes": "예",
+    "no": "아니요",
+    "delete_error": "삭제하는 동안 문제가 발생했습니다! 다시 시도하십시오.",
+    "delete": "삭제",
+    "have_not_connection": "인터넷에 연결되어 있지 않습니다.",
+    "profile": "프로필",
+    "profile_edit": "프로필 편집",
+    "delete_account": "계정 삭제",
+    "your_uploads": "귀하의 업로드",
+    "upload_detail": "세부정보 업로드",
+    "sign_up": "가입하기",
+    "sign_in": "로그인",
+    "go_map": "지도",
+    "settings": "설정",
+    "language": "언어"
+  },
+  "search": {
+    "search": "찾다",
+    "recent_searches": "최근 검색",
+    "clear": "분명한",
+    "empty_search": "최근에 발견하고 사용한 항목이 여기에 표시됩니다.",
+    "no_results": "검색 결과가 없습니다",
+    "another_search": "다시 검색해 보세요."
+  },
+  "panorama": {
+    "image_report": "이미지 보고서"
+  },
+  "marketplace": {
+    "marketplace": "시장",
+    "market_list": "시장 목록",
+    "equipment": "장비",
+    "apply_project": "이 프로젝트에 적용",
+    "mission_ready": "임무 준비",
+    "mission_detail": "정보 섹션에서 잡는 동안 따라야 할 경로를 배울 수 있습니다.",
+    "start_capture": "캡처 시작",
+    "or": "또는",
+    "back_to_the": "<0>마켓플레이스로 돌아가기</0>",
+    "far_location": "귀하의 위치가 프로젝트 지역에서 너무 멀습니다.",
+    "tooltip": "필요한 위치에서 새로운 지도 데이터를 생성하기 위한 이미지 수집 및 데이터 검증 프로젝트에 대한 도움을 찾거나 제공하세요.",
+    "map_loading": "시장 지도를 로드하는 중입니다...",
+    "soon_description": "Mapilio는 사용자가 특정 지역의 매핑을 요청할 수 있는 매핑 마켓플레이스를 제공합니다. 기여자에게는 보상이 제공되며 이미지 정확성을 검증하는 무료 서비스가 있습니다.",
+    "very_soon": "금방"
+  },
+  "map": {
+    "map_loading": "지도 및 구역 로드 중...",
+    "pano_error": "이미지를 로드하는 중에 문제가 발생했습니다. 다시 시도해 주세요.",
+    "gps_disabled": "GPS가 비활성화되었습니다."
+  },
+  "profile_settings": {
+    "profile_edit": "프로필 편집",
+    "licences": "라이센스",
+    "terms_and_conditions": "이용약관",
+    "privacy": "개인 정보 정책",
+    "about": "에 대한",
+    "contest_rules": "콘테스트 규칙",
+    "change_language": "언어 변경",
+    "mapilio": "마필리오",
+    "version": "브이 1.0.2",
+    "sign_out": "로그아웃",
+    "delete_account": "계정 삭제"
+  },
+  "profile_edit": {
+    "username": "사용자 이름",
+    "name": "이름",
+    "bio": "바이오",
+    "hide_my_username": "내 사용자 이름 숨기기",
+    "save": "구하다"
+  },
+  "delete_account": {
+    "title": "Mapilio에 기여해 주셔서 감사합니다!",
+    "description": "죄송합니다. 계정을 삭제하고 싶지만 이전 기여는 계속해서 커뮤니티를 지원합니다.",
+    "alert_title": "정말로 계정을 삭제하시겠습니까?",
+    "alert_description": "정말로 계정을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "delete": "삭제",
+    "cancel": "취소",
+    "delete_account": "계정 삭제",
+    "login_again": "다시 로그인해야 합니다",
+    "login_again_description": "계정을 삭제하려면 다시 로그인해야 합니다. 로그인 페이지로 리디렉션됩니다.",
+    "ok": "좋아요",
+    "delete_error": "삭제하는 동안 문제가 발생했습니다! 다시 시도하십시오."
+  },
+  "upload_complete": {
+    "title": "업로드 완료",
+    "description": "귀하의 데이터가 처리되고 있습니다... 이미지가 Mapilio에 게시되면 이메일로 알림을 받게 됩니다.",
+    "go_to_map": "지도로 이동"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "한 번 찍어보세요",
+      "subtitle": "거리 수준에서",
+      "description": "거리 수준의 이미지를 캡처하고 지도를 제공하세요."
+    },
+    "second": {
+      "title": "캡처 업로드",
+      "subtitle": "기여하다",
+      "description": "이미지를 업로드하여 포인트를 모으고 리더보드에서 높은 순위를 얻으세요."
+    },
+    "third": {
+      "title": "선물 받기",
+      "subtitle": "임무를 완료하세요",
+      "description": "기여한 작업을 통해 선물을 받을 수 있는 기회를 얻으세요."
+    },
+    "fourth": {
+      "title": "더 많은 보상을 원하시면",
+      "subtitle": "계속하다",
+      "description": "우리는 매일 선물 범위를 확장하고 있습니다."
+    },
+    "next": "다음",
+    "skip": "건너뛰다",
+    "start": "시작"
+  },
+  "camera": {
+    "title": "캡처가 시작되었습니다",
+    "description": "그동안 카메라 각도가 정확하고 안정적인지 확인하세요.",
+    "safe_mode": "전원 안전 모드",
+    "advanced": "고급의",
+    "getting_ready": "카메라가 준비 중입니다. 기다리세요.",
+    "something_went_wrong": "문제가 발생했습니다. 다시 시도해 주세요.",
+    "tasks": "작업",
+    "select_mission": "임무 선택",
+    "empty_mission_title": "귀하가 참여하고 있는 프로젝트가 없습니다.",
+    "empty_mission_description": "<0>Marketplace에서 프로젝트를 찾아볼 수 있습니다.</0>",
+    "warning": {
+      "battery": {
+        "title": "배터리 잔량이 낮음",
+        "description": "충전량이 15% 미만이므로 GPS 정확도가 감소합니다. 이 경우 촬영이 불가능합니다."
+      },
+      "mocked": {
+        "title": "가짜 GPS",
+        "description": "가짜 GPS 사용이 감지되었습니다. 계속하려면 기기의 GPS 위치를 사용하세요!"
+      },
+      "speed": {
+        "title": "고속",
+        "description": "최고 속도 제한을 초과했습니다. 정확성을 위해 속도는 최대 70km/h가 되어야 합니다."
+      },
+      "bad_gps": {
+        "title": "GPS 정확도가 너무 낮습니다.",
+        "description": "GPS 경고 아이콘이 녹색으로 바뀌면 촬영이 계속됩니다."
+      },
+      "gps": {
+        "title": "GPS 검색 중",
+        "description": "GPS가 포착할 수 있는 개방된 공간에 있어야 합니다. 이 프로세스는 최대 30초가 걸릴 수 있습니다."
+      },
+      "angle": {
+        "title": "카메라 각도를 조정하세요",
+        "description": "회전이 완료되면 촬영이 계속됩니다."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "도로에 집중하세요",
+      "description": "화면을 터치하여 초점을 경로로 설정하세요."
+    },
+    "second": {
+      "title": "깨끗한 이미지",
+      "description": "이미지에 차량 후드와 기타 물체가 보이지 않는지 확인하세요."
+    },
+    "third": {
+      "title": "카메라 방향",
+      "description": "지면과 평행하게 이미지를 기록하도록 카메라의 위치를 조정합니다."
+    },
+    "next": "다음",
+    "prev": "이전",
+    "finish": "마치다"
+  },
+  "camera_settings": {
+    "general_settings": "일반 설정",
+    "capture_settings": "캡처 설정",
+    "distance_between": "이미지 사이의 거리",
+    "camera_settings": "카메라 설정",
+    "remaining_images": "캡쳐된 이미지 / 남은 이미지",
+    "battery_level": "배터리 잔량",
+    "ok": "좋아요",
+    "enable_low_resolution": "저해상도 활성화",
+    "enable_low_resolution_desc": "더 나은 배터리 성능과 더 빠른 촬영을 위해 저해상도 모드를 활성화하세요.",
+    "settings_saved": "변경 사항을 적용하려면 카메라를 다시 시작해야 합니다."
+  },
+  "capture_completed": {
+    "title": "<0>{{distance}}</0> 로드\n점령이 완료되었습니다",
+    "detail": "<0> 이미지{{count}} 개</0> / {{size}}",
+    "upload_now": "지금 업로드",
+    "upload_later": "나중에 업로드"
+  },
+  "upload": {
+    "upload": "업로드",
+    "no_data": {
+      "title": "업로드할 캡처를 찾을 수 없습니다.",
+      "description": "업로드하려면 '캡처' 섹션에서 촬영해야 합니다. 영상이 여기에 표시됩니다."
+    },
+    "title": "사진 업로드",
+    "subtitle": "여기에서 이미지를 업로드할 수 있습니다.",
+    "image_count": "이미지 {{count}} 개",
+    "are_you_sure": "확실합니까?",
+    "delete_capture": "캡처 삭제",
+    "delete_message": "캡처를 삭제하시겠습니까?",
+    "yes": "예",
+    "no": "아니요",
+    "start_upload": "업로드 시작",
+    "is_cellular_data": "셀룰러 데이터를 통해 전송하시겠습니까?",
+    "you_cancelled_upload": "업로드를 취소했습니다.",
+    "sequences_deleted": "삭제된 시퀀스",
+    "upload_completed": "업로드 완료",
+    "upload_failed": "업로드 실패",
+    "no_address": "주소 없음",
+    "point": "~<0>{{count}}</0> 포인트",
+    "clear_selections": "선택 취소",
+    "delete": "삭제",
+    "accessible_world": {
+      "title": "접근 가능한 세계",
+      "description": "뉴욕의 중심이나 아프리카의 한 마을에 있습니다. 캡처할 때마다 지도에 기여하고 인류의 삶을 더 편리하게 만들어줍니다."
+    },
+    "contribute_to_our_environment": {
+      "title": "환경에 기여",
+      "description": "우리 모두는 더 깨끗하고 접근하기 쉬운 세상을 꿈꿉니다. Mapilio에 기여하여 모두를 위한 더 나은 지도를 만들어 봅시다."
+    },
+    "traffic_problem": {
+      "title": "교통 문제",
+      "description": "우리가 연간 102시간 이상을 교통 정체 속에서 보낸다는 사실을 알고 계셨나요? 연료 소비 및 시간 손실로 인해 연간 $1,739의 손실이 발생합니다."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "지진과 비상사태",
+      "description": "도달할 수 없는 도로를 발견하고 발생할 수 있는 건강 및 중요한 상황에 대한 조기 개입에 기여합니다."
+    }
+  },
+  "profile": {
+    "individual_account": "개인 계정",
+    "organization_account": "조직 계정",
+    "no_feed": "피드 없음",
+    "no_feed_desc": "표시할 피드가 없습니다. 지금 캐치를 시작하면 기여할 수 있습니다.",
+    "start_capture": "캡처 시작",
+    "select_organization": "조직 선택",
+    "images": "이미지",
+    "uploaded": "업로드됨",
+    "completed": "완전한",
+    "processing": "처리",
+    "fail": "실패하다",
+    "sequences": "시퀀스",
+    "photos": "사진",
+    "roads": "도로",
+    "uploaded_title": "업로드한 이미지",
+    "uploaded_subtitle": "여기에서 업로드된 사진을 볼 수 있습니다.",
+    "image": "영상",
+    "map": "지도",
+    "fetch_error": "프로필을 가져오는 중에 문제가 발생했습니다. 다시 시도해 주세요.",
+    "no_address": "주소 없음"
+  },
+  "login": {
+    "title": "지도에 무엇이 있는지 보려면 로그인하세요.",
+    "email_username": "이메일 또는 사용자 이름",
+    "password": "비밀번호",
+    "login": "로그인",
+    "forgot_password": "비밀번호를 잊어 버렸습니까?",
+    "languages": "언어",
+    "login_error": "서버에 오류가 발생했습니다. 나중에 다시 시도해 주세요.",
+    "or": "또는",
+    "login_success": "성공적 로그인 ",
+    "error": "오류가 발생했습니다. 나중에 다시 시도해 주세요.",
+    "mail_error": "귀하의 이메일 주소에 접근할 수 없기 때문에 귀하는 회원이 아닙니다. 메일 권한을 부여하시거나 다른 방법으로 등록해 주세요.",
+    "enter_email": "당신의 이메일 주소를 입력하십시오."
+  },
+  "register": {
+    "title": "지도에 무엇이 있는지 보려면 가입하세요.",
+    "name": "이름",
+    "email": "이메일 주소",
+    "password": "비밀번호",
+    "signup": "가입하기",
+    "name_required": "이름은 필수입니다",
+    "email_required": "이메일 주소가 필요합니다",
+    "email_not_valid": "유효한 이메일을 입력해주세요",
+    "pass_min_character": "비밀번호는 {{min}} 자 이상이어야 합니다.",
+    "account_created": "귀하의 계정이 생성되었습니다. 이메일 주소를 확인하세요.",
+    "redirect_error": "리디렉션하는 동안 오류가 발생했습니다. 다시 시도해 주세요.",
+    "policy": "\"가입\" 버튼을 클릭하면 당사의\n <0>개인정보 보호정책에 동의하게 됩니다.</0> 및 <1>이용약관</1> .",
+    "register_error": "서버에 오류가 발생했습니다. 나중에 다시 시도해 주세요."
+  },
+  "forgot": {
+    "title": "비밀번호를 잊어 버렸습니까?",
+    "description": "Mapilio 계정과 연결된 이메일을 입력하세요. 비밀번호를 재설정할 수 있는 링크를 보내드리겠습니다.",
+    "email": "이메일 주소",
+    "reset_link": "재설정 링크 보내기",
+    "reset_success": "재설정 요청이 이메일 주소로 전송되었습니다."
+  },
+  "leaderboard": {
+    "title": "리더보드",
+    "how_to_score": "\n점을 얻는 방법?",
+    "alltime_description": "Mapilio의 성장을 돕는 상위 30명의 커뮤니티 회원!",
+    "users": "사용자",
+    "organizations": "조직",
+    "fetch_error": "리더보드를 가져오는 중에 문제가 발생했습니다. 다시 시도해 주세요.",
+    "join_the_race": "\n경주에 참가하다",
+    "points": "포인트들",
+    "points_short": "백금",
+    "roads": "도로",
+    "photos": "사진",
+    "challenge": "도전",
+    "board": "판자",
+    "all_time": "모든 시간",
+    "this_month": "이번 달",
+    "this_week": "이번 주",
+    "join": "가입하다",
+    "winners_title": "그리고 \n Mapilio의 우승자들"
+  },
+  "upload_modal": {
+    "title": "최대\n날짜 지도를 더 만들 수 있습니다.",
+    "subtitle": "해당 지역에 긍정적인 영향을 미치고, 안정적인 매핑에 기여하고, 리더보드에서 높은 위치를 차지하세요.",
+    "sequences": "시퀀스",
+    "images": "이미지",
+    "stop_upload": "업로드 중지"
+  },
+  "no_internet": {
+    "title": "인터넷에 연결되어 있지 않습니다.",
+    "description": "인터넷에 연결되어 있지 않습니다. 모바일 셀룰러 또는 Wi-Fi가 켜져 있는지 확인하세요."
+  },
+  "form": {
+    "email_required": "이메일 주소가 필요합니다",
+    "please_enter_valid_email": "유효한 이메일을 입력해주세요",
+    "password_required": "비밀번호가 필요합니다"
+  },
+  "how_to_score": {
+    "title": "점수 시스템은 어떻게 작동하나요?",
+    "summary": "전 세계 Mapilio 기여자들과 경쟁하고 푸짐한 상품을 획득하세요!",
+    "paragraph": "<h2>마필리오 포상 시스템</h2> <p>\n\n마필리오에서 총격을 가해 포인트를 모아 상품을 받을 수 있습니다.\n\n<h3>채점 시스템</h3>\n글로벌 리더보드를 통해 지역 기여도를 다른 참가자와 비교할 수 있습니다. 순위표에는 다양한 기여 요소를 고려하는 점수 시스템이 있습니다. 점수를 구성하는 변수는 다음과 같습니다.\n\n<h3>● 고유 킬로미터(UKM):</h3>\n이는 이전 적용 범위가 없는 영역에 기여한 시퀀스의 총 거리입니다. 예를 들어, 10km를 운전했는데 그 중 7km에 기존 이미지가 없다면 해당 운전에 대한 UKM은 7km가 됩니다.\n\n<h3>● 이미지:</h3>\n챌린지 동안 기여자가 업로드한 총 이미지 수\n\n<h3>● 참가자:</h3>\n지역 챌린지에 참여하는 사람의 수입니다. 아이디어는 협력을 장려하고 보상하는 것입니다.\n\n점수를 계산하는 공식은 다음과 같습니다. 점수 = (총 UKM 기여 + (이미지/1000)) * (1 + (참가자 수/10))\n\n<h3>기억하세요.</h3>\n상품을 받으려면 최소 100점에 도달해야 합니다. 샷에서 점수를 얻으려면 위치가 명확해야 하고, 이미지가 충분히 밝은 조명에서 촬영되어야 하며, 실내에서 촬영되지 않아야 합니다. 안개, 비 또는 이미지를 왜곡하는 기타 기상 조건과 같은 기상 조건.\n\n\n<h3center>이제 캡처를 시작하고, 포인트를 수집하고, 선두를 놓고 경쟁할 수 있습니다.</h3center></p>",
+    "start_now_capture": "지금 시작하세요"
+  },
+  "award": {
+    "summary": "<0>마필리오🌍🏆와 함께 보상을 받을 준비가 되셨나요?</0>",
+    "start_capture_now": "지금 캡처 시작",
+    "slogan": "<bold>Mapilio</bold> 첫 번째 도전을 시작했습니다.",
+    "title": "더 많은 킬로미터에 도달하면 새로운 선물을 받을 수 있습니다",
+    "description": "도전할 준비가 되셨나요? <date>01.03.2023</date> 과 <date>31.05.2023</date> 사이에서 가장 많은 점수를 얻은 3명의 참가자는 푸짐한 상품을 받게 됩니다.",
+    "mi_pro_2_scooter": "샤오미 스쿠터",
+    "gopro_9": "고프로 360 맥스",
+    "beats_3_headphones": "비트 솔로 3",
+    "content": "<title>참석하는 방법은 매우 간단합니다.</title>\n\n최대한 많이 캡처하고, 다른 경쟁자보다 더 많은 포인트를 모아 보상을 받으세요. 캡처할 때는 몇 가지 사항이 있습니다.\n\n<bold>● Focus The Road</bold> 화면을 터치하여 초점을 경로로 설정하세요.\n\n<bold>● 이미지 청소</bold> 이미지에 차량 후드와 기타 물체가 보이지 않는지 확인하십시오.\n\n<bold>● 카메라 방향</bold> 지면과 평행하게 영상이 녹화되도록 카메라의 위치를 조정합니다.\n\n<bold>● 촬영하면 안되는 상황</bold> 어둡거나 비오거나 눈이 오는 날씨에 이미지가 흐려지면 촬영을 해서는 안 됩니다.\n\n<bold>● 정확한 위치</bold> 기기의 위치 서비스가 켜져 있고 정확해야 합니다.",
+    "rules_of_contest": "<0>공식 규정</0> 대회를 위해",
+    "final_content": {
+      "title": "마필리오가 첫 도전을 시작했습니다.",
+      "description": "Mapilio로 쏠 때마다 승리할 수 있습니다. 포인트를 모아 순위표에서 경쟁하고 승리하세요."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "지도",
+      "map_desc": "지도 보기에서 현재 위치, 도로, 장소, 건물 및 기타 세부 정보를 확인하세요. 이미 캡처된 영역도 여기에서 관찰할 수 있습니다.",
+      "marketplace": "시장",
+      "marketplace_desc": "일부 지역에서는 그 대가로 현금이나 쿠폰을 얻을 수 있는 캡처에 대한 특별 요청이 있습니다. Marketplace 페이지에 표시됩니다.",
+      "upload": "업로드",
+      "upload_desc": "캡쳐는 끝났나요? 그런 다음 모든 이미지를 업로드하려면 클릭하세요.",
+      "leaderboard": "리더보드",
+      "leaderboard_desc": "리더보드에는 슈팅으로 얻은 점수와 순위 내 위치가 표시됩니다.",
+      "capture": "포착",
+      "capture_desc": "더 나은 지도를 캡처하고 기여하려면 지금 시작하세요.",
+      "next": "다음",
+      "done": "완료"
+    },
+    "camera": {
+      "angle": "직각",
+      "angle_desc": "수평선\n이 항상 반대쪽, 수평이 되도록 카메라 각도를 유지하세요.",
+      "startCapture": "캡처 시작",
+      "start_capture_desc": "조명, 위치, 배터리... 다 준비됐나요? 캡처를 시작해 보겠습니다.",
+      "tasks": "작업",
+      "tasks_desc": "화면에서 수행해야 할 작업을 볼 수 있습니다.",
+      "next": "다음",
+      "done": "완료"
+    },
+    "marketplace": {
+      "list": "시장",
+      "list_desc": "여기에서 해당 지역의 캡처 요청을 볼 수 있습니다. 그 대가로 현금이나 쿠폰을 얻을 수 있습니다.",
+      "apply": "적용하다",
+      "apply_desc": "신청 버튼을 클릭하시면 신청하실 수 있습니다.",
+      "next": "다음",
+      "done": "완료"
+    },
+    "skip": "건너뛰다"
+  },
+  "errors": {
+    "server_error": "서버에 오류가 발생했습니다. 나중에 다시 시도해 주세요.",
+    "token_expired": "기간이 만료되었습니다. 다시 로그인해주세요.",
+    "timeout": "서버가 응답하지 않습니다. 나중에 다시 시도 해주십시오."
+  },
+  "report": {
+    "cancel": "취소",
+    "privacy_violation": "개인정보 침해",
+    "inappropriate_content": "부적절한 콘텐츠",
+    "low_quality": "저품질",
+    "other": "다른",
+    "report_success": "귀하의 보고서가 성공적으로 전송되었습니다. 필요한 조사가 이루어질 것이며 귀하에게 이메일로 통보될 것입니다.",
+    "report_error": "신고하는 중에 오류가 발생했습니다. 나중에 다시 시도 해주십시오."
+  },
+  "languages": {
+    "tr": "터키어",
+    "en": "영어"
+  },
+  "alerts": {
+    "maintenanceMode": "우리 서비스는 유지 관리 모드에 있습니다.\n나중에 이미지를 업로드해 주세요.",
+    "update_required_title": "업데이트가 필요함",
+    "update_required_description": "계속 사용하려면 애플리케이션을 업데이트해야 합니다.",
+    "update": "업데이트",
+    "later": "나중에"
+  }
+}

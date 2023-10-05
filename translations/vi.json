@@ -1,0 +1,413 @@
+{
+  "tab": {
+    "map": "Bản đồ",
+    "market": "Chợ",
+    "upload": "Tải lên",
+    "leader": "Lãnh đạo"
+  },
+  "navigation": {
+    "back": "Mặt sau",
+    "are_you_sure": "Bạn có chắc không?",
+    "delete_photo": "Bạn có chắc chắn muốn xóa ảnh này",
+    "yes": "Đúng",
+    "no": "KHÔNG",
+    "delete_error": "Đã xảy ra sự cố khi xóa! Thử lại.",
+    "delete": "Xóa bỏ",
+    "have_not_connection": "Bạn không có kết nối internet đang hoạt động",
+    "profile": "Hồ sơ",
+    "profile_edit": "Chỉnh sửa hồ sơ",
+    "delete_account": "Xóa tài khoản",
+    "your_uploads": "Tải lên của bạn",
+    "upload_detail": "Tải lên chi tiết",
+    "sign_up": "Đăng ký",
+    "sign_in": "Đăng nhập",
+    "go_map": "Bản đồ",
+    "settings": "Cài đặt",
+    "language": "Ngôn ngữ"
+  },
+  "search": {
+    "search": "Tìm kiếm",
+    "recent_searches": "Tìm kiếm gần đây",
+    "clear": "Thông thoáng",
+    "empty_search": "Các mặt hàng được tìm thấy và sử dụng gần đây sẽ ở đây",
+    "no_results": "không có kết quả nào được tìm thấy",
+    "another_search": "Hãy thực hiện một tìm kiếm khác."
+  },
+  "panorama": {
+    "image_report": "Báo cáo hình ảnh"
+  },
+  "marketplace": {
+    "marketplace": "Thương trường",
+    "market_list": "Danh sách thị trường",
+    "equipment": "THIẾT BỊ",
+    "apply_project": "Áp dụng cho dự án này",
+    "mission_ready": "Nhiệm vụ đã sẵn sàng",
+    "mission_detail": "Bạn có thể tìm hiểu nên đi theo con đường nào trong khi nắm bắt từ phần thông tin.",
+    "start_capture": "Chụp",
+    "or": "hoặc",
+    "back_to_the": "quay lại <0>Thị trường</0>",
+    "far_location": "Vị trí của bạn quá xa khu vực dự án",
+    "tooltip": "Tìm hoặc đề nghị trợ giúp về các dự án thu thập hình ảnh và xác minh dữ liệu để tạo dữ liệu bản đồ mới ở những vị trí cần thiết.",
+    "map_loading": "Đang tải bản đồ thị trường...",
+    "soon_description": "Mapilio cung cấp thị trường lập bản đồ nơi người dùng có thể yêu cầu lập bản đồ các khu vực cụ thể. Những người đóng góp sẽ được khen thưởng và có dịch vụ miễn phí để xác minh độ chính xác của hình ảnh.",
+    "very_soon": "Rất sớm"
+  },
+  "map": {
+    "map_loading": "Đang tải bản đồ và khu vực...",
+    "pano_error": "Đã xảy ra sự cố khi tải hình ảnh. Vui lòng thử lại.",
+    "gps_disabled": "GPS của bạn bị vô hiệu hóa."
+  },
+  "profile_settings": {
+    "profile_edit": "Chỉnh sửa hồ sơ",
+    "licences": "Giấy phép",
+    "terms_and_conditions": "Điều khoản và điều kiện",
+    "privacy": "Chính sách bảo mật",
+    "about": "Về",
+    "contest_rules": "Thể lệ cuộc thi",
+    "change_language": "Thay đổi ngôn ngữ",
+    "mapilio": "bản đồ",
+    "version": "V 1.0.2",
+    "sign_out": "Đăng xuất",
+    "delete_account": "Xóa tài khoản"
+  },
+  "profile_edit": {
+    "username": "tên tài khoản",
+    "name": "Tên",
+    "bio": "Tiểu sử",
+    "hide_my_username": "Ẩn tên người dùng của tôi",
+    "save": "Cứu"
+  },
+  "delete_account": {
+    "title": "Cảm ơn bạn đã đóng góp cho Mapilio!",
+    "description": "Chúng tôi rất tiếc vì bạn muốn xóa tài khoản của mình nhưng những đóng góp trước đây của bạn sẽ vẫn hỗ trợ cộng đồng.",
+    "alert_title": "Bạn có chắc rằng bạn muốn xóa tài khoản của bạn?",
+    "alert_description": "Bạn có chắc rằng bạn muốn xóa tài khoản của bạn? Hành động này không thể được hoàn tác.",
+    "delete": "Xóa bỏ",
+    "cancel": "Hủy bỏ",
+    "delete_account": "Xóa tài khoản",
+    "login_again": "Bạn phải đăng nhập lại",
+    "login_again_description": "Bạn phải đăng nhập lại để xóa tài khoản của mình. Bạn sẽ được chuyển hướng đến trang đăng nhập.",
+    "ok": "ĐƯỢC RỒI",
+    "delete_error": "Đã xảy ra sự cố khi xóa! Thử lại."
+  },
+  "upload_complete": {
+    "title": "Hoàn tất tải lên",
+    "description": "Dữ liệu của bạn đang được xử lý... Bạn sẽ được thông báo qua email khi hình ảnh của bạn được xuất bản trên Mapilio.",
+    "go_to_map": "Đi tới bản đồ"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "Chụp",
+      "subtitle": "Ở cấp độ đường phố",
+      "description": "Chụp hình ảnh ở cấp độ đường phố và đóng góp bản đồ."
+    },
+    "second": {
+      "title": "Tải ảnh chụp lên",
+      "subtitle": "Đóng góp",
+      "description": "Tải hình ảnh của bạn lên để thu thập điểm và đạt vị trí cao trong bảng xếp hạng."
+    },
+    "third": {
+      "title": "Kiếm quà",
+      "subtitle": "Hoàn thành nhiệm vụ",
+      "description": "Có cơ hội trúng quà thông qua nhiệm vụ bạn đóng góp."
+    },
+    "fourth": {
+      "title": "Để có thêm phần thưởng",
+      "subtitle": "Tiếp tục",
+      "description": "Chúng tôi đang mở rộng phạm vi quà tặng của mình mỗi ngày."
+    },
+    "next": "Kế tiếp",
+    "skip": "Nhảy",
+    "start": "Bắt đầu"
+  },
+  "camera": {
+    "title": "Quá trình chụp đã bắt đầu",
+    "description": "Trong lúc chờ đợi, hãy đảm bảo rằng góc máy ảnh của bạn chính xác và ổn định.",
+    "safe_mode": "Chế độ an toàn điện",
+    "advanced": "Trình độ cao",
+    "getting_ready": "Máy ảnh đang chuẩn bị sẵn sàng. Vui lòng chờ.",
+    "something_went_wrong": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "tasks": "Nhiệm vụ",
+    "select_mission": "Chọn nhiệm vụ",
+    "empty_mission_title": "Không có dự án nào bạn tham gia.",
+    "empty_mission_description": "Bạn có thể duyệt các dự án trên <0>Marketplace</0>",
+    "warning": {
+      "battery": {
+        "title": "Mức pin thấp",
+        "description": "Độ chính xác của GPS sẽ giảm vì mức sạc của bạn dưới 15%. Trong trường hợp này, không thể chụp được."
+      },
+      "mocked": {
+        "title": "GPS giả",
+        "description": "Việc sử dụng GPS giả đã được phát hiện, vui lòng sử dụng vị trí GPS của thiết bị để tiếp tục!"
+      },
+      "speed": {
+        "title": "Tốc độ cao",
+        "description": "Bạn đã vượt quá giới hạn tốc độ cao. Để chính xác, tốc độ của bạn phải tối đa là 70km/h."
+      },
+      "bad_gps": {
+        "title": "Độ chính xác của GPS quá thấp",
+        "description": "Việc chụp sẽ tiếp tục khi biểu tượng cảnh báo GPS chuyển sang màu xanh lục."
+      },
+      "gps": {
+        "title": "Tìm kiếm GPS",
+        "description": "Vui lòng ở trong khu vực thoáng đãng nơi GPS sẽ chụp được. Quá trình này có thể mất tới 30 giây."
+      },
+      "angle": {
+        "title": "Điều chỉnh góc máy ảnh của bạn",
+        "description": "Việc bắn súng sẽ tiếp tục khi vòng quay của bạn đúng."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Tập trung vào con đường",
+      "description": "Đặt tiêu điểm làm đường dẫn bằng cách chạm vào màn hình."
+    },
+    "second": {
+      "title": "Hình ảnh sạch",
+      "description": "Đảm bảo rằng mui xe và các vật thể khác không xuất hiện trong ảnh."
+    },
+    "third": {
+      "title": "Hướng máy ảnh",
+      "description": "Điều chỉnh vị trí của camera để ghi được hình ảnh song song với mặt đất."
+    },
+    "next": "Kế tiếp",
+    "prev": "Trước đó",
+    "finish": "Hoàn thành"
+  },
+  "camera_settings": {
+    "general_settings": "Cài đặt chung",
+    "capture_settings": "Chụp cài đặt",
+    "distance_between": "Khoảng cách giữa các hình ảnh",
+    "camera_settings": "Cài đặt camera",
+    "remaining_images": "Hình ảnh đã chụp / Hình ảnh còn lại",
+    "battery_level": "Mức pin",
+    "ok": "ĐƯỢC RỒI",
+    "enable_low_resolution": "Kích hoạt độ phân giải thấp",
+    "enable_low_resolution_desc": "Bật chế độ độ phân giải thấp để có hiệu suất pin tốt hơn và chụp nhanh hơn.",
+    "settings_saved": "Máy ảnh cần được khởi động lại để những thay đổi có hiệu lực."
+  },
+  "capture_completed": {
+    "title": "<0>{{distance}}Km</0> Việc chụp đường\nđã hoàn tất",
+    "detail": "<0>{{count}} hình ảnh</0> / {{size}}MB",
+    "upload_now": "Đăng tải nó đi",
+    "upload_later": "Tải lên sau"
+  },
+  "upload": {
+    "upload": "Tải lên",
+    "no_data": {
+      "title": "Không tìm thấy ảnh chụp nào để tải lên",
+      "description": "Để tải lên, bạn cần chụp từ phần 'Chụp'. Đoạn phim của bạn sẽ xuất hiện ở đây."
+    },
+    "title": "Tải ảnh lên",
+    "subtitle": "Bạn có thể tải lên hình ảnh từ đây.",
+    "image_count": "{{count}} hình ảnh",
+    "are_you_sure": "Bạn có chắc không?",
+    "delete_capture": "Xóa ảnh chụp",
+    "delete_message": "Bạn có muốn xóa ảnh chụp của mình không?",
+    "yes": "Đúng",
+    "no": "KHÔNG",
+    "start_upload": "Bắt đầu tải lên",
+    "is_cellular_data": "Bạn có chắc chắn muốn gửi qua dữ liệu di động không?",
+    "you_cancelled_upload": "Bạn đã hủy tải lên",
+    "sequences_deleted": "Trình tự đã bị xóa",
+    "upload_completed": "Hoàn tất tải lên",
+    "upload_failed": "Tải lên không thành công",
+    "no_address": "Không có địa chỉ",
+    "point": "~<0>{{count}}</0> điểm",
+    "clear_selections": "Xóa lựa chọn",
+    "delete": "Xóa bỏ",
+    "accessible_world": {
+      "title": "Thế giới có thể truy cập",
+      "description": "Ở trung tâm New York hoặc trong một ngôi làng ở Châu Phi. Đóng góp vào bản đồ và giúp cuộc sống của nhân loại trở nên dễ dàng hơn sau mỗi lần chụp."
+    },
+    "contribute_to_our_environment": {
+      "title": "Đóng góp cho môi trường của chúng tôi",
+      "description": "Tất cả chúng ta đều mơ về một thế giới sạch sẽ hơn và dễ tiếp cận hơn. Hãy tạo bản đồ tốt hơn cho mọi người bằng cách đóng góp Mapilio."
+    },
+    "traffic_problem": {
+      "title": "vấn đề giao thông",
+      "description": "Bạn có biết rằng chúng ta dành hơn 102 giờ mỗi năm khi tham gia giao thông. Thiệt hại 1.739 USD mỗi năm do tiêu thụ nhiên liệu và bỏ lỡ thời gian."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Động đất và các trường hợp khẩn cấp",
+      "description": "Góp phần khám phá những con đường không thể tiếp cận và can thiệp sớm về sức khỏe và các tình huống quan trọng có thể phát sinh."
+    }
+  },
+  "profile": {
+    "individual_account": "Tài khoản cá nhân",
+    "organization_account": "Tài khoản tổ chức",
+    "no_feed": "Không có nguồn cấp dữ liệu",
+    "no_feed_desc": "Không có nguồn cấp dữ liệu nào để hiển thị. Bạn có thể đóng góp bằng cách bắt đầu đánh bắt ngay bây giờ.",
+    "start_capture": "Chụp",
+    "select_organization": "Chọn tổ chức",
+    "images": "hình ảnh",
+    "uploaded": "Đã tải lên",
+    "completed": "Hoàn thành",
+    "processing": "Xử lý",
+    "fail": "Thất bại",
+    "sequences": "trình tự",
+    "photos": "Ảnh",
+    "roads": "Đường",
+    "uploaded_title": "Hình ảnh bạn đã tải lên",
+    "uploaded_subtitle": "Ở đây bạn có thể xem hình ảnh được tải lên.",
+    "image": "Hình ảnh",
+    "map": "Bản đồ",
+    "fetch_error": "Đã xảy ra sự cố khi tìm nạp Hồ sơ. Vui lòng thử lại.",
+    "no_address": "Không có địa chỉ"
+  },
+  "login": {
+    "title": "Đăng nhập để xem những gì trên bản đồ của bạn.",
+    "email_username": "Thư điện tử hoặc tên người dùng",
+    "password": "Mật khẩu",
+    "login": "Đăng nhập",
+    "forgot_password": "Quên mật khẩu?",
+    "languages": "Ngôn ngữ",
+    "login_error": "Đã xảy ra lỗi với máy chủ, vui lòng thử lại sau.",
+    "or": "hoặc",
+    "login_success": "Đăng nhập thành công ",
+    "error": "Đã xảy ra lỗi, hãy thử lại sau.",
+    "mail_error": "Bạn không phải là thành viên vì chúng tôi không thể truy cập địa chỉ email của bạn. Vui lòng cho phép gửi thư hoặc đăng ký bằng cách khác.",
+    "enter_email": "Hãy điền địa chỉ email của bạn."
+  },
+  "register": {
+    "title": "Đăng ký để xem những gì trên bản đồ của bạn.",
+    "name": "Tên",
+    "email": "Địa chỉ email",
+    "password": "Mật khẩu",
+    "signup": "Đăng ký",
+    "name_required": "Tên là bắt buộc",
+    "email_required": "Địa chỉ e-mail là bắt buộc",
+    "email_not_valid": "Vui lòng nhập email hợp lệ",
+    "pass_min_character": "Mật khẩu phải có ít nhất {{min}} ký tự",
+    "account_created": "Tài khoản của bạn đã được tạo, hãy kiểm tra địa chỉ email của bạn.",
+    "redirect_error": "Đã xảy ra lỗi khi chuyển hướng, vui lòng thử lại.",
+    "policy": "Bằng cách nhấp vào nút \"Đăng ký\", bạn đồng ý với\n <0>Chính sách quyền riêng tư của chúng tôi</0> và <1>Điều khoản & Điều kiện</1> .",
+    "register_error": "Đã xảy ra lỗi với máy chủ, vui lòng thử lại sau."
+  },
+  "forgot": {
+    "title": "Quên mật khẩu?",
+    "description": "Nhập email được liên kết với tài khoản Mapilio của bạn. Chúng tôi sẽ gửi cho bạn một liên kết để đặt lại mật khẩu của bạn.",
+    "email": "Địa chỉ email",
+    "reset_link": "Gửi liên kết đặt lại",
+    "reset_success": "Yêu cầu đặt lại đã được gửi đến địa chỉ email."
+  },
+  "leaderboard": {
+    "title": "Bảng xếp hạng",
+    "how_to_score": "Làm sao để được \nđiểm?",
+    "alltime_description": "30 thành viên cộng đồng hàng đầu giúp phát triển Mapilio!",
+    "users": "Người dùng",
+    "organizations": "Tổ chức",
+    "fetch_error": "Đã xảy ra sự cố khi tìm nạp Bảng xếp hạng. Vui lòng thử lại.",
+    "join_the_race": "tham gia cuộc đua\n",
+    "points": "Điểm",
+    "points_short": "Pt",
+    "roads": "Đường",
+    "photos": "Ảnh",
+    "challenge": "THỬ THÁCH",
+    "board": "BẢNG",
+    "all_time": "mọi lúc",
+    "this_month": "Tháng này",
+    "this_week": "Tuần này",
+    "join": "Tham gia",
+    "winners_title": "Và những người chiến thắng \n Mapilio"
+  },
+  "upload_modal": {
+    "title": "Cho phép tạo thêm bản đồ cập nhật\nngày",
+    "subtitle": "Tạo tác động tích cực trong khu vực của bạn, Đóng góp vào việc lập bản đồ đáng tin cậy, Giành vị trí cao trên bảng xếp hạng",
+    "sequences": "trình tự",
+    "images": "Hình ảnh",
+    "stop_upload": "Dừng tải lên"
+  },
+  "no_internet": {
+    "title": "Bạn không có kết nối internet",
+    "description": "Bạn không có kết nối internet. Đảm bảo điện thoại di động hoặc Wi-Fi của bạn đã được bật."
+  },
+  "form": {
+    "email_required": "Địa chỉ e-mail là bắt buộc",
+    "please_enter_valid_email": "Vui lòng nhập email hợp lệ",
+    "password_required": "Cần có mật khẩu"
+  },
+  "how_to_score": {
+    "title": "Hệ thống tính điểm hoạt động như thế nào?",
+    "summary": "Cạnh tranh với những người đóng góp cho Mapilio từ khắp nơi trên thế giới và giành được những giải thưởng lớn!",
+    "paragraph": "<h2>Hệ thống trao giải Mapilio</h2> <p>\n\nCó thể thu thập điểm từ các cuộc bắn súng trong Mapilio và giành giải thưởng\n\n<h3>Hệ thống tính điểm</h3>\nBảng xếp hạng toàn cầu sẽ cho phép bạn so sánh những đóng góp tại địa phương của mình với những người tham gia khác. Bảng xếp hạng sẽ có một hệ thống tính điểm có tính đến nhiều yếu tố đóng góp. Dưới đây là các biến tạo nên điểm số:\n\n<h3>● Số km duy nhất (UKM):</h3>\nđây là tổng khoảng cách của các chuỗi đóng góp trong các khu vực chưa được phủ sóng trước đó. Ví dụ: nếu bạn lái xe được 10 km và 7 km trong số đó không có hình ảnh hiện có thì UKM của bạn cho chuyến đi đó sẽ là 7 km.\n\n<h3>● Hình ảnh:</h3>\ntổng số hình ảnh mà người đóng góp đã tải lên trong thử thách\n\n<h3>● Người tham gia:</h3>\nđây là số người tham gia thử thách tại địa phương của bạn. Ý tưởng là để khuyến khích và khen thưởng sự hợp tác.\n\nCông thức tính điểm như sau: Score = (tổng UKM đóng góp + (hình/1000)) * (1 + (số người tham gia/10))\n\n<h3>Ghi nhớ;</h3>\nĐể đủ điều kiện nhận giải thưởng, bạn phải đạt số điểm tối thiểu là 100. Để ghi điểm từ các bức ảnh của bạn, địa điểm phải rõ ràng, ảnh phải được chụp trong điều kiện ánh sáng đủ sáng và không được chụp trong điều kiện không thuận lợi. điều kiện thời tiết như sương mù, mưa hoặc các điều kiện thời tiết khác làm biến dạng hình ảnh.\n\n\n<h3center>Bây giờ bạn có thể bắt đầu chinh phục, thu thập điểm và tranh giành vị trí dẫn đầu.</h3center></p>",
+    "start_now_capture": "Bắt đầu ngay Chụp"
+  },
+  "award": {
+    "summary": "Bạn đã sẵn sàng nhận phần thưởng với <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Bắt đầu chụp ngay",
+    "slogan": "<bold>Mapilio</bold> bắt đầu thử thách đầu tiên.",
+    "title": "Kiếm quà tặng mới khi bạn đạt được nhiều km hơn",
+    "description": "bạn đã sẵn sàng cho thử thách chưa? 3 thí sinh đạt nhiều điểm nhất trong khoảng thời gian từ <date>01.03.2023</date> đến <date>31.05.2023</date> sẽ giành được giải thưởng lớn.",
+    "mi_pro_2_scooter": "Xe tay ga Xiaomi",
+    "gopro_9": "GoPro 360 Max",
+    "beats_3_headphones": "Nhịp đập Solo 3",
+    "content": "<title>Rất đơn giản để tham dự</title>\n\nHãy nắm bắt càng nhiều càng tốt, thu thập nhiều điểm hơn các đối thủ khác để nhận phần thưởng. Có rất ít thứ khi bạn chụp;\n\n<bold>● Lấy nét Đường</bold> Đặt tiêu điểm làm đường dẫn bằng cách chạm vào màn hình.\n\n<bold>● Làm sạch hình ảnh</bold> Đảm bảo rằng mui xe và các vật thể khác không hiển thị trong hình ảnh.\n\n<bold>● Hướng camera</bold> Điều chỉnh vị trí của camera để ghi hình ảnh song song với mặt đất.\n\n<bold>● Những tình huống không nên chụp</bold> Không nên chụp trong thời tiết tối, mưa, có tuyết, khi ảnh bị mờ.\n\n<bold>● Vị trí chính xác</bold> Dịch vụ định vị trên thiết bị của bạn phải được bật và chính xác.",
+    "rules_of_contest": "<0>Quy tắc chính thức</0> cho cuộc thi",
+    "final_content": {
+      "title": "Mapilio bắt đầu thử thách đầu tiên.",
+      "description": "Bạn có thể giành chiến thắng mỗi khi bắn với Mapilio. Thu thập điểm, cạnh tranh trên bảng xếp hạng và giành chiến thắng."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Bản đồ",
+      "map_desc": "Xem vị trí hiện tại của bạn, đường, địa điểm, tòa nhà và các chi tiết khác trên chế độ xem bản đồ. Ngoài ra, các khu vực đã được chụp có thể được quan sát ở đây.",
+      "marketplace": "Thương trường",
+      "marketplace_desc": "Đối với một số khu vực, chúng tôi có các yêu cầu đặc biệt về việc chụp ảnh để bạn có thể kiếm được tiền mặt hoặc phiếu giảm giá. Chúng hiển thị trên trang Marketplace.",
+      "upload": "Tải lên",
+      "upload_desc": "Bạn đã chụp xong chưa? Sau đó bấm vào để tải lên tất cả hình ảnh.",
+      "leaderboard": "Bảng xếp hạng",
+      "leaderboard_desc": "Bảng xếp hạng hiển thị số điểm bạn ghi được khi bắn và vị trí của bạn trong bảng xếp hạng",
+      "capture": "Chiếm lấy",
+      "capture_desc": "Bắt đầu ngay bây giờ để bắt đầu chụp và đóng góp bản đồ tốt hơn",
+      "next": "Kế tiếp",
+      "done": "Xong"
+    },
+    "camera": {
+      "angle": "Góc phải",
+      "angle_desc": "Giữ góc camera sao cho đường chân trời\nluôn đối diện và nằm ngang",
+      "startCapture": "Bắt đầu chụp",
+      "start_capture_desc": "Ánh sáng, vị trí, pin... Mọi thứ đã sẵn sàng chưa? Hãy bắt đầu chụp.",
+      "tasks": "Nhiệm vụ",
+      "tasks_desc": "Bạn có thể thấy các nhiệm vụ bạn phải làm trên màn hình.",
+      "next": "Kế tiếp",
+      "done": "Xong"
+    },
+    "marketplace": {
+      "list": "Thương trường",
+      "list_desc": "Tại đây bạn có thể xem các yêu cầu chụp ảnh trong khu vực của mình. Bạn có thể kiếm được tiền mặt hoặc phiếu giảm giá.",
+      "apply": "Áp dụng",
+      "apply_desc": "Bạn có thể đăng ký yêu cầu bằng cách nhấp vào nút Áp dụng.",
+      "next": "Kế tiếp",
+      "done": "Xong"
+    },
+    "skip": "Nhảy"
+  },
+  "errors": {
+    "server_error": "Đã xảy ra lỗi với máy chủ, vui lòng thử lại sau.",
+    "token_expired": "Phiên của bạn đã hết hạn. Xin vui lòng đăng nhập lại.",
+    "timeout": "Máy chủ không phản hồi. Vui lòng thử lại sau."
+  },
+  "report": {
+    "cancel": "Hủy bỏ",
+    "privacy_violation": "Vi phạm quyền riêng tư",
+    "inappropriate_content": "Nội dung không phù hợp",
+    "low_quality": "Chất lượng thấp",
+    "other": "Khác",
+    "report_success": "Báo cáo của bạn đã được gửi thành công. Các cuộc điều tra cần thiết sẽ được thực hiện và bạn sẽ được thông báo qua e-mail.",
+    "report_error": "Đã xảy ra lỗi khi báo cáo. Vui lòng thử lại sau."
+  },
+  "languages": {
+    "tr": "tiếng Thổ Nhĩ Kỳ",
+    "en": "Tiếng Anh"
+  },
+  "alerts": {
+    "maintenanceMode": "Dịch vụ của chúng tôi đang ở chế độ bảo trì.\nVui lòng tải lên hình ảnh của bạn sau.",
+    "update_required_title": "Cần cập nhật",
+    "update_required_description": "Bạn phải cập nhật ứng dụng để tiếp tục sử dụng nó.",
+    "update": "Cập nhật",
+    "later": "Sau đó"
+  }
+}

@@ -1,0 +1,413 @@
+{
+  "tab": {
+    "map": "Hartă",
+    "market": "Piaţă",
+    "upload": "Încărcați",
+    "leader": "Lider"
+  },
+  "navigation": {
+    "back": "Înapoi",
+    "are_you_sure": "Esti sigur?",
+    "delete_photo": "Sigur doriți să ștergeți această fotografie",
+    "yes": "da",
+    "no": "Nu",
+    "delete_error": "A apărut o problemă la ștergere! Încearcă din nou.",
+    "delete": "Șterge",
+    "have_not_connection": "Nu aveți o conexiune activă la internet",
+    "profile": "Profil",
+    "profile_edit": "Editare profil",
+    "delete_account": "Șterge cont",
+    "your_uploads": "Încărcările dvs",
+    "upload_detail": "Detalii de încărcare",
+    "sign_up": "Inscrie-te",
+    "sign_in": "Conectare",
+    "go_map": "Hartă",
+    "settings": "Setări",
+    "language": "Limba"
+  },
+  "search": {
+    "search": "Căutare",
+    "recent_searches": "Căutări recente",
+    "clear": "clar",
+    "empty_search": "Articolele găsite și folosite recent vor fi aici",
+    "no_results": "Nici un rezultat gasit",
+    "another_search": "Vă rugăm să faceți o altă căutare."
+  },
+  "panorama": {
+    "image_report": "Raport de imagine"
+  },
+  "marketplace": {
+    "marketplace": "Piata de desfacere",
+    "market_list": "Lista pieței",
+    "equipment": "ECHIPAMENTE",
+    "apply_project": "Aplicați la acest proiect",
+    "mission_ready": "Gata pentru misiune",
+    "mission_detail": "Puteți afla ce cale să urmați în timp ce prindeți din secțiunea de informații.",
+    "start_capture": "Începeți Captura",
+    "or": "sau",
+    "back_to_the": "înapoi la <0>Piață</0>",
+    "far_location": "Locația dvs. este prea departe de zona proiectului",
+    "tooltip": "Găsiți sau oferiți ajutor pentru colectarea imaginilor și proiectele de verificare a datelor pentru a crea date proaspete ale hărților în locații unde este nevoie.",
+    "map_loading": "Harta pieței se încarcă...",
+    "soon_description": "Mapilio oferă o piață de cartografiere unde utilizatorii pot solicita cartografierea anumitor regiuni. Colaboratorii vor fi recompensați și există un serviciu gratuit pentru a verifica acuratețea imaginii.",
+    "very_soon": "Foarte curand"
+  },
+  "map": {
+    "map_loading": "Se încarcă harta și zonele...",
+    "pano_error": "A apărut o problemă la încărcarea imaginii. Vă rugăm să încercați din nou.",
+    "gps_disabled": "GPS-ul dvs. este dezactivat."
+  },
+  "profile_settings": {
+    "profile_edit": "Editare profil",
+    "licences": "Licențe",
+    "terms_and_conditions": "termeni si conditii",
+    "privacy": "Politica de confidențialitate",
+    "about": "Despre",
+    "contest_rules": "Regulamentul concursului",
+    "change_language": "Schimbați limba",
+    "mapilio": "mapilio",
+    "version": "V 1.0.2",
+    "sign_out": "Sign out",
+    "delete_account": "Șterge cont"
+  },
+  "profile_edit": {
+    "username": "Nume de utilizator",
+    "name": "Nume",
+    "bio": "bio",
+    "hide_my_username": "Ascunde numele meu de utilizator",
+    "save": "Salvați"
+  },
+  "delete_account": {
+    "title": "Vă mulțumim pentru contribuția la Mapilio!",
+    "description": "Ne pare rău că doriți să vă ștergeți contul, dar contribuțiile dvs. anterioare vor sprijini în continuare comunitatea.",
+    "alert_title": "Sigur doriți să vă ștergeți contul?",
+    "alert_description": "Sigur doriți să vă ștergeți contul? Această acțiune nu poate fi anulată.",
+    "delete": "Șterge",
+    "cancel": "Anulare",
+    "delete_account": "Șterge cont",
+    "login_again": "Trebuie să vă autentificați din nou",
+    "login_again_description": "Trebuie să vă autentificați din nou pentru a vă șterge contul. Veți fi redirecționat către pagina de conectare.",
+    "ok": "Bine",
+    "delete_error": "A apărut o problemă la ștergere! Încearcă din nou."
+  },
+  "upload_complete": {
+    "title": "Încărcare finalizată",
+    "description": "Datele tale sunt în curs de prelucrare... Vei fi anunțat prin e-mail când imaginile tale vor fi publicate pe Mapilio.",
+    "go_to_map": "Accesați Hartă"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "Fă o lovitură",
+      "subtitle": "La nivelul străzii",
+      "description": "Captați imagini la nivel de stradă și contribuiți cu harta."
+    },
+    "second": {
+      "title": "Încărcați capturi",
+      "subtitle": "A contribui",
+      "description": "Încărcați-vă imaginile pentru a strânge puncte și pentru a obține o poziție înaltă în clasament."
+    },
+    "third": {
+      "title": "Câștigă cadouri",
+      "subtitle": "Finalizați misiunile",
+      "description": "Obțineți șansa de a câștiga cadouri prin sarcinile cu care contribuiți."
+    },
+    "fourth": {
+      "title": "Pentru mai multe recompense",
+      "subtitle": "Mergi mai departe",
+      "description": "Ne extindem gama de cadouri în fiecare zi."
+    },
+    "next": "Următorul",
+    "skip": "Ocolire",
+    "start": "start"
+  },
+  "camera": {
+    "title": "Captura a început",
+    "description": "Între timp, asigurați-vă că unghiul camerei dvs. este corect și stabil.",
+    "safe_mode": "Modul sigur de alimentare",
+    "advanced": "Avansat",
+    "getting_ready": "Camera se pregătește. Va rugam asteptati.",
+    "something_went_wrong": "Ceva n-a mers bine. Vă rugăm să încercați din nou.",
+    "tasks": "Sarcini",
+    "select_mission": "Selectați Misiune",
+    "empty_mission_title": "Nu există niciun proiect în care sunteți implicat.",
+    "empty_mission_description": "Puteți căuta proiecte pe <0>Marketplace</0>",
+    "warning": {
+      "battery": {
+        "title": "Nivelul bateriei este scăzut",
+        "description": "Precizia GPS va scădea deoarece încărcarea dvs. este sub 15%. În acest caz, fotografierea nu este posibilă."
+      },
+      "mocked": {
+        "title": "GPS fals",
+        "description": "A fost detectată utilizarea falsă a GPS-ului, vă rugăm să utilizați locația GPS a dispozitivului pentru a continua!"
+      },
+      "speed": {
+        "title": "De mare viteză",
+        "description": "Ai depășit limita de viteză mare. Pentru precizie, viteza dvs. ar trebui să fie de maximum 70 km/h."
+      },
+      "bad_gps": {
+        "title": "Precizia GPS este prea mică",
+        "description": "Fotografierea va continua când pictograma de alertă GPS devine verde."
+      },
+      "gps": {
+        "title": "Căutare GPS",
+        "description": "Vă rugăm să fiți în zona deschisă unde GPS-ul va capta. Acest proces poate dura până la 30 de secunde."
+      },
+      "angle": {
+        "title": "Reglați unghiul camerei",
+        "description": "Fotografierea va continua când rotația dvs. este adevărată."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Concentrează Drumul",
+      "description": "Setați focalizarea ca traseu atingând ecranul."
+    },
+    "second": {
+      "title": "Imagine curată",
+      "description": "Asigurați-vă că capota vehiculului și alte obiecte nu sunt vizibile în imagine."
+    },
+    "third": {
+      "title": "Direcția camerei",
+      "description": "Reglați poziția camerei pentru a înregistra imaginea paralelă cu solul."
+    },
+    "next": "Următorul",
+    "prev": "Prev",
+    "finish": "finalizarea"
+  },
+  "camera_settings": {
+    "general_settings": "setari generale",
+    "capture_settings": "Setări de captură",
+    "distance_between": "Distanța dintre imagini",
+    "camera_settings": "Setările camerei",
+    "remaining_images": "Imaginile capturate / Imaginile rămase",
+    "battery_level": "Nivelul bateriei",
+    "ok": "Bine",
+    "enable_low_resolution": "Activați rezoluția scăzută",
+    "enable_low_resolution_desc": "Activați modul de rezoluție scăzută pentru o performanță mai bună a bateriei și o fotografiere mai rapidă.",
+    "settings_saved": "Camera trebuie repornită pentru ca modificările să intre în vigoare."
+  },
+  "capture_completed": {
+    "title": "<0>{{distance}}Km</0> Captura Drumul\na fost realizată",
+    "detail": "<0>{{count}} imagini</0> / {{size}}MB",
+    "upload_now": "Încărcați acum",
+    "upload_later": "Încărcați mai târziu"
+  },
+  "upload": {
+    "upload": "Încărcați",
+    "no_data": {
+      "title": "Nu a fost găsită nicio captură de încărcat",
+      "description": "Pentru a încărca, trebuie să fotografiați din secțiunea „Captură”. Înregistrările dvs. vor apărea aici."
+    },
+    "title": "Încarcă fotografii",
+    "subtitle": "Puteți încărca imagini de aici.",
+    "image_count": "{{count}} imagini",
+    "are_you_sure": "Esti sigur?",
+    "delete_capture": "Ștergeți Captura",
+    "delete_message": "Doriți să vă ștergeți captura?",
+    "yes": "da",
+    "no": "Nu",
+    "start_upload": "Începeți încărcarea",
+    "is_cellular_data": "Sigur doriți să trimiteți prin date celulare?",
+    "you_cancelled_upload": "Ați anulat încărcarea",
+    "sequences_deleted": "Secvențele au fost șterse",
+    "upload_completed": "Încărcare finalizată",
+    "upload_failed": "Încărcare eșuată",
+    "no_address": "Fără adresă",
+    "point": "~<0>{{count}}</0> pct",
+    "clear_selections": "Ștergeți selecțiile",
+    "delete": "Șterge",
+    "accessible_world": {
+      "title": "Lumea accesibilă",
+      "description": "În centrul New York-ului sau într-un sat din Africa. Contribuiți la hărți și faceți viața mai ușoară pentru omenire cu fiecare captură."
+    },
+    "contribute_to_our_environment": {
+      "title": "Contribuie la mediul nostru",
+      "description": "Cu toții visăm o lume mai curată și accesibilă. Să creăm o hartă mai bună pentru toată lumea, contribuind cu Mapilio."
+    },
+    "traffic_problem": {
+      "title": "Problema de trafic",
+      "description": "Știați că petrecem peste 102 ore pe an stând în trafic. 1.739 USD pe an în pierderi din cauza consumului de combustibil și a timpului pierdut."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Cutremurele și situațiile de urgență",
+      "description": "Contribuiți la descoperirea drumurilor inaccesibile și intervenția timpurie în situații de sănătate și vitale care pot apărea."
+    }
+  },
+  "profile": {
+    "individual_account": "Cont Individual",
+    "organization_account": "Contul organizației",
+    "no_feed": "Fără hrană",
+    "no_feed_desc": "Nu există fluxuri de afișat. Puteți contribui, pornind acum captura.",
+    "start_capture": "Începeți Captura",
+    "select_organization": "Selectați organizația",
+    "images": "imagini",
+    "uploaded": "Încărcat",
+    "completed": "Efectuat",
+    "processing": "Prelucrare",
+    "fail": "Eșuează",
+    "sequences": "Secvențe",
+    "photos": "Fotografii",
+    "roads": "Drumuri",
+    "uploaded_title": "Imaginile pe care le-ați încărcat",
+    "uploaded_subtitle": "Aici puteți vedea pozele încărcate.",
+    "image": "Imagine",
+    "map": "Hartă",
+    "fetch_error": "A apărut o problemă la preluarea Profilului. Vă rugăm să încercați din nou.",
+    "no_address": "Fără adresă"
+  },
+  "login": {
+    "title": "Conectați-vă pentru a vedea ce este pe harta dvs.",
+    "email_username": "Adresă de e-mail sau nume de utilizator",
+    "password": "Parola",
+    "login": "Log in",
+    "forgot_password": "Ați uitat parola?",
+    "languages": "Limbi",
+    "login_error": "A apărut o eroare cu serverul, vă rugăm să încercați din nou mai târziu.",
+    "or": "sau",
+    "login_success": "Autentificare reușită ",
+    "error": "A apărut o eroare, încercați din nou mai târziu.",
+    "mail_error": "Nu sunteți membru deoarece nu vă putem accesa adresa de e-mail. Vă rugăm să acordați permisiunea prin e-mail sau să vă înregistrați în alt mod.",
+    "enter_email": "Te rugam sa introduci adresa ta de email."
+  },
+  "register": {
+    "title": "Înscrieți-vă pentru a vedea ce este pe harta dvs.",
+    "name": "Nume",
+    "email": "Adresa de e-mail",
+    "password": "Parola",
+    "signup": "Inscrie-te",
+    "name_required": "Numele este obligatoriu",
+    "email_required": "Este necesară adresa de e-mail",
+    "email_not_valid": "Vă rugăm să introduceți un e-mail valid",
+    "pass_min_character": "Parola trebuie să aibă cel puțin {{min}} caractere",
+    "account_created": "Contul dvs. a fost creat, verificați adresa de e-mail.",
+    "redirect_error": "A apărut o eroare la redirecționare, vă rugăm să încercați din nou.",
+    "policy": "Făcând clic pe butonul „Înscrieți-vă”, sunteți de acord cu\n <0>Politica noastră de confidențialitate</0> și <1>Termeni și condiții</1> .",
+    "register_error": "A apărut o eroare cu serverul, vă rugăm să încercați din nou mai târziu."
+  },
+  "forgot": {
+    "title": "Ați uitat parola?",
+    "description": "Introduceți adresa de e-mail asociată contului dvs. Mapilio. Vă vom trimite un link pentru a vă reseta parola.",
+    "email": "Adresa de e-mail",
+    "reset_link": "Trimite linkul de resetare",
+    "reset_success": "Solicitarea de resetare a fost trimisă la adresa de e-mail."
+  },
+  "leaderboard": {
+    "title": "Clasament",
+    "how_to_score": "Cum se înscrie \n?",
+    "alltime_description": "Top 30 de membri ai comunității care ajută la creșterea Mapilio!",
+    "users": "Utilizatori",
+    "organizations": "Organizații",
+    "fetch_error": "A apărut o problemă la preluarea Leaderboard-ului. Vă rugăm să încercați din nou.",
+    "join_the_race": "alăturați-vă cursei\n",
+    "points": "Puncte",
+    "points_short": "Pt",
+    "roads": "Drumuri",
+    "photos": "Fotografii",
+    "challenge": "PROVOCARE",
+    "board": "BORD",
+    "all_time": "Tot timpul",
+    "this_month": "Luna aceasta",
+    "this_week": "În această săptămână",
+    "join": "A te alatura",
+    "winners_title": "Și câștigătorii lui \n Mapilio"
+  },
+  "upload_modal": {
+    "title": "Să creăm mai multe hărți de până la\ndate",
+    "subtitle": "Aveți un impact pozitiv în regiunea dvs., Contribuiți la cartografierea fiabilă, Ocupați-vă poziția înaltă în clasament",
+    "sequences": "Secvențe",
+    "images": "Imagini",
+    "stop_upload": "Opriți încărcarea"
+  },
+  "no_internet": {
+    "title": "Nu aveți o conexiune la internet",
+    "description": "Nu aveți o conexiune la internet. Asigurați-vă că mobilul mobil sau wifi este pornit."
+  },
+  "form": {
+    "email_required": "Adresa de e-mail este obligatorie",
+    "please_enter_valid_email": "Vă rugăm să introduceți un e-mail valid",
+    "password_required": "Parola este necesara"
+  },
+  "how_to_score": {
+    "title": "Cum funcționează sistemul de notare?",
+    "summary": "Concurează cu colaboratorii Mapilio din întreaga lume și câștigă premii grozave!",
+    "paragraph": "<h2>Sistemul de acordare Mapilio</h2> <p>\n\nEste posibil să strângi puncte din împușcături în Mapilio și să câștigi premii\n\n<h3>Sistem de notare</h3>\nUn clasament global îți va permite să compari contribuțiile locale cu alți participanți. Clasamentul va avea un sistem de notare care va lua în considerare mai multe elemente de contribuție. Iată variabilele care compun scorul:\n\n<h3>● Kilometri unici (UKM):</h3>\naceasta este distanța totală a secvențelor contribuite în zone fără acoperire anterioară. De exemplu, dacă ați condus 10 km și 7 km din acesta nu aveau imagini existente, UKM-ul dvs. pentru acea călătorie ar fi de 7 km.\n\n<h3>● Imagini:</h3>\nnumărul total de imagini pe care contribuitorul le-a încărcat în timpul provocării\n\n<h3>● Participanți:</h3>\nacesta este numărul de persoane care participă la provocarea locală. Ideea este de a încuraja și de a recompensa colaborarea.\n\nFormula de calcul a punctajului este următoarea: Scor = (totalul contribuit UKM + (imagini/1000)) * (1 + (număr de participanți/10))\n\n<h3>Rețineți;</h3>\nPentru a fi eligibil pentru un premiu, trebuie să atingeți un punctaj minim de 100. Pentru a obține scoruri de la fotografiile dvs., locația trebuie să fie clară, imaginile trebuie făcute într-o lumină suficient de puternică și nu trebuie să fi fost realizate. condiții meteorologice precum ceață, ploaie sau alte condiții meteorologice care distorsionează imaginea.\n\n\n<h3center>Acum puteți începe să capturați, să adune puncte și să concurați pentru conducere.</h3center></p>",
+    "start_now_capture": "Începe acum Captură"
+  },
+  "award": {
+    "summary": "Ești gata să aduni recompense cu <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Începeți capturarea acum",
+    "slogan": "<bold>Mapilio</bold> a început prima provocare.",
+    "title": "Câștigă noi cadouri pe măsură ce ajungi la mai mulți kilometri",
+    "description": "Ești pregătit pentru o provocare? Cei 3 concurenți care au obținut cele mai multe puncte între <date>01.03.2023</date> și <date>31.05.2023</date> vor câștiga premii grozave.",
+    "mi_pro_2_scooter": "Scooter Xiaomi",
+    "gopro_9": "GoPro 360 Max",
+    "beats_3_headphones": "Beats Solo 3",
+    "content": "<title>Este foarte simplu să participi</title>\n\nCaptură cât de mult poți, strânge mai multe puncte decât obțin alți concurenți recompensa ta. Sunt puține lucruri când capturați;\n\n<bold>● Focus The Road</bold> Setați focalizarea ca traseu atingând ecranul.\n\n<bold>● Imagini curate</bold> Asiguraţi-vă că capota vehiculului şi alte obiecte nu sunt vizibile în imagine.\n\n<bold>● Direcția camerei</bold> Reglați poziția camerei pentru a înregistra imaginea paralelă cu solul.\n\n<bold>● Situații care nu ar trebui să filmeze</bold> Fotografierea nu trebuie făcută pe vreme întunecată, ploioasă, cu zăpadă, când imaginea este neclară.\n\n<bold>● Locație exactă</bold> Serviciile de localizare ale dispozitivului dvs. trebuie să fie activate și precise.",
+    "rules_of_contest": "<0>Reguli oficiale</0> pentru concurs",
+    "final_content": {
+      "title": "Mapilio a început prima provocare.",
+      "description": "Poți câștiga de fiecare dată când tragi cu Mapilio. Strânge puncte, concurează în clasamente și câștigă."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Hartă",
+      "map_desc": "Vedeți locația dvs. curentă, drumurile, locurile, clădirile și alte detalii în vizualizarea hărții. De asemenea, aici pot fi observate zone deja capturate.",
+      "marketplace": "Piata de desfacere",
+      "marketplace_desc": "Pentru unele zone avem solicitări speciale pentru o captură în care puteți câștiga numerar sau cupoane în schimb. Sunt vizibile pe pagina Marketplace.",
+      "upload": "Încărcați",
+      "upload_desc": "Ai terminat cu capturarea? Apoi faceți clic pentru a încărca toate imaginile.",
+      "leaderboard": "Clasament",
+      "leaderboard_desc": "Clasamentul afișează punctele pe care le-ai marcat pentru împușcarea ta și poziția ta în clasament",
+      "capture": "Captură",
+      "capture_desc": "Începeți acum să începeți să capturați și să contribuiți la hărți mai bune",
+      "next": "Următorul",
+      "done": "Terminat"
+    },
+    "camera": {
+      "angle": "Unghi drept",
+      "angle_desc": "Păstrați unghiul camerei astfel încât linia orizontului\nsă fie întotdeauna opusă și orizontală",
+      "startCapture": "Capture Start",
+      "start_capture_desc": "Lumină, locație, baterie... Totul gata? Să începem să captăm.",
+      "tasks": "Sarcini",
+      "tasks_desc": "Puteți vedea sarcinile pe care trebuie să le faceți pe ecran.",
+      "next": "Următorul",
+      "done": "Terminat"
+    },
+    "marketplace": {
+      "list": "Piata de desfacere",
+      "list_desc": "Aici puteți vedea cererile de captură în zona dvs. Puteți câștiga numerar sau cupoane în schimb.",
+      "apply": "aplica",
+      "apply_desc": "Puteți aplica pentru cerere făcând clic pe butonul Aplicați.",
+      "next": "Următorul",
+      "done": "Terminat"
+    },
+    "skip": "Ocolire"
+  },
+  "errors": {
+    "server_error": "A apărut o eroare cu serverul, vă rugăm să încercați din nou mai târziu.",
+    "token_expired": "Sesiunea dumneavoastră a expirat. Te rog Logheaza te din nou.",
+    "timeout": "Serverul nu răspunde. Vă rugăm să încercați din nou mai târziu."
+  },
+  "report": {
+    "cancel": "Anulare",
+    "privacy_violation": "Încălcarea confidențialității",
+    "inappropriate_content": "Conținut inadecvat",
+    "low_quality": "De calitate inferioară",
+    "other": "Alte",
+    "report_success": "Raportul dvs. a fost trimis cu succes. Se vor face investigațiile necesare și veți fi informat prin e-mail.",
+    "report_error": "A apărut o eroare la raportare. Vă rugăm să încercați din nou mai târziu."
+  },
+  "languages": {
+    "tr": "turc",
+    "en": "Engleză"
+  },
+  "alerts": {
+    "maintenanceMode": "Serviciile noastre sunt in regim de intretinere.\nVă rugăm să vă încărcați imaginile mai târziu.",
+    "update_required_title": "Actualizare necesara",
+    "update_required_description": "Trebuie să actualizați aplicația pentru a o utiliza în continuare.",
+    "update": "Actualizați",
+    "later": "Mai tarziu"
+  }
+}

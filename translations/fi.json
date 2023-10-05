@@ -1,0 +1,413 @@
+{
+  "tab": {
+    "map": "Kartta",
+    "market": "Markkinoida",
+    "upload": "Lataa",
+    "leader": "Johtaja"
+  },
+  "navigation": {
+    "back": "Takaisin",
+    "are_you_sure": "Oletko varma?",
+    "delete_photo": "Haluatko varmasti poistaa tämän valokuvan",
+    "yes": "Joo",
+    "no": "Ei",
+    "delete_error": "Ongelma poistettaessa! Yritä uudelleen.",
+    "delete": "Poistaa",
+    "have_not_connection": "Sinulla ei ole aktiivista Internet-yhteyttä",
+    "profile": "Profiili",
+    "profile_edit": "Profiilin muokkaus",
+    "delete_account": "Poista tili",
+    "your_uploads": "Latauksesi",
+    "upload_detail": "Lataa tiedot",
+    "sign_up": "Kirjaudu",
+    "sign_in": "Kirjaudu sisään",
+    "go_map": "Kartta",
+    "settings": "asetukset",
+    "language": "Kieli"
+  },
+  "search": {
+    "search": "Hae",
+    "recent_searches": "Viimeaikaiset haut",
+    "clear": "Asia selvä",
+    "empty_search": "Äskettäin löydetyt ja käytetyt tavarat tulevat tänne",
+    "no_results": "Ei tuloksia",
+    "another_search": "Ole hyvä ja tee uusi haku."
+  },
+  "panorama": {
+    "image_report": "Kuvaraportti"
+  },
+  "marketplace": {
+    "marketplace": "Markkinapaikka",
+    "market_list": "Markkinalista",
+    "equipment": "LAITTEET",
+    "apply_project": "Hae tähän projektiin",
+    "mission_ready": "Tehtävä valmis",
+    "mission_detail": "Tietoosiosta voit oppia, mitä polkua kannattaa seurata nappaamisen aikana.",
+    "start_capture": "Käynnistä Capture",
+    "or": "tai",
+    "back_to_the": "takaisin <0>Marketplaceen</0>",
+    "far_location": "Sijaintisi on liian kaukana projektialueesta",
+    "tooltip": "Etsi tai tarjoa apua kuvien keräämiseen ja tietojen varmennusprojekteihin luodaksesi tuoreita karttatietoja paikkoihin, joissa sitä tarvitaan.",
+    "map_loading": "Markkinakartta latautuu...",
+    "soon_description": "Mapilio tarjoaa kartoitusmarkkinapaikan, josta käyttäjät voivat pyytää tiettyjen alueiden kartoitusta. Osallistujat palkitaan, ja käytettävissä on ilmainen palvelu kuvan tarkkuuden tarkistamiseksi.",
+    "very_soon": "Erittäin Pian"
+  },
+  "map": {
+    "map_loading": "Ladataan karttaa ja vyöhykkeitä...",
+    "pano_error": "Kuvaa ladattaessa tapahtui ongelma. Yritä uudelleen.",
+    "gps_disabled": "GPS ei ole käytössä."
+  },
+  "profile_settings": {
+    "profile_edit": "Profiilin muokkaus",
+    "licences": "Lisenssit",
+    "terms_and_conditions": "käyttöehdot",
+    "privacy": "Tietosuojakäytäntö",
+    "about": "Noin",
+    "contest_rules": "Kilpailun säännöt",
+    "change_language": "Vaihda kieltä",
+    "mapilio": "mapilio",
+    "version": "V 1.0.2",
+    "sign_out": "Kirjaudu ulos",
+    "delete_account": "Poista tili"
+  },
+  "profile_edit": {
+    "username": "Käyttäjätunnus",
+    "name": "Nimi",
+    "bio": "Bio",
+    "hide_my_username": "Piilota käyttäjänimeni",
+    "save": "Tallentaa"
+  },
+  "delete_account": {
+    "title": "Kiitos osallistumisestasi Mapilioon!",
+    "description": "Olemme pahoillamme, että haluat poistaa tilisi, mutta aiemmat lahjoituksesi tukevat edelleen yhteisöä.",
+    "alert_title": "Haluatko varmasti poistaa tilisi?",
+    "alert_description": "Haluatko varmasti poistaa tilisi? Tätä toimintoa ei voi kumota.",
+    "delete": "Poistaa",
+    "cancel": "Peruuttaa",
+    "delete_account": "Poista tili",
+    "login_again": "Sinun on kirjauduttava uudelleen",
+    "login_again_description": "Sinun on kirjauduttava sisään uudelleen poistaaksesi tilisi. Sinut ohjataan kirjautumissivulle.",
+    "ok": "OK",
+    "delete_error": "Ongelma poistettaessa! Yritä uudelleen."
+  },
+  "upload_complete": {
+    "title": "Lataus valmis",
+    "description": "Tietojasi käsitellään... Saat ilmoituksen sähköpostitse, kun kuvasi julkaistaan Mapiliossa.",
+    "go_to_map": "Siirry karttaan"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "Ota laukaus",
+      "subtitle": "Katutasossa",
+      "description": "Ota katutason kuvia ja luo kartta."
+    },
+    "second": {
+      "title": "Lataa kaappauksia",
+      "subtitle": "Osallistu",
+      "description": "Lataa kuvasi kerätäksesi pisteitä ja saavuttaaksesi korkean paikan tulostaulukossa."
+    },
+    "third": {
+      "title": "Ansaitse lahjoja",
+      "subtitle": "Suorita tehtäviä",
+      "description": "Saat mahdollisuuden voittaa lahjoja tekemäsi tehtävät."
+    },
+    "fourth": {
+      "title": "Lisää palkintoja",
+      "subtitle": "Jatka eteenpäin",
+      "description": "Laajennamme lahjavalikoimaamme joka päivä."
+    },
+    "next": "Seuraava",
+    "skip": "Ohita",
+    "start": "alkaa"
+  },
+  "camera": {
+    "title": "Sieppaus on alkanut",
+    "description": "Varmista sillä välin, että kamerasi kulma on oikea ja vakaa.",
+    "safe_mode": "Virran turvatila",
+    "advanced": "Pitkälle kehittynyt",
+    "getting_ready": "Kamera valmistuu. Odota.",
+    "something_went_wrong": "Jotain meni pieleen. Yritä uudelleen.",
+    "tasks": "Tehtävät",
+    "select_mission": "Valitse Tehtävä",
+    "empty_mission_title": "Ei ole projektia, jossa olet mukana.",
+    "empty_mission_description": "Voit selata projekteja <0>Marketplacessa</0>",
+    "warning": {
+      "battery": {
+        "title": "Akun varaustaso alhainen",
+        "description": "GPS-tarkkuus heikkenee, koska lataus on alle 15 %. Tässä tapauksessa ampuminen ei ole mahdollista."
+      },
+      "mocked": {
+        "title": "Väärä GPS",
+        "description": "Väärennetty GPS-käyttö on havaittu, käytä laitteen GPS-sijaintia jatkaaksesi!"
+      },
+      "speed": {
+        "title": "Suuri nopeus",
+        "description": "Ylitit suurimman nopeusrajoituksen. Tarkkuuden vuoksi nopeuden tulisi olla enintään 70 km/h."
+      },
+      "bad_gps": {
+        "title": "GPS-tarkkuus on liian alhainen",
+        "description": "Kuvaaminen jatkuu, kun GPS-hälytyskuvake muuttuu vihreäksi."
+      },
+      "gps": {
+        "title": "GPS-haku",
+        "description": "Ole avoimella alueella, jossa GPS tallentaa. Tämä prosessi voi kestää jopa 30 sekuntia."
+      },
+      "angle": {
+        "title": "Säädä kamerakulmaa",
+        "description": "Kuvaaminen jatkuu, kun kiertosi on totta."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Keskity tielle",
+      "description": "Aseta kohdistus poluksi koskettamalla näyttöä."
+    },
+    "second": {
+      "title": "Puhdas kuva",
+      "description": "Varmista, että auton konepelti ja muut esineet eivät näy kuvassa."
+    },
+    "third": {
+      "title": "Kameran suunta",
+      "description": "Säädä kameran asentoa tallentaaksesi kuvan maanpinnan suuntaisesti."
+    },
+    "next": "Seuraava",
+    "prev": "Ed",
+    "finish": "Suorittaa loppuun"
+  },
+  "camera_settings": {
+    "general_settings": "Yleiset asetukset",
+    "capture_settings": "Kaappausasetukset",
+    "distance_between": "Kuvien välinen etäisyys",
+    "camera_settings": "Kameran asetukset",
+    "remaining_images": "Otetut kuvat / jäljellä olevat kuvat",
+    "battery_level": "Akun varaustaso",
+    "ok": "OK",
+    "enable_low_resolution": "Ota matala resoluutio käyttöön",
+    "enable_low_resolution_desc": "Ota matalaresoluutioinen tila käyttöön parantaaksesi akun suorituskykyä ja nopeampaa kuvaamista.",
+    "settings_saved": "Kamera on käynnistettävä uudelleen, jotta muutokset tulevat voimaan."
+  },
+  "capture_completed": {
+    "title": "<0>{{distance}}km</0> Road\n-kaappaus tehtiin",
+    "detail": "<0>{{count}} kuvaa</0> / {{size}}Mt",
+    "upload_now": "Lataa nyt",
+    "upload_later": "Lataa myöhemmin"
+  },
+  "upload": {
+    "upload": "Lataa",
+    "no_data": {
+      "title": "Ladattavaa sieppausta ei löytynyt",
+      "description": "Jotta voit ladata, sinun on kuvattava \"Capture\"-osiosta. Videosi näkyvät täällä."
+    },
+    "title": "Lataa valokuvia",
+    "subtitle": "Voit ladata kuvia täältä.",
+    "image_count": "{{count}} kuvaa",
+    "are_you_sure": "Oletko varma?",
+    "delete_capture": "Poista Capture",
+    "delete_message": "Haluatko poistaa kuvakaappauksen?",
+    "yes": "Joo",
+    "no": "Ei",
+    "start_upload": "Aloita lataus",
+    "is_cellular_data": "Haluatko varmasti lähettää matkapuhelindatan kautta?",
+    "you_cancelled_upload": "Peruutit latauksen",
+    "sequences_deleted": "Jaksot poistettu",
+    "upload_completed": "Lataus valmis",
+    "upload_failed": "Lataus epäonnistui",
+    "no_address": "Ei osoitetta",
+    "point": "~<0>{{count}}</0> pts",
+    "clear_selections": "Tyhjennä valinnat",
+    "delete": "Poistaa",
+    "accessible_world": {
+      "title": "Helppokäyttöinen maailma",
+      "description": "New Yorkin keskustassa tai kylässä Afrikassa. Osallistu karttoihin ja tee ihmiskunnan elämästä helpompaa jokaisella kuvalla."
+    },
+    "contribute_to_our_environment": {
+      "title": "Osallistu ympäristöömme",
+      "description": "Me kaikki haaveilemme puhtaammasta ja helppokäyttöisemmästä maailmasta. Luodaan parempi kartta kaikille osallistumalla Mapiloon."
+    },
+    "traffic_problem": {
+      "title": "Liikenne ongelma",
+      "description": "Tiesitkö, että istumme liikenteessä yli 102 tuntia vuodessa. 1 739 dollaria vuodessa polttoaineenkulutuksesta ja poissaoloista johtuvia tappioita."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Maanjäristykset ja hätätilanteet",
+      "description": "Osallistu saavuttamattomien teiden löytämiseen ja varhaiseen puuttumiseen mahdollisiin terveyteen ja elintärkeisiin tilanteisiin."
+    }
+  },
+  "profile": {
+    "individual_account": "Henkilökohtainen tili",
+    "organization_account": "Organisaation tili",
+    "no_feed": "Ei syötettä",
+    "no_feed_desc": "Näytettäviä syötteitä ei ole. Voit osallistua aloittamalla saalis nyt.",
+    "start_capture": "Käynnistä Capture",
+    "select_organization": "Valitse organisaatio",
+    "images": "kuvia",
+    "uploaded": "Ladattu",
+    "completed": "Valmis",
+    "processing": "Käsittely",
+    "fail": "Epäonnistui",
+    "sequences": "Jaksot",
+    "photos": "Kuvat",
+    "roads": "Tiet",
+    "uploaded_title": "Lataamasi kuvat",
+    "uploaded_subtitle": "Täältä näet ladatut kuvat.",
+    "image": "Kuva",
+    "map": "Kartta",
+    "fetch_error": "Profiilin noutamisessa ilmeni ongelma. Yritä uudelleen.",
+    "no_address": "Ei osoitetta"
+  },
+  "login": {
+    "title": "Kirjaudu sisään nähdäksesi mitä kartallasi on.",
+    "email_username": "Sähköpostiosoite tai käyttäjätunnus",
+    "password": "Salasana",
+    "login": "Kirjaudu sisään",
+    "forgot_password": "Unohditko salasanasi?",
+    "languages": "Kieli (kielet",
+    "login_error": "Palvelimessa tapahtui virhe. Yritä myöhemmin uudelleen.",
+    "or": "tai",
+    "login_success": "Kirjautuminen onnistui ",
+    "error": "Tapahtui virhe, yritä myöhemmin uudelleen.",
+    "mail_error": "Et ole jäsen, koska emme pääse käsiksi sähköpostiosoitteeseesi. Anna lupa sähköpostiin tai rekisteröidy muulla tavalla.",
+    "enter_email": "Anna sähköpostiosoitteesi."
+  },
+  "register": {
+    "title": "Rekisteröidy nähdäksesi mitä kartallasi on.",
+    "name": "Nimi",
+    "email": "Sähköpostiosoite",
+    "password": "Salasana",
+    "signup": "Kirjaudu",
+    "name_required": "Nimi vaaditaan",
+    "email_required": "Sähköpostiosoite vaaditaan",
+    "email_not_valid": "Anna kelvollinen sähköpostiosoite",
+    "pass_min_character": "Salasanassa on oltava vähintään {{min}} merkkiä",
+    "account_created": "Tilisi on luotu, tarkista sähköpostiosoitteesi.",
+    "redirect_error": "Uudelleenohjauksessa tapahtui virhe. Yritä uudelleen.",
+    "policy": "Napsauttamalla \"Rekisteröidy\" -painiketta hyväksyt\n <0>tietosuojakäytäntömme</0> ja <1>käyttöehdot</1> .",
+    "register_error": "Palvelimessa tapahtui virhe. Yritä myöhemmin uudelleen."
+  },
+  "forgot": {
+    "title": "Unohditko salasanasi?",
+    "description": "Kirjoita Mapilio-tiliisi yhdistetty sähköpostiosoite. Lähetämme sinulle linkin salasanan vaihtamiseen.",
+    "email": "Sähköpostiosoite",
+    "reset_link": "Lähetä nollauslinkki",
+    "reset_success": "Nollauspyyntö on lähetetty sähköpostiosoitteeseen."
+  },
+  "leaderboard": {
+    "title": "Tulostaulu",
+    "how_to_score": "Kuinka saada \npisteet?",
+    "alltime_description": "30 parasta yhteisön jäsentä, jotka auttavat Mapilion kasvattamisessa!",
+    "users": "Käyttäjät",
+    "organizations": "Organisaatiot",
+    "fetch_error": "Tulostaulukon noutamisessa oli ongelma. Yritä uudelleen.",
+    "join_the_race": "liity\nkilpailuun",
+    "points": "Pisteet",
+    "points_short": "Pt",
+    "roads": "Tiet",
+    "photos": "Kuvat",
+    "challenge": "HAASTE",
+    "board": "HALLITUS",
+    "all_time": "Koko ajan",
+    "this_month": "Tässä kuussa",
+    "this_week": "Tämä viikko",
+    "join": "Liittyä seuraan",
+    "winners_title": "Ja \n Mapilion voittajat"
+  },
+  "upload_modal": {
+    "title": "Luodaan lisää\nkarttoja",
+    "subtitle": "Tee positiivinen vaikutus alueellasi, osallistu luotettavaan kartoitukseen, ota korkea asema tulostaulukossa",
+    "sequences": "Jaksot",
+    "images": "Kuvat",
+    "stop_upload": "Lopeta lataus"
+  },
+  "no_internet": {
+    "title": "Sinulla ei ole Internet-yhteyttä",
+    "description": "Sinulla ei ole Internet-yhteyttä. Varmista, että matkapuhelimesi matkapuhelin tai wifi on päällä."
+  },
+  "form": {
+    "email_required": "Sähköpostiosoite vaaditaan",
+    "please_enter_valid_email": "Anna kelvollinen sähköpostiosoite",
+    "password_required": "salasana tarvitaan"
+  },
+  "how_to_score": {
+    "title": "Miten pisteytysjärjestelmä toimii?",
+    "summary": "Kilpaile Mapilion avustajien kanssa kaikkialta maailmasta ja voita mahtavia palkintoja!",
+    "paragraph": "<h2>Mapilion palkintojärjestelmä</h2> <p>\n\nMapilion ammuksista on mahdollista kerätä pisteitä ja voittaa palkintoja\n\n<h3>Pisteytysjärjestelmä</h3>\nMaailmanlaajuisen tulostaulukon avulla voit verrata paikallisia panoksiasi muihin osallistujiin. Tulostaulukossa on pisteytysjärjestelmä, joka ottaa huomioon useita panoksen elementtejä. Tässä ovat muuttujat, jotka muodostavat pistemäärän:\n\n<h3>● Yksilölliset kilometrit (UKM):</h3>\ntämä on sekvenssien kokonaisetäisyys alueilla, joilla ei ole aiempaa kattavuutta. Jos esimerkiksi ajoit 10 kilometriä ja siitä 7 kilometriä ei ollut olemassa kuvia, UKM:si kyseiselle ajomatkalle olisi 7 kilometriä.\n\n<h3>● Kuvat:</h3>\nlähettäjän haasteen aikana lataamien kuvien kokonaismäärä\n\n<h3>● Osallistujia:</h3>\ntämä on paikalliseen haasteeseesi osallistuvien ihmisten lukumäärä. Ajatuksena on kannustaa ja palkita yhteistyötä.\n\nPistemäärän laskentakaava on seuraava: Pisteet = (UKM yhteensä + (kuvat/1000)) * (1 + (osallistujien määrä/10))\n\n<h3>Muista;</h3>\nPalkinnon saamiseksi sinun on saavutettava vähintään 100 pistettä. Jotta voit saada pisteitä kuvistasi, kuvan sijainnin on oltava selkeä, kuvien on oltava riittävän kirkkaassa valossa ja niitä ei saa olla otettu sääolosuhteet, kuten sumu, sade tai muut sääolosuhteet, jotka vääristävät kuvaa.\n\n\n<h3center>Nyt voit aloittaa vangitsemisen, kerätä pisteitä ja kilpailla johdosta.</h3center></p>",
+    "start_now_capture": "Aloita nyt Capture"
+  },
+  "award": {
+    "summary": "Oletko valmis keräämään palkintoa <0>Mapiliolla 🌍🏆</0>",
+    "start_capture_now": "Aloita sieppaus nyt",
+    "slogan": "<bold>Mapilio</bold> aloitti ensimmäisen haasteen.",
+    "title": "Ansaitse uusia lahjoja, kun saavutat enemmän kilometrejä",
+    "description": "Oletko valmis haasteeseen? Kolme eniten pisteitä <date></date> ja <date>31.05.2023</date> välisenä aikana kerännyt kilpailija voittaa mahtavia palkintoja.",
+    "mi_pro_2_scooter": "Xiaomi skootteri",
+    "gopro_9": "GoPro 360 Max",
+    "beats_3_headphones": "Beats Solo 3",
+    "content": "<title>Osallistuminen on erittäin helppoa</title>\n\nOta niin paljon kuin pystyt, kerää enemmän pisteitä kuin muut kilpailijat saavat palkintosi. Kuvaamisen aikana on vähän asioita;\n\n<bold>● Tarkenna tie</bold> Aseta tarkennus poluksi koskettamalla näyttöä.\n\n<bold>● Puhtaat kuvat</bold> Varmista, että auton konepelti ja muut esineet eivät näy kuvassa.\n\n<bold>● Kameran suunta</bold> Säädä kameran asentoa tallentaaksesi kuvan maanpinnan suuntaisesti.\n\n<bold>● Tilanteet, joissa ei kannata ottaa kuvaa</bold> Kuvaamista ei saa ottaa pimeällä, sateisella tai lumisella säällä, kun kuva on epäselvä.\n\n<bold>● Tarkka sijainti</bold> Laitteesi sijaintipalveluiden on oltava päällä ja tarkkoja.",
+    "rules_of_contest": "<0>Viralliset säännöt</0> kilpailua varten",
+    "final_content": {
+      "title": "Mapilio aloitti ensimmäisen haasteen.",
+      "description": "Voit voittaa joka kerta, kun ammut Mapiliolla. Kerää pisteitä, kilpaile tulostaulukoissa ja voita."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Kartta",
+      "map_desc": "Katso nykyinen sijaintisi, tiet, paikat, rakennukset ja muut tiedot karttanäkymästä. Myös jo vangitut alueet ovat nähtävissä täällä.",
+      "marketplace": "Markkinapaikka",
+      "marketplace_desc": "Joillakin alueilla meillä on erityisiä pyyntöjä kaappaamisesta, jossa voit ansaita rahaa tai kuponkeja vastineeksi. Ne näkyvät Marketplace-sivulla.",
+      "upload": "Lataa",
+      "upload_desc": "Oletko lopettanut kuvaamisen? Napsauta sitten ladataksesi kaikki kuvat.",
+      "leaderboard": "Tulostaulu",
+      "leaderboard_desc": "Tulostaulu näyttää ampumisestasi saamasi pisteet ja sijoituksesi rankingissa",
+      "capture": "Kaapata",
+      "capture_desc": "Aloita nyt ja aloita parempien karttojen kaappaaminen ja lisääminen",
+      "next": "Seuraava",
+      "done": "Tehty"
+    },
+    "camera": {
+      "angle": "Oikea kulma",
+      "angle_desc": "Pidä kamerakulma niin, että horisonttiviiva\non aina vastakkainen ja vaakasuora",
+      "startCapture": "Kaappauksen aloitus",
+      "start_capture_desc": "Valo, sijainti, akku... Kaikki valmiina? Aloitetaan kuvaaminen.",
+      "tasks": "Tehtävät",
+      "tasks_desc": "Näet tehtävät näytöllä.",
+      "next": "Seuraava",
+      "done": "Tehty"
+    },
+    "marketplace": {
+      "list": "Markkinapaikka",
+      "list_desc": "Täältä näet alueesi kaappauspyynnöt. Voit ansaita vastineeksi käteistä tai kuponkeja.",
+      "apply": "Käytä",
+      "apply_desc": "Voit hakea hakemusta napsauttamalla Hae-painiketta.",
+      "next": "Seuraava",
+      "done": "Tehty"
+    },
+    "skip": "Ohita"
+  },
+  "errors": {
+    "server_error": "Palvelimessa tapahtui virhe. Yritä myöhemmin uudelleen.",
+    "token_expired": "Istuntosi on vanhentunut. Kirjaudu uudelleen.",
+    "timeout": "Palvelin ei vastaa. Yritä uudelleen myöhemmin."
+  },
+  "report": {
+    "cancel": "Peruuttaa",
+    "privacy_violation": "Yksityisyyden loukkaus",
+    "inappropriate_content": "Sopimaton sisältö",
+    "low_quality": "Heikkolaatuinen",
+    "other": "muu",
+    "report_success": "Raporttisi on lähetetty onnistuneesti. Tarvittavat tutkimukset tehdään ja sinulle ilmoitetaan sähköpostitse.",
+    "report_error": "Raportoinnin aikana tapahtui virhe. Yritä uudelleen myöhemmin."
+  },
+  "languages": {
+    "tr": "turkkilainen",
+    "en": "Englanti"
+  },
+  "alerts": {
+    "maintenanceMode": "Palvelumme ovat huoltotilassa.\nLataa kuvasi myöhemmin.",
+    "update_required_title": "Päivitys vaaditaan",
+    "update_required_description": "Sinun on päivitettävä sovellus, jotta voit jatkaa sen käyttöä.",
+    "update": "Päivittää",
+    "later": "Myöhemmin"
+  }
+}

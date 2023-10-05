@@ -1,0 +1,413 @@
+{
+  "tab": {
+    "map": "Térkép",
+    "market": "Piac",
+    "upload": "Feltöltés",
+    "leader": "Vezető"
+  },
+  "navigation": {
+    "back": "Vissza",
+    "are_you_sure": "biztos vagy ebben?",
+    "delete_photo": "Biztosan törli ezt a fényképet?",
+    "yes": "Igen",
+    "no": "Nem",
+    "delete_error": "Hiba történt a törlés során! Próbáld újra.",
+    "delete": "Töröl",
+    "have_not_connection": "Nincs aktív internetkapcsolata",
+    "profile": "Profil",
+    "profile_edit": "Profil szerkesztése",
+    "delete_account": "Fiók törlése",
+    "your_uploads": "Feltöltéseid",
+    "upload_detail": "Részlet feltöltése",
+    "sign_up": "Regisztrálj",
+    "sign_in": "Bejelentkezés",
+    "go_map": "Térkép",
+    "settings": "Beállítások",
+    "language": "Nyelv"
+  },
+  "search": {
+    "search": "Keresés",
+    "recent_searches": "Legutóbbi keresések",
+    "clear": "Egyértelmű",
+    "empty_search": "A nemrég talált és használt tárgyak itt lesznek",
+    "no_results": "Nincs találat",
+    "another_search": "Kérjük, keressen újra."
+  },
+  "panorama": {
+    "image_report": "Képes riport"
+  },
+  "marketplace": {
+    "marketplace": "Piactér",
+    "market_list": "Piaci lista",
+    "equipment": "FELSZERELÉS",
+    "apply_project": "Jelentkezzen erre a projektre",
+    "mission_ready": "Küldetés kész",
+    "mission_detail": "Az információs részből megtudhatja, hogy melyik utat kell követni fogás közben.",
+    "start_capture": "Indítsa el a Rögzítést",
+    "or": "vagy",
+    "back_to_the": "vissza a <0>Piactérre</0>",
+    "far_location": "Az Ön helye túl messze van a projekt területétől",
+    "tooltip": "Keressen vagy ajánljon segítséget képgyűjtési és adatellenőrzési projektekhez, hogy friss térképadatokat hozzon létre olyan helyeken, ahol szükség van rájuk.",
+    "map_loading": "A piactérkép betöltődik...",
+    "soon_description": "A Mapilio egy térképező piacteret kínál, ahol a felhasználók kérhetik adott régiók feltérképezését. A közreműködők jutalmat kapnak, és ingyenes szolgáltatás is van a kép pontosságának ellenőrzésére.",
+    "very_soon": "Nagyon hamar"
+  },
+  "map": {
+    "map_loading": "Térkép és zónák betöltése...",
+    "pano_error": "Hiba történt a kép betöltése közben. Kérlek próbáld újra.",
+    "gps_disabled": "A GPS le van tiltva."
+  },
+  "profile_settings": {
+    "profile_edit": "Profil szerkesztése",
+    "licences": "Licencek",
+    "terms_and_conditions": "Felhasználási feltételek",
+    "privacy": "Adatvédelmi irányelvek",
+    "about": "Ról ről",
+    "contest_rules": "Versenyszabályzat",
+    "change_language": "Válts nyelvet",
+    "mapilio": "mapilio",
+    "version": "V 1.0.2",
+    "sign_out": "Kijelentkezés",
+    "delete_account": "Fiók törlése"
+  },
+  "profile_edit": {
+    "username": "Felhasználónév",
+    "name": "Név",
+    "bio": "Bio",
+    "hide_my_username": "Felhasználónevem elrejtése",
+    "save": "Megment"
+  },
+  "delete_account": {
+    "title": "Köszönjük, hogy hozzájárult a Mapilióhoz!",
+    "description": "Sajnáljuk, hogy törölni szeretné fiókját, de korábbi hozzájárulásai továbbra is támogatni fogják a közösséget.",
+    "alert_title": "Biztos benne, hogy törölni szeretné fiókját?",
+    "alert_description": "Biztos benne, hogy törölni szeretné fiókját? Ez a művelet nem visszavonható.",
+    "delete": "Töröl",
+    "cancel": "Megszünteti",
+    "delete_account": "Fiók törlése",
+    "login_again": "Újra be kell jelentkeznie",
+    "login_again_description": "Fiókja törléséhez újra be kell jelentkeznie. A rendszer átirányítja a bejelentkezési oldalra.",
+    "ok": "rendben",
+    "delete_error": "Hiba történt a törlés során! Próbáld újra."
+  },
+  "upload_complete": {
+    "title": "Feltöltés kész",
+    "description": "Adatainak feldolgozása folyamatban van... E-mailben értesítjük, ha képei megjelennek a Mapilio oldalon.",
+    "go_to_map": "Ugrás a térképre"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "Vegyél egy lövést",
+      "subtitle": "Utcaszinten",
+      "description": "Rögzítsen utcaszintű képeket, és járuljon hozzá a térképhez."
+    },
+    "second": {
+      "title": "Felvételek feltöltése",
+      "subtitle": "Hozzájárul",
+      "description": "Töltsd fel képeidet, hogy pontokat gyűjts, és előkelő helyet érj el a ranglistán."
+    },
+    "third": {
+      "title": "Nyerj ajándékokat",
+      "subtitle": "Teljesítsd a küldetéseket",
+      "description": "Lehetőséged van ajándékokat nyerni az általad elvégzett feladatokon keresztül."
+    },
+    "fourth": {
+      "title": "További jutalomért",
+      "subtitle": "Lépj tovább",
+      "description": "Napról napra bővítjük ajándékkínálatunkat."
+    },
+    "next": "Következő",
+    "skip": "Kihagyás",
+    "start": "Rajt"
+  },
+  "camera": {
+    "title": "A rögzítés megkezdődött",
+    "description": "Addig is győződjön meg arról, hogy a kamera szöge megfelelő és stabil.",
+    "safe_mode": "Energiatakarékos mód",
+    "advanced": "Fejlett",
+    "getting_ready": "A kamera készül. Kérlek várj.",
+    "something_went_wrong": "Valami elromlott. Kérlek próbáld újra.",
+    "tasks": "Feladatok",
+    "select_mission": "Válassza a Küldetés lehetőséget",
+    "empty_mission_title": "Nincs olyan projekt, amelyben részt vesz.",
+    "empty_mission_description": "A <0>Piactéren böngészhet a projektek között</0>",
+    "warning": {
+      "battery": {
+        "title": "Az akkumulátor töltöttségi szintje alacsony",
+        "description": "A GPS pontossága csökken, mert a töltöttség 15% alatt van. Ebben az esetben a lövés nem lehetséges."
+      },
+      "mocked": {
+        "title": "Hamis GPS",
+        "description": "Hamis GPS-használatot észleltünk, kérjük, használja a készülék GPS-helyét a folytatáshoz!"
+      },
+      "speed": {
+        "title": "Magassebesség",
+        "description": "Túllépted a megengedett legnagyobb sebességet. A pontosság érdekében a sebessége legfeljebb 70 km/h lehet."
+      },
+      "bad_gps": {
+        "title": "A GPS pontossága túl alacsony",
+        "description": "A fényképezés akkor folytatódik, amikor a GPS riasztás ikon zöldre vált."
+      },
+      "gps": {
+        "title": "GPS keresés",
+        "description": "Kérjük, legyen a nyílt területen, ahol a GPS rögzíti. Ez a folyamat akár 30 másodpercig is eltarthat."
+      },
+      "angle": {
+        "title": "Állítsa be a kamera szögét",
+        "description": "A forgatás akkor folytatódik, ha a forgatás igaz."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Fókuszban az út",
+      "description": "Állítsa be a fókuszt útvonalként a képernyő megérintésével."
+    },
+    "second": {
+      "title": "Tiszta kép",
+      "description": "Győződjön meg arról, hogy a jármű motorházteteje és más tárgyak nem láthatók a képen."
+    },
+    "third": {
+      "title": "Kamera iránya",
+      "description": "Állítsa be a kamera helyzetét, hogy a képet a talajjal párhuzamosan rögzítse."
+    },
+    "next": "Következő",
+    "prev": "Előző",
+    "finish": "Befejez"
+  },
+  "camera_settings": {
+    "general_settings": "Általános beállítások",
+    "capture_settings": "Rögzítési beállítások",
+    "distance_between": "A képek közötti távolság",
+    "camera_settings": "Kamera beállítások",
+    "remaining_images": "Rögzített képek / Fennmaradó képek",
+    "battery_level": "Az akkumulátor töltöttségi szintje",
+    "ok": "rendben",
+    "enable_low_resolution": "Alacsony felbontás engedélyezése",
+    "enable_low_resolution_desc": "Engedélyezze az alacsony felbontású módot a jobb akkumulátorteljesítmény és a gyorsabb fényképezés érdekében.",
+    "settings_saved": "A módosítások életbe léptetéséhez újra kell indítani a kamerát."
+  },
+  "capture_completed": {
+    "title": "<0>{{distance}}km</0> Az\nút rögzítése megtörtént",
+    "detail": "<0>{{count}} kép</0> / {{size}}MB",
+    "upload_now": "Feltöltés most",
+    "upload_later": "Feltöltés később"
+  },
+  "upload": {
+    "upload": "Feltöltés",
+    "no_data": {
+      "title": "Nem található feltölthető rögzítés",
+      "description": "A feltöltéshez a „Rögzítés” részből kell fényképezned. A felvételed itt fog megjelenni."
+    },
+    "title": "Fotók feltöltése",
+    "subtitle": "Innen tudsz képeket feltölteni.",
+    "image_count": "{{count}} kép",
+    "are_you_sure": "biztos vagy ebben?",
+    "delete_capture": "A Capture törlése",
+    "delete_message": "Törölni szeretnéd a felvételt?",
+    "yes": "Igen",
+    "no": "Nem",
+    "start_upload": "Indítsa el a Feltöltést",
+    "is_cellular_data": "Biztosan mobiladat-kapcsolaton keresztül kíván küldeni?",
+    "you_cancelled_upload": "Megszakítottad a feltöltést",
+    "sequences_deleted": "Sorozatok törölve",
+    "upload_completed": "Feltöltés kész",
+    "upload_failed": "Feltöltés sikertelen",
+    "no_address": "Nincs cím",
+    "point": "~<0>{{count}}</0> pontok",
+    "clear_selections": "Kijelölések törlése",
+    "delete": "Töröl",
+    "accessible_world": {
+      "title": "Hozzáférhető világ",
+      "description": "New York központjában vagy egy afrikai faluban. Hozzájáruljon a térképekhez, és könnyítse meg az emberiség életét minden felvétellel."
+    },
+    "contribute_to_our_environment": {
+      "title": "Hozzájárulunk környezetünkhöz",
+      "description": "Mindannyian tisztább és hozzáférhetőbb világról álmodozunk. A Mapilio közreműködésével mindenki számára jobb térképet készíthetünk."
+    },
+    "traffic_problem": {
+      "title": "Közlekedési probléma",
+      "description": "Tudtad, hogy évente több mint 102 órát töltünk a forgalomban. Évente 1739 dollár veszteség az üzemanyag-fogyasztás és a kihagyott idő miatt."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Földrengések és vészhelyzetek",
+      "description": "Hozzájáruljon az elérhetetlen utak felfedezéséhez és a korai beavatkozáshoz az esetlegesen felmerülő egészségügyi és létfontosságú helyzetekben."
+    }
+  },
+  "profile": {
+    "individual_account": "Egyéni számla",
+    "organization_account": "Szervezeti fiók",
+    "no_feed": "Nincs takarmány",
+    "no_feed_desc": "Nincsenek megjeleníthető hírcsatornák. Hozzájárulhat, ha most elkezdi a fogást.",
+    "start_capture": "Indítsa el a Rögzítést",
+    "select_organization": "Válassza ki a szervezetet",
+    "images": "képeket",
+    "uploaded": "Feltöltve",
+    "completed": "Befejezve",
+    "processing": "Feldolgozás",
+    "fail": "Sikertelen",
+    "sequences": "Szekvenciák",
+    "photos": "Fényképek",
+    "roads": "Utak",
+    "uploaded_title": "A feltöltött képek",
+    "uploaded_subtitle": "Itt láthatod a feltöltött képeket.",
+    "image": "Kép",
+    "map": "Térkép",
+    "fetch_error": "Hiba történt a profil lekérésekor. Kérlek próbáld újra.",
+    "no_address": "Nincs cím"
+  },
+  "login": {
+    "title": "Jelentkezzen be, hogy megnézze, mi van a térképen.",
+    "email_username": "E-mail vagy felhasználónév",
+    "password": "Jelszó",
+    "login": "Belépés",
+    "forgot_password": "Elfelejtette a jelszavát?",
+    "languages": "Nyelvek",
+    "login_error": "Hiba történt a szerverrel, próbálkozzon újra később.",
+    "or": "vagy",
+    "login_success": "Sikeres bejelentkezés ",
+    "error": "Hiba történt, próbálkozzon újra később.",
+    "mail_error": "Nem vagy tag, mert nem férünk hozzá az e-mail címedhez. Kérjük, adjon engedélyt postai úton, vagy regisztráljon más módon.",
+    "enter_email": "Kérjük, adja meg e-mail címét."
+  },
+  "register": {
+    "title": "Regisztráljon, hogy megnézze, mi van a térképén.",
+    "name": "Név",
+    "email": "Email cím",
+    "password": "Jelszó",
+    "signup": "Regisztrálj",
+    "name_required": "A név megadása kötelező",
+    "email_required": "E-mail cím megadása kötelező",
+    "email_not_valid": "Kérjük, érvényes e-mail-címet adjon meg",
+    "pass_min_character": "A jelszónak legalább {{min}} karakterből kell állnia",
+    "account_created": "Fiókja létrejött, ellenőrizze e-mail címét.",
+    "redirect_error": "Hiba történt az átirányítás során. Kérjük, próbálja újra.",
+    "policy": "A \"Regisztráció\" gombra kattintva elfogadja\n <0>Adatvédelmi szabályzatunkat</0> és <1>Általános Szerződési Feltételek</1> .",
+    "register_error": "Hiba történt a szerverrel, próbálkozzon újra később."
+  },
+  "forgot": {
+    "title": "Elfelejtette a jelszavát?",
+    "description": "Adja meg a Mapilio-fiókjához társított e-mail-címét. Küldünk egy linket a jelszó visszaállításához.",
+    "email": "Email cím",
+    "reset_link": "Reset link küldése",
+    "reset_success": "A visszaállítási kérelmet elküldtük az e-mail címre."
+  },
+  "leaderboard": {
+    "title": "Ranglista",
+    "how_to_score": "Hogyan lehet \npontot szerezni?",
+    "alltime_description": "A közösség 30 legjobb tagja, akik segítenek a Mapilio fejlesztésében!",
+    "users": "Felhasználók",
+    "organizations": "Szervezetek",
+    "fetch_error": "Hiba történt a ranglista lekérésekor. Kérlek próbáld újra.",
+    "join_the_race": "csatlakozz a\nversenyhez",
+    "points": "Pontok",
+    "points_short": "Pt",
+    "roads": "Utak",
+    "photos": "Fényképek",
+    "challenge": "KIHÍVÁS",
+    "board": "TÁBLA",
+    "all_time": "Mindig",
+    "this_month": "Ebben a hónapban",
+    "this_week": "Ezen a héten",
+    "join": "Csatlakozik",
+    "winners_title": "És a \n Mapilio nyertesei"
+  },
+  "upload_modal": {
+    "title": "Hozzon létre több\ntérképet",
+    "subtitle": "Tegyen pozitív hatást a régiójában, járuljon hozzá a megbízható térképezéshez, szerezze meg magas pozícióját a ranglistán",
+    "sequences": "Szekvenciák",
+    "images": "Képek",
+    "stop_upload": "Feltöltés leállítása"
+  },
+  "no_internet": {
+    "title": "Nincs internetkapcsolatod",
+    "description": "Nincs internetkapcsolatod. Győződjön meg arról, hogy a mobiltelefon vagy a wifi be van kapcsolva."
+  },
+  "form": {
+    "email_required": "E-mail cím megadása kötelező",
+    "please_enter_valid_email": "Kérjük, érvényes e-mail-címet adjon meg",
+    "password_required": "Jelszó szükséges"
+  },
+  "how_to_score": {
+    "title": "Hogyan működik a pontozási rendszer?",
+    "summary": "Versenyezz a Mapilio közreműködőivel a világ minden tájáról, és nyerj nagyszerű díjakat!",
+    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nLehetőség van pontokat gyűjteni a Mapilioban végzett lövöldözéseken és nyerni lehet\n\n<h3>Pontozási rendszer</h3>\nA globális ranglista lehetővé teszi, hogy összehasonlítsa helyi hozzájárulásait más résztvevőkkel. A ranglistán lesz egy pontozási rendszer, amely a hozzájárulás több elemét is figyelembe veszi. Íme a pontszámot alkotó változók:\n\n<h3>● Egyedi kilométerek (UKM):</h3>\nez a sorozatok teljes távolsága olyan területeken, ahol korábban nem volt lefedettség. Például, ha 10 km-en keresztül vezetett, és ebből 7 km-en nem szerepelt kép, akkor az adott út UKM-je 7 km lesz.\n\n<h3>● Képek:</h3>\na közreműködő által a kihívás során feltöltött képek teljes száma\n\n<h3>● Résztvevők:</h3>\nEz a helyi kihívásban résztvevők száma. Az ötlet az együttműködés ösztönzése és jutalmazása.\n\nA pontszám kiszámításának képlete a következő: Pontszám = (az UKM teljes hozzájárulása + (kép/1000)) * (1 + (résztvevők száma/10))\n\n<h3>Ne feledje;</h3>\nA díjra való jogosultsághoz legalább 100 pontot kell elérnie. Ahhoz, hogy a felvételei pontszámot kapjanak, a helyszínnek világosnak kell lennie, a képeket elég erős fényben kell készíteni, és nem szabad időjárási körülmények, például köd, eső vagy más időjárási viszonyok, amelyek torzítják a képet.\n\n\n<h3center>Most elkezdheti a befogást, pontokat gyűjthet és versenyezhet az élmezőnyért.</h3center></p>",
+    "start_now_capture": "Kezdje el a Rögzítést"
+  },
+  "award": {
+    "summary": "Készen állsz jutalmat gyűjteni a <0>Mapilio 🌍🏆 segítségével?</0>",
+    "start_capture_now": "Indítsa el a Rögzítést most",
+    "slogan": "<bold>Mapilio</bold> kezdte az első kihívást.",
+    "title": "Szerezzen új ajándékokat, ha több kilométert ér el",
+    "description": "Készen állsz egy kihívásra? Az a 3 versenyző, aki <date>2023.03.01</date> és <date>2023.05.31</date> között a legtöbb pontot szerzi, remek nyereményeket nyer.",
+    "mi_pro_2_scooter": "Xiaomi robogó",
+    "gopro_9": "GoPro 360 Max",
+    "beats_3_headphones": "Beats Solo 3",
+    "content": "<title>Nagyon egyszerű</title>venni\n\nKevés dolog van rögzítés közben;\n\n<bold>● Fókusz az útra</bold> Állítsa a fókuszt útvonalként a képernyő megérintésével.\n\n<bold>● Tiszta képek</bold> Győződjön meg arról, hogy a jármű motorházteteje és más tárgyak nem láthatók a képen.\n\n<bold>● Kamera iránya</bold> Állítsa be a kamera helyzetét a talajjal párhuzamos kép rögzítéséhez.\n\n<bold>● Helyzetek, amelyeket nem szabad fényképezni</bold> Ne fényképezzen sötét, esős, havas időben, amikor a kép elmosódott.\n\n<bold>● Pontos hely</bold> Helymeghatározás A készüléken be van kapcsolva és pontosnak kell lennie.",
+    "rules_of_contest": "<0>Hivatalos szabályok</0> a versenyre",
+    "final_content": {
+      "title": "Mapilio megkezdte az első kihívást.",
+      "description": "Minden alkalommal nyerhetsz, amikor a Mapilióval lősz. Gyűjtse pontokat, versenyezzen a ranglistákon és nyerjen."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Térkép",
+      "map_desc": "Tekintse meg aktuális tartózkodási helyét, utait, helyeit, épületeit és egyéb részleteit a térképnézetben. A már befogott területek is megfigyelhetők itt.",
+      "marketplace": "Piactér",
+      "marketplace_desc": "Egyes területeken különleges kéréseink vannak egy rögzítésre, ahol készpénzt vagy kuponokat kereshet cserébe. A Marketplace oldalán láthatók.",
+      "upload": "Feltöltés",
+      "upload_desc": "Befejezted a rögzítést? Ezután kattintson az összes kép feltöltéséhez.",
+      "leaderboard": "Ranglista",
+      "leaderboard_desc": "A ranglista mutatja a lövésért szerzett pontokat és a rangsorban elfoglalt pozíciót",
+      "capture": "Elfog",
+      "capture_desc": "Kezdje el most, hogy jobb térképeket készítsen és készítsen hozzá",
+      "next": "Következő",
+      "done": "Kész"
+    },
+    "camera": {
+      "angle": "Derékszög",
+      "angle_desc": "Tartsa a kamera szögét úgy, hogy a\nhorizontvonal mindig szemközti és vízszintes legyen",
+      "startCapture": "Capture Start",
+      "start_capture_desc": "Fény, hely, akkumulátor... Minden készen áll? Kezdjük a rögzítést.",
+      "tasks": "Feladatok",
+      "tasks_desc": "A képernyőn láthatja az elvégzendő feladatokat.",
+      "next": "Következő",
+      "done": "Kész"
+    },
+    "marketplace": {
+      "list": "Piactér",
+      "list_desc": "Itt láthatja a körzetében a rögzítési kérelmeket. Cserébe készpénzt vagy kuponokat kereshet.",
+      "apply": "Alkalmaz",
+      "apply_desc": "A kérelmet a Jelentkezés gombra kattintva tudja benyújtani.",
+      "next": "Következő",
+      "done": "Kész"
+    },
+    "skip": "Kihagyás"
+  },
+  "errors": {
+    "server_error": "Hiba történt a szerverrel, próbálkozzon újra később.",
+    "token_expired": "A munkamenet lejárt. Kérjük, jelentkezzen be újra.",
+    "timeout": "A szerver nem válaszol. Kérlek, próbáld újra később."
+  },
+  "report": {
+    "cancel": "Megszünteti",
+    "privacy_violation": "Adatvédelem megsértése",
+    "inappropriate_content": "Nem megfelelő tartalom",
+    "low_quality": "Gyenge minőségű",
+    "other": "Egyéb",
+    "report_success": "Jelentését sikeresen elküldtük. A szükséges vizsgálatokat elvégzik, és e-mailben értesítik Önt.",
+    "report_error": "Hiba történt a bejelentés során. Kérlek, próbáld újra később."
+  },
+  "languages": {
+    "tr": "török",
+    "en": "angol"
+  },
+  "alerts": {
+    "maintenanceMode": "Szolgáltatásaink karbantartási üzemmódban vannak.\nKérjük, töltse fel a képeket később.",
+    "update_required_title": "Frissítés szükséges",
+    "update_required_description": "A használat folytatásához frissítenie kell az alkalmazást.",
+    "update": "Frissítés",
+    "later": "A későbbiekben"
+  }
+}
