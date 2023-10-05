@@ -1,413 +1,413 @@
 {
   "tab": {
-    "map": "Map",
-    "market": "Market",
-    "upload": "Upload",
-    "leader": "Leader"
+    "map": "מַפָּה",
+    "market": "שׁוּק",
+    "upload": "העלה",
+    "leader": "מַנהִיג"
   },
   "navigation": {
-    "back": "Back",
-    "are_you_sure": "Are you sure?",
-    "delete_photo": "Are you sure you want to delete this photo",
-    "yes": "Yes",
-    "no": "No",
-    "delete_error": "There was a problem while deleting! Try Again.",
-    "delete": "Delete",
-    "have_not_connection": "You do not have an active internet connection",
-    "profile": "Profile",
-    "profile_edit": "Profile Edit",
-    "delete_account": "Delete Account",
-    "your_uploads": "Your Uploads",
-    "upload_detail": "Upload Detail",
-    "sign_up": "Sign up",
-    "sign_in": "Sign in",
-    "go_map": "Map",
-    "settings": "Settings",
-    "language": "Language"
+    "back": "חזור",
+    "are_you_sure": "האם אתה בטוח?",
+    "delete_photo": "האם אתה בטוח שברצונך למחוק תמונה זו",
+    "yes": "כן",
+    "no": "לא",
+    "delete_error": "הייתה בעיה בזמן המחיקה! נסה שוב.",
+    "delete": "לִמְחוֹק",
+    "have_not_connection": "אין לך חיבור אינטרנט פעיל",
+    "profile": "פּרוֹפִיל",
+    "profile_edit": "עריכת פרופיל",
+    "delete_account": "מחק חשבון",
+    "your_uploads": "ההעלאות שלך",
+    "upload_detail": "פירוט העלאה",
+    "sign_up": "הירשם",
+    "sign_in": "להתחבר",
+    "go_map": "מַפָּה",
+    "settings": "הגדרות",
+    "language": "שפה"
   },
   "search": {
-    "search": "Search",
-    "recent_searches": "Recent Searches",
-    "clear": "Clear",
-    "empty_search": "Recently found and used items will be here",
-    "no_results": "No results found",
-    "another_search": "Please make another search."
+    "search": "לחפש",
+    "recent_searches": "חיפושים אחרונים",
+    "clear": "ברור",
+    "empty_search": "פריטים שנמצאו לאחרונה והשתמשו בהם יהיו כאן",
+    "no_results": "לא נמצאו תוצאות",
+    "another_search": "אנא בצע חיפוש נוסף."
   },
   "panorama": {
-    "image_report": "Image report"
+    "image_report": "דוח תמונה"
   },
   "marketplace": {
-    "marketplace": "Marketplace",
-    "market_list": "Market List",
-    "equipment": "EQUIPMENT",
-    "apply_project": "Apply to this project",
-    "mission_ready": "Mission Ready",
-    "mission_detail": "You can learn which path to follow while catching from the information section.",
-    "start_capture": "Start Capture",
-    "or": "or",
-    "back_to_the": "back to the <0>Marketplace</0>",
-    "far_location": "Your location is too far from the project area",
-    "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
-    "map_loading": "Market map is loading...",
-    "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "marketplace": "זירת מסחר",
+    "market_list": "רשימת שוק",
+    "equipment": "צִיוּד",
+    "apply_project": "הגשת בקשה לפרויקט זה",
+    "mission_ready": "המשימה מוכנה",
+    "mission_detail": "אתה יכול ללמוד באיזה נתיב ללכת בזמן התפיסה מקטע המידע.",
+    "start_capture": "להתחיל לכידה",
+    "or": "אוֹ",
+    "back_to_the": "חזרה אל <0>השוק</0>",
+    "far_location": "המיקום שלך רחוק מדי מאזור הפרויקט",
+    "tooltip": "מצא או הצע עזרה בפרויקטים של איסוף תמונות ואימות נתונים כדי ליצור נתוני מפה עדכניים במיקומים שבהם זה נחוץ.",
+    "map_loading": "מפת השוק בטעינה...",
+    "soon_description": "Mapilio מציעה שוק מיפוי שבו משתמשים יכולים לבקש מיפוי של אזורים ספציפיים. התורמים יתוגמלו, ויש שירות חינם לאימות דיוק התמונה.",
+    "very_soon": "בקרוב"
   },
   "map": {
-    "map_loading": "Loading map and zones...",
-    "pano_error": "There was a problem while loading image. Please try again.",
-    "gps_disabled": "Your GPS is disabled."
+    "map_loading": "טוען מפה ואזורים...",
+    "pano_error": "הייתה בעיה בעת טעינת התמונה. בבקשה נסה שוב.",
+    "gps_disabled": "ה-GPS שלך מושבת."
   },
   "profile_settings": {
-    "profile_edit": "Profile Edit",
-    "licences": "Licences",
-    "terms_and_conditions": "Terms & Conditions",
-    "privacy": "Privacy Policy",
-    "about": "About",
-    "contest_rules": "Contest Rules",
-    "change_language": "Change Language",
+    "profile_edit": "עריכת פרופיל",
+    "licences": "רישיונות",
+    "terms_and_conditions": "תנאים והגבלות",
+    "privacy": "מדיניות הפרטיות",
+    "about": "על אודות",
+    "contest_rules": "חוקי התחרות",
+    "change_language": "שנה שפה",
     "mapilio": "mapilio",
     "version": "V 1.0.2",
-    "sign_out": "Sign Out",
-    "delete_account": "Delete Account"
+    "sign_out": "התנתק",
+    "delete_account": "מחק חשבון"
   },
   "profile_edit": {
-    "username": "Username",
-    "name": "Name",
-    "bio": "Bio",
-    "hide_my_username": "Hide my username",
-    "save": "Save"
+    "username": "שם משתמש",
+    "name": "שֵׁם",
+    "bio": "ביו",
+    "hide_my_username": "הסתר את שם המשתמש שלי",
+    "save": "להציל"
   },
   "delete_account": {
-    "title": "Thanks for contributing to Mapilio!",
-    "description": "We're sorry you want to delete your account, but your previous contributions will still support the community.",
-    "alert_title": "Are you sure you want to delete your account?",
-    "alert_description": "Are you sure you want to delete your account? This action cannot be undone.",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "delete_account": "Delete Account",
-    "login_again": "You must login again",
-    "login_again_description": "You must login again to delete your account. You will be redirected to the login page.",
-    "ok": "OK",
-    "delete_error": "There was a problem while deleting! Try Again."
+    "title": "תודה על התרומה ל-Mapilio!",
+    "description": "אנו מצטערים שאתה רוצה למחוק את חשבונך, אך התרומות הקודמות שלך עדיין יתמכו בקהילה.",
+    "alert_title": "האם אתה בטוח שברצונך למחוק את חשבונך?",
+    "alert_description": "האם אתה בטוח שברצונך למחוק את חשבונך? לא ניתן לבטל פעולה זו.",
+    "delete": "לִמְחוֹק",
+    "cancel": "לְבַטֵל",
+    "delete_account": "מחק חשבון",
+    "login_again": "עליך להתחבר שוב",
+    "login_again_description": "עליך להתחבר שוב כדי למחוק את חשבונך. אתה תופנה לדף הכניסה.",
+    "ok": "בסדר",
+    "delete_error": "הייתה בעיה בזמן המחיקה! נסה שוב."
   },
   "upload_complete": {
-    "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
-    "go_to_map": "Go To Map"
+    "title": "ההעלאה הושלמה",
+    "description": "הנתונים שלך בעיבוד... תקבל הודעה בדואר אלקטרוני כאשר התמונות שלך יתפרסמו ב-Mapilio.",
+    "go_to_map": "עבור למפה"
   },
   "welcome_walkthrough": {
     "first": {
-      "title": "Take a shot",
-      "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "title": "קח שוט",
+      "subtitle": "במפלס הרחוב",
+      "description": "צלם תמונות ברמת הרחוב ותרום את המפה."
     },
     "second": {
-      "title": "Upload Captures",
-      "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "title": "העלה צילומים",
+      "subtitle": "לתרום",
+      "description": "העלה את התמונות שלך כדי לאסוף נקודות ולקבל מיקום גבוה ב-Leaderboard."
     },
     "third": {
-      "title": "Earn gifts",
-      "subtitle": "Complete missions",
-      "description": "Get a chance to win gifts through the tasks you contribute."
+      "title": "להרוויח מתנות",
+      "subtitle": "השלם משימות",
+      "description": "קבל הזדמנות לזכות במתנות באמצעות המשימות שאתה תורם."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "לתגמולים נוספים",
+      "subtitle": "תמשיך הלאה",
+      "description": "אנו מרחיבים את מגוון המתנות שלנו מדי יום."
     },
-    "next": "Next",
-    "skip": "Skip",
-    "start": "Start"
+    "next": "הַבָּא",
+    "skip": "לדלג",
+    "start": "הַתחָלָה"
   },
   "camera": {
-    "title": "Capture has started",
-    "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
-    "safe_mode": "Power safe mode",
-    "advanced": "Advanced",
-    "getting_ready": "Camera is getting ready. Please wait.",
-    "something_went_wrong": "Something went wrong. Please try again.",
-    "tasks": "Tasks",
-    "select_mission": "Select Mission",
-    "empty_mission_title": "There is no project you are involved in.",
-    "empty_mission_description": "You can browse projects on <0>Marketplace</0>",
+    "title": "הלכידה החלה",
+    "description": "בינתיים וודאו שהזווית של המצלמה שלכם נכונה ויציבה.",
+    "safe_mode": "מצב בטוח כוח",
+    "advanced": "מִתקַדֵם",
+    "getting_ready": "המצלמה מתכוננת. המתן בבקשה.",
+    "something_went_wrong": "משהו השתבש. בבקשה נסה שוב.",
+    "tasks": "משימות",
+    "select_mission": "בחר משימה",
+    "empty_mission_title": "אין פרויקט שאתה מעורב בו.",
+    "empty_mission_description": "אתה יכול לעיין בפרויקטים ב-<0>Marketplace</0>",
     "warning": {
       "battery": {
-        "title": "Battery level low",
-        "description": "GPS accuracy will decrease because your charge is below 15%. In this case, shooting is not possible."
+        "title": "רמת הסוללה נמוכה",
+        "description": "דיוק ה-GPS יקטן מכיוון שהטעינה שלך נמוכה מ-15%. במקרה זה, ירי אינו אפשרי."
       },
       "mocked": {
-        "title": "Fake GPS",
-        "description": "Fake GPS usage has been detected, please use the device's GPS location to proceed!"
+        "title": "GPS מזויף",
+        "description": "זוהה שימוש מזויף ב-GPS, אנא השתמש במיקום ה-GPS של המכשיר כדי להמשיך!"
       },
       "speed": {
-        "title": "High speed",
-        "description": "You exceeded the high speed limit. For precision, your speed should be a maximum of 70km/h."
+        "title": "מהירות גבוהה",
+        "description": "חרגת מהמהירות המותרת. למען הדיוק, המהירות שלך צריכה להיות מקסימום של 70 קמ\"ש."
       },
       "bad_gps": {
-        "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "title": "דיוק ה-GPS נמוך מדי",
+        "description": "הצילום יימשך כאשר סמל התראת ה-GPS יהפוך לירוק."
       },
       "gps": {
-        "title": "GPS Searching",
-        "description": "Please be in the open area where the GPS will capture. This process can take up to 30 seconds."
+        "title": "חיפוש GPS",
+        "description": "אנא היו באזור הפתוח שבו ה-GPS יתפוס. תהליך זה יכול להימשך עד 30 שניות."
       },
       "angle": {
-        "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "title": "התאם את זווית המצלמה שלך",
+        "description": "הירי ימשיך כאשר הסיבוב שלך נכון."
       }
     }
   },
   "camera_walkthrough": {
     "first": {
-      "title": "Focus the Road",
-      "description": "Set the focus as the path by touching the screen."
+      "title": "מקד את הכביש",
+      "description": "הגדר את המיקוד בתור הנתיב על ידי נגיעה במסך."
     },
     "second": {
-      "title": "Clean Image",
-      "description": "Make sure that the vehicle hood and other objects are not visible in the image."
+      "title": "תמונה נקייה",
+      "description": "ודא שמכסה המנוע וחפצים אחרים אינם נראים בתמונה."
     },
     "third": {
-      "title": "Camera Direction",
-      "description": "Adjust the position of the camera to record the image parallel to the ground."
+      "title": "כיוון המצלמה",
+      "description": "כוונן את מיקום המצלמה כדי להקליט את התמונה במקביל לקרקע."
     },
-    "next": "Next",
-    "prev": "Prev",
-    "finish": "Finish"
+    "next": "הַבָּא",
+    "prev": "הקודם",
+    "finish": "סיים"
   },
   "camera_settings": {
-    "general_settings": "General Settings",
-    "capture_settings": "Capture Settings",
-    "distance_between": "Distance between images",
-    "camera_settings": "Camera Settings",
-    "remaining_images": "Captured images / Remaining images",
-    "battery_level": "Battery level",
-    "ok": "OK",
-    "enable_low_resolution": "Enable low resolution",
-    "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "general_settings": "הגדרות כלליות",
+    "capture_settings": "הגדרות לכידה",
+    "distance_between": "מרחק בין תמונות",
+    "camera_settings": "הגדרות מצלמה",
+    "remaining_images": "תמונות שצולמו / תמונות שנותרו",
+    "battery_level": "רמת סוללה",
+    "ok": "בסדר",
+    "enable_low_resolution": "אפשר רזולוציה נמוכה",
+    "enable_low_resolution_desc": "אפשר מצב ברזולוציה נמוכה לביצועי סוללה טובים יותר וצילום מהיר יותר.",
+    "settings_saved": "יש להפעיל מחדש את המצלמה כדי שהשינויים ייכנסו לתוקף."
   },
   "capture_completed": {
-    "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",
-    "detail": "<0>{{count}} images </0> / {{size}}MB",
-    "upload_now": "Upload Now",
-    "upload_later": "Upload Later"
+    "title": "<0>{{distance}}ק\"מ</0> לכידת כביש\nבוצעה",
+    "detail": "<0>{{count}} תמונות</0> / {{size}}MB",
+    "upload_now": "העלה עכשיו",
+    "upload_later": "העלה מאוחר יותר"
   },
   "upload": {
-    "upload": "Upload",
+    "upload": "העלה",
     "no_data": {
-      "title": "No capture found to upload",
-      "description": "In order to upload, you need to shoot from the 'Capture' section. Your footage will appear here."
+      "title": "לא נמצא לכידה להעלאה",
+      "description": "כדי להעלות, אתה צריך לצלם מקטע 'ללכוד'. הצילומים שלך יופיעו כאן."
     },
-    "title": "Upload Photos",
-    "subtitle": "You can upload images from here.",
-    "image_count": "{{count}} images",
-    "are_you_sure": "Are you sure?",
-    "delete_capture": "Delete Capture",
-    "delete_message": "Do you want to delete your capture?",
-    "yes": "Yes",
-    "no": "No",
-    "start_upload": "Start Upload",
-    "is_cellular_data": "Are you sure you want to send via cellular data?",
-    "you_cancelled_upload": "You cancelled the upload",
-    "sequences_deleted": "Sequences deleted",
-    "upload_completed": "Upload Completed",
-    "upload_failed": "Upload Failed",
-    "no_address": "No address",
-    "point": "~<0>{{count}}</0>pts",
-    "clear_selections": "Clear Selections",
-    "delete": "Delete",
+    "title": "להעלות תמונות",
+    "subtitle": "אתה יכול להעלות תמונות מכאן.",
+    "image_count": "{{count}} תמונות",
+    "are_you_sure": "האם אתה בטוח?",
+    "delete_capture": "מחק Capture",
+    "delete_message": "האם אתה רוצה למחוק את הצילום שלך?",
+    "yes": "כן",
+    "no": "לא",
+    "start_upload": "התחל להעלות",
+    "is_cellular_data": "האם אתה בטוח שברצונך לשלוח באמצעות נתונים סלולריים?",
+    "you_cancelled_upload": "ביטלת את ההעלאה",
+    "sequences_deleted": "רצפים נמחקו",
+    "upload_completed": "ההעלאה הושלמה",
+    "upload_failed": "העלאה נכשלה",
+    "no_address": "אין כתובת",
+    "point": "~<0>{{count}}</0> נקודות",
+    "clear_selections": "נקה בחירות",
+    "delete": "לִמְחוֹק",
     "accessible_world": {
-      "title": "Accessible world",
-      "description": "In the center of New York or in a village in Africa. Contribute to maps and make life easier for humanity with every capture."
+      "title": "עולם נגיש",
+      "description": "במרכז ניו יורק או בכפר באפריקה. תרום למפות והקל על האנושות עם כל לכידה."
     },
     "contribute_to_our_environment": {
-      "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "title": "לתרום לסביבה שלנו",
+      "description": "כולנו חולמים על עולם נקי יותר ונגיש, בואו ניצור מפה טובה יותר לכולם על ידי תרומה של Mapilio."
     },
     "traffic_problem": {
-      "title": "Traffic problem",
-      "description": "Did you know, that we spend over 102 hours per year sitting in traffic. $1,739 per year in losses due to fuel consumption and missed time."
+      "title": "בעיית תנועה",
+      "description": "הידעתם שאנחנו מבלים למעלה מ-102 שעות בשנה בישיבה בפקק. 1,739 דולר לשנה בהפסדים עקב צריכת דלק והחמצת זמן."
     },
     "earthquakes_and_emergencies": {
-      "title": "Earthquakes and emergencies",
-      "description": "Contribute to the discovery of unreachable roads and early intervention in health and vital situations that may arise."
+      "title": "רעידות אדמה ומצבי חירום",
+      "description": "לתרום לגילוי דרכים בלתי ניתנות להשגה ולהתערבות מוקדמת במצבי בריאות וחיוניות שעלולים להיווצר."
     }
   },
   "profile": {
-    "individual_account": "Individual Account",
-    "organization_account": "Organization Account",
-    "no_feed": "No feed",
-    "no_feed_desc": "There are no feeds to display. You can contribute by starting the catch now.",
-    "start_capture": "Start Capture",
-    "select_organization": "Select organization",
-    "images": "images",
-    "uploaded": "Uploaded",
-    "completed": "Completed",
-    "processing": "Processing",
-    "fail": "Fail",
-    "sequences": "Sequences",
-    "photos": "Photos",
-    "roads": "Roads",
-    "uploaded_title": "Images you uploaded",
-    "uploaded_subtitle": "Here you can see uploaded pictures.",
-    "image": "Image",
-    "map": "Map",
-    "fetch_error": "There was a problem for fetching Profile. Please try again.",
-    "no_address": "No address"
+    "individual_account": "חשבון אישי",
+    "organization_account": "חשבון ארגון",
+    "no_feed": "אין הזנה",
+    "no_feed_desc": "אין עדכונים להצגה. אתה יכול לתרום על ידי התחלת הקאץ' עכשיו.",
+    "start_capture": "להתחיל לכידה",
+    "select_organization": "בחר ארגון",
+    "images": "תמונות",
+    "uploaded": "הועלה",
+    "completed": "הושלם",
+    "processing": "מעבד",
+    "fail": "לְהִכָּשֵׁל",
+    "sequences": "רצפים",
+    "photos": "תמונות",
+    "roads": "כבישים",
+    "uploaded_title": "תמונות שהעלית",
+    "uploaded_subtitle": "כאן תוכלו לראות תמונות שהועלו.",
+    "image": "תמונה",
+    "map": "מַפָּה",
+    "fetch_error": "הייתה בעיה באחזור הפרופיל. בבקשה נסה שוב.",
+    "no_address": "אין כתובת"
   },
   "login": {
-    "title": "Sign in to see what's on your map.",
-    "email_username": "Email or Username",
-    "password": "Password",
-    "login": "Log In",
-    "forgot_password": "Forgot your password?",
-    "languages": "Languages",
-    "login_error": "There was an error with the server, please try again later.",
-    "or": "or",
-    "login_success": "Login successful ",
-    "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "title": "היכנס כדי לראות מה מופיע במפה שלך.",
+    "email_username": "דוא\"ל או שם משתמש",
+    "password": "סיסמה",
+    "login": "התחברות",
+    "forgot_password": "שכחת ססמה?",
+    "languages": "שפות",
+    "login_error": "אירעה שגיאה בשרת, אנא נסה שוב מאוחר יותר.",
+    "or": "אוֹ",
+    "login_success": "התחברת בהצלחה ",
+    "error": "אירעה שגיאה, נסה שוב מאוחר יותר.",
+    "mail_error": "אתה לא חבר כי אין לנו גישה לכתובת הדואר האלקטרוני שלך. נא לתת אישור לדואר או להירשם בדרך אחרת.",
+    "enter_email": "אנא הכנס את כתובת הדואר האלקטרוני שלך."
   },
   "register": {
-    "title": "Sign up to see what's on your map.",
-    "name": "Name",
-    "email": "Email Address",
-    "password": "Password",
-    "signup": "Sign Up",
-    "name_required": "Name is required",
-    "email_required": "Email address is required",
-    "email_not_valid": "Please enter valid email",
-    "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
-    "redirect_error": "An error occurred while redirecting, please try again.",
-    "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
-    "register_error": "There was an error with the server, please try again later."
+    "title": "הירשם כדי לראות מה מופיע במפה שלך.",
+    "name": "שֵׁם",
+    "email": "כתובת דוא\"ל",
+    "password": "סיסמה",
+    "signup": "הירשם",
+    "name_required": "נדרש שם",
+    "email_required": "כתובת אימייל נדרשת",
+    "email_not_valid": "נא להזין דוא\"ל חוקי",
+    "pass_min_character": "הסיסמה חייבת להיות לפחות {{min}} תווים",
+    "account_created": "החשבון שלך נוצר, בדוק את כתובת הדואר האלקטרוני שלך.",
+    "redirect_error": "אירעה שגיאה בזמן ההפניה מחדש, אנא נסה שוב.",
+    "policy": "בלחיצה על כפתור \"הירשם\" אתה מסכים למדיניות הפרטיות שלנו\n <0></0> ו<1>תנאים והגבלות</1> .",
+    "register_error": "אירעה שגיאה בשרת, אנא נסה שוב מאוחר יותר."
   },
   "forgot": {
-    "title": "Forgot your password?",
-    "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
-    "email": "Email Address",
-    "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "title": "שכחת ססמה?",
+    "description": "הזן את הדוא\"ל שלך המשויך לחשבון Mapilio שלך. אנו נשלח לך קישור לאיפוס הסיסמה שלך.",
+    "email": "כתובת דוא\"ל",
+    "reset_link": "שלח קישור לאיפוס",
+    "reset_success": "בקשת האיפוס נשלחה לכתובת הדואר האלקטרוני."
   },
   "leaderboard": {
     "title": "Leaderboard",
-    "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
-    "users": "Users",
-    "organizations": "Organizations",
-    "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
-    "join_the_race": "join the\nrace",
-    "points": "Points",
+    "how_to_score": "איך להבקיע \n?",
+    "alltime_description": "30 חברי הקהילה המובילים עוזרים להצמיח את ה-Mapilio!",
+    "users": "משתמשים",
+    "organizations": "ארגונים",
+    "fetch_error": "הייתה בעיה בשליפת Leaderboard. בבקשה נסה שוב.",
+    "join_the_race": "הצטרף למירוץ\n",
+    "points": "נקודות",
     "points_short": "Pt",
-    "roads": "Roads",
-    "photos": "Photos",
-    "challenge": "CHALLENGE",
-    "board": "BOARD",
-    "all_time": "All Time",
-    "this_month": "This Month",
-    "this_week": "This Week",
-    "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "roads": "כבישים",
+    "photos": "תמונות",
+    "challenge": "אתגר",
+    "board": "גלשן",
+    "all_time": "כל הזמן",
+    "this_month": "החודש",
+    "this_week": "השבוע",
+    "join": "לְהִצְטַרֵף",
+    "winners_title": "והמנצחים ב \n Mapilio"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
-    "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
-    "sequences": "Sequences",
-    "images": "Images",
-    "stop_upload": "Stop Upload"
+    "title": "מאפשר ליצור עוד מפות עד\nתאריך",
+    "subtitle": "עשה השפעה חיובית באזור שלך, תרום למיפוי אמין, קח את המיקום הגבוה שלך ב-Leaderboard",
+    "sequences": "רצפים",
+    "images": "תמונות",
+    "stop_upload": "עצור את ההעלאה"
   },
   "no_internet": {
-    "title": "You do not have an internet connection",
-    "description": "You do not have an internet connection. Make sure your mobile cellular or wifi is turned on."
+    "title": "אין לך חיבור לאינטרנט",
+    "description": "אין לך חיבור לאינטרנט. ודא שהסלולרי או ה-WiFi הנייד שלך מופעלים."
   },
   "form": {
-    "email_required": "Email Address is Required",
-    "please_enter_valid_email": "Please enter valid email",
-    "password_required": "Password is required"
+    "email_required": "כתובת דוא\"ל נדרשת",
+    "please_enter_valid_email": "נא להזין דוא\"ל חוקי",
+    "password_required": "דרושה סיסמא"
   },
   "how_to_score": {
-    "title": "How does the scoring system work?",
-    "summary": "Compete with Mapilio contributors from all over the world and win great prizes!",
-    "paragraph": "<h2>Mapilio Awarding System</h2> <p>\n\nIt is possible to collect points from shootings in Mapilio and win prizes\n\n<h3>Scoring system</h3>\nA global leaderboard will allow you to compare your local contributions with other participants. The leaderboard will have a scoring system that will take into account multiple elements of contribution. Here are the variables that make up the score:\n\n<h3>● Unique kilometres (UKM):</h3>\nthis is the total distance of sequences contributed in areas with no previous coverage. For example, if you drove for 10 km and 7 km of it did not have existing imagery, your UKM for that drive would be 7 km.\n\n<h3>● Images:</h3>\nthe total number of images the contributor has uploaded during the challenge\n\n<h3>● Participants:</h3>\nthis is the number of people participating in your local challenge. The idea is to encourage and reward collaboration.\n\nThe formula to calculate the score is as follows: Score = (total UKM contributed + (images/1000)) * (1 + (count of participants/10))\n\n<h3>Remember;</h3>\nTo be eligible for a prize, you must reach a minimum score of 100. In order to get scores from your shots, the location must be clear, imagery must be taken in bright enough light, and they must not have been taken in weather conditions such as fog, rain or other weather conditions that distort the image.\n\n\n<h3center>Now you can start capture, collect points and compete for the lead.</h3center></p>",
-    "start_now_capture": "Start Now Capture"
+    "title": "איך עובדת שיטת הניקוד?",
+    "summary": "התמודד עם תורמים של Mapilio מכל רחבי העולם וזכה בפרסים נהדרים!",
+    "paragraph": "<h2>מערכת הענקת Mapilio</h2> <p>\n\nאפשר לאסוף נקודות מיריות ב- Mapilio ולזכות בפרסים\n\n<h3>מערכת ניקוד</h3>\nלוח תוצאות עולמי יאפשר לך להשוות את התרומות המקומיות שלך עם משתתפים אחרים. ללוח המובילים תהיה מערכת ניקוד שתיקח בחשבון מספר אלמנטים של תרומה. להלן המשתנים המרכיבים את הציון:\n\n<h3>● קילומטרים ייחודיים (UKM):</h3>\nזהו המרחק הכולל של רצפים שנתרמו באזורים ללא כיסוי קודם. לדוגמה, אם נסעתם 10 ק\"מ ול-7 ק\"מ מהם לא היו תמונות קיימות, ה-UKM שלכם עבור נסיעה זו יהיה 7 ק\"מ.\n\n<h3>● תמונות:</h3>\nהמספר הכולל של התמונות שהתורם העלה במהלך האתגר\n\n<h3>● משתתפים:</h3>\nזה מספר האנשים שמשתתפים באתגר המקומי שלך. הרעיון הוא לעודד ולתגמל שיתוף פעולה.\n\nהנוסחה לחישוב הציון היא כדלקמן: ציון = (סה\"כ תרמו UKM + (תמונות/1000)) * (1 + (ספירת משתתפים/10))\n\n<h3>זכור;</h3>\nכדי להיות זכאי לפרס, עליך להגיע לציון מינימלי של 100. על מנת לקבל ציונים מהצילומים שלך, המיקום חייב להיות ברור, יש לצלם תמונות באור בהיר מספיק, ואסור שהן צולמו תנאי מזג אוויר כגון ערפל, גשם או תנאי מזג אוויר אחרים המעוותים את התמונה.\n\n\n<h3center>עכשיו אתה יכול להתחיל ללכוד, לאסוף נקודות ולהתחרות על ההובלה.</h3center></p>",
+    "start_now_capture": "התחל עכשיו לכידת"
   },
   "award": {
-    "summary": "Are you ready to collect reward with <0>Mapilio 🌍🏆</0>",
-    "start_capture_now": "Start Capture Now",
-    "slogan": "<bold>Mapilio</bold> started the first challange.",
-    "title": "Earn new gifts as you reach more kilometers",
-    "description": "Are you ready for a challenge? The 3 contestant who score the most points between <date>01.03.2023</date> and <date>31.05.2023</date> will win great prizes.",
-    "mi_pro_2_scooter": "Xiaomi Scooter",
+    "summary": "האם אתה מוכן לאסוף פרס עם <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "התחל ללכוד עכשיו",
+    "slogan": "<bold>Mapilio</bold> התחילה את האתגר הראשון.",
+    "title": "הרוויחו מתנות חדשות ככל שתגיעו לקילומטרים נוספים",
+    "description": "האם אתה מוכן לאתגר? 3 המתמודדים שצברו הכי הרבה נקודות בין <date>01.03.2023</date> ל <date>31.05.2023</date> יזכו בפרסים נהדרים.",
+    "mi_pro_2_scooter": "קטנוע שיאומי",
     "gopro_9": "GoPro 360 Max",
     "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>It`s very simple to attend</title>\n\nCapture as much as you can, collect more points than other competitors get your reward. There are few things when you are capturing;\n\n<bold>● Focus The Road</bold> Set the focus as the path by touching the screen.\n\n<bold>● Clean Images</bold> Make sure that the vehicle hood and other objects are not visible in the image.\n\n<bold>● Camera Direction</bold> Adjust the position of the camera to record the image parallel to the ground.\n\n<bold>● Situations That Shouldn't Shoot</bold> Shooting should not be done in dark, rainy, snowy weather, when the image is blurred.\n\n<bold>● Exact Location</bold> Location Services of your device must be on and precise.",
-    "rules_of_contest": "<0>Official rules</0> for the contest",
+    "content": "<title>זה מאוד פשוט להשתתף</title>\n\nלכיד כמה שאתה יכול, אסוף יותר נקודות ממה שמתחרים אחרים מקבלים את הפרס שלך. יש מעט דברים כשאתה לוכד;\n\n<bold>● פוקוס הדרך</bold> הגדר את המיקוד בתור הנתיב על ידי נגיעה במסך.\n\n<bold>● נקה תמונות</bold> ודא שמכסה המנוע וחפצים אחרים אינם נראים בתמונה.\n\n<bold>● כיוון המצלמה</bold> כוונן את מיקום המצלמה כדי להקליט את התמונה במקביל לקרקע.\n\n<bold>● מצבים שלא כדאי לצלם</bold> אין לבצע צילום במזג אוויר חשוך, גשום ומושלג, כאשר התמונה מטושטשת.\n\n<bold>● מיקום מדויק</bold> שירותי המיקום של המכשיר שלך חייבים להיות מופעלים ומדויקים.",
+    "rules_of_contest": "<0>כללים רשמיים</0> לתחרות",
     "final_content": {
-      "title": "Mapilio started the first challenge.",
-      "description": "You can win every time you shoot with Mapilio. Collect points, compete in the leaderboards and win."
+      "title": "Mapilio התחילה את האתגר הראשון.",
+      "description": "אתה יכול לנצח בכל פעם שאתה יורה עם Mapilio. אספו נקודות, התחרו בטבלאות המובילות ותנצחו."
     }
   },
   "tooltip": {
     "tabBar": {
-      "map": "Map",
-      "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
-      "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
-      "upload": "Upload",
-      "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
+      "map": "מַפָּה",
+      "map_desc": "ראה את המיקום הנוכחי שלך, כבישים, מקומות, מבנים ופרטים אחרים בתצוגת מפה. כמו כן, ניתן לצפות כאן באזורים שכבר נתפסו.",
+      "marketplace": "זירת מסחר",
+      "marketplace_desc": "עבור אזורים מסוימים יש לנו בקשות מיוחדות ללכידה שבה תוכל להרוויח מזומן או קופונים בתמורה. הם גלויים בדף Marketplace.",
+      "upload": "העלה",
+      "upload_desc": "סיימתם ללכוד? לאחר מכן לחץ כדי להעלות את כל התמונות.",
       "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
-      "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
-      "next": "Next",
-      "done": "Done"
+      "leaderboard_desc": "Leaderboard מציג את הנקודות שצברת עבור הקליעה שלך ואת המיקום שלך בדירוג",
+      "capture": "לִלְכּוֹד",
+      "capture_desc": "התחל עכשיו כדי להתחיל לצלם ולתרום מפות טובות יותר",
+      "next": "הַבָּא",
+      "done": "בוצע"
     },
     "camera": {
-      "angle": "Right Angle",
-      "angle_desc": "Keep the camera angle so that the horizon line\nis always opposite and horizontal",
+      "angle": "זווית נכונה",
+      "angle_desc": "שמור על זווית המצלמה כך שקו האופק\nיהיה תמיד הפוך ואופקי",
       "startCapture": "Capture Start",
-      "start_capture_desc": "Light, location, battery... Everything ready? Let's start capturing.",
-      "tasks": "Tasks",
-      "tasks_desc": "You can see the tasks you have to do on the screen.",
-      "next": "Next",
-      "done": "Done"
+      "start_capture_desc": "אור, מיקום, סוללה... הכל מוכן? בואו נתחיל ללכוד.",
+      "tasks": "משימות",
+      "tasks_desc": "אתה יכול לראות את המשימות שאתה צריך לעשות על המסך.",
+      "next": "הַבָּא",
+      "done": "בוצע"
     },
     "marketplace": {
-      "list": "Marketplace",
-      "list_desc": "Here you can see the requests for capturing in your area. You can earn cash or coupons in return.",
-      "apply": "Apply",
-      "apply_desc": "You can apply for the request by clicking on the Apply button.",
-      "next": "Next",
-      "done": "Done"
+      "list": "זירת מסחר",
+      "list_desc": "כאן תוכל לראות את הבקשות לצילום באזור שלך. אתה יכול להרוויח מזומן או קופונים בתמורה.",
+      "apply": "להגיש מועמדות",
+      "apply_desc": "ניתן להגיש בקשה לבקשה על ידי לחיצה על כפתור הגשת בקשה.",
+      "next": "הַבָּא",
+      "done": "בוצע"
     },
-    "skip": "Skip"
+    "skip": "לדלג"
   },
   "errors": {
-    "server_error": "There was an error with the server, please try again later.",
-    "token_expired": "Your session has expired. Please login again.",
-    "timeout": "The server is not responding. Please try again later."
+    "server_error": "אירעה שגיאה בשרת, אנא נסה שוב מאוחר יותר.",
+    "token_expired": "פג תוקף ההפעלה שלך. אנא התחבר שוב.",
+    "timeout": "השרת לא מגיב. בבקשה נסה שוב מאוחר יותר."
   },
   "report": {
-    "cancel": "Cancel",
-    "privacy_violation": "Privacy Violation",
-    "inappropriate_content": "Inappropriate Content",
-    "low_quality": "Low Quality",
-    "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
-    "report_error": "An error occurred while reporting. Please try again later."
+    "cancel": "לְבַטֵל",
+    "privacy_violation": "הפרת פרטיות",
+    "inappropriate_content": "תוכן לא הולם",
+    "low_quality": "איכות נמוכה",
+    "other": "אַחֵר",
+    "report_success": "הדוח שלך נשלח בהצלחה. יתבצעו חקירות נחוצות ותקבלו הודעה במייל.",
+    "report_error": "אירעה שגיאה במהלך הדיווח. בבקשה נסה שוב מאוחר יותר."
   },
   "languages": {
-    "tr": "Turkish",
-    "en": "English"
+    "tr": "טורקי",
+    "en": "אנגלית"
   },
   "alerts": {
-    "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",
-    "update_required_title": "Update Required",
-    "update_required_description": "You must update the application to continue using it.",
-    "update": "Update",
-    "later": "Later"
+    "maintenanceMode": "השירותים שלנו נמצאים במצב תחזוקה.\nאנא העלה את התמונות שלך מאוחר יותר.",
+    "update_required_title": "נדרש עדכון",
+    "update_required_description": "עליך לעדכן את האפליקציה כדי להמשיך להשתמש בה.",
+    "update": "עדכון",
+    "later": "יותר מאוחר"
   }
 }
