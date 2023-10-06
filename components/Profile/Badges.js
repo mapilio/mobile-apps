@@ -13,6 +13,7 @@ const Badges = ({ badgeDetails }) => {
   const bottomSheetRef = useRef(null);
   const [selectedBadgeDetails, setSelectedBadgeDetails] = useState(null);
   const {t} = useTranslation('profile');
+  badgeDetails?.sort((a, b) => a.available_level - b.available_level);
 
   const snapPoints = useMemo(
     () => (selectedBadgeDetails ? ['45%'] : ['45%', '90%']),
@@ -34,8 +35,8 @@ const Badges = ({ badgeDetails }) => {
     }
   };
 
-  const onBadgeSelect = (badgeDetails) => {
-    setSelectedBadgeDetails(badgeDetails);
+  const onBadgeSelect = (badgeData) => {
+    setSelectedBadgeDetails(badgeData);
     bottomSheetRef.current?.snapToIndex(0);
   };
 

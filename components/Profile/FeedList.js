@@ -71,7 +71,8 @@ const FeedList = ({ userDetails }) => {
 
   const getScoreData = async () => {
     try {
-      const scoreData = await api.get(`/api/gamification/badges/${userid}`);
+      const scoreUrl = `/api/gamification/badges/${userid}`;
+      const scoreData = await api.get(scoreUrl);
       setScoreDetails(scoreData);
     } catch (e) {
       captureException(e, {
@@ -88,7 +89,14 @@ const FeedList = ({ userDetails }) => {
         setData(data);
         setLoading(false);
       })
-      .catch(() => toast.show(t('fetch_error'), { type: 'error' }))
+      .catch((err) => {
+        captureException(err, {
+          tags: {
+            functionName: 'FeedList',
+          },
+        });
+        toast.show(t('fetch_error'), { type: 'error' });
+      })
       .finally(() => setGettingData(false));
 
     getScoreData();
@@ -181,7 +189,7 @@ const FeedList = ({ userDetails }) => {
           <UserInfos userDetails={userDetails} scoreDetails={scoreDetails} />
         </Animated.View>
 
-        {!userDetails && <Badges badgeDetails={scoreDetails?.badges} />}
+        {(!userDetails && userInformation) && <Badges badgeDetails={scoreDetails?.badges} />}
 
         <CustomTextBold style={styles.sectionTitle}>{t('feeds')}</CustomTextBold>
 
