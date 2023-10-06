@@ -1,0 +1,413 @@
+{
+  "tab": {
+    "map": "Kaart",
+    "market": "Mark",
+    "upload": "Laai op",
+    "leader": "Leier"
+  },
+  "navigation": {
+    "back": "Terug",
+    "are_you_sure": "Is jy seker?",
+    "delete_photo": "Is jy seker jy wil hierdie foto uitvee",
+    "yes": "Ja",
+    "no": "Geen",
+    "delete_error": "Daar was 'n probleem tydens uitvee! Probeer weer.",
+    "delete": "Vee uit",
+    "have_not_connection": "Jy het nie 'n aktiewe internetverbinding nie",
+    "profile": "Profiel",
+    "profile_edit": "Profiel wysig",
+    "delete_account": "Skrap rekening",
+    "your_uploads": "Jou oplaaie",
+    "upload_detail": "Laai detail op",
+    "sign_up": "Teken aan",
+    "sign_in": "Meld aan",
+    "go_map": "Kaart",
+    "settings": "Instellings",
+    "language": "Taal"
+  },
+  "search": {
+    "search": "Soek",
+    "recent_searches": "Onlangse soektogte",
+    "clear": "Duidelik",
+    "empty_search": "Onlangs gevind en gebruikte items sal hier wees",
+    "no_results": "Geen resultate gevind",
+    "another_search": "Soek asseblief weer."
+  },
+  "panorama": {
+    "image_report": "Beeldverslag"
+  },
+  "marketplace": {
+    "marketplace": "Markplek",
+    "market_list": "Marklys",
+    "equipment": "TOERUSTING",
+    "apply_project": "Doen aansoek vir hierdie projek",
+    "mission_ready": "Missie gereed",
+    "mission_detail": "Jy kan uit die inligtingsafdeling leer watter pad om te volg terwyl jy vang.",
+    "start_capture": "Begin Vaslegging",
+    "or": "of",
+    "back_to_the": "terug na die <0>Mark</0>",
+    "far_location": "Jou ligging is te ver van die projekarea af",
+    "tooltip": "Vind of bied hulp met beeldinsameling en dataverifikasieprojekte om vars kaartdata te skep op plekke waar dit nodig is.",
+    "map_loading": "Markkaart laai tans...",
+    "soon_description": "Mapilio bied 'n karteringmark waar gebruikers kartering van spesifieke streke kan versoek. Bydraers sal beloon word, en daar is 'n gratis diens om beeldakkuraatheid te verifieer.",
+    "very_soon": "Binnekort"
+  },
+  "map": {
+    "map_loading": "Laai tans kaart en sones...",
+    "pano_error": "Kon nie prent laai nie. Probeer asseblief weer.",
+    "gps_disabled": "Jou GPS is gedeaktiveer."
+  },
+  "profile_settings": {
+    "profile_edit": "Profiel wysig",
+    "licences": "Lisensies",
+    "terms_and_conditions": "terme en voorwaardes",
+    "privacy": "Privaatheidsbeleid",
+    "about": "Oor",
+    "contest_rules": "Wedstrydreëls",
+    "change_language": "Verander taal",
+    "mapilio": "mapilio",
+    "version": "V 1.0.2",
+    "sign_out": "Teken uit",
+    "delete_account": "Skrap rekening"
+  },
+  "profile_edit": {
+    "username": "Gebruikersnaam",
+    "name": "Naam",
+    "bio": "Bio",
+    "hide_my_username": "Versteek my gebruikersnaam",
+    "save": "Stoor"
+  },
+  "delete_account": {
+    "title": "Dankie vir jou bydrae tot Mapilio!",
+    "description": "Ons is jammer dat jy jou rekening wil uitvee, maar jou vorige bydraes sal steeds die gemeenskap ondersteun.",
+    "alert_title": "Is jy seker jy wil jou rekening uitvee?",
+    "alert_description": "Is jy seker jy wil jou rekening uitvee? Hierdie handeling kan nie ontdoen word nie.",
+    "delete": "Vee uit",
+    "cancel": "Kanselleer",
+    "delete_account": "Skrap rekening",
+    "login_again": "Jy moet weer aanmeld",
+    "login_again_description": "Jy moet weer aanmeld om jou rekening uit te vee. Jy sal na die aanmeldbladsy herlei word.",
+    "ok": "OK",
+    "delete_error": "Daar was 'n probleem tydens uitvee! Probeer weer."
+  },
+  "upload_complete": {
+    "title": "Oplaai voltooi",
+    "description": "Jou data word verwerk... Jy sal per e-pos in kennis gestel word wanneer jou beelde op Mapilio gepubliseer word.",
+    "go_to_map": "Gaan na kaart"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "Vat 'n kans",
+      "subtitle": "Op straatvlak",
+      "description": "Neem straatvlakbeelde vas en dra die kaart by."
+    },
+    "second": {
+      "title": "Laai opnames op",
+      "subtitle": "Dra by",
+      "description": "Laai jou beelde op om punte in te samel en 'n hoë posisie in die ranglys te kry."
+    },
+    "third": {
+      "title": "Verdien geskenke",
+      "subtitle": "Voltooi missies",
+      "description": "Kry 'n kans om geskenke te wen deur die take wat jy bydra."
+    },
+    "fourth": {
+      "title": "Vir meer belonings",
+      "subtitle": "Beweeg aan",
+      "description": "Ons brei elke dag ons geskenkreeks uit."
+    },
+    "next": "Volgende",
+    "skip": "Huppel",
+    "start": "Begin"
+  },
+  "camera": {
+    "title": "Vaslegging het begin",
+    "description": "Maak intussen seker dat die hoek van jou kamera korrek en stabiel is.",
+    "safe_mode": "Krag veilige modus",
+    "advanced": "Gevorderd",
+    "getting_ready": "Kamera maak gereed. Wag asseblief.",
+    "something_went_wrong": "Iets het verkeerd geloop. Probeer asseblief weer.",
+    "tasks": "Take",
+    "select_mission": "Kies Missie",
+    "empty_mission_title": "Daar is geen projek waarby jy betrokke is nie.",
+    "empty_mission_description": "Jy kan deur projekte blaai op <0>Marketplace</0>",
+    "warning": {
+      "battery": {
+        "title": "Batteryvlak laag",
+        "description": "GPS-akkuraatheid sal afneem omdat jou heffing onder 15% is. In hierdie geval is skiet nie moontlik nie."
+      },
+      "mocked": {
+        "title": "Valse GPS",
+        "description": "Valse GPS-gebruik is bespeur, gebruik asseblief die toestel se GPS-ligging om voort te gaan!"
+      },
+      "speed": {
+        "title": "Hoë spoed",
+        "description": "Jy het die hoë spoedgrens oorskry. Vir akkuraatheid moet jou spoed 'n maksimum van 70 km/h wees."
+      },
+      "bad_gps": {
+        "title": "GPS-akkuraatheid is te laag",
+        "description": "Skiet sal voortgaan wanneer die GPS-waarskuwingsikoon groen word."
+      },
+      "gps": {
+        "title": "GPS soek",
+        "description": "Wees asseblief in die oop area waar die GPS sal vasvang. Hierdie proses kan tot 30 sekondes neem."
+      },
+      "angle": {
+        "title": "Pas jou kamerahoek aan",
+        "description": "Skiet sal voortgaan wanneer jou rotasie waar is."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Fokus die pad",
+      "description": "Stel die fokus as die pad deur die skerm te raak."
+    },
+    "second": {
+      "title": "Skoon beeld",
+      "description": "Maak seker dat die motorkap en ander voorwerpe nie op die beeld sigbaar is nie."
+    },
+    "third": {
+      "title": "Kamera rigting",
+      "description": "Verstel die posisie van die kamera om die beeld parallel met die grond op te neem."
+    },
+    "next": "Volgende",
+    "prev": "Vorige",
+    "finish": "Voltooi"
+  },
+  "camera_settings": {
+    "general_settings": "Algemene instellings",
+    "capture_settings": "Vang instellings",
+    "distance_between": "Afstand tussen beelde",
+    "camera_settings": "Kamera-instellings",
+    "remaining_images": "Gevange beelde / Oorblywende beelde",
+    "battery_level": "Batteryvlak",
+    "ok": "OK",
+    "enable_low_resolution": "Aktiveer lae resolusie",
+    "enable_low_resolution_desc": "Aktiveer lae resolusiemodus vir beter batterywerkverrigting en vinniger opname.",
+    "settings_saved": "Kamera moet herbegin word vir die veranderinge om in werking te tree."
+  },
+  "capture_completed": {
+    "title": "<0>{{distance}}km</0> Pad\nVang is gedoen",
+    "detail": "<0>{{count}} beelde</0> / {{size}}MB",
+    "upload_now": "Laai nou op",
+    "upload_later": "Laai later op"
+  },
+  "upload": {
+    "upload": "Laai op",
+    "no_data": {
+      "title": "Geen opname gevind om op te laai nie",
+      "description": "Om op te laai, moet jy vanaf die 'Vasvang'-afdeling skiet. Jou beeldmateriaal sal hier verskyn."
+    },
+    "title": "Laai foto's op",
+    "subtitle": "Jy kan beelde van hier af oplaai.",
+    "image_count": "{{count}} beelde",
+    "are_you_sure": "Is jy seker?",
+    "delete_capture": "Vee Capture uit",
+    "delete_message": "Wil jy jou opname uitvee?",
+    "yes": "Ja",
+    "no": "Geen",
+    "start_upload": "Begin oplaai",
+    "is_cellular_data": "Is jy seker jy wil via sellulêre data stuur?",
+    "you_cancelled_upload": "Jy het die oplaai gekanselleer",
+    "sequences_deleted": "Reeks uitgevee",
+    "upload_completed": "Oplaai voltooi",
+    "upload_failed": "Oplaai het misluk",
+    "no_address": "Geen adres nie",
+    "point": "~<0>{{count}}</0> pts",
+    "clear_selections": "Vee keuses uit",
+    "delete": "Vee uit",
+    "accessible_world": {
+      "title": "Toeganklike wêreld",
+      "description": "In die middel van New York of in 'n dorpie in Afrika. Dra by tot kaarte en maak die lewe makliker vir die mensdom met elke vang."
+    },
+    "contribute_to_our_environment": {
+      "title": "Dra by tot ons omgewing",
+      "description": "Ons droom almal van 'n skoner en toeganklike wêreld. Kom ons skep 'n beter kaart vir almal deur Mapilio by te dra."
+    },
+    "traffic_problem": {
+      "title": "Verkeer probleem",
+      "description": "Het jy geweet dat ons meer as 102 uur per jaar in die verkeer sit. $1,739 per jaar in verliese as gevolg van brandstofverbruik en gemiste tyd."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Aardbewings en noodgevalle",
+      "description": "Dra by tot die ontdekking van onbereikbare paaie en vroeë ingryping in gesondheids- en lewensnoodsaaklike situasies wat mag ontstaan."
+    }
+  },
+  "profile": {
+    "individual_account": "Individuele rekening",
+    "organization_account": "Organisasie rekening",
+    "no_feed": "Geen voer nie",
+    "no_feed_desc": "Daar is geen strome om te vertoon nie. Jy kan bydra deur die vangs nou te begin.",
+    "start_capture": "Begin Vaslegging",
+    "select_organization": "Kies organisasie",
+    "images": "beelde",
+    "uploaded": "opgelaai",
+    "completed": "Voltooi",
+    "processing": "Verwerking",
+    "fail": "Misluk",
+    "sequences": "Opeenvolgings",
+    "photos": "Foto's",
+    "roads": "Paaie",
+    "uploaded_title": "Prente wat jy opgelaai het",
+    "uploaded_subtitle": "Hier kan jy opgelaaide foto's sien.",
+    "image": "Beeld",
+    "map": "Kaart",
+    "fetch_error": "Daar was 'n probleem om profiel te gaan haal. Probeer asseblief weer.",
+    "no_address": "Geen adres nie"
+  },
+  "login": {
+    "title": "Meld aan om te sien wat op jou kaart is.",
+    "email_username": "E-pos of gebruikersnaam",
+    "password": "Wagwoord",
+    "login": "Teken aan",
+    "forgot_password": "Het jy jou wagwoord vergeet?",
+    "languages": "Tale",
+    "login_error": "Daar was 'n fout met die bediener, probeer asseblief later weer.",
+    "or": "of",
+    "login_success": "Aanmelding suksesvol ",
+    "error": "'n Fout het voorgekom, probeer later weer.",
+    "mail_error": "Jy is nie 'n lid nie, want ons het nie toegang tot jou e-posadres nie. Gee asseblief postoestemming of registreer op 'n ander manier.",
+    "enter_email": "Voer asseblief jou e-posadres in."
+  },
+  "register": {
+    "title": "Teken in om te sien wat op jou kaart is.",
+    "name": "Naam",
+    "email": "E-pos adres",
+    "password": "Wagwoord",
+    "signup": "Teken aan",
+    "name_required": "Naam word vereis",
+    "email_required": "E-posadres word vereis",
+    "email_not_valid": "Voer asseblief 'n geldige e-posadres in",
+    "pass_min_character": "Wagwoord moet ten minste {{min}} karakters wees",
+    "account_created": "Jou rekening is geskep, gaan jou e-posadres na.",
+    "redirect_error": "'n Fout het voorgekom tydens herleiding, probeer asseblief weer.",
+    "policy": "Deur op \"Sluit aan\"-knoppie te klik stem jy in met ons\n <0>Privaatheidsbeleid</0> en <1>Bepalings en Voorwaardes</1> .",
+    "register_error": "Daar was 'n fout met die bediener, probeer asseblief later weer."
+  },
+  "forgot": {
+    "title": "Het jy jou wagwoord vergeet?",
+    "description": "Voer jou e-posadres in wat met jou Mapilio-rekening geassosieer word. Ons sal vir jou 'n skakel stuur om jou wagwoord terug te stel.",
+    "email": "E-pos adres",
+    "reset_link": "Stuur terugstelskakel",
+    "reset_success": "Die terugstelversoek is na die e-posadres gestuur."
+  },
+  "leaderboard": {
+    "title": "Ranglys",
+    "how_to_score": "Hoe om \nte telling?",
+    "alltime_description": "Top 30 gemeenskapslede wat help om die Mapilio!",
+    "users": "Gebruikers",
+    "organizations": "Organisasies",
+    "fetch_error": "Daar was 'n probleem met die haal van ranglys. Probeer asseblief weer.",
+    "join_the_race": "sluit aan by die\n-wedloop",
+    "points": "Punte",
+    "points_short": "Pt",
+    "roads": "Paaie",
+    "photos": "Foto's",
+    "challenge": "UITDAGING",
+    "board": "RAAD",
+    "all_time": "Van alle tye",
+    "this_month": "Hierdie maand",
+    "this_week": "Hierdie week",
+    "join": "Sluit aan",
+    "winners_title": "En die wenners van \n Mapilio"
+  },
+  "upload_modal": {
+    "title": "Kom ons skep meer tot\ndatumkaarte",
+    "subtitle": "Maak 'n positiewe impak in jou streek, Dra by tot betroubare kartering, Neem jou hoë posisie op die puntelys",
+    "sequences": "Opeenvolgings",
+    "images": "Beelde",
+    "stop_upload": "Stop oplaai"
+  },
+  "no_internet": {
+    "title": "Jy het nie 'n internetverbinding nie",
+    "description": "Jy het nie 'n internetverbinding nie. Maak seker dat jou selfoon of wifi aangeskakel is."
+  },
+  "form": {
+    "email_required": "E-posadres word vereis",
+    "please_enter_valid_email": "Voer asseblief 'n geldige e-posadres in",
+    "password_required": "Wagwoord word benodig"
+  },
+  "how_to_score": {
+    "title": "Hoe werk die puntestelsel?",
+    "summary": "Kompeteer met Mapilio-bydraers van regoor die wêreld en wen wonderlike pryse!",
+    "paragraph": "<h2>Mapilio-toekenningstelsel</h2> <p>\n\nDit is moontlik om punte van skietery in Mapilio in te samel en pryse te wen\n\n<h3>Tellingstelsel</h3>\n'n Wêreldwye ranglys sal jou toelaat om jou plaaslike bydraes met ander deelnemers te vergelyk. Die puntelys sal 'n puntestelsel hê wat verskeie elemente van bydrae in ag sal neem. Hier is die veranderlikes waaruit die telling bestaan:\n\n<h3>● Unieke kilometers (UKM):</h3>\ndit is die totale afstand van rye wat bygedra is in gebiede met geen vorige dekking nie. Byvoorbeeld, as jy vir 10 km gery het en 7 km daarvan het nie bestaande beeldmateriaal gehad nie, sal jou UKM vir daardie rit 7 km wees.\n\n<h3>● Prente:</h3>\ndie totale aantal beelde wat die bydraer tydens die uitdaging opgelaai het\n\n<h3>● Deelnemers:</h3>\ndit is die aantal mense wat aan jou plaaslike uitdaging deelneem. Die idee is om samewerking aan te moedig en te beloon.\n\nDie formule om die telling te bereken is soos volg: Telling = (totale UKM bygedra + (prente/1000)) * (1 + (telling van deelnemers/10))\n\n<h3>Onthou;</h3>\nOm vir 'n prys in aanmerking te kom, moet jy 'n minimum telling van 100 bereik. Om tellings uit jou skote te kry, moet die ligging duidelik wees, beelde moet in helder genoeg lig geneem word en hulle moet nie ingeneem gewees het nie weerstoestande soos mis, reën of ander weerstoestande wat die beeld verdraai.\n\n\n<h3center>Nou kan jy begin vang, punte insamel en om die voortou meeding.</h3center></p>",
+    "start_now_capture": "Begin nou vasvang"
+  },
+  "award": {
+    "summary": "Is jy gereed om beloning in te samel met <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Begin Vang Nou",
+    "slogan": "<bold>Mapilio</bold> het die eerste uitdaging begin.",
+    "title": "Verdien nuwe geskenke soos jy meer kilometers bereik",
+    "description": "Is jy gereed vir 'n uitdaging? Die 3 deelnemers wat die meeste punte aanteken tussen <date>01.03.2023</date> en <date>31.05.2023</date> sal groot pryse wen.",
+    "mi_pro_2_scooter": "Xiaomi Scooter",
+    "gopro_9": "GoPro 360 Max",
+    "beats_3_headphones": "Beats Solo 3",
+    "content": "<title>Dit is baie eenvoudig om by te woon</title>\n\nVang soveel as wat jy kan, versamel meer punte as wat ander mededingers jou beloning kry. Daar is min dinge wanneer jy vasvang;\n\n<bold>● Fokus die pad</bold> Stel die fokus as die pad deur die skerm te raak.\n\n<bold>● Skoon prente</bold> Maak seker dat die motorkap en ander voorwerpe nie in die beeld sigbaar is nie.\n\n<bold>● Kamerarigting</bold> Verstel die posisie van die kamera om die beeld parallel met die grond op te neem.\n\n<bold>● Situasies wat nie moet skiet nie</bold> Opname moet nie in donker, reënerige, sneeuweer gedoen word wanneer die beeld wasig is nie.\n\n<bold>● Presiese ligging</bold> Liggingdienste van jou toestel moet aan en presies wees.",
+    "rules_of_contest": "<0>Amptelike reëls</0> vir die kompetisie",
+    "final_content": {
+      "title": "Mapilio het die eerste uitdaging begin.",
+      "description": "Jy kan wen elke keer as jy met Mapilio skiet. Versamel punte, kompeteer in die ranglyste en wen."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Kaart",
+      "map_desc": "Sien jou huidige ligging, paaie, plekke, geboue en ander besonderhede op kaartaansig. Ook reeds vasgevang gebiede kan hier waargeneem word.",
+      "marketplace": "Markplek",
+      "marketplace_desc": "Vir sommige gebiede het ons spesiale versoeke vir 'n vaslegging waar jy kontant of koepons in ruil kan verdien. Hulle is sigbaar op die Marketplace-bladsy.",
+      "upload": "Laai op",
+      "upload_desc": "Is jy klaar met vaslegging? Klik dan om alle beelde op te laai.",
+      "leaderboard": "Ranglys",
+      "leaderboard_desc": "Ranglys wys die punte wat jy vir jou skiet aangeteken het en jou posisie op die ranglys",
+      "capture": "Vang",
+      "capture_desc": "Begin nou om beter kaarte te begin vaslê en by te dra",
+      "next": "Volgende",
+      "done": "Klaar"
+    },
+    "camera": {
+      "angle": "Reghoek",
+      "angle_desc": "Hou die kamerahoek sodat die horisonlyn\naltyd teenoorgesteld en horisontaal is",
+      "startCapture": "Vang begin",
+      "start_capture_desc": "Lig, ligging, battery... Alles gereed? Kom ons begin vasvang.",
+      "tasks": "Take",
+      "tasks_desc": "Jy kan die take wat jy moet doen op die skerm sien.",
+      "next": "Volgende",
+      "done": "Klaar"
+    },
+    "marketplace": {
+      "list": "Markplek",
+      "list_desc": "Hier kan jy die versoeke vir vaslegging in jou area sien. Jy kan kontant of koepons in ruil daarvoor verdien.",
+      "apply": "Doen aansoek",
+      "apply_desc": "Jy kan aansoek doen vir die versoek deur op die Pas toe-knoppie te klik.",
+      "next": "Volgende",
+      "done": "Klaar"
+    },
+    "skip": "Huppel"
+  },
+  "errors": {
+    "server_error": "Daar was 'n fout met die bediener, probeer asseblief later weer.",
+    "token_expired": "Jou sessie het verval. Meld asseblief weer aan.",
+    "timeout": "Die bediener reageer nie. Probeer asseblief weer later."
+  },
+  "report": {
+    "cancel": "Kanselleer",
+    "privacy_violation": "Privaatheidsskending",
+    "inappropriate_content": "Onvanpaste inhoud",
+    "low_quality": "Swak gehalte",
+    "other": "Ander",
+    "report_success": "Jou verslag is suksesvol gestuur. Die nodige ondersoeke sal gedoen word en u sal per e-pos in kennis gestel word.",
+    "report_error": "'n Fout het voorgekom tydens rapportering. Probeer asseblief weer later."
+  },
+  "languages": {
+    "tr": "Turks",
+    "en": "Engels"
+  },
+  "alerts": {
+    "maintenanceMode": "Ons dienste is in onderhoudsmodus.\nLaai asseblief jou beelde later op.",
+    "update_required_title": "Opdatering benodig",
+    "update_required_description": "Jy moet die toepassing opdateer om voort te gaan om dit te gebruik.",
+    "update": "Opdateer",
+    "later": "Later"
+  }
+}

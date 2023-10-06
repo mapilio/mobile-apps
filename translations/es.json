@@ -1,0 +1,413 @@
+{
+  "tab": {
+    "map": "Mapa",
+    "market": "Mercado",
+    "upload": "Subir",
+    "leader": "Líder"
+  },
+  "navigation": {
+    "back": "Atrás",
+    "are_you_sure": "¿Está seguro?",
+    "delete_photo": "¿Estás seguro de que quieres eliminar esta foto?",
+    "yes": "Sí",
+    "no": "No",
+    "delete_error": "¡Hubo un problema al eliminar! Intentar otra vez.",
+    "delete": "Borrar",
+    "have_not_connection": "No tienes una conexión a Internet activa",
+    "profile": "Perfil",
+    "profile_edit": "Editar perfil",
+    "delete_account": "Borrar cuenta",
+    "your_uploads": "Tus cargas",
+    "upload_detail": "Subir detalle",
+    "sign_up": "Inscribirse",
+    "sign_in": "Iniciar sesión",
+    "go_map": "Mapa",
+    "settings": "Ajustes",
+    "language": "Idioma"
+  },
+  "search": {
+    "search": "Buscar",
+    "recent_searches": "Búsquedas recientes",
+    "clear": "Claro",
+    "empty_search": "Los artículos encontrados y usados recientemente estarán aquí",
+    "no_results": "No se han encontrado resultados",
+    "another_search": "Por favor haga otra búsqueda."
+  },
+  "panorama": {
+    "image_report": "Informe de imagen"
+  },
+  "marketplace": {
+    "marketplace": "Mercado",
+    "market_list": "Lista de mercado",
+    "equipment": "EQUIPO",
+    "apply_project": "Aplicar a este proyecto",
+    "mission_ready": "Misión lista",
+    "mission_detail": "Puede aprender qué camino seguir mientras captura en la sección de información.",
+    "start_capture": "Iniciar captura",
+    "or": "o",
+    "back_to_the": "volver al <0>mercado</0>",
+    "far_location": "Su ubicación está demasiado lejos del área del proyecto.",
+    "tooltip": "Encuentre u ofrezca ayuda en proyectos de recopilación de imágenes y verificación de datos para crear datos de mapas nuevos en las ubicaciones donde sea necesario.",
+    "map_loading": "El mapa del mercado se está cargando...",
+    "soon_description": "Mapilio ofrece un mercado de mapas donde los usuarios pueden solicitar mapas de regiones específicas. Los contribuyentes serán recompensados y hay un servicio gratuito para verificar la precisión de la imagen.",
+    "very_soon": "Muy pronto"
+  },
+  "map": {
+    "map_loading": "Cargando mapa y zonas...",
+    "pano_error": "Hubo un problema al cargar la imagen. Inténtalo de nuevo.",
+    "gps_disabled": "Tu GPS está desactivado."
+  },
+  "profile_settings": {
+    "profile_edit": "Editar perfil",
+    "licences": "Licencias",
+    "terms_and_conditions": "Términos y condiciones",
+    "privacy": "política de privacidad",
+    "about": "Acerca de",
+    "contest_rules": "Las reglas del concurso",
+    "change_language": "Cambiar idioma",
+    "mapilio": "mapilio",
+    "version": "Versión 1.0.2",
+    "sign_out": "Desconectar",
+    "delete_account": "Borrar cuenta"
+  },
+  "profile_edit": {
+    "username": "Nombre de usuario",
+    "name": "Nombre",
+    "bio": "Biografía",
+    "hide_my_username": "Ocultar mi nombre de usuario",
+    "save": "Ahorrar"
+  },
+  "delete_account": {
+    "title": "¡Gracias por contribuir a Mapilio!",
+    "description": "Lamentamos que quieras eliminar tu cuenta, pero tus contribuciones anteriores seguirán apoyando a la comunidad.",
+    "alert_title": "¿Estás seguro de que quieres eliminar tu cuenta?",
+    "alert_description": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.",
+    "delete": "Borrar",
+    "cancel": "Cancelar",
+    "delete_account": "Borrar cuenta",
+    "login_again": "Debes iniciar sesión nuevamente",
+    "login_again_description": "Debe iniciar sesión nuevamente para eliminar su cuenta. Serás redirigido a la página de inicio de sesión.",
+    "ok": "DE ACUERDO",
+    "delete_error": "¡Hubo un problema al eliminar! Intentar otra vez."
+  },
+  "upload_complete": {
+    "title": "Carga completada",
+    "description": "Tus datos están siendo procesados... Se te notificará por correo electrónico cuando tus imágenes se publiquen en Mapilio.",
+    "go_to_map": "Ir al mapa"
+  },
+  "welcome_walkthrough": {
+    "first": {
+      "title": "Toma un trago",
+      "subtitle": "A nivel de calle",
+      "description": "Capture imágenes a nivel de calle y contribuya con el mapa."
+    },
+    "second": {
+      "title": "Subir capturas",
+      "subtitle": "Contribuir",
+      "description": "Cargue sus imágenes para acumular puntos y obtener una posición alta en la clasificación."
+    },
+    "third": {
+      "title": "Gana regalos",
+      "subtitle": "Completar misiones",
+      "description": "Tenga la oportunidad de ganar regalos a través de las tareas que contribuya."
+    },
+    "fourth": {
+      "title": "Para más recompensas",
+      "subtitle": "Siga adelante",
+      "description": "Cada día ampliamos nuestra gama de regalos."
+    },
+    "next": "Próximo",
+    "skip": "Saltar",
+    "start": "Comenzar"
+  },
+  "camera": {
+    "title": "La captura ha comenzado",
+    "description": "Mientras tanto, asegúrese de que el ángulo de su cámara sea correcto y estable.",
+    "safe_mode": "Modo seguro de energía",
+    "advanced": "Avanzado",
+    "getting_ready": "La cámara se está preparando. Espere por favor.",
+    "something_went_wrong": "Algo salió mal. Inténtalo de nuevo.",
+    "tasks": "Tareas",
+    "select_mission": "Seleccionar misión",
+    "empty_mission_title": "No hay ningún proyecto en el que estés involucrado.",
+    "empty_mission_description": "Puedes buscar proyectos en <0>Marketplace</0>",
+    "warning": {
+      "battery": {
+        "title": "Nivel de batería bajo",
+        "description": "La precisión del GPS disminuirá porque su carga es inferior al 15%. En este caso no es posible disparar."
+      },
+      "mocked": {
+        "title": "GPS falso",
+        "description": "Se ha detectado un uso falso de GPS. Utilice la ubicación GPS del dispositivo para continuar."
+      },
+      "speed": {
+        "title": "Alta velocidad",
+        "description": "Excediste el límite de alta velocidad. Para mayor precisión, su velocidad debe ser de un máximo de 70 km/h."
+      },
+      "bad_gps": {
+        "title": "La precisión del GPS es demasiado baja",
+        "description": "El disparo continuará cuando el icono de alerta de GPS se vuelva verde."
+      },
+      "gps": {
+        "title": "Búsqueda GPS",
+        "description": "Esté en el área abierta donde capturará el GPS. Este proceso puede tardar hasta 30 segundos."
+      },
+      "angle": {
+        "title": "Ajusta el ángulo de tu cámara",
+        "description": "El disparo continuará cuando tu rotación sea verdadera."
+      }
+    }
+  },
+  "camera_walkthrough": {
+    "first": {
+      "title": "Enfoca el camino",
+      "description": "Establezca el enfoque como ruta tocando la pantalla."
+    },
+    "second": {
+      "title": "Imagen limpia",
+      "description": "Asegúrese de que el capó del vehículo y otros objetos no sean visibles en la imagen."
+    },
+    "third": {
+      "title": "Dirección de la cámara",
+      "description": "Ajuste la posición de la cámara para grabar la imagen paralela al suelo."
+    },
+    "next": "Próximo",
+    "prev": "Anterior",
+    "finish": "Finalizar"
+  },
+  "camera_settings": {
+    "general_settings": "Configuración general",
+    "capture_settings": "Configuración de captura",
+    "distance_between": "Distancia entre imágenes",
+    "camera_settings": "Ajustes de la cámara",
+    "remaining_images": "Imágenes capturadas/Imágenes restantes",
+    "battery_level": "Nivel de bateria",
+    "ok": "DE ACUERDO",
+    "enable_low_resolution": "Habilitar baja resolución",
+    "enable_low_resolution_desc": "Habilite el modo de baja resolución para un mejor rendimiento de la batería y disparos más rápidos.",
+    "settings_saved": "Es necesario reiniciar la cámara para que los cambios surtan efecto."
+  },
+  "capture_completed": {
+    "title": "<0>{{distance}}kilómetros</0> Se realizó la captura de la carretera\n",
+    "detail": "<0>{{count}} imágenes</0> / {{size}}",
+    "upload_now": "Cargar ahora",
+    "upload_later": "Subir más tarde"
+  },
+  "upload": {
+    "upload": "Subir",
+    "no_data": {
+      "title": "No se encontró ninguna captura para subir",
+      "description": "Para poder subir, debes disparar desde la sección 'Captura'. Tu metraje aparecerá aquí."
+    },
+    "title": "Subir fotos",
+    "subtitle": "Puedes subir imágenes desde aquí.",
+    "image_count": "{{count}} imágenes",
+    "are_you_sure": "¿Está seguro?",
+    "delete_capture": "Eliminar captura",
+    "delete_message": "¿Quieres eliminar tu captura?",
+    "yes": "Sí",
+    "no": "No",
+    "start_upload": "Iniciar la subida",
+    "is_cellular_data": "¿Estás seguro de que deseas enviar a través de datos móviles?",
+    "you_cancelled_upload": "Cancelaste la carga",
+    "sequences_deleted": "Secuencias eliminadas",
+    "upload_completed": "Carga completada",
+    "upload_failed": "Subida fallida",
+    "no_address": "Sin dirección",
+    "point": "~<0>{{count}}</0> puntos",
+    "clear_selections": "Borrar selecciones",
+    "delete": "Borrar",
+    "accessible_world": {
+      "title": "Mundo accesible",
+      "description": "En el centro de Nueva York o en un pueblo de África. Contribuye a los mapas y haz la vida más fácil a la humanidad con cada captura."
+    },
+    "contribute_to_our_environment": {
+      "title": "Contribuir a nuestro medio ambiente",
+      "description": "Todos soñamos con un mundo más limpio y accesible. Creemos un mejor mapa para todos contribuyendo con Mapilio."
+    },
+    "traffic_problem": {
+      "title": "Problema de tráfico",
+      "description": "¿Sabías que pasamos más de 102 horas al año sentados en el tráfico? $1,739 por año en pérdidas por consumo de combustible y tiempo perdido."
+    },
+    "earthquakes_and_emergencies": {
+      "title": "Terremotos y emergencias",
+      "description": "Contribuir al descubrimiento de caminos inaccesibles y a la intervención temprana en situaciones de salud y vitales que puedan presentarse."
+    }
+  },
+  "profile": {
+    "individual_account": "Cuenta individual",
+    "organization_account": "Cuenta de organización",
+    "no_feed": "Sin alimentación",
+    "no_feed_desc": "No hay feeds para mostrar. Puedes contribuir iniciando la captura ahora.",
+    "start_capture": "Iniciar captura",
+    "select_organization": "Seleccionar organización",
+    "images": "imágenes",
+    "uploaded": "subido",
+    "completed": "Terminado",
+    "processing": "Procesando",
+    "fail": "Fallar",
+    "sequences": "Secuencias",
+    "photos": "Fotos",
+    "roads": "Carreteras",
+    "uploaded_title": "Imágenes que subiste",
+    "uploaded_subtitle": "Aquí puedes ver las fotos subidas.",
+    "image": "Imagen",
+    "map": "Mapa",
+    "fetch_error": "Hubo un problema al recuperar el perfil. Inténtalo de nuevo.",
+    "no_address": "Sin dirección"
+  },
+  "login": {
+    "title": "Inicia sesión para ver qué hay en tu mapa.",
+    "email_username": "Correo electrónico o nombre de usuario",
+    "password": "Contraseña",
+    "login": "Acceso",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "languages": "Idiomas",
+    "login_error": "Hubo un error con el servidor, inténtelo nuevamente más tarde.",
+    "or": "o",
+    "login_success": "Inicio de sesión correcto ",
+    "error": "Se produjo un error, inténtelo nuevamente más tarde.",
+    "mail_error": "No es miembro porque no podemos acceder a su dirección de correo electrónico. Por favor dé permiso por correo o regístrese de otra manera.",
+    "enter_email": "Por favor, introduzca su dirección de correo electrónico."
+  },
+  "register": {
+    "title": "Regístrate para ver qué hay en tu mapa.",
+    "name": "Nombre",
+    "email": "Dirección de correo electrónico",
+    "password": "Contraseña",
+    "signup": "Inscribirse",
+    "name_required": "Se requiere el nombre",
+    "email_required": "Se requiere Dirección de correo electrónico",
+    "email_not_valid": "Por favor introduzca un correo electrónico válido",
+    "pass_min_character": "La contraseña debe tener al menos {{min}} caracteres.",
+    "account_created": "Su cuenta ha sido creada, verifique su dirección de correo electrónico.",
+    "redirect_error": "Se produjo un error al redirigir, inténtalo de nuevo.",
+    "policy": "Al hacer clic en el botón \"Registrarse\" acepta nuestra\n <0>Política de Privacidad</0> y <1>Términos y condiciones</1> .",
+    "register_error": "Hubo un error con el servidor, inténtelo nuevamente más tarde."
+  },
+  "forgot": {
+    "title": "¿Olvidaste tu contraseña?",
+    "description": "Ingrese su correo electrónico asociado con su cuenta Mapilio. Le enviaremos un enlace para restablecer su contraseña.",
+    "email": "Dirección de correo electrónico",
+    "reset_link": "Enviar enlace de reinicio",
+    "reset_success": "La solicitud de reinicio ha sido enviada a la dirección de correo electrónico."
+  },
+  "leaderboard": {
+    "title": "Tabla de clasificación",
+    "how_to_score": "¿Cómo obtener una puntuación \n?",
+    "alltime_description": "¡Los 30 mejores miembros de la comunidad que ayudan a hacer crecer Mapilio!",
+    "users": "Usuarios",
+    "organizations": "Organizaciones",
+    "fetch_error": "Hubo un problema al obtener la tabla de clasificación. Inténtalo de nuevo.",
+    "join_the_race": "únete a la carrera\n",
+    "points": "Puntos",
+    "points_short": "punto",
+    "roads": "Carreteras",
+    "photos": "Fotos",
+    "challenge": "DESAFÍO",
+    "board": "JUNTA",
+    "all_time": "Todo el tiempo",
+    "this_month": "Este mes",
+    "this_week": "Esta semana",
+    "join": "Unirse",
+    "winners_title": "Y los ganadores de \n Mapilio"
+  },
+  "upload_modal": {
+    "title": "Creemos más mapas de hasta\nfechas",
+    "subtitle": "Genere un impacto positivo en su región, contribuya a un mapeo confiable, ocupe su alta posición en la clasificación",
+    "sequences": "Secuencias",
+    "images": "Imágenes",
+    "stop_upload": "Detener carga"
+  },
+  "no_internet": {
+    "title": "No tienes conexión a internet",
+    "description": "No tienes conexión a Internet. Asegúrate de que tu móvil celular o wifi esté encendido."
+  },
+  "form": {
+    "email_required": "Se requiere Dirección de correo electrónico",
+    "please_enter_valid_email": "Por favor introduzca un correo electrónico válido",
+    "password_required": "se requiere contraseña"
+  },
+  "how_to_score": {
+    "title": "¿Cómo funciona el sistema de puntuación?",
+    "summary": "¡Compite con colaboradores de Mapilio de todo el mundo y gana fantásticos premios!",
+    "paragraph": "<h2>Sistema de premios Mapilio</h2> <p>\n\nEs posible acumular puntos de rodajes en Mapilio y ganar premios\n\n<h3>Sistema de puntuación</h3>\nUna tabla de clasificación global le permitirá comparar sus contribuciones locales con las de otros participantes. La tabla de clasificación tendrá un sistema de puntuación que tendrá en cuenta múltiples elementos de contribución. Estas son las variables que componen la puntuación:\n\n<h3>● Kilómetros únicos (UKM):</h3>\nes la distancia total de secuencias aportadas en zonas sin cobertura previa. Por ejemplo, si condujo durante 10 km y 7 km de ellos no tenían imágenes existentes, su UKM para ese viaje sería de 7 km.\n\n<h3>● Imágenes:</h3>\nel número total de imágenes que el colaborador ha subido durante el desafío\n\n<h3>● Participantes:</h3>\neste es el número de personas que participan en su desafío local. La idea es fomentar y recompensar la colaboración.\n\nLa fórmula para calcular la puntuación es la siguiente: Puntuación = (total UKM aportado + (imágenes/1000)) * (1 + (recuento de participantes/10))\n\n<h3>Recuerda;</h3>\nPara ser elegible para un premio, debes alcanzar una puntuación mínima de 100. Para obtener puntuaciones de tus tomas, la ubicación debe ser clara, las imágenes deben tomarse con suficiente luz y no deben haber sido tomadas en condiciones climáticas como niebla, lluvia u otras condiciones climáticas que distorsionen la imagen.\n\n\n<h3center>Ahora puedes comenzar a capturar, acumular puntos y competir por el liderato.</h3center></p>",
+    "start_now_capture": "Empezar ahora Capturar"
+  },
+  "award": {
+    "summary": "¿Estás listo para cobrar la recompensa con <0>Mapilio 🌍🏆</0>",
+    "start_capture_now": "Iniciar captura ahora",
+    "slogan": "<bold>Mapilio</bold> inició el primer desafío.",
+    "title": "Gana nuevos regalos a medida que recorras más kilómetros",
+    "description": "¿Estás listo para un desafío? Los 3 concursantes que obtengan más puntos entre <date>01.03.2023</date> y <date>31.05.2023</date> ganarán grandes premios.",
+    "mi_pro_2_scooter": "Patinete Xiaomi",
+    "gopro_9": "GoPro 360 máx.",
+    "beats_3_headphones": "Beats Solo 3",
+    "content": "<title>Es muy sencillo asistir</title>\n\nCaptura todo lo que puedas, acumula más puntos que otros competidores y obtén tu recompensa. Hay pocas cosas cuando estás capturando;\n\n<bold>● Enfoque El camino</bold> Establezca el enfoque como el camino tocando la pantalla.\n\n<bold>● Imágenes limpias</bold> Asegúrese de que el capó del vehículo y otros objetos no sean visibles en la imagen.\n\n<bold>● Dirección de la cámara</bold> Ajuste la posición de la cámara para grabar la imagen paralela al suelo.\n\n<bold>● Situaciones en las que no se debe disparar</bold> No se debe disparar en tiempo oscuro, lluvioso o nevado, cuando la imagen está borrosa.\n\n<bold>● Ubicación exacta</bold> Los servicios de ubicación de su dispositivo deben estar activados y ser precisos.",
+    "rules_of_contest": "<0>Reglas oficiales</0> para el concurso",
+    "final_content": {
+      "title": "Mapilio inició el primer desafío.",
+      "description": "Puedes ganar cada vez que dispares con Mapilio. Acumula puntos, compite en las tablas de clasificación y gana."
+    }
+  },
+  "tooltip": {
+    "tabBar": {
+      "map": "Mapa",
+      "map_desc": "Vea su ubicación actual, carreteras, lugares, edificios y otros detalles en la vista de mapa. También aquí se pueden observar las zonas ya capturadas.",
+      "marketplace": "Mercado",
+      "marketplace_desc": "Para algunas áreas tenemos solicitudes especiales para una captura en la que puedes ganar dinero en efectivo o cupones a cambio. Son visibles en la página del Mercado.",
+      "upload": "Subir",
+      "upload_desc": "¿Terminaste de capturar? Luego haga clic para cargar todas las imágenes.",
+      "leaderboard": "Tabla de clasificación",
+      "leaderboard_desc": "La tabla de clasificación muestra los puntos que obtuviste por tus tiros y tu posición en el ranking.",
+      "capture": "Captura",
+      "capture_desc": "Comience ahora para comenzar a capturar y contribuir con mejores mapas.",
+      "next": "Próximo",
+      "done": "Hecho"
+    },
+    "camera": {
+      "angle": "Ángulo recto",
+      "angle_desc": "Mantenga el ángulo de la cámara de modo que la línea del horizonte\nesté siempre opuesta y horizontal",
+      "startCapture": "Inicio de captura",
+      "start_capture_desc": "Luz, ubicación, batería… ¿Todo listo? Empecemos a capturar.",
+      "tasks": "Tareas",
+      "tasks_desc": "Puedes ver las tareas que tienes que hacer en la pantalla.",
+      "next": "Próximo",
+      "done": "Hecho"
+    },
+    "marketplace": {
+      "list": "Mercado",
+      "list_desc": "Aquí puedes ver las solicitudes de captura en tu zona. Puedes ganar dinero en efectivo o cupones a cambio.",
+      "apply": "Aplicar",
+      "apply_desc": "Puede solicitar la solicitud haciendo clic en el botón Aplicar.",
+      "next": "Próximo",
+      "done": "Hecho"
+    },
+    "skip": "Saltar"
+  },
+  "errors": {
+    "server_error": "Hubo un error con el servidor, inténtelo nuevamente más tarde.",
+    "token_expired": "Su sesión ha caducado. Por favor inicie sesión nuevamente.",
+    "timeout": "El servidor no responde. Por favor, inténtelo de nuevo más tarde."
+  },
+  "report": {
+    "cancel": "Cancelar",
+    "privacy_violation": "Violación de privacidad",
+    "inappropriate_content": "Contenido inapropiado",
+    "low_quality": "Baja calidad",
+    "other": "Otro",
+    "report_success": "Su informe ha sido enviado exitosamente. Se realizarán las investigaciones necesarias y se le informará por correo electrónico.",
+    "report_error": "Se produjo un error al realizar el informe. Por favor, inténtelo de nuevo más tarde."
+  },
+  "languages": {
+    "tr": "turco",
+    "en": "Inglés"
+  },
+  "alerts": {
+    "maintenanceMode": "Nuestros servicios se encuentran en modo de mantenimiento.\nSube tus imágenes más tarde.",
+    "update_required_title": "Actualización requerida",
+    "update_required_description": "Debes actualizar la aplicación para seguir usándola.",
+    "update": "Actualizar",
+    "later": "Más tarde"
+  }
+}

@@ -1,8 +1,7 @@
 {
   "tab": {
     "map": "Harita",
-    "market": "Market",
-    "capture": "Başla",
+    "market": "Pazaryeri",
     "upload": "Çekimler",
     "leader": "Liderler"
   },
@@ -26,9 +25,6 @@
     "settings": "Ayarlar",
     "language": "Dil"
   },
-  "panorama": {
-    "image_report": "Resmi raporla"
-  },
   "search": {
     "search": "Ara",
     "recent_searches": "Son aramalar",
@@ -36,6 +32,9 @@
     "empty_search": "Son arama sonuçları burada görüntülenecek",
     "no_results": "Sonuç bulunamadı",
     "another_search": "Lütfen başka bir arama yapın."
+  },
+  "panorama": {
+    "image_report": "Resmi raporla"
   },
   "marketplace": {
     "marketplace": "Market",
@@ -73,7 +72,7 @@
   "profile_edit": {
     "username": "Kullanıcı adı",
     "name": "İsim",
-    "bio": "Bio",
+    "bio": "Biyografi",
     "hide_my_username": "Kullanıcı adımı gizle",
     "save": "Kaydet"
   },
@@ -214,8 +213,8 @@
     "upload_completed": "Yükleme tamamlandı",
     "upload_failed": "Yükeleme sırasında hata oluştu",
     "no_address": "Adres bulunamadı",
-    "clear_selections": "Clear Selections",
     "point": "~<0>{{count}}</0>puan ",
+    "clear_selections": "Seçimleri Temizle",
     "delete": "Sil",
     "accessible_world": {
       "title": "Erişilebilir dünya",
@@ -341,24 +340,24 @@
   "how_to_score": {
     "title": "Puanlama sistemi nasıl çalışıyor?",
     "summary": "Dünyanın her yerinden Mapilio'ya katkıda bulunanlarla rekabet edin ve harika ödüller kazanın!",
-    "paragraph": "<h2>Mapilio Ödüllendirme Sistemi</h2> <p>\n\nMapilio'da çekimlerden puan toplamak ve ödüller kazanmak mümkün.\n\n<h3>Skor sistemi</h3>\nGlobal liderlik tablosu, katkılarınızı diğer katılımcılarla karşılaştırmanıza olanak tanır. Skor listesi, katkının birden çok unsurunu dikkate alacak bir puanlama sistemine sahiptir. İşte skoru oluşturan değişkenler:\n\n<h3>\u25CF Benzersiz kilometre (UKM):</h3>\nbu, daha önce kapsama alanı olmayan alanlarda katkıda bulunan sekansların toplam mesafesidir. Örneğin, 10 km sürdüyseniz ve bunun 7 km'sinde mevcut görüntü yoksa, o sürüş için UKM'niz 7 km olur.\n\n<h3>\u25CF Görüntüler:</h3>\nkatılımcının yarışma sırasında yüklediği toplam resim sayısı\n\n<h3>\u25CF Katılımcılar:</h3>\nbu, yerel meydan okumanıza katılan kişilerin sayısıdır. Fikir, işbirliğini teşvik etmek ve ödüllendirmektir.\n\nPuanı hesaplamak için formül aşağıdaki gibidir: Puan = (toplam UKM katkısı + (görüntü/1000)) * (1 + (katılımcı sayısı/10))\n\n<h3>Unutma;</h3>\nÖdül kazanabilmeniz için minimum 100 puana ulaşmanız gerekmektedir. Çekimlerinizden puan alabilmek için mekanın net olması, görüntülerin yeterince parlak ışıkta çekilmiş olması ve kötü hava koşullarında çekilmemiş olması gerekir. Sis, yağmur veya görüntüyü bozan diğer hava koşulları gibi.\n\n\n<h3center>Artık çekime başlayabilir, puan toplayabilir ve liderlik için rekabet edebilirsiniz.</h3center></p>",
+    "paragraph": "<h2>Mapilio Ödüllendirme Sistemi</h2> <p>\n\nMapilio'da çekimlerden puan toplamak ve ödüller kazanmak mümkün.\n\n<h3>Skor sistemi</h3>\nGlobal liderlik tablosu, katkılarınızı diğer katılımcılarla karşılaştırmanıza olanak tanır. Skor listesi, katkının birden çok unsurunu dikkate alacak bir puanlama sistemine sahiptir. İşte skoru oluşturan değişkenler:\n\n<h3>● Benzersiz kilometre (UKM):</h3>\nbu, daha önce kapsama alanı olmayan alanlarda katkıda bulunan sekansların toplam mesafesidir. Örneğin, 10 km sürdüyseniz ve bunun 7 km'sinde mevcut görüntü yoksa, o sürüş için UKM'niz 7 km olur.\n\n<h3>● Görüntüler:</h3>\nkatılımcının yarışma sırasında yüklediği toplam resim sayısı\n\n<h3>● Katılımcılar:</h3>\nbu, yerel meydan okumanıza katılan kişilerin sayısıdır. Fikir, işbirliğini teşvik etmek ve ödüllendirmektir.\n\nPuanı hesaplamak için formül aşağıdaki gibidir: Puan = (toplam UKM katkısı + (görüntü/1000)) * (1 + (katılımcı sayısı/10))\n\n<h3>Unutma;</h3>\nÖdül kazanabilmeniz için minimum 100 puana ulaşmanız gerekmektedir. Çekimlerinizden puan alabilmek için mekanın net olması, görüntülerin yeterince parlak ışıkta çekilmiş olması ve kötü hava koşullarında çekilmemiş olması gerekir. Sis, yağmur veya görüntüyü bozan diğer hava koşulları gibi.\n\n\n<h3center>Artık çekime başlayabilir, puan toplayabilir ve liderlik için rekabet edebilirsiniz.</h3center></p>",
     "start_now_capture": "Çekime Başla"
   },
   "award": {
-    "summary": "<0>Mapilio</0> ile ödül toplamaya hazır mısın?\uD83C\uDF0D\uD83C\uDFC6",
+    "summary": "<0>Mapilio</0> ile ödül toplamaya hazır mısın?🌍🏆",
     "start_capture_now": "Çekime Başla",
     "slogan": "<bold>Mapilio'nun</bold> ilk yarışması başladı.",
     "title": "Daha fazla kilometreye ulaştıkça yeni hediyeler kazanın",
     "description": "Bir meydan okumaya hazır mısın? <date>01.03.2023</date> - <date>31.05.2023</date> tarihleri arasında en çok puan alan 3 yarışmacı büyük ödüllerin sahibi olacak.",
     "mi_pro_2_scooter": "Xiaomi Scooter",
-    "gopro_9": "GoPro 360 Max",
-    "beats_3_headphones": "Beats Solo 3",
-    "content": "<title>Katılmak çok basit</title>\n\nOlabildiğince çok çekin, diğer rakiplerinizden daha fazla puan toplayın ve ödülünüzü alın. Çekim yaparken birkaç şey vardır;\n\n<bold>\u25CF Yola Odaklanın</bold> Ekrana dokunarak odağı yol olarak ayarlayın.\n\n<bold>\u25CF Temiz Görüntüler</bold> Araç kaportasının ve diğer nesnelerin resimde görünmediğinden emin olun.\n\n<bold>\u25CF Kamera Yönü</bold> Görüntüyü yere paralel olarak kaydetmek için kameranın konumunu ayarlayın.\n\n<bold>\u25CF Çekim Yapılmaması Gereken Durumlar</bold> Karanlık, yağmurlu, karlı havalarda, görüntü bulanıkken çekim yapılmamalıdır.\n\n<bold>\u25CF Tam Konum</bold> Cihazınızın Konum Servisleri açık ve kesin olmalıdır.",
+    "gopro_9": "GoPro 360 Maksimum",
+    "beats_3_headphones": "Solo 3'ü yener",
+    "content": "<title>Katılmak çok basit</title>\n\nOlabildiğince çok çekin, diğer rakiplerinizden daha fazla puan toplayın ve ödülünüzü alın. Çekim yaparken birkaç şey vardır;\n\n<bold>● Yola Odaklanın</bold> Ekrana dokunarak odağı yol olarak ayarlayın.\n\n<bold>● Temiz Görüntüler</bold> Araç kaportasının ve diğer nesnelerin resimde görünmediğinden emin olun.\n\n<bold>● Kamera Yönü</bold> Görüntüyü yere paralel olarak kaydetmek için kameranın konumunu ayarlayın.\n\n<bold>● Çekim Yapılmaması Gereken Durumlar</bold> Karanlık, yağmurlu, karlı havalarda, görüntü bulanıkken çekim yapılmamalıdır.\n\n<bold>● Tam Konum</bold> Cihazınızın Konum Servisleri açık ve kesin olmalıdır.",
+    "rules_of_contest": "Yarışma için <0>şartlar ve koşullar</0>.",
     "final_content": {
       "title": "Mapilio ilk mücadeleye başladı.",
       "description": "Mapilio ile her çekim yaptığınızda kazanabilirsiniz. Puan toplayın, liderlik tablolarında rekabet edin ve kazanın."
-    },
-    "rules_of_contest": "Yarışma için <0>şartlar ve koşullar</0>."
+    }
   },
   "tooltip": {
     "tabBar": {
