@@ -8,12 +8,35 @@ export default StyleSheet.create({
     width: "100%",
     marginTop: RFValue(10)
   },
+  topBar:{
+    flexDirection: 'row', alignItems: 'center', paddingBottom: RFValue(10)
+  },
+  topBarImage:{
+    width: RFValue(13), height: RFValue(13), resizeMode: 'cover'
+  },
+  topBarContent:{
+    flexDirection: 'column',
+    marginLeft: RFValue(10)
+  },
   container: {
     flex: 1,
+    paddingTop:RFValue(10),
+  },
+  welcomeTitle: {
+    color: '#191919',
+    fontSize: RFValue(13),
+  },
+  welcomeDesc: {
+    color: '#808080',
+    fontSize: RFValue(11),
+  },
+  sectionTitle:{
+    paddingVertical: RFValue(10),
+    marginLeft: RFValue(10),
+    fontSize: RFValue(13),
   },
   list: {
     backgroundColor: '#FFF',
-    paddingTop: RFValue(10)
   },
   noFeedWrapper: {
     marginTop: RFValue(50),
@@ -24,7 +47,6 @@ export default StyleSheet.create({
     fontSize: RFValue(16),
     color: "#191919",
     textAlign: "center",
-    paddingTop: RFValue(20)
   },
   noFeedDescription: {
     fontFamily: "Poppins",

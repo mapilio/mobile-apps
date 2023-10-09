@@ -6,10 +6,10 @@ export const sequenceLeft = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: RFValue(16),
+    marginLeft: RFValue(10),
   },
   backTitle: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(13),
     color: "#808080",
     marginBottom: Platform.OS === "ios" ? 0 : RFValue(-2),
     marginLeft: RFValue(3),

@@ -35,7 +35,7 @@ const ProfileNavigator = ({navigation}) => {
       <Stack.Screen name={Routes.profile} component={UserProfile} options={{
         headerLeft: () => <BackButton title={"go_map"}/>,
         headerRight: () => <ProfileNavigatorRight/>,
-        title: t("profile"),
+        title: null,
       }}/>
 
       <Stack.Screen name={Routes.profileSettings} component={ProfileSettings} options={{

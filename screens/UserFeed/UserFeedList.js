@@ -1,7 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import {
   FeedList,
-  UserInfos,
   FocusAwareStatusBar,
 } from "../../components";
 import { api } from "../../util/helpers/api";
@@ -43,7 +42,6 @@ const UserFeedList = ({ route }) => {
       {userDetails &&
         <View style={styles.container}>
           <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#fff" />
-          <UserInfos userDetails={userDetails} />
           <FeedList userDetails={userDetails} />
         </View>}
     </View>

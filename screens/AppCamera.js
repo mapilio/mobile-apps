@@ -26,6 +26,7 @@ import {
   LocationAccuracy,
   watchPositionAsync,
 } from "expo-location";
+import { captureException } from '@sentry/react-native';
 
 const AppCamera = () => {
   const dispatch = useDispatch();
@@ -33,12 +34,7 @@ const AppCamera = () => {
   const orientation = useOrientation(500);
   const [isStarted, setIsStarted] = useState(false);
   const [lowBrightness, setLowBrightness] = useState(false);
-  const { selectedProject, autoCaptureStart } = useSelector(
-    (state) => state.settingsReducer
-  );
-  const locationSubscription = useRef(null);
-  const appState = useRef(AppState.currentState);
-  const accuracyRef = useRef(null);
+  const { selectedProject, autoCaptureStart } = useSelector((state) => state.settingsReducer);
 
   const breakBrightness = () => {
     lowBrightness &&
@@ -47,20 +43,8 @@ const AppCamera = () => {
       );
   };
 
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-  const refreshGeolocationIfNotAvailable = () => {
-    setTimeout(async () => {
-      if (!accuracyRef.current) {
-        removeWatchPosition();
-        await delay(500);
-        watchPosition();
-      }
-    }, 7000);
-  };
-
-  const watchPosition = async () => {
-    locationSubscription.current = await watchPositionAsync(
+  const watchPosition = () => {
+    return watchPositionAsync(
       {
         accuracy: LocationAccuracy.BestForNavigation,
         distanceInterval: 5,
@@ -73,26 +57,18 @@ const AppCamera = () => {
           type: UPDATE_GPS_ACCURACY,
           payload: coords.accuracy <= 35,
         });
-        accuracyRef.current = coords.accuracy <= 35;
       }
-    );
+    ).catch((error) => {
+      captureException(error, {
+        tags: {
+          priority: 'GPSFatal',
+          screen: 'AppCamera',
+          function: 'watchPosition',
+        },
+      });
+      toast.show("GPS Error. Please restart your app", { type: "error" });
+    });
   };
-
-  const AppStateHandler = (nextAppState) => {
-    if (
-      appState.current.match(/inactive|background/) &&
-      nextAppState === "active"
-    ) {
-      watchPosition();
-    } else {
-      removeWatchPosition();
-    }
-    appState.current = nextAppState;
-  };
-
-  const removeWatchPosition = () => {
-    locationSubscription.current && locationSubscription.current.remove();
-};
   const closeHandler = useCallback(() => {
     exitCapture();
 
@@ -112,20 +88,43 @@ const AppCamera = () => {
     activateKeepAwake("camera").catch((error) =>
       toast.show(`${error}`, { type: "error" })
     );
-    watchPosition();
-    refreshGeolocationIfNotAvailable();
-    BackHandler.addEventListener("hardwareBackPress", closeHandler);
+    const gpsSubscription = watchPosition();
+    const appStateSubscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "background" || nextAppState === "inactive") {
+        gpsSubscription.then((sub) => {
+          sub.remove();
+          dispatch({
+            type: UPDATE_GPS_ACCURACY,
+            payload: false,
+          });
+        });
+      }
+    });
+    BackHandler.addEventListener('hardwareBackPress', closeHandler);
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-
-    const subscription = AppState.addEventListener("change", AppStateHandler);
 
     return () => {
       deactivateKeepAwake("camera").catch((error) =>
         toast.show(`${error}`, { type: "error" })
       );
       BackHandler.removeEventListener("hardwareBackPress", closeHandler);
-      removeWatchPosition();
-      subscription.remove();
+      appStateSubscription.remove();
+      gpsSubscription
+        .then((sub) => {
+          sub.remove();
+        })
+        .catch((error) => {
+          captureException(error, {
+            tags: {
+              priority: 'GPSFatal',
+              screen: 'AppCamera',
+              function: 'gpsSubscription',
+            },
+          });
+          toast.show("GPS Error. Please restart your app", {
+            type: "error",
+          });
+        });
     };
   }, []);
 
