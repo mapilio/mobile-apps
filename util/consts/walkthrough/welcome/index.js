@@ -13,7 +13,7 @@ export const sliderData = [
     icons: [require("../../../../assets/images/tooltip/map.png")],
     desc: "second.description",
   },
-  {
+ /*  {
     image: require("../../../../assets/images/walkthrough/gifts.png"),
     title: "third.title",
     subTitle: "third.subtitle",
@@ -22,12 +22,12 @@ export const sliderData = [
       require("../../../../assets/images/walkthrough/party.png"),
     ],
     desc: "third.description",
-  },
+  }, */
   {
-    image: require("../../../../assets/images/walkthrough/moveon.png"),
+    image: require("../../../../assets/images/walkthrough/openstreetmap.png"),
     title: "fourth.title",
     subTitle: "fourth.subtitle",
     desc: "fourth.description",
-    icons: [require("../../../../assets/images/walkthrough/gift.png")],
+    icons: [require("../../../../assets/images/walkthrough/openstreetmap_logo.png")],
   },
 ];

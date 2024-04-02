@@ -254,7 +254,17 @@
     "image": "obraz",
     "map": "Mapa",
     "fetch_error": "Při načítání profilu došlo k problému. Prosím zkuste to znovu.",
-    "no_address": "Žádná adresa"
+    "no_address": "Žádná adresa",
+    "feeds": "Kanály",
+    "badges": "Odznaky",
+    "see_all": "Zobrazit vše >",
+    "score": "Skóre",
+    "pt": "bod",
+    "ok": "Ok",
+    "close": "Zavřít",
+    "hello": "Ahoj ",
+    "contributor": "Přispěvatel ",
+    "bar_desc": "Váš Mapilio map vypadá velmi barevně."
   },
   "login": {
     "title": "Přihlaste se, abyste viděli, co je na vaší mapě.",
@@ -401,7 +411,19 @@
   },
   "languages": {
     "tr": "turečtina",
-    "en": "Angličtina"
+    "en": "angličtina",
+    "ar": "arabština",
+    "ca": "katalánština",
+    "cs": "čeština",
+    "da": "dánština",
+    "de": "němčina",
+    "el": "řečtina",
+    "es": "španělština",
+    "it": "italština",
+    "pt": "portugalština",
+    "ru": "ruština",
+    "fi": "finština",
+    "fr": "francouzština"
   },
   "alerts": {
     "maintenanceMode": "Naše služby jsou v režimu údržby.\nNahrajte své snímky později.",

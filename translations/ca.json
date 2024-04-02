@@ -66,7 +66,6 @@
     "contest_rules": "Bases del concurs",
     "change_language": "Canviar d'idioma",
     "mapilio": "mapilio",
-    "version": "V 1.0.2",
     "sign_out": "Tanca sessió",
     "delete_account": "Esborrar compte"
   },
@@ -254,7 +253,17 @@
     "image": "Imatge",
     "map": "Mapa",
     "fetch_error": "S'ha produït un problema per obtenir el perfil. Siusplau torna-ho a provar.",
-    "no_address": "Sense adreça"
+    "no_address": "Sense adreça",
+    "feeds": "Fonts",
+    "badges": "Insígnies",
+    "see_all": "Veure Tot >",
+    "score": "Puntuació",
+    "pt": "pt",
+    "ok": "D'acord",
+    "close": "Tanca",
+    "hello": "Hola ",
+    "contributor": "Col·laborador ",
+    "bar_desc": "El teu mapa de Mapilio sembla molt colorit."
   },
   "login": {
     "title": "Inicia la sessió per veure què hi ha al teu mapa.",
@@ -401,7 +410,19 @@
   },
   "languages": {
     "tr": "turc",
-    "en": "Anglès"
+    "en": "anglès",
+    "ar": "àrab",
+    "ca": "català",
+    "cs": "txec",
+    "da": "danès",
+    "de": "alemany",
+    "el": "grec",
+    "es": "espanyol",
+    "it": "italià",
+    "pt": "portuguès",
+    "ru": "rus",
+    "fi": "finès",
+    "fr": "francès"
   },
   "alerts": {
     "maintenanceMode": "Els nostres serveis estan en mode de manteniment.\nPengeu les vostres imatges més tard.",

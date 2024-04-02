@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.32</string>
+	<string>1.2.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -45,8 +45,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>5</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>CLIENT_ID</key>
 	<string>563319300844-1ui5kbrs3h68ldk5bc5jr94r9oev220m.apps.googleusercontent.com</string>
 	<key>FacebookAppID</key>
@@ -55,6 +53,8 @@
 	<string>2325b96dc40366ce272152cb6711ff7b</string>
 	<key>FacebookDisplayName</key>
 	<string>Mapilio</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -80,7 +80,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs to access the camera before you can take a photo. In this way, when you start shooting, it will allow you to shoot automatically every 5 meters on average. We&apos;ll keep your captures in your phone&apos;s storage until you delete or upload them.</string>
+	<string>$(PRODUCT_NAME) needs to access the camera before you can take a photo. In this way, when you start shooting, it will allow you to shoot automatically every 5 meters on average. We'll keep your captures in your phone's storage until you delete or upload them.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We need to access your location so we can put the photos in the correct location and also show your location on the map.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

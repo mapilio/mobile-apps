@@ -21,7 +21,7 @@ import styles from './AlertModal.styles';
  *  @param loading {boolean} - loading state of the modal (true/false)
  *  @returns {JSX.Element}
  *
- *  @constructor muammertopcu - muammer@visiosoft.com.tr
+ *  @constructor
  *
  *  @example
  *  <AlertModal

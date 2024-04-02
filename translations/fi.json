@@ -254,7 +254,17 @@
     "image": "Kuva",
     "map": "Kartta",
     "fetch_error": "Profiilin noutamisessa ilmeni ongelma. Yritä uudelleen.",
-    "no_address": "Ei osoitetta"
+    "no_address": "Ei osoitetta",
+    "feeds": "Syötteet",
+    "badges": "Merkit",
+    "see_all": "Näytä Kaikki >",
+    "score": "Pisteet",
+    "pt": "pistettä",
+    "ok": "Ok",
+    "close": "Sulje",
+    "hello": "Hei ",
+    "contributor": "Avustaja ",
+    "bar_desc": "Mapilio-karttasi näyttää hyvin värikkäältä."
   },
   "login": {
     "title": "Kirjaudu sisään nähdäksesi mitä kartallasi on.",
@@ -400,8 +410,20 @@
     "report_error": "Raportoinnin aikana tapahtui virhe. Yritä uudelleen myöhemmin."
   },
   "languages": {
-    "tr": "turkkilainen",
-    "en": "Englanti"
+    "tr": "Turkki",
+    "en": "Englanti",
+    "ar": "Arabia",
+    "ca": "Katalaani",
+    "cs": "Tsekki",
+    "da": "Tanska",
+    "de": "Saksa",
+    "el": "Kreikka",
+    "es": "Espanja",
+    "it": "Italia",
+    "pt": "Portugali",
+    "ru": "Venäjä",
+    "fi": "Suomi",
+    "fr": "Ranska"
   },
   "alerts": {
     "maintenanceMode": "Palvelumme ovat huoltotilassa.\nLataa kuvasi myöhemmin.",

@@ -60,9 +60,9 @@
   "profile_settings": {
     "profile_edit": "Profil bearbeiten",
     "licences": "Lizenzen",
-    "terms_and_conditions": "Terms & amp; Bedingungen",
-    "privacy": "Datenschutzrichtlinie",
-    "about": "Um",
+    "terms_and_conditions": "Allgemeine Geschäftsbedingungen",
+    "privacy": "Datenschutzerklärung",
+    "about": "Über",
     "contest_rules": "Wettbewerbsregeln",
     "change_language": "Sprache ändern",
     "mapilio": "Mapilio",
@@ -254,7 +254,17 @@
     "image": "Bild",
     "map": "Karte",
     "fetch_error": "Beim Abrufen des Profils ist ein Problem aufgetreten. Bitte versuche es erneut.",
-    "no_address": "Keine Adresse"
+    "no_address": "Keine Adresse",
+    "feeds": "Feeds",
+    "badges": "Abzeichen",
+    "see_all": "Alle Ansehen >",
+    "score": "Punktzahl",
+    "pt": "Pkt",
+    "ok": "Ok",
+    "close": "Schließen",
+    "hello": "Hallo ",
+    "contributor": "Mitwirkender ",
+    "bar_desc": "Ihre Mapilio-Karte sieht sehr farbenfroh aus."
   },
   "login": {
     "title": "Melden Sie sich an, um zu sehen, was sich auf Ihrer Karte befindet.",
@@ -331,7 +341,7 @@
   "how_to_score": {
     "title": "Wie funktioniert das Punktesystem?",
     "summary": "Messen Sie sich mit Mapilio-Mitwirkenden aus der ganzen Welt und gewinnen Sie tolle Preise!",
-    "paragraph": "<h2>Mapilio-Vergabesystem</h2> <p>\n\nEs ist möglich, bei Shootings in Mapilio Punkte zu sammeln und Preise zu gewinnen.\n\n<h3>Punktesystem</h3>\nEine globale Bestenliste ermöglicht es Ihnen, Ihre lokalen Beiträge mit denen anderer Teilnehmer zu vergleichen. Die Bestenliste wird über ein Punktesystem verfügen, das mehrere Beitragselemente berücksichtigt. Hier sind die Variablen, aus denen sich die Bewertung zusammensetzt:\n\n<h3>● Eindeutige Kilometer (UKM):</h3>\nDies ist die Gesamtentfernung der Sequenzen, die in Gebieten ohne vorherige Abdeckung beigetragen haben. Wenn Sie beispielsweise 10 km gefahren sind und für 7 km davon keine Bilder vorliegen, beträgt Ihr UKM für diese Fahrt 7 km.\n\n<h3>● Bilder:</h3>\ndie Gesamtzahl der Bilder, die der Mitwirkende während der Challenge hochgeladen hat\n\n<h3>● Teilnehmer:</h3>\nDies ist die Anzahl der Personen, die an Ihrer lokalen Challenge teilnehmen. Die Idee besteht darin, die Zusammenarbeit zu fördern und zu belohnen.\n\nDie Formel zur Berechnung der Punktzahl lautet wie folgt: Punktzahl = (Gesamtbeitrag des UKM + (Bilder/1000)) * (1 + (Anzahl der Teilnehmer/10))\n\n<h3>Denken Sie daran;</h3>\nUm sich für einen Preis zu qualifizieren, müssen Sie eine Mindestpunktzahl von 100 erreichen. Um eine Punktzahl für Ihre Aufnahmen zu erhalten, muss der Standort frei sein, die Bilder müssen bei ausreichend hellem Licht aufgenommen worden sein und die Aufnahmen dürfen nicht aufgenommen worden sein Wetterbedingungen wie Nebel, Regen oder andere Wetterbedingungen, die das Bild verzerren.\n\n\n<h3center>Jetzt können Sie mit der Eroberung beginnen, Punkte sammeln und um die Führung kämpfen.</h3center></p>",
+    "paragraph": "<h2>Mapilio - Punktzahl Protokoll</h2> <p>\n\nEs ist möglich, bei Shootings in Mapilio Punkte zu sammeln und Preise zu gewinnen.\n\n<h3>Punktesystem</h3>\nEine globale Bestenliste ermöglicht es Ihnen, Ihre lokalen Beiträge mit denen anderer Teilnehmer zu vergleichen. Die Bestenliste wird über ein Punktesystem verfügen, das mehrere Beitragselemente berücksichtigt. Hier sind die Variablen, aus denen sich die Bewertung zusammensetzt:\n\n<h3>● Eindeutige Kilometer (UKM):</h3>\nDies ist die Gesamtentfernung der Sequenzen, die in Gebieten ohne vorherige Abdeckung beigetragen haben. Wenn Sie beispielsweise 10 km gefahren sind und für 7 km davon keine Bilder vorliegen, beträgt Ihr UKM für diese Fahrt 7 km.\n\n<h3>● Bilder:</h3>\ndie Gesamtzahl der Bilder, die der Mitwirkende während der Challenge hochgeladen hat\n\n<h3>● Teilnehmer:</h3>\nDies ist die Anzahl der Personen, die an Ihrer lokalen Challenge teilnehmen. Die Idee besteht darin, die Zusammenarbeit zu fördern und zu belohnen.\n\nDie Formel zur Berechnung der Punktzahl lautet wie folgt: Punktzahl = (Gesamtbeitrag des UKM + (Bilder/1000)) * (1 + (Anzahl der Teilnehmer/10))\n\n<h3>Denken Sie daran;</h3>\nUm sich für einen Preis zu qualifizieren, müssen Sie eine Mindestpunktzahl von 100 erreichen. Um eine Punktzahl für Ihre Aufnahmen zu erhalten, muss der Standort frei sein, die Bilder müssen bei ausreichend hellem Licht aufgenommen worden sein und die Aufnahmen dürfen nicht aufgenommen worden sein Wetterbedingungen wie Nebel, Regen oder andere Wetterbedingungen, die das Bild verzerren.\n\n\n<h3center>Jetzt können Sie mit der Eroberung beginnen, Punkte sammeln und um die Führung kämpfen.</h3center></p>",
     "start_now_capture": "Starten Sie jetzt die Aufnahme"
   },
   "award": {
@@ -401,7 +411,19 @@
   },
   "languages": {
     "tr": "Türkisch",
-    "en": "Englisch"
+    "en": "Englisch",
+    "ar": "Arabisch",
+    "ca": "Katalanisch",
+    "cs": "Tschechisch",
+    "da": "Dänisch",
+    "de": "Deutsch",
+    "el": "Griechisch",
+    "es": "Spanisch",
+    "it": "Italienisch",
+    "pt": "Portugiesisch",
+    "ru": "Russisch",
+    "fi": "Finnisch",
+    "fr": "Französisch"
   },
   "alerts": {
     "maintenanceMode": "Unsere Dienste befinden sich im Wartungsmodus.\nBitte laden Sie Ihre Bilder später hoch.",

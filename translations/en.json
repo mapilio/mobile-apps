@@ -111,9 +111,9 @@
       "description": "Get a chance to win gifts through the tasks you contribute."
     },
     "fourth": {
-      "title": "For more rewards",
-      "subtitle": "Move On",
-      "description": "We are expanding our gift range every day."
+      "title": "OpenStreetMap",
+      "subtitle": "Union of forces",
+      "description": "Mapilio is the OpenStreetMap data provider"
     },
     "next": "Next",
     "skip": "Skip",
@@ -410,7 +410,19 @@
   },
   "languages": {
     "tr": "Turkish",
-    "en": "English"
+    "en": "English",
+    "ar": "Arabic",
+    "ca": "Catalan",
+    "cs": "Czech",
+    "da": "Danish",
+    "de": "German",
+    "el": "Greek",
+    "es": "Spanish",
+    "it": "Italian",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "fi": "Finnish",
+    "fr": "French"
   },
   "alerts": {
     "maintenanceMode": "Our services are in maintenance mode.\nPlease upload your imagery later.",

@@ -254,7 +254,17 @@
     "image": "Image",
     "map": "Carte",
     "fetch_error": "Un problème est survenu lors de la récupération du profil. Veuillez réessayer.",
-    "no_address": "Pas d'adresse"
+    "no_address": "Pas d'adresse",
+    "feeds": "Flux",
+    "badges": "Badges",
+    "see_all": "Voir Tout >",
+    "score": "Score",
+    "pt": "pt",
+    "ok": "Ok",
+    "close": "Fermer",
+    "hello": "Bonjour ",
+    "contributor": "Contributeur ",
+    "bar_desc": "Votre carte Mapilio semble très colorée."
   },
   "login": {
     "title": "Connectez-vous pour voir ce qui se trouve sur votre carte.",
@@ -400,8 +410,20 @@
     "report_error": "Une erreur s'est produite lors du rapport. Veuillez réessayer plus tard."
   },
   "languages": {
-    "tr": "turc",
-    "en": "Anglais"
+    "tr": "Turc",
+    "en": "Anglais",
+    "ar": "Arabe",
+    "ca": "Catalan",
+    "cs": "Tchèque",
+    "da": "Danois",
+    "de": "Allemand",
+    "el": "Grec",
+    "es": "Espagnol",
+    "it": "Italien",
+    "pt": "Portugais",
+    "ru": "Russe",
+    "fi": "Finnois",
+    "fr": "Français"
   },
   "alerts": {
     "maintenanceMode": "Nos services sont en mode maintenance.\nVeuillez télécharger vos images plus tard.",

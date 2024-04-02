@@ -66,7 +66,6 @@
     "contest_rules": "Las reglas del concurso",
     "change_language": "Cambiar idioma",
     "mapilio": "mapilio",
-    "version": "Versión 1.0.2",
     "sign_out": "Desconectar",
     "delete_account": "Borrar cuenta"
   },
@@ -254,7 +253,17 @@
     "image": "Imagen",
     "map": "Mapa",
     "fetch_error": "Hubo un problema al recuperar el perfil. Inténtalo de nuevo.",
-    "no_address": "Sin dirección"
+    "no_address": "Sin dirección",
+    "feeds": "Feeds",
+    "badges": "Insignias",
+    "see_all": "Ver Todo >",
+    "score": "Puntuación",
+    "pt": "pt",
+    "ok": "Ok",
+    "close": "Cerrar",
+    "hello": "Hola ",
+    "contributor": "Colaborador ",
+    "bar_desc": "Tu mapa de Mapilio se ve muy colorido."
   },
   "login": {
     "title": "Inicia sesión para ver qué hay en tu mapa.",
@@ -400,8 +409,20 @@
     "report_error": "Se produjo un error al realizar el informe. Por favor, inténtelo de nuevo más tarde."
   },
   "languages": {
-    "tr": "turco",
-    "en": "Inglés"
+    "tr": "Turco",
+    "en": "Inglés",
+    "ar": "Árabe",
+    "ca": "Catalán",
+    "cs": "Checo",
+    "da": "Danés",
+    "de": "Alemán",
+    "el": "Griego",
+    "es": "Español",
+    "it": "Italiano",
+    "pt": "Portugués",
+    "ru": "Ruso",
+    "fi": "Finlandés",
+    "fr": "Francés"
   },
   "alerts": {
     "maintenanceMode": "Nuestros servicios se encuentran en modo de mantenimiento.\nSube tus imágenes más tarde.",
