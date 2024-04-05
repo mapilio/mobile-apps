@@ -20,6 +20,20 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import "moment/locale/tr";
+import "moment/locale/ar";
+import "moment/locale/cs";
+import "moment/locale/da";
+import "moment/locale/el";
+import "moment/locale/es";
+import "moment/locale/fi";
+import "moment/locale/fr";
+import "moment/locale/it";
+import "moment/locale/pt";
+import "moment/locale/ro";
+import "moment/locale/ru";
+import "moment/locale/de";
+
+const languages = ["ar","cs","da","el","es","fi","fr","it","pt","ro","ru","tr","en","de"];
 
 if(!__DEV__){
   Sentry.init({

@@ -20,13 +20,18 @@ const Language = ({ onPress, isBottomSheet = false }) => {
   const { t } = useTranslation("languages");
   const dispatch = useDispatch();
 
-  const languages = ["tr", "en"];
+  //Will Enable more language
+  //const languages = ["ar","cs","da","de","el","en","es","fi","fr","he","hu","it","ja","ko","pt","ro","ru","sr","sv","tr"];
+  const languages = ["cs","da","el","es","fi","fr","it","pt","ru","tr","en","de","ar"];
+
   const handleChange = (code) => {
-    i18next.changeLanguage(code);
-    dispatch({ type: UPDATE_LANGUAGE, payload: code });
-    if (onPress) {
-      onPress();
-    }
+    i18next.changeLanguage(code).then(function(){
+      dispatch({ type: UPDATE_LANGUAGE, payload: code });
+      if (onPress) {
+        onPress();
+      }
+      }
+    );
   };
 
   const renderItem = ({ item }) => {

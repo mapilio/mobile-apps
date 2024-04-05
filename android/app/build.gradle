@@ -291,7 +291,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-config')
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-
+    implementation 'org.maplibre.gl:android-sdk:+'
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";

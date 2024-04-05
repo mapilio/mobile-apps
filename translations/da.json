@@ -254,7 +254,17 @@
     "image": "Billede",
     "map": "Kort",
     "fetch_error": "Der opstod et problem med at hente profil. Prøv igen.",
-    "no_address": "Ingen adresse"
+    "no_address": "Ingen adresse",
+    "feeds": "Feeds",
+    "badges": "Badges",
+    "see_all": "Se Alle >",
+    "score": "Score",
+    "pt": "pt",
+    "ok": "Ok",
+    "close": "Luk",
+    "hello": "Hej ",
+    "contributor": "Bidragyder ",
+    "bar_desc": "Dit Mapilio kort ser meget farverigt ud."
   },
   "login": {
     "title": "Log ind for at se, hvad der er på dit kort.",
@@ -400,8 +410,20 @@
     "report_error": "Der opstod en fejl under rapporteringen. Prøv igen senere."
   },
   "languages": {
-    "tr": "tyrkisk",
-    "en": "engelsk"
+    "tr": "Tyrkisk",
+    "en": "Engelsk",
+    "ar": "Arabisk",
+    "ca": "Catalansk",
+    "cs": "Tjekkisk",
+    "da": "Dansk",
+    "de": "Tysk",
+    "el": "Græsk",
+    "es": "Spansk",
+    "it": "Italiensk",
+    "pt": "Portugisisk",
+    "ru": "Russisk",
+    "fi": "Finsk",
+    "fr": "Fransk"
   },
   "alerts": {
     "maintenanceMode": "Vores tjenester er i vedligeholdelsestilstand.\nUpload venligst dine billeder senere.",

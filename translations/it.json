@@ -254,7 +254,17 @@
     "image": "Immagine",
     "map": "Carta geografica",
     "fetch_error": "Si è verificato un problema durante il recupero del profilo. Per favore riprova.",
-    "no_address": "Nessun indirizzo"
+    "no_address": "Nessun indirizzo",
+    "feeds": "Feed",
+    "badges": "Distintivi",
+    "see_all": "Vedi Tutto >",
+    "score": "Punteggio",
+    "pt": "pt",
+    "ok": "Ok",
+    "close": "Chiudi",
+    "hello": "Ciao ",
+    "contributor": "Collaboratore ",
+    "bar_desc": "La tua mappa Mapilio sembra molto colorata."
   },
   "login": {
     "title": "Accedi per vedere cosa c'è sulla tua mappa.",
@@ -401,7 +411,19 @@
   },
   "languages": {
     "tr": "Turco",
-    "en": "Inglese"
+    "en": "Inglese",
+    "ar": "Arabo",
+    "ca": "Catalano",
+    "cs": "Ceco",
+    "da": "Danese",
+    "de": "Tedesco",
+    "el": "Greco",
+    "es": "Spagnolo",
+    "it": "Italiano",
+    "pt": "Portoghese",
+    "ru": "Russo",
+    "fi": "Finlandese",
+    "fr": "Francese"
   },
   "alerts": {
     "maintenanceMode": "I nostri servizi sono in modalità manutenzione.\nCarica le tue immagini più tardi.",

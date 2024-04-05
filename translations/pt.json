@@ -254,7 +254,17 @@
     "image": "Imagem",
     "map": "Mapa",
     "fetch_error": "Ocorreu um problema ao buscar o perfil. Por favor, tente novamente.",
-    "no_address": "Sem endereço"
+    "no_address": "Sem endereço",
+    "feeds": "Feeds",
+    "badges": "Distintivos",
+    "see_all": "Ver Todos >",
+    "score": "Pontuação",
+    "pt": "pt",
+    "ok": "Ok",
+    "close": "Fechar",
+    "hello": "Olá ",
+    "contributor": "Colaborador ",
+    "bar_desc": "Seu mapa Mapilio parece muito colorido."
   },
   "login": {
     "title": "Faça login para ver o que está no seu mapa.",
@@ -400,8 +410,20 @@
     "report_error": "Ocorreu um erro durante o relatório. Por favor, tente novamente mais tarde."
   },
   "languages": {
-    "tr": "turco",
-    "en": "Inglês"
+    "tr": "Turco",
+    "en": "Inglês",
+    "ar": "Árabe",
+    "ca": "Catalão",
+    "cs": "Tcheco",
+    "da": "Dinamarquês",
+    "de": "Alemão",
+    "el": "Grego",
+    "es": "Espanhol",
+    "it": "Italiano",
+    "pt": "Português",
+    "ru": "Russo",
+    "fi": "Finlandês",
+    "fr": "Francês"
   },
   "alerts": {
     "maintenanceMode": "Nossos serviços estão em modo de manutenção.\nPor favor, carregue suas imagens mais tarde.",

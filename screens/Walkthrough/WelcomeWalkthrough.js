@@ -41,6 +41,7 @@ const WelcomeWalkthrough = () => {
             width: "100%",
             height: "70%",
             marginTop: "auto",
+            marginBottom:-30,
             resizeMode,
           }}
           source={imageSource}
