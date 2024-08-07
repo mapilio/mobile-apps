@@ -49,10 +49,10 @@ const AppMap = ({ navigation }) => {
   const { top } = useSafeAreaInsets();
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { t } = useTranslation("map");
-  const userCoordinate = useRef(null);
   const initialCoordinate = useRef(null);
   const appState = useRef(AppState.currentState);
   const dispatch = useDispatch();
+  const followUserLocation = useRef(false);
 
   useEffect(() => {
     !connection.connectionStatus &&
@@ -139,13 +139,7 @@ const AppMap = ({ navigation }) => {
       if (res !== RESULTS.GRANTED) {
         toast.show(t("gps_disabled"), { type: "error" });
       } else {
-        cameraRef.current?.setCamera({
-          centerCoordinate: userCoordinate.current?.geometry.coordinates,
-          zoomLevel: 15,
-          pitch: 0,
-          animationDuration: 500,
-          heading: 0,
-        });
+        followUserLocation.current = !followUserLocation.current
       }
     });
   };
@@ -228,20 +222,19 @@ const AppMap = ({ navigation }) => {
           <MapLibreGL.UserLocation
             renderMode={Platform.OS === "ios" ? "native" : "normal"}
             onUpdate={(e) => {
-              if(!userCoordinate.current){
-                initialCoordinate.current = point([e.coords.longitude, e.coords.latitude]);
+              if(followUserLocation.current){
                 cameraRef.current?.setCamera({
                   centerCoordinate: [
                     e.coords.longitude,
                     e.coords.latitude,
                   ],
-                  zoomLevel: 10,
+                  zoomLevel: 15,
                   heading: 0,
                   pitch: 0,
                   bearing: 0,
+                  animationDuration: 1000,
                 });
               }
-              userCoordinate.current = point([e.coords.longitude, e.coords.latitude]);
             }}
           />
         )}
