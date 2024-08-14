@@ -16,6 +16,7 @@ import {exitCapture} from "../helper/camera";
 import {useTranslation} from "react-i18next";
 import {TooltipWrapper} from "./Tooltip";
 import {tooltipContents} from "../util/consts/tooltip";
+import db from '../db';
 
 const CapturedComponent = ({navigation, setLowBrightness}) => {
   const {t} = useTranslation("camera");
@@ -83,9 +84,18 @@ const CaptureComponent = ({navigation, exitHandler}) => {
 
 const CameraSidebar = ({navigation, setLowBrightness}) => {
   const {autoCaptureStart} = useSelector((state) => state.settingsReducer);
+  const {groupId} = useSelector((status) => status.cameraReducer);
 
-  const exitHandler = () => {
-    navigation.reset({index: 0, routes: [{name: "UploadTab"}]});
+  const exitHandler = async () => {
+    const data = await db.getCapturesByGroupID(groupId)
+
+    if (data.length <= 5) {
+      navigation.reset({index: 0, routes: [{name: "UploadTab"}]});
+      exitCapture();
+      return;
+    }
+
+    navigation.reset({index: 0, routes: [{name: Routes.uploadTab, params: {screen: Routes.captureCompleted}}]});
     exitCapture();
   }
 
