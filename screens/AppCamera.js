@@ -2,7 +2,7 @@ import {SafeAreaProvider} from "react-native-safe-area-context";
 import SafeAreaView from "react-native-safe-area-view";
 import * as Brightness from "expo-brightness";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Camera, CameraSidebar, Loading } from "../components";
+import { Camera, CameraSidebar, Loading, CameraLastPhotoAnimation } from "../components";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import LinearGradient from "react-native-linear-gradient";
 import { BackHandler, StatusBar, StyleSheet, AppState } from "react-native";
@@ -133,9 +133,6 @@ const AppCamera = () => {
       setIsStarted(true);
     }
 
-    if (isStarted && !autoCaptureStart) {
-      closeHandler();
-    }
   }, [autoCaptureStart]);
 
   if (orientation !== "LANDSCAPE") {
