@@ -7,13 +7,16 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { CustomTextBold, CustomText } from "../../highordercomponents";
 import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect } from "react";
-import { CameraFilledIcon, RoadIcon } from "../../assets/svg/illustrations";
+import { ArrowLeft, CameraFilledIcon, RoadIcon } from '../../assets/svg/illustrations';
 import { thousandFormatter } from "../../helper/helper";
+import { Routes } from '../../navigator/Routes';
+import { useNavigation } from '@react-navigation/native';
 
 const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
   const { t } = useTranslation("leaderboard");
   const [expanded, setExpanded] = useState(false);
   const height = useRef(new Animated.Value(60)).current;
+  const navigation = useNavigation();
 
   useEffect(() => {
     Animated.timing(height, {
@@ -22,6 +25,12 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
       useNativeDriver: false,
     }).start();
   }, [expanded, height]);
+
+  const goToHandler = () => {
+    navigation.navigate(Routes.stackNavigator, {
+      screen: Routes.profileNavigator,
+    });
+  }
 
   return (
     
@@ -95,6 +104,9 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
             </CustomTextBold>
            
           </View>
+          <TouchableOpacity onPress={goToHandler} style={styles.gotoFeedListButton}>
+            <ArrowLeft color="#fff" width={RFValue(10)} height={RFValue(10)} />
+          </TouchableOpacity>
         </View>
       )}
 
@@ -132,6 +144,14 @@ const styles = StyleSheet.create({
     height: "80%",
     backgroundColor: "#DCDCDC",
     marginHorizontal: 10,
+  },
+  gotoFeedListButton: {
+    position: 'absolute',
+    backgroundColor: 'black',
+    padding: 8,
+    borderRadius: 20,
+    transform: [{ rotateY: '180deg' }],
+    right: 0,
   },
  
 });
