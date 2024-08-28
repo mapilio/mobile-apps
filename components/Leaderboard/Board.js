@@ -20,12 +20,12 @@ const Board = () => {
   return (
     <Tab.Navigator
       tabBarPosition="top"
-      initialRouteName="all_time"
+      initialRouteName="week"
       tabBar={(props) => <LeaderboardTabBar {...props} />}
     >
       <Tab.Screen
         name="this_week"
-        component={!users ? SkeletonLoading : Users}
+        component={!usersWeek ? SkeletonLoading : Users}
         initialParams={{ type: "week" }}
         options={{
           tabBarLabel: t("this_week"),
@@ -41,7 +41,7 @@ const Board = () => {
       />
         {showWeek && <Tab.Screen
           name="all_time"
-          component={!usersWeek ? SkeletonLoading : Users}
+          component={!users ? SkeletonLoading : Users}
           initialParams={{ type: "all" }}
           options={{
             tabBarLabel: t("all_time"),
