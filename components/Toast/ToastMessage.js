@@ -11,6 +11,7 @@ import {
   WarningIcon,
 } from "../../assets/svg/illustrations";
 import { vibrate } from "../../util/helpers";
+import SuccessBlackIcon from '../../assets/svg/illustrations/SuccessBlackIcon';
 
 const ToastMessage = ({ options: { id, type, message, hideToast } }) => {
 
@@ -21,6 +22,7 @@ const ToastMessage = ({ options: { id, type, message, hideToast } }) => {
     warning: <WarningIcon />,
     info: <Icon />,
     loading: <ActivityIndicator size={"small"} color="white" />,
+    white: <SuccessBlackIcon />,
   };
 
   const handleClose = () => {
@@ -38,7 +40,7 @@ const ToastMessage = ({ options: { id, type, message, hideToast } }) => {
   return (
     <View style={{ ...styles.wrapper, ...styles[type + "Bg"], marginTop:top}}>
         <View style={styles.statusIcon}>{icons[type]}</View>
-        <Text style={styles.text}>{message}</Text>
+        <Text style={styles.text(type)}>{message}</Text>
         <TouchableOpacity onPress={handleClose} style={styles.closeIcon}>
           <CloseIcon color={"#D8D8D8"} />
         </TouchableOpacity>
@@ -63,15 +65,15 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
   },
-  text: {
+  text: (type)=> ({
     marginHorizontal: RFValue(30),
     marginVertical: RFValue(5),
     fontFamily: "Poppins",
-    color: "#FFFFFF",
+    color: type === 'white' ? '#000' : "#FFFFFF",
     paddingLeft: RFValue(10),
     lineHeight: RFValue(16),
     fontSize: RFValue(12),
-  },
+  }),
   statusIcon: {
     position: "absolute",
     left: RFValue(10),
@@ -92,6 +94,9 @@ const styles = StyleSheet.create({
   },
   loadingBg: {
     backgroundColor: "#191919",
+  },
+  whiteBg: {
+    backgroundColor: "#FFFFFF",
   },
 });
 

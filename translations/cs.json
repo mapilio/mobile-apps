@@ -156,7 +156,9 @@
         "title": "Upravte úhel kamery",
         "description": "Střelba bude pokračovat, až bude vaše rotace pravdivá."
       }
-    }
+    },
+    "success_capture": "Vaše zachycení bylo uloženo! Stisknutím tlačítka 'Start' znovu zachytíte.",
+    "failed_capture": "Vaše zachycení nebylo uloženo! Vaše zachycení musí obsahovat alespoň 5 obrázků."
   },
   "camera_walkthrough": {
     "first": {

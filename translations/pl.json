@@ -156,7 +156,9 @@
         "title": "Dostosuj kąt kamery",
         "description": "Strzelanie będzie kontynuowane, gdy obrót będzie prawdziwy."
       }
-    }
+    },
+    "success_capture": "キャプチャが保存されました！ 'スタート'ボタンを押して再度キャプチャしてください。",
+    "failed_capture": "キャプチャが保存されませんでした！ キャプチャは少なくとも5枚の画像で構成されている必要があります。"
   },
   "camera_walkthrough": {
     "first": {

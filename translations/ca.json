@@ -155,7 +155,9 @@
         "title": "Ajusteu l'angle de la càmera",
         "description": "El rodatge continuarà quan la rotació sigui correcta."
       }
-    }
+    },
+    "success_capture": "La teva captura s'ha desat! Premeu el botó 'Inicia' per capturar de nou.",
+    "failed_capture": "La teva captura no s'ha desat! La teva captura ha de consistir en almenys 5 imatges."
   },
   "camera_walkthrough": {
     "first": {

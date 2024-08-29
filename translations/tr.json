@@ -155,7 +155,9 @@
         "title": "Kamera açınızı ayarlayın",
         "description": "Rotasyonunuz doğru olduğunda çekim devam edecektir."
       }
-    }
+    },
+    "success_capture": "Çekiminiz kaydedildi! Tekrar çekim yapmak için 'Başla' düğmesine basın.",
+    "failed_capture": "Çekiminiz kaydedilmedi! Çekiminiz en az 5 resimden oluşmalıdır"
   },
   "camera_walkthrough": {
     "first": {
