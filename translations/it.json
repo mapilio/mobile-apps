@@ -156,7 +156,9 @@
         "title": "Regola l'angolazione della fotocamera",
         "description": "La ripresa continuerà quando la rotazione sarà vera."
       }
-    }
+    },
+    "success_capture": "A felvétel mentésre került! Nyomja meg a 'Start' gombot az újabb felvételhez.",
+    "failed_capture": "A felvétel nem került mentésre! A felvételnek legalább 5 képből kell állnia."
   },
   "camera_walkthrough": {
     "first": {

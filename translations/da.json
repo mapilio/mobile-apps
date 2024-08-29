@@ -156,7 +156,9 @@
         "title": "Juster din kameravinkel",
         "description": "Optagelsen fortsætter, når din rotation er sand."
       }
-    }
+    },
+    "success_capture": "Din optagelse er gemt! Tryk på 'Start' knappen for at optage igen.",
+    "failed_capture": "Din optagelse blev ikke gemt! Din optagelse skal bestå af mindst 5 billeder."
   },
   "camera_walkthrough": {
     "first": {

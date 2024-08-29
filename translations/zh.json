@@ -156,7 +156,9 @@
         "title": "調整相機角度",
         "description": "當您的旋轉正確時，射擊將繼續。"
       }
-    }
+    },
+    "success_capture": "您的捕获已保存！ 按“开始”按钮再次捕获。",
+    "failed_capture": "您的捕获未保存！ 您的捕获必须包含至少 5 张图像。"
   },
   "camera_walkthrough": {
     "first": {

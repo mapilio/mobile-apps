@@ -156,7 +156,9 @@
         "title": "Điều chỉnh góc máy ảnh của bạn",
         "description": "Việc bắn súng sẽ tiếp tục khi vòng quay của bạn đúng."
       }
-    }
+    },
+    "success_capture": "Bản chụp của bạn đã được lưu! Nhấn nút 'Bắt đầu' để chụp lại.",
+    "failed_capture": "Bản chụp của bạn không được lưu! Bản chụp của bạn phải bao gồm ít nhất 5 hình ảnh."
   },
   "camera_walkthrough": {
     "first": {

@@ -155,7 +155,9 @@
         "title": "Adjust your camera angle",
         "description": "Shooting will continue when the your rotation true."
       }
-    }
+    },
+    "success_capture": "Your capture has been saved! Press the 'Start' button to capture again.",
+    "failed_capture": "Your capture was not saved! Your capture must consist of at least 5 images."
   },
   "camera_walkthrough": {
     "first": {

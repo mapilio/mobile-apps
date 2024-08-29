@@ -155,7 +155,9 @@
         "title": "Ajusta el ángulo de tu cámara",
         "description": "El disparo continuará cuando tu rotación sea verdadera."
       }
-    }
+    },
+    "success_capture": "Tu captura ha sido guardada! Presiona el botón 'Iniciar' para capturar de nuevo.",
+    "failed_capture": "Tu captura no fue guardada! Tu captura debe consistir en al menos 5 imágenes."
   },
   "camera_walkthrough": {
     "first": {

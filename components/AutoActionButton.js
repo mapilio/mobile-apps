@@ -65,6 +65,13 @@ const AutoActionButton = ({navigation}) => {
 
 		if (autoCaptureStart) {
 			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false})
+
+			if (captureCount.current >= 5){
+				return toast.show(t("success_capture"), {type: "white"});
+			}
+
+			toast.show(t("failed_capture"), {type: "warning"});
+
 		}
 	};
 

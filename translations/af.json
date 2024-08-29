@@ -156,7 +156,9 @@
         "title": "Pas jou kamerahoek aan",
         "description": "Skiet sal voortgaan wanneer jou rotasie waar is."
       }
-    }
+    },
+    "success_capture": "Jou vaslegging is gestoor! Druk die 'Begin' knoppie om weer te begin vasvang.",
+    "failed_capture": "Jou vaslegging is nie gestoor nie! Jou vaslegging moet uit ten minste 5 beelde bestaan."
   },
   "camera_walkthrough": {
     "first": {
