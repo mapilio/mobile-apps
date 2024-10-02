@@ -29,8 +29,7 @@ const GeneralSettings = ({ navigation }) => {
   const [showSnackbar, setShowSnackbar] = useState(false);
 
   const { left, right } = useSafeAreaInsets();
-
-  const translateX = useRef(new Animated.Value(defaultStoragePath !== 'internal' ? RFValue(98) : 0 )).current;
+  const translateX = useRef(new Animated.Value(defaultStoragePath !== 'internal' ? RFValue(100) : RFValue(0) )).current;
 
   const animatedStyle = {
     transform: [
@@ -69,7 +68,7 @@ const GeneralSettings = ({ navigation }) => {
     }
 
     Animated.timing(translateX, {
-      toValue: storage === 'internal' ? RFValue(2) : RFValue(98),
+      toValue: storage === 'internal' ? RFValue(0) : RFValue(100),
       duration: 200,
       useNativeDriver: true,
     }).start();
@@ -308,6 +307,7 @@ const styles = StyleSheet.create({
     zIndex: -1,
     backgroundColor: '#0056F1',
     borderRadius: RFValue(24),
+    left: RFValue(2),
   },
 });
 
