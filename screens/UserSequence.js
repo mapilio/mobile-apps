@@ -31,6 +31,7 @@ const UserSequence = ({navigation}) => {
   const dispatch = useDispatch();
   const [isMapLoading, setIsMapLoading] = useState(true);
 
+
   useEffect(() => {
     getData()
   }, [uploadData]);

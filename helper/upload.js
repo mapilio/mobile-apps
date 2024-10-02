@@ -1,13 +1,13 @@
 import {store} from "../store/store";
 import {Alert} from "react-native";
 import db from "../db";
-import * as FileSystem from "expo-file-system";
 import {dateConvert} from "./helper";
 import {calculate} from "./calculator";
 import i18n from "i18next";
 import {api, cdn} from "../util/helpers/api";
 import axios from "axios";
 import {captureException} from "@sentry/react-native";
+import * as RNFS from 'react-native-fs';
 
 let apiController;
 let cdnController;
@@ -42,10 +42,15 @@ export const getHash = async (image) => {
   const fileName = image.path.split("/").pop();
 
   try {
-    const file = await FileSystem.getInfoAsync(FileSystem.documentDirectory + image.path)
+    let path = `${RNFS.DocumentDirectoryPath}`;
+    if (image.default_storage_path === 'external') {
+      const externalPath = await RNFS.getAllExternalFilesDirs()
+      path = externalPath[1]
+    }
+    const file = await RNFS.stat(`file://${path}/${image.path}`)
 
     const formData = new FormData();
-    formData.append("file", {uri: file.uri, name: fileName, type: "image/jpeg"});
+    formData.append("file", {uri: file.path, name: fileName, type: "image/jpeg"});
     formData.append("email", userInformation.email)
 
     if (image.project_key && image.organization_key) {
@@ -125,7 +130,12 @@ export const imageryUpload = async (images, sequence_uuid) => {
     } = exif;
 
     try {
-      const fileInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory + image.path)
+      let path = `${RNFS.DocumentDirectoryPath}`;
+      if (image.default_storage_path === 'external') {
+        const externalPath = await RNFS.getAllExternalFilesDirs()
+        path = externalPath[1]
+      }
+      const fileInfo = await RNFS.stat(`file://${path}/${image.path}`)
 
       //for back compatibility sometimes PixelXDimension and PixelYDimension are not available but ImageWidth and ImageLength (Height) are
       const horizontal = captureWidth || ImageWidth || PixelXDimension;
@@ -210,8 +220,14 @@ export const deleteSequence = async (sequence) => {
 
   for (const element of files) {
     await db.deleteById(element.id)
-    const info = await FileSystem.getInfoAsync(FileSystem.documentDirectory + element.path)
-    info.exists && await FileSystem.deleteAsync(FileSystem.documentDirectory + element.path)
+
+    let filePath = `${RNFS.DocumentDirectoryPath}`;
+    if (element.default_storage_path === 'external') {
+      const externalPath = await RNFS.getAllExternalFilesDirs()
+      filePath = externalPath[1]
+    }
+    const exists = await RNFS.exists(`${filePath}/${element.path}`);
+    exists && await RNFS.unlink(`${filePath}/${element.path}`)
   }
 }
 

@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import database from "../../db";
 import {SEQUENCE_IMAGES} from "../../store/actionsName";
 import {RFValue} from "react-native-responsive-fontsize";
-import * as FileSystem from "expo-file-system";
+import * as RNFS from "react-native-fs";
 
 const ImageUpload = ({ navigation, group_id }) => {
   const dispatch = useDispatch();
@@ -45,19 +45,27 @@ const ImageUpload = ({ navigation, group_id }) => {
       </View>
       <View
         style={[userSequenceStyles.sequenceWrapper, globalStyles.screenTextMargin]}>
-        {sequenceImages.map((image) => (
-          <UploadImageCard
-            key={image.id}
-            path={FileSystem.documentDirectory + `${group_id}/${image.path.split('/').pop()}`}
-            location={JSON.parse(image.location)}
-            id={image.id}
-            uploadedImages={uploadedImages}
-            selectedImages={selectedImages}
-            navigation={navigation}
-            setLoadImage={setLoadImage}
-            sequence_uuid={group_id}
-          />
-        ))}
+        {sequenceImages.map((image) => {
+          let path = RNFS.DocumentDirectoryPath
+          if (image.default_storage_path === 'external') {
+            RNFS.getAllExternalFilesDirs().then((dirs) => {
+              path = dirs[1]
+            })
+          }
+          return (
+            <UploadImageCard
+              key={image.id}
+              path={path + `/${group_id}/${image.path.split('/').pop()}`}
+              location={JSON.parse(image.location)}
+              id={image.id}
+              uploadedImages={uploadedImages}
+              selectedImages={selectedImages}
+              navigation={navigation}
+              setLoadImage={setLoadImage}
+              sequence_uuid={group_id}
+            />
+          )
+        })}
       </View>
     </View>
   );

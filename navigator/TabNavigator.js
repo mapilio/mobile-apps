@@ -146,7 +146,7 @@ const TabNavigator = () => {
         options={{
           tabBarBadge: uploadData.length !== 0 ? uploadData.length : null,
           tabBarBadgeStyle: {
-            backgroundColor:"#D33030"
+            backgroundColor:"#D33030",
           },
           tabBarIcon: ({focused}) => <TabIcons focused={focused} tab={"upload"}/>,
         }}

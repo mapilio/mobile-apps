@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { Image, TouchableOpacity, View } from "react-native";
 import { CustomText, CustomTextBold } from "../highordercomponents";
 import { Routes } from "../navigator/Routes";
@@ -6,13 +6,23 @@ import { userFeedStyles } from "../styles/userProfileStyle";
 import {useDispatch} from "react-redux";
 import { ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES } from "../store/actionsName";
 import { dateConvert } from "../helper/helper";
-import * as FileSystem from "expo-file-system";
+import * as RNFS from "react-native-fs";
 import {useTranslation} from "react-i18next";
 
 const UserFeed = ({navigation, data}) => {
   const dispatch = useDispatch();
   const {t} = useTranslation("upload");
   const exif = JSON.parse(data.exif)
+  const [sdCardPath, setSdCardPath] = React.useState(null);
+  const path = data.default_storage_path === 'external' ? sdCardPath : RNFS.DocumentDirectoryPath
+
+  useEffect(() => {
+    if (data.default_storage_path === 'external') {
+      RNFS.getAllExternalFilesDirs().then((dirs) => {
+        setSdCardPath(dirs[1])
+      })
+    }
+  }, []);
 
   return (
     <TouchableOpacity
@@ -38,7 +48,7 @@ const UserFeed = ({navigation, data}) => {
       <View>
         <Image
           style={userFeedStyles.imageStyle}
-          source={{uri: `${FileSystem.documentDirectory + `${data.sequence_uuid}/${data.filename}.jpeg`}`}}
+          source={{uri: `file://${path + `/${data.sequence_uuid}/${data.filename}.jpeg`}`}}
         />
       </View>
     </TouchableOpacity>

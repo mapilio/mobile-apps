@@ -1,5 +1,5 @@
 import * as SQLite from "expo-sqlite";
-import * as FileSystem from "expo-file-system";
+import * as RNFS from 'react-native-fs';
 
 let db = SQLite.openDatabase(`mapilio.db`);
 
@@ -21,7 +21,8 @@ class Database {
                                 filename TEXT NOT NULL,
                                 group_id TEXT DEFAULT NULL,
                                 address TEXT DEFAULT NULL,
-                                capture_id INTEGER DEFAULT NULL
+                                capture_id INTEGER DEFAULT NULL,
+                                default_storage_path TEXT DEFAULT NULL
                                 )`,
         []
       );
@@ -71,11 +72,11 @@ class Database {
     }
   }
 
-  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID}) {
+  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath}) {
     db.transaction((txn) => {
       txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, capture_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID],
+        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, capture_id, default_storage_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath],
         () => null,
         (_, error) => {
           console.log(error);
@@ -104,19 +105,6 @@ class Database {
   async query(query, callback, args = [], errorCallback = (_, error) => toast.show(`${error}`, {type: "error"})) {
     db.transaction((txn) => {
       txn.executeSql(query, args, callback, errorCallback)
-    });
-  }
-
-  deleteRow(sequenceUUID) {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `DELETE FROM captures WHERE sequence_uuid = '${sequenceUUID}'`,
-        async () => {
-          await FileSystem.deleteAsync(
-            FileSystem.documentDirectory + `${id}/${sequenceUUID}`
-          );
-        }
-      );
     });
   }
 
@@ -204,7 +192,13 @@ class Database {
 
               // Delete group if it has less than 5 images
               this.deleteByGroupID(item.group_id)
-              FileSystem.deleteAsync(FileSystem.documentDirectory + `${item.group_id}`)
+              let path =  + `${RNFS.DocumentDirectoryPath}`
+              if (item.default_storage_path === 'external') {
+                RNFS.getAllExternalFilesDirs().then((dirs) => {
+                  path = dirs[1]
+                })
+              }
+              RNFS.unlink(path + `/${item.group_id}`)
             })
 
             resolve(groups)
@@ -302,7 +296,12 @@ class Database {
 
             if (results.length < 5 && results.length > 0) {
               this.deleteByGroupID(results[0].group_id, async () => {
-                await FileSystem.deleteAsync(FileSystem.documentDirectory + `${results[0].group_id}`)
+                let path = `${RNFS.DocumentDirectoryPath}`
+                if (results[0].default_storage_path === 'external') {
+                  const externalPath = await RNFS.getAllExternalFilesDirs()
+                  path = externalPath[1]
+                }
+                await RNFS.unlink(path + `${results[0].group_id}`)
               })
               reject('Group has less than 5 images')
             }
@@ -435,7 +434,15 @@ class Database {
     return new Promise((resolve, reject) => {
       db.transaction(txn => {
         txn.executeSql(`DELETE FROM captures WHERE id IN (${images.map(({id}) => `'${id}'`).join(',')})`, [], (_, results) => {
-          images.forEach(({path}) => FileSystem.deleteAsync(FileSystem.documentDirectory + path))
+          images.forEach((item) => {
+            let path = `${RNFS.DocumentDirectoryPath}}`
+            if (item.default_storage_path === 'external') {
+              RNFS.getAllExternalFilesDirs().then((dirs) => {
+                path = dirs[1]
+              })
+            }
+            RNFS.unlink(path + item.path)
+          })
           resolve(results.rows._array)
         }, (error) => {
           reject(error)

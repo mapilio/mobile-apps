@@ -10,7 +10,6 @@
     "android": "expo run:android"
   },
   "dependencies": {
-    "@dogukany/react-native-vision-camera": "2.15.2",
     "@dogukany/react-native-walkthrough-tooltip": "^1.5.3",
     "@expo/configure-splash-screen": "^0.6.0",
     "@expo/react-native-action-sheet": "^4.0.1",
@@ -40,6 +39,7 @@
     "expo-auth-session": "~3.8.0",
     "expo-battery": "7.1.1",
     "expo-brightness": "~11.0.1",
+    "expo-file-system": "~15.1.1",
     "expo-font": "~11.0.1",
     "expo-google-app-auth": "~8.3.0",
     "expo-haptics": "~12.0.1",
@@ -69,7 +69,6 @@
     "react-native-config": "1.4.4",
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-fbsdk-next": "11.3.0",
-    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-image-picker": "~5.4.1",
     "react-native-linear-gradient": "^2.6.2",
@@ -92,6 +91,7 @@
     "react-native-tab-view": "^3.3.4",
     "react-native-toast-notifications": "^3.3.1",
     "react-native-uuid": "^2.0.1",
+    "react-native-vision-camera": "^4.5.3",
     "react-native-web": "~0.18.7",
     "react-native-webview": "^11.23.1",
     "react-redux": "^8.0.4",

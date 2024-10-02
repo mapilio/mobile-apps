@@ -186,7 +186,16 @@
     "ok": "Tamam",
     "enable_low_resolution": "Düşük çözünürlüğü etkinleştir",
     "enable_low_resolution_desc": "Daha iyi pil performansı ve daha hızlı çekim için düşük çözünürlüğü etkinleştirin.",
-    "settings_saved": "Değişikliklerin tamamlanması için kameranın yeniden başlatılması gerekmektedir."
+    "settings_saved": "Değişikliklerin tamamlanması için kameranın yeniden başlatılması gerekmektedir.",
+    "default_storage": "Varsayılan depolama alanı",
+    "please-pluck-sdcard": "Lütfen bir SD kart takın",
+    "storage-permission": {
+      "title": "Depolama Erişim İzni",
+      "message": "Bu uygulamanın harici depolama alanına erişim izni verin.",
+      "buttonNeutral": "Daha Sonra",
+      "buttonNegative": "Hayır",
+      "buttonPositive": "Evet"
+    }
   },
   "capture_completed": {
     "title": "<0>{{distance}}Km</0> Yol\nÇekimi Yapıldı",

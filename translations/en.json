@@ -186,7 +186,16 @@
     "ok": "OK",
     "enable_low_resolution": "Enable low resolution",
     "enable_low_resolution_desc": "Enable low resolution mode for better battery performance and faster shooting.",
-    "settings_saved": "Camera needs to be restarted for the changes to take effect."
+    "settings_saved": "Camera needs to be restarted for the changes to take effect.",
+    "default_storage": "Default Storage",
+    "please-pluck-sdcard": "Please plug in your SD card",
+    "storage-permission": {
+      "title": "Storage Permission",
+      "message": "This app needs storage permission to save images.",
+      "buttonNeutral": "Later",
+      "buttonNegative": "Cancel",
+      "buttonPositive": "Yes"
+    }
   },
   "capture_completed": {
     "title": "<0>{{distance}}Km</0> Road\nCapture Was Done",

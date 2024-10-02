@@ -1,9 +1,9 @@
 import { Dimensions, Image, Text, Pressable, View} from "react-native";
-import * as FileSystem from "expo-file-system";
+import * as RNFS from "react-native-fs";
 import styles from './UploadItem.styles';
 import {dateConvert} from "../../helper/helper";
 import LinearGradient from "react-native-linear-gradient";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useRef, useState } from 'react';
 import {userFeedStyles} from "../../styles/userProfileStyle";
 import {Photos, PointIcon, Trash} from "../../assets/svg/illustrations";
 import {RectButton, Swipeable} from "react-native-gesture-handler";
@@ -19,7 +19,6 @@ import {scoreCalculate} from "../../util/helpers";
 import {search} from "../../util/helpers/api";
 
 const UploadItem = ({item, deleteFunc}) => {
-  const {distanceBetween} = useSelector((state) => state.settingsReducer);
   const {connection} = useSelector((state) => state.generalReducer);
   const [address, setAddress] = useState(item.address);
   const {t} = useTranslation("upload");
@@ -27,7 +26,10 @@ const UploadItem = ({item, deleteFunc}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const exif = JSON.parse(item.exif);
-  const image = `${FileSystem.documentDirectory + `${item.group_id}/${item.filename}.jpeg`}`
+  const [sdCardPath, setSdCardPath] = useState(null);
+  const image = item.default_storage_path === 'internal'
+    ? `file://${RNFS.DocumentDirectoryPath}/${item.group_id}/${item.filename}.jpeg`
+    : `file://${sdCardPath}/${item.group_id}/${item.filename}.jpeg`
 
   const calculateScore = async () => {
     const data = await db.getCapturesByGroupID(item.group_id)
@@ -59,6 +61,7 @@ const UploadItem = ({item, deleteFunc}) => {
   useEffect(() => {
     calculateScore();
     !address && getAddress();
+    RNFS.getAllExternalFilesDirs().then((res) => setSdCardPath(res[1]));
   }, []);
 
 
