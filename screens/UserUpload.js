@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, View, Text } from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {AlertModal, EmptyList, UploadItem} from "../components";
-import * as FileSystem from "expo-file-system";
 import { UPLOAD_DATA} from "../store/actionsName";
 import {Upload} from "../components/Uploads";
 import db from "../db";
@@ -13,6 +12,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 import InfoBox from "../components/InfoBox/InfoBox";
 import { useNavigation } from "@react-navigation/native";
+import * as RNFS from 'react-native-fs';
 
 const UserUpload = () => {
   const dispatch = useDispatch();
@@ -35,7 +35,16 @@ const UserUpload = () => {
   }, []);
 
   const getData = () => {
-    db.getGroupByWithGroupID().then(data => dispatch({type: UPLOAD_DATA, payload: data}))
+    db.getGroupByWithGroupID().then(data => {
+      RNFS.getAllExternalFilesDirs().then((dirs) => {
+        if (dirs.length === 1) {
+          const filtered = data.filter(item => item.default_storage_path === 'internal')
+          dispatch({ type: UPLOAD_DATA, payload: filtered })
+        }else {
+          dispatch({ type: UPLOAD_DATA, payload: data })
+        }
+      })
+    })
   };
 
   const resetToDefault = () => {
@@ -46,9 +55,14 @@ const UserUpload = () => {
 
   const deleteSequence = () => {
     setLoading(true)
-
+    let path = RNFS.DocumentDirectoryPath
+    if (uploadData.default_storage_path === 'external') {
+      RNFS.getAllExternalFilesDirs().then((dirs) => {
+        path = dirs[1]
+      })
+    }
     db.deleteByGroupID(deleteItem, () => {
-      FileSystem.deleteAsync(FileSystem.documentDirectory + deleteItem).then(() => resetToDefault()).catch(() => resetToDefault())
+      RNFS.unlink(`${path}/${deleteItem}`).then(() => resetToDefault()).catch(() => resetToDefault())
     }, () => resetToDefault())
   }
 

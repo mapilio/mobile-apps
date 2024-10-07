@@ -7,7 +7,6 @@ import {Photos, TimeIcon} from "../assets/svg/illustrations";
 import {useSelector} from "react-redux";
 import db from "../db";
 import {dateConvert} from "../helper/helper";
-import * as FileSystem from "expo-file-system";
 import {lineString, bbox, length, points} from "@turf/turf";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import Loading from "../components/Loading";
@@ -16,6 +15,7 @@ import {Routes} from "../navigator/Routes";
 import {useNavigation} from "@react-navigation/native";
 import {Upload} from "../components/Uploads";
 import { FocusAwareStatusBar } from "../components";
+import * as RNFS from 'react-native-fs';
 
 const CaptureCompleted = () => {
   const [totalSize, setTotalSize] = useState(0);
@@ -61,8 +61,15 @@ const CaptureCompleted = () => {
     const bboxData = bbox(line)
     const lengthData = length(line, {units: 'kilometers'})
     const count = data.length
+    const { default_storage_path } = data[0]
 
-    const {size} = await FileSystem.getInfoAsync(FileSystem.documentDirectory + groupId)
+    let path = RNFS.DocumentDirectoryPath
+    if (default_storage_path === 'external') {
+      const dirs = await RNFS.getAllExternalFilesDirs()
+      path = dirs[1]
+    }
+
+    const {size} = await RNFS.stat(path + `/${groupId}`)
     setTotalSize(Math.round(size / 1024 / 1024))
 
     setLineDetail({line, point, bboxData, lengthData, count, data})

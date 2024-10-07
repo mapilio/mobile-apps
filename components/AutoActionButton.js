@@ -2,7 +2,6 @@ import React, {Fragment, useEffect, useRef, useState} from "react";
 import {AppState, View, Pressable,Text} from "react-native";
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import db from "../db";
-import * as FileSystem from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
 import {
 	TOGGLE_ROTATE_ALERT,
@@ -18,6 +17,7 @@ import {vibrate} from "../util/helpers";
 import {distance} from "@turf/turf";
 import * as ImageManipulator from "expo-image-manipulator";
 import {cloneDeep} from "lodash";
+import * as RNFS from 'react-native-fs';
 
 const AutoActionButton = ({navigation}) => {
 	const {
@@ -32,7 +32,7 @@ const AutoActionButton = ({navigation}) => {
 		cameraLocation,
 		groupId,
 	} = useSelector((status) => status.cameraReducer);
-	const {selectedProject, autoCaptureStart} = useSelector((status) => status.settingsReducer);
+	const {selectedProject, autoCaptureStart, defaultStoragePath} = useSelector((status) => status.settingsReducer);
 	const {debugMode} = useSelector((status) => status.generalReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(true);
@@ -229,25 +229,32 @@ const AutoActionButton = ({navigation}) => {
 
 		if (!imageUri) return;
 
-		const metaDataDir = await FileSystem.getInfoAsync(FileSystem.documentDirectory + `${groupId}`);
-		const isDir = metaDataDir.isDirectory;
+		let storagePath = RNFS.DocumentDirectoryPath
 
-		if (!isDir) {
+		if (defaultStoragePath === 'external'){
+			const allExternalFilesDirs = await RNFS.getAllExternalFilesDirs();
+			storagePath = allExternalFilesDirs[1];
+		}
+
+		const isExit = await RNFS.exists(storagePath + `/${groupId}`);
+		if (!isExit) {
 			try {
-				await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + `${groupId}`, {intermediates: true});
+				await RNFS.mkdir(storagePath + `/${groupId}`);
 			} catch (e) {
 				toast.show(t("something_went_wrong"), {type: "error"});
 			}
 		}
 
 		const filename = ((Math.random() + 1).toString(36).substring(7) + Math.round(new Date().getTime() / 1000)).toString();
-		const newPath = FileSystem.documentDirectory + `${groupId}/${filename}.${"jpeg"}`;
+		const newPath = storagePath + `/${groupId}/${filename}.${"jpeg"}`;
 
 		const compressedImage = await ImageManipulator.manipulateAsync(imageUri, [{resize: {width: image.width, height:image.height}}], {compress: 0.5, format: ImageManipulator.SaveFormat.JPEG})
-		await FileSystem.moveAsync({from: compressedImage.uri, to: newPath});
 
-		FileSystem.deleteAsync(`file://${imageUri}`, {idempotent: true});
-		
+		await RNFS.moveFile(compressedImage.uri, newPath);
+
+		await RNFS.unlink(`file://${imageUri}`);
+
+
 		image.uri = newPath;
 		db.insertToDB({
       exif: JSON.stringify({
@@ -270,9 +277,10 @@ const AutoActionButton = ({navigation}) => {
       path: `${groupId}/${filename}.${"jpeg"}`,
       filename,
       groupId,
-	  captureID
+	  	captureID,
+			defaultStoragePath
     });
-		const fileInfo = await FileSystem.getInfoAsync(newPath);
+		const fileInfo = await RNFS.stat(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
 		calculateAmount("add");
 		if(captureCount.current % 250 === 0 && isSessionStarted) {

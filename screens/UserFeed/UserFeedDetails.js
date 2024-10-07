@@ -207,7 +207,7 @@ const UserFeedDetails = ({ route }) => {
         <MapLibreGL.Camera ref={cameraRef} animationDuration={500} />
         {mapData.bbox.length > 0 && (
           <Fragment>
-           {mapData?.lines.map((line, index) => (
+           {mapData?.lines?.map((line, index) => (
               <MapLibreGL.ShapeSource
                 id={"LineShape" + index}
                 shape={JSON.parse(line.linefeature)}

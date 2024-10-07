@@ -6,7 +6,7 @@ import db from "../../db";
 import {UPLOAD_DATA} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
-import * as FileSystem from "expo-file-system";
+import * as RNFS from "react-native-fs";
 import UploadModal from "./UploadModal";
 import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
@@ -17,6 +17,7 @@ import {captureException} from "@sentry/react-native";
 const Upload = ({group_uuid = null, style, buttonStyle}) => {
   const dispatch = useDispatch();
   const {t} = useTranslation("navigation");
+  const {defaultStoragePath} = useSelector((state) => state.settingsReducer);
   const {uploadData} = useSelector((state) => state.uploadReducer);
   const {connection, maintenanceMode} = useSelector((state) => state.generalReducer);
   const {userInformation} = useSelector((state) => state.getTokenReducer);
@@ -30,10 +31,17 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
   let willDelete = [];
 
   useEffect(() => {
-    let path = FileSystem.documentDirectory;
+    let path = RNFS.DocumentDirectoryPath;
+    if (defaultStoragePath === 'external') {
+      // if external storage is selected, this will return multiple paths and get the second one
+      RNFS.getAllExternalFilesDirs().then((dirs) => {
+        path = dirs[1];
+      })
+    }
+
     group_uuid && (path += `/${group_uuid}`);
 
-    FileSystem.getInfoAsync(path).then(({size}) => setTotalSize(Math.round(size / 1024 / 1024)))
+    RNFS.stat(path).then(({size}) => setTotalSize(Math.round(size / 1024 / 1024)))
 
     return () => setTotalSize(0)
   }, []);

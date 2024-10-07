@@ -8,7 +8,7 @@ import {SwipeListView} from "react-native-swipe-list-view";
 import database from "../../db";
 import {useDispatch, useSelector} from "react-redux";
 import {UPLOAD_DATA} from "../../store/actionsName";
-import * as FileSystem from "expo-file-system";
+import * as RNFS from "react-native-fs";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 
@@ -18,8 +18,15 @@ const List = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const deleteSequence = (group_id) => {
+
+    let path = RNFS.DocumentDirectoryPath
+    if (uploadData.default_storage_path === 'external') {
+      RNFS.getAllExternalFilesDirs().then((dirs) => {
+         path = dirs[1]
+      })
+    }
     database.deleteByGroupID(group_id, async () => {
-      await FileSystem.deleteAsync(FileSystem.documentDirectory + `${group_id}`)
+      await RNFS.unlink(path + `/${group_id}`)
       getData();
     })
   }

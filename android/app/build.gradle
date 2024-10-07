@@ -155,8 +155,8 @@ android {
         applicationId 'com.mapilio.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 67
-        versionName "1.0.56"
+        versionCode 69
+        versionName "1.0.58"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -291,7 +291,6 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-config')
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-    implementation 'org.maplibre.gl:android-sdk:+'
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";

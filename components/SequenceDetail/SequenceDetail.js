@@ -1,5 +1,5 @@
 import {Image, Pressable, Text, TouchableOpacity, View} from "react-native";
-import React, {Fragment, useEffect, useState} from "react";
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import {scoreCalculate} from "../../util/helpers";
 import {CheckIcon, PointIcon, Trash} from "../../assets/svg/illustrations";
 import styles from  "./SequenceDetail.styles";
@@ -8,10 +8,10 @@ import {Trans, useTranslation} from "react-i18next";
 import Upload from "../Uploads/Upload";
 import {dateConvert} from "../../helper/helper";
 import {BottomSheetFlatList} from "@gorhom/bottom-sheet";
-import {documentDirectory} from "expo-file-system";
 import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_SELECTED_IMAGES} from "../../store/actionsName";
 import AlertModal from "../AlertModal";
+import * as RNFS from "react-native-fs";
 
 const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
   const {t} = useTranslation("upload");
@@ -19,9 +19,15 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
   const [isDelete, setIsDelete] = useState(false);
   const {selectedImages} = useSelector((state) => state.imagesReducer);
   const info = {...JSON.parse(sequence[0].exif), address: sequence[0].address, group_id: sequence[0].group_id}
+  const [sdCardPath, setSdCardPath] = useState(null);
 
   useEffect(() => {
     scoreCalculate(sequence)
+    RNFS.getAllExternalFilesDirs().then((dirs) => {
+      if (dirs.length > 0) {
+        setSdCardPath(dirs[1]);
+      }
+    });
   }, []);
 
   const clearSelections = () => dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
@@ -49,7 +55,8 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
   }
 
   const _renderItem = ({item}) => {
-    const imagePath = documentDirectory + item.path;
+    const path = item.default_storage_path === 'internal' ? `${RNFS.DocumentDirectoryPath}/${item.path}` : `${sdCardPath}/${item.path}`;
+    const imagePath = `file://${path}`;
     const isSelected = selectedImages.some((selectedId) => selectedId.id === item.id);
 
     return (

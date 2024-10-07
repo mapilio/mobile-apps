@@ -1,24 +1,18 @@
-import React, { useState } from "react";
-import {
-  Dimensions,
-  Image,
-  Platform,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { convertHexToRGBA } from "../helper/helper";
-import { useDispatch, useSelector } from "react-redux";
-import * as FileSystem from "expo-file-system";
-import * as Location from "expo-location";
-import { UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT } from "../store/actionsName";
-import Database from "../db";
+import React, { useState } from 'react';
+import { Dimensions, Image, Platform, TouchableOpacity, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { convertHexToRGBA } from '../helper/helper';
+import { useDispatch, useSelector } from 'react-redux';
+import * as RNFS from 'react-native-fs';
+import * as Location from 'expo-location';
+import { UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT } from '../store/actionsName';
+import Database from '../db';
 
 const ManuelActionButton = ({ disabled, uuid }) => {
   const { cameraStatus, camera } = useSelector(
     (status) => status.cameraReducer
   );
-  const { selectedProject } = useSelector((status) => status.settingsReducer);
+  const { selectedProject, defaultStoragePath } = useSelector((status) => status.settingsReducer);
   const { userInformation } = useSelector((state) => state.getTokenReducer);
   const [image, setImage] = useState("");
   const [photoAmount, setPhotoAmount] = useState(0);
@@ -29,35 +23,35 @@ const ManuelActionButton = ({ disabled, uuid }) => {
     const db = Database.getConnection();
     const id =
       selectedProject.type === "individual"
-        ? userInformation.id
+        ? userInformation?.id
         : selectedProject.id;
 
     const options = { quality: 0.6, base64: false, exif: true };
-    const image = await camera.takePictureAsync(options);
+    const image = await camera.takePhoto(options);
     const location = await Location.getCurrentPositionAsync();
     const heading = await Location.getHeadingAsync();
     const imageUri = image.uri;
 
-    const metaDataDir = await FileSystem.getInfoAsync(
-      FileSystem.documentDirectory + `${id}/${uuid}`
-    );
-    const isDir = metaDataDir.isDirectory;
-    if (!isDir) {
+    let storagePath = RNFS.DocumentDirectoryPath;
+
+    if (Platform.OS === "android" && defaultStoragePath === "external") {
+      RNFS.getAllExternalFilesDirs().then((dirs) => {
+        storagePath = dirs[1];
+      })
+    }
+
+    const isExit = await RNFS.exists(storagePath + `/${uuid}`);
+    if (!isExit) {
       try {
-        await FileSystem.makeDirectoryAsync(
-          FileSystem.documentDirectory + `${id}/${uuid}`,
-          { intermediates: true }
-        );
+        await RNFS.mkdir(storagePath + `${id}/${uuid}`);
       } catch (e) {
         console.info("ERROR", e);
       }
     }
 
-    const newPath = FileSystem.documentDirectory + `${id}/${uuid}/${Math.round(new Date().getTime() / 1000).toString()}.${"jpeg"}`;
-    await FileSystem.copyAsync({
-      from: imageUri,
-      to: newPath,
-    });
+    const newPath = storagePath + `${id}/${uuid}/${Math.round(new Date().getTime() / 1000).toString()}.${"jpeg"}`;
+    await RNFS.copyFile(imageUri, newPath);
+
     image.uri = newPath;
     location.coords.heading = heading.trueHeading;
     const JSONExif = JSON.stringify(image.exif);
@@ -71,11 +65,12 @@ const ManuelActionButton = ({ disabled, uuid }) => {
       uuid,
       path: newPath,
       userID: userInformation.id,
+      defaultStoragePath
     });
 
     setPhotoAmount((amount) => amount + 1);
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
-    const fileInfo = await FileSystem.getInfoAsync(newPath);
+    const fileInfo = await RNFS.stat(newPath);
     dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
   };
 
