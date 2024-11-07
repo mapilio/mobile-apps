@@ -49,7 +49,7 @@ const MapView = ({
     <Fragment>
       <MapLibreGL.MapView
         style={mapStyle}
-        styleURL={__DEV__ ? undefined : `${styleURL}${styleKey}`}
+        styleURL={'https://demotiles.maplibre.org/style.json'}
         ref={mapRef}
         onRegionDidChange={regionChange}
         logoEnabled={false}

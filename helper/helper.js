@@ -2,7 +2,7 @@ import {store} from "../store/store";
 import axios from "axios";
 import {Alert, Dimensions, Linking, Platform} from "react-native";
 import Moment from "moment";
-import {check, PERMISSIONS, request, requestMultiple, RESULTS} from "react-native-permissions";
+// import {check, PERMISSIONS, request, requestMultiple, RESULTS} from "react-native-permissions";
 import {tabHeight} from "../util/consts/ui";
 import i18next from "i18next";
 

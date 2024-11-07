@@ -42,13 +42,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "expo-location",
-        {
-          "isAndroidBackgroundLocationEnabled": false
-        }
-      ]
-    ]
+    "plugins": ["@maplibre/maplibre-react-native"]
   }
 }

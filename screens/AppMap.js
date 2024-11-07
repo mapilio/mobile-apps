@@ -13,7 +13,7 @@ import Config from "react-native-config";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
-import { RESULTS } from "react-native-permissions";
+// import { RESULTS } from "react-native-permissions";
 import { point } from "@turf/turf";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
