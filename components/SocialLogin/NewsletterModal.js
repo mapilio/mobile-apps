@@ -222,7 +222,6 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "#ECECEC",
     borderRadius: RFValue(24),
-    height: RFValue(46),
     paddingHorizontal: RFValue(21),
     fontSize: RFValue(10),
     fontFamily: "Poppins-Light",

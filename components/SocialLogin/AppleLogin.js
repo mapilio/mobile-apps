@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import { api } from "../../util/helpers/api";
-import Config from "react-native-config";
+
 import { Modal, View, ActivityIndicator } from "react-native";
 import { useTranslation } from "react-i18next";
 import {captureException} from "@sentry/react-native";
@@ -25,7 +25,7 @@ const AppleLogin = ({ navigation }) => {
   const signInToApple = (credential) => {
     api
       .post(
-        `/oauth-api/apple/authenticate?token=${credential.identityToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&is_mobile=true`
+        `/oauth-api/apple/authenticate?token=${credential.identityToken}&client_id=${process.env.EXPO_PUBLIC_AUTH_CLIENT_ID}&client_secret=${process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET}&is_mobile=true`
       )
       .then((res) => {
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });

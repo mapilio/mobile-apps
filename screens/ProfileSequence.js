@@ -11,7 +11,7 @@ import {styles} from "../styles/circleStyles";
 import {Routes} from "../navigator/Routes";
 import {ActivityIndicator} from "react-native-paper";
 import {setGeoJson} from "../helper/geojson";
-import Config from "react-native-config";
+
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import { FocusAwareStatusBar } from "../components";
@@ -194,7 +194,7 @@ const UserSequence = ({ navigation, route }) => {
                 onPress={(point) => {
                   navigation.navigate(Routes.feedDetail, {
                     id: point.features[0].properties.item.id,
-                    path: `${Config.IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/1080`,
+                    path: `${process.env.EXPO_PUBLIC_IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/1080`,
                     coordinate: point.features[0].geometry.coordinates,
                     points: mapList,
                     heading: point.features[0].properties.item.heading,

@@ -1,5 +1,5 @@
 import {store} from "../../../store/store";
-import Config from "react-native-config";
+
 import {EXIT_USER, GET_TOKEN_SUCCESS} from "../../../store/actionsName";
 import {translate} from "../index";
 import api from "./Api";
@@ -9,10 +9,10 @@ export const refreshToken = async () => {
 
   try {
     if (!!auth) {
-      const user = await api.post(`${Config.SERVICE_URL}/api/v2/login`, {
+      const user = await api.post(`${process.env.EXPO_PUBLIC_SERVICE_URL}/api/v2/login`, {
         grant_type: 'refresh_token',
-        client_id: Config.AUTH_CLIENT_ID,
-        client_secret: Config.AUTH_CLIENT_SECRET,
+        client_id: process.env.EXPO_PUBLIC_AUTH_CLIENT_ID,
+        client_secret: process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET,
         refresh_token: auth.refresh_token,
       }, {
         retry: 0,

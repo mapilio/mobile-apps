@@ -1,30 +1,31 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+// TODO  import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { UserFeed } from "./UserFeed";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
 function TabsBar() {
   return (
-    <Tab.Navigator
+    <Tabs.Screen
       initialRouteName="Feed"
       screenOptions={{
         tabBarActiveTintColor: "#e91e63",
       }}
     >
-      <Tab.Screen
+      <Tabs.Screen
         name="Feed"
         component={UserFeed}
         options={{
           tabBarLabel: "Home",
           tabBarLabelPosition: "beside-icon",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            // <MaterialCommunityIcons name="home" color={color} size={size} />
+            <></>
           ),
         }}
       />
-      <Tab.Screen
+      <Tabs.Screen
         name="Notifications"
         component={UserFeed}
         options={{
@@ -35,7 +36,7 @@ function TabsBar() {
           tabBarBadge: 3,
         }}
       />
-      <Tab.Screen
+      <Tabs.Screen
         name="Settings"
         component={UserFeed}
         options={{
@@ -45,7 +46,7 @@ function TabsBar() {
           ),
         }}
       />
-    </Tab.Navigator>
+    </Tabs.Screen>
   );
 }
 

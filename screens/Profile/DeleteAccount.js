@@ -1,10 +1,10 @@
-import {Text, View, Alert, Modal, ActivityIndicator} from "react-native";
+import {Text, View, Alert} from "react-native";
 import {SadWorld} from "../../assets/svg/illustrations";
 import styles from "./DeleteAccount.styles";
-import {Button, FocusAwareStatusBar, Loading} from "../../components";
+import {Button, FocusAwareStatusBar} from "../../components";
 import {Routes} from "../../navigator/Routes";
 import {EXIT_USER} from "../../store/actionsName";
-import OneSignal from "react-native-onesignal";
+import { OneSignal } from "react-native-onesignal";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
@@ -17,7 +17,7 @@ const DeleteAccount = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {t} = useTranslation("delete_account");
-  const {credential} = useSelector((state) => state.getTokenReducer);
+  const {credential, userInformation} = useSelector((state) => state.getTokenReducer);
   const [loading, setLoading] = useState(false);
 
   const deleteFetch = async (data) => {
@@ -26,7 +26,7 @@ const DeleteAccount = () => {
 
       navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
       dispatch({type: EXIT_USER});
-      OneSignal.logoutEmail();
+      OneSignal.User.removeEmail(userInformation.email);
 
     } catch (e) {
       throw new Error(e)

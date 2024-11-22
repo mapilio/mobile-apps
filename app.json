@@ -3,45 +3,124 @@
     "name": "Mapilio",
     "slug": "mapilio",
     "scheme": "mapilio",
-    "version": "1.0.4",
+    "version": "1.2.1",
     "orientation": "portrait",
     "icon": "./assets/playstore.png",
     "userInterfaceStyle": "light",
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/20506e61-26fa-4bfa-b72c-444839447345"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "facebookAppId": "254795350007625",
-    "facebookDisplayName": "Mapilio",
     "ios": {
       "supportsTablet": true,
       "requireFullScreen": true,
       "bundleIdentifier": "com.mapilio.main",
-      "buildNumber": "6"
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "fetch",
+          "remote-notification",
+          "audio"
+        ],
+        "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera.",
+        "NSPhotoLibraryUsageDescription": "$(PRODUCT_NAME) needs access to your Photo Library.",
+        "SKAdNetworkItems": [
+          {
+            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
+          },
+          {
+            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
+          }
+        ]
+      },
+      "runtimeVersion": "1.0.0"
     },
     "android": {
       "permissions": [
-        "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION",
-        "CAMERA",
-        "FOREGROUND_SERVICE",
-        "INTERNET",
-        "READ_EXTERNAL_STORAGE",
-        "RECORD_AUDIO",
-        "SYSTEM_ALERT_WINDOW",
-        "VIBRATE",
-        "WRITE_EXTERNAL_STORAGE",
-        "WRITE_SETTINGS"
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.INTERNET"
       ],
       "icon": "./assets/playstore.png",
       "package": "com.mapilio.app",
-      "versionCode": 5
+      "versionCode": 70
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["@maplibre/maplibre-react-native"]
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "plugins": [
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "production"
+        }
+      ],
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
+          "enableMicrophonePermission": true
+        }
+      ],
+      [
+        "@maplibre/maplibre-react-native"
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ],
+      [
+        "react-native-permissions",
+        {
+          "iosPermissions": [
+            "Camera",
+            "Microphone",
+            "PhotoLibraryAddOnly",
+            "PhotoLibrary",
+            "LocationAlways",
+            "LocationWhenInUse"
+          ]
+        }
+      ],
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "PORTRAIT_UP"
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.563319300844-1ui5kbrs3h68ldk5bc5jr94r9oev220m"
+        }
+      ],
+      "expo-build-properties",
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "254795350007625",
+          "displayName": "Mapilio",
+          "clientToken": "***REMOVED***",
+          "scheme": "fb254795350007625"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "20506e61-26fa-4bfa-b72c-444839447345"
+      }
+    }
   }
 }

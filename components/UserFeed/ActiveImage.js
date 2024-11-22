@@ -1,10 +1,10 @@
 import { View, StyleSheet, ImageBackground , TouchableOpacity, Platform} from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
-import Config from "react-native-config";
+
 import { ArrowLeft, ToggleOrientation } from "../../assets/svg/illustrations";
 import { CustomText, CustomTextBold } from "../../highordercomponents";
 import Loading from "../Loading"
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { dateConvert, maxCharacterHandler } from "../../helper/helper";
 import LogoWatermark from "../../assets/svg/illustrations/LogoWatermark";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -29,8 +29,8 @@ import { api } from "../../util/helpers/api";
   setModalVisible,
   isFullScreen
 }) => {
-  const uri = `${Config.IMAGE_API}/${imgCode}/${filename}/1080`;
-  const {top} = useSafeAreaInsets();
+  const uri = `${process.env.EXPO_PUBLIC_IMAGE_API}/${imgCode}/${filename}/1080`;
+  const {top,left} = useSafeAreaInsets();
   const isAndroid = Platform.OS === "android";
   const [loading, setLoading] = useState(true);
   const { showActionSheetWithOptions } = useActionSheet();
@@ -103,7 +103,14 @@ import { api } from "../../util/helpers/api";
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
     }
-    setModalVisible((prev) => !prev);
+
+    setModalVisible((prev) => {
+      ScreenOrientation.lockAsync(
+        prev ? ScreenOrientation.OrientationLock.PORTRAIT_UP :
+          ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+      );
+      return !prev;
+    });
   }
 
   const fullScreenBorder = !isFullScreen && { borderTopLeftRadius: RFValue(10), borderTopRightRadius: RFValue(10) }
@@ -134,7 +141,7 @@ import { api } from "../../util/helpers/api";
           style={[styles.gradientBackground,{top:0,height:"25%"}, fullScreenBorder]}
         />
 
-        <View style={[{ flex: 1 }, isFullScreen && { marginHorizontal: top }]}>
+        <View style={[{ flex: 1 }, isFullScreen && { marginHorizontal: left }]}>
           <View style={styles.count}>
             <CustomTextBold style={styles.h1}>
               {activeImageIndex + 1}/{totalImages}
@@ -145,7 +152,7 @@ import { api } from "../../util/helpers/api";
             style={[
               styles.buttonBase,
               styles.rotateButton,
-              isFullScreen && isAndroid && { top },
+              isFullScreen && isAndroid && { left },
             ]}
             onPress={toggleFullScreen}
           >

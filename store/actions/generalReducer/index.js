@@ -1,5 +1,5 @@
 import { api, cdn } from "../../../util/helpers/api";
-import Config from "react-native-config";
+
 import { SET_CONFIG, SET_MAINTENANCE_MODE } from "../../../store/actionsName";
 import * as Application from "expo-application";
 import { Alert, Platform, Linking } from "react-native";
@@ -54,7 +54,7 @@ export const checkVersion = (versionData) => {
 export const getConfig = () => {
   return (dispatch) => {
     api
-      .get("/config/general?token=" + Config.APP_CONFIG_TOKEN)
+      .get("/config/general?token=" + process.env.EXPO_PUBLIC_APP_CONFIG_TOKEN)
       .then(({ config }) => {
         const {
           isMarketOpen,

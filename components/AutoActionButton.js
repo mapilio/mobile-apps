@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useRef, useState} from "react";
-import {AppState, View, Pressable,Text} from "react-native";
+import { AppState, View, Pressable, Text, Platform } from 'react-native';
 import {PlayIcon, StopIcon} from "../assets/svg/illustrations";
 import db from "../db";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,8 +18,9 @@ import {distance} from "@turf/turf";
 import * as ImageManipulator from "expo-image-manipulator";
 import {cloneDeep} from "lodash";
 import * as RNFS from 'react-native-fs';
+import { useNavigation } from '@react-navigation/native';
 
-const AutoActionButton = ({navigation}) => {
+const AutoActionButton = () => {
 	const {
 		camera,
 		accuracy,
@@ -32,6 +33,7 @@ const AutoActionButton = ({navigation}) => {
 		cameraLocation,
 		groupId,
 	} = useSelector((status) => status.cameraReducer);
+	const navigation = useNavigation()
 	const {selectedProject, autoCaptureStart, defaultStoragePath} = useSelector((status) => status.settingsReducer);
 	const {debugMode} = useSelector((status) => status.generalReducer);
 	const appState = useRef(AppState.currentState);
@@ -249,11 +251,8 @@ const AutoActionButton = ({navigation}) => {
 		const newPath = storagePath + `/${groupId}/${filename}.${"jpeg"}`;
 
 		const compressedImage = await ImageManipulator.manipulateAsync(imageUri, [{resize: {width: image.width, height:image.height}}], {compress: 0.5, format: ImageManipulator.SaveFormat.JPEG})
-
 		await RNFS.moveFile(compressedImage.uri, newPath);
-
-		await RNFS.unlink(`file://${imageUri}`);
-
+		await RNFS.unlink(`${imageUri}`);
 
 		image.uri = newPath;
 		db.insertToDB({
@@ -279,7 +278,7 @@ const AutoActionButton = ({navigation}) => {
       groupId,
 	  	captureID,
 			defaultStoragePath
-    });
+    })
 		const fileInfo = await RNFS.stat(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
 		calculateAmount("add");

@@ -4,8 +4,8 @@ import {sequenceLeft} from "../styles/navigatorBarStyles";
 import React from "react";
 import {TouchableOpacity} from "react-native";
 import {useTranslation} from "react-i18next";
-import {useNavigation} from "@react-navigation/native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { useNavigation } from '@react-navigation/native';
 
 const BackButton = ({title}) => {
   const {t} = useTranslation("navigation")

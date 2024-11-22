@@ -1,13 +1,11 @@
 import {StyleSheet, TouchableOpacity} from "react-native";
 import {ArrowLeft} from "../../assets/svg/illustrations";
 import {RFValue} from "react-native-responsive-fontsize";
-import {useNavigation} from "@react-navigation/native";
 
-const Back = ({route}) => {
-  const navigation = useNavigation();
+const Back = ({navigation}) => {
 
   const handleBack = () => {
-    route?.params?.backRoute ? navigation.navigate(route.params.backRoute) : navigation.goBack()
+    navigation.goBack();
   }
 
   return (

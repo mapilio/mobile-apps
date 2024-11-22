@@ -7,7 +7,7 @@ import {getContentAreaHeight} from "../../helper/helper";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useEffect, useRef, useState} from "react";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import {tabHeight} from "../../util/consts/ui";
 
 const EmptyList = () => {

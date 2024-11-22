@@ -1,11 +1,10 @@
 import axios from "axios";
-import Config from "react-native-config";
 import {store} from "../../../store/store";
 import {translate} from "../index";
 import {refreshToken} from "./RefreshToken";
 
 const axiosInstance = axios.create({
-  baseURL: Config.SERVICE_URL,
+  baseURL: process.env.EXPO_PUBLIC_SERVICE_URL,
   timeout: 0,
   retry: 5,
   retryDelay: 1000,

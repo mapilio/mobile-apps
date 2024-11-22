@@ -47,17 +47,13 @@ export const navigatorStyle = {
   tabIconStyle: {
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
-    bottom: 0,
-    borderBottomWidth: RFValue(3),
-    borderColor: "transparent",
-    width: "100%",
-    flex: 1,
+    top: RFValue(20),
   },
   borderStyle: {
     borderColor: "#130C47",
   },
   tabTextStyle: {
+    width: "100%",
     fontSize: 12,
     marginTop: 3,
     color: "#C2C2C2",

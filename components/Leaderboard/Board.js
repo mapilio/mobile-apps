@@ -19,8 +19,8 @@ const Board = () => {
 
   return (
     <Tab.Navigator
+      id={"leaderboard"}
       tabBarPosition="top"
-      initialRouteName="week"
       tabBar={(props) => <LeaderboardTabBar {...props} />}
     >
       <Tab.Screen

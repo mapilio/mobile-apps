@@ -17,6 +17,7 @@ import {useTranslation} from "react-i18next";
 import {TooltipWrapper} from "./Tooltip";
 import {tooltipContents} from "../util/consts/tooltip";
 import db from '../db';
+import { useNavigation } from '@react-navigation/native';
 
 const CapturedComponent = ({navigation, setLowBrightness}) => {
   const {t} = useTranslation("camera");
@@ -45,7 +46,7 @@ const CapturedComponent = ({navigation, setLowBrightness}) => {
     <Fragment>
       <CustomTextBold style={styles.title}>{t("title")}</CustomTextBold>
       <CustomText style={styles.description}>{t("description")}</CustomText>
-      <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
+      <CameraActionsButtons />
       <CustomTextBold style={styles.safeMode} onPress={lowLightHandler}>{t("safe_mode")}</CustomTextBold>
     </Fragment>
   )
@@ -76,13 +77,14 @@ const CaptureComponent = ({navigation, exitHandler}) => {
       </View>
   
       <TooltipWrapper content={tooltipContents.camera.startCapture} name={"startCapture"} placement={"left"}>
-        <CameraActionsButtons uuid={'uuidV4'} navigation={navigation}/>
+        <CameraActionsButtons />
       </TooltipWrapper>
     </>
   )
 }
 
-const CameraSidebar = ({navigation, setLowBrightness}) => {
+const CameraSidebar = ({setLowBrightness}) => {
+  const navigation = useNavigation();
   const {autoCaptureStart} = useSelector((state) => state.settingsReducer);
   const {groupId} = useSelector((status) => status.cameraReducer);
 
@@ -90,7 +92,7 @@ const CameraSidebar = ({navigation, setLowBrightness}) => {
     const data = await db.getCapturesByGroupID(groupId)
 
     if (data.length <= 5) {
-      navigation.reset({index: 0, routes: [{name: "UploadTab"}]});
+      navigation.navigate(Routes.uploadTab, {screen: Routes.captureWalkthrough});
       exitCapture();
       return;
     }

@@ -22,7 +22,7 @@ import { tabHeight } from "../util/consts/ui";
 import { vibrate } from "../util/helpers";
 import LeaderHeaderLeft from "../screens/Leaderboard/LeaderHeaderLeft";
 import LeaderHeaderRight from "../screens/Leaderboard/LeaderHeaderRight";
-import { TransitionPresets } from "@react-navigation/stack";
+// TODO import { TransitionPresets } from "@react-navigation/stack";
 import { useTranslation } from "react-i18next";
 
 const Tab = createBottomTabNavigator();
@@ -33,8 +33,8 @@ const CaptureTabBarButton = () => {
 
   const handlePress = () => cameraPermission(() => {
     vibrate("light")
-    toast.hideAll()
-    navigation.reset({index: 0, routes: [{name: "CameraTab"}]})
+    toast.hideAll();
+    navigation.replace(Routes.tabNavigator, {screen: Routes.cameraTab})
   })
 
   return (
@@ -109,8 +109,7 @@ const TabNavigator = () => {
           >
             {children}
           </Pressable>
-        ),
-        ...TransitionPresets.SlideFromRightIOS
+        )
       }}
       screenListeners={screenListener}
     >

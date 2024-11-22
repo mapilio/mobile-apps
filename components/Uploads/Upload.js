@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {closeRequest, deleteSequence, getHash, imageryUpload, isWifi} from "../../helper/upload";
-import {activateKeepAwake, deactivateKeepAwake} from "expo-keep-awake";
+import {activateKeepAwakeAsync, deactivateKeepAwake} from "expo-keep-awake";
 import db from "../../db";
 import {UPLOAD_DATA} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
@@ -63,7 +63,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
       return;
     }
 
-    activateKeepAwake('upload');
+    await activateKeepAwakeAsync('upload');
     setModalVisible(true);
 
     const {sequences, total} = await db.getSequencesForUpload(group_uuid)

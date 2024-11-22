@@ -1,5 +1,5 @@
 import {GET_USER_INDEX_TYPE, GET_USER_INFORMATION} from "../../actionsName";
-import OneSignal from "react-native-onesignal";
+import { OneSignal } from "react-native-onesignal";
 import {api} from "../../../util/helpers/api";
 import * as Sentry from "@sentry/react-native";
 
@@ -36,7 +36,7 @@ export const getUserInformation = () => (dispatch) => {
         "Content-Type": "multipart/form-data",
       }
     }).then((res) => {
-      OneSignal.setEmail(email, res?.response?.hash);
+      OneSignal.User.addEmail(email);
     })
   })
 };

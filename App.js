@@ -5,13 +5,12 @@ import {persistor, store} from "./store/store";
 import {Provider} from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
 import * as Sentry from "@sentry/react-native";
-import Config from "react-native-config";
 import {useFonts} from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import Toast from "react-native-toast-notifications";
 import {ToastMessage} from "./components";
-import OneSignal from "react-native-onesignal";
+import { LogLevel, OneSignal } from 'react-native-onesignal';
 import db from "./db";
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
@@ -33,18 +32,19 @@ import "moment/locale/ro";
 import "moment/locale/ru";
 import "moment/locale/de";
 
-const languages = ["ar","cs","da","el","es","fi","fr","it","pt","ro","ru","tr","en","de"];
+
 
 if(!__DEV__){
   Sentry.init({
-    dsn: `${Config.SENTRY_DSN}`,
+    dsn: `${process.env.EXPO_PUBLIC_SENTRY_DSN}`,
     tracesSampleRate: 1.0,
-    environment: process.env.NODE_ENV,
+    environment: process.env.EXPO_PUBLIC_NODE_ENV,
   });
 }
 
-OneSignal.setAppId(Config.ONESIGNAL_APP_ID);
-OneSignal.promptForPushNotificationsWithUserResponse();
+OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+OneSignal.initialize(process.env.EXPO_PUBLIC_ONESIGNAL_APP_ID);
+OneSignal.Notifications.requestPermission(true);
 SplashScreen.preventAutoHideAsync();
 
 function App() {
@@ -68,6 +68,7 @@ function App() {
     db.addColumnIfNotExist('group_id');
     db.addColumnIfNotExist('address');
     db.addColumnIfNotExist('capture_id',"INTEGER DEFAULT NULL");
+    db.addColumnIfNotExist('default_storage_path',"TEXT DEFAULT NULL");
   }, []);
 
   useEffect(() => {

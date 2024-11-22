@@ -4,8 +4,8 @@ import * as Brightness from "expo-brightness";
 import React, { useCallback, useEffect, useState } from "react";
 import { Camera, CameraSidebar, Loading } from "../components";
 import { useNavigation, CommonActions } from "@react-navigation/native";
-import LinearGradient from "react-native-linear-gradient";
-import { BackHandler, StatusBar, StyleSheet, AppState } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { BackHandler, StatusBar, StyleSheet, AppState, Text, Platform } from 'react-native';
 import { RFValue } from "react-native-responsive-fontsize";
 import {
   GROUP_ID,
@@ -18,7 +18,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import * as ScreenOrientation from "expo-screen-orientation";
 import uuid from "react-native-uuid";
-import { activateKeepAwake, deactivateKeepAwake } from "expo-keep-awake";
 import { exitCapture } from "../helper/camera";
 import { Routes } from "../navigator/Routes";
 import { useOrientation } from "../hooks/ui";
@@ -27,11 +26,12 @@ import {
   watchPositionAsync,
 } from "expo-location";
 import { captureException } from '@sentry/react-native';
+import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 
 const AppCamera = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const orientation = useOrientation(500);
+  // const orientation = useOrientation(500);
   const [isStarted, setIsStarted] = useState(false);
   const [lowBrightness, setLowBrightness] = useState(false);
   const { selectedProject, autoCaptureStart } = useSelector((state) => state.settingsReducer);
@@ -85,7 +85,7 @@ const AppCamera = () => {
     dispatch({ type: GROUP_ID, payload: uuid.v4() });
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     dispatch({ type: UPDATE_OPENED_STATUS, payload: false });
-    activateKeepAwake("camera").catch((error) =>
+    activateKeepAwakeAsync("camera").catch((error) =>
       toast.show(`${error}`, { type: "error" })
     );
     const gpsSubscription = watchPosition();
@@ -135,9 +135,9 @@ const AppCamera = () => {
 
   }, [autoCaptureStart]);
 
-  if (orientation !== "LANDSCAPE") {
-    return <Loading backgroundColor="black" indicatorColor="white" />;
-  }
+  // if (orientation !== "LANDSCAPE") {
+  //   return <Loading backgroundColor="black" indicatorColor="white" />;
+  // }
 
   return (
     <SafeAreaProvider>
@@ -146,18 +146,14 @@ const AppCamera = () => {
         style={{ flex: 1, flexDirection: "row" }}
         onTouchEndCapture={breakBrightness}
       >
-        <Camera />
+        {/*<Camera />*/}
 
         <LinearGradient
           colors={["rgba(51, 51, 51, 0)", "rgba(0, 0, 0, 0.8)"]}
-          angle={90}
-          useAngle={true}
           style={styles.gradient}
+          start={{ x: 0, y: 1 }}
         >
-          <CameraSidebar
-            navigation={navigation}
-            setLowBrightness={setLowBrightness}
-          />
+          <CameraSidebar setLowBrightness={setLowBrightness} />
         </LinearGradient>
       </SafeAreaView>
     </SafeAreaProvider>

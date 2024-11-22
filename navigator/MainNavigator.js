@@ -36,12 +36,7 @@ const MainNavigator = () => {
   }, []);
 
   return (
-      <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        ...TransitionPresets.SlideFromRightIOS,
-      }}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={Routes.tabNavigator} component={TabNavigator} />
       <Stack.Screen name={Routes.stackNavigator} component={StackNavigator} />
     </Stack.Navigator>

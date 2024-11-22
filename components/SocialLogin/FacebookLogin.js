@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { ActivityIndicator, Modal, TouchableOpacity, View } from "react-native";
 import FacebookLogo from "../../assets/svg/logos/FacebookLogo";
-import { AccessToken, LoginManager } from "react-native-fbsdk-next";
+// import { AccessToken, LoginManager } from "react-native-fbsdk-next";
 import { socialLoginStyles } from "../../styles/loginStyles";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from "../../store/actionsName";
-import Config from "react-native-config";
+
 import { api } from "../../util/helpers/api";
 import { useTranslation } from "react-i18next";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -38,7 +38,7 @@ const FacebookLogin = ({ navigation }) => {
       }
 
       const json = await api.get(
-        `${Config.FACEBOOK_REQUEST_URL}${accessToken}`
+        `${process.env.EXPO_PUBLIC_FACEBOOK_REQUEST_URL}${accessToken}`
       );
 
       if (!json.email) {
@@ -46,7 +46,7 @@ const FacebookLogin = ({ navigation }) => {
       } else {
         api
           .post(
-            `/oauth-api/facebook/authenticate?token=${accessToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&is_mobile=true`
+            `/oauth-api/facebook/authenticate?token=${accessToken}&client_id=${process.env.EXPO_PUBLIC_AUTH_CLIENT_ID}&client_secret=${process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET}&is_mobile=true`
           )
           .then((res) => {
             dispatch({

@@ -15,7 +15,7 @@ import { MaximizePano, MinimizePano } from "../../assets/svg/illustrations";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Panorama from "../Panorama";
 import { useTranslation } from "react-i18next";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { tabHeight } from "../../util/consts/ui";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import {api} from "../../util/helpers/api";

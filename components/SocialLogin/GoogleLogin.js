@@ -6,7 +6,7 @@ import { socialLoginStyles } from "../../styles/loginStyles";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from "../../store/actionsName";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
-import Config from "react-native-config";
+
 import { api } from "../../util/helpers/api";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useTranslation } from "react-i18next";
@@ -18,9 +18,9 @@ const GoogleLogin = ({ navigation }) => {
   const {t} = useTranslation("login");
   const dispatch = useDispatch();
   const [_request, response, promptAsync] = Google.useAuthRequest({
-    iosClientId: Config.GOOGLE_IOS_CLIENT_ID,
-    androidClientId: Config.GOOGLE_ANDROID_CLIENT_ID,
-    expoClientId: Config.GOOGLE_ANDROID_CLIENT_ID,
+    iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+    androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
+    expoClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
     scopes: ["profile", "email"],
     permissions: ["public_profile", "email"],
   });
@@ -34,7 +34,7 @@ const GoogleLogin = ({ navigation }) => {
       const {
         authentication: { accessToken },
       } = response;
-      api.get(Config.GOOGLE_REQUEST_URL + accessToken).then((user) => {
+      api.get(process.env.EXPO_PUBLIC_GOOGLE_REQUEST_URL + accessToken).then((user) => {
         setLoading(true);
         loginToMapilio(user, accessToken);
       });
@@ -46,7 +46,7 @@ const GoogleLogin = ({ navigation }) => {
   const loginToMapilio = (user, accessToken) => {
     api
       .post(
-        `/oauth-api/google/authenticate?token=${accessToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&is_mobile=true`
+        `/oauth-api/google/authenticate?token=${accessToken}&client_id=${process.env.EXPO_PUBLIC_AUTH_CLIENT_ID}&client_secret=${process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET}&is_mobile=true`
       )
       .then((res) => {
         dispatch({

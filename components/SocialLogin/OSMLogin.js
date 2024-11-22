@@ -9,7 +9,7 @@ import { useEffect, useState} from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import { GET_TOKEN_SUCCESS, SET_CREDENTIAL, SET_MAIL_MODAL_SHOWN } from "../../store/actionsName";
 import { socialLoginStyles } from "../../styles/loginStyles";
-import Config from "react-native-config";
+
 import { useTranslation } from "react-i18next";
 import pkceChallenge from 'react-native-pkce-challenge';
 import { api } from "../../util/helpers/api";
@@ -59,7 +59,7 @@ const OSMLogin = ({navigation}) => {
 
   const [request, response, promptAsync] = useAuthRequest(
     {
-      clientId: Config.OSM_CLIENT_ID,
+      clientId: process.env.EXPO_PUBLIC_OSM_CLIENT_ID,
       scopes: ["read_prefs", "read_gpx"],
       redirectUri: redirectUri,
       codeChallengeMethod: "S256",
@@ -72,7 +72,7 @@ const OSMLogin = ({navigation}) => {
   const loginToMapilio = (accessToken) => {
     api
       .post(
-        `/oauth-api/openstreetmap/authenticate?token=${accessToken}&client_id=${Config.AUTH_CLIENT_ID}&client_secret=${Config.AUTH_CLIENT_SECRET}&is_mobile=true`
+        `/oauth-api/openstreetmap/authenticate?token=${accessToken}&client_id=${process.env.EXPO_PUBLIC_AUTH_CLIENT_ID}&client_secret=${process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET}&is_mobile=true`
       )
       .then((res) => {
         dispatch({
@@ -98,8 +98,8 @@ const OSMLogin = ({navigation}) => {
       const getAccessToken = new AccessTokenRequest({
         code: code,
         redirectUri: redirectUri,
-        clientId: Config.OSM_CLIENT_ID,
-        clientSecret:  Config.OSM_CLIENT_SECRET,
+        clientId: process.env.EXPO_PUBLIC_OSM_CLIENT_ID,
+        clientSecret:  process.env.EXPO_PUBLIC_OSM_CLIENT_SECRET,
         scopes: ["read_prefs"],
         extraParams: {
           code_verifier: request.codeVerifier

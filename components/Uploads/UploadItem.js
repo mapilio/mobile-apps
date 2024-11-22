@@ -1,8 +1,8 @@
-import { Dimensions, Image, Text, Pressable, View} from "react-native";
+import { Dimensions, Image, Text, Pressable, View, Platform } from 'react-native';
 import * as RNFS from "react-native-fs";
 import styles from './UploadItem.styles';
 import {dateConvert} from "../../helper/helper";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef, useState } from 'react';
 import {userFeedStyles} from "../../styles/userProfileStyle";
 import {Photos, PointIcon, Trash} from "../../assets/svg/illustrations";
@@ -61,13 +61,15 @@ const UploadItem = ({item, deleteFunc}) => {
   useEffect(() => {
     calculateScore();
     !address && getAddress();
-    RNFS.getAllExternalFilesDirs().then((res) => setSdCardPath(res[1]));
+    if (Platform.OS === "android") {
+      RNFS.getAllExternalFilesDirs().then((res) => setSdCardPath(res[1]));
+    }
   }, []);
 
 
   const renderRightActions = () => {
     return (
-      <Pressable  style={({pressed}) => [
+      <Pressable style={({pressed}) => [
         styles.deleteAction,
         {
           backgroundColor: pressed ? '#9C0E0E' : '#D33030',

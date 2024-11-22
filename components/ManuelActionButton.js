@@ -8,6 +8,7 @@ import * as Location from 'expo-location';
 import { UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT } from '../store/actionsName';
 import Database from '../db';
 
+// THIS COMPONENT FOR TESTING PURPOSES
 const ManuelActionButton = ({ disabled, uuid }) => {
   const { cameraStatus, camera } = useSelector(
     (status) => status.cameraReducer
@@ -20,17 +21,19 @@ const ManuelActionButton = ({ disabled, uuid }) => {
 
   // TODO ADD TO HELPER.JS
   const takePicture = async () => {
-    const db = Database.getConnection();
-    const id =
-      selectedProject.type === "individual"
-        ? userInformation?.id
-        : selectedProject.id;
 
-    const options = { quality: 0.6, base64: false, exif: true };
-    const image = await camera.takePhoto(options);
-    const location = await Location.getCurrentPositionAsync();
-    const heading = await Location.getHeadingAsync();
-    const imageUri = image.uri;
+
+    const db = Database.getConnection();
+
+    // const id =
+    //   selectedProject.type === "individual"
+    //     ? userInformation?.id
+    //     : selectedProject.id;
+    // const options = { quality: 0.6, base64: false, exif: true };
+    // const image = await camera.takePhoto(options);
+    // const location = await Location.getCurrentPositionAsync();
+    // const heading = await Location.getHeadingAsync();
+    // const imageUri = image.uri;
 
     let storagePath = RNFS.DocumentDirectoryPath;
 
@@ -40,38 +43,39 @@ const ManuelActionButton = ({ disabled, uuid }) => {
       })
     }
 
-    const isExit = await RNFS.exists(storagePath + `/${uuid}`);
-    if (!isExit) {
-      try {
-        await RNFS.mkdir(storagePath + `${id}/${uuid}`);
-      } catch (e) {
-        console.info("ERROR", e);
-      }
-    }
+    const isExit = await RNFS.exists(storagePath + `/${uuid}`)
 
-    const newPath = storagePath + `${id}/${uuid}/${Math.round(new Date().getTime() / 1000).toString()}.${"jpeg"}`;
-    await RNFS.copyFile(imageUri, newPath);
+    // if (!isExit) {
+    //   try {
+    //     await RNFS.mkdir(storagePath + `${id}/${uuid}`);
+    //   } catch (e) {
+    //     console.info("ERROR", e);
+    //   }
+    // }
 
-    image.uri = newPath;
-    location.coords.heading = heading.trueHeading;
-    const JSONExif = JSON.stringify(image.exif);
-    const JSONLocation = JSON.stringify(location);
-
-    Database.insertToDB({
-      JSONExif,
-      JSONLocation,
-      projectKey: null,
-      organizationName: null,
-      uuid,
-      path: newPath,
-      userID: userInformation.id,
-      defaultStoragePath
-    });
-
-    setPhotoAmount((amount) => amount + 1);
-    dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
-    const fileInfo = await RNFS.stat(newPath);
-    dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
+    // const newPath = storagePath + `${id}/${uuid}/${Math.round(new Date().getTime() / 1000).toString()}.${"jpeg"}`;
+    // await RNFS.copyFile(imageUri, newPath);
+    //
+    // image.uri = newPath;
+    // location.coords.heading = heading.trueHeading;
+    // const JSONExif = JSON.stringify(image.exif);
+    // const JSONLocation = JSON.stringify(location);
+    //
+    // Database.insertToDB({
+    //   JSONExif,
+    //   JSONLocation,
+    //   projectKey: null,
+    //   organizationName: null,
+    //   uuid,
+    //   path: newPath,
+    //   userID: userInformation.id,
+    //   defaultStoragePath
+    // });
+    //
+    // setPhotoAmount((amount) => amount + 1);
+    // dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: photoAmount + 1 });
+    // const fileInfo = await RNFS.stat(newPath);
+    // dispatch({ type: UPDATE_IMAGE_SIZE, payload: fileInfo.size });
   };
 
   return (

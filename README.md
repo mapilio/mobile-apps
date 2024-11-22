@@ -36,3 +36,17 @@ After setting the Ruby version, we can continue with the installation.
 
     yarn install
     npx pod-install
+
+### How to clean prebuild ios project
+    expo prebuild -p ios --clean
+
+### How to run ios project for production
+    npx pod-install
+    expo run:ios --configuration Release
+
+### How to run ios project for development
+    expo run:ios
+
+### How to prebuild android project
+    expo prebuild -p android --clean
+    expo run:android

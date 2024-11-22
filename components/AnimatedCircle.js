@@ -33,6 +33,7 @@ const ProgressCircle = ({ value = 0, width = 150, height = 150, color="black" })
         r={radius}
         stroke="#E5E5E5"
         strokeWidth={RFValue(4)}
+        fill={"transparent"}
       />
       <AnimatedCircle
         cx={width / 2}

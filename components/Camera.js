@@ -1,6 +1,6 @@
 import {
   Camera as VisionCamera,
-  useCameraDevices,
+  useCameraDevice
 } from "react-native-vision-camera";
 import { Platform, StyleSheet, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
@@ -20,7 +20,7 @@ import { DeviceMotion } from "expo-sensors";
 
 
 const Camera = () => {
-  const { back: device } = useCameraDevices();
+  const device = useCameraDevice('back');
   const dispatch = useDispatch();
   const cameraRef = useRef(null);
   const navigation = useNavigation();

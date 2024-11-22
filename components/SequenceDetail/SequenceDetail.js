@@ -1,4 +1,4 @@
-import {Image, Pressable, Text, TouchableOpacity, View} from "react-native";
+import { Image, Platform, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import {scoreCalculate} from "../../util/helpers";
 import {CheckIcon, PointIcon, Trash} from "../../assets/svg/illustrations";
@@ -23,11 +23,13 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
 
   useEffect(() => {
     scoreCalculate(sequence)
-    RNFS.getAllExternalFilesDirs().then((dirs) => {
-      if (dirs.length > 0) {
-        setSdCardPath(dirs[1]);
-      }
-    });
+    if (Platform.OS === "android") {
+      RNFS.getAllExternalFilesDirs().then((dirs) => {
+        if (dirs.length > 0) {
+          setSdCardPath(dirs[1]);
+        }
+      });
+    }
   }, []);
 
   const clearSelections = () => dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
@@ -82,7 +84,9 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
         <View style={styles.score}>
           <PointIcon width={RFValue(22)} height={RFValue(22)} />
           <Text style={styles.scoreText}>
-            <Trans t={t} i18nKey="point" values={{count: scoreCalculate(sequence)}}/>
+            <Trans t={t} i18nKey="point" values={{count: scoreCalculate(sequence)}}>
+              <Text/>
+            </Trans>
           </Text>
         </View>
 

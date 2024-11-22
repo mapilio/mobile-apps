@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {userFeedStyles} from "../styles/userProfileStyle";
-import Config from "react-native-config";
+
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 import {Photos} from "../assets/svg/illustrations";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { dateConvert } from "../helper/helper";
 import  {CustomText} from "../highordercomponents"
 
@@ -40,7 +40,7 @@ const ProfileFeed = ({data, pressHandle}) => {
 
         <Image
           style={userFeedStyles.imageStyle}
-          source={{uri: `${Config.IMAGE_API}/${uploaded_hash}/${cover_photo}/480`}}
+          source={{uri: `${process.env.EXPO_PUBLIC_IMAGE_API}/${uploaded_hash}/${cover_photo}/480`}}
           onLoadEnd={() => setImageLoading(false)}
         />
       </View>

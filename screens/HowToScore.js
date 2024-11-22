@@ -10,7 +10,7 @@ const StartCaptureButton = ({style}) => {
   const navigation = useNavigation();
   const {t} = useTranslation("how_to_score");
 
-  const handlePress = () => navigation.navigate(Routes.cameraTab)
+  const handlePress = () => navigation.navigate(Routes.tabNavigator, {screen: Routes.cameraTab})
 
   return (
     <TouchableOpacity style={{...styles.captureButton, ...style}} onPress={handlePress}>

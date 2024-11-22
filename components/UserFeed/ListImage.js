@@ -1,5 +1,5 @@
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import Config from "react-native-config";
+
 import { useState } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
@@ -29,7 +29,7 @@ const ListImage = ({ onPress, item }) => {
       )}
       <Image
         source={{
-          uri: `${Config.IMAGE_API}/${item.img_code}/${item.filename}`,
+          uri: `${process.env.EXPO_PUBLIC_IMAGE_API}/${item.img_code}/${item.filename}`,
         }}
         style={styles.listImage}
         resizeMode="cover"

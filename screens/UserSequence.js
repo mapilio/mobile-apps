@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useRef, useState} from "react";
-import {StyleSheet, TouchableOpacity, View, ActivityIndicator} from "react-native";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {MapView} from "../highordercomponents";

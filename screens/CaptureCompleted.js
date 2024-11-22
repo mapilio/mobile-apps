@@ -85,7 +85,7 @@ const CaptureCompleted = () => {
   }, []);
 
   const skipHandler = () => {
-    navigation.reset({index: 0, routes: [{name: Routes.tabNavigator, params: {screen: Routes.uploadTab}}]})
+    navigation.popTo(Routes.upload)
   }
 
   const MapLoader = () => <View style={{...styles.map, ...styles.mapLoader}}><ActivityIndicator size={"large"}/></View>
@@ -106,7 +106,7 @@ const CaptureCompleted = () => {
         />
       </Text>
 
-      <View style={{marginVertical: RFValue(15) }}>
+      <View style={{marginVertical: RFValue(15)}}>
         {mapLoading && <MapLoader/>}
 
         <MapView

@@ -9,11 +9,11 @@ import {
 import { appMapStyle } from "../styles/appMapStyle";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MapView } from "../highordercomponents";
-import Config from "react-native-config";
+
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Search } from "../components/Search";
 import { initialPermissions } from "../helper/helper";
-// import { RESULTS } from "react-native-permissions";
+import { RESULTS } from "react-native-permissions";
 import { point } from "@turf/turf";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes } from "../navigator/Routes";
@@ -126,8 +126,8 @@ const AppMap = ({ navigation }) => {
       pointID: properties.id,
       heading: imageDetails.heading,
       resolution: imageDetails.resolution,
-      image: `${Config.IMAGE_API}/${imageDetails.uploaded_hash}/${imageDetails.filename}/480`,
-      highResImage: `${Config.IMAGE_API}/${imageDetails.uploaded_hash}/${imageDetails.filename}/1080`,
+      image: `${process.env.EXPO_PUBLIC_IMAGE_API}/${imageDetails.uploaded_hash}/${imageDetails.filename}/480`,
+      highResImage: `${process.env.EXPO_PUBLIC_IMAGE_API}/${imageDetails.uploaded_hash}/${imageDetails.filename}/1080`,
     });
 
     setIsPanoLoading(false);
@@ -147,7 +147,7 @@ const AppMap = ({ navigation }) => {
   const handleProfile = () => {
     if (auth) {
       navigation.navigate(Routes.stackNavigator, {
-        screen: Routes.profileNavigator,
+        screen: Routes.profileNavigator
       });
       return true;
     } else {

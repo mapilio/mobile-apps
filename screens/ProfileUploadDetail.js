@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
 import {Heading} from "../components/Map";
 import {setGeoJson} from "../helper/geojson";
-import Config from "react-native-config";
+
 import {FocusAwareStatusBar, Panorama} from "../components";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
@@ -86,7 +86,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
                 longitude: Number(point.features[0].properties.item.longitude),
               });
               setCurrentImage(
-                `${Config.IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/480`
+                `${process.env.EXPO_PUBLIC_IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/480`
               );
             }}
           >

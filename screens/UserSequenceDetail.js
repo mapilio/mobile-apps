@@ -1,7 +1,7 @@
-import {Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Dimensions, ImageBackground, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, {useEffect, useState} from "react";
 import {RFValue} from "react-native-responsive-fontsize";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import {dateConvert} from "../helper/helper";
 import db from "../db";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
@@ -31,11 +31,13 @@ const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
     )
     setImageInfo(prev => ({...prev, date}))
     !address ? getAddress() : setImageInfo(prev => ({...prev, address}))
-    RNFS.getAllExternalFilesDirs().then((dirs) => {
-      if (dirs.length > 0) {
-        setSdCardPath(dirs[1]);
-      }
-    });
+    if (Platform.OS === 'android') {
+      RNFS.getAllExternalFilesDirs().then((dirs) => {
+        if (dirs.length > 0) {
+          setSdCardPath(dirs[1]);
+        }
+      });
+    }
   }, []);
 
   const getAddress = async () => {

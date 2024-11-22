@@ -6,7 +6,7 @@ import {Routes} from "../navigator/Routes";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import Config from "react-native-config";
+
 import {CustomText, CustomTextBold} from "../highordercomponents";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {useTranslation} from "react-i18next";
@@ -30,7 +30,7 @@ const ForgotPassword = ({navigation}) => {
 		setLoading(true);
 		api.post(`/api/forgot-password`, {
 			email: values.email,
-			callback: Config.FORGOT_URL,
+			callback: process.env.EXPO_PUBLIC_FORGOT_URL,
 			"success-params": "tverification=true",
 			"error-params": "tverification=false",
 		}, {

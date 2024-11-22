@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import AutoActionButton from "./AutoActionButton";
 import {CAPTURE_BUTTON_STATUS} from "../store/actionsName";
 
-const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
+const CameraActionsButtons = () => {
   const [waitGPS, setWaitGPS] = useState(true);
   const {
     GPSAccuracy,
@@ -32,7 +32,7 @@ const CameraActionsButtons = ({ uuid, navigation, exitCapture }) => {
   return (
     <>
       {/* <ManuelActionButton disabled={false} uuid={uuid} /> */}
-      <AutoActionButton navigation={navigation}/>
+      <AutoActionButton />
     </>
   );
 };

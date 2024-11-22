@@ -25,7 +25,8 @@ const UploadNavigator = () => {
   })
 
   return (
-    <Stack.Navigator screenOptions={{
+    <Stack.Navigator
+      screenOptions={{
       headerShown: true,
       headerStyle: navigatorStyle.headerStyle,
       headerTitleStyle: navigatorStyle.headerTitleStyle,

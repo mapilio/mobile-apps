@@ -1,13 +1,12 @@
 import * as SQLite from "expo-sqlite";
 import * as RNFS from 'react-native-fs';
 
-let db = SQLite.openDatabase(`mapilio.db`);
+const db = SQLite.openDatabaseSync("mapilio.db");
 
 class Database {
   startDB() {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `CREATE TABLE IF NOT EXISTS captures (
+    return db.execAsync(
+      `CREATE TABLE IF NOT EXISTS captures (
                                 id INTEGER PRIMARY KEY AUTOINCREMENT, 
                                 exif TEXT NOT NULL, 
                                 location TEXT NOT NULL, 
@@ -24,9 +23,7 @@ class Database {
                                 capture_id INTEGER DEFAULT NULL,
                                 default_storage_path TEXT DEFAULT NULL
                                 )`,
-        []
-      );
-    });
+    );
   }
 
   getConnection() {
@@ -38,17 +35,9 @@ class Database {
    */
   isColumnExist(columnName) {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(`SELECT count(*) as count FROM pragma_table_info('captures') where name='${columnName}'`,
-          [],
-          (_, results) => {
-            resolve(!!results.rows._array[0].count)
-          },
-          (error) => {
-            reject(error)
-          }
-        );
-      });
+        db.getAllAsync(`SELECT count(*) as count FROM pragma_table_info('captures') where name='${columnName}'`)
+          .then((result) => resolve(result))
+          .catch((error) => reject(error))
     })
   }
 
@@ -66,189 +55,82 @@ class Database {
     const isExist = await this.isColumnExist(columnName);
 
     if (!isExist) {
-      db.transaction((txn) => {
-        txn.executeSql(`ALTER TABLE ${table} ADD COLUMN ${columnName} ${columnType}`, [])
-      });
+      db.execAsync(`ALTER TABLE ${table} ADD COLUMN ${columnName} ${columnType}`)
+        .then(() => console.log(`Column ${columnName} added to the table ${table}`))
+        .catch((error) => console.log(`Error while adding column ${columnName} to the table ${table}: ${error}`))
     }
   }
 
   insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath}) {
-    db.transaction((txn) => {
-      txn.executeSql(
-        "INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, capture_id, default_storage_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath],
-        () => null,
-        (_, error) => {
-          console.log(error);
-          toast.show(`An error occurred while shooting, please try again.`, {type: "error"})
-        }
-      );
-    });
+    return db.runAsync(
+      'INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, capture_id, default_storage_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath],
+    );
   }
 
   async queryAsync(query) {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          query,
-          [],
-          (_, results) => {
-            resolve(results.rows._array)
-          },
-          (error) => {
-            reject(error)
-          })
+        db.execAsync(query)
+          .then((result) => resolve(result))
+          .catch((error) => reject(error))
       });
-    })
   }
 
-  async query(query, callback, args = [], errorCallback = (_, error) => toast.show(`${error}`, {type: "error"})) {
-    db.transaction((txn) => {
-      txn.executeSql(query, args, callback, errorCallback)
-    });
-  }
+  // async query(query, callback, args = [], errorCallback = (_, error) => toast.show(`${error}`, {type: "error"})) {
+  //   db.transaction((txn) => {
+  //     txn.executeSql(query, args, callback, errorCallback)
+  //   });
+  // }
 
-  /**
-   * @deprecated Use getCapturesBySequenceIdAsync() instead
-   *
-   * @param sequence_uuid {string} - sequence_uuid
-   * @param callback {function}
-   * @param errorCallback {function}
-   */
-  getCapturesBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}"`,
-        [],
-        callback,
-        errorCallback
-      )
-    })
-  }
 
   getCapturesBySequenceIdAsync(sequence_uuid, orderBY = 'id ASC') {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}" ORDER BY ${orderBY}`,
-          [],
-          (_, result) => {
-            resolve(result.rows._array)
-          },
-          (_transaction, error) => {
-            reject(error)
-          }
-        )
-      })
+      db.getAllAsync(`SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}" ORDER BY ${orderBY}`)
+        .then((result) => {
+          resolve(result)
+        })
+        .catch((error) => {
+          reject(error)
+        })
     })
   }
 
   //check if the capture_id of the sequence_uuid is null for all rows
   async isCaptureIdNull(sequence_uuid) {
-    const result = await this.queryAsync(`SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}" AND capture_id IS NULL`)
+    const result = await db.getAllAsync(`SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}" AND capture_id IS NULL`)
     return result.length > 0
-  }
-  
-  getGroupByWithColumn(callback) {
-    console.warn('getGroupByWithColumn() is deprecated. You can use getGroupByWithSequenceUUID()')
-
-    db.transaction((txn) => {
-      txn.executeSql(
-        `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
-        [],
-        callback
-      )
-    })
   }
 
   getGroupByWithSequenceUUID() {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
-          [],
-          (_, result) => {
-            resolve(result.rows._array)
-          },
-          (_transaction, error) => {
-            reject(error)
-          }
-        )
+        db.getAllAsync(`SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`)
+          .then((result) => resolve(result))
+          .catch((error) => reject(error))
       })
-    })
   }
 
   getGroupByWithGroupID() {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT *, COUNT(*) as count FROM captures GROUP BY group_id ORDER BY id DESC`,
-          [],
-          (_, result) => {
-            const groups = result.rows._array.filter((item) => {
-              if (item.count >= 5) {
-                return item
-              }
+      db.getAllAsync(`SELECT *, COUNT(*) as count FROM captures GROUP BY group_id ORDER BY id DESC`)
+        .then((results) => {
+          const groups = results.filter((item) => {
+            if (item.count >= 5) {
+              return item
+            }
 
-              // Delete group if it has less than 5 images
-              this.deleteByGroupID(item.group_id)
-              let path =  + `${RNFS.DocumentDirectoryPath}`
-              if (item.default_storage_path === 'external') {
-                RNFS.getAllExternalFilesDirs().then((dirs) => {
-                  path = dirs[1]
-                })
-              }
-              RNFS.unlink(path + `/${item.group_id}`)
-            })
-
-            resolve(groups)
-          },
-          (_transaction, error) => {
-            reject(error)
-          }
-        )
-      })
-    })
-  }
-
-  /**
-   * @deprecated Use deleteBySequenceIdAsync() instead
-   *
-   * @param sequence_uuid {string}
-   * @param callback {function}
-   * @param errorCallback {function}
-   */
-  deleteBySequenceId(sequence_uuid, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
-        [],
-        callback,
-        errorCallback
-      )
-    })
-  }
-
-  /**
-   * Delete all captures by sequence_uuid
-   *
-   * @param sequence_uuid {string} (unique id)
-   * @returns {Promise<unknown>}
-   */
-  deleteBySequenceIdAsync(sequence_uuid) {
-    return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `DELETE FROM captures where sequence_uuid = '${sequence_uuid}'`,
-          [],
-          (_, result) => {
-            resolve(result.rows._array)
-          },
-          (_transaction, error) => {
-            reject(error)
-          }
-        )
-      })
+            // Delete group if it has less than 5 images
+            this.deleteByGroupID(item.group_id)
+            let path =  RNFS.DocumentDirectoryPath
+            if (item.default_storage_path === 'external') {
+              RNFS.getAllExternalFilesDirs().then((dirs) => {
+                path = dirs[1]
+              })
+            }
+            RNFS.unlink(path + `/${item.group_id}`)
+          })
+          resolve(groups)
+        })
+        .catch((error) => reject(error))
     })
   }
 
@@ -260,25 +142,16 @@ class Database {
    * @param errorCallback {function}
    */
   deleteByGroupID(group_id, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
-    db.transaction((txn) => {
-      txn.executeSql(
-        `DELETE FROM captures where group_id = '${group_id}'`,
-        [],
-        callback,
-        errorCallback
-      )
-    })
+    db.runAsync(`DELETE FROM captures where group_id = '${group_id}'`)
+      .then(callback)
+      .catch(errorCallback)
   }
 
   deleteById(id) {
     return new Promise((resolve, reject) => {
-      db.transaction(txn => {
-        txn.executeSql(`DELETE FROM captures where id='${id}'`, [], (_, results) => {
-          resolve(results.rows._array)
-        }, (error) => {
-          reject(error)
-        })
-      })
+      db.runAsync(`DELETE FROM captures where id='${id}'`)
+        .then(resolve)
+        .catch(reject)
     })
   }
 
@@ -290,49 +163,27 @@ class Database {
     const query = uuid ? `SELECT * FROM captures WHERE group_id='${uuid}' ORDER BY id ASC` : `SELECT * FROM captures`;
 
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          query, [], (_, {rows: {_array: results}}) => {
-
-            if (results.length < 5 && results.length > 0) {
-              this.deleteByGroupID(results[0].group_id, async () => {
-                let path = `${RNFS.DocumentDirectoryPath}`
-                if (results[0].default_storage_path === 'external') {
-                  const externalPath = await RNFS.getAllExternalFilesDirs()
-                  path = externalPath[1]
-                }
-                await RNFS.unlink(path + `${results[0].group_id}`)
-              })
-              reject('Group has less than 5 images')
-            }
-
-            resolve(results)
-          },
-          (error) => {
-            reject(error)
-          })
-      });
+      db.getAllAsync(query)
+        .then((results) => {
+          if (results.length < 5 && results.length > 0) {
+            this.deleteByGroupID(results[0].group_id, async () => {
+              let path = `${RNFS.DocumentDirectoryPath}`
+              if (results[0].default_storage_path === 'external') {
+                const externalPath = await RNFS.getAllExternalFilesDirs()
+                path = externalPath[1]
+              }
+              await RNFS.unlink(path + `${results[0].group_id}`)
+            })
+            reject('Group has less than 5 images')
+          }
+          resolve(results)
+        })
+        .catch((error) => reject(error))
     })
   }
 
-  /**
-   * Get captures by group id
-   *
-   * @param groupId {string}
-   * @returns {Promise<Array>}
-   */
   getCapturesByGroupID(groupId) {
-    return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT * FROM captures WHERE group_id='${groupId}'`, [], (_, results) => {
-            resolve(results.rows._array)
-          },
-          (error) => {
-            reject(error)
-          })
-      });
-    })
+    return db.getAllAsync(`SELECT * FROM captures WHERE group_id='${groupId}'`)
   }
 
   /**
@@ -342,16 +193,10 @@ class Database {
    */
   getFirstWithGroupID(groupId) {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT * FROM captures WHERE group_id='${groupId}' ORDER BY id ASC LIMIT 1`, [], (_, results) => {
-            resolve(results.rows._array[0])
-          },
-          (error) => {
-            reject(error)
-          })
-      });
-    })
+      db.getFirstAsync(`SELECT * FROM captures WHERE group_id='${groupId}' ORDER BY id ASC`)
+        .then((result) => resolve(result))
+        .catch((error) => reject(error));
+    });
   }
 
   /**
@@ -361,48 +206,10 @@ class Database {
    */
   getLastWithGroupID(groupId) {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT * FROM captures WHERE group_id='${groupId}' ORDER BY id DESC LIMIT 1`, [], (_, results) => {
-            resolve(results.rows._array[0])
-          },
-          (error) => {
-            reject(error)
-          })
-      });
-    })
-  }
-
-  /**
-   * Get captures by group ids (array)
-   * @param ids {Array<string>}
-   */
-  getCapturesWithIDs(ids) {
-    return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT * FROM captures WHERE group_id IN (${ids.map(id => `'${id}'`).join(',')})`, [], (_, results) => {
-            resolve(results.rows._array)
-          },
-          (error) => {
-            reject(error)
-          })
-      });
-    })
-  }
-
-  getSequencesWithGroups(groupIDs) {
-    return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT sequence_uuid FROM captures WHERE group_id IN (${groupIDs.map(id => `'${id}'`).join(',')}) GROUP BY sequence_uuid`, [], (_, results) => {
-            resolve(results.rows._array.map(row => row.sequence_uuid))
-          },
-          (error) => {
-            reject(error)
-          })
-      });
-    })
+      db.getFirstAsync(`SELECT * FROM captures WHERE group_id='${groupId}' ORDER BY id DESC`)
+        .then((result) => resolve(result))
+        .catch((error) => reject(error));
+    });
   }
 
   /**
@@ -415,14 +222,10 @@ class Database {
    */
   updateById(id, data) {
     return new Promise((resolve, reject) => {
-      db.transaction(txn => {
-        txn.executeSql(`UPDATE captures SET ${Object.keys(data).map(key => `${key}='${data[key]}'`).join(',')} WHERE id='${id}'`, [], (_, results) => {
-          resolve(results.rows._array)
-        }, (error) => {
-          reject(error)
-        })
-      })
-    })
+      db.runAsync(`UPDATE captures SET ${Object.keys(data).map(key => `${key}='${data[key]}'`).join(',')} WHERE id='${id}'`)
+        .then(() => resolve())
+        .catch((error) => reject(error));
+    });
   }
 
   /**
@@ -432,23 +235,20 @@ class Database {
    */
   deleteCapturesByIds(images) {
     return new Promise((resolve, reject) => {
-      db.transaction(txn => {
-        txn.executeSql(`DELETE FROM captures WHERE id IN (${images.map(({id}) => `'${id}'`).join(',')})`, [], (_, results) => {
+      db.runAsync(`DELETE FROM captures WHERE id IN (${images.map(({id}) => `'${id}'`).join(',')})`)
+        .then(() => {
           images.forEach((item) => {
-            let path = `${RNFS.DocumentDirectoryPath}}`
+            let path = `${RNFS.DocumentDirectoryPath}}`;
             if (item.default_storage_path === 'external') {
               RNFS.getAllExternalFilesDirs().then((dirs) => {
-                path = dirs[1]
-              })
+                path = dirs[1];
+              });
             }
-            RNFS.unlink(path + item.path)
-          })
-          resolve(results.rows._array)
-        }, (error) => {
-          reject(error)
+            RNFS.unlink(path + item.path);
+          });
         })
-      })
-    })
+        .catch((error) => reject(error));
+    });
   }
 
   /**
@@ -458,19 +258,12 @@ class Database {
    */
   getTotalImageCount = async (group_uuid) => {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT COUNT(*) FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''}`,
-          [],
-          (_, results) => {
-            resolve(results.rows._array[0]['COUNT(*)'])
-          },
-          (error) => {
-            reject(error)
-          }
-        )
-      });
-    })
+      db.getAllAsync(`SELECT COUNT(*) FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''}`)
+        .then((results) => {
+          resolve(results[0]['COUNT(*)']);
+        })
+        .catch((error) => reject(error));
+    });
   }
 
   /**
@@ -481,21 +274,13 @@ class Database {
    */
   getSequencesForUpload(group_uuid) {
     return new Promise((resolve, reject) => {
-      db.transaction((txn) => {
-        txn.executeSql(
-          `SELECT sequence_uuid FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''} GROUP BY sequence_uuid ORDER BY id ASC`,
-          [],
-          async (_, results) => {
+        db.getAllAsync(`SELECT sequence_uuid FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''} GROUP BY sequence_uuid ORDER BY id ASC`)
+          .then(async (results) => {
             const total = await this.getTotalImageCount(group_uuid)
-
-            resolve({sequences: results.rows._array, total})
-          },
-          (error) => {
-            reject(error)
-          }
-        )
+            resolve({sequences: results, total})
+          })
+          .catch((error) => reject(error))
       });
-    })
   }
 }
 

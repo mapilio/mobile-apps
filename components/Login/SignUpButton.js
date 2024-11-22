@@ -3,8 +3,10 @@ import {StyleSheet, TouchableOpacity} from "react-native";
 import {Routes} from "../../navigator/Routes";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
+import { useNavigation } from '@react-navigation/native';
 
-const SignUpButton = ({navigation}) => {
+const SignUpButton = () => {
+  const navigation = useNavigation();
   const {t} = useTranslation("navigation");
 
   return (

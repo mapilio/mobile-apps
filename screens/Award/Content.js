@@ -14,7 +14,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { CustomTextBold } from "../../highordercomponents";
 import { useNavigation } from "@react-navigation/native";
 import { Routes } from "../../navigator/Routes";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { AwardCompanies } from "../../assets/svg/illustrations";
 
 const Content = ({slidePanel}) => {

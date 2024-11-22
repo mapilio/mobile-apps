@@ -6,7 +6,7 @@ import {List, MarketplaceMap} from "../../components/Marketplace";
 import {getContentAreaHeight} from "../../helper/helper";
 import { useDispatch } from "react-redux";
 import { MARKETPLACE_DATA } from "../../store/actionsName";
-import Config from "react-native-config";
+
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { CustomTextMedium} from "../../highordercomponents";
 import {Document} from "../../assets/svg/illustrations";
@@ -50,7 +50,7 @@ const Marketplace = ({ navigation }) => {
   }, [isMapReady]);
 
   useEffect(() => {
-    let url = `${Config.SERVICE_URL}/api/get-marketplaces`
+    let url = `${process.env.EXPO_PUBLIC_SERVICE_URL}/api/get-marketplaces`
     const {latitude, longitude} = currentCoordinate;
 
     if (latitude !== 0 && longitude !== 0) {

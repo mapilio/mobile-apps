@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Config from "react-native-config";
+
 import { styles } from "../../../styles/circleStyles";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { useSelector } from "react-redux";
@@ -10,14 +10,14 @@ const Lines = ({ zoomPoint }) => {
     <Fragment>
       <MapLibreGL.VectorSource
         id={"road-lines"}
-        tileUrlTemplates={[Config.MAPBOX_ROAD_URL]}
+        tileUrlTemplates={[process.env.EXPO_PUBLIC_MAPBOX_ROAD_URL]}
         onPress={(e) => {
           zoomPoint(e.coordinates)
         }}
       >
         <MapLibreGL.LineLayer
           id={"road-lines"}
-          sourceLayerID={Config.MAPBOX_ROAD_ID}
+          sourceLayerID={process.env.EXPO_PUBLIC_MAPBOX_ROAD_ID}
           style={{...styles.lineStyles, lineColor: maintenanceMode ? "#fba63c" : "#146aff"}}
           belowLayerID={"road-points"}
         />

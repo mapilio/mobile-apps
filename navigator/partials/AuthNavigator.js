@@ -4,37 +4,38 @@ import {Back, SignInButton, SignUpButton} from "../../components/Login";
 import {Routes} from "../Routes";
 import {ForgotPassword, Login, Register} from "../../screens";
 import React from "react";
+import { useNavigation } from '@react-navigation/native';
 
 
 const Stack = createStackNavigator();
 
-const AuthNavigator = ({navigation}) => {
+const AuthNavigator = () => {
+  const navigation = useNavigation()
+
   return (
     <Stack.Navigator
-      screenOptions={
-        {...TransitionPresets.SlideFromRightIOS}
-      }
-      >
+      id={"authNavigator"}
+    >
       <Stack.Group
         screenOptions={{
           presentation: "card",
           headerStyle: loginStyles.headerStyle,
           title: false,
           headerLeft: () => (
-            <Back route={{params:{backRoute:Routes.map}}} />
+            <Back navigation={navigation} />
           ),
         }}
       >
         <Stack.Screen
           name={Routes.login}
           component={Login}
-          options={{headerRight: () => <SignUpButton navigation={navigation}/>}}
+          options={{headerRight: () => <SignUpButton/>}}
         />
 
         <Stack.Screen
           name={Routes.register}
           component={Register}
-          options={{headerRight: () => <SignInButton navigation={navigation}/>}}
+          options={{headerRight: () => <SignInButton/>}}
         />
         <Stack.Screen
           name={Routes.forgotPassword}

@@ -2,9 +2,10 @@ import { View, Image, StyleSheet } from "react-native";
 import { CustomText, CustomTextBold } from "../../highordercomponents";
 import { RFValue } from "react-native-responsive-fontsize";
 import { FocusAwareStatusBar } from "../../components";
-import LinearGradient from "react-native-linear-gradient";
 import { MarketplaceSoonIcon } from "../../assets/svg/illustrations";
 import { useTranslation } from "react-i18next";
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 const MarketplaceSoon = () => {
   const { t } = useTranslation("marketplace");

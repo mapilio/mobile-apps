@@ -67,7 +67,7 @@ const SearchHeader = ({ closeHandler }) => {
 
   return (
     <View style={{ ...styles.header, paddingTop: top + RFValue(5) }}>
-      <TouchableOpacity style={styles.back} onPress={closeHandler}>
+      <TouchableOpacity style={styles.back} onPress={()=>closeHandler(false)}>
         <ArrowLeft color="#808080" width={19} height={19} />
       </TouchableOpacity>
       <View style={{ flex: 1, justifyContent: "center" }}>
@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: RFValue(20),
     backgroundColor: "#ECECEC",
-    paddingLeft: 5,
   },
   search: {
     borderColor: "#FFFFFF40",

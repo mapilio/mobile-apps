@@ -18,7 +18,7 @@ import React, {useState} from "react";
 import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {galleryPermission} from "../helper/helper";
-import Config from "react-native-config";
+
 import {ProfileCamera} from "../assets/svg/illustrations";
 import {getUserInformation} from "../store/reducers/loginReducer/getUserInformation";
 import {launchImageLibrary} from "react-native-image-picker";
@@ -69,7 +69,7 @@ const ProfileEdit = () => {
       data.append("options[parameters][user_profile_photo]", image, image.name);
     }
 
-    const url = `${Config.SERVICE_URL}/api/function/user_profile/profile/updateProfile`
+    const url = `${process.env.EXPO_PUBLIC_SERVICE_URL}/api/function/user_profile/profile/updateProfile`
 
     api.post(url, data, {
       headers: {

@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from "react";
-import { FlatList, StyleSheet, View, Text } from "react-native";
+import { FlatList, StyleSheet, View, Text, Platform } from 'react-native';
 import {useDispatch, useSelector} from "react-redux";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {AlertModal, EmptyList, UploadItem} from "../components";
@@ -7,7 +7,7 @@ import { UPLOAD_DATA} from "../store/actionsName";
 import {Upload} from "../components/Uploads";
 import db from "../db";
 import MaskedView from "@react-native-masked-view/masked-view";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 import InfoBox from "../components/InfoBox/InfoBox";
@@ -36,14 +36,18 @@ const UserUpload = () => {
 
   const getData = () => {
     db.getGroupByWithGroupID().then(data => {
-      RNFS.getAllExternalFilesDirs().then((dirs) => {
-        if (dirs.length === 1) {
-          const filtered = data.filter(item => item.default_storage_path === 'internal')
-          dispatch({ type: UPLOAD_DATA, payload: filtered })
-        }else {
-          dispatch({ type: UPLOAD_DATA, payload: data })
-        }
-      })
+      if (Platform.OS === "android") {
+        RNFS.getAllExternalFilesDirs().then((dirs) => {
+          if (dirs.length === 1) {
+            const filtered = data.filter(item => item.default_storage_path === 'internal')
+            dispatch({ type: UPLOAD_DATA, payload: filtered })
+          }else {
+            dispatch({ type: UPLOAD_DATA, payload: data })
+          }
+        })
+      } else {
+        dispatch({ type: UPLOAD_DATA, payload: data })
+      }
     })
   };
 

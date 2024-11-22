@@ -1,7 +1,7 @@
 import React from "react";
 import { Svg, Defs, Rect, Pattern } from "react-native-svg";
 import { View } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 import { RFValue } from "react-native-responsive-fontsize";
 
 const MapLoading = ({style}) => {

@@ -1,11 +1,11 @@
 import axios from "axios";
-import Config from "react-native-config";
+
 import {store} from "../../../store/store";
 import {translate} from "../index";
 import {refreshToken} from "./RefreshToken";
 
 const cdnInstance = axios.create({
-  baseURL: Config.CDN_URL,
+  baseURL: process.env.EXPO_PUBLIC_CDN_URL,
   timeout: 10000,
   retry: 5,
   retryDelay: 1000,
