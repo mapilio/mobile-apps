@@ -36,6 +36,12 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>fb254795350007625</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
           <string>com.googleusercontent.apps.563319300844-1ui5kbrs3h68ldk5bc5jr94r9oev220m</string>
         </array>
       </dict>
@@ -44,6 +50,25 @@
     <string>1</string>
     <key>EXDefaultScreenOrientationMask</key>
     <string>UIInterfaceOrientationMaskPortrait</string>
+    <key>FacebookAdvertiserIDCollectionEnabled</key>
+    <false/>
+    <key>FacebookAppID</key>
+    <string>254795350007625</string>
+    <key>FacebookAutoInitEnabled</key>
+    <false/>
+    <key>FacebookAutoLogAppEventsEnabled</key>
+    <false/>
+    <key>FacebookClientToken</key>
+    <string>7ae0d3e190eeeb1e2bdaac4780978025</string>
+    <key>FacebookDisplayName</key>
+    <string>Mapilio</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSAppTransportSecurity</key>

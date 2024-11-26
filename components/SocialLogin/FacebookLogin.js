@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { ActivityIndicator, Modal, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Modal, Platform, TouchableOpacity, View } from 'react-native';
 import FacebookLogo from "../../assets/svg/logos/FacebookLogo";
-// import { AccessToken, LoginManager } from "react-native-fbsdk-next";
+import { AccessToken, AuthenticationToken, LoginManager, Profile } from 'react-native-fbsdk-next';
 import { socialLoginStyles } from "../../styles/loginStyles";
 import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
 import { useDispatch } from "react-redux";
 import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from "../../store/actionsName";
-
 import { api } from "../../util/helpers/api";
 import { useTranslation } from "react-i18next";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -30,16 +29,18 @@ const FacebookLogin = ({ navigation }) => {
       }
       setLoading(true);
 
-      const { accessToken } = await AccessToken.getCurrentAccessToken();
+      let accessToken = '';
+      let json = {};
+      if (Platform.OS === "ios") {
+        const result = await AuthenticationToken.getAuthenticationTokenIOS();
+        accessToken = result.authenticationToken;
+        json = await Profile.getCurrentProfile();
 
-      if (!accessToken) {
-        setLoading(false);
-        return;
+      } else {
+        const result = await AccessToken.getCurrentAccessToken();
+        accessToken = result.accessToken
+        json = await api.get(`${process.env.EXPO_PUBLIC_FACEBOOK_REQUEST_URL}${accessToken}`);
       }
-
-      const json = await api.get(
-        `${process.env.EXPO_PUBLIC_FACEBOOK_REQUEST_URL}${accessToken}`
-      );
 
       if (!json.email) {
         toast.show(t("mail_error"), { type: "error" });

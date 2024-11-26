@@ -15,7 +15,7 @@ import {
   UPDATE_OPENED_STATUS,
   UPDATE_PHOTO_AMOUNT,
 } from "../store/actionsName";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as ScreenOrientation from "expo-screen-orientation";
 import uuid from "react-native-uuid";
 import { exitCapture } from "../helper/camera";
@@ -31,10 +31,8 @@ import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 const AppCamera = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  // const orientation = useOrientation(500);
-  const [isStarted, setIsStarted] = useState(false);
+  const orientation = useOrientation(500);
   const [lowBrightness, setLowBrightness] = useState(false);
-  const { selectedProject, autoCaptureStart } = useSelector((state) => state.settingsReducer);
 
   const breakBrightness = () => {
     lowBrightness &&
@@ -128,16 +126,9 @@ const AppCamera = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (autoCaptureStart) {
-      setIsStarted(true);
-    }
-
-  }, [autoCaptureStart]);
-
-  // if (orientation !== "LANDSCAPE") {
-  //   return <Loading backgroundColor="black" indicatorColor="white" />;
-  // }
+  if (orientation !== "LANDSCAPE") {
+    return <Loading backgroundColor="black" indicatorColor="white" />;
+  }
 
   return (
     <SafeAreaProvider>
@@ -146,7 +137,7 @@ const AppCamera = () => {
         style={{ flex: 1, flexDirection: "row" }}
         onTouchEndCapture={breakBrightness}
       >
-        {/*<Camera />*/}
+        <Camera />
 
         <LinearGradient
           colors={["rgba(51, 51, 51, 0)", "rgba(0, 0, 0, 0.8)"]}

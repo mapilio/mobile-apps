@@ -14,10 +14,10 @@ const useOrientation = (timeout) => {
   const [orientation, setOrientation] = useState(initialOrientation);
 
   const initialOrientationHandler = (orientation) => {
-
-    console.log("orientation--->", orientation);
-    console.log(ScreenOrientation.Orientation);
-    if (orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT || orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT) {
+    if (orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT
+      || orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
+      || orientation === ScreenOrientation.Orientation.UNKNOWN
+    ) {
       setOrientation("LANDSCAPE");
     }
     else {
@@ -26,7 +26,6 @@ const useOrientation = (timeout) => {
   }
 
   const changeOrientation = ({ orientationInfo }) => {
-    console.log("orientationInfo--->", orientationInfo);
     const { orientation } = orientationInfo;
     if (orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT || orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT) {
       setOrientation("LANDSCAPE");
@@ -48,7 +47,6 @@ const useOrientation = (timeout) => {
     }
 
     const listener = ScreenOrientation.addOrientationChangeListener(changeOrientation);
-    console.log('list',listener);
 
     return () => {
       ScreenOrientation.removeOrientationChangeListener(listener);

@@ -9,7 +9,7 @@ import {useEffect} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-// import { LoginManager, Profile } from "react-native-fbsdk-next";
+import { LoginManager, Profile } from "react-native-fbsdk-next";
 import * as Application from "expo-application";
 
 const ListItem = ({name, onPress}) => {
@@ -59,11 +59,11 @@ const ProfileSettings = ({navigation}) => {
   const exitHandle = () => {
     navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
     if(credential?.type === "facebook"){
-      // Profile.getCurrentProfile().then((currentProfile) => {
-      //   if(currentProfile){
-      //     LoginManager.logOut();
-        // }
-       // });
+      Profile.getCurrentProfile().then((currentProfile) => {
+        if(currentProfile){
+          LoginManager.logOut();
+        }
+       });
      }
     dispatch({type: EXIT_USER});
     OneSignal.User.removeEmail(userInformation.email);

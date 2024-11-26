@@ -10,35 +10,35 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		328BEB395DFF24D94C7A0887 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AED2A35D70148ED74D8A214A /* libPods-OneSignalNotificationServiceExtension.a */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		4DF4561E41BD4E408BE719A3 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DDDE2AE477471F8B5AB661 /* noop-file.swift */; };
-		6AAA2B50E7D069A14C6BDB88 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 839466F77B21DA98B957314A /* PrivacyInfo.xcprivacy */; };
-		7CD24D8001EE49849F7BA1AD /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D51978F0A04E2B92FA3CFD /* NotificationService.m */; };
+		4110E7D6C31EF0D7E375FC18 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A4A42BD0C791A0E79117319 /* libPods-OneSignalNotificationServiceExtension.a */; };
+		4A63114FA66B400385F61019 /* OneSignalNotificationServiceExtension.appex in Copy Files */ = {isa = PBXBuildFile; fileRef = FCB91DD8B2914CBE81A21F4E /* OneSignalNotificationServiceExtension.appex */; };
+		7E0EB3B489F14AAAB632448A /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB1F5CA27E84F0C80268045 /* noop-file.swift */; };
 		96905EF65AED1B983A6B3ABC /* libPods-Mapilio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Mapilio.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
+		B6B276EF07436FA32E31012C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9DA32384037A24239377DE4B /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		C8D6B12078AF47EC8B58C3A6 /* OneSignalNotificationServiceExtension.appex in Copy Files */ = {isa = PBXBuildFile; fileRef = 0EBFECD963EF40EBB88A09FB /* OneSignalNotificationServiceExtension.appex */; };
+		F621E10919DE45D2B7F5B66A /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = FF518122058A42AD8545A26D /* NotificationService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		040D592085E44B838237721B /* PBXContainerItemProxy */ = {
+		C9230CC91560444885C40ABF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DE21E153CCCA4EC8A99B8F89;
+			remoteGlobalIDString = 769C72975FF547B1A80B3CC6;
 			remoteInfo = OneSignalNotificationServiceExtension;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		AE9968C24BEF4B5AA12E4299 /* Copy Files */ = {
+		76CF1A132F5D4223B99B0271 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C8D6B12078AF47EC8B58C3A6 /* OneSignalNotificationServiceExtension.appex in Copy Files */,
+				4A63114FA66B400385F61019 /* OneSignalNotificationServiceExtension.appex in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,46 +46,46 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0EBFECD963EF40EBB88A09FB /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = undefined; name = OneSignalNotificationServiceExtension.appex; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D954EC4406746C796B982B6 /* OneSignalNotificationServiceExtension-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "OneSignalNotificationServiceExtension-Info.plist"; path = "OneSignalNotificationServiceExtension-Info.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Mapilio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mapilio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Mapilio/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Mapilio/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Mapilio/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Mapilio/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Mapilio/main.m; sourceTree = "<group>"; };
-		1D1565F5B8D64BC79D52BC3D /* NotificationService.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = NotificationService.h; path = NotificationService.h; sourceTree = "<group>"; };
-		1F869E9887A97A661D36853D /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		42AA2EFFB9BA49C5A1CB34FD /* Mapilio-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "Mapilio-Bridging-Header.h"; path = "Mapilio/Mapilio-Bridging-Header.h"; sourceTree = "<group>"; };
-		56D51978F0A04E2B92FA3CFD /* NotificationService.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = NotificationService.m; path = NotificationService.m; sourceTree = "<group>"; };
+		42E99B192EBC4F47835F5CE8 /* NotificationService.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = NotificationService.h; path = NotificationService.h; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Mapilio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mapilio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		58FD51EEAB2742BB89A1860E /* Mapilio-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "Mapilio-Bridging-Header.h"; path = "Mapilio/Mapilio-Bridging-Header.h"; sourceTree = "<group>"; };
+		6A4A42BD0C791A0E79117319 /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-Mapilio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapilio.debug.xcconfig"; path = "Target Support Files/Pods-Mapilio/Pods-Mapilio.debug.xcconfig"; sourceTree = "<group>"; };
+		7553B31A803FA4BDA2587AAF /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-Mapilio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mapilio.release.xcconfig"; path = "Target Support Files/Pods-Mapilio/Pods-Mapilio.release.xcconfig"; sourceTree = "<group>"; };
-		839466F77B21DA98B957314A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Mapilio/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		943BE77517A34C63A54B2FE0 /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = OneSignalNotificationServiceExtension.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
-		99DDDE2AE477471F8B5AB661 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "Mapilio/noop-file.swift"; sourceTree = "<group>"; };
+		9DA32384037A24239377DE4B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Mapilio/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Mapilio/SplashScreen.storyboard; sourceTree = "<group>"; };
-		AED2A35D70148ED74D8A214A /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		BF10094C41284F1595342169 /* OneSignalNotificationServiceExtension-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "OneSignalNotificationServiceExtension-Info.plist"; path = "OneSignalNotificationServiceExtension-Info.plist"; sourceTree = "<group>"; };
+		D3B8A4091AA341DD1DBD7E96 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F190575ADAE6453C9595102F /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = OneSignalNotificationServiceExtension.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Mapilio/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		FEBF2A750C17BF1E179865A7 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		FCB1F5CA27E84F0C80268045 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "Mapilio/noop-file.swift"; sourceTree = "<group>"; };
+		FCB91DD8B2914CBE81A21F4E /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = undefined; name = OneSignalNotificationServiceExtension.appex; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF518122058A42AD8545A26D /* NotificationService.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = NotificationService.m; path = NotificationService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		12FF29B7319B40C188F6EFEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4110E7D6C31EF0D7E375FC18 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				96905EF65AED1B983A6B3ABC /* libPods-Mapilio.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FAADF10A444647158BD64E10 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				328BEB395DFF24D94C7A0887 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,9 +102,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				99DDDE2AE477471F8B5AB661 /* noop-file.swift */,
-				42AA2EFFB9BA49C5A1CB34FD /* Mapilio-Bridging-Header.h */,
-				839466F77B21DA98B957314A /* PrivacyInfo.xcprivacy */,
+				FCB1F5CA27E84F0C80268045 /* noop-file.swift */,
+				58FD51EEAB2742BB89A1860E /* Mapilio-Bridging-Header.h */,
+				9DA32384037A24239377DE4B /* PrivacyInfo.xcprivacy */,
 			);
 			name = Mapilio;
 			sourceTree = "<group>";
@@ -114,9 +114,21 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Mapilio.a */,
-				AED2A35D70148ED74D8A214A /* libPods-OneSignalNotificationServiceExtension.a */,
+				6A4A42BD0C791A0E79117319 /* libPods-OneSignalNotificationServiceExtension.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		593829855E294788A0ACAC74 /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				42E99B192EBC4F47835F5CE8 /* NotificationService.h */,
+				F190575ADAE6453C9595102F /* OneSignalNotificationServiceExtension.entitlements */,
+				0D954EC4406746C796B982B6 /* OneSignalNotificationServiceExtension-Info.plist */,
+				FF518122058A42AD8545A26D /* NotificationService.m */,
+			);
+			name = OneSignalNotificationServiceExtension;
+			path = OneSignalNotificationServiceExtension;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -135,7 +147,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				EC4AE4464F1A461FBCAE02EA /* OneSignalNotificationServiceExtension */,
+				593829855E294788A0ACAC74 /* OneSignalNotificationServiceExtension */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -146,7 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* Mapilio.app */,
-				0EBFECD963EF40EBB88A09FB /* OneSignalNotificationServiceExtension.appex */,
+				FCB91DD8B2914CBE81A21F4E /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,8 +185,8 @@
 			children = (
 				6C2E3173556A471DD304B334 /* Pods-Mapilio.debug.xcconfig */,
 				7A4D352CD337FB3A3BF06240 /* Pods-Mapilio.release.xcconfig */,
-				1F869E9887A97A661D36853D /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
-				FEBF2A750C17BF1E179865A7 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
+				D3B8A4091AA341DD1DBD7E96 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				7553B31A803FA4BDA2587AAF /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -187,18 +199,6 @@
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
-		EC4AE4464F1A461FBCAE02EA /* OneSignalNotificationServiceExtension */ = {
-			isa = PBXGroup;
-			children = (
-				1D1565F5B8D64BC79D52BC3D /* NotificationService.h */,
-				943BE77517A34C63A54B2FE0 /* OneSignalNotificationServiceExtension.entitlements */,
-				BF10094C41284F1595342169 /* OneSignalNotificationServiceExtension-Info.plist */,
-				56D51978F0A04E2B92FA3CFD /* NotificationService.m */,
-			);
-			name = OneSignalNotificationServiceExtension;
-			path = OneSignalNotificationServiceExtension;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -207,37 +207,53 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Mapilio" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				FCC56215AB5A071C49E81E9A /* [Expo] Configure project */,
+				601FD9787D5D792C9CA323FE /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				599EC487F8D34DBF9B04832F /* Remove signature files (Xcode workaround) */,
-				AE9968C24BEF4B5AA12E4299 /* Copy Files */,
-				5FCC761350A5051B9B28F6C9 /* [CP] Embed Pods Frameworks */,
+				18B15252745D4CEFB03DFEED /* Remove signature files (Xcode workaround) */,
+				76CF1A132F5D4223B99B0271 /* Copy Files */,
+				212C21675373012123218AF7 /* [CP] Embed Pods Frameworks */,
+				EC3151C9D6BD4FCAB2AB891D /* Remove signature files (Xcode workaround) */,
+				6BC352E61359464C877B9611 /* Remove signature files (Xcode workaround) */,
+				D4B1C2D865FF4F89AE433A0D /* Remove signature files (Xcode workaround) */,
+				84DD86E314054BAEA1761707 /* Remove signature files (Xcode workaround) */,
+				203CF8D0E3E44AB2B1DC0BDF /* Remove signature files (Xcode workaround) */,
+				26FD5E719F4D4B83813C4385 /* Remove signature files (Xcode workaround) */,
+				F1472C7480C74EC98111F457 /* Remove signature files (Xcode workaround) */,
+				8D87CDB1D51F4EC7A0CCAE55 /* Remove signature files (Xcode workaround) */,
+				7881C45234F141C0982C1AF1 /* Remove signature files (Xcode workaround) */,
+				0D5265250F1E432A895C02A1 /* Remove signature files (Xcode workaround) */,
+				9700683109584D849BF0F0B7 /* Remove signature files (Xcode workaround) */,
+				50EEEEBF263B4E11A17607E2 /* Remove signature files (Xcode workaround) */,
+				035DE5B443DE4A419840D69F /* Remove signature files (Xcode workaround) */,
+				B08C29C9FE264BCE95A5A0E2 /* Remove signature files (Xcode workaround) */,
+				6CDD1D4D89D54C4AA48CACA4 /* Remove signature files (Xcode workaround) */,
+				72CA5B8A8E4A4612B6DB51D8 /* Remove signature files (Xcode workaround) */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				BB27E6D2D87B44969F46062E /* PBXTargetDependency */,
+				4649D223027C444BA486AAE6 /* PBXTargetDependency */,
 			);
 			name = Mapilio;
 			packageProductDependencies = (
-				6134420E23747F839E541BD3 /* MapLibre */,
+				C47FFE37DF2904EBB93455F1 /* MapLibre */,
 			);
 			productName = Mapilio;
 			productReference = 13B07F961A680F5B00A75B9A /* Mapilio.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DE21E153CCCA4EC8A99B8F89 /* OneSignalNotificationServiceExtension */ = {
+		769C72975FF547B1A80B3CC6 /* OneSignalNotificationServiceExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B12F759DA46D44F38EB04153 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
+			buildConfigurationList = DBC62C763B714406AE37394F /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
 			buildPhases = (
-				6C85FDC943144DC19023080C /* [CP] Check Pods Manifest.lock */,
-				B82891A982954E93A69AD090 /* Sources */,
-				2DA2934094A44BCBBF14BFA9 /* Resources */,
-				FAADF10A444647158BD64E10 /* Frameworks */,
+				31AB3418DDB4B8859F24C887 /* [CP] Check Pods Manifest.lock */,
+				958328AD9B894AD1B48C517B /* Sources */,
+				C0D3DBDAD1C84E30883467D2 /* Resources */,
+				12FF29B7319B40C188F6EFEE /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,10 +261,10 @@
 			);
 			name = OneSignalNotificationServiceExtension;
 			packageProductDependencies = (
-				E803285486CDAC466D8323F9 /* MapLibre */,
+				1C08CD009243C63AE81C51FA /* MapLibre */,
 			);
 			productName = OneSignalNotificationServiceExtension;
-			productReference = 0EBFECD963EF40EBB88A09FB /* OneSignalNotificationServiceExtension.appex */;
+			productReference = FCB91DD8B2914CBE81A21F4E /* OneSignalNotificationServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -264,7 +280,7 @@
 						LastSwiftMigration = 1250;
 						ProvisioningStyle = Automatic;
 					};
-					DE21E153CCCA4EC8A99B8F89 = {
+					769C72975FF547B1A80B3CC6 = {
 						DevelopmentTeam = N2SMV6WY7N;
 						ProvisioningStyle = Automatic;
 					};
@@ -280,14 +296,14 @@
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
-				516697B6F5EBB075FC4D2352 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+				9688B7BE735450B0AF581522 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* Mapilio */,
-				DE21E153CCCA4EC8A99B8F89 /* OneSignalNotificationServiceExtension */,
+				769C72975FF547B1A80B3CC6 /* OneSignalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -300,11 +316,11 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				6AAA2B50E7D069A14C6BDB88 /* PrivacyInfo.xcprivacy in Resources */,
+				B6B276EF07436FA32E31012C /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2DA2934094A44BCBBF14BFA9 /* Resources */ = {
+		C0D3DBDAD1C84E30883467D2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -329,6 +345,20 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios absolute | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n# Source .xcode.env.updates if it exists to allow\n# SKIP_BUNDLING to be unset if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.updates\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.updates\"\nfi\n# Source local changes to allow overrides\n# if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
 		};
+		035DE5B443DE4A419840D69F /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
 		08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -351,7 +381,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		599EC487F8D34DBF9B04832F /* Remove signature files (Xcode workaround) */ = {
+		0D5265250F1E432A895C02A1 /* Remove signature files (Xcode workaround) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -365,7 +395,35 @@
 			shellPath = /bin/sh;
 			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
 		};
-		5FCC761350A5051B9B28F6C9 /* [CP] Embed Pods Frameworks */ = {
+		18B15252745D4CEFB03DFEED /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		203CF8D0E3E44AB2B1DC0BDF /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		212C21675373012123218AF7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -417,7 +475,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mapilio/Pods-Mapilio-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6C85FDC943144DC19023080C /* [CP] Check Pods Manifest.lock */ = {
+		26FD5E719F4D4B83813C4385 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		31AB3418DDB4B8859F24C887 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -438,6 +510,95 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		50EEEEBF263B4E11A17607E2 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		601FD9787D5D792C9CA323FE /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Mapilio/expo-configure-project.sh\"\n";
+		};
+		6BC352E61359464C877B9611 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		6CDD1D4D89D54C4AA48CACA4 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		72CA5B8A8E4A4612B6DB51D8 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		7881C45234F141C0982C1AF1 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -491,24 +652,103 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mapilio/Pods-Mapilio-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FCC56215AB5A071C49E81E9A /* [Expo] Configure project */ = {
+		84DD86E314054BAEA1761707 /* Remove signature files (Xcode workaround) */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
+			name = "Remove signature files (Xcode workaround)";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Mapilio/expo-configure-project.sh\"\n";
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		8D87CDB1D51F4EC7A0CCAE55 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		9700683109584D849BF0F0B7 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		B08C29C9FE264BCE95A5A0E2 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		D4B1C2D865FF4F89AE433A0D /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		EC3151C9D6BD4FCAB2AB891D /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
+		};
+		F1472C7480C74EC98111F457 /* Remove signature files (Xcode workaround) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove signature files (Xcode workaround)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n    echo \"Remove signature files (Xcode workaround)\";\n    rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\";\n  ";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -520,29 +760,49 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				4DF4561E41BD4E408BE719A3 /* noop-file.swift in Sources */,
+				7E0EB3B489F14AAAB632448A /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B82891A982954E93A69AD090 /* Sources */ = {
+		958328AD9B894AD1B48C517B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CD24D8001EE49849F7BA1AD /* NotificationService.m in Sources */,
+				F621E10919DE45D2B7F5B66A /* NotificationService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		BB27E6D2D87B44969F46062E /* PBXTargetDependency */ = {
+		4649D223027C444BA486AAE6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DE21E153CCCA4EC8A99B8F89 /* OneSignalNotificationServiceExtension */;
-			targetProxy = 040D592085E44B838237721B /* PBXContainerItemProxy */;
+			target = 769C72975FF547B1A80B3CC6 /* OneSignalNotificationServiceExtension */;
+			targetProxy = C9230CC91560444885C40ABF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		06B73236DCF94A458352091E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7553B31A803FA4BDA2587AAF /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N2SMV6WY7N;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				INFOPLIST_FILE = "OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapilio.main.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = OneSignalNotificationServiceExtension;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-Mapilio.debug.xcconfig */;
@@ -735,9 +995,9 @@
 			};
 			name = Release;
 		};
-		85D291668C5C42C0ACCC3075 /* Debug */ = {
+		88D433A3C9B748469CAA8317 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F869E9887A97A661D36853D /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = D3B8A4091AA341DD1DBD7E96 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -757,25 +1017,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		A0A4AC801F1D4EC8A57F3D61 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FEBF2A750C17BF1E179865A7 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N2SMV6WY7N;
-				INFOPLIST_FILE = "OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapilio.main.OneSignalNotificationServiceExtension;
-				PRODUCT_NAME = OneSignalNotificationServiceExtension;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -798,11 +1039,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B12F759DA46D44F38EB04153 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */ = {
+		DBC62C763B714406AE37394F /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				85D291668C5C42C0ACCC3075 /* Debug */,
-				A0A4AC801F1D4EC8A57F3D61 /* Release */,
+				88D433A3C9B748469CAA8317 /* Debug */,
+				06B73236DCF94A458352091E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -810,7 +1051,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		516697B6F5EBB075FC4D2352 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+		9688B7BE735450B0AF581522 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
 			requirement = {
@@ -821,14 +1062,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6134420E23747F839E541BD3 /* MapLibre */ = {
+		1C08CD009243C63AE81C51FA /* MapLibre */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 516697B6F5EBB075FC4D2352 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			package = 9688B7BE735450B0AF581522 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
 			productName = MapLibre;
 		};
-		E803285486CDAC466D8323F9 /* MapLibre */ = {
+		C47FFE37DF2904EBB93455F1 /* MapLibre */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 516697B6F5EBB075FC4D2352 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			package = 9688B7BE735450B0AF581522 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
 			productName = MapLibre;
 		};
 /* End XCSwiftPackageProductDependency section */
