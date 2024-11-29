@@ -35,7 +35,7 @@ const AutoActionButton = () => {
 	} = useSelector((status) => status.cameraReducer);
 	const navigation = useNavigation()
 	const {selectedProject, autoCaptureStart, defaultStoragePath} = useSelector((status) => status.settingsReducer);
-	const debugMode = true
+	const {debugMode} = useSelector((status) => status.generalReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(true);
 	const accelerometerData = useRef({x: 0, y: 0, z: 0})
