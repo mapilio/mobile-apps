@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { Animated, Platform, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Animated, PermissionsAndroid, Platform, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import {
   IS_ACTIVE,
@@ -14,8 +14,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Slider } from '@miblanchard/react-native-slider';
 import { Snackbar, Switch } from 'react-native-paper';
 import { DeviceIcon, SDCardIcon } from '../assets/svg/illustrations';
-import { PermissionsAndroid } from 'react-native';
 import * as RNFS from 'react-native-fs';
+import { PERMISSIONS, request } from 'react-native-permissions';
 
 const GeneralSettings = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -52,19 +52,34 @@ const GeneralSettings = ({ navigation }) => {
       }
       if (sdCardPath.length === 0) return toast.show(t("please-pluck-sdcard"), {type: 'info'});
 
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: t('storage-permission.title'),
-          message: t('storage-permission.message'),
-          buttonNeutral: t('storage-permission.buttonNeutral'),
-          buttonNegative: t('storage-permission.buttonNegative'),
-          buttonPositive: t('storage-permission.buttonPositive'),
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+
+      let granted = false
+
+      if (Number(Platform.Version) >= 33) granted = true
+
+      const hasPermission = await PermissionsAndroid.check(permission);
+
+      if (hasPermission) {
+        granted = true
+      }
+
+      if (!granted) {
+        const req = await PermissionsAndroid.request(permission,
+          {
+            title: t('storage-permission.title'),
+            message: t('storage-permission.message'),
+            buttonNeutral: t('storage-permission.buttonNeutral'),
+            buttonNegative: t('storage-permission.buttonNegative'),
+            buttonPositive: t('storage-permission.buttonPositive'),
+          },
+        );
+        if (req === PermissionsAndroid.RESULTS.GRANTED) granted = true
+      }
+
+      if (granted){
         dispatch({ type: UPDATE_DEFAULT_STORAGE, payload: 'external' });
-      } else return;
+      } else return
     }
 
     Animated.timing(translateX, {

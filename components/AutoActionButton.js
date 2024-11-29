@@ -35,7 +35,7 @@ const AutoActionButton = () => {
 	} = useSelector((status) => status.cameraReducer);
 	const navigation = useNavigation()
 	const {selectedProject, autoCaptureStart, defaultStoragePath} = useSelector((status) => status.settingsReducer);
-	const {debugMode} = useSelector((status) => status.generalReducer);
+	const debugMode = true
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(true);
 	const accelerometerData = useRef({x: 0, y: 0, z: 0})
@@ -211,9 +211,11 @@ const AutoActionButton = () => {
 	const takePicture = async (location, captureID) => {
 		if (!autoCaptureStart || !accuracy.degree) return;
 
-		const options = {
+		const options =  {
 			qualityPrioritization: 'speed',
 			flash: "off",
+			exif:true,
+			base64:false,
 		}
 
 		//states persist on the func call but ref values are updated immediately, so we need to get the "call time" values for save picture
@@ -223,7 +225,7 @@ const AutoActionButton = () => {
 			pitch: pitch.current,
 			roll: roll.current,
 		})
-		camera.takePhoto(options).then((image) => savePicture(image, location, sensorData, captureID))
+		camera.takePictureAsync(options).then((image) => savePicture(image, location, sensorData, captureID))
 	};
 
 	const savePicture = async (image, location, sensorData, captureID) => {
@@ -257,16 +259,15 @@ const AutoActionButton = () => {
 		image.uri = newPath;
 		db.insertToDB({
       exif: JSON.stringify({
-        ...image.metadata,
-        ...image.metadata["{Exif}"],
+        ...image.exif,
         accelerometer: sensorData.accelerometer,
         gyroscope: sensorData.gyroscope,
 		exifPitch: sensorData.pitch,
 		exifRoll: sensorData.roll,
 		captureWidth: image.width,
 		captureHeight: image.height,
-		focalLength35: image.metadata["{Exif}"]?.FocalLenIn35mmFilm,
-		focalLength: image.metadata["{Exif}"]?.FocalLength,
+		focalLength35: image.exif?.FocalLenIn35mmFilm,
+		focalLength: image.exif?.FocalLength,
       }),
       location: JSON.stringify(location),
       projectKey: selectedProject.projectKey,

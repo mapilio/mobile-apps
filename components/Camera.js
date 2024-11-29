@@ -1,7 +1,3 @@
-import {
-  Camera as VisionCamera,
-  useCameraDevice
-} from "react-native-vision-camera";
 import { Platform, StyleSheet, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { cameraStyles, fakeTasksStyle } from "../styles/cameraStyles";
@@ -17,17 +13,15 @@ import { CameraWarnings } from "../helper/camera";
 import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
 import { RFValue } from "react-native-responsive-fontsize";
 import { DeviceMotion } from "expo-sensors";
-
+import { CameraView } from 'expo-camera';
 
 const Camera = () => {
-  const device = useCameraDevice('back');
   const dispatch = useDispatch();
   const cameraRef = useRef(null);
   const navigation = useNavigation();
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { isActive } = useSelector((state) => state.cameraReducer);
   const { isInitialized } = useSelector((state) => state.tooltipReducer.camera);
-  const {lowResolution} = useSelector((state) => state.settingsReducer);
   const [cameraOrientation, setCameraOrientation] = useState("landscapeRight");
 
   const handleCameraReady = () => {
@@ -71,23 +65,17 @@ const Camera = () => {
 
   const FakeTasks = () => <SelectProjectButton navigation={navigation} />;
 
-  if (device) {
+  if (isActive) {
     return (
       <View style={{ flex: 1 }}>
-        <VisionCamera
+        <CameraView
           style={cameraStyles.camera}
           ref={cameraRef}
-          device={device}
-          isActive={isActive}
-          photo={true}
-          enableDepthData={true}
-          onInitialized={handleCameraReady}
-          enableHighQualityPhotos={lowResolution ? undefined : true}
-          zoom={1}
-          enableZoomGesture={false}
-          preset={lowResolution ? undefined : "photo"}
-          hdr={false}
-          orientation={cameraOrientation}
+          onCameraReady={handleCameraReady}
+          mode={'picture'}
+          facing={'back'}
+          active={isActive}
+          animateShutter={false}
         />
 
         <View style={styles.cameraContents}>
