@@ -112,8 +112,11 @@ export const imageryUpload = async (images, sequence_uuid) => {
     const fileName = image.path.split("/").pop();
     const {
       Orientation,
-      ['{TIFF}']: {Make, Model, DateTime},
-      ['{Exif}']: {PixelXDimension, PixelYDimension},
+      Make,
+      Model,
+      DateTime,
+      PixelXDimension,
+      PixelYDimension,
       LensMake,
       LensModel,
       DateTimeOriginal,
