@@ -165,7 +165,7 @@ const Projects = ({ slidePanel, setOnScroll, onSelectedItem, navigation }) => {
     });
     dispatch({ type: ZOOM_LEVEL, payload: 8 });
     onSelectedItem(clickedItem);
-    slidePanel.show(RFValue(250));
+    slidePanel.current?.snapToIndex(0);
   };
 
   return (
@@ -261,7 +261,7 @@ const List = ({ navigation, setOnScroll, slidePanel }) => {
 
   const closeHandle = () => {
     setProjectDetail(null);
-    slidePanel.show(RFValue(400));
+    slidePanel.current?.snapToIndex(1);
   };
 
   if (projectDetail) {

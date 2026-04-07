@@ -157,7 +157,13 @@
       }
     },
     "success_capture": "Your capture has been saved! Press the 'Start' button to capture again.",
-    "failed_capture": "Your capture was not saved! Your capture must consist of at least 5 images."
+    "failed_capture": "Your capture was not saved! Your capture must consist of at least 5 images.",
+    "speed": "Speed",
+    "photos": "Photos",
+    "interval": "Interval",
+    "start_capture": "Start capture",
+    "stop_capture": "Stop capture",
+    "auto_capture_on": "Auto-capture every {{distance}}m"
   },
   "camera_walkthrough": {
     "first": {
@@ -337,7 +343,9 @@
     "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
     "sequences": "Sequences",
     "images": "Images",
-    "stop_upload": "Stop Upload"
+    "stop_upload": "Stop Upload",
+    "pause": "Pause",
+    "resume": "Resume"
   },
   "no_internet": {
     "title": "You do not have an internet connection",

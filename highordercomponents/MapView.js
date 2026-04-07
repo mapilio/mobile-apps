@@ -26,7 +26,10 @@ const MapView = ({
   const {config} = useSelector(state => state.generalReducer)
 
   const styleKey = Platform.OS === "ios" ? config.mapTokens?.iosToken : config.mapTokens?.androidToken
-  const styleURL ="https://api.maptiler.com/maps/basic-v2-light/style.json?key="
+  const styleBaseURL = "https://api.maptiler.com/maps/basic-v2-light/style.json?key="
+  const styleURL = styleKey ? `${styleBaseURL}${styleKey}` : undefined
+
+  console.log("[MapView] styleKey:", styleKey, "styleURL:", styleURL ? "MapTiler" : "default")
 
   const showAttributions = () => {
     showActionSheetWithOptions(
@@ -48,8 +51,9 @@ const MapView = ({
   return (
     <Fragment>
       <MapLibreGL.MapView
+        key={styleURL}
         style={mapStyle}
-        styleURL={__DEV__ ? undefined : `${styleURL}${styleKey}`}
+        styleURL={styleURL}
         ref={mapRef}
         onRegionDidChange={regionChange}
         logoEnabled={false}

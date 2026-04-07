@@ -1,5 +1,4 @@
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import SafeAreaView from "react-native-safe-area-view";
+import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
 import * as Brightness from "expo-brightness";
 import React, { useCallback, useEffect, useState } from "react";
 import { Camera, CameraSidebar, Loading } from "../components";
@@ -45,7 +44,7 @@ const AppCamera = () => {
     return watchPositionAsync(
       {
         accuracy: LocationAccuracy.BestForNavigation,
-        distanceInterval: 5,
+        distanceInterval: 2,
         timeInterval: 0,
       },
       ({ coords, mocked }) => {
@@ -133,7 +132,7 @@ const AppCamera = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView
-        forceInset={{ vertical: "never", horizontal: "never" }}
+        edges={[]}
         style={{ flex: 1, flexDirection: "row" }}
         onTouchEndCapture={breakBrightness}
       >

@@ -8,8 +8,23 @@ import * as Sentry from "@sentry/react-native";
 import {useFonts} from "expo-font";
 import * as SplashScreen from 'expo-splash-screen';
 import {SafeAreaProvider} from "react-native-safe-area-context";
-import Toast from "react-native-toast-notifications";
+import {toast as sonnerToast, Toaster} from 'sonner-native';
 import {ToastMessage} from "./components";
+
+// Global toast shim — preserves the old toast.show(msg, {type}) API
+// so the rest of the codebase does not need to change.
+global.toast = {
+  show: (message, options = {}) => {
+    const {type = 'white', duration = 3000} = options;
+    const id = sonnerToast.custom(
+      <ToastMessage options={{type, message, hideToast: () => sonnerToast.dismiss()}} />,
+      {duration},
+    );
+    return id;
+  },
+  hide: (id) => sonnerToast.dismiss(id),
+  hideAll: () => sonnerToast.dismiss(),
+};
 import { LogLevel, OneSignal } from 'react-native-onesignal';
 import db from "./db";
 import i18n from "i18next";
@@ -69,6 +84,7 @@ function App() {
     db.addColumnIfNotExist('address');
     db.addColumnIfNotExist('capture_id',"INTEGER DEFAULT NULL");
     db.addColumnIfNotExist('default_storage_path',"TEXT DEFAULT NULL");
+    db.addColumnIfNotExist('capture_timestamp',"INTEGER DEFAULT NULL");
   }, []);
 
   useEffect(() => {
@@ -90,15 +106,7 @@ function App() {
               <ActionSheetProvider>
                 <SafeAreaProvider>
                   <MainNavigator />
-                  <Toast
-                    ref={(ref) => (global["toast"] = ref)}
-                    duration={3000}
-                    renderToast={(options) => (
-                      <ToastMessage options={options} />
-                    )}
-                    placement="top"
-                    swipeEnabled={true}
-                  />
+                  <Toaster position="top-center" />
                 </SafeAreaProvider>
               </ActionSheetProvider>
             </BottomSheetModalProvider>

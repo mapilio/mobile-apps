@@ -1,52 +1,182 @@
-### ️⚠️️️ If you are getting build errors on Android:
-first, you can start `expo run:android` and `expo prebuild -p android --clean` command then `yarn android:debug` or `npm run android:debug`
+# Mapilio Mobile
 
+A street-level imagery capture app for iOS and Android, built with Expo (bare workflow) and React Native. Contribute to the world's open map by capturing geotagged 360° and standard photos while you walk, cycle, or drive.
 
-### ⚠️ if you use macOS!
-first you should check if the `.netrc` file exists in the `home (~) directory`. if not, create a new `.netrc` file, and you should write in the file;
+[![CI](https://github.com/mapilio/mapilio-mobile-apps/actions/workflows/ci.yml/badge.svg)](https://github.com/mapilio/mapilio-mobile-apps/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Expo SDK](https://img.shields.io/badge/Expo-SDK%2052-000020?logo=expo)](https://expo.dev)
+[![React Native](https://img.shields.io/badge/React%20Native-0.76.9-61dafb?logo=react)](https://reactnative.dev)
 
-    machine api.mapbox.com
-    login mapbox
-    password sk.ey...ewr
+---
 
-### ⚠️ If you are using nvm and getting error during the build!
-If you are getting error `Command PhaseScriptExecution failed exit code` on xcode and using nvm, you should use node version v16.18.0, and run `ln -s $(which node) /usr/local/bin/node` command.
+## Features
 
+- **Camera capture** — GPS-tagged photos with automatic interval shooting
+- **Sequence management** — Organize, review, and upload photo sequences
+- **Interactive map** — Browse captured imagery on a MapLibre-powered map
+- **Social layer** — Profiles, leaderboards, awards, and a marketplace
+- **Upload pipeline** — Background upload with progress tracking and retry
+- **Offline-first** — Local SQLite database; syncs when connectivity is restored
+- **Localization** — 31 languages supported via i18next
+- **Multi-auth** — Email, Google, Apple, Facebook, and OpenStreetMap OAuth
 
-## How to install
-https://reactnative.dev/docs/environment-setup?platform=ios
+---
 
-    brew install node
-    brew install watchman
+## Tech Stack
 
-    ruby --version
+| Layer | Library |
+|---|---|
+| Framework | Expo SDK 52 (Bare Workflow) |
+| Runtime | React Native 0.76.9 |
+| Navigation | React Navigation v7 |
+| State | Redux 5 + Redux-Persist |
+| Maps | MapLibre React Native |
+| Database | expo-sqlite |
+| File system | expo-file-system (adapter: `util/fs.js`) |
+| Camera | expo-camera |
+| Location | expo-location |
+| Notifications | OneSignal + expo-sensors |
+| Monitoring | Sentry |
+| Testing | Jest 29 + jest-expo |
 
-React Native uses a .ruby-version file to make sure that your version of Ruby is aligned with what is needed. Currently, macOS 13.2 is shipped with Ruby 2.6.10, which is not what is required by this version of React Native (2.7.6). Our suggestion is to install a Ruby version manager and to install the proper version of Ruby in your system.
+---
 
-### How to upgrade ruby version
+## Prerequisites
 
-    brew install rbenv
-    rbenv init
-    rbenv install 2.7.6
+| Tool | Version |
+|---|---|
+| Node.js | 20 LTS |
+| npm | 10+ |
+| Expo CLI | `npm i -g expo-cli` |
+| Xcode | 15+ (iOS only) |
+| Android Studio | Giraffe+ (Android only) |
+| CocoaPods | 1.14+ (iOS only) |
 
-    Alternatively, you may want to take a look at this document.
-    https://github.com/rbenv/rbenv
+> **macOS + nvm users:** After switching Node versions run `ln -s $(which node) /usr/local/bin/node` so Xcode build scripts can find Node.
 
-After setting the Ruby version, we can continue with the installation.
+---
 
-    yarn install
-    npx pod-install
+## Getting Started
 
-### How to clean prebuild ios project
-    expo prebuild -p ios --clean
+### 1. Clone and install
 
-### How to run ios project for production
-    npx pod-install
-    expo run:ios --configuration Release
+```bash
+git clone https://github.com/mapilio/mapilio-mobile-apps.git
+cd mapilio-mobile-apps
+npm install
+```
 
-### How to run ios project for development
-    expo run:ios
+### 2. Environment variables
 
-### How to prebuild android project
-    expo prebuild -p android --clean
-    expo run:android
+```bash
+cp .env.example .env.development
+```
+
+Open `.env.development` and fill in your credentials (see [Environment Variables](#environment-variables) below).
+
+### 3. iOS (macOS only)
+
+```bash
+cd ios && pod install && cd ..
+npx expo run:ios
+```
+
+### 4. Android
+
+```bash
+npx expo run:android
+```
+
+### Rebuild native layers after dependency changes
+
+```bash
+# iOS
+npx expo prebuild -p ios --clean && cd ios && pod install && cd ..
+
+# Android
+npx expo prebuild -p android --clean
+```
+
+---
+
+## Environment Variables
+
+Copy `.env.example` to `.env.development` (local dev) or `.env.production` (release builds) and supply real values. **Never commit real credentials.**
+
+| Variable | Description |
+|---|---|
+| `EXPO_PUBLIC_SERVICE_URL` | Mapilio REST API base URL |
+| `EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN` | MapLibre/Mapbox public token |
+| `EXPO_PUBLIC_AUTH_CLIENT_ID` | OAuth2 client ID |
+| `EXPO_PUBLIC_AUTH_CLIENT_SECRET` | OAuth2 client secret |
+| `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID` | Google Sign-In iOS client ID |
+| `EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID` | Google Sign-In Android client ID |
+| `EXPO_PUBLIC_SENTRY_DSN` | Sentry DSN for error reporting |
+| `EXPO_PUBLIC_ONESIGNAL_APP_ID` | OneSignal app ID for push notifications |
+
+See `.env.example` for the full list.
+
+> **iOS + Mapbox:** Create `~/.netrc` if it does not exist and add your Mapbox token:
+> ```
+> machine api.mapbox.com
+> login mapbox
+> password sk.ey...your_secret_token
+> ```
+
+---
+
+## Running Tests
+
+```bash
+# Interactive watch mode
+npm test
+
+# CI (single run, no watch)
+npm run test:ci
+
+# With coverage report
+npm run test:ci -- --coverage
+```
+
+The test suite covers reducers, helper functions, and the file-system adapter (~233 tests).
+
+---
+
+## Project Structure
+
+```
+mapilio-mobile-apps/
+├── App.js                  # Root component (providers, global toast shim)
+├── index.js                # Expo entry point
+├── db.js                   # SQLite initialization
+├── util/
+│   └── fs.js               # File-system adapter (expo-file-system wrapper)
+├── store/
+│   ├── store.js
+│   ├── actionsName.js
+│   ├── actions/
+│   └── reducers/           # cameraReducer, generalReducer, loginReducer, …
+├── screens/                # Full-screen views (AppCamera, AppMap, Login, …)
+├── components/             # Reusable UI components
+├── navigator/              # React Navigation stacks & tabs
+├── helper/                 # Pure utility functions (calculator, upload, …)
+├── hooks/                  # Custom React hooks
+├── styles/                 # Global style constants
+├── translations/           # i18n JSON files (31 locales)
+├── types/                  # TypeScript type definitions
+├── __tests__/              # Jest test suites
+├── android/                # Android native project
+└── ios/                    # iOS native project
+```
+
+---
+
+## Contributing
+
+We welcome bug reports, feature requests, and pull requests. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting.
+
+---
+
+## License
+
+[MIT](LICENSE) © Mapilio

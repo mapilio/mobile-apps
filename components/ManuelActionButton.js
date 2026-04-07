@@ -3,7 +3,7 @@ import { Dimensions, Image, Platform, TouchableOpacity, View } from 'react-nativ
 import { RFValue } from 'react-native-responsive-fontsize';
 import { convertHexToRGBA } from '../helper/helper';
 import { useDispatch, useSelector } from 'react-redux';
-import * as RNFS from 'react-native-fs';
+import * as RNFS from '../util/fs';
 import * as Location from 'expo-location';
 import { UPDATE_IMAGE_SIZE, UPDATE_PHOTO_AMOUNT } from '../store/actionsName';
 import Database from '../db';

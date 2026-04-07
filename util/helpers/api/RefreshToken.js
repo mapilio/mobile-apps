@@ -5,33 +5,34 @@ import {translate} from "../index";
 import api from "./Api";
 
 export const refreshToken = async () => {
-  const auth = store.getState().getTokenReducer.auth
+  const auth = store.getState().getTokenReducer.auth;
+
+  if (!auth) {
+    isTokenExpired();
+    return;
+  }
 
   try {
-    if (!!auth) {
-      const user = await api.post(`${process.env.EXPO_PUBLIC_SERVICE_URL}/api/v2/login`, {
-        grant_type: 'refresh_token',
-        client_id: process.env.EXPO_PUBLIC_AUTH_CLIENT_ID,
-        client_secret: process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET,
-        refresh_token: auth.refresh_token,
-      }, {
-        retry: 0,
-      });
+    const user = await api.post(`${process.env.EXPO_PUBLIC_SERVICE_URL}/api/v2/login`, {
+      grant_type: 'refresh_token',
+      client_id: process.env.EXPO_PUBLIC_AUTH_CLIENT_ID,
+      client_secret: process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET,
+      refresh_token: auth.refresh_token,
+    }, {
+      retry: 0,
+    });
 
-      store.dispatch({type: GET_TOKEN_SUCCESS, payload: user});
+    store.dispatch({type: GET_TOKEN_SUCCESS, payload: user});
 
-      return user;
-    }
-
-    isTokenExpired()
+    return user;
   } catch {
-    isTokenExpired()
+    isTokenExpired();
   }
-}
+};
 
 const isTokenExpired = () => {
   store.dispatch({type: GET_TOKEN_SUCCESS, payload: null});
   store.dispatch({type: EXIT_USER, payload: null});
   toast.show(translate('token_expired', 'errors'), {type: 'error'});
   throw new Error(translate('token_expired', 'errors'));
-}
+};

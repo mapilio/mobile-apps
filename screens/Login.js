@@ -10,7 +10,7 @@ import {Eye} from "../assets/svg/illustrations";
 import {SocialLogin} from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
-import SafeAreaView from "react-native-safe-area-view";
+import {SafeAreaView} from "react-native-safe-area-context";
 import {MapilioLogoBeta} from "../assets/svg/logos";
 import {fetchLogin} from "../helper/user";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";

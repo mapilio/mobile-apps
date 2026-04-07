@@ -157,7 +157,13 @@
       }
     },
     "success_capture": "Çekiminiz kaydedildi! Tekrar çekim yapmak için 'Başla' düğmesine basın.",
-    "failed_capture": "Çekiminiz kaydedilmedi! Çekiminiz en az 5 resimden oluşmalıdır"
+    "failed_capture": "Çekiminiz kaydedilmedi! Çekiminiz en az 5 resimden oluşmalıdır",
+    "speed": "Hız",
+    "photos": "Fotoğraf",
+    "interval": "Aralık",
+    "start_capture": "Çekimi başlat",
+    "stop_capture": "Çekimi durdur",
+    "auto_capture_on": "Otomatik çekim: her {{distance}}m"
   },
   "camera_walkthrough": {
     "first": {
@@ -337,7 +343,9 @@
     "subtitle": "Bölgenizde olumlu bir etki yaratın, Güvenilir haritalamaya katkıda bulunun, Skor tablosunda üst sıralarda yerinizi alın",
     "sequences": "Dizi",
     "images": "Resim",
-    "stop_upload": "Yüklemeyi Durdur"
+    "stop_upload": "Yüklemeyi Durdur",
+    "pause": "Duraklat",
+    "resume": "Devam Et"
   },
   "no_internet": {
     "title": "İnternet bağlantınız yok",

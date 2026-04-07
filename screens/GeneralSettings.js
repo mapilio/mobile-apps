@@ -14,7 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Slider } from '@miblanchard/react-native-slider';
 import { Snackbar, Switch } from 'react-native-paper';
 import { DeviceIcon, SDCardIcon } from '../assets/svg/illustrations';
-import * as RNFS from 'react-native-fs';
+import * as RNFS from '../util/fs';
 import { PERMISSIONS, request } from 'react-native-permissions';
 
 const GeneralSettings = ({ navigation }) => {

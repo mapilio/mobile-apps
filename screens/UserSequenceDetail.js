@@ -11,7 +11,7 @@ import LogoWatermark from "../assets/svg/illustrations/LogoWatermark";
 import {AlertModal} from "../components";
 import {search} from "../util/helpers/api";
 import { CustomTextBold } from "../highordercomponents";
-import * as RNFS from "react-native-fs";
+import * as RNFS from "../util/fs";
 
 const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
   const {t} = useTranslation("upload");

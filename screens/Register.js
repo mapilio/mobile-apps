@@ -16,7 +16,7 @@ import { SocialLogin } from "../components";
 import {useForm, Controller} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import {globalStyles} from "../styles/globalStyles";
-import SafeAreaView from "react-native-safe-area-view";
+import {SafeAreaView} from "react-native-safe-area-context";
 import {MapilioLogoBeta} from "../assets/svg/logos";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {Trans, useTranslation} from "react-i18next";

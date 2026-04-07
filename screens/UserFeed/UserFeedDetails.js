@@ -21,8 +21,6 @@ import { useNavigation } from "@react-navigation/native";
 import ActiveImage from "../../components/UserFeed/ActiveImage";
 import { Heading } from "../../components/Map";
 import { FocusAwareStatusBar } from "../../components";
-import Toast from "react-native-toast-notifications";
-import { ToastMessage } from "../../components";
 import { useTranslation } from "react-i18next";
 import ListImage from "../../components/UserFeed/ListImage";
 
@@ -42,7 +40,6 @@ const UserFeedDetails = ({ route }) => {
   const [activeImage, setActiveImage] = useState(null);
   const bottomSheetRef = useRef(null);
   const cameraRef = useRef(null);
-  const toastRef = useRef(null);
 
   const getData = async () => {
     const linesRes = await api.get("/api/get-uploaded-roads-group?group_key=" + id).then((res) => res.data);
@@ -140,9 +137,8 @@ const UserFeedDetails = ({ route }) => {
     });
   };
 
-  const hideToast = () => toastRef.current?.hideAll();
-  const showToast = (message, options) =>
-    toastRef.current?.show(message, options);
+  const hideToast = () => toast.hideAll();
+  const showToast = (message, options) => toast.show(message, options);
   
   const onImagePress = (item) => {
     bottomSheetRef.current?.snapToIndex(0);
@@ -172,13 +168,6 @@ const UserFeedDetails = ({ route }) => {
         presentationStyle="fullScreen"
         animationType={Platform.OS === "ios" ? "slide" : "fade"}
       >
-        <Toast
-          ref={toastRef}
-          renderToast={(options) => <ToastMessage options={options} />}
-          placement="top"
-          swipeEnabled={true}
-          duration={3000}
-        />
         {activeImage && (
           <ActiveImage
             imgCode={activeImage.img_code}

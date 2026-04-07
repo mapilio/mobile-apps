@@ -63,15 +63,18 @@ const CaptureComponent = ({navigation, exitHandler}) => {
   return (
     <>
       <View style={styles.buttons}>
-      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate(Routes.captureWalkthrough)}>
+      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate(Routes.captureWalkthrough)}
+        accessibilityRole="button" accessibilityLabel="Capture information">
         <InformationIcon fill={"#333333"} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.menuButton} onPress={() => changeRoute(Routes.generalSettings)}>
+      <TouchableOpacity style={styles.menuButton} onPress={() => changeRoute(Routes.generalSettings)}
+        accessibilityRole="button" accessibilityLabel="Camera settings">
         <SettingsIcon fill={"#333333"} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={{...styles.menuButton, backgroundColor:"transparent"}} onPress={exitHandler}>
+      <TouchableOpacity style={{...styles.menuButton, backgroundColor:"transparent"}} onPress={exitHandler}
+        accessibilityRole="button" accessibilityLabel="Exit camera">
         <GoBackIcon/>
       </TouchableOpacity>
       </View>

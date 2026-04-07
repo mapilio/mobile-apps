@@ -11,7 +11,7 @@ import {BottomSheetFlatList} from "@gorhom/bottom-sheet";
 import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_SELECTED_IMAGES} from "../../store/actionsName";
 import AlertModal from "../AlertModal";
-import * as RNFS from "react-native-fs";
+import * as RNFS from "../../util/fs";
 
 const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
   const {t} = useTranslation("upload");

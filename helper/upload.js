@@ -7,7 +7,7 @@ import i18n from "i18next";
 import {api, cdn} from "../util/helpers/api";
 import axios from "axios";
 import {captureException} from "@sentry/react-native";
-import * as RNFS from 'react-native-fs';
+import * as RNFS from '../util/fs';
 
 let apiController;
 let cdnController;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {closeRequest, deleteSequence, getHash, imageryUpload, isWifi} from "../../helper/upload";
 import {activateKeepAwakeAsync, deactivateKeepAwake} from "expo-keep-awake";
@@ -6,7 +6,7 @@ import db from "../../db";
 import {UPLOAD_DATA} from "../../store/actionsName";
 import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
-import * as RNFS from "react-native-fs";
+import * as RNFS from "../../util/fs";
 import UploadModal from "./UploadModal";
 import {useNavigation} from "@react-navigation/native";
 import {useTranslation} from "react-i18next";
@@ -26,9 +26,26 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sequenceLength, setSequenceLength] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const pauseRef = useRef(false);
   const navigation = useNavigation();
 
   let willDelete = [];
+
+  const waitWhilePaused = () => {
+    return new Promise((resolve) => {
+      const check = () => {
+        if (!pauseRef.current) return resolve();
+        setTimeout(check, 500);
+      };
+      check();
+    });
+  };
+
+  const togglePause = () => {
+    pauseRef.current = !pauseRef.current;
+    setIsPaused(pauseRef.current);
+  };
 
   useEffect(() => {
     let path = RNFS.DocumentDirectoryPath;
@@ -77,6 +94,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
         const images = await db.getCapturesBySequenceIdAsync(sequence.sequence_uuid, orderBy)
 
         for (let image of images) {
+          await waitWhilePaused();
           const {status, hash, message} = await getHash(image)
 
           if (status === 'success') {
@@ -88,6 +106,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
           }
         }
 
+        await waitWhilePaused();
         const {status, message} = await imageryUpload(images, sequence.sequence_uuid)
 
         if (status === 'success') {
@@ -125,6 +144,8 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
   }
 
   const handleStop = () => {
+    pauseRef.current = false;
+    setIsPaused(false);
     closeRequest();
     setModalVisible(false);
     setTotalImageCount(0);
@@ -138,6 +159,9 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
           style={{...styles.uploadButton, ...buttonStyle, backgroundColor: maintenanceMode ? '#ECECEC' : '#0056F1',}}
           onPress={uploadHandler}
           disabled={maintenanceMode}
+          accessibilityRole="button"
+          accessibilityLabel={t("start_upload", {ns: 'upload'})}
+          accessibilityState={{disabled: maintenanceMode}}
         >
           <Text style={{...styles.uploadButtonText, color: maintenanceMode ? '#C2C2C2' : '#fff'}}>{t("start_upload", {ns: 'upload'})}</Text>
         </TouchableOpacity>
@@ -149,6 +173,8 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
         sequenceLength={sequenceLength}
         totalImageCount={totalImageCount}
         handleStop={handleStop}
+        togglePause={togglePause}
+        isPaused={isPaused}
         totalSize={totalSize}
       />
     </View>

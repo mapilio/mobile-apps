@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {TouchableOpacity, View, StyleSheet, Platform} from "react-native";
-import SlidingUpPanel from "rn-sliding-up-panel";
+import BottomSheet from "@gorhom/bottom-sheet";
 import {RFValue} from "react-native-responsive-fontsize";
 import {List, MarketplaceMap} from "../../components/Marketplace";
 import {getContentAreaHeight} from "../../helper/helper";
@@ -30,7 +30,8 @@ const Marketplace = ({ navigation }) => {
   const {isInitialized} = useSelector(state => state.tooltipReducer.marketplace);
 
 
-  const DEFAULT_FRICTION = isInitialized ? 0.998 : 0;
+  // Snap points: ~40% (item detail) and ~60% (full list)
+  const snapPoints = useMemo(() => ['40%', '60%'], []);
 
   useEffect(() => {
     getCurrentPositionAsync({
@@ -67,7 +68,7 @@ const Marketplace = ({ navigation }) => {
 
   useEffect(() => {
     if(!isInitialized) {
-      slidePanel.current?.show(RFValue(400))
+      slidePanel.current?.snapToIndex(1);
     }
   }, [isInitialized]);
 
@@ -85,7 +86,7 @@ const Marketplace = ({ navigation }) => {
                            translucent={true} />
 
       <TouchableOpacity
-        onPress={() => slidePanel.current?.show(RFValue(400))}
+        onPress={() => slidePanel.current?.snapToIndex(1)}
         style={styles.button}>
         <Document/>
         <View style={{width: RFValue(3)}}/>
@@ -95,20 +96,22 @@ const Marketplace = ({ navigation }) => {
       <View style={appMapStyle.watermark}>
       <MapilioBetaWatermark  />
       </View>
-      <SlidingUpPanel
-        allowDragging={!onScroll}
-        showBackdrop={false}
+      <BottomSheet
         ref={slidePanel}
-        friction={DEFAULT_FRICTION}
-        draggableRange={{top: getContentAreaHeight(top, bottom) - top, bottom: 0}}
-        containerStyle={{zIndex: 6}}
+        snapPoints={snapPoints}
+        index={-1}
+        enableDynamicSizing={false}
+        enablePanDownToClose={true}
+        enableHandlePanningGesture={!onScroll}
+        enableContentPanningGesture={!onScroll}
+        style={{zIndex: 6}}
       >
         <List
           navigation={navigation}
           setOnScroll={setOnScroll}
-          slidePanel={slidePanel.current}
+          slidePanel={slidePanel}
         />
-      </SlidingUpPanel>
+      </BottomSheet>
     </View>
   );
 };

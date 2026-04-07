@@ -1,5 +1,5 @@
 import { Dimensions, Image, Text, Pressable, View, Platform } from 'react-native';
-import * as RNFS from "react-native-fs";
+import * as RNFS from "../../util/fs";
 import styles from './UploadItem.styles';
 import {dateConvert} from "../../helper/helper";
 import { LinearGradient } from "expo-linear-gradient";

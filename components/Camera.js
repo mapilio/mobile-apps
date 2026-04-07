@@ -14,6 +14,7 @@ import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
 import { RFValue } from "react-native-responsive-fontsize";
 import { DeviceMotion } from "expo-sensors";
 import { CameraView } from 'expo-camera';
+import CaptureInfoOverlay from "./CaptureInfoOverlay";
 
 const Camera = () => {
   const dispatch = useDispatch();
@@ -95,6 +96,7 @@ const Camera = () => {
           )}
 
           {isInitialized && <CameraWarnings />}
+          <CaptureInfoOverlay />
         </View>
       </View>
     );

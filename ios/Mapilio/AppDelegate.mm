@@ -24,7 +24,12 @@
 - (NSURL *)bundleURL
 {
 #if DEBUG
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@".expo/.virtual-metro-entry"];
+  RCTBundleURLProvider *provider = [RCTBundleURLProvider sharedSettings];
+  // For physical device debugging, set your Mac's LAN IP below:
+  // #if !TARGET_IPHONE_SIMULATOR
+  //   [provider setJsLocation:@"YOUR_LAN_IP"];
+  // #endif
+  return [provider jsBundleURLForBundleRoot:@".expo/.virtual-metro-entry"];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif

@@ -1,0 +1,48 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    // .js files are allowed for gradual migration but NOT type-checked
+    // Rename files to .ts/.tsx to get type checking
+    "allowJs": true,
+    "checkJs": false,
+
+    // Strict mode — enforced for all .ts/.tsx files
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+
+    // Module resolution
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "jsx": "react-native",
+
+    // Output — Metro handles bundling, tsc only type-checks
+    "noEmit": true,
+
+    // Path aliases — also configure in babel.config.js and metro.config.js
+    "baseUrl": ".",
+    "paths": {
+      "@store/*": ["store/*"],
+      "@screens/*": ["screens/*"],
+      "@components/*": ["components/*"],
+      "@navigator/*": ["navigator/*"],
+      "@helper/*": ["helper/*"],
+      "@util/*": ["util/*"],
+      "@styles/*": ["styles/*"],
+      "@types/*": ["types/*"],
+      "@assets/*": ["assets/*"],
+      "@hooks/*": ["hooks/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "android",
+    "ios",
+    ".expo"
+  ]
+}

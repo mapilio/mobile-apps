@@ -12,7 +12,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 import InfoBox from "../components/InfoBox/InfoBox";
 import { useNavigation } from "@react-navigation/native";
-import * as RNFS from 'react-native-fs';
+import * as RNFS from '../util/fs';
 
 const UserUpload = () => {
   const dispatch = useDispatch();

@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import database from "../../db";
 import {SEQUENCE_IMAGES} from "../../store/actionsName";
 import {RFValue} from "react-native-responsive-fontsize";
-import * as RNFS from "react-native-fs";
+import * as RNFS from "../../util/fs";
 
 const ImageUpload = ({ navigation, group_id }) => {
   const dispatch = useDispatch();

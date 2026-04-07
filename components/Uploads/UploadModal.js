@@ -10,7 +10,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import FocusAwareStatusBar from "../FocusAwareStatusBar";
 
-const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, totalSize, handleStop}) => {
+const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, totalSize, handleStop, togglePause, isPaused}) => {
   const {t} = useTranslation("upload_modal");
 
   return (
@@ -71,6 +71,13 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
         </View>
       </View>
       <View style={userUploadModalStyles.bottomBar}>
+        <Pressable
+          onPress={togglePause}
+          style={[userUploadModalStyles.closeIcon, {backgroundColor: isPaused ? '#0056F1' : '#FFA500', marginRight: RFValue(12)}]}>
+          <CustomText style={{color: '#FFF', fontSize: RFValue(12), fontFamily: 'Poppins-Medium'}}>
+            {isPaused ? t("resume") : t("pause")}
+          </CustomText>
+        </Pressable>
         <CustomText style={userUploadModalStyles.close}>{t("stop_upload")}</CustomText>
         <Pressable
           onPress={handleStop}

@@ -17,7 +17,7 @@ import {vibrate} from "../util/helpers";
 import {distance} from "@turf/turf";
 import * as ImageManipulator from "expo-image-manipulator";
 import {cloneDeep} from "lodash";
-import * as RNFS from 'react-native-fs';
+import * as RNFS from '../util/fs';
 import { useNavigation } from '@react-navigation/native';
 
 const AutoActionButton = () => {
@@ -34,13 +34,13 @@ const AutoActionButton = () => {
 		groupId,
 	} = useSelector((status) => status.cameraReducer);
 	const navigation = useNavigation()
-	const {selectedProject, autoCaptureStart, defaultStoragePath} = useSelector((status) => status.settingsReducer);
+	const {selectedProject, autoCaptureStart, defaultStoragePath, distanceBetween} = useSelector((status) => status.settingsReducer);
 	const {debugMode} = useSelector((status) => status.generalReducer);
 	const appState = useRef(AppState.currentState);
 	const [isAlert, setIsAlert] = useState(true);
 	const accelerometerData = useRef({x: 0, y: 0, z: 0})
 	const gyroscopeData = useRef({x: 0, y: 0, z: 0});
-	const [timeouts, setTimeouts] = useState([]);
+	const timeoutsRef = useRef([]);
 	const {isInitialized} = useSelector((state) => state.tooltipReducer.camera);
 	const pitch = useRef(0);
   	const roll = useRef(0);
@@ -54,6 +54,7 @@ const AutoActionButton = () => {
 	const captureCount = useRef(0);
 	const isSessionStarted = useRef(false);
 	const captureID = useRef(0);
+	const lastCaptureLocation = useRef({longitude: 0, latitude: 0});
 
 	const LANDSCAPE_LEFT_ORIENTATION = Platform.OS === "ios" ? 90 : -90;
   	const LANDSCAPE_RIGHT_ORIENTATION = Platform.OS === "ios" ? -90 : 90;
@@ -85,22 +86,32 @@ const AutoActionButton = () => {
 		if (captureButtonStatus && !isAlert && autoCaptureStart && cameraLocation) {
 
 			const lastLocationCoords = [lastLocation.current.longitude, lastLocation.current.latitude];
-      		const newLocationCoords = [cameraLocation.longitude, cameraLocation.latitude];
+			const newLocationCoords = [cameraLocation.longitude, cameraLocation.latitude];
 
-      		const distanceBetweenLastLocation = distance(lastLocationCoords, newLocationCoords, {units: "meters"});
+			const distanceSinceLastUpdate = distance(lastLocationCoords, newLocationCoords, {units: "meters"});
 
-     		 if (!isSessionStarted || distanceBetweenLastLocation >= 50) {
-     		   newSequence();
-			   isSessionStarted.current = true;	
-     		 }
+			// Detect large gap (pause/resume or first capture) — start new sequence
+			if (!isSessionStarted.current || distanceSinceLastUpdate >= 50) {
+				newSequence();
+				isSessionStarted.current = true;
+				lastCaptureLocation.current = cameraLocation;
+			}
 
 			lastLocation.current = cameraLocation;
-			takePicture(cameraLocation, captureID.current).catch(() =>
-        		toast.show(t("something_went_wrong"), { type: "error" })
-      		);
-			captureID.current++;
-    }
-  }, [cameraLocation]);
+
+			// Check distance from last capture point using user's distance setting
+			const lastCaptureCoords = [lastCaptureLocation.current.longitude, lastCaptureLocation.current.latitude];
+			const distanceSinceLastCapture = distance(lastCaptureCoords, newLocationCoords, {units: "meters"});
+
+			if (distanceSinceLastCapture >= distanceBetween) {
+				lastCaptureLocation.current = cameraLocation;
+				takePicture(cameraLocation, captureID.current).catch(() =>
+					toast.show(t("something_went_wrong"), { type: "error" })
+				);
+				captureID.current++;
+			}
+		}
+	}, [cameraLocation]);
 
 	Math.degrees = (radians) => {
     return radians * (180 / Math.PI);
@@ -135,34 +146,37 @@ const AutoActionButton = () => {
   }, []);
 
 	useEffect(() => {
-		navigation.addListener("focus", () => {
+		const unsubFocus = navigation.addListener("focus", () => {
 			newSequence();
 		});
 
-		navigation.addListener("blur", () => {
+		const unsubBlur = navigation.addListener("blur", () => {
 			dispatch({type: UPDATE_AUTOCAPTURE_START, payload: false})
 		});
-		return () =>{
-			navigation.removeListener("blur")
-			navigation.removeListener("focus")
+		return () => {
+			unsubFocus();
+			unsubBlur();
 		};
 	}, [navigation]);
 
 	useEffect(() => {
 		if (rotateStatus) {
 			// Start a new sequence if the user is not rotating the phone for 7 seconds
-			setTimeouts(prev => [...prev, setTimeout(() => newSequence(), 7000)]);
+			timeoutsRef.current.push(setTimeout(() => newSequence(), 7000));
 
 			// Stop the capture if the user is not rotating the phone for 3 seconds
-			setTimeouts(prev => [...prev, setTimeout(() => setIsAlert(true), 3000)]);
+			timeoutsRef.current.push(setTimeout(() => setIsAlert(true), 3000));
 		} else {
 			setIsAlert(false)
 			dispatch({type: TOGGLE_ROTATE_ALERT, payload: false})
-			timeouts.forEach((timeout, index) => {
-				clearTimeout(timeout)
-				if (index === timeouts.length - 1) setTimeouts([]);
-			});
+			timeoutsRef.current.forEach(t => clearTimeout(t));
+			timeoutsRef.current = [];
 		}
+
+		return () => {
+			timeoutsRef.current.forEach(t => clearTimeout(t));
+			timeoutsRef.current = [];
+		};
 	}, [rotateStatus]);
 
 	useEffect(() => {
@@ -176,6 +190,10 @@ const AutoActionButton = () => {
 	}, [showRotateAlert]);
 
 	useEffect(() => {
+		Accelerometer.setUpdateInterval(200);
+		Gyroscope.setUpdateInterval(200);
+		DeviceMotion.setUpdateInterval(200);
+
 		const listener = AppState.addEventListener("change", startNewSequence);
 		const accelerometer = Accelerometer.addListener(data => {
 			accelerometerData.current = data;
@@ -218,14 +236,18 @@ const AutoActionButton = () => {
 			base64:false,
 		}
 
-		//states persist on the func call but ref values are updated immediately, so we need to get the "call time" values for save picture
+		// Snapshot sensor data at trigger time — same moment as GPS coordinates
 		const sensorData = cloneDeep({
 			accelerometer: accelerometerData.current,
 			gyroscope: gyroscopeData.current,
 			pitch: pitch.current,
 			roll: roll.current,
 		})
-		camera.takePictureAsync(options).then((image) => savePicture(image, location, sensorData, captureID))
+
+		camera.takePictureAsync(options).then((image) => {
+			vibrate("light");
+			savePicture(image, location, sensorData, captureID)
+		})
 	};
 
 	const savePicture = async (image, location, sensorData, captureID) => {
@@ -283,7 +305,7 @@ const AutoActionButton = () => {
 		const fileInfo = await RNFS.stat(newPath);
 		dispatch({type: UPDATE_IMAGE_SIZE, payload: fileInfo.size});
 		calculateAmount("add");
-		if(captureCount.current % 250 === 0 && isSessionStarted) {
+		if(captureCount.current % 250 === 0 && isSessionStarted.current) {
 			newSequence();
 		}
 	}
@@ -310,6 +332,9 @@ const AutoActionButton = () => {
 			disabled={!captureButtonStatus}
 			style={cameraActionButtonStyles.container}
 			onPress={playHandler}
+			accessibilityRole="button"
+			accessibilityLabel={autoCaptureStart ? t("stop_capture") : t("start_capture")}
+			accessibilityState={{disabled: !captureButtonStatus}}
 		>
 			<View style={cameraActionButtonStyles.button}>
 				{autoCaptureStart ? <StopIcon/> : <PlayIcon/>}

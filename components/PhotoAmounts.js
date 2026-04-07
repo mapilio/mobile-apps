@@ -4,7 +4,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {CustomText, CustomTextBold, CustomTextMedium} from "../highordercomponents";
 import {useDispatch, useSelector} from "react-redux";
 import {UPDATE_PHONE_MEMORY} from "../store/actionsName";
-import * as RNFS from "react-native-fs";
+import * as RNFS from "../util/fs";
 import { NativeModules } from 'react-native';
 const {StorageModule} = NativeModules;
 

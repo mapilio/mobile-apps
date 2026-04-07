@@ -1,20 +1,26 @@
 import * as SQLite from "expo-sqlite";
-import * as RNFS from 'react-native-fs';
+import * as RNFS from './util/fs';
 
 const db = SQLite.openDatabaseSync("mapilio.db");
+
+const ALLOWED_UPDATE_COLUMNS = [
+  'exif', 'location', 'project_key', 'organization_name', 'organization_key',
+  'sequence_uuid', 'path', 'hash', 'uploaded', 'filename', 'group_id',
+  'address', 'capture_id', 'default_storage_path', 'capture_timestamp',
+];
 
 class Database {
   startDB() {
     return db.execAsync(
       `CREATE TABLE IF NOT EXISTS captures (
-                                id INTEGER PRIMARY KEY AUTOINCREMENT, 
-                                exif TEXT NOT NULL, 
-                                location TEXT NOT NULL, 
-                                project_key TEXT, 
-                                organization_name TEXT, 
+                                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                exif TEXT NOT NULL,
+                                location TEXT NOT NULL,
+                                project_key TEXT,
+                                organization_name TEXT,
                                 organization_key TEXT,
-                                sequence_uuid TEXT NOT NULL, 
-                                path TEXT NOT NULL, 
+                                sequence_uuid TEXT NOT NULL,
+                                path TEXT NOT NULL,
                                 hash TEXT DEFAULT NULL,
                                 uploaded BOOLEAN DEFAULT 0,
                                 filename TEXT NOT NULL,
@@ -31,107 +37,85 @@ class Database {
   }
 
   /**
-   * if the column doesn't exist, add it to the table
+   * Check if a column exists in the captures table.
    */
   isColumnExist(columnName) {
-    return new Promise((resolve, reject) => {
-        db.getAllAsync(`SELECT count(*) as count FROM pragma_table_info('captures') where name='${columnName}'`)
-          .then((result) => resolve(result))
-          .catch((error) => reject(error))
-    })
+    return db.getAllAsync(
+      `SELECT count(*) as count FROM pragma_table_info('captures') WHERE name = ?`,
+      [columnName],
+    );
   }
 
   /**
-   * add column to the table if it doesn't exist yet
+   * Add a column to the table if it doesn't exist yet.
    *
-   * @param columnName {string} - name of the column to add to the table
-   * @param columnType {string} - default: 'TEXT' - type of the column
-   * @param table {string} - default: 'captures' table name (optional) - if you want to add column to another table
-   *
-   * @example
-   * addColumnIfNotExist('hash', 'TEXT', 'captures')
+   * @param columnName {string} - name of the column to add
+   * @param columnType {string} - default: 'TEXT DEFAULT NULL'
+   * @param table {string} - default: 'captures'
    */
   async addColumnIfNotExist(columnName, columnType = 'TEXT DEFAULT NULL', table = 'captures') {
-    const isExist = await this.isColumnExist(columnName);
-
-    if (!isExist) {
+    const result = await this.isColumnExist(columnName);
+    if (result[0]?.count === 0) {
       db.execAsync(`ALTER TABLE ${table} ADD COLUMN ${columnName} ${columnType}`)
-        .then(() => console.log(`Column ${columnName} added to the table ${table}`))
-        .catch((error) => console.log(`Error while adding column ${columnName} to the table ${table}: ${error}`))
+        .catch((error) => console.error(`Error adding column ${columnName} to ${table}:`, error));
     }
   }
 
-  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath}) {
+  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath, captureTimestamp}) {
     return db.runAsync(
-      'INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, capture_id, default_storage_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath],
+      'INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, capture_id, default_storage_path, capture_timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath, captureTimestamp ?? Date.now()],
     );
   }
 
   async queryAsync(query) {
-    return new Promise((resolve, reject) => {
-        db.execAsync(query)
-          .then((result) => resolve(result))
-          .catch((error) => reject(error))
-      });
+    return db.execAsync(query);
   }
-
-  // async query(query, callback, args = [], errorCallback = (_, error) => toast.show(`${error}`, {type: "error"})) {
-  //   db.transaction((txn) => {
-  //     txn.executeSql(query, args, callback, errorCallback)
-  //   });
-  // }
-
 
   getCapturesBySequenceIdAsync(sequence_uuid, orderBY = 'id ASC') {
-    return new Promise((resolve, reject) => {
-      db.getAllAsync(`SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}" ORDER BY ${orderBY}`)
-        .then((result) => {
-          resolve(result)
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    })
+    const allowedOrders = ['id ASC', 'id DESC', 'capture_id ASC', 'capture_id DESC'];
+    const safeOrder = allowedOrders.includes(orderBY) ? orderBY : 'id ASC';
+    return db.getAllAsync(
+      `SELECT * FROM captures WHERE sequence_uuid = ? ORDER BY ${safeOrder}`,
+      [sequence_uuid],
+    );
   }
 
-  //check if the capture_id of the sequence_uuid is null for all rows
   async isCaptureIdNull(sequence_uuid) {
-    const result = await db.getAllAsync(`SELECT * FROM captures WHERE sequence_uuid="${sequence_uuid}" AND capture_id IS NULL`)
-    return result.length > 0
+    const result = await db.getAllAsync(
+      `SELECT * FROM captures WHERE sequence_uuid = ? AND capture_id IS NULL`,
+      [sequence_uuid],
+    );
+    return result.length > 0;
   }
 
   getGroupByWithSequenceUUID() {
-    return new Promise((resolve, reject) => {
-        db.getAllAsync(`SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`)
-          .then((result) => resolve(result))
-          .catch((error) => reject(error))
-      })
+    return db.getAllAsync(
+      `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
+    );
   }
 
-  getGroupByWithGroupID() {
-    return new Promise((resolve, reject) => {
-      db.getAllAsync(`SELECT *, COUNT(*) as count FROM captures GROUP BY group_id ORDER BY id DESC`)
-        .then((results) => {
-          const groups = results.filter((item) => {
-            if (item.count >= 5) {
-              return item
-            }
-
-            // Delete group if it has less than 5 images
-            this.deleteByGroupID(item.group_id)
-            let path =  RNFS.DocumentDirectoryPath
-            if (item.default_storage_path === 'external') {
-              RNFS.getAllExternalFilesDirs().then((dirs) => {
-                path = dirs[1]
-              })
-            }
-            RNFS.unlink(path + `/${item.group_id}`)
-          })
-          resolve(groups)
-        })
-        .catch((error) => reject(error))
-    })
+  async getGroupByWithGroupID() {
+    const results = await db.getAllAsync(
+      `SELECT *, COUNT(*) as count FROM captures GROUP BY group_id ORDER BY id DESC`,
+    );
+    const groups = [];
+    for (const item of results) {
+      if (item.count >= 5) {
+        groups.push(item);
+      } else {
+        this.deleteByGroupID(item.group_id);
+        let path = RNFS.DocumentDirectoryPath;
+        if (item.default_storage_path === 'external') {
+          try {
+            const dirs = await RNFS.getAllExternalFilesDirs();
+            path = dirs[1];
+          } catch {}
+        }
+        RNFS.unlink(`${path}/${item.group_id}`).catch(() => {});
+      }
+    }
+    return groups;
   }
 
   /**
@@ -141,18 +125,14 @@ class Database {
    * @param callback {function}
    * @param errorCallback {function}
    */
-  deleteByGroupID(group_id, callback, errorCallback = (_, error) => toast.show(`${error}`, {type: 'error'})) {
-    db.runAsync(`DELETE FROM captures where group_id = '${group_id}'`)
+  deleteByGroupID(group_id, callback, errorCallback) {
+    db.runAsync(`DELETE FROM captures WHERE group_id = ?`, [group_id])
       .then(callback)
-      .catch(errorCallback)
+      .catch(errorCallback);
   }
 
   deleteById(id) {
-    return new Promise((resolve, reject) => {
-      db.runAsync(`DELETE FROM captures where id='${id}'`)
-        .then(resolve)
-        .catch(reject)
-    })
+    return db.runAsync(`DELETE FROM captures WHERE id = ?`, [id]);
   }
 
   /**
@@ -160,127 +140,131 @@ class Database {
    * @returns {Promise}
    */
   getCaptures(uuid = null) {
-    const query = uuid ? `SELECT * FROM captures WHERE group_id='${uuid}' ORDER BY id ASC` : `SELECT * FROM captures`;
+    const query = uuid
+      ? `SELECT * FROM captures WHERE group_id = ? ORDER BY id ASC`
+      : `SELECT * FROM captures`;
+    const params = uuid ? [uuid] : [];
 
     return new Promise((resolve, reject) => {
-      db.getAllAsync(query)
-        .then((results) => {
+      db.getAllAsync(query, params)
+        .then(async (results) => {
           if (results.length < 5 && results.length > 0) {
-            this.deleteByGroupID(results[0].group_id, async () => {
-              let path = `${RNFS.DocumentDirectoryPath}`
-              if (results[0].default_storage_path === 'external') {
-                const externalPath = await RNFS.getAllExternalFilesDirs()
-                path = externalPath[1]
-              }
-              await RNFS.unlink(path + `${results[0].group_id}`)
-            })
-            reject('Group has less than 5 images')
+            let path = RNFS.DocumentDirectoryPath;
+            if (results[0].default_storage_path === 'external') {
+              try {
+                const externalPath = await RNFS.getAllExternalFilesDirs();
+                path = externalPath[1];
+              } catch {}
+            }
+            this.deleteByGroupID(results[0].group_id);
+            RNFS.unlink(`${path}/${results[0].group_id}`).catch(() => {});
+            return reject('Group has less than 5 images');
           }
-          resolve(results)
+          resolve(results);
         })
-        .catch((error) => reject(error))
-    })
+        .catch(reject);
+    });
   }
 
   getCapturesByGroupID(groupId) {
-    return db.getAllAsync(`SELECT * FROM captures WHERE group_id='${groupId}'`)
+    return db.getAllAsync(`SELECT * FROM captures WHERE group_id = ?`, [groupId]);
   }
 
   /**
    * Get first capture by group id
    * @param groupId {string}
-   * @returns {Promise<unknown>}
+   * @returns {Promise}
    */
   getFirstWithGroupID(groupId) {
-    return new Promise((resolve, reject) => {
-      db.getFirstAsync(`SELECT * FROM captures WHERE group_id='${groupId}' ORDER BY id ASC`)
-        .then((result) => resolve(result))
-        .catch((error) => reject(error));
-    });
+    return db.getFirstAsync(
+      `SELECT * FROM captures WHERE group_id = ? ORDER BY id ASC`,
+      [groupId],
+    );
   }
 
   /**
    * Get last capture by group id
    * @param groupId
-   * @returns {Promise<unknown>}
+   * @returns {Promise}
    */
   getLastWithGroupID(groupId) {
-    return new Promise((resolve, reject) => {
-      db.getFirstAsync(`SELECT * FROM captures WHERE group_id='${groupId}' ORDER BY id DESC`)
-        .then((result) => resolve(result))
-        .catch((error) => reject(error));
-    });
+    return db.getFirstAsync(
+      `SELECT * FROM captures WHERE group_id = ? ORDER BY id DESC`,
+      [groupId],
+    );
   }
 
   /**
    * Update capture by id
    *
    * @param id {string} Capture id
-   * @param data {Object} Data object (key-value) (e.g. {name: 'test'})
-   * @returns {Promise} Promise with updated capture data (array) or error (object)
-   *
+   * @param data {Object} Data object with whitelisted column keys (e.g. {hash: 'abc123'})
+   * @returns {Promise}
    */
   updateById(id, data) {
-    return new Promise((resolve, reject) => {
-      db.runAsync(`UPDATE captures SET ${Object.keys(data).map(key => `${key}='${data[key]}'`).join(',')} WHERE id='${id}'`)
-        .then(() => resolve())
-        .catch((error) => reject(error));
-    });
+    const keys = Object.keys(data).filter(key => ALLOWED_UPDATE_COLUMNS.includes(key));
+    if (keys.length === 0) return Promise.reject(new Error('No valid columns to update'));
+    const values = keys.map(key => data[key]);
+    const setClause = keys.map(key => `${key} = ?`).join(', ');
+    return db.runAsync(`UPDATE captures SET ${setClause} WHERE id = ?`, [...values, id]);
   }
 
   /**
-   * Delete captures by ids with fileSystem (delete files) and database (delete rows) (async) (promise)
-   * @param images {Array<{id: string, path: string}>} Array of images (id and path) to delete (e.g. [{id: '1', path: 'test.jpg'}]) (path is relative to documentDirectory)
-   * @returns {Promise} Promise with deleted rows (array) or error (object)
+   * Delete captures by ids with fileSystem (delete files) and database (delete rows)
+   * @param images {Array<{id: string, path: string, default_storage_path?: string}>}
+   * @returns {Promise}
    */
-  deleteCapturesByIds(images) {
-    return new Promise((resolve, reject) => {
-      db.runAsync(`DELETE FROM captures WHERE id IN (${images.map(({id}) => `'${id}'`).join(',')})`)
-        .then(() => {
-          images.forEach((item) => {
-            let path = `${RNFS.DocumentDirectoryPath}}`;
-            if (item.default_storage_path === 'external') {
-              RNFS.getAllExternalFilesDirs().then((dirs) => {
-                path = dirs[1];
-              });
-            }
-            RNFS.unlink(path + item.path);
-          });
-        })
-        .catch((error) => reject(error));
-    });
+  async deleteCapturesByIds(images) {
+    const placeholders = images.map(() => '?').join(', ');
+    const ids = images.map(({ id }) => id);
+    await db.runAsync(`DELETE FROM captures WHERE id IN (${placeholders})`, ids);
+
+    await Promise.allSettled(
+      images.map(async (item) => {
+        let path = RNFS.DocumentDirectoryPath;
+        if (item.default_storage_path === 'external') {
+          const dirs = await RNFS.getAllExternalFilesDirs();
+          path = dirs[1];
+        }
+        return RNFS.unlink(path + item.path);
+      }),
+    );
   }
 
   /**
    * Getting total image count
-   * @param group_uuid {string} Group uuid (optional)
-   * @returns {Promise<Promise<Array|Object> | Promise>} Promise with total image count (number) or error (object)
+   * @param group_uuid {string|undefined}
+   * @returns {Promise<number>}
    */
   getTotalImageCount = async (group_uuid) => {
-    return new Promise((resolve, reject) => {
-      db.getAllAsync(`SELECT COUNT(*) FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''}`)
-        .then((results) => {
-          resolve(results[0]['COUNT(*)']);
-        })
-        .catch((error) => reject(error));
-    });
-  }
+    const query = group_uuid
+      ? `SELECT COUNT(*) as total FROM captures WHERE group_id = ?`
+      : `SELECT COUNT(*) as total FROM captures`;
+    const params = group_uuid ? [group_uuid] : [];
+    const result = await db.getFirstAsync(query, params);
+    return result?.total ?? 0;
+  };
 
   /**
-   * Getting grouped sequences for upload (promise) (async)
+   * Getting grouped sequences for upload
    *
-   * @param group_uuid {string|null} Group uuid to get sequences for upload (optional)
-   * @returns {Promise<Array|Object> | Promise} Promise with sequences for upload (array) or error (object)
+   * @param group_uuid {string|undefined}
+   * @returns {Promise<{sequences: Array, total: number}>}
    */
   getSequencesForUpload(group_uuid) {
+    const query = group_uuid
+      ? `SELECT sequence_uuid FROM captures WHERE group_id = ? GROUP BY sequence_uuid ORDER BY id ASC`
+      : `SELECT sequence_uuid FROM captures GROUP BY sequence_uuid ORDER BY id ASC`;
+    const params = group_uuid ? [group_uuid] : [];
+
     return new Promise((resolve, reject) => {
-        db.getAllAsync(`SELECT sequence_uuid FROM captures ${group_uuid ? 'WHERE group_id="' + group_uuid + '"' : ''} GROUP BY sequence_uuid ORDER BY id ASC`)
-          .then(async (results) => {
-            const total = await this.getTotalImageCount(group_uuid)
-            resolve({sequences: results, total})
-          })
-          .catch((error) => reject(error))
-      });
+      db.getAllAsync(query, params)
+        .then(async (results) => {
+          const total = await this.getTotalImageCount(group_uuid);
+          resolve({ sequences: results, total });
+        })
+        .catch(reject);
+    });
   }
 }
 

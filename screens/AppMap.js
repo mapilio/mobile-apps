@@ -165,9 +165,7 @@ const AppMap = ({ navigation }) => {
   };
 
   const onDidFinishLoadingMap = () => {
-    setTimeout(() => {
-      setIsMapReady(true);
-    }, 500);
+    setIsMapReady(true);
   };
 
   const PanoLoading = () => {
@@ -187,7 +185,7 @@ const AppMap = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {!isMapReady && <MapLoading />}
+      {!isMapReady && <MapLoading style={{position: "absolute", zIndex: 10}} />}
       {isPanoLoading && <PanoLoading />}
       <NewsletterModal />
 
@@ -215,8 +213,8 @@ const AppMap = ({ navigation }) => {
           zoomLevel={6}
           centerCoordinate={initialCoordinate.current?.geometry?.coordinates}
         />
-        <Points touchPoint={touchPoint} />
-        <Lines zoomPoint={zoomPoint} />
+        {isMapReady && <Points touchPoint={touchPoint} />}
+        {isMapReady && <Lines zoomPoint={zoomPoint} />}
 
         {showLocation && (
           <MapLibreGL.UserLocation

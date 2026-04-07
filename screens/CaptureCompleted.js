@@ -15,7 +15,7 @@ import {Routes} from "../navigator/Routes";
 import {useNavigation} from "@react-navigation/native";
 import {Upload} from "../components/Uploads";
 import { FocusAwareStatusBar } from "../components";
-import * as RNFS from 'react-native-fs';
+import * as RNFS from '../util/fs';
 
 const CaptureCompleted = () => {
   const [totalSize, setTotalSize] = useState(0);

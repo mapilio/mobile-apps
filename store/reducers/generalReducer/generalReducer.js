@@ -9,7 +9,8 @@ import {
   SET_MAP_MODE,
   SET_MAINTENANCE_MODE,
   SET_CONFIG,
-  SET_MAIL_MODAL_SHOWN
+  SET_MAIL_MODAL_SHOWN,
+  SET_DARK_MODE
 } from "../../actionsName";
 
 const INITIAL_STATE = {
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   currentFeedSequence: null,
   language: 'en',
   currentPosition: undefined,
+  darkMode: false,
   debugMode: false,
   mapShown: true,
   maintenanceMode: false,
@@ -114,6 +116,11 @@ const generalReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         shouldShowMailModal: action.payload,
+      }
+    case SET_DARK_MODE:
+      return {
+        ...state,
+        darkMode: action.payload,
       }
     case SET_CONFIG:
       return {

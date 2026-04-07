@@ -6,7 +6,7 @@ import { userFeedStyles } from "../styles/userProfileStyle";
 import {useDispatch} from "react-redux";
 import { ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES } from "../store/actionsName";
 import { dateConvert } from "../helper/helper";
-// import * as RNFS from "react-native-fs";
+import {DocumentDirectoryPath} from "../util/fs";
 import {useTranslation} from "react-i18next";
 
 const UserFeed = ({navigation, data}) => {
@@ -14,7 +14,7 @@ const UserFeed = ({navigation, data}) => {
   const {t} = useTranslation("upload");
   const exif = JSON.parse(data.exif)
   const [sdCardPath, setSdCardPath] = React.useState(null);
-  const path = data.default_storage_path === 'external' ? sdCardPath : RNFS.DocumentDirectoryPath
+  const path = data.default_storage_path === 'external' ? sdCardPath : DocumentDirectoryPath
 
   // useEffect(() => {
   //   if (data.default_storage_path === 'external') {

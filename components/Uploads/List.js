@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {View, TouchableOpacity, Alert, Text} from "react-native";
+import React, {useCallback, useEffect, useState} from "react";
+import {View, TouchableOpacity, Alert, Text, RefreshControl} from "react-native";
 import {userUploadStyles} from "../../styles/userUploadStyle";
 import {UserFeed} from "../index";
 import {NoUpload, Trash} from "../../assets/svg/illustrations";
@@ -8,7 +8,7 @@ import {SwipeListView} from "react-native-swipe-list-view";
 import database from "../../db";
 import {useDispatch, useSelector} from "react-redux";
 import {UPLOAD_DATA} from "../../store/actionsName";
-import * as RNFS from "react-native-fs";
+import * as RNFS from "../../util/fs";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 
@@ -16,6 +16,7 @@ const List = ({ navigation }) => {
   const {uploadData} = useSelector((status) => status.uploadReducer);
   const {t} = useTranslation("upload");
   const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState(false);
 
   const deleteSequence = (group_id) => {
 
@@ -46,6 +47,12 @@ const List = ({ navigation }) => {
   };
 
   useEffect(() => getData(), []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    getData();
+    setRefreshing(false);
+  }, []);
 
   const deleteRow = (sequence_uuid) => {
     Alert.alert(
@@ -122,6 +129,9 @@ const List = ({ navigation }) => {
       previewRowKey={"0"}
       previewOpenValue={-40}
       previewOpenDelay={3000}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#0056F1" />
+      }
     />
   );
 };
