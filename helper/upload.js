@@ -63,7 +63,7 @@ export const getHash = async (image) => {
       headers: {'Content-Type': 'multipart/form-data'}
     })
 
-    await db.queryAsync(`UPDATE captures SET uploaded=1, hash='${response.files[0].hash}' WHERE id=${image.id}`)
+    await db.runAsync('UPDATE captures SET uploaded=1, hash=? WHERE id=?', [response.files[0].hash, image.id])
     return {status: 'success', hash: response.files[0].hash}
   } catch (error) {
     captureException(error, {

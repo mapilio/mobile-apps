@@ -72,6 +72,10 @@ class Database {
     return db.execAsync(query);
   }
 
+  runAsync(sql, params = []) {
+    return db.runAsync(sql, params);
+  }
+
   getCapturesBySequenceIdAsync(sequence_uuid, orderBY = 'id ASC') {
     const allowedOrders = ['id ASC', 'id DESC', 'capture_id ASC', 'capture_id DESC'];
     const safeOrder = allowedOrders.includes(orderBY) ? orderBY : 'id ASC';
