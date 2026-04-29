@@ -19,9 +19,7 @@ const SelectedProject = ({ projectName }) => {
 const styles = StyleSheet.create({
   wrapper: {
     borderRadius: RFValue(15),
-    borderRadius: RFValue(20),
     paddingHorizontal: RFValue(20),
-    borderRadius: RFValue(15),
     backgroundColor: "#FBA63C",
     flexDirection: "row",
     alignItems: "center",
