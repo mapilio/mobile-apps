@@ -145,7 +145,7 @@
       },
       "bad_gps": {
         "title": "GPS accuracy is too low",
-        "description": "Shooting will continue when the GPS alert icon turns green."
+        "description": "Current accuracy: {{accuracy}} m — waiting for < 35 m. Shooting will resume when the indicator shows 'Good GPS'."
       },
       "gps": {
         "title": "GPS Searching",

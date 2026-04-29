@@ -61,11 +61,12 @@ const cameraAlerts = {
     )
   },
   gpsAlert: () => {
+    const accuracy = store.getState().cameraReducer.accuracy;
     return (
       <Alert
         svg={<BadGPS width={RFValue(34)} height={RFValue(30)}/>}
         title={translate("warning.bad_gps.title")}
-        content={translate("warning.bad_gps.description")}
+        content={translate("warning.bad_gps.description", {accuracy})}
       />
     )
   },

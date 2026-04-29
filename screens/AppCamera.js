@@ -54,6 +54,10 @@ const AppCamera = () => {
           type: UPDATE_GPS_ACCURACY,
           payload: coords.accuracy <= 35,
         });
+        dispatch({
+          type: UPDATE_ACCURACY,
+          payload: Math.round(coords.accuracy),
+        });
       }
     ).catch((error) => {
       captureException(error, {
