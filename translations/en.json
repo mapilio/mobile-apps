@@ -153,7 +153,7 @@
       },
       "angle": {
         "title": "Adjust your camera angle",
-        "description": "Shooting will continue when the your rotation true."
+        "description": "Shooting will resume once your camera angle is correct."
       }
     },
     "success_capture": "Your capture has been saved! Press the 'Start' button to capture again.",
