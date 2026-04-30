@@ -2,7 +2,7 @@ import {Animated, Dimensions, Easing, ImageBackground, Text, View} from "react-n
 import {NoUpload} from "../../assets/svg/illustrations";
 import styles from "./EmptyList.styles";
 import {useTranslation} from "react-i18next";
-import Carousel, {Pagination} from "react-native-snap-carousel";
+import PagerView from "react-native-pager-view";
 import {getContentAreaHeight} from "../../helper/helper";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {RFValue} from "react-native-responsive-fontsize";
@@ -10,12 +10,14 @@ import {useEffect, useRef, useState} from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import {tabHeight} from "../../util/consts/ui";
 
+const AUTOPLAY_INTERVAL = 3000;
+
 const EmptyList = () => {
   const {t} = useTranslation("upload");
   const {width} = Dimensions.get("window");
   const {top, bottom} = useSafeAreaInsets();
   const [activeSlide, setActiveSlide] = useState(0);
-  const carouselRef = useRef();
+  const pagerRef = useRef();
 
   const carousel = [
     {
@@ -39,6 +41,14 @@ const EmptyList = () => {
       image: require('../../assets/images/emergencies.png')
     },
   ];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const next = (activeSlide + 1) % carousel.length;
+      pagerRef.current?.setPage(next);
+    }, AUTOPLAY_INTERVAL);
+    return () => clearTimeout(timer);
+  }, [activeSlide]);
 
   const _renderItem = ({item}) => {
     return (
@@ -69,7 +79,6 @@ const EmptyList = () => {
     const defaultDotWidth = Default.interpolate({inputRange: [0, 1], outputRange: [RFValue(10), RFValue(24)]})
     const activeDotWidth = Active.interpolate({inputRange: [0, 1], outputRange: ['0%', '100%']})
 
-
     return (
       <Animated.View style={{...styles.dotStyle, width: defaultDotWidth, overflow: 'hidden'}}>
         <Animated.View style={{...styles.dotStyleActive, width: activeDotWidth}}/>
@@ -86,29 +95,25 @@ const EmptyList = () => {
       </View>
 
       <View>
-        <Carousel
-          ref={carouselRef}
-          sliderWidth={width}
-          itemWidth={width}
-          data={carousel}
-          renderItem={_renderItem}
-          loop={true}
-          autoplay={true}
-          autoplayInterval={3000}
-          onSnapToItem={setActiveSlide}
-          activeAnimationType={'spring'}
-        />
+        <PagerView
+          ref={pagerRef}
+          style={{width, height: RFValue(140)}}
+          initialPage={0}
+          onPageSelected={(e) => setActiveSlide(e.nativeEvent.position)}>
+          {carousel.map((item, index) => (
+            <View key={index}>
+              {_renderItem({ item })}
+            </View>
+          ))}
+        </PagerView>
 
-        <Pagination
-          activeDotIndex={activeSlide}
-          dotsLength={carousel.length}
-          dotStyle={styles.dotStyle}
-          inactiveDotStyle={styles.inactiveDotStyle}
-          inactiveDotOpacity={1}
-          inactiveDotElement={<View style={styles.inactiveDotStyle} />}
-          dotElement={<ActiveDot />}
-          containerStyle={styles.paginationContainer}
-        />
+        <View style={[styles.paginationContainer, {flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}]}>
+          {carousel.map((_, i) => (
+            i === activeSlide
+              ? <ActiveDot key={i} />
+              : <View key={i} style={styles.inactiveDotStyle} />
+          ))}
+        </View>
       </View>
     </View>
   );

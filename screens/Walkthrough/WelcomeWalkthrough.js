@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import {
-  Dimensions,
   View,
   Image,
   SafeAreaView,
   StyleSheet,
   Platform,
 } from "react-native";
-import Carousel, { Pagination } from "react-native-snap-carousel";
+import PagerView from "react-native-pager-view";
 import { Next, Skip } from "../../components/Walkthrough/WelcomeWalkthrough";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CustomText, CustomTextBold } from "../../highordercomponents";
@@ -17,7 +16,6 @@ import { sliderData } from "../../util/consts/walkthrough/welcome";
 
 const WelcomeWalkthrough = () => {
   const { t } = useTranslation("welcome_walkthrough");
-  const width = Dimensions.get("window").width;
   const [activeStep, setActiveStep] = useState(0);
 
   const _renderItem = ({ item, index }) => {
@@ -31,17 +29,13 @@ const WelcomeWalkthrough = () => {
     const resizeMode = isMoveOn && Platform.isPad ? "stretch" : "contain";
 
     return (
-      <View
-        style={{
-          flex: 1,
-        }}
-      >
+      <View key={index} style={{ flex: 1 }}>
         <Image
           style={{
             width: "100%",
             height: "70%",
             marginTop: "auto",
-            marginBottom:-30,
+            marginBottom: -30,
             resizeMode,
           }}
           source={imageSource}
@@ -73,7 +67,7 @@ const WelcomeWalkthrough = () => {
   };
 
   const isLastStep = activeStep === sliderData.length - 1;
-  
+
   return (
     <SafeAreaView style={styles.wrapper}>
       <FocusAwareStatusBar
@@ -84,33 +78,28 @@ const WelcomeWalkthrough = () => {
 
       {!isLastStep && <Skip />}
 
-      <Carousel
-        ref={(c) => {
-          this._carousel = c;
-        }}
-        data={sliderData}
-        sliderWidth={width}
-        itemWidth={width}
-        renderItem={_renderItem}
-        onSnapToItem={(index) => setActiveStep(index)}
-        style={{
-          height: "80%",
-        }}
-      />
+      <PagerView
+        style={styles.pager}
+        initialPage={0}
+        onPageSelected={(e) => setActiveStep(e.nativeEvent.position)}>
+        {sliderData.map((item, index) => _renderItem({ item, index }))}
+      </PagerView>
 
       <View style={styles.sliderNavigation}>
-        <Pagination
-          containerStyle={{ paddingLeft: RFValue(20) }}
-          dotsLength={sliderData.length}
-          activeDotIndex={activeStep}
-          dotStyle={{
-            height: RFValue(4),
-            width: RFValue(27),
-            backgroundColor: "#1976D2",
-          }}
-          inactiveDotStyle={{ width: RFValue(17) }}
-          inactiveDotScale={1}
-        />
+        <View style={styles.dots}>
+          {sliderData.map((_, i) => (
+            <View
+              key={i}
+              style={[
+                styles.dot,
+                {
+                  width: i === activeStep ? RFValue(27) : RFValue(17),
+                  backgroundColor: i === activeStep ? "#1976D2" : "#C0C0C0",
+                },
+              ]}
+            />
+          ))}
+        </View>
         <Next activeStep={activeStep} dataLength={sliderData.length} />
       </View>
     </SafeAreaView>
@@ -124,12 +113,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  pager: {
+    width: "100%",
+    height: "80%",
+  },
   sliderNavigation: {
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
     height: "10%",
     justifyContent: "space-between",
+  },
+  dots: {
+    flexDirection: "row",
+    paddingLeft: RFValue(20),
+    alignItems: "center",
+  },
+  dot: {
+    height: RFValue(4),
+    borderRadius: RFValue(2),
+    marginRight: RFValue(4),
   },
   textContainer: {
     marginBottom: RFValue(3),

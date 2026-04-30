@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from "react";
-import {View, Dimensions} from "react-native";
+import {View} from "react-native";
 import {CustomText} from "../../highordercomponents";
-import Carousel, {Pagination} from "react-native-snap-carousel";
+import PagerView from "react-native-pager-view";
 import {walkthroughStyle} from "../../styles/walkthroughStyle";
 import {Next, Prev, Start} from "../../components/Walkthrough/CaptureWalkthrough";
 import {useDispatch} from "react-redux";
@@ -9,8 +9,6 @@ import {CleanRoad, Orientation, Road} from "../../assets/svg/illustrations";
 import {IS_ACTIVE} from "../../store/actionsName";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
-
-const width = Dimensions.get("window").width;
 
 const _renderItem = ({ item, i }) => {
   return (
@@ -25,7 +23,7 @@ const _renderItem = ({ item, i }) => {
 const CaptureWalkthrough = () => {
   const [modalVisible, setModalVisible] = useState(true);
   const {t} = useTranslation("camera_walkthrough");
-  const carouselRef = useRef();
+  const pagerRef = useRef();
   const dispatch = useDispatch();
   const [active, setActive] = useState(0);
   const data = [
@@ -66,32 +64,31 @@ const CaptureWalkthrough = () => {
   return (
     <View style={walkthroughStyle.centeredView}>
       <View style={walkthroughStyle.modalView}>
-        <Carousel
-          ref={carouselRef}
-          data={data}
-          sliderWidth={width}
-          itemWidth={width}
-          renderItem={_renderItem}
-          removeClippedSubviews={false}
-          onSnapToItem={(index) => setActive(index)}
-        />
+        <PagerView
+          ref={pagerRef}
+          style={{flex: 1}}
+          initialPage={0}
+          onPageSelected={(e) => setActive(e.nativeEvent.position)}>
+          {data.map((item, i) => _renderItem({ item, i }))}
+        </PagerView>
         <View style={walkthroughStyle.pagination}>
           <Prev
             active={active}
-            onPress={() => carouselRef.current?.snapToPrev()}
+            onPress={() => pagerRef.current?.setPage(active - 1)}
             desc={t("prev")}
           />
-          <Pagination
-            dotsLength={data.length}
-            activeDotIndex={active}
-            dotStyle={walkthroughStyle.dotStyle}
-            inactiveDotStyle={walkthroughStyle.inactiveDotStyle}
-            inactiveDotScale={1}
-          />
+          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            {data.map((_, i) => (
+              <View
+                key={i}
+                style={i === active ? walkthroughStyle.dotStyle : walkthroughStyle.inactiveDotStyle}
+              />
+            ))}
+          </View>
           <Next
             active={active}
             dataLength={data.length}
-            onPress={() => carouselRef.current?.snapToNext()}
+            onPress={() => pagerRef.current?.setPage(active + 1)}
             desc={t("next")}
           />
           <Start
