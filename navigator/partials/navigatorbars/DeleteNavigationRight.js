@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-// import * as RNFS from "react-native-fs";
+import * as RNFS from "react-native-fs";
 import db from "../../../db";
 import {CustomText} from "../../../highordercomponents";
 import {deleteRight} from "../../../styles/navigatorBarStyles";
