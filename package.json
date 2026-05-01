@@ -10,7 +10,7 @@
     "ios": "expo run:ios",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "test:ci": "jest --ci",
+    "test:ci": "jest --ci --coverage --coverageReporters=json-summary --coverageReporters=text",
     "lint": "eslint . --ext .js,.ts,.tsx --ignore-pattern node_modules --ignore-pattern android --ignore-pattern ios --ignore-pattern .expo",
     "postinstall": "node scripts/patch-onesignal-codegen.js"
   },
@@ -147,7 +147,12 @@
       "util/fs.js",
       "util/helpers/**/*.js",
       "!**/__tests__/**"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 15
+      }
+    }
   },
   "private": true
 }

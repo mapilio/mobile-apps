@@ -31,7 +31,7 @@ jobs:
       - name: TypeScript — type check
         run: npx tsc --noEmit
 
-      - name: Jest — run tests
+      - name: Jest — run tests with coverage
         run: npm run test:ci
 
       - name: Upload coverage report
@@ -41,6 +41,33 @@ jobs:
           name: coverage
           path: coverage/
           retention-days: 7
+
+      - name: Extract coverage percentage
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        id: coverage
+        run: |
+          LINES=$(node -e "const s=require('./coverage/coverage-summary.json');console.log(s.total.lines.pct)")
+          echo "lines=$LINES" >> $GITHUB_OUTPUT
+
+      - name: Update coverage badge (main branch only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: Schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: ${{ vars.COVERAGE_GIST_ID }}
+          filename: mapilio-coverage.json
+          label: coverage
+          message: ${{ steps.coverage.outputs.lines }}%
+          valColorRange: ${{ steps.coverage.outputs.lines }}
+          maxColorRange: 80
+          minColorRange: 0
+
+      - name: Post coverage comment on PR
+        if: github.event_name == 'pull_request'
+        uses: MishaKav/jest-coverage-comment@v1.0.29
+        with:
+          coverage-summary-path: coverage/coverage-summary.json
+          title: Test Coverage
 
   bundle-check:
     name: Expo Bundle Smoke Test
