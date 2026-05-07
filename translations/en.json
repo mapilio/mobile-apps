@@ -59,7 +59,7 @@
   },
   "profile_settings": {
     "profile_edit": "Profile Edit",
-    "licences": "Licences",
+    "licences": "Licenses",
     "terms_and_conditions": "Terms & Conditions",
     "privacy": "Privacy Policy",
     "about": "About",
@@ -91,7 +91,7 @@
   },
   "upload_complete": {
     "title": "Upload Completed",
-    "description": "Your data is being processed... You will be notified by e-mail when your images are published on Mapilio.",
+    "description": "Your data is being processed... You will be notified by email when your images are published on Mapilio.",
     "go_to_map": "Go To Map"
   },
   "welcome_walkthrough": {
@@ -239,7 +239,7 @@
     },
     "contribute_to_our_environment": {
       "title": "Contribute to our environment",
-      "description": "We all dream a cleaner and accessible world, Lets create better map for everyone by contributing Mapilio."
+      "description": "We all dream a cleaner and accessible world. Let's create better maps for everyone by contributing to Mapilio."
     },
     "traffic_problem": {
       "title": "Traffic problem",
@@ -293,8 +293,8 @@
     "or": "or",
     "login_success": "Login successful ",
     "error": "An error occurred, try again later.",
-    "mail_error": "You are not a member because we cannot access your e-mail address. Please give mail permission or register another way.",
-    "enter_email": "Please enter your e-mail address."
+    "mail_error": "You are not a member because we cannot access your email address. Please give mail permission or register another way.",
+    "enter_email": "Please enter your email address."
   },
   "register": {
     "title": "Sign up to see what's on your map.",
@@ -306,7 +306,7 @@
     "email_required": "Email address is required",
     "email_not_valid": "Please enter valid email",
     "pass_min_character": "Password must be at least {{min}} characters",
-    "account_created": "Your account has been created, check your e-mail address.",
+    "account_created": "Your account has been created, check your email address.",
     "redirect_error": "An error occurred while redirecting, please try again.",
     "policy": "By clicking \"Sign up\" button you agree with our\n <0>Privacy Policy</0> and <1>Terms & Conditions</1>.",
     "register_error": "There was an error with the server, please try again later."
@@ -316,12 +316,12 @@
     "description": "Enter your email associated with your Mapilio account. We'll send you a link to reset your password.",
     "email": "Email Address",
     "reset_link": "Send reset link",
-    "reset_success": "The reset request has been sent to the e-mail address."
+    "reset_success": "The reset request has been sent to the email address."
   },
   "leaderboard": {
     "title": "Leaderboard",
     "how_to_score": "How to \nscore?",
-    "alltime_description": "Top 30 Community members helping grow the Mapilio!",
+    "alltime_description": "Top 30 Community members helping grow Mapilio!",
     "users": "Users",
     "organizations": "Organizations",
     "fetch_error": "There was a problem for fetching Leaderboard. Please try again.",
@@ -339,7 +339,7 @@
     "winners_title": "And the winners of \n Mapilio"
   },
   "upload_modal": {
-    "title": "Lets Create More Up To\nDate Maps",
+    "title": "Let's Create More Up To\nDate Maps",
     "subtitle": "Make a positive impact in your region, Contribute to reliable mapping, Take your high position on leaderboard",
     "sequences": "Sequences",
     "images": "Images",
@@ -424,7 +424,7 @@
     "inappropriate_content": "Inappropriate Content",
     "low_quality": "Low Quality",
     "other": "Other",
-    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by e-mail.",
+    "report_success": "Your report has been sent successfully. Necessary investigations will be made and you will be informed by email.",
     "report_error": "An error occurred while reporting. Please try again later."
   },
   "languages": {
