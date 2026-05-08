@@ -4,13 +4,11 @@
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-To report a vulnerability privately, email **security@mapilio.com** with:
+To report a vulnerability privately, email **info@mapilio.com** with:
 
 - A description of the vulnerability and its potential impact
 - Steps to reproduce or a proof of concept
 - Any relevant logs, screenshots, or code references
-
-> **Note:** This address is a placeholder — to be confirmed by the Mapilio team before public launch. See [#7](https://github.com/mapilio/mobile-apps/issues/7).
 
 We will acknowledge your report within 5 business days and aim to provide a fix or mitigation plan within 30 days, depending on severity.
 
