@@ -2,7 +2,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import { useState } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonPlaceholder from "../Skeleton";
 
 const ListImage = ({ onPress, item }) => {
   const [isLoaded, setIsLoaded] = useState(false);

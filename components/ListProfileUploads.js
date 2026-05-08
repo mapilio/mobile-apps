@@ -3,7 +3,7 @@ import {View} from "react-native";
 import {RFValue} from "react-native-responsive-fontsize";
 import {globalStyles} from "../styles/globalStyles";
 import {FeedImageCard} from "./index";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonPlaceholder from "./Skeleton";
 import {CustomText, CustomTextMedium} from "../highordercomponents";
 import {userSequenceStyles} from "../styles/userSequenceStyle";
 import {ActivityIndicator} from "react-native-paper";

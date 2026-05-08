@@ -14,7 +14,7 @@ import {Routes} from "../../navigator/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import db from "../../db";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonPlaceholder from "../Skeleton";
 import {scoreCalculate} from "../../util/helpers";
 import {search} from "../../util/helpers/api";
 
