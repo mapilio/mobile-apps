@@ -16,7 +16,7 @@ Please do not disclose the issue publicly until we have had the opportunity to i
 
 ## Scope
 
-This policy covers the Mapilio mobile app (this repository) and the Mapilio API it communicates with (`api.mapilio.com`).
+This policy covers the Mapilio mobile app (this repository) and the Mapilio API it communicates with (`end.mapilio.com`).
 
 ## Imagery Privacy
 
