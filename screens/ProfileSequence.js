@@ -10,6 +10,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import {styles} from "../styles/circleStyles";
 import {Routes} from "../navigator/Routes";
 import {ActivityIndicator} from "react-native-paper";
+import { captureException } from '@sentry/react-native';
 import {setGeoJson} from "../helper/geojson";
 
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -71,7 +72,7 @@ const UserSequence = ({ navigation, route }) => {
         setImagesList(newImageList);
         setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => captureException(err));
   };
 
   const fetchMapNext = (foreignURL) => {
@@ -82,7 +83,7 @@ const UserSequence = ({ navigation, route }) => {
         setMapList(newImageList);
         getMap();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => captureException(err));
   };
 
   const getMap = () => {

@@ -9,7 +9,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-package-lock.json
 yarn.lock
 android/*
 ios/Podfile.lock
@@ -102,7 +101,6 @@ captures/
 
 # Google Services (e.g. APIs or Firebase)
 # google-services.json
-package-lock.json
 
 # Freeline
 freeline.py

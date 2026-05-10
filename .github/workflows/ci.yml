@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [master, expo]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   test:
@@ -42,7 +42,7 @@ jobs:
     name: Expo Bundle Smoke Test
     runs-on: ubuntu-latest
     # Only run on pushes to master to save CI minutes on every PR
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout
