@@ -345,7 +345,8 @@
     "images": "Images",
     "stop_upload": "Stop Upload",
     "pause": "Pause",
-    "resume": "Resume"
+    "resume": "Resume",
+    "calculating": "Calculating…"
   },
   "no_internet": {
     "title": "You do not have an internet connection",
