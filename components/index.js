@@ -13,7 +13,6 @@ export { default as PhotoAmounts } from "./PhotoAmounts";
 export { default as RecordStatus } from "./RecordStatus";
 export { default as RotationLine } from "./RotationLine";
 export { default as CameraAlert } from "./CameraAlert";
-export { default as TabsBar } from "./TabsBar";
 export { default as SocialLogin } from "./SocialLogin";
 export { default as ProfileFeed } from "./ProfileFeed";
 export { default as FeedImageCard } from "./FeedImageCard";
