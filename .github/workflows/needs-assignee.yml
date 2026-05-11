@@ -1,0 +1,57 @@
+name: Needs Assignee
+
+on:
+  issues:
+    types: [opened, reopened, assigned, unassigned]
+  pull_request_target:
+    types: [opened, reopened, assigned, unassigned]
+  schedule:
+    - cron: '0 9 * * 1'  # Weekly sweep every Monday at 09:00 UTC
+  workflow_dispatch:       # Manual trigger for the initial sweep
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Apply or remove needs-assignee label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const LABEL = 'needs-assignee';
+
+            async function setLabel(number, hasAssignee, currentLabels) {
+              const hasLabel = currentLabels.some(l => l.name === LABEL);
+              if (!hasAssignee && !hasLabel) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: number,
+                  labels: [LABEL],
+                });
+              } else if (hasAssignee && hasLabel) {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: number,
+                  name: LABEL,
+                });
+              }
+            }
+
+            if (context.eventName === 'schedule' || context.eventName === 'workflow_dispatch') {
+              const items = await github.paginate(github.rest.issues.listForRepo, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'open',
+                per_page: 100,
+              });
+              for (const item of items) {
+                await setLabel(item.number, item.assignees.length > 0, item.labels);
+              }
+            } else {
+              const payload = context.payload.issue ?? context.payload.pull_request;
+              await setLabel(payload.number, payload.assignees.length > 0, payload.labels);
+            }
