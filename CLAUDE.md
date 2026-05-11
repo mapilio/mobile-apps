@@ -6,16 +6,11 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 **Mapilio Mobile** is a street-level imagery capture app (iOS + Android) built with Expo SDK 52 (bare workflow) and React Native 0.76.9. Chris is leading the open source effort; Ozcan (Mapilio team lead) reviews and merges PRs. The repo is currently private while being cleaned up before public launch.
 
-- **GitHub repo**: https://github.com/mapilio/mobile-apps (private)
-- **Roadmap/todo**: `/home/chris/dev/personal-todo/Mapilio/roadmap_and_todo_list.md`
-  - Always read this file before suggesting work — it is the authoritative task list
-  - Never WebFetch Codeberg to read this file; read it directly from disk
+- **GitHub repo**: https://github.com/mapilio/mobile-apps (private while pre-launch cleanup is in progress)
 
 ## Authentication
 
 **GitHub CLI (`gh`) is already authenticated** — use it directly for all GitHub operations (issues, PRs, comments). No login step needed.
-
-**Codeberg** (personal-todo repo) — never WebFetch Codeberg URLs; the repo is private and Codeberg intentionally returns garbled content to scrapers. Read roadmap files directly from disk at `/home/chris/dev/personal-todo/`.
 
 **npm** — `npm ci` installs dependencies. No authentication required for public packages.
 
@@ -37,7 +32,7 @@ npm run test:ci             # Jest CI mode with coverage (use this for verificat
 # Type checking
 npx tsc --noEmit
 
-# ESLint (once PR #37 is merged)
+# ESLint
 ./node_modules/.bin/eslint .          # Check
 ./node_modules/.bin/eslint . --fix    # Auto-fix
 # Note: use ./node_modules/.bin/eslint, NOT npx eslint — the system may have a different version
@@ -73,7 +68,7 @@ Single-package React Native app (bare Expo workflow). Redux for state management
 ### Before starting any task
 Always run these two commands first to avoid duplicating work already in progress:
 ```bash
-git -C /home/chris/dev/mapilio branch
+git branch -a
 gh pr list --repo mapilio/mobile-apps --state open
 ```
 
@@ -90,34 +85,27 @@ The issue is where someone first lands — make the PR visible from both directi
 ### One PR per concern
 Don't bundle unrelated fixes. Each PR should address one issue or one logical change.
 
-## Current State (as of 2026-05-01)
+## Current State (as of 2026-05-11)
 
-### Open PRs (15 total — all awaiting Ozcan's review)
+### Open PRs (10 total — awaiting Ozcan's review)
 | PR | Branch | Addresses |
 |----|--------|-----------|
-| #27 | fix/sql-injection-upload-js | Issue #2 |
-| #29 | fix/ci-branch-and-console-logs | Issue #20 |
-| #30 | fix/camera-angle-modal-copy | Issue #12 |
-| #31 | fix/add-code-of-conduct | Issue #8 |
-| #32 | fix/upload-size-calculating | Issue #11 |
-| #33 | chore/needs-assignee-automation | — |
 | #34 | fix/gps-accuracy-modal | Issue #13 |
-| #35 | fix/copy-typos | — |
-| #36 | docs/add-security-md | Issue #7 |
-| #37 | chore/add-eslint-config | Issue #21 |
-| #38 | fix/dupe-keys-eslint | — |
 | #40 | fix/replace-snap-carousel | Issue #19 |
-| #42 | fix/jsx-no-undef-missing-imports | — |
 | #43 | fix/no-undef-missing-globals | — |
-| #44 | refactor/consolidate-actionsName | Issue #24 |
 | #46 | chore/jest-coverage-badge | Issue #26 |
+| #47 | chore/add-claude-md | — |
+| #49 | fix/skeleton-build-error | — |
+| #50 | docs/add-changelog | Issue #9 |
+| #51 | docs/add-contributing | Issue #1 |
+| #52 | docs/readme-badges | Issue #14 |
+| #53 | docs/code-of-conduct-contact | Issue #8 follow-up |
 
 ### Pending maintainer actions (blocked — cannot proceed without Ozcan)
 - **Coverage badge** (PR #46): Ozcan needs to create a GitHub Gist, add `GIST_SECRET` and `COVERAGE_GIST_ID` repo variables. README badge URL contains placeholder `COVERAGE_GIST_ID`.
-- **CI branch target**: CI currently runs on `master`/`expo` push + `master` PR. If `main` is the real default branch, the workflow needs updating. Confirm with Ozcan.
 
 ### Notable open issues (not yet addressed by any PR)
-- #45 — Replace MapTiler with OpenFreeMap (requires Ozcan sign-off; issue raised, awaiting response)
+- #45 — Replace MapTiler with OpenFreeMap (requires Ozcan sign-off before PR)
 - #22 — Add Prettier
 - #6 — Facebook credentials hardcoded in `app.json` (security)
 - #4, #10 — Privacy Policy / T&C review (legal; needs Ozcan)
