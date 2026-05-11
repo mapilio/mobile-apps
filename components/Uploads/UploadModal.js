@@ -66,7 +66,7 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
 
           <View style={{flexDirection: "row", alignItems: "center", marginLeft: RFValue(10)}}>
             <CustomTextBold style={{fontSize: RFValue(16), color:"#191919"}}>{totalImageCount} {t("images")}</CustomTextBold>
-            <CustomText style={{fontSize: RFValue(16), color:"#191919"}}> / {totalSize}MB</CustomText>
+            <CustomText style={{fontSize: RFValue(16), color:"#191919"}}> / {totalSize > 0 ? `${totalSize}MB` : t("calculating")}</CustomText>
           </View>
         </View>
       </View>

@@ -29,8 +29,6 @@ const MapView = ({
   const styleBaseURL = "https://api.maptiler.com/maps/basic-v2-light/style.json?key="
   const styleURL = styleKey ? `${styleBaseURL}${styleKey}` : undefined
 
-  console.log("[MapView] styleKey:", styleKey, "styleURL:", styleURL ? "MapTiler" : "default")
-
   const showAttributions = () => {
     showActionSheetWithOptions(
       {
