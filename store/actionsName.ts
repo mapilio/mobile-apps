@@ -73,3 +73,4 @@ export const SET_MAINTENANCE_MODE = "SET_MAINTENANCE_MODE" as const;
 export const SET_MAIL_MODAL_SHOWN = "SET_MAIL_MODAL_SHOWN" as const;
 export const SET_CONFIG = "SET_CONFIG" as const;
 export const UPDATE_DEFAULT_STORAGE = "UPDATE_DEFAULT_STORAGE" as const;
+export const SET_DARK_MODE = "SET_DARK_MODE" as const;
