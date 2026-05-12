@@ -25,6 +25,26 @@ A street-level imagery capture app for iOS and Android, built with Expo (bare wo
 
 ---
 
+## Scope
+
+Mapilio is a **street-level imagery capture and contribution app** for OpenStreetMap mappers and the open mapping community. Its mission is to make it easy to capture geotagged imagery on foot, by bicycle, or in a vehicle, and contribute it to the open mapping ecosystem.
+
+**In scope**
+- Capturing geotagged photos at configurable intervals during a journey
+- Reviewing, managing, and uploading captured sequences to the Mapilio platform
+- Browsing contributed imagery on a MapLibre-powered map
+- Integration with the Mapilio API for storage, processing, and publication
+
+**Out of scope**
+- General-purpose photography or video recording
+- Real-time navigation, turn-by-turn directions, or offline map downloads
+- Social networking beyond contributor profiles and the community leaderboard
+- Server-side image processing — that is handled by the Mapilio backend
+
+If you have an idea that falls outside this scope, please open a [Discussion](../../discussions) rather than an Issue. Feature requests are evaluated against the capture-and-contribute mission; the project aims to do a few things well rather than many things broadly.
+
+---
+
 ## Tech Stack
 
 | Layer | Library |
