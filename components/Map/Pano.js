@@ -45,7 +45,7 @@ const Pano = ({ pointInformation, hidePano }) => {
         }
       })
       .catch((err) => {
-        setUsername(null);
+        setUserDetails(null);
         toast.show(err, { type: "error" });
       });
   }, [pointInformation]);
