@@ -3,7 +3,7 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { sequenceCardStyles } from "../styles/userSequenceStyle";
 import { Routes } from "../navigator/Routes";
 import { RFValue } from "react-native-responsive-fontsize";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonPlaceholder from "./Skeleton";
 
 const FeedImageCard = (props) => {
   const [imageLoad, setImageLoad] = useState(true);

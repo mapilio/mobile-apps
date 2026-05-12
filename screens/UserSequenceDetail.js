@@ -4,7 +4,7 @@ import {RFValue} from "react-native-responsive-fontsize";
 import { LinearGradient } from "expo-linear-gradient";
 import {dateConvert} from "../helper/helper";
 import db from "../db";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonPlaceholder from "../components/Skeleton";
 import {ArrowLeft, Trash} from "../assets/svg/illustrations";
 import {useTranslation} from "react-i18next";
 import LogoWatermark from "../assets/svg/illustrations/LogoWatermark";

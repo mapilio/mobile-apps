@@ -24,7 +24,7 @@ import { setGeoJson } from "../../helper/geojson";
 import { useTranslation } from "react-i18next";
 import { TooltipWrapper } from "../../components/Tooltip";
 import { tooltipContents } from "../../util/consts/tooltip";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonPlaceholder from "../Skeleton";
 import { useIsFocused } from "@react-navigation/native";
 import {api} from "../../util/helpers/api";
 

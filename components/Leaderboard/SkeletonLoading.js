@@ -1,4 +1,4 @@
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonPlaceholder from "../Skeleton";
 import { View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { leaderStyles as styles } from "../../styles/leaderStyles";
