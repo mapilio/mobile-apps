@@ -64,8 +64,8 @@ A street-level imagery capture app for iOS and Android, built with Expo (bare wo
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/mapilio/mapilio-mobile-apps.git
-cd mapilio-mobile-apps
+git clone https://github.com/mapilio/mobile-apps.git
+cd mobile-apps
 npm install
 ```
 
@@ -141,14 +141,14 @@ npm run test:ci
 npm run test:ci -- --coverage
 ```
 
-The test suite covers reducers, helper functions, and the file-system adapter (~233 tests).
+The test suite covers reducers, helper functions, and the file-system adapter (~235 tests).
 
 ---
 
 ## Project Structure
 
 ```
-mapilio-mobile-apps/
+mobile-apps/
 ├── App.js                  # Root component (providers, global toast shim)
 ├── index.js                # Expo entry point
 ├── db.js                   # SQLite initialization
@@ -156,11 +156,12 @@ mapilio-mobile-apps/
 │   └── fs.js               # File-system adapter (expo-file-system wrapper)
 ├── store/
 │   ├── store.js
-│   ├── actionsName.js
+│   ├── actionsName.ts
 │   ├── actions/
 │   └── reducers/           # cameraReducer, generalReducer, loginReducer, …
 ├── screens/                # Full-screen views (AppCamera, AppMap, Login, …)
 ├── components/             # Reusable UI components
+├── highordercomponents/    # Higher-order components (MapView, …)
 ├── navigator/              # React Navigation stacks & tabs
 ├── helper/                 # Pure utility functions (calculator, upload, …)
 ├── hooks/                  # Custom React hooks
@@ -184,4 +185,4 @@ We welcome bug reports, feature requests, and pull requests. Please read [CONTRI
 
 Licensed under the [Apache License, Version 2.0](LICENSE).
 
-Copyright 2024 Mapilio
+Copyright 2024–2026 Mapilio
