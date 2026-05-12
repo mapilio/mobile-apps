@@ -1,12 +1,11 @@
 import React, {Fragment, useEffect, useState} from "react";
-import { FlatList, StyleSheet, View, Text, Platform } from 'react-native';
+import { FlatList, StyleSheet, View, Platform } from 'react-native';
 import {useDispatch, useSelector} from "react-redux";
 import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
 import {AlertModal, EmptyList, UploadItem} from "../components";
 import { UPLOAD_DATA} from "../store/actionsName";
 import {Upload} from "../components/Uploads";
 import db from "../db";
-import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
@@ -70,14 +69,6 @@ const UserUpload = () => {
     }, () => resetToDefault())
   }
 
-  const MaskItem = () => (
-    <LinearGradient
-      style={styles.gradient}
-      colors={['black', uploadData.length ? 'transparent' : 'black']}
-      locations={[.75, .95]}
-    />
-  )
-
   return (
     <Fragment>
       <FocusAwareStatusBar
@@ -86,11 +77,7 @@ const UserUpload = () => {
         translucent={true}
       />
       {maintenanceMode && uploadData.length > 0 &&  <InfoBox type={"warning"} content={t("alerts:maintenanceMode")}  />}
-      <MaskedView
-        androidRenderingMode={null}
-        maskElement={<MaskItem />}
-        style={styles.maskedView}
-      >
+      <View style={styles.maskedView}>
         <FlatList
           scrollEnabled={uploadData.length > 0}
           data={uploadData}
@@ -104,7 +91,15 @@ const UserUpload = () => {
           ListFooterComponent={<View />}
           ListFooterComponentStyle={{ paddingBottom: RFValue(100) }}
         />
-      </MaskedView>
+        {uploadData.length > 0 && (
+          <LinearGradient
+            style={styles.gradient}
+            colors={['transparent', '#FFFFFF']}
+            locations={[0.75, 0.95]}
+            pointerEvents="none"
+          />
+        )}
+      </View>
 
       <Upload style={styles.upload} />
 
@@ -134,8 +129,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   gradient: {
-    flex: 1,
-    width: '100%'
+    ...StyleSheet.absoluteFillObject,
+    pointerEvents: 'none',
   }
 })
 
