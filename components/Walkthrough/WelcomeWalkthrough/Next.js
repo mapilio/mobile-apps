@@ -8,7 +8,7 @@ import {UPDATE_WELCOME_WALKTHROUGH_STATUS} from "../../../store/actionsName";
 import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
 
-const Next = ({ activeStep, dataLength = 0 }) => {
+const Next = ({ activeStep, dataLength = 0, onPress }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { t } = useTranslation("welcome_walkthrough");
@@ -17,6 +17,8 @@ const Next = ({ activeStep, dataLength = 0 }) => {
     if (activeStep === dataLength - 1) {
       dispatch({ type: UPDATE_WELCOME_WALKTHROUGH_STATUS, payload: true });
       navigation.navigate(Routes.tabNavigator, {screen: Routes.map})
+    } else {
+      onPress?.()
     }
   }
 

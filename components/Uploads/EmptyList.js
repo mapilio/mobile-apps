@@ -72,7 +72,7 @@ const EmptyList = () => {
     const Active = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-      Animated.timing(Active, {toValue: 1, duration: 3000, useNativeDriver: false, easing: Easing.ease}).start();
+      Animated.timing(Active, {toValue: 1, duration: AUTOPLAY_INTERVAL, useNativeDriver: false, easing: Easing.ease}).start();
       Animated.timing(Default, {toValue: 1, duration: 200, useNativeDriver: false, easing: Easing.ease}).start();
     }, [Active, Default]);
 

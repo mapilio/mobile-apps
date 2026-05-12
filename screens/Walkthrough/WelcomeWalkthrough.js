@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Image,
@@ -17,6 +17,7 @@ import { sliderData } from "../../util/consts/walkthrough/welcome";
 const WelcomeWalkthrough = () => {
   const { t } = useTranslation("welcome_walkthrough");
   const [activeStep, setActiveStep] = useState(0);
+  const pagerRef = useRef();
 
   const _renderItem = ({ item, index }) => {
     const isMoveOn = index === 3;
@@ -79,6 +80,7 @@ const WelcomeWalkthrough = () => {
       {!isLastStep && <Skip />}
 
       <PagerView
+        ref={pagerRef}
         style={styles.pager}
         initialPage={0}
         onPageSelected={(e) => setActiveStep(e.nativeEvent.position)}>
@@ -100,7 +102,11 @@ const WelcomeWalkthrough = () => {
             />
           ))}
         </View>
-        <Next activeStep={activeStep} dataLength={sliderData.length} />
+        <Next
+          activeStep={activeStep}
+          dataLength={sliderData.length}
+          onPress={() => pagerRef.current?.setPage(activeStep + 1)}
+        />
       </View>
     </SafeAreaView>
   );
