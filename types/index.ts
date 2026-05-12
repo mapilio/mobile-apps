@@ -94,7 +94,7 @@ export interface CameraState {
   rotateStatus: boolean;
   distanceBetween: number;
   lowResolution: boolean;
-  accuracyLevel: string | null;
+  accuracyLevel: number | null;
   autocaptureStart: boolean;
   startAccuracy: number | null;
   currentSequence: string | null;

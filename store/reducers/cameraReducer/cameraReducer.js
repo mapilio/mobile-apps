@@ -10,6 +10,7 @@ import {
   UPDATE_MOCKED_STATUS,
   CAMERA_REDUCER_RESET,
   UPDATE_ACCURACY,
+  UPDATE_ACCURACY_LEVEL,
   CAPTURE_BUTTON_STATUS,
   UPDATE_ROTATE_STATUS,
   SET_CAMERA_LOCATION,
@@ -29,6 +30,7 @@ const INITIAL_STATE = {
   batteryLevel: 100,
   batteryStatus: false,
   accuracy: false,
+  accuracyLevel: null,
   mocked: false,
   captureButtonStatus: false,
   rotateStatus: false,
@@ -90,6 +92,11 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         accuracy: action.payload,
+      };
+    case UPDATE_ACCURACY_LEVEL:
+      return {
+        ...state,
+        accuracyLevel: action.payload,
       };
     case CAMERA_REDUCER_RESET:
       return {
