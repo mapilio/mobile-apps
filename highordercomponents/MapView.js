@@ -6,10 +6,11 @@ import { Platform, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import * as Linking from "expo-linking";
-import { useSelector } from "react-redux";
 
 MapLibreGL.setAccessToken(null);
 Logger.setLogLevel("error");
+
+const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
 
 const MapView = ({
   children,
@@ -23,22 +24,16 @@ const MapView = ({
 }) => {
   const { showActionSheetWithOptions } = useActionSheet();
 
-  const {config} = useSelector(state => state.generalReducer)
-
-  const styleKey = Platform.OS === "ios" ? config.mapTokens?.iosToken : config.mapTokens?.androidToken
-  const styleBaseURL = "https://api.maptiler.com/maps/basic-v2-light/style.json?key="
-  const styleURL = styleKey ? `${styleBaseURL}${styleKey}` : undefined
-
   const showAttributions = () => {
     showActionSheetWithOptions(
       {
         title: `MapLibre Maps SDK for ${Platform.OS.toUpperCase()}`,
-        options: ["Cancel", "© MapTiler", "© OpenStreetMap Contributors"],
+        options: ["Cancel", "© OpenFreeMap contributors", "© OpenStreetMap contributors"],
         cancelButtonIndex: 0,
       },
       (buttonIndex) => {
         if (buttonIndex === 1) {
-          Linking.openURL("https://www.maptiler.com/copyright");
+          Linking.openURL("https://openfreemap.org");
         } else if (buttonIndex === 2) {
           Linking.openURL("https://www.openstreetmap.org/copyright");
         }
@@ -49,9 +44,8 @@ const MapView = ({
   return (
     <Fragment>
       <MapLibreGL.MapView
-        key={styleURL}
         style={mapStyle}
-        styleURL={styleURL}
+        styleURL={STYLE_URL}
         ref={mapRef}
         onRegionDidChange={regionChange}
         logoEnabled={false}
