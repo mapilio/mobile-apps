@@ -6,7 +6,7 @@ All contributors, maintainers, and participants are expected to uphold these sta
 
 ## Reporting
 
-Instances of unacceptable behaviour may be reported to the project maintainers. Once a security contact is established, this address will be listed here — see [SECURITY.md](SECURITY.md). All reports will be reviewed and investigated promptly and confidentially.
+Instances of unacceptable behaviour may be reported to **info@mapilio.com**. All reports will be reviewed and investigated promptly and confidentially.
 
 ## Enforcement
 
