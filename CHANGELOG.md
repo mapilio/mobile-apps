@@ -10,14 +10,16 @@ Versioning follows the scheme agreed in [issue #3](https://github.com/mapilio/mo
 ## [Unreleased]
 
 ### Added
-- `SECURITY.md` — responsible disclosure policy using GitHub private advisory reporting
-- `CODE_OF_CONDUCT.md` — references Contributor Covenant v2.1
-- Jest coverage reporting with README badge (PR #46)
+- `SECURITY.md` — responsible disclosure policy using GitHub private advisory reporting (PR #36)
+- `CODE_OF_CONDUCT.md` — references Contributor Covenant v2.1; enforcement contact added (PRs #31, #53)
+- `CONTRIBUTING.md` — AI-assisted contributions policy and Apache 2.0 licence section (PR #51)
 - ESLint baseline configuration and CI enforcement step (PR #37)
 - Needs-assignee label automation (PR #33)
+- README badges: platform, PRs Welcome, OpenStreetMap (PR #52)
 
 ### Fixed
 - SQL injection vulnerability in `helper/upload.js` — parameterised query replaces string interpolation (PR #27)
+- Skeleton loading crash — custom `Skeleton.js` backed by `expo-linear-gradient` replaces broken `react-native-skeleton-placeholder` dependency (PR #49)
 - Duplicate style keys in `styles/leaderStyles.js` flagged by ESLint `no-dupe-keys` (PR #38)
 - Copy typos and inconsistencies in `translations/en.json` (PR #35)
 - Camera angle modal copy corrected in `translations/en.json` (PR #30)
@@ -26,10 +28,10 @@ Versioning follows the scheme agreed in [issue #3](https://github.com/mapilio/mo
 - CI workflow aligned to `main` branch; `console.log` removed from production code (PR #29)
 - `react/jsx-no-undef` errors resolved — missing imports added, dead component removed (PR #42)
 - `no-undef` ESLint errors resolved across 6 files (PR #43)
-- `react-native-snap-carousel` replaced with `react-native-pager-view` — removes abandoned dependency and its associated vulnerability (PR #40)
 
 ### Changed
 - Licence updated to Apache 2.0
+- `actionsName.js` and `actionsName.ts` consolidated into a single TypeScript file (PR #44)
 
 ---
 
