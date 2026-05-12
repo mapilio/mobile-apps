@@ -1,3 +1,4 @@
+/* eslint-env jest */
 // Global test setup — runs before every test file
 
 // Global toast mock (used imperatively across the codebase)

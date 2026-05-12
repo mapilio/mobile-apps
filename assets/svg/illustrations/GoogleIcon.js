@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import Svg, { Path } from "react-native-svg";
 

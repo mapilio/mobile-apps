@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {userFeedStyles} from "../styles/userProfileStyle";
 
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonPlaceholder from "./Skeleton";
 import {RFValue} from "react-native-responsive-fontsize";
 import {useTranslation} from "react-i18next";
 import {Photos} from "../assets/svg/illustrations";

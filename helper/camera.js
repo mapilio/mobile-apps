@@ -19,7 +19,7 @@ import {
 import * as ScreenOrientation from "expo-screen-orientation";
 import i18n from 'i18next';
 
-const translate = (key) => i18n.t(key, {ns: "camera"})
+const translate = (key, options) => i18n.t(key, {ns: "camera", ...options})
 
 const Alert = ({svg, title, content}) => {
   return (
@@ -61,11 +61,12 @@ const cameraAlerts = {
     )
   },
   gpsAlert: () => {
+    const accuracy = store.getState().cameraReducer.accuracyLevel;
     return (
       <Alert
         svg={<BadGPS width={RFValue(34)} height={RFValue(30)}/>}
         title={translate("warning.bad_gps.title")}
-        content={translate("warning.bad_gps.description")}
+        content={translate("warning.bad_gps.description", {accuracy})}
       />
     )
   },

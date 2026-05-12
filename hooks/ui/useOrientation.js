@@ -36,19 +36,19 @@ const useOrientation = (timeout) => {
   };
 
   useEffect(() => {
-    if (timeout) {
-      const timer = setTimeout(() => {
-        ScreenOrientation.getOrientationAsync().then(initialOrientationHandler);
-      }, timeout);
-
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-
     const listener = ScreenOrientation.addOrientationChangeListener(changeOrientation);
 
+    let timer;
+    if (timeout) {
+      timer = setTimeout(() => {
+        ScreenOrientation.getOrientationAsync().then(initialOrientationHandler);
+      }, timeout);
+    } else {
+      ScreenOrientation.getOrientationAsync().then(initialOrientationHandler);
+    }
+
     return () => {
+      if (timer) clearTimeout(timer);
       ScreenOrientation.removeOrientationChangeListener(listener);
     };
   }, []);

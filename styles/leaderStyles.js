@@ -48,9 +48,8 @@ export const leaderStyles = StyleSheet.create({
   },
   authUserListItem: {
     flexDirection: "column",
-    alignItems: "flex-start",
-    marginRight: RFValue(1),
     alignItems: "center",
+    marginRight: RFValue(1),
     paddingHorizontal: 10,
     backgroundColor: "#0056F1",
     borderRadius: 15,

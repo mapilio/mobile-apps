@@ -17,8 +17,6 @@ const Next = ({ activeStep, dataLength = 0 }) => {
     if (activeStep === dataLength - 1) {
       dispatch({ type: UPDATE_WELCOME_WALKTHROUGH_STATUS, payload: true });
       navigation.navigate(Routes.tabNavigator, {screen: Routes.map})
-    } else {
-      _carousel.snapToNext()
     }
   }
 

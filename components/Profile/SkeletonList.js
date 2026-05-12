@@ -1,4 +1,4 @@
-import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import SkeletonPlaceholder from '../Skeleton';
 import { View } from 'react-native';
 import styles from './FeedList.styles';
 
