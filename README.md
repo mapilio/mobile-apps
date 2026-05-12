@@ -6,6 +6,9 @@ A street-level imagery capture app for iOS and Android, built with Expo (bare wo
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Expo SDK](https://img.shields.io/badge/Expo-SDK%2052-000020?logo=expo)](https://expo.dev)
 [![React Native](https://img.shields.io/badge/React%20Native-0.76.9-61dafb?logo=react)](https://reactnative.dev)
+[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://reactnative.dev)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![OpenStreetMap](https://img.shields.io/badge/community-OpenStreetMap-7EBC6F?logo=openstreetmap&logoColor=white)](https://www.openstreetmap.org)
 
 ---
 
