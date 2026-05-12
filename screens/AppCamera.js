@@ -9,6 +9,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import {
   GROUP_ID,
   SET_CAMERA_LOCATION,
+  UPDATE_ACCURACY_LEVEL,
   UPDATE_GPS_ACCURACY,
   UPDATE_MOCKED_STATUS,
   UPDATE_OPENED_STATUS,
@@ -55,7 +56,7 @@ const AppCamera = () => {
           payload: coords.accuracy <= 35,
         });
         dispatch({
-          type: UPDATE_ACCURACY,
+          type: UPDATE_ACCURACY_LEVEL,
           payload: Math.round(coords.accuracy),
         });
       }
