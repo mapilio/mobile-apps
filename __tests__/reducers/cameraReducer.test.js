@@ -30,6 +30,7 @@ const initialState = {
   batteryLevel: 100,
   batteryStatus: false,
   accuracy: false,
+  accuracyLevel: null,
   mocked: false,
   captureButtonStatus: false,
   rotateStatus: false,
