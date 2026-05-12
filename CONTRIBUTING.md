@@ -156,3 +156,21 @@ Before adding a package:
 2. Check it works with the **New Architecture** (`newArchEnabled=true`) or document the blocker.
 3. Prefer packages that work without native module changes (pure JS or Expo modules).
 4. Update `README.md`'s Tech Stack table if it's a significant addition.
+
+---
+
+## AI-Assisted Contributions
+
+AI tools (such as Claude, Copilot, etc.) are welcome to use when preparing contributions. The submitting contributor is responsible for:
+
+- Reviewing and understanding all AI-generated output before opening a PR
+- Testing the changes locally before submitting
+- Ensuring all contributions are submitted under the project's [Apache 2.0 licence](LICENSE)
+
+The AI is a tool — the contributor is accountable for the quality of what is submitted.
+
+---
+
+## Licence
+
+By contributing, you agree that your contributions will be licensed under the [Apache License, Version 2.0](LICENSE).
