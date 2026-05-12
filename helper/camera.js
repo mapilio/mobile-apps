@@ -19,7 +19,7 @@ import {
 import * as ScreenOrientation from "expo-screen-orientation";
 import i18n from 'i18next';
 
-const translate = (key) => i18n.t(key, {ns: "camera"})
+const translate = (key, options) => i18n.t(key, {ns: "camera", ...options})
 
 const Alert = ({svg, title, content}) => {
   return (
