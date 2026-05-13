@@ -77,7 +77,7 @@ const UserUpload = () => {
         translucent={true}
       />
       {maintenanceMode && uploadData.length > 0 &&  <InfoBox type={"warning"} content={t("alerts:maintenanceMode")}  />}
-      <View style={styles.maskedView}>
+      <View style={styles.listContainer}>
         <FlatList
           scrollEnabled={uploadData.length > 0}
           data={uploadData}
@@ -118,7 +118,7 @@ const UserUpload = () => {
 };
 
 const styles = StyleSheet.create({
-  maskedView: {
+  listContainer: {
     flex: 1,
     width: '100%',
   },
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
   },
   gradient: {
     ...StyleSheet.absoluteFillObject,
-    pointerEvents: 'none',
   }
 })
 
