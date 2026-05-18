@@ -1,16 +1,13 @@
-import { View, StyleSheet } from "react-native";
-import {
-  FeedList,
-  FocusAwareStatusBar,
-} from "../../components";
-import { api } from "../../util/helpers/api";
-import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { View, StyleSheet } from 'react-native';
+import { FeedList, FocusAwareStatusBar } from '../../components';
+import { api } from '../../util/helpers/api';
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const UserFeedList = ({ route }) => {
   const { userID } = route.params;
   const [userDetails, setUserDetails] = useState(null);
-  const { t } = useTranslation("profile");
+  const { t } = useTranslation('profile');
 
   const getUserDetails = () => {
     api
@@ -21,8 +18,8 @@ const UserFeedList = ({ route }) => {
         }
       })
       .catch(() => {
-        toast.show(t("fetch_error"), {
-          type: "error",
+        toast.show(t('fetch_error'), {
+          type: 'error',
         });
         setUserDetails(null);
       });
@@ -34,16 +31,17 @@ const UserFeedList = ({ route }) => {
 
   return (
     <View style={styles.container}>
-       <FocusAwareStatusBar
+      <FocusAwareStatusBar
         translucent={true}
         barStyle="dark-content"
-        backgroundColor={"transparent"}
+        backgroundColor={'transparent'}
       />
-      {userDetails &&
+      {userDetails && (
         <View style={styles.container}>
           <FocusAwareStatusBar barStyle="dark-content" backgroundColor="#fff" />
           <FeedList userDetails={userDetails} />
-        </View>}
+        </View>
+      )}
     </View>
   );
 };
@@ -51,7 +49,7 @@ const UserFeedList = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
 });
 

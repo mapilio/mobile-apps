@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Dimensions } from "react-native";
+import { useEffect, useState } from 'react';
+import { Dimensions } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 /**
@@ -10,28 +10,31 @@ import * as ScreenOrientation from 'expo-screen-orientation';
  * const orientation = useOrientation(1000);
  */
 const useOrientation = (timeout) => {
-  const initialOrientation = Dimensions.get("window").width > Dimensions.get("window").height ? "LANDSCAPE" : "PORTRAIT";
+  const initialOrientation =
+    Dimensions.get('window').width > Dimensions.get('window').height ? 'LANDSCAPE' : 'PORTRAIT';
   const [orientation, setOrientation] = useState(initialOrientation);
 
   const initialOrientationHandler = (orientation) => {
-    if (orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT
-      || orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
-      || orientation === ScreenOrientation.Orientation.UNKNOWN
+    if (
+      orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
+      orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT ||
+      orientation === ScreenOrientation.Orientation.UNKNOWN
     ) {
-      setOrientation("LANDSCAPE");
+      setOrientation('LANDSCAPE');
+    } else {
+      setOrientation('PORTRAIT');
     }
-    else {
-      setOrientation("PORTRAIT");
-    }
-  }
+  };
 
   const changeOrientation = ({ orientationInfo }) => {
     const { orientation } = orientationInfo;
-    if (orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT || orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT) {
-      setOrientation("LANDSCAPE");
-    }
-    else {
-      setOrientation("PORTRAIT");
+    if (
+      orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
+      orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
+    ) {
+      setOrientation('LANDSCAPE');
+    } else {
+      setOrientation('PORTRAIT');
     }
   };
 

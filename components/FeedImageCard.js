@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
-import { sequenceCardStyles } from "../styles/userSequenceStyle";
-import { Routes } from "../navigator/Routes";
-import { RFValue } from "react-native-responsive-fontsize";
-import SkeletonPlaceholder from "./Skeleton";
+import React, { useState } from 'react';
+import { Image, TouchableOpacity, View } from 'react-native';
+import { sequenceCardStyles } from '../styles/userSequenceStyle';
+import { Routes } from '../navigator/Routes';
+import { RFValue } from 'react-native-responsive-fontsize';
+import SkeletonPlaceholder from './Skeleton';
 
 const FeedImageCard = (props) => {
   const [imageLoad, setImageLoad] = useState(true);
@@ -23,13 +23,9 @@ const FeedImageCard = (props) => {
           points: props.imageMapList,
           heading: props.heading,
           base: true,
-          coordinate: [
-            Number(props.coordinate[0]),
-            Number(props.coordinate[1]),
-          ],
+          coordinate: [Number(props.coordinate[0]), Number(props.coordinate[1])],
         });
-      }}
-    >
+      }}>
       <View style={sequenceCardStyles.imagePosition}>
         {imageLoad && (
           <SkeletonPlaceholder speed={1000}>
@@ -41,7 +37,7 @@ const FeedImageCard = (props) => {
                 marginRight: RFValue(5),
                 marginBottom: RFValue(5),
                 zIndex: 99,
-                position: "absolute",
+                position: 'absolute',
               }}
             />
           </SkeletonPlaceholder>
@@ -50,11 +46,11 @@ const FeedImageCard = (props) => {
           style={{
             height: RFValue(78),
             borderRadius: 8,
-            maxWidth: "100%",
+            maxWidth: '100%',
             width: 120,
-            resizeMode: "cover",
+            resizeMode: 'cover',
           }}
-          source={{uri: `${props.path}/240`, cache: "force-cache"}}
+          source={{ uri: `${props.path}/240`, cache: 'force-cache' }}
           onLoadEnd={loadEnd}
         />
       </View>

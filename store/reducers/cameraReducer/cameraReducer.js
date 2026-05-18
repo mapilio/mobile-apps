@@ -18,11 +18,11 @@ import {
   IS_ACTIVE,
   GROUP_ID,
   TOGGLE_ROTATE_ALERT,
-} from "../../actionsName";
+} from '../../actionsName';
 
 const INITIAL_STATE = {
   GPSAccuracy: false,
-  cameraStatus: "",
+  cameraStatus: '',
   camera: null,
   imageSize: 3145728,
   phoneMemory: 0,
@@ -103,7 +103,7 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
         ...state,
         GPSAccuracy: false,
         GPSAccuracyLevel: 100,
-        cameraStatus: "",
+        cameraStatus: '',
         camera: null,
         imageSize: 3145728,
         phoneMemory: 0,
@@ -122,28 +122,28 @@ const cameraReducer = (state = INITIAL_STATE, action) => {
     case SET_CAMERA_LOCATION:
       return {
         ...state,
-        cameraLocation: action.payload
+        cameraLocation: action.payload,
       };
     case UPDATE_OPENED_STATUS:
       return {
         ...state,
-        isFirstOpen: action.payload
+        isFirstOpen: action.payload,
       };
     case IS_ACTIVE:
       return {
         ...state,
-        isActive: action.payload
+        isActive: action.payload,
       };
     case GROUP_ID:
       return {
         ...state,
-        groupId: action.payload
+        groupId: action.payload,
       };
     case TOGGLE_ROTATE_ALERT:
       return {
         ...state,
-        showRotateAlert: action.payload
-      }
+        showRotateAlert: action.payload,
+      };
     default:
       return state;
   }

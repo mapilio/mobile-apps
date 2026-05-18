@@ -1,14 +1,9 @@
-import React from "react";
-import {RFValue} from "react-native-responsive-fontsize";
-import Svg, {G, Path, Rect} from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Path, Rect } from 'react-native-svg';
 
-const Marketplace = ({ width = RFValue(24), height = RFValue(24), color = "#0bbf5d" }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 24 23"
-  >
+const Marketplace = ({ width = RFValue(24), height = RFValue(24), color = '#0bbf5d' }) => (
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 23">
     <G transform="translate(0.414 0.258)">
       <G transform="translate(0 0.183)">
         <Rect

@@ -1,6 +1,6 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Circle, Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Circle, Path } from 'react-native-svg';
 
 const GoodGPS = ({ width = RFValue(14), height = RFValue(14) }) => (
   <Svg
@@ -9,8 +9,7 @@ const GoodGPS = ({ width = RFValue(14), height = RFValue(14) }) => (
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
-    viewBox="0 0 14 14"
-  >
+    viewBox="0 0 14 14">
     <Circle
       id="Ellipse_1652"
       data-name="Ellipse 1652"

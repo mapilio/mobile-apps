@@ -1,6 +1,6 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { G, Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Path } from 'react-native-svg';
 
 const FrameRightTop = ({ width = RFValue(88), height = RFValue(55) }) => (
   <Svg
@@ -8,8 +8,7 @@ const FrameRightTop = ({ width = RFValue(88), height = RFValue(55) }) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     width={width}
     height={height}
-    viewBox="0 0 88.625 54.785"
-  >
+    viewBox="0 0 88.625 54.785">
     <G transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Path_23002)">
       <Path
         id="Path_23002-2"

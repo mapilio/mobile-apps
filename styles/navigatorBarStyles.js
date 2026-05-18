@@ -1,46 +1,46 @@
-import { StyleSheet, Platform } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { StyleSheet, Platform } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const sequenceLeft = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginLeft: RFValue(10),
   },
   backTitle: {
     fontSize: RFValue(13),
-    color: "#808080",
-    marginBottom: Platform.OS === "ios" ? 0 : RFValue(-2),
+    color: '#808080',
+    marginBottom: Platform.OS === 'ios' ? 0 : RFValue(-2),
     marginLeft: RFValue(3),
   },
 });
 
 export const sequenceRight = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginRight: RFValue(10),
   },
   title: {
-    color: "#4A90E2",
+    color: '#4A90E2',
     fontSize: RFValue(16),
     marginRight: RFValue(5),
-    marginTop: Platform.OS === "ios" ? RFValue(-6) : 0,
+    marginTop: Platform.OS === 'ios' ? RFValue(-6) : 0,
   },
 });
 
 export const sequenceTitle = StyleSheet.create({
   title: {
-    color: "#FFF",
+    color: '#FFF',
     fontSize: RFValue(16),
-    marginTop: Platform.OS === "ios" ? RFValue(-6) : 0,
+    marginTop: Platform.OS === 'ios' ? RFValue(-6) : 0,
   },
 });
 
 export const deleteRight = StyleSheet.create({
   text: {
-    color: "#000",
+    color: '#000',
     fontSize: RFValue(14),
     right: RFValue(10),
   },
@@ -55,21 +55,21 @@ export const uploadRight = StyleSheet.create({
 
 export const generalSettingsLeft = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   backTitle: {
     fontSize: RFValue(14),
-    color: "#666666",
+    color: '#666666',
   },
 });
 
 export const sequenceDetailTitle = StyleSheet.create({
   rank: {
-    color: "#000",
+    color: '#000',
     fontSize: RFValue(16),
   },
   active: {
-    color: "#1AD971",
+    color: '#1AD971',
   },
 });

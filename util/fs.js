@@ -38,7 +38,7 @@ export const getAllExternalFilesDirs = () => RNFS.getAllExternalFilesDirs();
  * @returns {Promise<{size: number, path: string, isFile: () => boolean, isDirectory: () => boolean, mtime: Date|null}>}
  */
 export const stat = async (path) => {
-  const info = await FileSystem.getInfoAsync(toUri(path), {size: true});
+  const info = await FileSystem.getInfoAsync(toUri(path), { size: true });
   return {
     size: info.size ?? 0,
     path: info.uri,
@@ -63,16 +63,14 @@ export const exists = async (path) => {
  * @param {string} path
  * @returns {Promise<void>}
  */
-export const unlink = (path) =>
-  FileSystem.deleteAsync(toUri(path), {idempotent: true});
+export const unlink = (path) => FileSystem.deleteAsync(toUri(path), { idempotent: true });
 
 /**
  * Create a directory, including any missing intermediate directories.
  * @param {string} path
  * @returns {Promise<void>}
  */
-export const mkdir = (path) =>
-  FileSystem.makeDirectoryAsync(toUri(path), {intermediates: true});
+export const mkdir = (path) => FileSystem.makeDirectoryAsync(toUri(path), { intermediates: true });
 
 /**
  * Move a file from src to dest.
@@ -80,8 +78,7 @@ export const mkdir = (path) =>
  * @param {string} dest
  * @returns {Promise<void>}
  */
-export const moveFile = (src, dest) =>
-  FileSystem.moveAsync({from: toUri(src), to: toUri(dest)});
+export const moveFile = (src, dest) => FileSystem.moveAsync({ from: toUri(src), to: toUri(dest) });
 
 /**
  * Get free and total disk space.
@@ -92,5 +89,5 @@ export const getFSInfo = async () => {
     FileSystem.getFreeDiskStorageAsync(),
     FileSystem.getTotalDiskCapacityAsync(),
   ]);
-  return {freeSpace, totalSpace};
+  return { freeSpace, totalSpace };
 };

@@ -14,7 +14,7 @@ const EmptyComponent = () => {
       <Text style={styles.noFeedDescription}>{t('no_feed_desc')}</Text>
       <TouchableOpacity
         style={styles.noFeedButton}
-        onPress={() => navigation.navigate(Routes.tabNavigator, {screen: Routes.cameraTab})}>
+        onPress={() => navigation.navigate(Routes.tabNavigator, { screen: Routes.cameraTab })}>
         <Text style={styles.noFeedButton.text}>{t('start_capture')}</Text>
       </TouchableOpacity>
     </View>

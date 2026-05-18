@@ -4,18 +4,14 @@ import { useSelector } from 'react-redux';
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 
 import AnimatedCircle from './AnimatedCircle';
-import {
-  CameraFilledIcon,
-  ProfileBackground,
-  RoadIcon,
-} from '../assets/svg/illustrations';
+import { CameraFilledIcon, ProfileBackground, RoadIcon } from '../assets/svg/illustrations';
 import { thousandFormatter } from '../helper/helper';
 import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 const UserInfos = ({ userDetails, scoreDetails }) => {
   const { userInformation } = useSelector((state) => state.getTokenReducer);
-  const {t} = useTranslation("profile");
+  const { t } = useTranslation('profile');
 
   if (!userInformation && !userDetails) return null;
 
@@ -32,29 +28,34 @@ const UserInfos = ({ userDetails, scoreDetails }) => {
       <ProfileBackground />
       <View style={styles.profileImageWrapper}>
         <Image style={styles.profileImage} source={{ uri: photoURL }} />
-        <AnimatedCircle value={scorePercent > 100 ? 100: scorePercent} width={RFValue(105)} height={RFValue(105)} color={percentColor} />
+        <AnimatedCircle
+          value={scorePercent > 100 ? 100 : scorePercent}
+          width={RFValue(105)}
+          height={RFValue(105)}
+          color={percentColor}
+        />
         <Image style={styles.badgeIcon} source={{ uri: scoreDetails?.next?.badge?.icon }} />
       </View>
 
       <View style={styles.scoreWrapper}>
-        <CustomText style={styles.scoreText}>{t("score")}</CustomText>
+        <CustomText style={styles.scoreText}>{t('score')}</CustomText>
         <CustomTextBold style={styles.pointsText}>{scoreDetails?.point}</CustomTextBold>
       </View>
 
       <View style={styles.statsWrapper}>
-      <View style={styles.statsBlock}>
-        <CameraFilledIcon fill="#808080" width={RFValue(16)} />
-        <CustomTextMedium style={styles.statsText}>{thousandFormatter(photos)}</CustomTextMedium>
+        <View style={styles.statsBlock}>
+          <CameraFilledIcon fill="#808080" width={RFValue(16)} />
+          <CustomTextMedium style={styles.statsText}>{thousandFormatter(photos)}</CustomTextMedium>
         </View>
 
         <View style={styles.verticalSeperator} />
 
         <View style={styles.statsBlock}>
-        <RoadIcon fill="#808080" width={RFValue(16)} />
-        <CustomTextMedium style={styles.statsText}>
-          {thousandFormatter(roads, 'k')}
-          {' km'}
-        </CustomTextMedium>
+          <RoadIcon fill="#808080" width={RFValue(16)} />
+          <CustomTextMedium style={styles.statsText}>
+            {thousandFormatter(roads, 'k')}
+            {' km'}
+          </CustomTextMedium>
         </View>
       </View>
     </View>
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: RFValue(3),
   },
-  statsBlock:{
+  statsBlock: {
     flexDirection: 'row',
     alignItems: 'center',
   },

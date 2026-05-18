@@ -26,4 +26,4 @@ export const darkColors = {
   info: '#5BA0F5',
 };
 
-export const getColors = (darkMode) => darkMode ? darkColors : lightColors;
+export const getColors = (darkMode) => (darkMode ? darkColors : lightColors);

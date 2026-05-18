@@ -1,12 +1,10 @@
-import { useSelector } from "react-redux";
-import LeadersList from "../../components/Leaderboard/LeadersList";
+import { useSelector } from 'react-redux';
+import LeadersList from '../../components/Leaderboard/LeadersList';
 
-const Users = ({route}) => {
+const Users = ({ route }) => {
   const type = route.params.type;
 
-  const {users, usersWeek, usersMonth} = useSelector(
-    (state) => state.leaderboardReducer
-  );
+  const { users, usersWeek, usersMonth } = useSelector((state) => state.leaderboardReducer);
 
   const authUserUsername = useSelector((state) => {
     if (state.getTokenReducer.userInformation) {
@@ -14,8 +12,8 @@ const Users = ({route}) => {
     }
     return null;
   });
-  
-  const typeOfUsers = type === "all" ? users : type === "month" ? usersMonth : usersWeek;
+
+  const typeOfUsers = type === 'all' ? users : type === 'month' ? usersMonth : usersWeek;
   const authUserIndex = typeOfUsers.findIndex((user) =>
     authUserUsername ? user.username === authUserUsername : null
   );
@@ -24,7 +22,7 @@ const Users = ({route}) => {
     <LeadersList
       leaders={typeOfUsers}
       authUserIndex={authUserIndex}
-      listType={"users"}
+      listType={'users'}
       usersType={type}
     />
   );

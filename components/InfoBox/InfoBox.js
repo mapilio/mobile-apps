@@ -1,12 +1,7 @@
-import { View, StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import CustomText from "../../highordercomponents/CustomText";
-import {
-  ErrorIcon,
-  InfoFilled,
-  SuccessIcon,
-  WarningFilled,
-} from "../../assets/svg/illustrations";
+import { View, StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import CustomText from '../../highordercomponents/CustomText';
+import { ErrorIcon, InfoFilled, SuccessIcon, WarningFilled } from '../../assets/svg/illustrations';
 
 /**
  *
@@ -23,10 +18,10 @@ const InfoBox = ({ type, content }) => {
   };
 
   const colors = {
-    success: "#3D9C5C",
-    error: "#E6432A",
-    warning: "#FBA63C1A",
-    info: "#4A90E21A",
+    success: '#3D9C5C',
+    error: '#E6432A',
+    warning: '#FBA63C1A',
+    info: '#4A90E21A',
   };
 
   return (
@@ -35,8 +30,7 @@ const InfoBox = ({ type, content }) => {
         style={{
           ...styles.container,
           backgroundColor: colors[type],
-        }}
-      >
+        }}>
         <View style={{ paddingRight: RFValue(7) }}>{icons[type]}</View>
         <CustomText style={styles.text}>{content}</CustomText>
       </View>
@@ -46,14 +40,14 @@ const InfoBox = ({ type, content }) => {
 
 const styles = StyleSheet.create({
   base: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
     borderRadius: RFValue(5),
     paddingVertical: RFValue(10),
     paddingHorizontal: RFValue(10),
@@ -61,7 +55,7 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     fontSize: RFValue(11.5),
-    color: "#191919",
+    color: '#191919',
   },
 });
 

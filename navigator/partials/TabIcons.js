@@ -1,28 +1,23 @@
-import {navigatorStyle} from "../../styles/navigatorStyle";
-import { Text, View } from "react-native";
-import {
-  MarketplaceIcon,
-  Profile,
-  TabMap,
-  Upload,
-} from "../../assets/svg/illustrations";
-import LeaderIcon from "../../assets/svg/illustrations/LeaderIcon";
-import { useTranslation } from "react-i18next";
-import { TooltipWrapper } from "../../components/Tooltip";
-import { tooltipContents } from "../../util/consts/tooltip";
-import { useSelector } from "react-redux";
+import { navigatorStyle } from '../../styles/navigatorStyle';
+import { Text, View } from 'react-native';
+import { MarketplaceIcon, Profile, TabMap, Upload } from '../../assets/svg/illustrations';
+import LeaderIcon from '../../assets/svg/illustrations/LeaderIcon';
+import { useTranslation } from 'react-i18next';
+import { TooltipWrapper } from '../../components/Tooltip';
+import { tooltipContents } from '../../util/consts/tooltip';
+import { useSelector } from 'react-redux';
 
 const TabIcons = ({ focused, tab }) => {
-  const { t } = useTranslation("tab");
+  const { t } = useTranslation('tab');
   const { isInitialized } = useSelector((state) => state.tooltipReducer.tabBar);
 
   const iconColor = () => {
-    if (!isInitialized || focused) return "#191919";
+    if (!isInitialized || focused) return '#191919';
     return undefined;
   };
 
   const textColor = () => {
-    if (!isInitialized || focused) return { color: "#191919" };
+    if (!isInitialized || focused) return { color: '#191919' };
     return {};
   };
 
@@ -37,13 +32,12 @@ const TabIcons = ({ focused, tab }) => {
   return (
     <View style={navigatorStyle.tabIconStyle}>
       <TooltipWrapper name={tab} content={tooltipContents.tabBar[tab]} tabFocus={focused}>
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: 'center' }}>
           {icons[tab]}
           <Text
             style={[navigatorStyle.tabTextStyle, textColor()]}
             numberOfLines={1}
-            ellipsizeMode={"clip"}
-          >
+            ellipsizeMode={'clip'}>
             {t(tab)}
           </Text>
         </View>

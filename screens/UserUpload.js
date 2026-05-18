@@ -1,82 +1,86 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, { Fragment, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View, Text, Platform } from 'react-native';
-import {useDispatch, useSelector} from "react-redux";
-import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {AlertModal, EmptyList, UploadItem} from "../components";
-import { UPLOAD_DATA} from "../store/actionsName";
-import {Upload} from "../components/Uploads";
-import db from "../db";
-import MaskedView from "@react-native-masked-view/masked-view";
-import { LinearGradient } from "expo-linear-gradient";
-import {RFValue} from "react-native-responsive-fontsize";
-import {useTranslation} from "react-i18next";
-import InfoBox from "../components/InfoBox/InfoBox";
-import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from 'react-redux';
+import FocusAwareStatusBar from '../components/FocusAwareStatusBar';
+import { AlertModal, EmptyList, UploadItem } from '../components';
+import { UPLOAD_DATA } from '../store/actionsName';
+import { Upload } from '../components/Uploads';
+import db from '../db';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useTranslation } from 'react-i18next';
+import InfoBox from '../components/InfoBox/InfoBox';
+import { useNavigation } from '@react-navigation/native';
 import * as RNFS from '../util/fs';
 
 const UserUpload = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const {uploadData} = useSelector((status) => status.uploadReducer);
-  const { mapShown, maintenanceMode } = useSelector(
-    (status) => status.generalReducer
-  );
+  const { uploadData } = useSelector((status) => status.uploadReducer);
+  const { mapShown, maintenanceMode } = useSelector((status) => status.generalReducer);
   const [deleteItem, setDeleteItem] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const {t} = useTranslation(["upload", "alerts"]);
+  const { t } = useTranslation(['upload', 'alerts']);
 
   useEffect(() => {
     navigation.addListener('focus', () => {
-      getData()
-    })
+      getData();
+    });
     return () => {
-      navigation.removeListener('focus')
-    }
+      navigation.removeListener('focus');
+    };
   }, []);
 
   const getData = () => {
-    db.getGroupByWithGroupID().then(data => {
-      if (Platform.OS === "android") {
+    db.getGroupByWithGroupID().then((data) => {
+      if (Platform.OS === 'android') {
         RNFS.getAllExternalFilesDirs().then((dirs) => {
           if (dirs.length === 1) {
-            const filtered = data.filter(item => item.default_storage_path === 'internal')
-            dispatch({ type: UPLOAD_DATA, payload: filtered })
-          }else {
-            dispatch({ type: UPLOAD_DATA, payload: data })
+            const filtered = data.filter((item) => item.default_storage_path === 'internal');
+            dispatch({ type: UPLOAD_DATA, payload: filtered });
+          } else {
+            dispatch({ type: UPLOAD_DATA, payload: data });
           }
-        })
+        });
       } else {
-        dispatch({ type: UPLOAD_DATA, payload: data })
+        dispatch({ type: UPLOAD_DATA, payload: data });
       }
-    })
+    });
   };
 
   const resetToDefault = () => {
-    getData()
-    setDeleteItem(undefined)
-    setLoading(false)
-  }
+    getData();
+    setDeleteItem(undefined);
+    setLoading(false);
+  };
 
   const deleteSequence = () => {
-    setLoading(true)
-    let path = RNFS.DocumentDirectoryPath
+    setLoading(true);
+    let path = RNFS.DocumentDirectoryPath;
     if (uploadData.default_storage_path === 'external') {
       RNFS.getAllExternalFilesDirs().then((dirs) => {
-        path = dirs[1]
-      })
+        path = dirs[1];
+      });
     }
-    db.deleteByGroupID(deleteItem, () => {
-      RNFS.unlink(`${path}/${deleteItem}`).then(() => resetToDefault()).catch(() => resetToDefault())
-    }, () => resetToDefault())
-  }
+    db.deleteByGroupID(
+      deleteItem,
+      () => {
+        RNFS.unlink(`${path}/${deleteItem}`)
+          .then(() => resetToDefault())
+          .catch(() => resetToDefault());
+      },
+      () => resetToDefault()
+    );
+  };
 
   const MaskItem = () => (
     <LinearGradient
       style={styles.gradient}
       colors={['black', uploadData.length ? 'transparent' : 'black']}
-      locations={[.75, .95]}
+      locations={[0.75, 0.95]}
     />
-  )
+  );
 
   return (
     <Fragment>
@@ -85,20 +89,16 @@ const UserUpload = () => {
         backgroundColor="transparent"
         translucent={true}
       />
-      {maintenanceMode && uploadData.length > 0 &&  <InfoBox type={"warning"} content={t("alerts:maintenanceMode")}  />}
-      <MaskedView
-        androidRenderingMode={null}
-        maskElement={<MaskItem />}
-        style={styles.maskedView}
-      >
+      {maintenanceMode && uploadData.length > 0 && (
+        <InfoBox type={'warning'} content={t('alerts:maintenanceMode')} />
+      )}
+      <MaskedView androidRenderingMode={null} maskElement={<MaskItem />} style={styles.maskedView}>
         <FlatList
           scrollEnabled={uploadData.length > 0}
           data={uploadData}
           ListEmptyComponent={<EmptyList />}
           renderItem={({ item }) =>
-            mapShown ? (
-              <UploadItem item={item} deleteFunc={setDeleteItem} />
-            ) : null
+            mapShown ? <UploadItem item={item} deleteFunc={setDeleteItem} /> : null
           }
           keyExtractor={(item) => item.sequence_uuid}
           ListFooterComponent={<View />}
@@ -110,12 +110,12 @@ const UserUpload = () => {
 
       <AlertModal
         visible={!!deleteItem}
-        title={t("upload:delete_capture")}
-        description={t("upload:delete_message")}
+        title={t('upload:delete_capture')}
+        description={t('upload:delete_message')}
         loading={loading}
         buttons={{
-          cancel: { text: t("upload:no"), onPress: () => setDeleteItem(undefined) },
-          confirm: { text: t("upload:yes"), onPress: deleteSequence },
+          cancel: { text: t('upload:no'), onPress: () => setDeleteItem(undefined) },
+          confirm: { text: t('upload:yes'), onPress: deleteSequence },
         }}
       />
     </Fragment>
@@ -131,12 +131,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   gradient: {
     flex: 1,
-    width: '100%'
-  }
-})
+    width: '100%',
+  },
+});
 
 export default UserUpload;

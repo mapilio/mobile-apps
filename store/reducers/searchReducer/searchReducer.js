@@ -4,7 +4,7 @@ import {
   SET_SEARCH_LOCATIONS,
   SET_SEARCH_LOADING,
   SET_SEARCH_ERROR,
-} from "../../actionsName";
+} from '../../actionsName';
 
 const initialState = {
   searchHistory: [],
@@ -20,7 +20,7 @@ const searchReducer = (state = initialState, action) => {
       if (state.searchHistory.length > 4) {
         state.searchHistory.pop();
       }
-      if(!state.searchHistory.filter(item => item.param === action.payload.param).length > 0){
+      if (!state.searchHistory.filter((item) => item.param === action.payload.param).length > 0) {
         state.searchHistory.unshift(action.payload);
       }
       return {

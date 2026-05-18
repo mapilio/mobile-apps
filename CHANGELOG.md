@@ -10,6 +10,7 @@ Versioning follows the scheme agreed in [issue #3](https://github.com/mapilio/mo
 ## [Unreleased]
 
 ### Added
+
 - `SECURITY.md` — responsible disclosure policy using GitHub private advisory reporting
 - `CODE_OF_CONDUCT.md` — references Contributor Covenant v2.1
 - Jest coverage reporting with README badge (PR #46)
@@ -17,6 +18,7 @@ Versioning follows the scheme agreed in [issue #3](https://github.com/mapilio/mo
 - Needs-assignee label automation (PR #33)
 
 ### Fixed
+
 - SQL injection vulnerability in `helper/upload.js` — parameterised query replaces string interpolation (PR #27)
 - Duplicate style keys in `styles/leaderStyles.js` flagged by ESLint `no-dupe-keys` (PR #38)
 - Copy typos and inconsistencies in `translations/en.json` (PR #35)
@@ -29,6 +31,7 @@ Versioning follows the scheme agreed in [issue #3](https://github.com/mapilio/mo
 - `react-native-snap-carousel` replaced with `react-native-pager-view` — removes abandoned dependency and its associated vulnerability (PR #40)
 
 ### Changed
+
 - Licence updated to Apache 2.0
 
 ---

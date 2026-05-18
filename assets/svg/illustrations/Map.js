@@ -1,14 +1,9 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Path } from 'react-native-svg';
 
 const Map = ({ width = RFValue(22.5), height = RFValue(24) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 22.647 23.942"
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 22.647 23.942">
     <Path
       id="Path_23013"
       data-name="Path 23013"

@@ -1,32 +1,31 @@
-import React from "react";
-import {TouchableOpacity} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-import {CustomText} from "../../../highordercomponents";
-import {Routes} from "../../../navigator/Routes";
-import {useNavigation} from "@react-navigation/native";
-import {UPDATE_WELCOME_WALKTHROUGH_STATUS} from "../../../store/actionsName";
-import {useDispatch} from "react-redux";
-import {useTranslation} from "react-i18next";
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { CustomText } from '../../../highordercomponents';
+import { Routes } from '../../../navigator/Routes';
+import { useNavigation } from '@react-navigation/native';
+import { UPDATE_WELCOME_WALKTHROUGH_STATUS } from '../../../store/actionsName';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const Next = ({ activeStep, dataLength = 0, onPress }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { t } = useTranslation("welcome_walkthrough");
+  const { t } = useTranslation('welcome_walkthrough');
 
   const pressHandle = () => {
     if (activeStep === dataLength - 1) {
       dispatch({ type: UPDATE_WELCOME_WALKTHROUGH_STATUS, payload: true });
-      navigation.navigate(Routes.tabNavigator, {screen: Routes.map})
+      navigation.navigate(Routes.tabNavigator, { screen: Routes.map });
     } else {
-      onPress?.()
+      onPress?.();
     }
-  }
-
+  };
 
   return (
     <TouchableOpacity onPress={pressHandle}>
-      <CustomText style={{ fontSize: RFValue(17), color: "#191919", paddingRight:RFValue(35) }}>
-        {activeStep === dataLength - 1 ? t("start") : t("next")}
+      <CustomText style={{ fontSize: RFValue(17), color: '#191919', paddingRight: RFValue(35) }}>
+        {activeStep === dataLength - 1 ? t('start') : t('next')}
       </CustomText>
     </TouchableOpacity>
   );

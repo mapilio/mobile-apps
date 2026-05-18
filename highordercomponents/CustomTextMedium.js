@@ -1,12 +1,11 @@
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 
-const CustomTextMedium = ({ style, lineCount = null, children,onPress }) => (
+const CustomTextMedium = ({ style, lineCount = null, children, onPress }) => (
   <Text
-    style={[{ fontFamily: "Poppins-Medium", ...style }]}
+    style={[{ fontFamily: 'Poppins-Medium', ...style }]}
     numberOfLines={lineCount}
-    onPress={onPress}
-  >
+    onPress={onPress}>
     {children}
   </Text>
 );

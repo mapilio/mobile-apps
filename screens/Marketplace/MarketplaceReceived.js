@@ -1,31 +1,29 @@
-import React from "react";
-import { View, Image } from "react-native";
-import { CustomText, CustomTextMedium } from "../../highordercomponents";
-import { marketplaceReceivedStyles } from "../../styles/marketplaceStyles";
-import { Routes } from "../../navigator/Routes";
-import { RFValue } from "react-native-responsive-fontsize";
+import React from 'react';
+import { View, Image } from 'react-native';
+import { CustomText, CustomTextMedium } from '../../highordercomponents';
+import { marketplaceReceivedStyles } from '../../styles/marketplaceStyles';
+import { Routes } from '../../navigator/Routes';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const MarketplaceReceived = ({ navigation }) => {
   return (
     <View style={marketplaceReceivedStyles.container}>
       <Image
-        source={require("../../assets/images/received.png")}
-        resizeMode={"contain"}
+        source={require('../../assets/images/received.png')}
+        resizeMode={'contain'}
         style={marketplaceReceivedStyles.image}
       />
       <CustomTextMedium style={marketplaceReceivedStyles.title}>
         We received your request
       </CustomTextMedium>
       <CustomText style={marketplaceReceivedStyles.description}>
-        Subscriptions let you use the current imagery and map data in your
-        shapes.
+        Subscriptions let you use the current imagery and map data in your shapes.
       </CustomText>
       <CustomText style={{ marginBottom: RFValue(30) }}>
-        Go to{" "}
+        Go to{' '}
         <CustomText
           style={marketplaceReceivedStyles.link}
-          onPress={() => navigation.navigate(Routes.marketplace)}
-        >
+          onPress={() => navigation.navigate(Routes.marketplace)}>
           Marketplace.
         </CustomText>
       </CustomText>

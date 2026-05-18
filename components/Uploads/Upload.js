@@ -1,26 +1,26 @@
-import React, {useEffect, useRef, useState} from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {closeRequest, deleteSequence, getHash, imageryUpload, isWifi} from "../../helper/upload";
-import {activateKeepAwakeAsync, deactivateKeepAwake} from "expo-keep-awake";
-import db from "../../db";
-import {UPLOAD_DATA} from "../../store/actionsName";
-import {Routes} from "../../navigator/Routes";
-import {useDispatch, useSelector} from "react-redux";
-import * as RNFS from "../../util/fs";
-import UploadModal from "./UploadModal";
-import {useNavigation} from "@react-navigation/native";
-import {useTranslation} from "react-i18next";
-import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
-import {getUserInformation} from "../../store/reducers/loginReducer/getUserInformation";
-import {captureException} from "@sentry/react-native";
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { closeRequest, deleteSequence, getHash, imageryUpload, isWifi } from '../../helper/upload';
+import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
+import db from '../../db';
+import { UPLOAD_DATA } from '../../store/actionsName';
+import { Routes } from '../../navigator/Routes';
+import { useDispatch, useSelector } from 'react-redux';
+import * as RNFS from '../../util/fs';
+import UploadModal from './UploadModal';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { getUserInformation } from '../../store/reducers/loginReducer/getUserInformation';
+import { captureException } from '@sentry/react-native';
 
-const Upload = ({group_uuid = null, style, buttonStyle}) => {
+const Upload = ({ group_uuid = null, style, buttonStyle }) => {
   const dispatch = useDispatch();
-  const {t} = useTranslation("navigation");
-  const {defaultStoragePath} = useSelector((state) => state.settingsReducer);
-  const {uploadData} = useSelector((state) => state.uploadReducer);
-  const {connection, maintenanceMode} = useSelector((state) => state.generalReducer);
-  const {userInformation} = useSelector((state) => state.getTokenReducer);
+  const { t } = useTranslation('navigation');
+  const { defaultStoragePath } = useSelector((state) => state.settingsReducer);
+  const { uploadData } = useSelector((state) => state.uploadReducer);
+  const { connection, maintenanceMode } = useSelector((state) => state.generalReducer);
+  const { userInformation } = useSelector((state) => state.getTokenReducer);
   const [totalImageCount, setTotalImageCount] = useState(0);
   const [sentCount, setSentCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -53,28 +53,28 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
       // if external storage is selected, this will return multiple paths and get the second one
       RNFS.getAllExternalFilesDirs().then((dirs) => {
         path = dirs[1];
-      })
+      });
     }
 
     group_uuid && (path += `/${group_uuid}`);
 
-    RNFS.stat(path).then(({size}) => setTotalSize(Math.round(size / 1024 / 1024)))
+    RNFS.stat(path).then(({ size }) => setTotalSize(Math.round(size / 1024 / 1024)));
 
-    return () => setTotalSize(0)
+    return () => setTotalSize(0);
   }, []);
 
   const uploadHandler = async () => {
     if (!connection.connectionStatus) {
-      toast.show(t("have_not_connection"), {type: 'error'});
+      toast.show(t('have_not_connection'), { type: 'error' });
       return;
     }
 
     if (!userInformation) {
-      navigation.navigate(Routes.stackNavigator, {screen: Routes.login})
+      navigation.navigate(Routes.stackNavigator, { screen: Routes.login });
       return;
     }
 
-    const {status} = await isWifi();
+    const { status } = await isWifi();
 
     if (status !== 'success') {
       return;
@@ -83,65 +83,64 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
     await activateKeepAwakeAsync('upload');
     setModalVisible(true);
 
-    const {sequences, total} = await db.getSequencesForUpload(group_uuid)
+    const { sequences, total } = await db.getSequencesForUpload(group_uuid);
     setTotalImageCount(total);
     setSequenceLength(sequences.length);
 
-    sequence : for (let [index, sequence] of sequences.entries()) {
+    sequence: for (let [index, sequence] of sequences.entries()) {
       try {
-        const isCaptureIDNull = await db.isCaptureIdNull(sequence.sequence_uuid)
-        const orderBy = isCaptureIDNull ? 'id ASC' : 'capture_id ASC'
-        const images = await db.getCapturesBySequenceIdAsync(sequence.sequence_uuid, orderBy)
+        const isCaptureIDNull = await db.isCaptureIdNull(sequence.sequence_uuid);
+        const orderBy = isCaptureIDNull ? 'id ASC' : 'capture_id ASC';
+        const images = await db.getCapturesBySequenceIdAsync(sequence.sequence_uuid, orderBy);
 
         for (let image of images) {
           await waitWhilePaused();
-          const {status, hash, message} = await getHash(image)
+          const { status, hash, message } = await getHash(image);
 
           if (status === 'success') {
-            image.hash = hash
-            setSentCount(prev => prev + 1)
+            image.hash = hash;
+            setSentCount((prev) => prev + 1);
           } else {
-            toast.show(message, {type: 'error'});
+            toast.show(message, { type: 'error' });
             break sequence;
           }
         }
 
         await waitWhilePaused();
-        const {status, message} = await imageryUpload(images, sequence.sequence_uuid)
+        const { status, message } = await imageryUpload(images, sequence.sequence_uuid);
 
         if (status === 'success') {
-          willDelete.push(sequence.sequence_uuid)
+          willDelete.push(sequence.sequence_uuid);
 
           if (index === sequences.length - 1) {
-            navigation.navigate("UploadTab", {screen: Routes.uploadCompleted})
+            navigation.navigate('UploadTab', { screen: Routes.uploadCompleted });
           }
         } else {
-          toast.show(message, {type: 'error'});
+          toast.show(message, { type: 'error' });
           break;
         }
-
       } catch (e) {
         captureException(e, {
           tags: {
-            functionName: 'uploadHandler'
-          }
-        })
-        toast.show(e.message, {type: 'error'});
+            functionName: 'uploadHandler',
+          },
+        });
+        toast.show(e.message, { type: 'error' });
         break;
       }
     }
 
     for (let uuid of willDelete) {
-      await deleteSequence(uuid)
-      willDelete = willDelete.filter(item => item !== uuid)
+      await deleteSequence(uuid);
+      willDelete = willDelete.filter((item) => item !== uuid);
     }
 
-    db.getGroupByWithGroupID().then((data) => dispatch({type: UPLOAD_DATA, payload: data}))
+    db.getGroupByWithGroupID().then((data) => dispatch({ type: UPLOAD_DATA, payload: data }));
 
     handleStop();
-    dispatch(getUserInformation())
+    dispatch(getUserInformation());
     deactivateKeepAwake('upload');
-  }
+  };
 
   const handleStop = () => {
     pauseRef.current = false;
@@ -150,20 +149,25 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
     setModalVisible(false);
     setTotalImageCount(0);
     setSentCount(0);
-  }
+  };
 
   return (
     <View style={style}>
       {(!!uploadData.length || group_uuid) && (
         <TouchableOpacity
-          style={{...styles.uploadButton, ...buttonStyle, backgroundColor: maintenanceMode ? '#ECECEC' : '#0056F1',}}
+          style={{
+            ...styles.uploadButton,
+            ...buttonStyle,
+            backgroundColor: maintenanceMode ? '#ECECEC' : '#0056F1',
+          }}
           onPress={uploadHandler}
           disabled={maintenanceMode}
           accessibilityRole="button"
-          accessibilityLabel={t("start_upload", {ns: 'upload'})}
-          accessibilityState={{disabled: maintenanceMode}}
-        >
-          <Text style={{...styles.uploadButtonText, color: maintenanceMode ? '#C2C2C2' : '#fff'}}>{t("start_upload", {ns: 'upload'})}</Text>
+          accessibilityLabel={t('start_upload', { ns: 'upload' })}
+          accessibilityState={{ disabled: maintenanceMode }}>
+          <Text style={{ ...styles.uploadButtonText, color: maintenanceMode ? '#C2C2C2' : '#fff' }}>
+            {t('start_upload', { ns: 'upload' })}
+          </Text>
         </TouchableOpacity>
       )}
 
@@ -181,7 +185,6 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
   );
 };
 
-
 const styles = StyleSheet.create({
   uploadButton: {
     padding: RFValue(15),
@@ -194,6 +197,6 @@ const styles = StyleSheet.create({
     fontSize: RFValue(14),
     fontFamily: 'Poppins-Medium',
   },
-})
+});
 
 export default Upload;

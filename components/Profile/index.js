@@ -1,1 +1,1 @@
-export {default} from './FeedList'
+export { default } from './FeedList';

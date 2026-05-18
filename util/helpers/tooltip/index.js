@@ -5,8 +5,8 @@ import {
   SET_TOOLTIP_TABBAR_INITIALIZED,
   SET_TOOLTIP_MARKETPLACE_INITIALIZED,
   SET_TOOLTIP_CAMERA_INITIALIZED,
-} from "../../../store/actionsName";
-import { tooltipSteps } from "../../consts/tooltip";
+} from '../../../store/actionsName';
+import { tooltipSteps } from '../../consts/tooltip';
 
 /**
  * Find next step name based on tooltipSteps
@@ -49,11 +49,11 @@ export const nextStepActionName = (name) => {
   const tooltipType = findTooltipType(name);
 
   switch (tooltipType) {
-    case "tabBar":
+    case 'tabBar':
       return SET_TOOLTIP_TABBAR_STEP;
-    case "marketplace":
+    case 'marketplace':
       return SET_TOOLTIP_MARKETPLACE_STEP;
-    case "camera":
+    case 'camera':
       return SET_TOOLTIP_CAMERA_STEP;
     default:
       return null;
@@ -69,11 +69,11 @@ export const finishStepsActionName = (name) => {
   const tooltipType = findTooltipType(name);
 
   switch (tooltipType) {
-    case "tabBar":
+    case 'tabBar':
       return SET_TOOLTIP_TABBAR_INITIALIZED;
-    case "marketplace":
+    case 'marketplace':
       return SET_TOOLTIP_MARKETPLACE_INITIALIZED;
-    case "camera":
+    case 'camera':
       return SET_TOOLTIP_CAMERA_INITIALIZED;
     default:
       return null;

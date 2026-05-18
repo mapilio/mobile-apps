@@ -3,7 +3,7 @@ module.exports = {
     '@lightbase/react-native-panorama-view': {
       platforms: {
         android: null,
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};

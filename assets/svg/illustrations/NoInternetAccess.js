@@ -1,13 +1,6 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, {
-  Ellipse,
-  Defs,
-  G,
-  LinearGradient,
-  Path,
-  Stop,
-} from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Ellipse, Defs, G, LinearGradient, Path, Stop } from 'react-native-svg';
 
 const NoInternetAccess = ({ width = RFValue(156), height = RFValue(192) }) => (
   <Svg
@@ -15,31 +8,24 @@ const NoInternetAccess = ({ width = RFValue(156), height = RFValue(192) }) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     width={width}
     height={height}
-    viewBox="0 0 156.512 192.656"
-  >
+    viewBox="0 0 156.512 192.656">
     <Defs>
       <LinearGradient
         id="linear-gradient"
         y1="0.5"
         x2="1"
         y2="0.5"
-        gradientUnits="objectBoundingBox"
-      >
+        gradientUnits="objectBoundingBox">
         <Stop offset="0" stopColor="#9fb1c6" stopOpacity="0.149" />
         <Stop offset="1" stopColor="#9fb1c6" />
       </LinearGradient>
     </Defs>
-    <G
-      id="Group_48522"
-      data-name="Group 48522"
-      transform="translate(-102.357 -164.392)"
-    >
+    <G id="Group_48522" data-name="Group 48522" transform="translate(-102.357 -164.392)">
       <G
         id="Group_47055"
         data-name="Group 47055"
         transform="translate(109.334 164.392)"
-        style="isolation: isolate"
-      >
+        style="isolation: isolate">
         <Path
           id="Path_22904"
           data-name="Path 22904"
@@ -52,18 +38,9 @@ const NoInternetAccess = ({ width = RFValue(156), height = RFValue(192) }) => (
         id="Group_47067"
         data-name="Group 47067"
         transform="translate(102.357 176.239)"
-        style="isolation: isolate"
-      >
-        <G
-          id="Group_47065"
-          data-name="Group 47065"
-          transform="translate(5.832 0.22)"
-        >
-          <G
-            id="Group_47061"
-            data-name="Group 47061"
-            transform="translate(0 1.879)"
-          >
+        style="isolation: isolate">
+        <G id="Group_47065" data-name="Group 47065" transform="translate(5.832 0.22)">
+          <G id="Group_47061" data-name="Group 47061" transform="translate(0 1.879)">
             <Path
               id="Path_22905"
               data-name="Path 22905"
@@ -72,11 +49,7 @@ const NoInternetAccess = ({ width = RFValue(156), height = RFValue(192) }) => (
               fill="#516378"
               opacity="0.1"
             />
-            <G
-              id="Group_47060"
-              data-name="Group 47060"
-              transform="translate(11.798)"
-            >
+            <G id="Group_47060" data-name="Group 47060" transform="translate(11.798)">
               <Path
                 id="Path_22906"
                 data-name="Path 22906"
@@ -102,11 +75,7 @@ const NoInternetAccess = ({ width = RFValue(156), height = RFValue(192) }) => (
                   transform="translate(0.649 0.649)"
                   fill="#798ba0"
                 />
-                <G
-                  id="Group_47056"
-                  data-name="Group 47056"
-                  transform="translate(29.942 3.72)"
-                >
+                <G id="Group_47056" data-name="Group 47056" transform="translate(29.942 3.72)">
                   <Path
                     id="Path_22908"
                     data-name="Path 22908"
@@ -123,11 +92,7 @@ const NoInternetAccess = ({ width = RFValue(156), height = RFValue(192) }) => (
                   />
                 </G>
               </G>
-              <G
-                id="Group_47058"
-                data-name="Group 47058"
-                transform="translate(45.569 20.252)"
-              >
+              <G id="Group_47058" data-name="Group 47058" transform="translate(45.569 20.252)">
                 <Ellipse
                   id="Ellipse_1617"
                   data-name="Ellipse 1617"
@@ -189,11 +154,7 @@ const NoInternetAccess = ({ width = RFValue(156), height = RFValue(192) }) => (
                   fill="#798ba0"
                 />
               </G>
-              <G
-                id="Group_47059"
-                data-name="Group 47059"
-                transform="translate(7.598 138.982)"
-              >
+              <G id="Group_47059" data-name="Group 47059" transform="translate(7.598 138.982)">
                 <Path
                   id="Path_22910"
                   data-name="Path 22910"
@@ -268,16 +229,8 @@ const NoInternetAccess = ({ width = RFValue(156), height = RFValue(192) }) => (
           />
         </G>
       </G>
-      <G
-        id="Group_48432"
-        data-name="Group 48432"
-        transform="translate(191.983 212.901)"
-      >
-        <G
-          id="Group_48430"
-          data-name="Group 48430"
-          transform="translate(1.882 1.881)"
-        >
+      <G id="Group_48432" data-name="Group 48432" transform="translate(191.983 212.901)">
+        <G id="Group_48430" data-name="Group 48430" transform="translate(1.882 1.881)">
           <Path
             id="Path_22913"
             data-name="Path 22913"

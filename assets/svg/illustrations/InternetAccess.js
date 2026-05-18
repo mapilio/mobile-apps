@@ -1,14 +1,9 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { G, Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Path } from 'react-native-svg';
 
 const InternetAccess = ({ width = RFValue(40), height = RFValue(30) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 39.861 30.416"
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 39.861 30.416">
     <G transform="translate(-217.862 -127.795)">
       <G transform="translate(200.797 79.797)">
         <Path

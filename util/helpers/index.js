@@ -1,6 +1,6 @@
-import * as Haptics from "expo-haptics";
-import i18n from "i18next";
-import {length, lineString} from "@turf/turf";
+import * as Haptics from 'expo-haptics';
+import i18n from 'i18next';
+import { length, lineString } from '@turf/turf';
 
 /**
  *
@@ -13,26 +13,26 @@ import {length, lineString} from "@turf/turf";
  */
 export const vibrate = (type) => {
   switch (type) {
-    case "success":
+    case 'success':
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       break;
-    case "warning":
-    case "info":
+    case 'warning':
+    case 'info':
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
       break;
-    case "error":
+    case 'error':
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       break;
-    case "light":
+    case 'light':
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       break;
-    case "medium":
+    case 'medium':
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       break;
-    case "heavy":
+    case 'heavy':
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
       break;
-    case "selection":
+    case 'selection':
       Haptics.selectionAsync();
       break;
     default:
@@ -55,8 +55,10 @@ export const translate = (key, ns) => i18n.t(key, { ns });
  * @returns {number} score of the sequence
  */
 export const scoreCalculate = (sequence) => {
-  const line = lineString(sequence.map(({location}) => [JSON.parse(location).longitude, JSON.parse(location).latitude]));
-  const meters = length(line, { units: "kilometers" });
+  const line = lineString(
+    sequence.map(({ location }) => [JSON.parse(location).longitude, JSON.parse(location).latitude])
+  );
+  const meters = length(line, { units: 'kilometers' });
 
-  return parseFloat((meters + (sequence.length / 100)).toFixed(2))
-}
+  return parseFloat((meters + sequence.length / 100).toFixed(2));
+};

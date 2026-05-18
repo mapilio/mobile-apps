@@ -1,5 +1,5 @@
-import {ActivityIndicator, Text, TouchableOpacity, View} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 /**
  * Button Component
@@ -23,8 +23,7 @@ import {RFValue} from "react-native-responsive-fontsize";
  * />
  *
  */
-export default ({title, containerStyle, fontStyle, onPress, disabled, loading}) => {
-
+export default ({ title, containerStyle, fontStyle, onPress, disabled, loading }) => {
   const styles = {
     container: {
       backgroundColor: '#3F8BE9',
@@ -41,8 +40,8 @@ export default ({title, containerStyle, fontStyle, onPress, disabled, loading}) 
       fontFamily: 'Poppins',
       fontSize: RFValue(16),
       ...fontStyle,
-    }
-  }
+    },
+  };
 
   return (
     <View>
@@ -51,5 +50,5 @@ export default ({title, containerStyle, fontStyle, onPress, disabled, loading}) 
         <Text style={styles.text}>{title || 'Button'}</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};

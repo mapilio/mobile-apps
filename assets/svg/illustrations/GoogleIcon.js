@@ -1,19 +1,18 @@
-import React from "react";
-import { Platform } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Path } from "react-native-svg";
+import React from 'react';
+import { Platform } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Path } from 'react-native-svg';
 
 const GoogleIcon = ({
-  width = Platform.OS === "android" ? RFValue(19) : RFValue(10),
-  height = Platform.OS === "android" ? RFValue(19) : RFValue(10),
+  width = Platform.OS === 'android' ? RFValue(19) : RFValue(10),
+  height = Platform.OS === 'android' ? RFValue(19) : RFValue(10),
 }) => (
   <Svg
     width={width}
     height={height}
     viewBox="0 0 23 23"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+    xmlns="http://www.w3.org/2000/svg">
     <Path
       d="M4.87595 13.2949L4.10995 16.1529L1.30995 16.2119C0.463227 14.6351 0.0133571 12.8757 -0.000755994 11.086C-0.0148691 9.2962 0.407199 7.52995 1.22895 5.93994L3.72095 6.39694L4.81395 8.87294C4.32306 10.3091 4.34497 11.8711 4.87595 13.2929V13.2949Z"
       fill="#FBBB00"

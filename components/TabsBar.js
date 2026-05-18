@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 // TODO  import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { UserFeed } from "./UserFeed";
+import { UserFeed } from './UserFeed';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
@@ -10,15 +10,14 @@ function TabsBar() {
     <Tabs.Screen
       initialRouteName="Feed"
       screenOptions={{
-        tabBarActiveTintColor: "#e91e63",
-      }}
-    >
+        tabBarActiveTintColor: '#e91e63',
+      }}>
       <Tabs.Screen
         name="Feed"
         component={UserFeed}
         options={{
-          tabBarLabel: "Home",
-          tabBarLabelPosition: "beside-icon",
+          tabBarLabel: 'Home',
+          tabBarLabelPosition: 'beside-icon',
           tabBarIcon: ({ color, size }) => (
             // <MaterialCommunityIcons name="home" color={color} size={size} />
             <></>
@@ -29,7 +28,7 @@ function TabsBar() {
         name="Notifications"
         component={UserFeed}
         options={{
-          tabBarLabel: "Updates",
+          tabBarLabel: 'Updates',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="bell" color={color} size={size} />
           ),
@@ -40,7 +39,7 @@ function TabsBar() {
         name="Settings"
         component={UserFeed}
         options={{
-          tabBarLabel: "Profile",
+          tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),

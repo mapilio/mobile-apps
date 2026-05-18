@@ -13,4 +13,4 @@ export default () => ({
   ru: require('./ru.json'),
   tr: require('./tr.json'),
   de: require('./de.json'),
-})
+});

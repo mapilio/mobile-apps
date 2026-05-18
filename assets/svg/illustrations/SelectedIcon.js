@@ -1,27 +1,17 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Circle, G, Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Circle, G, Path } from 'react-native-svg';
 
 const SelectedIcon = ({ width = RFValue(19), height = RFValue(19) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 19 19"
-  >
-    <G
-      id="Group_47475"
-      data-name="Group 47475"
-      transform="translate(-100 -240)"
-    >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 19 19">
+    <G id="Group_47475" data-name="Group 47475" transform="translate(-100 -240)">
       <G
         id="Ellipse_1645"
         data-name="Ellipse 1645"
         transform="translate(100 240)"
         fill="#1ad971"
         stroke="#fff"
-        stroke-width="1"
-      >
+        stroke-width="1">
         <Circle cx="9.5" cy="9.5" r="9.5" stroke="none" />
         <Circle cx="9.5" cy="9.5" r="9" fill="none" />
       </G>

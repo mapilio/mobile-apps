@@ -3,11 +3,14 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      ['module-resolver', {
-        alias: {
-          'react-native-linear-gradient': 'expo-linear-gradient',
+      [
+        'module-resolver',
+        {
+          alias: {
+            'react-native-linear-gradient': 'expo-linear-gradient',
+          },
         },
-      }],
+      ],
       'react-native-reanimated/plugin',
     ],
   };

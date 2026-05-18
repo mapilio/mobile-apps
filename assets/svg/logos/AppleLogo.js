@@ -1,5 +1,5 @@
-import React from "react";
-import Svg, { G, Path } from "react-native-svg";
+import React from 'react';
+import Svg, { G, Path } from 'react-native-svg';
 
 const AppleLogo = () => {
   return (
@@ -9,13 +9,11 @@ const AppleLogo = () => {
       width="40px"
       height="40px"
       viewBox="0 0 1280.000000 1280.000000"
-      preserveAspectRatio="xMidYMid meet"
-    >
+      preserveAspectRatio="xMidYMid meet">
       <G
         transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
         fill="#657488"
-        stroke="none"
-      >
+        stroke="none">
         <Path
           d="M7983 10759 c-407 -47 -983 -406 -1269 -790 -165 -220 -262 -430
 -346 -746 l-42 -158 2 -168 c2 -92 7 -178 12 -192 13 -33 38 -38 214 -39 146

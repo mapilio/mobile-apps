@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -8,27 +8,19 @@ import {
   ActivityIndicator,
   Keyboard,
   Platform,
-} from "react-native";
-import SwipeLine from "../assets/svg/illustrations/SwipeLine";
-import { CustomText } from "../highordercomponents";
-import { marketplaceStyles } from "../styles/marketplaceStyles";
-import { RFValue } from "react-native-responsive-fontsize";
-import {
-  convertHexToRGBA,
-  maxCharacterHandler,
-} from "../helper/helper";
-import SearchIcon from "../assets/svg/illustrations/SearchIcon";
-import axios from "axios";
-import {search} from "../util/helpers/api";
+} from 'react-native';
+import SwipeLine from '../assets/svg/illustrations/SwipeLine';
+import { CustomText } from '../highordercomponents';
+import { marketplaceStyles } from '../styles/marketplaceStyles';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { convertHexToRGBA, maxCharacterHandler } from '../helper/helper';
+import SearchIcon from '../assets/svg/illustrations/SearchIcon';
+import axios from 'axios';
+import { search } from '../util/helpers/api';
 
-const SearchbarSwipe = ({
-  setFly,
-  panelRef,
-  setOnScroll,
-  isKeyboardVisible,
-}) => {
-  const [value, setInputValue] = useState("");
-  const [valueAPI, setAPIValue] = useState("");
+const SearchbarSwipe = ({ setFly, panelRef, setOnScroll, isKeyboardVisible }) => {
+  const [value, setInputValue] = useState('');
+  const [valueAPI, setAPIValue] = useState('');
   const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -37,10 +29,15 @@ const SearchbarSwipe = ({
     setLoading(true);
 
     if (valueAPI.length !== 0) {
-      search.get(`/api/?q=${valueAPI}`).then(({data}) => {
-        setLocations(data.features);
-        setLoading(false);
-      }).catch(() => toast.show("An error occurred while find locations, please try again.", {type: "error"}));
+      search
+        .get(`/api/?q=${valueAPI}`)
+        .then(({ data }) => {
+          setLocations(data.features);
+          setLoading(false);
+        })
+        .catch(() =>
+          toast.show('An error occurred while find locations, please try again.', { type: 'error' })
+        );
     } else {
       setLoading(false);
       setLocations([]);
@@ -57,18 +54,16 @@ const SearchbarSwipe = ({
   };
 
   return (
-    <View
-      style={[{ ...marketplaceStyles.container, paddingBottom: RFValue(200) }]}
-    >
+    <View style={[{ ...marketplaceStyles.container, paddingBottom: RFValue(200) }]}>
       <View style={marketplaceStyles.panelHeader} onTouchStart={() => setOnScroll(false)}>
         <SwipeLine />
       </View>
       <View>
         <TextInput
-          placeholder={"Search for street, city, country..."}
-          placeholderTextColor={convertHexToRGBA("#FFFFFF", 70)}
+          placeholder={'Search for street, city, country...'}
+          placeholderTextColor={convertHexToRGBA('#FFFFFF', 70)}
           value={value}
-          onPressOut={() => Platform.OS === "android" && panelRef?.current?.show(500)}
+          onPressOut={() => Platform.OS === 'android' && panelRef?.current?.show(500)}
           onChangeText={(value) => {
             setInputValue(value);
             setLoading(true);
@@ -80,18 +75,17 @@ const SearchbarSwipe = ({
         />
         <View
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: RFValue(22),
             left: RFValue(22),
-          }}
-        >
+          }}>
           <SearchIcon width={22} height={22} />
           <View
             style={{
               height: RFValue(18),
-              backgroundColor: "#FFFFFF",
+              backgroundColor: '#FFFFFF',
               width: RFValue(1),
-              position: "absolute",
+              position: 'absolute',
               top: RFValue(2),
               left: RFValue(28),
             }}
@@ -104,14 +98,9 @@ const SearchbarSwipe = ({
           marginLeft: RFValue(12),
           marginRight: RFValue(12),
           flex: 1,
-        }}
-      >
+        }}>
         {loading ? (
-          <ActivityIndicator
-            style={{ marginTop: RFValue(10) }}
-            color={"#FFFFFF"}
-            size={"large"}
-          />
+          <ActivityIndicator style={{ marginTop: RFValue(10) }} color={'#FFFFFF'} size={'large'} />
         ) : (
           <FlatList
             data={locations}
@@ -134,14 +123,11 @@ const SearchbarSwipe = ({
             ListEmptyComponent={() => (
               <CustomText
                 style={{
-                  color: "#7E86B0",
+                  color: '#7E86B0',
                   fontSize: RFValue(16),
-                  alignSelf: "center",
-                }}
-              >
-                {value.trim().length === 0
-                  ? "Please type location."
-                  : "Location not found."}
+                  alignSelf: 'center',
+                }}>
+                {value.trim().length === 0 ? 'Please type location.' : 'Location not found.'}
               </CustomText>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -152,23 +138,22 @@ const SearchbarSwipe = ({
                   id={index}
                   onPress={() => flyToCoordinate(item.geometry.coordinates)}
                   style={{
-                    borderBottomColor: convertHexToRGBA("#CBD1D9", 20),
+                    borderBottomColor: convertHexToRGBA('#CBD1D9', 20),
                     borderBottomWidth: 1,
-                  }}
-                >
+                  }}>
                   <CustomText
-                    style={{ color: "#CBD1D9" }}
-                  >{`${maxCharacterHandler(item.properties.name, 45)}${
-                    item.properties.city ? "," + " " + item.properties.city : ""
+                    style={{
+                      color: '#CBD1D9',
+                    }}>{`${maxCharacterHandler(item.properties.name, 45)}${
+                    item.properties.city ? ',' + ' ' + item.properties.city : ''
                   }`}</CustomText>
                   <CustomText
                     style={{
                       fontSize: 14,
-                      color: "#7E86B0",
+                      color: '#7E86B0',
                       marginTop: RFValue(2),
                       marginBottom: RFValue(3),
-                    }}
-                  >
+                    }}>
                     {item.properties.country}
                   </CustomText>
                 </TouchableOpacity>
@@ -191,7 +176,7 @@ const styles = StyleSheet.create({
     padding: RFValue(10),
     paddingLeft: RFValue(42),
     borderRadius: RFValue(30),
-    backgroundColor: convertHexToRGBA("#7E86B0", 90),
-    color: "#FFFFFF",
+    backgroundColor: convertHexToRGBA('#7E86B0', 90),
+    color: '#FFFFFF',
   },
 });

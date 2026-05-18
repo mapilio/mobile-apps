@@ -1,14 +1,9 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Path } from 'react-native-svg';
 
-const Information = ({ width = RFValue(20), height = RFValue(24), fill="#d5d5d5" }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 20.17 24.016"
-  >
+const Information = ({ width = RFValue(20), height = RFValue(24), fill = '#d5d5d5' }) => (
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 20.17 24.016">
     <Path
       id="Path_23058"
       data-name="Path 23058"

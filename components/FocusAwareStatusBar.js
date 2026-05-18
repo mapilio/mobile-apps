@@ -1,5 +1,5 @@
-import { StatusBar } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
+import { StatusBar } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 const FocusAwareStatusBar = (props) => {
   const isFocused = useIsFocused();

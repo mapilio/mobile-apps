@@ -1,127 +1,132 @@
-import React, {useState} from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Linking,
-  ScrollView,
-} from "react-native";
-import * as yup from "yup";
-import { loginStyles } from "../styles/loginStyles";
-import { Routes } from "../navigator/Routes";
-import { CustomText } from "../highordercomponents";
-import { RFValue } from "react-native-responsive-fontsize";
-import { Eye } from "../assets/svg/illustrations";
-import { SocialLogin } from "../components";
-import {useForm, Controller} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
-import {globalStyles} from "../styles/globalStyles";
-import {SafeAreaView} from "react-native-safe-area-context";
-import {MapilioLogoBeta} from "../assets/svg/logos";
-import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {Trans, useTranslation} from "react-i18next";
-import {api} from "../util/helpers/api";
-import { ActivityIndicator } from "react-native-paper";
-import {captureException} from "@sentry/react-native";
-
-
+import React, { useState } from 'react';
+import { View, TextInput, TouchableOpacity, Linking, ScrollView } from 'react-native';
+import * as yup from 'yup';
+import { loginStyles } from '../styles/loginStyles';
+import { Routes } from '../navigator/Routes';
+import { CustomText } from '../highordercomponents';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { Eye } from '../assets/svg/illustrations';
+import { SocialLogin } from '../components';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { globalStyles } from '../styles/globalStyles';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { MapilioLogoBeta } from '../assets/svg/logos';
+import FocusAwareStatusBar from '../components/FocusAwareStatusBar';
+import { Trans, useTranslation } from 'react-i18next';
+import { api } from '../util/helpers/api';
+import { ActivityIndicator } from 'react-native-paper';
+import { captureException } from '@sentry/react-native';
 
 const Register = ({ navigation }) => {
-  const {t} = useTranslation("register");
+  const { t } = useTranslation('register');
   const [securePassword, setSecurePassword] = useState(true);
   const [toggleEye, setToggleEye] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const registerValidationSchema = yup.object().shape({
-    name: yup.string().required(t("name_required")),
-    email: yup.string().email(t("email_not_valid")).required(t("email_required")),
-    password: yup.string().min(8, ({min}) => t("pass_min_character", {min})).required("Password is required"),
+    name: yup.string().required(t('name_required')),
+    email: yup.string().email(t('email_not_valid')).required(t('email_required')),
+    password: yup
+      .string()
+      .min(8, ({ min }) => t('pass_min_character', { min }))
+      .required('Password is required'),
   });
 
   const register = (values) => {
-    setLoading(true)
+    setLoading(true);
 
-    api.post("/api/register", {
-      name: values.name,
-      username: values.name,
-      email: values.email,
-      password: values.password,
-      register_type: "credentials",
-      callback: `https://mapilio.com?deeplink=mapilio://`,
-      "success-params": "tverification=true",
-      "error-params": "tverification=false",
-    }, {
-      headers: {
-        'Content-Type': 'multipart/form-data'}
-    }).then(() => {
-      navigation.reset({index: 0, routes: [{name: Routes.login}]})
-      toast.show(t("account_created"), {type: "success"})
-    }).catch((err) => {
-      captureException(err, {
-        tags: {
-          functionName: 'register',
+    api
+      .post(
+        '/api/register',
+        {
+          name: values.name,
+          username: values.name,
+          email: values.email,
+          password: values.password,
+          register_type: 'credentials',
+          callback: `https://mapilio.com?deeplink=mapilio://`,
+          'success-params': 'tverification=true',
+          'error-params': 'tverification=false',
         },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      .then(() => {
+        navigation.reset({ index: 0, routes: [{ name: Routes.login }] });
+        toast.show(t('account_created'), { type: 'success' });
       })
-      if(Object.keys(err).length === 0){
-        toast.show(t("register_error"), {type: "error"})
-      }else{
-        Object.values(err.response.data).map((item, _i) => {
-          toast.show(`${item[0]}`, {type: "error"})
+      .catch((err) => {
+        captureException(err, {
+          tags: {
+            functionName: 'register',
+          },
         });
-      }
-      
-    }).finally(() => setLoading(false))
-  }
+        if (Object.keys(err).length === 0) {
+          toast.show(t('register_error'), { type: 'error' });
+        } else {
+          Object.values(err.response.data).map((item, _i) => {
+            toast.show(`${item[0]}`, { type: 'error' });
+          });
+        }
+      })
+      .finally(() => setLoading(false));
+  };
 
   const redirectPrivacyPolicy = () => {
-    Linking.openURL("https://mapilio.com/privacy").catch(() => {
-      toast.show(t("redirect_error"), {type: "error"})
+    Linking.openURL('https://mapilio.com/privacy').catch(() => {
+      toast.show(t('redirect_error'), { type: 'error' });
     });
   };
 
   const redirectTermsConditions = () => {
-    Linking.openURL("https://mapilio.com/terms").catch(() => {
-      toast.show(t("redirect_error"), {type: "error"})
+    Linking.openURL('https://mapilio.com/terms').catch(() => {
+      toast.show(t('redirect_error'), { type: 'error' });
     });
   };
 
-  const {control, handleSubmit, formState: {errors}} = useForm({
-    defaultValues: {name: '', email: '', password: ''},
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { name: '', email: '', password: '' },
     resolver: yupResolver(registerValidationSchema),
   });
 
-
   return (
-    <SafeAreaView style={[globalStyles.container, loginStyles.container, {
-			paddingBottom:0,
-			paddingVertical:0,
-		}]}>
-      <FocusAwareStatusBar
-        barStyle="dark-content"
-        translucent
-        backgroundColor="#fff"
-      />
-      <ScrollView showsVerticalScrollIndicator={false} >
+    <SafeAreaView
+      style={[
+        globalStyles.container,
+        loginStyles.container,
+        {
+          paddingBottom: 0,
+          paddingVertical: 0,
+        },
+      ]}>
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={loginStyles.logo}>
           <MapilioLogoBeta width={RFValue(218)} height={RFValue(43)} />
         </View>
         <View style={{ marginBottom: RFValue(30) }}>
-          <CustomText style={loginStyles.headerText}>{t("title")}</CustomText>
+          <CustomText style={loginStyles.headerText}>{t('title')}</CustomText>
         </View>
 
         <Controller
-          name={"name"}
+          name={'name'}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <View style={loginStyles.formGroup}>
               {errors.name && (
-                <CustomText style={loginStyles.errorText}>
-                  {errors.name.message}
-                </CustomText>
+                <CustomText style={loginStyles.errorText}>{errors.name.message}</CustomText>
               )}
               <TextInput
                 name="name"
-                placeholder={t("name")}
+                placeholder={t('name')}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -136,18 +141,16 @@ const Register = ({ navigation }) => {
           )}
         />
         <Controller
-          name={"email"}
+          name={'email'}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <View style={loginStyles.formGroup}>
               {errors.email && (
-                <CustomText style={loginStyles.errorText}>
-                  {errors.email.message}
-                </CustomText>
+                <CustomText style={loginStyles.errorText}>{errors.email.message}</CustomText>
               )}
               <TextInput
                 name="email"
-                placeholder={t("email")}
+                placeholder={t('email')}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -163,20 +166,18 @@ const Register = ({ navigation }) => {
           )}
         />
         <Controller
-          name={"password"}
+          name={'password'}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <View style={loginStyles.formGroup}>
-              <View style={{ justifyContent: "center" }}>
+              <View style={{ justifyContent: 'center' }}>
                 {errors.password && (
-                  <CustomText style={loginStyles.errorText}>
-                    {errors.password.message}
-                  </CustomText>
+                  <CustomText style={loginStyles.errorText}>{errors.password.message}</CustomText>
                 )}
 
                 <TextInput
                   name="password"
-                  placeholder={t("password")}
+                  placeholder={t('password')}
                   onChangeText={(e) => {
                     setToggleEye(!!e.length);
                     onChange(e);
@@ -193,8 +194,7 @@ const Register = ({ navigation }) => {
                 <TouchableOpacity
                   style={loginStyles.passwordIcon}
                   onPressIn={() => setSecurePassword(false)}
-                  onPressOut={() => setSecurePassword(true)}
-                >
+                  onPressOut={() => setSecurePassword(true)}>
                   {toggleEye && <Eye />}
                 </TouchableOpacity>
               </View>
@@ -204,14 +204,9 @@ const Register = ({ navigation }) => {
         <TouchableOpacity
           style={loginStyles.button}
           disabled={loading}
-          onPress={handleSubmit((values) => register(values))}
-        >
-          <CustomText style={{ ...loginStyles.secondaryText, color: "#fff" }}>
-            {loading ? (
-              <ActivityIndicator size={"small"} color={"#FFFFFF"} />
-            ) : (
-              t("signup")
-            )}
+          onPress={handleSubmit((values) => register(values))}>
+          <CustomText style={{ ...loginStyles.secondaryText, color: '#fff' }}>
+            {loading ? <ActivityIndicator size={'small'} color={'#FFFFFF'} /> : t('signup')}
           </CustomText>
         </TouchableOpacity>
         <View style={{ marginTop: RFValue(18) }}>
@@ -221,16 +216,10 @@ const Register = ({ navigation }) => {
           <CustomText style={loginStyles.privacyText}>
             <Trans
               t={t}
-              i18nKey={"policy"}
+              i18nKey={'policy'}
               components={[
-                <CustomText
-                  style={loginStyles.link}
-                  onPress={redirectPrivacyPolicy}
-                />,
-                <CustomText
-                  style={loginStyles.link}
-                  onPress={redirectTermsConditions}
-                />,
+                <CustomText style={loginStyles.link} onPress={redirectPrivacyPolicy} />,
+                <CustomText style={loginStyles.link} onPress={redirectTermsConditions} />,
               ]}
             />
           </CustomText>

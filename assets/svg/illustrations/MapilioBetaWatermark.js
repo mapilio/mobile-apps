@@ -1,19 +1,17 @@
-import Svg, { Path, G } from "react-native-svg";
+import Svg, { Path, G } from 'react-native-svg';
 const MapiloBetaWatermark = () => {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
       width="76.555"
       height="23.299"
-      viewBox="0 0 76.555 23.299"
-    >
+      viewBox="0 0 76.555 23.299">
       <G id="Mapilio_watermark" transform="translate(-63.396 -119.443)">
         <G
           id="Group_47328"
           data-name="Group 47328"
           transform="translate(63.896 119.943)"
-          opacity="0.3"
-        >
+          opacity="0.3">
           <Path
             id="Path_423"
             data-name="Path 423"

@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 import {
   imagesReducer,
   cameraReducer,
@@ -10,7 +10,7 @@ import {
   leaderboardReducer,
   tooltipReducer,
   searchReducer,
-} from "./reducers";
+} from './reducers';
 
 export default combineReducers({
   imagesReducer,

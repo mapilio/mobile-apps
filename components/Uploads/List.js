@@ -1,48 +1,47 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {View, TouchableOpacity, Alert, Text, RefreshControl} from "react-native";
-import {userUploadStyles} from "../../styles/userUploadStyle";
-import {UserFeed} from "../index";
-import {NoUpload, Trash} from "../../assets/svg/illustrations";
-import {CustomText} from "../../highordercomponents";
-import {SwipeListView} from "react-native-swipe-list-view";
-import database from "../../db";
-import {useDispatch, useSelector} from "react-redux";
-import {UPLOAD_DATA} from "../../store/actionsName";
-import * as RNFS from "../../util/fs";
-import {RFValue} from "react-native-responsive-fontsize";
-import {useTranslation} from "react-i18next";
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, TouchableOpacity, Alert, Text, RefreshControl } from 'react-native';
+import { userUploadStyles } from '../../styles/userUploadStyle';
+import { UserFeed } from '../index';
+import { NoUpload, Trash } from '../../assets/svg/illustrations';
+import { CustomText } from '../../highordercomponents';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import database from '../../db';
+import { useDispatch, useSelector } from 'react-redux';
+import { UPLOAD_DATA } from '../../store/actionsName';
+import * as RNFS from '../../util/fs';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useTranslation } from 'react-i18next';
 
 const List = ({ navigation }) => {
-  const {uploadData} = useSelector((status) => status.uploadReducer);
-  const {t} = useTranslation("upload");
+  const { uploadData } = useSelector((status) => status.uploadReducer);
+  const { t } = useTranslation('upload');
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
 
   const deleteSequence = (group_id) => {
-
-    let path = RNFS.DocumentDirectoryPath
+    let path = RNFS.DocumentDirectoryPath;
     if (uploadData.default_storage_path === 'external') {
       RNFS.getAllExternalFilesDirs().then((dirs) => {
-         path = dirs[1]
-      })
+        path = dirs[1];
+      });
     }
     database.deleteByGroupID(group_id, async () => {
-      await RNFS.unlink(path + `/${group_id}`)
+      await RNFS.unlink(path + `/${group_id}`);
       getData();
-    })
-  }
+    });
+  };
 
   const getData = () => {
-    database.getGroupByWithSequenceUUID().then(data => {
+    database.getGroupByWithSequenceUUID().then((data) => {
       const filteredData = data.filter((item) => {
         if (item.count >= 5) {
-          return item
+          return item;
         } else {
-          deleteSequence(item.group_id)
+          deleteSequence(item.group_id);
         }
-      })
+      });
 
-      dispatch({type: UPLOAD_DATA, payload: filteredData})
+      dispatch({ type: UPLOAD_DATA, payload: filteredData });
     });
   };
 
@@ -55,69 +54,65 @@ const List = ({ navigation }) => {
   }, []);
 
   const deleteRow = (sequence_uuid) => {
-    Alert.alert(
-      t("are_you_sure"),
-      t("delete_message"),
-      [
-        {
-          text: t("yes"),
-          onPress: () => deleteSequence(sequence_uuid)
-        },
-        {
-          text: t("no"),
-        },
-      ]
-    );
+    Alert.alert(t('are_you_sure'), t('delete_message'), [
+      {
+        text: t('yes'),
+        onPress: () => deleteSequence(sequence_uuid),
+      },
+      {
+        text: t('no'),
+      },
+    ]);
   };
 
   const renderItem = (data) => {
-    return <View style={userUploadStyles.listItem}>
-      <UserFeed key={data.index} data={data.item} navigation={navigation}/>
-    </View>;
+    return (
+      <View style={userUploadStyles.listItem}>
+        <UserFeed key={data.index} data={data.item} navigation={navigation} />
+      </View>
+    );
   };
 
   const renderHiddenItem = (data) => {
-    return <View style={userUploadStyles.listItem}>
-      <TouchableOpacity
-        style={[userUploadStyles.backRightBtn]}
-        onPress={() => deleteRow(data.item.sequence_uuid)}
-      >
-        <Trash/>
-        <CustomText style={userUploadStyles.textWhite}>Delete</CustomText>
-      </TouchableOpacity>
-    </View>;
+    return (
+      <View style={userUploadStyles.listItem}>
+        <TouchableOpacity
+          style={[userUploadStyles.backRightBtn]}
+          onPress={() => deleteRow(data.item.sequence_uuid)}>
+          <Trash />
+          <CustomText style={userUploadStyles.textWhite}>Delete</CustomText>
+        </TouchableOpacity>
+      </View>
+    );
   };
 
   return uploadData.length === 0 ? (
     <View
       style={{
-        flexDirection: "column",
-        alignItems: "center",
+        flexDirection: 'column',
+        alignItems: 'center',
         paddingHorizontal: RFValue(30),
         marginTop: RFValue(130),
-      }}
-    >
+      }}>
       <NoUpload />
       <Text
         style={{
           fontSize: RFValue(16),
-          color: "#4A4A4A",
-          textAlign: "center",
+          color: '#4A4A4A',
+          textAlign: 'center',
           marginTop: RFValue(30),
-          fontFamily: "Poppins-SemiBold"
-        }}
-      >
-        {t("no_data.title")}
+          fontFamily: 'Poppins-SemiBold',
+        }}>
+        {t('no_data.title')}
       </Text>
       <CustomText
         style={{
           fontSize: RFValue(16),
-          color: "#4A4A4A",
+          color: '#4A4A4A',
           marginTop: RFValue(20),
-          textAlign: "center",
-        }}
-      >
-        {t("no_data.description")}
+          textAlign: 'center',
+        }}>
+        {t('no_data.description')}
       </CustomText>
     </View>
   ) : (
@@ -126,7 +121,7 @@ const List = ({ navigation }) => {
       renderItem={renderItem}
       renderHiddenItem={renderHiddenItem}
       rightOpenValue={-75}
-      previewRowKey={"0"}
+      previewRowKey={'0'}
       previewOpenValue={-40}
       previewOpenDelay={3000}
       refreshControl={

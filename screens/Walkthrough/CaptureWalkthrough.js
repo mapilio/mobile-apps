@@ -1,14 +1,14 @@
-import React, {useState, useRef, useEffect} from "react";
-import {View} from "react-native";
-import {CustomText} from "../../highordercomponents";
-import PagerView from "react-native-pager-view";
-import {walkthroughStyle} from "../../styles/walkthroughStyle";
-import {Next, Prev, Start} from "../../components/Walkthrough/CaptureWalkthrough";
-import {useDispatch} from "react-redux";
-import {CleanRoad, Orientation, Road} from "../../assets/svg/illustrations";
-import {IS_ACTIVE} from "../../store/actionsName";
-import {RFValue} from "react-native-responsive-fontsize";
-import {useTranslation} from "react-i18next";
+import React, { useState, useRef, useEffect } from 'react';
+import { View } from 'react-native';
+import { CustomText } from '../../highordercomponents';
+import PagerView from 'react-native-pager-view';
+import { walkthroughStyle } from '../../styles/walkthroughStyle';
+import { Next, Prev, Start } from '../../components/Walkthrough/CaptureWalkthrough';
+import { useDispatch } from 'react-redux';
+import { CleanRoad, Orientation, Road } from '../../assets/svg/illustrations';
+import { IS_ACTIVE } from '../../store/actionsName';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useTranslation } from 'react-i18next';
 
 const _renderItem = ({ item, i }) => {
   return (
@@ -22,43 +22,43 @@ const _renderItem = ({ item, i }) => {
 
 const CaptureWalkthrough = () => {
   const [modalVisible, setModalVisible] = useState(true);
-  const {t} = useTranslation("camera_walkthrough");
+  const { t } = useTranslation('camera_walkthrough');
   const pagerRef = useRef();
   const dispatch = useDispatch();
   const [active, setActive] = useState(0);
   const data = [
     {
-      src: <Road/>,
+      src: <Road />,
       width: RFValue(74),
       height: RFValue(93),
-      title: t("first.title"),
-      desc: t("first.description"),
+      title: t('first.title'),
+      desc: t('first.description'),
       mode: false,
     },
     {
-      src: <CleanRoad/>,
+      src: <CleanRoad />,
       width: RFValue(78),
       height: RFValue(83),
-      title: t("second.title"),
-      desc: t("second.description"),
+      title: t('second.title'),
+      desc: t('second.description'),
       mode: false,
     },
     {
-      src: <Orientation/>,
+      src: <Orientation />,
       width: RFValue(199),
       height: RFValue(25),
-      title: t("third.title"),
-      desc: t("third.description"),
+      title: t('third.title'),
+      desc: t('third.description'),
       mode: false,
     },
   ];
 
   useEffect(() => {
-    dispatch({type: IS_ACTIVE, payload: false})
+    dispatch({ type: IS_ACTIVE, payload: false });
 
     return () => {
-      dispatch({type: IS_ACTIVE, payload: true})
-    }
+      dispatch({ type: IS_ACTIVE, payload: true });
+    };
   }, []);
 
   return (
@@ -66,7 +66,7 @@ const CaptureWalkthrough = () => {
       <View style={walkthroughStyle.modalView}>
         <PagerView
           ref={pagerRef}
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           initialPage={0}
           onPageSelected={(e) => setActive(e.nativeEvent.position)}>
           {data.map((item, i) => _renderItem({ item, i }))}
@@ -75,9 +75,9 @@ const CaptureWalkthrough = () => {
           <Prev
             active={active}
             onPress={() => pagerRef.current?.setPage(active - 1)}
-            desc={t("prev")}
+            desc={t('prev')}
           />
-          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             {data.map((_, i) => (
               <View
                 key={i}
@@ -89,14 +89,14 @@ const CaptureWalkthrough = () => {
             active={active}
             dataLength={data.length}
             onPress={() => pagerRef.current?.setPage(active + 1)}
-            desc={t("next")}
+            desc={t('next')}
           />
           <Start
             active={active}
             dataLength={data.length}
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
-            desc={t("finish")}
+            desc={t('finish')}
           />
         </View>
       </View>

@@ -1,12 +1,11 @@
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 
 const CustomText = ({ style, lineCount = null, children, onPress }) => (
   <Text
-    style={[{ fontFamily: "Poppins-Light", ...style }]}
+    style={[{ fontFamily: 'Poppins-Light', ...style }]}
     numberOfLines={lineCount}
-    onPress={onPress}
-  >
+    onPress={onPress}>
     {children}
   </Text>
 );

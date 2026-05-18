@@ -1,8 +1,8 @@
-import {Dimensions, StyleSheet} from "react-native";
-import {globalStyles} from "../../styles/globalStyles";
-import {RFPercentage, RFValue} from "react-native-responsive-fontsize";
+import { Dimensions, StyleSheet } from 'react-native';
+import { globalStyles } from '../../styles/globalStyles';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
-const {width} = Dimensions.get('window')
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   deleteModal: {
@@ -14,7 +14,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: RFValue(70),
     borderRadius: RFValue(10),
-    width: width * .9,
+    width: width * 0.9,
     alignSelf: 'center',
     alignItems: 'center',
     padding: RFValue(20),
@@ -27,9 +27,9 @@ export default StyleSheet.create({
     borderRadius: RFValue(40),
     marginBottom: RFValue(5),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  deleteModalTitle:{
+  deleteModalTitle: {
     color: '#191919',
     fontSize: RFValue(18),
     fontFamily: 'Poppins-SemiBold',
@@ -65,5 +65,5 @@ export default StyleSheet.create({
   },
   deleteButtonText: {
     color: '#fff',
-  }
+  },
 });

@@ -1,22 +1,17 @@
-import {
-  View,
-  Platform,
-  Dimensions,
-  InteractionManager,
-} from "react-native";
-import Tooltip from "@dogukany/react-native-walkthrough-tooltip";
-import { useDispatch, useSelector } from "react-redux";
-import Content from "./Content";
+import { View, Platform, Dimensions, InteractionManager } from 'react-native';
+import Tooltip from '@dogukany/react-native-walkthrough-tooltip';
+import { useDispatch, useSelector } from 'react-redux';
+import Content from './Content';
 import {
   nextStep,
   findTooltipType,
   nextStepActionName,
   finishStepsActionName,
-} from "../../util/helpers/tooltip";
-import { RFValue } from "react-native-responsive-fontsize";
-import { useTranslation } from "react-i18next";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useState, useEffect } from "react";
+} from '../../util/helpers/tooltip';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useState, useEffect } from 'react';
 /**
  * Wrapper for Tooltip component. Content and names must be handled in the consts and helpers files.
  * @param {Object} props
@@ -34,7 +29,7 @@ const TooltipWrapper = ({
   children,
   name,
   content,
-  placement = "top",
+  placement = 'top',
   handleNext,
   tabFocus = true,
 }) => {
@@ -43,12 +38,10 @@ const TooltipWrapper = ({
   const { top, left, right } = useSafeAreaInsets();
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
-  const { t } = useTranslation("tooltip");
+  const { t } = useTranslation('tooltip');
 
   const { step } = useSelector((state) => state.tooltipReducer[tooltipType]);
-  const { welcomeWalkthroughStatus } = useSelector(
-    (state) => state.generalReducer
-  );
+  const { welcomeWalkthroughStatus } = useSelector((state) => state.generalReducer);
 
   const { title, description, buttonTitle } = content;
 
@@ -59,7 +52,7 @@ const TooltipWrapper = ({
       InteractionManager.runAfterInteractions(() => {
         setIsTooltipVisible(true);
       });
-    }else{
+    } else {
       setIsTooltipVisible(false);
     }
 
@@ -97,48 +90,55 @@ const TooltipWrapper = ({
     });
   };
 
-  const isAndroidOrTablet = Platform.OS === "android" || Platform.isPad;
+  const isAndroidOrTablet = Platform.OS === 'android' || Platform.isPad;
   const styles = {
     angle: {
       padding: RFValue(20),
-      position: "absolute",
-      width: "100%",
+      position: 'absolute',
+      width: '100%',
       borderRadius: RFValue(10),
     },
     list: {
       padding: RFValue(20),
-      backgroundColor: "white",
-      position: "absolute",
-      width: "105%",
-      height: "100%",
+      backgroundColor: 'white',
+      position: 'absolute',
+      width: '105%',
+      height: '100%',
       borderRadius: RFValue(10),
     },
     apply: {
       padding: RFValue(20),
-      backgroundColor: "white",
-      position: "absolute",
-      height: "110%",
-      width: Dimensions.get("window").width,
+      backgroundColor: 'white',
+      position: 'absolute',
+      height: '110%',
+      width: Dimensions.get('window').width,
       borderRadius: RFValue(10),
     },
     tabBar: {
-      padding: name === "capture" ? RFValue(40) : RFValue(30),
-      backgroundColor: "white",
-      position: "absolute",
+      padding: name === 'capture' ? RFValue(40) : RFValue(30),
+      backgroundColor: 'white',
+      position: 'absolute',
       opacity: 1,
-      borderRadius:
-        isAndroidOrTablet
-          ? name === "capture"
-            ? RFValue(70)
-            : RFValue(10)
-          : RFValue(50),
-      borderBottomLeftRadius: isAndroidOrTablet ? name === "capture" ? RFValue(70) : 0 : RFValue(50),
-      borderBottomRightRadius: isAndroidOrTablet ? name === "capture" ? RFValue(70) : 0 : RFValue(50),
+      borderRadius: isAndroidOrTablet
+        ? name === 'capture'
+          ? RFValue(70)
+          : RFValue(10)
+        : RFValue(50),
+      borderBottomLeftRadius: isAndroidOrTablet
+        ? name === 'capture'
+          ? RFValue(70)
+          : 0
+        : RFValue(50),
+      borderBottomRightRadius: isAndroidOrTablet
+        ? name === 'capture'
+          ? RFValue(70)
+          : 0
+        : RFValue(50),
     },
   };
 
   const skipTextStyle = {
-    color: "white",
+    color: 'white',
     fontSize: RFValue(18),
     opacity: 0.7,
     top: top,
@@ -147,9 +147,9 @@ const TooltipWrapper = ({
 
   const contentStyle = [
     {
-      backgroundColor: "transparent",
+      backgroundColor: 'transparent',
     },
-    tooltipType === "camera" && {
+    tooltipType === 'camera' && {
       minHeight: RFValue(160),
       minWidth: RFValue(100),
     },
@@ -157,17 +157,17 @@ const TooltipWrapper = ({
 
   const skipText = () => {
     switch (name) {
-      case "capture":
-      case "startCapture":
-      case "apply":
+      case 'capture':
+      case 'startCapture':
+      case 'apply':
         return null;
       default:
-        return t("skip");
+        return t('skip');
     }
   };
 
   const displayInsets =
-    tooltipType === "camera"
+    tooltipType === 'camera'
       ? { left: left, right: right }
       : { left: RFValue(30), right: RFValue(30) };
 
@@ -177,7 +177,7 @@ const TooltipWrapper = ({
 
   return (
     <Tooltip
-      isVisible={isTooltipVisible} 
+      isVisible={isTooltipVisible}
       closeOnContentInteraction={false}
       closeOnChildInteraction={false}
       disableShadow={true}
@@ -202,8 +202,7 @@ const TooltipWrapper = ({
           buttonTitle={buttonTitle}
           contentType={tooltipType}
         />
-      }
-    >
+      }>
       <View style={styles[name] || styles[tooltipType]} />
       {children}
     </Tooltip>

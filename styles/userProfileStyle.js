@@ -81,7 +81,7 @@ export const userFeedStyles = StyleSheet.create({
       paddingLeft: RFValue(5),
       paddingVertical: RFValue(2),
     },
-    flag:{
+    flag: {
       height: RFValue(18),
       width: RFValue(10),
       borderRadius: RFValue(4),

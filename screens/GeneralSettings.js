@@ -1,5 +1,13 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { Animated, PermissionsAndroid, Platform, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Animated,
+  PermissionsAndroid,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import {
   IS_ACTIVE,
@@ -23,63 +31,59 @@ const GeneralSettings = ({ navigation }) => {
   const { distanceBetween, lowResolution, defaultStoragePath } = useSelector(
     (state) => state.settingsReducer
   );
-  const { photoAmount, batteryLevel, phoneMemory } = useSelector(
-    (state) => state.cameraReducer
-  );
+  const { photoAmount, batteryLevel, phoneMemory } = useSelector((state) => state.cameraReducer);
   const [showSnackbar, setShowSnackbar] = useState(false);
 
   const { left, right } = useSafeAreaInsets();
-  const translateX = useRef(new Animated.Value(defaultStoragePath !== 'internal' ? RFValue(100) : RFValue(0) )).current;
+  const translateX = useRef(
+    new Animated.Value(defaultStoragePath !== 'internal' ? RFValue(100) : RFValue(0))
+  ).current;
 
   const animatedStyle = {
-    transform: [
-      { translateX: translateX },
-    ],
+    transform: [{ translateX: translateX }],
   };
 
   const changeDefaultStorage = async (storage) => {
-    if (storage === 'internal'){
+    if (storage === 'internal') {
       dispatch({ type: UPDATE_DEFAULT_STORAGE, payload: 'internal' });
     }
 
-    if (storage === 'external'){
+    if (storage === 'external') {
       // List directories in the /storage folder
-      const sdCardPath = await RNFS.getAllExternalFilesDirs()
+      const sdCardPath = await RNFS.getAllExternalFilesDirs();
       //find emulated path and delete emulated storage
-      const emulatedStorage = sdCardPath.filter((path) => path.includes('emulated'))
+      const emulatedStorage = sdCardPath.filter((path) => path.includes('emulated'));
       if (emulatedStorage.length > 0) {
-        sdCardPath.splice(sdCardPath.indexOf(emulatedStorage[0]), 1)
+        sdCardPath.splice(sdCardPath.indexOf(emulatedStorage[0]), 1);
       }
-      if (sdCardPath.length === 0) return toast.show(t("please-pluck-sdcard"), {type: 'info'});
+      if (sdCardPath.length === 0) return toast.show(t('please-pluck-sdcard'), { type: 'info' });
 
       const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
 
-      let granted = false
+      let granted = false;
 
-      if (Number(Platform.Version) >= 33) granted = true
+      if (Number(Platform.Version) >= 33) granted = true;
 
       const hasPermission = await PermissionsAndroid.check(permission);
 
       if (hasPermission) {
-        granted = true
+        granted = true;
       }
 
       if (!granted) {
-        const req = await PermissionsAndroid.request(permission,
-          {
-            title: t('storage-permission.title'),
-            message: t('storage-permission.message'),
-            buttonNeutral: t('storage-permission.buttonNeutral'),
-            buttonNegative: t('storage-permission.buttonNegative'),
-            buttonPositive: t('storage-permission.buttonPositive'),
-          },
-        );
-        if (req === PermissionsAndroid.RESULTS.GRANTED) granted = true
+        const req = await PermissionsAndroid.request(permission, {
+          title: t('storage-permission.title'),
+          message: t('storage-permission.message'),
+          buttonNeutral: t('storage-permission.buttonNeutral'),
+          buttonNegative: t('storage-permission.buttonNegative'),
+          buttonPositive: t('storage-permission.buttonPositive'),
+        });
+        if (req === PermissionsAndroid.RESULTS.GRANTED) granted = true;
       }
 
-      if (granted){
+      if (granted) {
         dispatch({ type: UPDATE_DEFAULT_STORAGE, payload: 'external' });
-      } else return
+      } else return;
     }
 
     Animated.timing(translateX, {
@@ -88,7 +92,6 @@ const GeneralSettings = ({ navigation }) => {
       useNativeDriver: true,
     }).start();
   };
-
 
   useEffect(() => {
     dispatch({ type: IS_ACTIVE, payload: false });
@@ -134,19 +137,14 @@ const GeneralSettings = ({ navigation }) => {
         action={{
           label: t('ok'),
           color: '#fff',
-        }}
-      >
+        }}>
         {t('settings_saved')}
       </Snackbar>
 
       <View style={styles.item}>
         <View style={safeAreaPaddings}>
-          <CustomText style={styles.itemMenuTitle}>
-            {t('camera_settings')}
-          </CustomText>
-          <CustomText style={styles.itemTitle}>
-            {t('distance_between')}
-          </CustomText>
+          <CustomText style={styles.itemMenuTitle}>{t('camera_settings')}</CustomText>
+          <CustomText style={styles.itemTitle}>{t('distance_between')}</CustomText>
           <View style={styles.row}>
             <Slider
               minimumValue={5}
@@ -159,9 +157,7 @@ const GeneralSettings = ({ navigation }) => {
               maximumTrackTintColor={'#C7C7CC'}
               thumbStyle={styles.thumbStyle}
             />
-            <CustomTextMedium
-              style={{ ...styles.itemDesc, marginLeft: RFValue(13) }}
-            >
+            <CustomTextMedium style={{ ...styles.itemDesc, marginLeft: RFValue(13) }}>
               {distanceBetween} m
             </CustomTextMedium>
           </View>
@@ -170,18 +166,12 @@ const GeneralSettings = ({ navigation }) => {
               <View style={styles.seperator} />
               <View style={styles.row}>
                 <View style={{ flexDirection: 'column' }}>
-                  <CustomText style={styles.itemTitle}>
-                    {t('enable_low_resolution')}
-                  </CustomText>
+                  <CustomText style={styles.itemTitle}>{t('enable_low_resolution')}</CustomText>
                   <CustomText style={{ color: 'grey' }}>
                     {t('enable_low_resolution_desc')}
                   </CustomText>
                 </View>
-                <Switch
-                  value={lowResolution}
-                  onChange={onToggleSwitch}
-                  color="#0056F1"
-                />
+                <Switch value={lowResolution} onChange={onToggleSwitch} color="#0056F1" />
               </View>
             </Fragment>
           )}
@@ -191,43 +181,35 @@ const GeneralSettings = ({ navigation }) => {
 
       <View style={styles.item}>
         <View style={safeAreaPaddings}>
-          <CustomText style={styles.itemMenuTitle}>
-            {t('capture_settings')}
-          </CustomText>
+          <CustomText style={styles.itemMenuTitle}>{t('capture_settings')}</CustomText>
           <View style={styles.row}>
-            <CustomText style={styles.itemTitle}>
-              {t('remaining_images')}
-            </CustomText>
+            <CustomText style={styles.itemTitle}>{t('remaining_images')}</CustomText>
             <View style={styles.row}>
-              <CustomTextMedium
-                style={{ ...styles.itemDesc, color: '#3F8BE9' }}
-              >
+              <CustomTextMedium style={{ ...styles.itemDesc, color: '#3F8BE9' }}>
                 {photoAmount}{' '}
               </CustomTextMedium>
-              <CustomTextMedium style={styles.itemDesc}>
-                / {phoneMemory}
-              </CustomTextMedium>
+              <CustomTextMedium style={styles.itemDesc}>/ {phoneMemory}</CustomTextMedium>
             </View>
           </View>
           <View style={styles.seperator} />
           <View style={styles.row}>
-            <CustomText style={styles.itemTitle}>
-              {t('battery_level')}
-            </CustomText>
+            <CustomText style={styles.itemTitle}>{t('battery_level')}</CustomText>
             <CustomText style={styles.itemDesc}>%{batteryLevel}</CustomText>
           </View>
 
           {Platform.OS === 'android' && (
             <View style={styles.row}>
-              <CustomText style={styles.itemTitle}>
-                {t('default_storage')}
-              </CustomText>
+              <CustomText style={styles.itemTitle}>{t('default_storage')}</CustomText>
               <View style={styles.customButtonWrapper}>
-                <TouchableOpacity style={styles.customRowButton} onPress={()=>changeDefaultStorage('internal')}>
+                <TouchableOpacity
+                  style={styles.customRowButton}
+                  onPress={() => changeDefaultStorage('internal')}>
                   <DeviceIcon />
                   <CustomText style={styles.customRowButtonText}>Device</CustomText>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.customRowButton} onPress={()=>changeDefaultStorage('external')}>
+                <TouchableOpacity
+                  style={styles.customRowButton}
+                  onPress={() => changeDefaultStorage('external')}>
                   <SDCardIcon />
                   <CustomText style={styles.customRowButtonText}>SD Card</CustomText>
                 </TouchableOpacity>
@@ -235,11 +217,8 @@ const GeneralSettings = ({ navigation }) => {
               </View>
             </View>
           )}
-
         </View>
       </View>
-
-
     </View>
   );
 };

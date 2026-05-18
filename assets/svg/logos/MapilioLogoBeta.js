@@ -1,18 +1,13 @@
-import React from "react";
-import Svg, { G, Path } from "react-native-svg";
+import React from 'react';
+import Svg, { G, Path } from 'react-native-svg';
 
 const MapilioLogoBeta = () => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width="147.898"
     height="44.215"
-    viewBox="0 0 147.898 44.215"
-  >
-    <G
-      id="Group_119474"
-      data-name="Group 119474"
-      transform="translate(0.5 0.5)"
-    >
+    viewBox="0 0 147.898 44.215">
+    <G id="Group_119474" data-name="Group 119474" transform="translate(0.5 0.5)">
       <G id="Group_48550" data-name="Group 48550" transform="translate(0 0)">
         <Path
           id="Path_423"

@@ -1,19 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Platform, View, Animated, StyleSheet } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { UPDATE_ACCURACY, UPDATE_ROTATE_STATUS } from "../store/actionsName";
-import { Accelerometer } from "expo-sensors";
-import { degreeCalculate } from "../helper/camera";
-import { CameraLine } from "../assets/svg/illustrations";
-import { TooltipWrapper } from "./Tooltip";
-import { tooltipContents } from "../util/consts/tooltip";
-import { DeviceMotion } from "expo-sensors";
+import React, { useEffect, useRef, useState } from 'react';
+import { Platform, View, Animated, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { UPDATE_ACCURACY, UPDATE_ROTATE_STATUS } from '../store/actionsName';
+import { Accelerometer } from 'expo-sensors';
+import { degreeCalculate } from '../helper/camera';
+import { CameraLine } from '../assets/svg/illustrations';
+import { TooltipWrapper } from './Tooltip';
+import { tooltipContents } from '../util/consts/tooltip';
+import { DeviceMotion } from 'expo-sensors';
 
 const RotationLine = () => {
   const dispatch = useDispatch();
-  const { accuracy, rotateStatus } = useSelector(
-    (state) => state.cameraReducer
-  );
+  const { accuracy, rotateStatus } = useSelector((state) => state.cameraReducer);
   const [degree, setDegree] = useState(0);
   const [lineDegree, setLineDegree] = useState(-90);
 
@@ -22,10 +20,7 @@ const RotationLine = () => {
 
   const accelerometerSubscription = () => {
     return Accelerometer.addListener((accelerometerData) => {
-      const calculatedDegree = degreeCalculate(
-        accelerometerData.x,
-        accelerometerData.y
-      );
+      const calculatedDegree = degreeCalculate(accelerometerData.x, accelerometerData.y);
       setDegree(calculatedDegree);
       setLineDegree(calculatedDegree - 90);
     });
@@ -68,16 +63,14 @@ const RotationLine = () => {
   useEffect(() => {
     const betweenPositiveLandscape = between(
       lineDegree,
-      Platform.OS === "android" ? 160 : 152,
-      Platform.OS === "android" ? 205 : 190
+      Platform.OS === 'android' ? 160 : 152,
+      Platform.OS === 'android' ? 205 : 190
     );
     const betweenHighNegativeLandscape = between(lineDegree, -190, -160);
     const betweenNegativeLandscape = between(lineDegree, -25, 25);
 
     const status =
-      !betweenNegativeLandscape &&
-      !betweenPositiveLandscape &&
-      !betweenHighNegativeLandscape;
+      !betweenNegativeLandscape && !betweenPositiveLandscape && !betweenHighNegativeLandscape;
 
     if (status !== rotateStatus) {
       dispatch({ type: UPDATE_ROTATE_STATUS, payload: status });
@@ -93,13 +86,12 @@ const RotationLine = () => {
   return (
     <View
       style={{
-        justifyContent: "center",
-        alignItems: "center",
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-      }}
-    >
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+      }}>
       <Animated.View
         style={{
           opacity: statusOpacity,
@@ -107,7 +99,7 @@ const RotationLine = () => {
             {
               rotate: rotateValue.interpolate({
                 inputRange: [-90, 270],
-                outputRange: ["-90deg", "270deg"],
+                outputRange: ['-90deg', '270deg'],
               }),
             },
           ],
@@ -116,11 +108,7 @@ const RotationLine = () => {
       />
 
       <View style={styles.cameraLine}>
-        <TooltipWrapper
-          content={tooltipContents.camera.angle}
-          name="angle"
-          placement="bottom"
-        >
+        <TooltipWrapper content={tooltipContents.camera.angle} name="angle" placement="bottom">
           <CameraLine />
         </TooltipWrapper>
       </View>
@@ -130,7 +118,7 @@ const RotationLine = () => {
 
 const styles = StyleSheet.create({
   rotationLine: {
-    shadowColor: "red",
+    shadowColor: 'red',
     shadowOffset: {
       width: 0,
       height: 0,
@@ -138,16 +126,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 50,
     elevation: 10,
-    width: "45%",
-    backgroundColor: "red",
+    width: '45%',
+    backgroundColor: 'red',
     height: 2,
   },
 
   cameraLine: {
     flex: 1,
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

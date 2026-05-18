@@ -1,25 +1,23 @@
-import React, { useEffect, useState, Fragment } from "react";
-import * as AppleAuthentication from "expo-apple-authentication";
-import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from "../../store/actionsName";
-import { useDispatch } from "react-redux";
-import { getUserInformation } from "../../store/reducers/loginReducer/getUserInformation";
-import { socialLoginStyles } from "../../styles/loginStyles";
-import { api } from "../../util/helpers/api";
+import React, { useEffect, useState, Fragment } from 'react';
+import * as AppleAuthentication from 'expo-apple-authentication';
+import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from '../../store/actionsName';
+import { useDispatch } from 'react-redux';
+import { getUserInformation } from '../../store/reducers/loginReducer/getUserInformation';
+import { socialLoginStyles } from '../../styles/loginStyles';
+import { api } from '../../util/helpers/api';
 
-import { Modal, View, ActivityIndicator } from "react-native";
-import { useTranslation } from "react-i18next";
-import {captureException} from "@sentry/react-native";
+import { Modal, View, ActivityIndicator } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { captureException } from '@sentry/react-native';
 
 const AppleLogin = ({ navigation }) => {
   const dispatch = useDispatch();
   const [available, setAvailable] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { t } = useTranslation("login");
+  const { t } = useTranslation('login');
 
   useEffect(() => {
-    AppleAuthentication.isAvailableAsync().then((status) =>
-      setAvailable(status)
-    );
+    AppleAuthentication.isAvailableAsync().then((status) => setAvailable(status));
   }, []);
 
   const signInToApple = (credential) => {
@@ -31,7 +29,7 @@ const AppleLogin = ({ navigation }) => {
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
         dispatch({
           type: SET_CREDENTIAL,
-          payload: { ...credential, type: "apple" },
+          payload: { ...credential, type: 'apple' },
         });
         dispatch(getUserInformation(res));
         setLoading(false);
@@ -40,11 +38,11 @@ const AppleLogin = ({ navigation }) => {
       .catch((err) => {
         captureException(err, {
           tags: {
-            functionName: "signInToApple",
+            functionName: 'signInToApple',
           },
         });
         setLoading(false);
-        toast.show(t("error"), { type: "error" });
+        toast.show(t('error'), { type: 'error' });
       });
   };
 
@@ -63,10 +61,10 @@ const AppleLogin = ({ navigation }) => {
       .catch((err) => {
         captureException(err, {
           tags: {
-            functionName: "loginHandlerApple",
+            functionName: 'loginHandlerApple',
           },
         });
-        toast.show(t("error"), { type: "error" });
+        toast.show(t('error'), { type: 'error' });
         setLoading(false);
       });
   };
@@ -74,21 +72,14 @@ const AppleLogin = ({ navigation }) => {
   if (available) {
     return (
       <Fragment>
-        <Modal
-          visible={loading}
-          transparent={true}
-          animationType="fade"
-          statusBarTranslucent
-        >
+        <Modal visible={loading} transparent={true} animationType="fade" statusBarTranslucent>
           <View style={socialLoginStyles.modal}>
             <ActivityIndicator size="large" color="white" />
           </View>
         </Modal>
         <AppleAuthentication.AppleAuthenticationButton
           buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-          buttonStyle={
-            AppleAuthentication.AppleAuthenticationButtonStyle.WHITE_OUTLINE
-          }
+          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE_OUTLINE}
           cornerRadius={50}
           style={socialLoginStyles.appleButton}
           onPress={loginHandler}

@@ -1,5 +1,5 @@
-import { ArrowRight } from "../../../assets/svg/illustrations";
-import { RFValue } from "react-native-responsive-fontsize";
+import { ArrowRight } from '../../../assets/svg/illustrations';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 /**
  *
@@ -8,8 +8,7 @@ import { RFValue } from "react-native-responsive-fontsize";
  * @example <ButtonIcon buttonTitle="next" /> => <ArrowRight width={RFValue(12)} height={RFValue(12)}  />
  */
 export const ButtonIcon = ({ buttonTitle }) => {
-  if (buttonTitle === "next")
-    return <ArrowRight width={RFValue(12)} height={RFValue(12)} />;
+  if (buttonTitle === 'next') return <ArrowRight width={RFValue(12)} height={RFValue(12)} />;
 
   return null;
 };

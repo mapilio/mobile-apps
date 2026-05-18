@@ -1,12 +1,12 @@
-import {useEffect, useState} from "react";
-import {SearchIcon} from "../../assets/svg/illustrations";
-import {TouchableOpacity, View} from "react-native";
-import {appMapStyle} from "../../styles/appMapStyle";
-import SearchModal from "./SearchModal";
-import {useDispatch} from "react-redux";
-import {ADD_SEARCH_HISTORY} from "../../store/actionsName";
+import { useEffect, useState } from 'react';
+import { SearchIcon } from '../../assets/svg/illustrations';
+import { TouchableOpacity, View } from 'react-native';
+import { appMapStyle } from '../../styles/appMapStyle';
+import SearchModal from './SearchModal';
+import { useDispatch } from 'react-redux';
+import { ADD_SEARCH_HISTORY } from '../../store/actionsName';
 
-const Search = ({camera}) => {
+const Search = ({ camera }) => {
   const [openSearchbar, setOpenSearchbar] = useState(false);
   const dispatch = useDispatch();
 
@@ -20,38 +20,43 @@ const Search = ({camera}) => {
   };
 
   const handleClick = (coordinates, param) => {
-    setOpenSearchbar(false)
+    setOpenSearchbar(false);
     timeout = setTimeout(() => {
       coordinates.length === 4 &&
-        camera.current.fitBounds([coordinates[0], coordinates[1]], [coordinates[2], coordinates[3]], [20, 20], 1000)
+        camera.current.fitBounds(
+          [coordinates[0], coordinates[1]],
+          [coordinates[2], coordinates[3]],
+          [20, 20],
+          1000
+        );
 
       coordinates.length === 2 &&
-        camera.current.setCamera({centerCoordinate: coordinates, zoomLevel: 10, animationDuration: 1000})
-    }, 200)
+        camera.current.setCamera({
+          centerCoordinate: coordinates,
+          zoomLevel: 10,
+          animationDuration: 1000,
+        });
+    }, 200);
     addSearchHistory({
       param,
-      coordinates
-    })
-  }
+      coordinates,
+    });
+  };
   useEffect(() => {
-    return () => timeout?.remove()
+    return () => timeout?.remove();
   }, []);
 
   return (
-    <View style={{...appMapStyle.search}}>
+    <View style={{ ...appMapStyle.search }}>
       <TouchableOpacity onPress={() => setOpenSearchbar(true)}>
         <View style={appMapStyle.searchIcon}>
-          <SearchIcon width={19.55} height={19.55} color={'#191919'}/>
+          <SearchIcon width={19.55} height={19.55} color={'#191919'} />
         </View>
       </TouchableOpacity>
 
-      <SearchModal
-        open={openSearchbar}
-        closeHandler={setOpenSearchbar}
-        onClick={handleClick}
-      />
+      <SearchModal open={openSearchbar} closeHandler={setOpenSearchbar} onClick={handleClick} />
     </View>
-  )
-}
+  );
+};
 
 export default Search;

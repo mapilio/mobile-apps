@@ -28,33 +28,33 @@ A street-level imagery capture app for iOS and Android, built with Expo (bare wo
 
 ## Tech Stack
 
-| Layer | Library |
-|---|---|
-| Framework | Expo SDK 52 (Bare Workflow) |
-| Runtime | React Native 0.76.9 |
-| Navigation | React Navigation v7 |
-| State | Redux 5 + Redux-Persist |
-| Maps | MapLibre React Native |
-| Database | expo-sqlite |
-| File system | expo-file-system (adapter: `util/fs.js`) |
-| Camera | expo-camera |
-| Location | expo-location |
-| Notifications | OneSignal + expo-sensors |
-| Monitoring | Sentry |
-| Testing | Jest 29 + jest-expo |
+| Layer         | Library                                  |
+| ------------- | ---------------------------------------- |
+| Framework     | Expo SDK 52 (Bare Workflow)              |
+| Runtime       | React Native 0.76.9                      |
+| Navigation    | React Navigation v7                      |
+| State         | Redux 5 + Redux-Persist                  |
+| Maps          | MapLibre React Native                    |
+| Database      | expo-sqlite                              |
+| File system   | expo-file-system (adapter: `util/fs.js`) |
+| Camera        | expo-camera                              |
+| Location      | expo-location                            |
+| Notifications | OneSignal + expo-sensors                 |
+| Monitoring    | Sentry                                   |
+| Testing       | Jest 29 + jest-expo                      |
 
 ---
 
 ## Prerequisites
 
-| Tool | Version |
-|---|---|
-| Node.js | 20 LTS |
-| npm | 10+ |
-| Expo CLI | `npm i -g expo-cli` |
-| Xcode | 15+ (iOS only) |
+| Tool           | Version                 |
+| -------------- | ----------------------- |
+| Node.js        | 20 LTS                  |
+| npm            | 10+                     |
+| Expo CLI       | `npm i -g expo-cli`     |
+| Xcode          | 15+ (iOS only)          |
 | Android Studio | Giraffe+ (Android only) |
-| CocoaPods | 1.14+ (iOS only) |
+| CocoaPods      | 1.14+ (iOS only)        |
 
 > **macOS + nvm users:** After switching Node versions run `ln -s $(which node) /usr/local/bin/node` so Xcode build scripts can find Node.
 
@@ -107,20 +107,21 @@ npx expo prebuild -p android --clean
 
 Copy `.env.example` to `.env.development` (local dev) or `.env.production` (release builds) and supply real values. **Never commit real credentials.**
 
-| Variable | Description |
-|---|---|
-| `EXPO_PUBLIC_SERVICE_URL` | Mapilio REST API base URL |
-| `EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN` | MapLibre/Mapbox public token |
-| `EXPO_PUBLIC_AUTH_CLIENT_ID` | OAuth2 client ID |
-| `EXPO_PUBLIC_AUTH_CLIENT_SECRET` | OAuth2 client secret |
-| `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID` | Google Sign-In iOS client ID |
-| `EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID` | Google Sign-In Android client ID |
-| `EXPO_PUBLIC_SENTRY_DSN` | Sentry DSN for error reporting |
-| `EXPO_PUBLIC_ONESIGNAL_APP_ID` | OneSignal app ID for push notifications |
+| Variable                               | Description                             |
+| -------------------------------------- | --------------------------------------- |
+| `EXPO_PUBLIC_SERVICE_URL`              | Mapilio REST API base URL               |
+| `EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN`      | MapLibre/Mapbox public token            |
+| `EXPO_PUBLIC_AUTH_CLIENT_ID`           | OAuth2 client ID                        |
+| `EXPO_PUBLIC_AUTH_CLIENT_SECRET`       | OAuth2 client secret                    |
+| `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID`     | Google Sign-In iOS client ID            |
+| `EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID` | Google Sign-In Android client ID        |
+| `EXPO_PUBLIC_SENTRY_DSN`               | Sentry DSN for error reporting          |
+| `EXPO_PUBLIC_ONESIGNAL_APP_ID`         | OneSignal app ID for push notifications |
 
 See `.env.example` for the full list.
 
 > **iOS + Mapbox:** Create `~/.netrc` if it does not exist and add your Mapbox token:
+>
 > ```
 > machine api.mapbox.com
 > login mapbox

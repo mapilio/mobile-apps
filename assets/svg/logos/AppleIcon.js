@@ -1,18 +1,13 @@
-import * as React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Path } from "react-native-svg";
+import * as React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Path } from 'react-native-svg';
 
 const AppleIcon = ({ width = RFValue(22), height = RFValue(22) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 22.018 27.173"
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 22.018 27.173">
     <Path
       d="M22.018 19.952c-.219-.138-.458-.25-.708-.4a6.012 6.012 0 0 1-2.112-8.123 7.3 7.3 0 0 1 1.5-1.706c.2-.154.389-.292.589-.463a5.337 5.337 0 0 0-1.151-1.283 6.575 6.575 0 0 0-5.758-1.184c-.643.2-1.165.395-1.807.638a2.786 2.786 0 0 1-2.022.28C9.21 7.319 8.294 6.667 6.776 6.642A6.566 6.566 0 0 0 3.09 7.85c-.111.075-.254.2-.348.276-4.5 3.811-2.764 11.463.178 15.728.179.26.338.5.52.728s.345.483.526.677c1.613 1.727 2.407 2.477 4.956 1.442a7.711 7.711 0 0 1 1.829-.58c1.8-.28 2.586.366 3.967.826a3.444 3.444 0 0 0 3.642-.887 17.851 17.851 0 0 0 2.127-2.777 14.211 14.211 0 0 0 1.525-3.331ZM16.407 0a6.018 6.018 0 0 1-3.093 5.718c-.507.28-2.029.771-2.3.507-.143-.139-.022-1.134.02-1.357a6.476 6.476 0 0 1 2.252-3.631A6.306 6.306 0 0 1 16.407.001Z"
       fillRule="evenodd"
-      fill={"#FFFFFF"}
+      fill={'#FFFFFF'}
     />
   </Svg>
 );

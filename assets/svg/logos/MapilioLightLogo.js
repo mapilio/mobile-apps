@@ -1,14 +1,13 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { G, Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Path } from 'react-native-svg';
 
 const MapilioLightLogo = ({ width = RFValue(116), height = RFValue(38) }) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
-    viewBox="0 0 116.605 38.632"
-  >
+    viewBox="0 0 116.605 38.632">
     <G transform="translate(0.498 0.503)">
       <Path
         d="M426.814,403.261c-2.846-2.528-7.807-6.646-8.93-10.334h.008a9.381,9.381,0,1,1,17.844,0h.008c-1.123,3.688-6.084,7.806-8.93,10.334Zm.017-8.179a3.645,3.645,0,0,0,1.686-.4,4.451,4.451,0,0,0,1.378-1.106,5.448,5.448,0,0,0,.943-1.631,5.729,5.729,0,0,0,.344-2.012,5.516,5.516,0,0,0-.344-1.94,4.986,4.986,0,0,0-.943-1.6,4.706,4.706,0,0,0-1.378-1.069,3.645,3.645,0,0,0-1.686-.4,3.755,3.755,0,0,0-1.7.4,4.631,4.631,0,0,0-1.4,1.069,4.989,4.989,0,0,0-.942,1.6,5.513,5.513,0,0,0-.345,1.94,5.725,5.725,0,0,0,.345,2.012,5.451,5.451,0,0,0,.942,1.631,4.385,4.385,0,0,0,1.4,1.106A3.755,3.755,0,0,0,426.832,395.081Z"

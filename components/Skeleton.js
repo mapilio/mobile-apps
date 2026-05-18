@@ -1,57 +1,40 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  Animated,
-  Dimensions,
-  Easing,
-  StyleSheet,
-  View,
-} from "react-native";
-import MaskedView from "@react-native-masked-view/masked-view";
-import { LinearGradient } from "expo-linear-gradient";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Animated, Dimensions, Easing, StyleSheet, View } from 'react-native';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const WINDOW_WIDTH = Dimensions.get("window").width;
-const ITEM_DISPLAY_NAME = "SkeletonPlaceholderItem";
+const WINDOW_WIDTH = Dimensions.get('window').width;
+const ITEM_DISPLAY_NAME = 'SkeletonPlaceholderItem';
 
 const styles = StyleSheet.create({
   placeholderContainer: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
   },
   placeholder: {
-    overflow: "hidden",
+    overflow: 'hidden',
   },
 });
 
-const getItemStyle = ({ children: _children, style, ...rest }) =>
-  style ? [style, rest] : rest;
+const getItemStyle = ({ children: _children, style, ...rest }) => (style ? [style, rest] : rest);
 
 const transformToPlaceholder = (rootElement, backgroundColor, radius) => {
   if (!rootElement) return null;
   return React.Children.map(rootElement, (element, index) => {
     if (!element) return null;
     if (element.type === React.Fragment) {
-      return (
-        <>
-          {transformToPlaceholder(
-            element.props?.children,
-            backgroundColor,
-            radius
-          )}
-        </>
-      );
+      return <>{transformToPlaceholder(element.props?.children, backgroundColor, radius)}</>;
     }
 
     const props = element.props || {};
     const childrenProp = props.children;
     const isPlaceholder =
       !childrenProp ||
-      typeof childrenProp === "string" ||
+      typeof childrenProp === 'string' ||
       (Array.isArray(childrenProp) &&
-        childrenProp.every((x) => x == null || typeof x === "string"));
+        childrenProp.every((x) => x == null || typeof x === 'string'));
 
     const style =
-      element.type?.displayName === ITEM_DISPLAY_NAME
-        ? getItemStyle(props)
-        : props.style;
+      element.type?.displayName === ITEM_DISPLAY_NAME ? getItemStyle(props) : props.style;
     const flat = StyleSheet.flatten(style) || {};
 
     const borderRadius = props.borderRadius ?? flat.borderRadius ?? radius;
@@ -66,9 +49,7 @@ const transformToPlaceholder = (rootElement, backgroundColor, radius) => {
 
     const finalStyle = [
       style,
-      isPlaceholder
-        ? [styles.placeholder, { backgroundColor }]
-        : styles.placeholderContainer,
+      isPlaceholder ? [styles.placeholder, { backgroundColor }] : styles.placeholderContainer,
       { height, width, borderRadius },
     ];
 
@@ -79,11 +60,7 @@ const transformToPlaceholder = (rootElement, backgroundColor, radius) => {
         children={
           isPlaceholder
             ? undefined
-            : transformToPlaceholder(
-                childrenProp,
-                backgroundColor,
-                borderRadius
-              )
+            : transformToPlaceholder(childrenProp, backgroundColor, borderRadius)
         }
       />
     );
@@ -93,10 +70,10 @@ const transformToPlaceholder = (rootElement, backgroundColor, radius) => {
 const SkeletonPlaceholder = ({
   children,
   enabled = true,
-  backgroundColor = "#E1E9EE",
-  highlightColor = "#F2F8FC",
+  backgroundColor = '#E1E9EE',
+  highlightColor = '#F2F8FC',
   speed = 800,
-  direction = "right",
+  direction = 'right',
   borderRadius,
   shimmerWidth,
 }) => {
@@ -122,13 +99,13 @@ const SkeletonPlaceholder = ({
     const animationWidth = WINDOW_WIDTH + (shimmerWidth ?? 0);
     return {
       ...StyleSheet.absoluteFillObject,
-      flexDirection: "row",
+      flexDirection: 'row',
       transform: [
         {
           translateX: animatedValueRef.current.interpolate({
             inputRange: [0, 1],
             outputRange:
-              direction === "right"
+              direction === 'right'
                 ? [-animationWidth, animationWidth]
                 : [animationWidth, -animationWidth],
           }),
@@ -148,18 +125,11 @@ const SkeletonPlaceholder = ({
 
   if (!enabled || !placeholders) return children;
   if (!layout?.width || !layout.height) {
-    return (
-      <View onLayout={(event) => setLayout(event.nativeEvent.layout)}>
-        {placeholders}
-      </View>
-    );
+    return <View onLayout={(event) => setLayout(event.nativeEvent.layout)}>{placeholders}</View>;
   }
 
   return (
-    <MaskedView
-      style={{ height: layout.height, width: layout.width }}
-      maskElement={placeholders}
-    >
+    <MaskedView style={{ height: layout.height, width: layout.width }} maskElement={placeholders}>
       <View style={[StyleSheet.absoluteFill, { backgroundColor }]} />
       {isAnimationReady && (
         <Animated.View style={animatedGradientStyle}>
@@ -167,10 +137,7 @@ const SkeletonPlaceholder = ({
             colors={[backgroundColor, highlightColor, backgroundColor]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
-            style={[
-              StyleSheet.absoluteFillObject,
-              shimmerWidth ? { width: shimmerWidth } : null,
-            ]}
+            style={[StyleSheet.absoluteFillObject, shimmerWidth ? { width: shimmerWidth } : null]}
           />
         </Animated.View>
       )}
@@ -178,9 +145,7 @@ const SkeletonPlaceholder = ({
   );
 };
 
-const Item = (props) => (
-  <View style={getItemStyle(props)}>{props.children}</View>
-);
+const Item = (props) => <View style={getItemStyle(props)}>{props.children}</View>;
 Item.displayName = ITEM_DISPLAY_NAME;
 SkeletonPlaceholder.Item = Item;
 

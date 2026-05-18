@@ -1,6 +1,6 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { G, Path, Circle } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Path, Circle } from 'react-native-svg';
 
 const UploadIcon = ({ width = RFValue(36), height = RFValue(36) }) => (
   <Svg
@@ -8,23 +8,11 @@ const UploadIcon = ({ width = RFValue(36), height = RFValue(36) }) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     width={width}
     height={height}
-    viewBox="0 0 48 48"
-  >
+    viewBox="0 0 48 48">
     <Circle cx="24" cy="22" r="20" fill="#1AD971" />
-    <G
-      id="Group_47450"
-      data-name="Group 47450"
-      transform="translate(-288.187 -523.622)"
-    >
-      <G
-        id="Group_47447"
-        data-name="Group 47447"
-        transform="translate(294.569 528.005)"
-      >
-        <G
-          transform="matrix(1, 0, 0, 1, -6.38, -4.38)"
-          filter="url(#Ellipse_445)"
-        >
+    <G id="Group_47450" data-name="Group 47450" transform="translate(-288.187 -523.622)">
+      <G id="Group_47447" data-name="Group 47447" transform="translate(294.569 528.005)">
+        <G transform="matrix(1, 0, 0, 1, -6.38, -4.38)" filter="url(#Ellipse_445)">
           <Circle
             id="Ellipse_445-2"
             data-name="Ellipse 445"

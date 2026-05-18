@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Image, View, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { sequenceCardStyles } from "../styles/userSequenceStyle";
-import { SelectedIcon } from "../assets/svg/illustrations";
-import {
-  UPDATE_SELECTED_IMAGES,
-  UPDATE_ALL_SELECT,
-} from "../store/actionsName";
-import { Routes } from "../navigator/Routes";
-import { RFValue } from "react-native-responsive-fontsize";
+import React, { useEffect, useState } from 'react';
+import { Image, View, TouchableOpacity } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { sequenceCardStyles } from '../styles/userSequenceStyle';
+import { SelectedIcon } from '../assets/svg/illustrations';
+import { UPDATE_SELECTED_IMAGES, UPDATE_ALL_SELECT } from '../store/actionsName';
+import { Routes } from '../navigator/Routes';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const UploadImageCard = (props) => {
   const dispatch = useDispatch();
@@ -24,7 +21,7 @@ const UploadImageCard = (props) => {
       dispatch({ type: UPDATE_SELECTED_IMAGES, payload: filteredImages });
       setSelected(false);
     } else {
-      selectedImages.push({id, path});
+      selectedImages.push({ id, path });
       dispatch({ type: UPDATE_SELECTED_IMAGES, payload: selectedImages });
       setSelected(true);
     }
@@ -45,33 +42,33 @@ const UploadImageCard = (props) => {
       activeOpacity={0.9}
       style={sequenceCardStyles.cardContainer}
       onPress={() => {
-        selectedImages.length ? addToSelectedImages() : (
-          props.navigation.reset({
-            index: 0, routes: [{
-              name: Routes.sequenceDetail, params: {
-                id: id,
-                path: path,
-                sequence_uuid: props.sequence_uuid,
-                coordinate: [
-                  props.location.longitude,
-                  props.location.latitude,
-                ],
-                heading: props.location.heading,
-              }
-            }]
-          })
-        )
+        selectedImages.length
+          ? addToSelectedImages()
+          : props.navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: Routes.sequenceDetail,
+                  params: {
+                    id: id,
+                    path: path,
+                    sequence_uuid: props.sequence_uuid,
+                    coordinate: [props.location.longitude, props.location.latitude],
+                    heading: props.location.heading,
+                  },
+                },
+              ],
+            });
       }}
-      onLongPress={addToSelectedImages}
-    >
+      onLongPress={addToSelectedImages}>
       <View style={sequenceCardStyles.imagePosition}>
         <Image
-          source={{width: RFValue(200), height: RFValue(78), uri: `${path}`}}
-          resizeMode={"cover"}
+          source={{ width: RFValue(200), height: RFValue(78), uri: `${path}` }}
+          resizeMode={'cover'}
           style={{
             ...sequenceCardStyles.imageContainer,
             borderWidth: selected ? 1 : 0,
-            borderColor: selected ? "#1AD971" : "#000000",
+            borderColor: selected ? '#1AD971' : '#000000',
           }}
           onLoadEnd={() => setLoadImage(false)}
         />

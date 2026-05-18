@@ -1,14 +1,9 @@
-import * as React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Defs, G, Path, Circle } from "react-native-svg";
+import * as React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Defs, G, Path, Circle } from 'react-native-svg';
 
 const Orientation = ({ width = RFValue(207), height = RFValue(28) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 207.79 28.061"
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 207.79 28.061">
     <Defs></Defs>
     <G transform="translate(-127.145 -132.181)">
       <G transform="translate(127.15 132.18)" filter="url(#a)">
@@ -34,13 +29,7 @@ const Orientation = ({ width = RFValue(207), height = RFValue(28) }) => (
         strokeLinecap="round"
         strokeWidth={4}
       />
-      <Circle
-        cx={4.5}
-        cy={4.5}
-        r={4.5}
-        transform="translate(226.397 141.709)"
-        fill="#cbd1d9"
-      />
+      <Circle cx={4.5} cy={4.5} r={4.5} transform="translate(226.397 141.709)" fill="#cbd1d9" />
     </G>
   </Svg>
 );

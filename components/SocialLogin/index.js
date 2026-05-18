@@ -1,2 +1,2 @@
-export { default } from "./SocialLogin";
-export {default as NewsletterModal} from "./NewsletterModal";
+export { default } from './SocialLogin';
+export { default as NewsletterModal } from './NewsletterModal';

@@ -1,6 +1,6 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { G, Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Path } from 'react-native-svg';
 
 const Settings = ({ width = RFValue(26), height = RFValue(22) }) => (
   <Svg
@@ -9,8 +9,7 @@ const Settings = ({ width = RFValue(26), height = RFValue(22) }) => (
     xmlns="http://www.w3.org/2000/svg"
     width={width}
     height={height}
-    viewBox="0 0 26.123 21.957"
-  >
+    viewBox="0 0 26.123 21.957">
     <G id="Group_4707" data-name="Group 4707" transform="translate(0 0)">
       <G id="Group_4706" data-name="Group 4706">
         <G id="previous" transform="translate(26.123 21.957) rotate(180)">

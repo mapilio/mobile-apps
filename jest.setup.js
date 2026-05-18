@@ -11,10 +11,7 @@ global.toast = {
 // Silence noisy console.error output from React internals during tests
 const originalConsoleError = console.error;
 console.error = (...args) => {
-  if (
-    typeof args[0] === 'string' &&
-    (args[0].includes('Warning:') || args[0].includes('act('))
-  ) {
+  if (typeof args[0] === 'string' && (args[0].includes('Warning:') || args[0].includes('act('))) {
     return;
   }
   originalConsoleError(...args);

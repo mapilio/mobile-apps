@@ -1,15 +1,12 @@
-import React, { useEffect } from "react";
-import {
-  createStackNavigator,
-  TransitionPresets,
-} from "@react-navigation/stack";
-import TabNavigator from "./TabNavigator";
-import NetInfo from "@react-native-community/netinfo";
-import { UPDATE_CONNECTION_STATUS } from "../store/actionsName";
-import { useDispatch } from "react-redux";
-import { Routes } from "./Routes";
-import StackNavigator from "./StackNavigator";
-import { getConfig, checkMaintenance } from "../store/actions/generalReducer";
+import React, { useEffect } from 'react';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import TabNavigator from './TabNavigator';
+import NetInfo from '@react-native-community/netinfo';
+import { UPDATE_CONNECTION_STATUS } from '../store/actionsName';
+import { useDispatch } from 'react-redux';
+import { Routes } from './Routes';
+import StackNavigator from './StackNavigator';
+import { getConfig, checkMaintenance } from '../store/actions/generalReducer';
 
 const Stack = createStackNavigator();
 

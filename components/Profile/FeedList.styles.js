@@ -1,26 +1,30 @@
-import {StyleSheet} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
+import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default StyleSheet.create({
   skeletonItem: {
     height: RFValue(120),
     borderRadius: RFValue(4),
-    width: "100%",
-    marginTop: RFValue(10)
+    width: '100%',
+    marginTop: RFValue(10),
   },
-  topBar:{
-    flexDirection: 'row', alignItems: 'center', paddingBottom: RFValue(10)
+  topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: RFValue(10),
   },
-  topBarImage:{
-    width: RFValue(13), height: RFValue(13), resizeMode: 'cover'
+  topBarImage: {
+    width: RFValue(13),
+    height: RFValue(13),
+    resizeMode: 'cover',
   },
-  topBarContent:{
+  topBarContent: {
     flexDirection: 'column',
-    marginLeft: RFValue(10)
+    marginLeft: RFValue(10),
   },
   container: {
     flex: 1,
-    paddingTop:RFValue(10),
+    paddingTop: RFValue(10),
   },
   welcomeTitle: {
     color: '#191919',
@@ -30,7 +34,7 @@ export default StyleSheet.create({
     color: '#808080',
     fontSize: RFValue(11),
   },
-  sectionTitle:{
+  sectionTitle: {
     paddingVertical: RFValue(10),
     marginLeft: RFValue(10),
     fontSize: RFValue(13),
@@ -40,34 +44,34 @@ export default StyleSheet.create({
   },
   noFeedWrapper: {
     marginTop: RFValue(50),
-    alignItems: "center",
+    alignItems: 'center',
   },
   noFeedTitle: {
-    fontFamily: "Poppins-Medium",
+    fontFamily: 'Poppins-Medium',
     fontSize: RFValue(16),
-    color: "#191919",
-    textAlign: "center",
+    color: '#191919',
+    textAlign: 'center',
   },
   noFeedDescription: {
-    fontFamily: "Poppins",
+    fontFamily: 'Poppins',
     fontSize: RFValue(14),
-    color: "#808080",
+    color: '#808080',
     marginVertical: RFValue(10),
-    textAlign: "center"
+    textAlign: 'center',
   },
-  noFeedButton:{
-    backgroundColor: "#0056F1",
-    marginLeft: "auto",
-    marginRight: "auto",
+  noFeedButton: {
+    backgroundColor: '#0056F1',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     marginVertical: RFValue(20),
     paddingHorizontal: RFValue(25),
     paddingVertical: RFValue(13),
     borderRadius: RFValue(24),
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     text: {
-      color: "#FFF",
+      color: '#FFF',
       fontSize: RFValue(16),
-    }
-  }
+    },
+  },
 });

@@ -400,3 +400,7 @@ web-build/
 dist/
 
 # @end expo-cli
+
+# Local development directories
+mapilio-kit/
+references/

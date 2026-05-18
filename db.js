@@ -1,12 +1,24 @@
-import * as SQLite from "expo-sqlite";
+import * as SQLite from 'expo-sqlite';
 import * as RNFS from './util/fs';
 
-const db = SQLite.openDatabaseSync("mapilio.db");
+const db = SQLite.openDatabaseSync('mapilio.db');
 
 const ALLOWED_UPDATE_COLUMNS = [
-  'exif', 'location', 'project_key', 'organization_name', 'organization_key',
-  'sequence_uuid', 'path', 'hash', 'uploaded', 'filename', 'group_id',
-  'address', 'capture_id', 'default_storage_path', 'capture_timestamp',
+  'exif',
+  'location',
+  'project_key',
+  'organization_name',
+  'organization_key',
+  'sequence_uuid',
+  'path',
+  'hash',
+  'uploaded',
+  'filename',
+  'group_id',
+  'address',
+  'capture_id',
+  'default_storage_path',
+  'capture_timestamp',
 ];
 
 class Database {
@@ -28,7 +40,7 @@ class Database {
                                 address TEXT DEFAULT NULL,
                                 capture_id INTEGER DEFAULT NULL,
                                 default_storage_path TEXT DEFAULT NULL
-                                )`,
+                                )`
     );
   }
 
@@ -42,7 +54,7 @@ class Database {
   isColumnExist(columnName) {
     return db.getAllAsync(
       `SELECT count(*) as count FROM pragma_table_info('captures') WHERE name = ?`,
-      [columnName],
+      [columnName]
     );
   }
 
@@ -56,15 +68,42 @@ class Database {
   async addColumnIfNotExist(columnName, columnType = 'TEXT DEFAULT NULL', table = 'captures') {
     const result = await this.isColumnExist(columnName);
     if (result[0]?.count === 0) {
-      db.execAsync(`ALTER TABLE ${table} ADD COLUMN ${columnName} ${columnType}`)
-        .catch((error) => console.error(`Error adding column ${columnName} to ${table}:`, error));
+      db.execAsync(`ALTER TABLE ${table} ADD COLUMN ${columnName} ${columnType}`).catch((error) =>
+        console.error(`Error adding column ${columnName} to ${table}:`, error)
+      );
     }
   }
 
-  insertToDB({exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath, captureTimestamp}) {
+  insertToDB({
+    exif,
+    location,
+    projectKey,
+    organizationName,
+    organizationKey,
+    uuid,
+    path,
+    filename,
+    groupId,
+    captureID,
+    defaultStoragePath,
+    captureTimestamp,
+  }) {
     return db.runAsync(
       'INSERT INTO captures (exif, location, project_key, organization_name, organization_key, sequence_uuid, path, filename, group_id, capture_id, default_storage_path, capture_timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [exif, location, projectKey, organizationName, organizationKey, uuid, path, filename, groupId, captureID, defaultStoragePath, captureTimestamp ?? Date.now()],
+      [
+        exif,
+        location,
+        projectKey,
+        organizationName,
+        organizationKey,
+        uuid,
+        path,
+        filename,
+        groupId,
+        captureID,
+        defaultStoragePath,
+        captureTimestamp ?? Date.now(),
+      ]
     );
   }
 
@@ -79,29 +118,28 @@ class Database {
   getCapturesBySequenceIdAsync(sequence_uuid, orderBY = 'id ASC') {
     const allowedOrders = ['id ASC', 'id DESC', 'capture_id ASC', 'capture_id DESC'];
     const safeOrder = allowedOrders.includes(orderBY) ? orderBY : 'id ASC';
-    return db.getAllAsync(
-      `SELECT * FROM captures WHERE sequence_uuid = ? ORDER BY ${safeOrder}`,
-      [sequence_uuid],
-    );
+    return db.getAllAsync(`SELECT * FROM captures WHERE sequence_uuid = ? ORDER BY ${safeOrder}`, [
+      sequence_uuid,
+    ]);
   }
 
   async isCaptureIdNull(sequence_uuid) {
     const result = await db.getAllAsync(
       `SELECT * FROM captures WHERE sequence_uuid = ? AND capture_id IS NULL`,
-      [sequence_uuid],
+      [sequence_uuid]
     );
     return result.length > 0;
   }
 
   getGroupByWithSequenceUUID() {
     return db.getAllAsync(
-      `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`,
+      `SELECT *, COUNT(*) as count FROM captures GROUP BY sequence_uuid ORDER BY id DESC`
     );
   }
 
   async getGroupByWithGroupID() {
     const results = await db.getAllAsync(
-      `SELECT *, COUNT(*) as count FROM captures GROUP BY group_id ORDER BY id DESC`,
+      `SELECT *, COUNT(*) as count FROM captures GROUP BY group_id ORDER BY id DESC`
     );
     const groups = [];
     for (const item of results) {
@@ -180,10 +218,7 @@ class Database {
    * @returns {Promise}
    */
   getFirstWithGroupID(groupId) {
-    return db.getFirstAsync(
-      `SELECT * FROM captures WHERE group_id = ? ORDER BY id ASC`,
-      [groupId],
-    );
+    return db.getFirstAsync(`SELECT * FROM captures WHERE group_id = ? ORDER BY id ASC`, [groupId]);
   }
 
   /**
@@ -192,10 +227,9 @@ class Database {
    * @returns {Promise}
    */
   getLastWithGroupID(groupId) {
-    return db.getFirstAsync(
-      `SELECT * FROM captures WHERE group_id = ? ORDER BY id DESC`,
-      [groupId],
-    );
+    return db.getFirstAsync(`SELECT * FROM captures WHERE group_id = ? ORDER BY id DESC`, [
+      groupId,
+    ]);
   }
 
   /**
@@ -206,10 +240,10 @@ class Database {
    * @returns {Promise}
    */
   updateById(id, data) {
-    const keys = Object.keys(data).filter(key => ALLOWED_UPDATE_COLUMNS.includes(key));
+    const keys = Object.keys(data).filter((key) => ALLOWED_UPDATE_COLUMNS.includes(key));
     if (keys.length === 0) return Promise.reject(new Error('No valid columns to update'));
-    const values = keys.map(key => data[key]);
-    const setClause = keys.map(key => `${key} = ?`).join(', ');
+    const values = keys.map((key) => data[key]);
+    const setClause = keys.map((key) => `${key} = ?`).join(', ');
     return db.runAsync(`UPDATE captures SET ${setClause} WHERE id = ?`, [...values, id]);
   }
 
@@ -231,7 +265,7 @@ class Database {
           path = dirs[1];
         }
         return RNFS.unlink(path + item.path);
-      }),
+      })
     );
   }
 

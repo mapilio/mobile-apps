@@ -1,16 +1,16 @@
-import React from "react";
-import { Svg, Defs, Rect, Pattern } from "react-native-svg";
-import { View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { RFValue } from "react-native-responsive-fontsize";
+import React from 'react';
+import { Svg, Defs, Rect, Pattern } from 'react-native-svg';
+import { View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { RFValue } from 'react-native-responsive-fontsize';
 
-const MapLoading = ({style}) => {
+const MapLoading = ({ style }) => {
   return (
-    <View style={{ height: "100%", width: "100%", zIndex:2, ...style}}>
+    <View style={{ height: '100%', width: '100%', zIndex: 2, ...style }}>
       <LinearGradient
-        colors={["rgba(255,255,255,0.5)", "rgba(255,255,255,0.1)"]}
+        colors={['rgba(255,255,255,0.5)', 'rgba(255,255,255,0.1)']}
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
@@ -20,14 +20,7 @@ const MapLoading = ({style}) => {
       />
       <Svg width="100%" height="100%">
         <Defs>
-          <Pattern
-            id="squares"
-            x="0"
-            y="0"
-            width="50"
-            height="50"
-            patternUnits="userSpaceOnUse"
-          >
+          <Pattern id="squares" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
             <Rect x="0" y="0" width="49" height="49" fill="rgb(236,236,236)" />
           </Pattern>
         </Defs>

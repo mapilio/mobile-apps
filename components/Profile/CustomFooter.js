@@ -6,12 +6,11 @@ import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 const CustomFooter = ({ animatedFooterPosition, onPress, isBadgeSelected }) => {
-  const {t} = useTranslation("profile");
+  const { t } = useTranslation('profile');
   return (
     <BottomSheetFooter animatedFooterPosition={animatedFooterPosition} style={styles.footerWrapper}>
       <TouchableOpacity onPress={onPress} style={styles.closeButton}>
-        <CustomText style={styles.buttonTitle}>
-          {isBadgeSelected ? t("ok") : t("close")}</CustomText>
+        <CustomText style={styles.buttonTitle}>{isBadgeSelected ? t('ok') : t('close')}</CustomText>
       </TouchableOpacity>
     </BottomSheetFooter>
   );
@@ -31,6 +30,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: RFValue(20),
   },
-  buttonTitle:{ fontSize: RFValue(13), color: 'white' }
+  buttonTitle: { fontSize: RFValue(13), color: 'white' },
 });
 export default CustomFooter;

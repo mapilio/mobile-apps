@@ -1,16 +1,11 @@
-import * as React from "react";
-import { Platform } from "react-native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import Svg, { G, Text, TSpan, Path } from "react-native-svg";
-import {useTranslation} from "react-i18next";
+import * as React from 'react';
+import { Platform } from 'react-native';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Text, TSpan, Path } from 'react-native-svg';
+import { useTranslation } from 'react-i18next';
 
 const CaptureText = ({ width = RFValue(50), height = RFValue(30) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 52 31.024"
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 52 31.024">
     <G transform="translate(11892.5 -15055.988)">
       <G transform="translate(-11885.115 15053.988)">
         <G transform="translate(0 2)">

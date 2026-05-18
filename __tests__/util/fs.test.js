@@ -64,10 +64,9 @@ describe('unlink', () => {
   it('calls deleteAsync with idempotent: true', async () => {
     FileSystem.deleteAsync.mockResolvedValue(undefined);
     await fs.unlink('/some/file.jpg');
-    expect(FileSystem.deleteAsync).toHaveBeenCalledWith(
-      'file:///some/file.jpg',
-      { idempotent: true },
-    );
+    expect(FileSystem.deleteAsync).toHaveBeenCalledWith('file:///some/file.jpg', {
+      idempotent: true,
+    });
   });
 });
 
@@ -75,10 +74,9 @@ describe('mkdir', () => {
   it('calls makeDirectoryAsync with intermediates: true', async () => {
     FileSystem.makeDirectoryAsync.mockResolvedValue(undefined);
     await fs.mkdir('/new/dir');
-    expect(FileSystem.makeDirectoryAsync).toHaveBeenCalledWith(
-      'file:///new/dir',
-      { intermediates: true },
-    );
+    expect(FileSystem.makeDirectoryAsync).toHaveBeenCalledWith('file:///new/dir', {
+      intermediates: true,
+    });
   });
 });
 

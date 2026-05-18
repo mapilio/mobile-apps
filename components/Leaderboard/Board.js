@@ -1,52 +1,53 @@
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Users from "../../screens/Leaderboard/Users";
-import LeaderboardTabBar from "./LeaderboardTopBar";
-import { LogBox } from "react-native";
-import { useSelector } from "react-redux";
-import SkeletonLoading from "./SkeletonLoading";
-import { useTranslation } from "react-i18next";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Users from '../../screens/Leaderboard/Users';
+import LeaderboardTabBar from './LeaderboardTopBar';
+import { LogBox } from 'react-native';
+import { useSelector } from 'react-redux';
+import SkeletonLoading from './SkeletonLoading';
+import { useTranslation } from 'react-i18next';
 
 const Tab = createMaterialTopTabNavigator();
-LogBox.ignoreLogs(["Sending"]);
+LogBox.ignoreLogs(['Sending']);
 
 const Board = () => {
-  const { users, usersWeek, usersMonth } = useSelector(
-    (state) => state.leaderboardReducer
-  );
-  const { config:{showWeek}} = useSelector((state) => state.generalReducer);
+  const { users, usersWeek, usersMonth } = useSelector((state) => state.leaderboardReducer);
+  const {
+    config: { showWeek },
+  } = useSelector((state) => state.generalReducer);
 
-  const { t } = useTranslation("leaderboard");
+  const { t } = useTranslation('leaderboard');
 
   return (
     <Tab.Navigator
-      id={"leaderboard"}
+      id={'leaderboard'}
       tabBarPosition="top"
-      tabBar={(props) => <LeaderboardTabBar {...props} />}
-    >
+      tabBar={(props) => <LeaderboardTabBar {...props} />}>
       <Tab.Screen
         name="this_week"
         component={!usersWeek ? SkeletonLoading : Users}
-        initialParams={{ type: "week" }}
+        initialParams={{ type: 'week' }}
         options={{
-          tabBarLabel: t("this_week"),
+          tabBarLabel: t('this_week'),
         }}
       />
       <Tab.Screen
         name="this_month"
         component={!usersMonth ? SkeletonLoading : Users}
-        initialParams={{ type: "month" }}
+        initialParams={{ type: 'month' }}
         options={{
-          tabBarLabel: t("this_month"),
+          tabBarLabel: t('this_month'),
         }}
       />
-        {showWeek && <Tab.Screen
+      {showWeek && (
+        <Tab.Screen
           name="all_time"
           component={!users ? SkeletonLoading : Users}
-          initialParams={{ type: "all" }}
+          initialParams={{ type: 'all' }}
           options={{
-            tabBarLabel: t("all_time"),
+            tabBarLabel: t('all_time'),
           }}
-        />}
+        />
+      )}
     </Tab.Navigator>
   );
 };

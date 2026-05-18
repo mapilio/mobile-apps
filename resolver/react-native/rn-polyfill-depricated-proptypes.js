@@ -53,7 +53,7 @@ Object.defineProperty(StandardModule, 'TextInputPropTypes', {
 Object.defineProperty(StandardModule, 'TextInput', {
   configurable: true,
   get() {
-// return dpProps.TextInputPropTypes;
+    // return dpProps.TextInputPropTypes;
     return txtImputProx;
   },
 });
@@ -87,4 +87,3 @@ Object.defineProperty(StandardModule, 'TextInput', {
 // });
 
 // console.log("StandardModule--> ", StandardModule.ColorPropType); `
-

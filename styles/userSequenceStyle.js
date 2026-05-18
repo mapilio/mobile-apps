@@ -1,60 +1,60 @@
-import { StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export const userSequenceStyles = StyleSheet.create({
   sequenceWrapper: {
-    flexWrap: "wrap",
-    flexDirection: "row",
+    flexWrap: 'wrap',
+    flexDirection: 'row',
   },
   tabBar: {
-    width: "100%",
-    marginLeft: "auto",
-    marginRight: "auto",
+    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     zIndex: 999999999999999999999999999,
-    position: "absolute",
+    position: 'absolute',
   },
   tabItem: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 15,
     paddingVertical: 3,
-    backgroundColor: "#F5F5F5",
+    backgroundColor: '#F5F5F5',
     width: 150,
   },
   tabItemActive: {
-    backgroundColor: "#130C47",
+    backgroundColor: '#130C47',
     borderRadius: 5,
   },
   tabText: {
-    color: "#130C47",
+    color: '#130C47',
   },
   tabTextActive: {
-    color: "#FFF",
+    color: '#FFF',
   },
 });
 
 export const sequenceCardStyles = StyleSheet.create({
   cardContainer: {
-    maxWidth: "33.3%",
+    maxWidth: '33.3%',
     paddingHorizontal: RFValue(2),
     marginBottom: RFValue(5),
     borderRadius: 4,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   imageContainer: {
-    position: "relative",
+    position: 'relative',
     height: RFValue(78),
     borderRadius: 4,
-    maxWidth: "100%",
+    maxWidth: '100%',
   },
-  imagePosition: { position: "relative" },
+  imagePosition: { position: 'relative' },
   imageStyle: {
     height: RFValue(78),
     borderRadius: 8,
-    maxWidth: "100%",
+    maxWidth: '100%',
   },
   iconStyle: {
-    position: "absolute",
+    position: 'absolute',
     bottom: RFValue(8),
     right: RFValue(8),
   },
@@ -62,14 +62,14 @@ export const sequenceCardStyles = StyleSheet.create({
 
 export const sequenceDetailStyles = StyleSheet.create({
   imageArea: {
-    position: "relative",
-    height: "50%",
+    position: 'relative',
+    height: '50%',
   },
   image: {
-    width: "100%",
+    width: '100%',
   },
   resizeButton: {
-    position: "absolute",
+    position: 'absolute',
     right: RFValue(10),
   },
   minimizeButton: {

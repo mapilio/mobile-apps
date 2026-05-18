@@ -1,14 +1,9 @@
-import * as React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { G, Path } from "react-native-svg";
+import * as React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Path } from 'react-native-svg';
 
 const LowLight = ({ width = RFValue(30), height = RFValue(49) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 30.53 49.318"
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 30.53 49.318">
     <G data-name="Group 48577">
       <G data-name="Group 48576">
         <G data-name="smartphone (2)" fill="#cbcbcb" fillRule="evenodd">

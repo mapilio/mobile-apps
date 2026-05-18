@@ -1,14 +1,9 @@
-import * as React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { Path } from "react-native-svg";
+import * as React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { Path } from 'react-native-svg';
 
 const CleanRoad = ({ width = RFValue(78), height = RFValue(83) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 78.203 83.418"
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 78.203 83.418">
     <Path
       d="M62.508 2.102a2.606 2.606 0 0 0-2.555-2.1H18.245a2.606 2.606 0 0 0-2.554 2.1L.05 80.302a2.618 2.618 0 0 0 .542 2.164 2.588 2.588 0 0 0 2.012.954h72.99a2.609 2.609 0 0 0 2.56-3.118Z"
       fill="#4a90e2"

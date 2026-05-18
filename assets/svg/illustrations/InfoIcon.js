@@ -1,14 +1,9 @@
-import React from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import Svg, { G, Path } from "react-native-svg";
+import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Svg, { G, Path } from 'react-native-svg';
 
 const InfoIcon = ({ width = RFValue(18), height = RFValue(18) }) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 17.998 18.004"
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 17.998 18.004">
     <G transform="translate(-610.502 -733.998)">
       <Path
         d="M13456-20448a9.01,9.01,0,0,1-9-9,9.012,9.012,0,0,1,9-9,9.012,9.012,0,0,1,9,9A9.01,9.01,0,0,1,13456-20448Zm-1.685-5.25a.751.751,0,0,0-.75.75.751.751,0,0,0,.75.75h3.375a.751.751,0,0,0,.75-.75.751.751,0,0,0-.75-.75h-.94v-5.25a.751.751,0,0,0-.75-.75h-1.31a.751.751,0,0,0-.75.75.751.751,0,0,0,.75.75h.56v4.5Zm1.685-9a.751.751,0,0,0-.75.75.751.751,0,0,0,.75.75.751.751,0,0,0,.75-.75A.751.751,0,0,0,13456-20462.252Z"

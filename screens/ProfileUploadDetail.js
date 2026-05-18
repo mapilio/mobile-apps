@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
-import { Dimensions, View} from "react-native";
-import {sequenceDetailStyles} from "../styles/userSequenceStyle";
-import MapLibre from "@maplibre/maplibre-react-native";
-import {appMapStyle} from "../styles/appMapStyle";
-import {MapView} from "../highordercomponents";
-import {styles} from "../styles/circleStyles";
-import {useDispatch, useSelector} from "react-redux";
-import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
-import {Heading} from "../components/Map";
-import {setGeoJson} from "../helper/geojson";
+import React, { useEffect, useState } from 'react';
+import { Dimensions, View } from 'react-native';
+import { sequenceDetailStyles } from '../styles/userSequenceStyle';
+import MapLibre from '@maplibre/maplibre-react-native';
+import { appMapStyle } from '../styles/appMapStyle';
+import { MapView } from '../highordercomponents';
+import { styles } from '../styles/circleStyles';
+import { useDispatch, useSelector } from 'react-redux';
+import { UPDATE_CURRENT_SEQUENCE } from '../store/actionsName';
+import { Heading } from '../components/Map';
+import { setGeoJson } from '../helper/geojson';
 
-import {FocusAwareStatusBar, Panorama} from "../components";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import { FocusAwareStatusBar, Panorama } from '../components';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ProfileUploadDetail = ({ navigation, route }) => {
   const [points, setPoints] = useState({});
@@ -19,13 +19,13 @@ const ProfileUploadDetail = ({ navigation, route }) => {
   const [coord, setCoord] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
   const dispatch = useDispatch();
-  const {userInformation} = useSelector((state) => state.getTokenReducer);
-  const {bottom} = useSafeAreaInsets();
-  const {height} = Dimensions.get("screen")
-  const image = currentImage ? currentImage : `${route.params.path}`
+  const { userInformation } = useSelector((state) => state.getTokenReducer);
+  const { bottom } = useSafeAreaInsets();
+  const { height } = Dimensions.get('screen');
+  const image = currentImage ? currentImage : `${route.params.path}`;
 
   useEffect(() => {
-    return navigation.addListener("focus", () => {
+    return navigation.addListener('focus', () => {
       dispatch({
         type: UPDATE_CURRENT_SEQUENCE,
         payload: {
@@ -37,8 +37,8 @@ const ProfileUploadDetail = ({ navigation, route }) => {
   }, [navigation]);
 
   const getMap = () => {
-    setCoordinates(setGeoJson(route.params.points, "line"));
-    setPoints(setGeoJson(route.params.points, "point"));
+    setCoordinates(setGeoJson(route.params.points, 'line'));
+    setPoints(setGeoJson(route.params.points, 'point'));
 
     setCoord({
       heading: route.params.heading,
@@ -48,7 +48,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    navigation.addListener("blur", () => {
+    navigation.addListener('blur', () => {
       setCoord(null);
     });
   }, [navigation]);
@@ -61,23 +61,18 @@ const ProfileUploadDetail = ({ navigation, route }) => {
     <View>
       <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor="#fff" />
       <View style={sequenceDetailStyles.imageArea}>
-        <Panorama image={image} height={height / 2}/>
+        <Panorama image={image} height={height / 2} />
       </View>
-      <MapView
-        mapStyle={{ ...appMapStyle.map, height: "50%" }}
-      >
+      <MapView mapStyle={{ ...appMapStyle.map, height: '50%' }}>
         <MapLibre.Camera
           zoomLevel={17}
-          animationMode={"none"}
-          centerCoordinate={[
-            route.params.coordinate[0] + 0.0009,
-            route.params.coordinate[1],
-          ]}
+          animationMode={'none'}
+          centerCoordinate={[route.params.coordinate[0] + 0.0009, route.params.coordinate[1]]}
           animationDuration={1000}
         />
         {!!Object.keys(points).length && (
           <MapLibre.ShapeSource
-            id={"pointsProfileShape"}
+            id={'pointsProfileShape'}
             shape={points}
             onPress={(point) => {
               setCoord({
@@ -88,34 +83,22 @@ const ProfileUploadDetail = ({ navigation, route }) => {
               setCurrentImage(
                 `${process.env.EXPO_PUBLIC_IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/480`
               );
-            }}
-          >
-            <MapLibre.CircleLayer
-              id={"circle2"}
-              style={styles.circles}
-            />
-            <MapLibre.CircleLayer
-              id={"circleBuffer2"}
-              style={styles.circlesOpacity}
-            />
+            }}>
+            <MapLibre.CircleLayer id={'circle2'} style={styles.circles} />
+            <MapLibre.CircleLayer id={'circleBuffer2'} style={styles.circlesOpacity} />
           </MapLibre.ShapeSource>
         )}
         {!!Object.keys(coordinates).length && (
-          <MapLibre.ShapeSource id={"uploadedShape"} shape={coordinates}>
-            <MapLibre.LineLayer
-              id="linelayer2"
-              style={styles.lineStyles}
-            />
+          <MapLibre.ShapeSource id={'uploadedShape'} shape={coordinates}>
+            <MapLibre.LineLayer id="linelayer2" style={styles.lineStyles} />
           </MapLibre.ShapeSource>
         )}
-         <Heading
+        <Heading
           heading={coord ? coord.heading : `${route.params.heading}deg`}
           coordinates={
-            coord
-              ? [Number(coord.longitude), Number(coord.latitude)]
-              : route.params.coordinate
+            coord ? [Number(coord.longitude), Number(coord.latitude)] : route.params.coordinate
           }
-          markerPath={require("../assets/images/heading.png")}
+          markerPath={require('../assets/images/heading.png')}
         />
       </MapView>
     </View>
