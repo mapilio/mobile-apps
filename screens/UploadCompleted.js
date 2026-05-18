@@ -17,7 +17,7 @@ const UploadCompleted = () => {
   useEffect(() => {
     navigation.getParent().setOptions({tabBarStyle: {display: "none"}})
     return () => navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: RFValue(63) + bottom}})
-  }, []);
+  }, [bottom, navigation]);
 
   return (
     <View style={{flex: 1,backgroundColor:"#fff"}}>

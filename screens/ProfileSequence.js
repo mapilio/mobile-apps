@@ -61,7 +61,8 @@ const UserSequence = ({ navigation, route }) => {
         `/api/user-uploads-detail-v2?options[parameters][user_id]=${route.params.user_id}&options[parameters][group_key]=${route.params.id}&options[limit]=40&page=1`
       );
     });
-  }, [navigation, route.params.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation, route.params.id, route.params.user_id]);
 
   const fetchNext = (foreignURL) => {
     api.get(foreignURL ? foreignURL : paginationURL)
@@ -99,7 +100,8 @@ const UserSequence = ({ navigation, route }) => {
     fetchMapNext(
       `/api/user-uploads-detail-v2?options[parameters][user_id]=${route.params.user_id}&options[parameters][group_key]=${route.params.id}&options[limit]=1000&page=1`
     );
-  }, [active, imageList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, imageList, route.params.id, route.params.user_id]);
 
   const scrollHandler = ({ nativeEvent }) => {
     if (isCloseToBottom(nativeEvent) && paginationURL && active === "image") {

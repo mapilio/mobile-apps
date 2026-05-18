@@ -38,7 +38,8 @@ const UserSequenceDetail = ({item, changeImage, deleteHandler}) => {
         }
       });
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, exif]);
 
   const getAddress = async () => {
     const {latitude, longitude} = JSON.parse(location)

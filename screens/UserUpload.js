@@ -32,7 +32,8 @@ const UserUpload = () => {
     return () => {
       navigation.removeListener('focus')
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation]);
 
   const getData = () => {
     db.getGroupByWithGroupID().then(data => {

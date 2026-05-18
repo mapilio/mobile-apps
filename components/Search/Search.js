@@ -35,6 +35,7 @@ const Search = ({camera}) => {
   }
   useEffect(() => {
     return () => timeout?.remove()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -51,7 +51,7 @@ const useOrientation = (timeout) => {
       if (timer) clearTimeout(timer);
       ScreenOrientation.removeOrientationChangeListener(listener);
     };
-  }, []);
+  }, [timeout]);
 
   return orientation;
 };

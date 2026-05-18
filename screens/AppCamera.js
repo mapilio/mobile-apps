@@ -80,7 +80,7 @@ const AppCamera = () => {
         routes: [{name: Routes.uploadTab, params: {screen: Routes.captureCompleted}}]
       })
     );
-  }, []);
+  }, [navigation]);
 
   useEffect(() => {
     StatusBar.setHidden(true);
@@ -128,7 +128,8 @@ const AppCamera = () => {
           });
         });
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, closeHandler]);
 
   if (orientation !== "LANDSCAPE") {
     return <Loading backgroundColor="black" indicatorColor="white" />;

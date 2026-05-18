@@ -63,7 +63,7 @@ const RotationLine = () => {
       duration: 200,
       useNativeDriver: true,
     }).start();
-  }, [rotateStatus]);
+  }, [rotateStatus, accuracy, degree, dispatch, statusOpacity]);
 
   useEffect(() => {
     const betweenPositiveLandscape = between(
@@ -88,7 +88,7 @@ const RotationLine = () => {
       duration: 200,
       useNativeDriver: true,
     }).start();
-  }, [lineDegree]);
+  }, [lineDegree, dispatch, rotateStatus, rotateValue]);
 
   return (
     <View

@@ -25,13 +25,13 @@ const ImageUpload = ({ navigation, group_id }) => {
         }
       );
     });
-  }, [group_id, navigation]);
+  }, [group_id, navigation, dispatch]);
 
   useEffect(() => {
     return navigation.addListener("blur", () => {
       dispatch({type: SEQUENCE_IMAGES, payload: []});
     });
-  }, [navigation]);
+  }, [navigation, dispatch]);
 
   return (
     <View style={globalStyles.container}>

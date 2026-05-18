@@ -116,7 +116,8 @@ const OSMLogin = ({navigation}) => {
     }
     
 
-  }, [response]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response, request?.codeVerifier, t]);
 
   return (
      <TouchableOpacity style={socialLoginStyles.osmButton} onPress={()=>{

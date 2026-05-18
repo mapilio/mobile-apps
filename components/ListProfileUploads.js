@@ -31,7 +31,7 @@ const ListProfileUploads = ({
       dispatch({type: UPDATE_CURRENT_SEQUENCE, payload: null});
     });
     return () => unsubscribe();
-  }, [navigation]);
+  }, [navigation, dispatch, setImagesList]);
 
   return (
     <View style={globalStyles.container}>

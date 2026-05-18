@@ -46,12 +46,14 @@ const List = ({ navigation }) => {
     });
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getData(), []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     getData();
     setRefreshing(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const deleteRow = (sequence_uuid) => {

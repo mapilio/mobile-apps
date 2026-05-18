@@ -23,7 +23,7 @@ const ProgressCircle = ({ value = 0, width = 150, height = 150, color="black" })
 
   useEffect(() => {
     progressValue.value = withTiming(value, { duration: 1500 });
-  }, [value]);
+  }, [value, progressValue]);
 
   return (
     <Svg width={width} height={height} style={{position:"absolute"}}>

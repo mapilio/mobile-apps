@@ -34,6 +34,7 @@ const UserSequence = ({navigation}) => {
 
   useEffect(() => {
     getData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadData]);
 
   useEffect(() => {

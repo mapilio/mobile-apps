@@ -33,7 +33,8 @@ const PhotoAmounts = () => {
         RNFS.getFSInfo().then(({ freeSpace }) => calculateStorage(freeSpace));
       }
     }
-  }, [photoAmount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [photoAmount, defaultStoragePath]);
 
   useEffect(() => {
     setPhotoAmount(photoAmount);

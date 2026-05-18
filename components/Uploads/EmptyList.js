@@ -48,7 +48,7 @@ const EmptyList = () => {
       pagerRef.current?.setPage(next);
     }, AUTOPLAY_INTERVAL);
     return () => clearTimeout(timer);
-  }, [activeSlide]);
+  }, [activeSlide, carousel.length]);
 
   const _renderItem = ({item}) => {
     return (

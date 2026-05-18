@@ -95,7 +95,7 @@ const GeneralSettings = ({ navigation }) => {
     return () => {
       dispatch({ type: IS_ACTIVE, payload: true });
     };
-  }, []);
+  }, [dispatch]);
 
   const changeDistanceValue = (value) => {
     if (distanceBetween !== value[0]) {

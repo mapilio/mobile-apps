@@ -111,7 +111,8 @@ const AutoActionButton = () => {
 				captureID.current++;
 			}
 		}
-	}, [cameraLocation]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [cameraLocation, autoCaptureStart, captureButtonStatus, distanceBetween, isAlert, t]);
 
 	Math.degrees = (radians) => {
     return radians * (180 / Math.PI);
@@ -143,7 +144,7 @@ const AutoActionButton = () => {
     });
 
     return () => subscription.remove();
-  }, []);
+  }, [LANDSCAPE_LEFT_ORIENTATION, LANDSCAPE_RIGHT_ORIENTATION]);
 
 	useEffect(() => {
 		const unsubFocus = navigation.addListener("focus", () => {
@@ -157,7 +158,7 @@ const AutoActionButton = () => {
 			unsubFocus();
 			unsubBlur();
 		};
-	}, [navigation]);
+	}, [navigation, dispatch]);
 
 	useEffect(() => {
 		if (rotateStatus) {
@@ -177,7 +178,7 @@ const AutoActionButton = () => {
 			timeoutsRef.current.forEach(t => clearTimeout(t));
 			timeoutsRef.current = [];
 		};
-	}, [rotateStatus]);
+	}, [rotateStatus, dispatch]);
 
 	useEffect(() => {
 		let timeout;
@@ -187,7 +188,7 @@ const AutoActionButton = () => {
 		}
 
 		return () => clearTimeout(timeout);
-	}, [showRotateAlert]);
+	}, [showRotateAlert, dispatch]);
 
 	useEffect(() => {
 		Accelerometer.setUpdateInterval(200);
@@ -207,6 +208,7 @@ const AutoActionButton = () => {
 			gyroscope.remove();
 			listener.remove();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const startNewSequence = (nextAppState) => {

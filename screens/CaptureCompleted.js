@@ -82,7 +82,8 @@ const CaptureCompleted = () => {
     checkData()
 
     return () => navigation.getParent().setOptions({tabBarStyle: {display: "flex", height: RFValue(63) + bottom}});
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bottom, navigation]);
 
   const skipHandler = () => {
     navigation.popTo(Routes.upload)

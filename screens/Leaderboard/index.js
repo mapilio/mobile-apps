@@ -46,7 +46,7 @@ const Leaderboard = () => {
     return () => {
       dispatch(resetLeaderboard());
     };
-  }, [auth]);
+  }, [auth, challengeDates, dispatch, isChallengeOpen]);
 
   return (
     <SafeAreaView style={styles.base}>

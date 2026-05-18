@@ -30,7 +30,7 @@ const SequenceDetail = ({sequence, onClick, deleteHandler}) => {
         }
       });
     }
-  }, []);
+  }, [sequence]);
 
   const clearSelections = () => dispatch({type: UPDATE_SELECTED_IMAGES, payload: []});
 

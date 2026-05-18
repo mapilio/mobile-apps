@@ -36,6 +36,7 @@ const BatteryLevel = () => {
       clearInterval(batteryInterval);
       subscriptionState.remove();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setBatteryState = () => {
@@ -60,7 +61,7 @@ const BatteryLevel = () => {
       type: UPDATE_BATTERY_STATUS,
       payload: isLowBattery,
     });
-  }, [batteryLevel, chargeStatus]);
+  }, [batteryLevel, chargeStatus, dispatch, isCharging]);
 
   return (
     <View style={styles.batteryInfo}>

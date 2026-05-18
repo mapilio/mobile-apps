@@ -14,7 +14,7 @@ const SearchModal = ({open, closeHandler, onClick}) => {
     dispatch({type: "SET_SEARCH_LOCATIONS", payload: []})
     dispatch({type: "SET_SEARCH_ERROR", payload: false})
     dispatch({type: "SET_SEARCH_LOADING", payload: false})
-  }, [open])
+  }, [open, dispatch])
  
 
   return (

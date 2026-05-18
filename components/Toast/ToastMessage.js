@@ -35,7 +35,7 @@ const ToastMessage = ({ options: { id, type, message, hideToast } }) => {
 
   useEffect(() => {
     vibrate(type);
-  }, []);
+  }, [type]);
 
   return (
     <View style={{ ...styles.wrapper, ...styles[type + "Bg"], marginTop:top}}>

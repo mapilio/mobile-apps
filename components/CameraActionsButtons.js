@@ -20,13 +20,13 @@ const CameraActionsButtons = () => {
       setWaitGPS(!GPSStartAccuracy);
       dispatch({type: CAPTURE_BUTTON_STATUS, payload: !GPSStartAccuracy});
     }
-  }, [GPSStartAccuracy, waitGPS]);
+  }, [GPSStartAccuracy, waitGPS, dispatch]);
 
   useEffect(() => {
     if (!waitGPS) {
       dispatch({type: CAPTURE_BUTTON_STATUS, payload: (GPSAccuracy || !batteryStatus || !mocked || accuracy.isTrue)});
     }
-  }, [GPSAccuracy, waitGPS, mocked, batteryLevel, accuracy]);
+  }, [GPSAccuracy, waitGPS, mocked, batteryLevel, accuracy, batteryStatus, dispatch]);
 
 
   return (

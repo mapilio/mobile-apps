@@ -66,7 +66,7 @@ const TooltipWrapper = ({
     return () => {
       setIsTooltipVisible(false);
     };
-  }, [step, welcomeWalkthroughStatus]);
+  }, [step, welcomeWalkthroughStatus, name, tabFocus]);
 
   const handleClose = () => {
     if (handleNext) {

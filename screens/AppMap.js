@@ -63,7 +63,8 @@ const AppMap = ({ navigation }) => {
     return () => {
       listener.remove();
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connection.connectionStatus, navigation]);
 
   const handleAppStateChange = (nextAppState) => {
     if (
@@ -85,7 +86,7 @@ const AppMap = ({ navigation }) => {
     } else {
       toast.hideAll();
     }
-  }, [isMapReady]);
+  }, [isMapReady, t, welcomeWalkthroughStatus]);
 
   const zoomPoint = (coordinates) => {
     mapRef.current?.getZoom().then((zoomLevel) => {

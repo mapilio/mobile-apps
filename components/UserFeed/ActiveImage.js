@@ -42,7 +42,7 @@ import { api } from "../../util/helpers/api";
         ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
       );
     }
-  }, []);
+  }, [isAndroid, isFullScreen]);
 
   const report = (reason) => {
     api

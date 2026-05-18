@@ -61,7 +61,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
     RNFS.stat(path).then(({size}) => setTotalSize(Math.round(size / 1024 / 1024)))
 
     return () => setTotalSize(0)
-  }, []);
+  }, [defaultStoragePath, group_uuid]);
 
   const uploadHandler = async () => {
     if (!connection.connectionStatus) {

@@ -100,7 +100,8 @@ const FeedList = ({ userDetails }) => {
       .finally(() => setGettingData(false));
 
     getScoreData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t]);
 
   const nextPage = async () => {
     if (page > totalPage) return;

@@ -58,7 +58,7 @@ const PlaceHolder = () => {
 
 const Detail = ({ project, onClose, setOnScroll, navigation }) => {
   const { t } = useTranslation("marketplace");
-  useEffect(() => setOnScroll(false), []);
+  useEffect(() => setOnScroll(false), [setOnScroll]);
   const isFocused = useIsFocused();
 
   const {

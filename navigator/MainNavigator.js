@@ -28,12 +28,12 @@ const MainNavigator = () => {
     });
 
     return () => removeListener();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getConfig());
     dispatch(checkMaintenance());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>

@@ -16,7 +16,7 @@ const NoInternetAccess = ({navigation}) => {
     if (!connection.connectionStatus) return;
 
     navigation.navigate('MapTab', {screen: Routes.map});
-  }, [connection, auth]);
+  }, [connection, auth, navigation]);
 
   return (
     <View

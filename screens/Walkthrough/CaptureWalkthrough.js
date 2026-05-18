@@ -59,7 +59,7 @@ const CaptureWalkthrough = () => {
     return () => {
       dispatch({type: IS_ACTIVE, payload: true})
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <View style={walkthroughStyle.centeredView}>

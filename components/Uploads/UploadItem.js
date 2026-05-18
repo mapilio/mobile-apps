@@ -64,7 +64,8 @@ const UploadItem = ({item, deleteFunc}) => {
     if (Platform.OS === "android") {
       RNFS.getAllExternalFilesDirs().then((res) => setSdCardPath(res[1]));
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
 
 
   const renderRightActions = () => {

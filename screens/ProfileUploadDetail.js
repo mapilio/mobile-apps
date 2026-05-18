@@ -34,7 +34,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
         },
       });
     });
-  }, [navigation]);
+  }, [navigation, dispatch, route.params.points, userInformation?.id]);
 
   const getMap = () => {
     setCoordinates(setGeoJson(route.params.points, "line"));
@@ -55,6 +55,7 @@ const ProfileUploadDetail = ({ navigation, route }) => {
 
   useEffect(() => {
     getMap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route.params.points]);
 
   return (

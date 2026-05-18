@@ -12,7 +12,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     dispatch(getUserInformation());
-  }, []);
+  }, [dispatch]);
 
   return (
     <View

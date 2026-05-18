@@ -48,7 +48,7 @@ const Marketplace = ({ navigation }) => {
       else{
         toast.hideAll();
       }
-  }, [isMapReady]);
+  }, [isMapReady, isInitialized, t]);
 
   useEffect(() => {
     let url = `${process.env.EXPO_PUBLIC_SERVICE_URL}/api/get-marketplaces`
@@ -64,7 +64,7 @@ const Marketplace = ({ navigation }) => {
       toast.show(`${message}`, {type: "error"})
     });
 
-  }, [currentCoordinate]);
+  }, [currentCoordinate, dispatch]);
 
   useEffect(() => {
     if(!isInitialized) {

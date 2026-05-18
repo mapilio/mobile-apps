@@ -41,6 +41,7 @@ const GoogleLogin = ({ navigation }) => {
     } else {
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const loginToMapilio = (user, accessToken) => {
