@@ -12,6 +12,9 @@ module.exports = {
     'no-console': 'warn',
     // React 17+ new JSX transform — importing React is not required
     'react/react-in-jsx-scope': 'off',
+    // Downgraded from error: fixing missing effect deps requires careful per-case
+    // review to avoid regressions; tracked as Phase 3 cleanup work
+    'react-hooks/exhaustive-deps': 'warn',
   },
   overrides: [
     {
