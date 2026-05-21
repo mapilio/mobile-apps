@@ -1,0 +1,30 @@
+# CODEOWNERS
+#
+# Defines which team members are automatically requested for review when a PR
+# touches files in their area. GitHub assigns reviewers top-to-bottom; the last
+# matching rule wins. See docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Team members — update these assignments as ownership becomes clearer:
+#   @ozcan-durak   — founder / project lead
+#   @sezerbozbiyik — core team
+
+# ── Global fallback ─────────────────────────────────────────────────────────
+# Everything not matched below goes to the project lead for review.
+*                           @ozcan-durak
+
+# ── CI / DevOps ──────────────────────────────────────────────────────────────
+.github/                    @ozcan-durak
+
+# ── Security ─────────────────────────────────────────────────────────────────
+SECURITY.md                 @ozcan-durak
+
+# ── Root configuration (package.json, app.config.js, eas.json, etc.) ─────────
+/*.json                     @ozcan-durak
+/*.js                       @ozcan-durak
+
+# ── Documentation ─────────────────────────────────────────────────────────────
+*.md                        @ozcan-durak
+
+# ── Translations ──────────────────────────────────────────────────────────────
+# Consider assigning a specific team member who manages localisation here.
+translations/               @ozcan-durak
