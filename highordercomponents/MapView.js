@@ -10,7 +10,7 @@ import * as Linking from "expo-linking";
 MapLibreGL.setAccessToken(null);
 Logger.setLogLevel("error");
 
-const STYLE_URL = "https://tiles.openfreemap.org/styles/liberty";
+const STYLE_URL = "https://tiles.openfreemap.org/styles/positron";
 
 const MapView = ({
   children,
@@ -45,7 +45,7 @@ const MapView = ({
     <Fragment>
       <MapLibreGL.MapView
         style={mapStyle}
-        styleURL={STYLE_URL}
+        mapStyle={STYLE_URL}
         ref={mapRef}
         onRegionDidChange={regionChange}
         logoEnabled={false}
