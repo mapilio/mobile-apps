@@ -1,0 +1,31 @@
+name: Dependency Audit
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Monday 09:00 UTC
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: npm audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run audit
+        # Fails on critical severity only. Known high-severity findings that cannot
+        # currently be fixed upstream (xmldom via @expo/plist, node-fetch via
+        # snap-carousel) are tracked in issues #18 and #19 and would create
+        # permanent noise at --audit-level=high.
+        run: npm audit --audit-level=critical
