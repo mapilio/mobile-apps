@@ -94,9 +94,9 @@ const UserUpload = () => {
         {uploadData.length > 0 && (
           <LinearGradient
             style={styles.gradient}
-            colors={['transparent', '#FFFFFF']}
-            locations={[0.75, 0.95]}
+            colors={['white', 'rgba(255,255,255,0)']}
             pointerEvents="none"
+            locations={[.95, .75]}
           />
         )}
       </View>
