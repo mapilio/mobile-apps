@@ -69,20 +69,22 @@ if (oneSignalAppId) {
 }
 SplashScreen.preventAutoHideAsync();
 
+const {generalReducer: {language}} = store.getState();
+
+if (!i18n.isInitialized) {
+  i18n.use(initReactI18next).init({
+    compatibilityJSON: 'v3',
+    resources: translations(),
+    lng: language,
+  });
+}
+
 function App() {
   const [fontsLoaded] = useFonts({
     "Poppins": require("./assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
     "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
     "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
-  });
-
-  const {generalReducer: {language}} = store.getState()
-
-  i18n.use(initReactI18next).init({
-    compatibilityJSON: 'v3',
-    resources: translations(),
-    lng: language
   });
 
   useEffect(() => {
@@ -124,4 +126,4 @@ function App() {
   );
 }
 
-export default Sentry.wrap(App);
+export default __DEV__ ? App : Sentry.wrap(App);
