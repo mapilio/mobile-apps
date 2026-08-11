@@ -26,6 +26,8 @@ const ActiveSources = ({ pointInformation, clickedCoord }) => {
       <MapLibre.VectorSource
         id={"road-points-stroke"}
         tileUrlTemplates={[process.env.EXPO_PUBLIC_MAPBOX_POINT_URL]}
+        minZoomLevel={12}
+        maxZoomLevel={22}
       >
         <MapLibre.CircleLayer
           minZoomLevel={16}

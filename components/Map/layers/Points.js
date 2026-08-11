@@ -13,6 +13,8 @@ const Points = ({touchPoint}) => {
       <MapLibre.VectorSource
         id={"road-points"}
         tileUrlTemplates={[process.env.EXPO_PUBLIC_MAPBOX_POINT_URL]}
+        minZoomLevel={12}
+        maxZoomLevel={22}
         onPress={(e)=>{
           if(!maintenanceMode){
             touchPoint(e)
@@ -26,17 +28,11 @@ const Points = ({touchPoint}) => {
           belowLayerID={"road-points-opacity"}
           minZoomLevel={12}
         />
-      </MapLibre.VectorSource>
-      <MapLibre.VectorSource
-        id={"road-points-opacity"}
-        tileUrlTemplates={[process.env.EXPO_PUBLIC_MAPBOX_POINT_URL]}
-      >
         <MapLibre.CircleLayer
           id={"road-points-opacity"}
           sourceLayerID={process.env.EXPO_PUBLIC_MAPBOX_POINT_ID}
           style={{...styles.circlesOpacity, circleColor: maintenanceMode ? "#fba63c" : "#146aff", circleStrokeColor: maintenanceMode ? "#fba63c" : "#146aff"}}
           minZoomLevel={17}
-          maxZoomLevel={12}
         />
       </MapLibre.VectorSource>
      

@@ -32,8 +32,21 @@ import { api } from "../util/helpers/api";
 import MapLibreGL from "@maplibre/maplibre-react-native";
 import { getConfig, checkMaintenance } from "../store/actions/generalReducer";
 import { NewsletterModal } from "../components/SocialLogin";
+import { captureMessage } from "@sentry/react-native";
+import { probeVectorTile } from "../util/mapOverlayHealth";
 
 const DEFAULT_MAP_CENTER = [28.9784, 41.0082];
+const MAP_OVERLAY_RETRY_MS = 60000;
+const MAP_OVERLAY_PROBES = {
+  roads: {
+    template: process.env.EXPO_PUBLIC_MAPBOX_ROAD_URL,
+    coordinates: {zoom: 6, x: 37, y: 24},
+  },
+  points: {
+    template: process.env.EXPO_PUBLIC_MAPBOX_POINT_URL,
+    coordinates: {zoom: 12, x: 2377, y: 1535},
+  },
+};
 
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
@@ -42,6 +55,10 @@ const AppMap = ({ navigation }) => {
   const [isMapReady, setIsMapReady] = useState(false);
   const [isPanoLoading, setIsPanoLoading] = useState(false);
   const [showLocation, setShowLocation] = useState(true);
+  const [availableOverlays, setAvailableOverlays] = useState({
+    roads: false,
+    points: false,
+  });
   const { welcomeWalkthroughStatus } = useSelector(
     (state) => state.generalReducer
   );
@@ -55,6 +72,81 @@ const AppMap = ({ navigation }) => {
   const appState = useRef(AppState.currentState);
   const dispatch = useDispatch();
   const followUserLocation = useRef(false);
+  const overlayAvailabilityRef = useRef({roads: null, points: null});
+
+  useEffect(() => {
+    let active = true;
+    let retryTimer;
+
+    const reportTransition = (name, result) => {
+      if (overlayAvailabilityRef.current[name] === result.available) {
+        return;
+      }
+
+      const diagnostic = {
+        event: "map_overlay_health",
+        overlay: name,
+        available: result.available,
+        reason: result.reason,
+        status: result.status,
+      };
+
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.info("[map-overlay]", diagnostic);
+      } else if (!result.available) {
+        captureMessage("Map overlay unavailable", {
+          level: "warning",
+          tags: {
+            overlay: name,
+            reason: result.reason,
+          },
+          extra: diagnostic,
+        });
+      }
+    };
+
+    const checkOverlays = async (names = Object.keys(MAP_OVERLAY_PROBES)) => {
+      const results = await Promise.all(
+        names.map(async (name) => [
+          name,
+          await probeVectorTile(MAP_OVERLAY_PROBES[name]),
+        ])
+      );
+
+      if (!active) {
+        return;
+      }
+
+      const nextAvailability = {...overlayAvailabilityRef.current};
+      const unavailable = [];
+
+      results.forEach(([name, result]) => {
+        reportTransition(name, result);
+        nextAvailability[name] = result.available;
+        if (!result.available) {
+          unavailable.push(name);
+        }
+      });
+
+      overlayAvailabilityRef.current = nextAvailability;
+      setAvailableOverlays(nextAvailability);
+
+      if (unavailable.length > 0) {
+        retryTimer = setTimeout(
+          () => checkOverlays(unavailable),
+          MAP_OVERLAY_RETRY_MS
+        );
+      }
+    };
+
+    checkOverlays();
+
+    return () => {
+      active = false;
+      clearTimeout(retryTimer);
+    };
+  }, []);
 
   useEffect(() => {
     !connection.connectionStatus &&
@@ -217,8 +309,12 @@ const AppMap = ({ navigation }) => {
             initialCoordinate.current?.geometry?.coordinates ?? DEFAULT_MAP_CENTER
           }
         />
-        {isMapReady && <Points touchPoint={touchPoint} />}
-        {isMapReady && <Lines zoomPoint={zoomPoint} />}
+        {isMapReady && availableOverlays.points && (
+          <Points touchPoint={touchPoint} />
+        )}
+        {isMapReady && availableOverlays.roads && (
+          <Lines zoomPoint={zoomPoint} />
+        )}
 
         {showLocation && (
           <MapLibreGL.UserLocation
