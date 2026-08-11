@@ -33,6 +33,8 @@ import MapLibreGL from "@maplibre/maplibre-react-native";
 import { getConfig, checkMaintenance } from "../store/actions/generalReducer";
 import { NewsletterModal } from "../components/SocialLogin";
 
+const DEFAULT_MAP_CENTER = [28.9784, 41.0082];
+
 const AppMap = ({ navigation }) => {
   const [pointInformation, setPointInformation] = useState(null);
   const [clickedCoord, setClickedCoord] = useState(null);
@@ -211,7 +213,9 @@ const AppMap = ({ navigation }) => {
           animationMode={"flyTo"}
           ref={cameraRef}
           zoomLevel={6}
-          centerCoordinate={initialCoordinate.current?.geometry?.coordinates}
+          centerCoordinate={
+            initialCoordinate.current?.geometry?.coordinates ?? DEFAULT_MAP_CENTER
+          }
         />
         {isMapReady && <Points touchPoint={touchPoint} />}
         {isMapReady && <Lines zoomPoint={zoomPoint} />}

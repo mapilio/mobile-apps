@@ -57,6 +57,8 @@ const ProfileSettings = ({navigation}) => {
   }
 
   const exitHandle = () => {
+    const email = userInformation?.email;
+
     navigation.navigate(Routes.tabNavigator, {screen: Routes.map});
     if(credential?.type === "facebook"){
       Profile.getCurrentProfile().then((currentProfile) => {
@@ -65,8 +67,10 @@ const ProfileSettings = ({navigation}) => {
         }
        });
      }
+    if (email) {
+      OneSignal.User.removeEmail(email);
+    }
     dispatch({type: EXIT_USER});
-    OneSignal.User.removeEmail(userInformation.email);
   }
 
   return (

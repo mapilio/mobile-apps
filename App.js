@@ -57,9 +57,16 @@ if(!__DEV__){
   });
 }
 
-OneSignal.Debug.setLogLevel(LogLevel.Verbose);
-OneSignal.initialize(process.env.EXPO_PUBLIC_ONESIGNAL_APP_ID);
-OneSignal.Notifications.requestPermission(true);
+const oneSignalAppId = process.env.EXPO_PUBLIC_ONESIGNAL_APP_ID;
+
+if (oneSignalAppId) {
+  OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+  OneSignal.initialize(oneSignalAppId);
+
+  if (!__DEV__) {
+    OneSignal.Notifications.requestPermission(true);
+  }
+}
 SplashScreen.preventAutoHideAsync();
 
 function App() {
