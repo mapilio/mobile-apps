@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Dimensions,
@@ -6,7 +6,6 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
@@ -24,7 +23,12 @@ const styles = StyleSheet.create({
 const getItemStyle = ({ children: _children, style, ...rest }) =>
   style ? [style, rest] : rest;
 
-const transformToPlaceholder = (rootElement, backgroundColor, radius) => {
+const transformToPlaceholder = (
+  rootElement,
+  backgroundColor,
+  radius,
+  renderShimmer
+) => {
   if (!rootElement) return null;
   return React.Children.map(rootElement, (element, index) => {
     if (!element) return null;
@@ -34,7 +38,8 @@ const transformToPlaceholder = (rootElement, backgroundColor, radius) => {
           {transformToPlaceholder(
             element.props?.children,
             backgroundColor,
-            radius
+            radius,
+            renderShimmer
           )}
         </>
       );
@@ -78,11 +83,12 @@ const transformToPlaceholder = (rootElement, backgroundColor, radius) => {
         style={finalStyle}
         children={
           isPlaceholder
-            ? undefined
+            ? renderShimmer?.(index)
             : transformToPlaceholder(
                 childrenProp,
                 backgroundColor,
-                borderRadius
+                borderRadius,
+                renderShimmer
               )
         }
       />
@@ -102,7 +108,9 @@ const SkeletonPlaceholder = ({
 }) => {
   const [layout, setLayout] = useState();
   const animatedValueRef = useRef(new Animated.Value(0));
-  const isAnimationReady = Boolean(speed && layout?.width && layout?.height);
+  const isAnimationReady = Boolean(
+    enabled && speed > 0 && layout?.width && layout?.height
+  );
 
   useEffect(() => {
     if (!isAnimationReady) return;
@@ -137,32 +145,10 @@ const SkeletonPlaceholder = ({
     };
   }, [direction, shimmerWidth]);
 
-  const placeholders = useMemo(() => {
-    if (!enabled) return null;
-    return (
-      <View style={styles.placeholderContainer}>
-        {transformToPlaceholder(children, backgroundColor, borderRadius)}
-      </View>
-    );
-  }, [backgroundColor, children, borderRadius, enabled]);
-
-  if (!enabled || !placeholders) return children;
-  if (!layout?.width || !layout.height) {
-    return (
-      <View onLayout={(event) => setLayout(event.nativeEvent.layout)}>
-        {placeholders}
-      </View>
-    );
-  }
-
-  return (
-    <MaskedView
-      style={{ height: layout.height, width: layout.width }}
-      maskElement={placeholders}
-    >
-      <View style={[StyleSheet.absoluteFill, { backgroundColor }]} />
-      {isAnimationReady && (
-        <Animated.View style={animatedGradientStyle}>
+  const renderShimmer = useCallback(
+    (key) =>
+      isAnimationReady ? (
+        <Animated.View key={key} style={animatedGradientStyle}>
           <LinearGradient
             colors={[backgroundColor, highlightColor, backgroundColor]}
             start={{ x: 0, y: 0 }}
@@ -173,8 +159,35 @@ const SkeletonPlaceholder = ({
             ]}
           />
         </Animated.View>
-      )}
-    </MaskedView>
+      ) : null,
+    [
+      animatedGradientStyle,
+      backgroundColor,
+      highlightColor,
+      isAnimationReady,
+      shimmerWidth,
+    ]
+  );
+
+  const placeholders = useMemo(() => {
+    if (!enabled) return null;
+    return (
+      <View style={styles.placeholderContainer}>
+        {transformToPlaceholder(
+          children,
+          backgroundColor,
+          borderRadius,
+          renderShimmer
+        )}
+      </View>
+    );
+  }, [backgroundColor, borderRadius, children, enabled, renderShimmer]);
+
+  if (!enabled || !placeholders) return children;
+  return (
+    <View onLayout={(event) => setLayout(event.nativeEvent.layout)}>
+      {placeholders}
+    </View>
   );
 };
 
