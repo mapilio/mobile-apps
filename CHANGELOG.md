@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-Versioning follows the scheme agreed in [issue #3](https://github.com/mapilio/mobile-apps/issues/3) — this file will be updated once the version number for the first open source release is decided.
+Version `1.2.1` is the repository configuration baseline. The public repository launch does not imply a `2.0` store or API release; EAS continues to manage production build numbers remotely.
 
 ---
 
@@ -37,4 +37,4 @@ Versioning follows the scheme agreed in [issue #3](https://github.com/mapilio/mo
 
 ## Pre-open-source history
 
-This project was developed as a closed-source product prior to its open source launch. Full commit history is available via `git log`. This changelog documents changes from the point of open source development onwards.
+This project was developed as a closed-source product prior to its open source launch. Retained, security-sanitized history is available through `git log`. This changelog documents changes from the point of open source development onwards.
