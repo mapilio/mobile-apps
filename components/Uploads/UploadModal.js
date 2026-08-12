@@ -4,7 +4,7 @@ import {CustomText, CustomTextBold} from "../../highordercomponents";
 import CircularProgress from "react-native-circular-progress-indicator";
 import {RFValue} from "react-native-responsive-fontsize";
 import Lottie from "lottie-react-native";
-import {percentage} from "../../helper/upload";
+import {percentage, remainingImages} from "../../helper/upload";
 import {CloseIcon} from "../../assets/svg/illustrations";
 import React from "react";
 import {useTranslation} from "react-i18next";
@@ -47,7 +47,7 @@ const UploadModal = ({visible, sequenceLength, totalImageCount, sentCount, total
             <View style={userUploadModalStyles.separator}/>
             <View style={{alignItems: "center"}}>
               <CustomTextBold style={userUploadModalStyles.sequenceInfoTextBold}>
-                {totalImageCount - sentCount}
+                {remainingImages(totalImageCount, sentCount)}
               </CustomTextBold>
               <CustomText style={userUploadModalStyles.sequenceInfoText}>
                 {t("images")}

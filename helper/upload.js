@@ -79,7 +79,7 @@ export const getHash = async (image) => {
   }
 }
 
-export const imageryUpload = async (images, sequence_uuid) => {
+export const imageryUpload = async (images, sequence_uuid, group_uuid = null) => {
   const {userInformation} = store.getState().getTokenReducer
   const CancelToken = axios.CancelToken;
   apiController = CancelToken.source();
@@ -106,7 +106,7 @@ export const imageryUpload = async (images, sequence_uuid) => {
   let filesize = 0;
 
   if (images.length < 5) {
-    await deleteSequence(sequence_uuid)
+    await deleteSequence(sequence_uuid, group_uuid)
     return {status: 'success', message: translate('sequence_deleted')}
   }
 
@@ -222,8 +222,8 @@ export const imageryUpload = async (images, sequence_uuid) => {
   }
 }
 
-export const deleteSequence = async (sequence) => {
-  const files = await db.getCapturesBySequenceIdAsync(sequence);
+export const deleteSequence = async (sequence, group_uuid = null) => {
+  const files = await db.getCapturesBySequenceIdAsync(sequence, 'id ASC', group_uuid);
 
   for (const element of files) {
     await db.deleteById(element.id)
@@ -239,9 +239,25 @@ export const deleteSequence = async (sequence) => {
 }
 
 export const percentage = (partialValue, totalValue) => {
-  let number = (100 * partialValue) / totalValue;
+  const partial = Number(partialValue);
+  const total = Number(totalValue);
 
-  return (number) ? number : 0;
+  if (!Number.isFinite(partial) || !Number.isFinite(total) || total <= 0) {
+    return 0;
+  }
+
+  return Math.min(100, Math.max(0, (100 * partial) / total));
+};
+
+export const remainingImages = (totalValue, sentValue) => {
+  const total = Number(totalValue);
+  const sent = Number(sentValue);
+
+  if (!Number.isFinite(total) || !Number.isFinite(sent)) {
+    return 0;
+  }
+
+  return Math.max(0, Math.max(0, total) - Math.max(0, sent));
 };
 
 export const closeRequest = () => {

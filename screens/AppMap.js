@@ -34,6 +34,7 @@ import { getConfig, checkMaintenance } from "../store/actions/generalReducer";
 import { NewsletterModal } from "../components/SocialLogin";
 import { captureMessage } from "@sentry/react-native";
 import { probeVectorTile } from "../util/mapOverlayHealth";
+import { isUserInitiatedRegionMovement } from "../util/mapInteraction";
 
 const DEFAULT_MAP_CENTER = [28.9784, 41.0082];
 const MAP_OVERLAY_RETRY_MS = 60000;
@@ -299,6 +300,11 @@ const AppMap = ({ navigation }) => {
         mapStyle={mapStyles}
         mapRef={mapRef}
         onDidFinishLoadingMap={onDidFinishLoadingMap}
+        onRegionDidChange={(event) => {
+          if (isUserInitiatedRegionMovement(event)) {
+            followUserLocation.current = false;
+          }
+        }}
         rotateEnabled={false}
       >
         <MapLibreGL.Camera

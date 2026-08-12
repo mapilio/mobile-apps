@@ -76,12 +76,14 @@ class Database {
     return db.runAsync(sql, params);
   }
 
-  getCapturesBySequenceIdAsync(sequence_uuid, orderBY = 'id ASC') {
+  getCapturesBySequenceIdAsync(sequence_uuid, orderBY = 'id ASC', group_id = null) {
     const allowedOrders = ['id ASC', 'id DESC', 'capture_id ASC', 'capture_id DESC'];
     const safeOrder = allowedOrders.includes(orderBY) ? orderBY : 'id ASC';
+    const groupFilter = group_id === null || group_id === undefined ? '' : ' AND group_id = ?';
+    const params = groupFilter ? [sequence_uuid, group_id] : [sequence_uuid];
     return db.getAllAsync(
-      `SELECT * FROM captures WHERE sequence_uuid = ? ORDER BY ${safeOrder}`,
-      [sequence_uuid],
+      `SELECT * FROM captures WHERE sequence_uuid = ?${groupFilter} ORDER BY ${safeOrder}`,
+      params,
     );
   }
 

@@ -91,7 +91,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
       try {
         const isCaptureIDNull = await db.isCaptureIdNull(sequence.sequence_uuid)
         const orderBy = isCaptureIDNull ? 'id ASC' : 'capture_id ASC'
-        const images = await db.getCapturesBySequenceIdAsync(sequence.sequence_uuid, orderBy)
+        const images = await db.getCapturesBySequenceIdAsync(sequence.sequence_uuid, orderBy, group_uuid)
 
         for (let image of images) {
           await waitWhilePaused();
@@ -107,7 +107,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
         }
 
         await waitWhilePaused();
-        const {status, message} = await imageryUpload(images, sequence.sequence_uuid)
+        const {status, message} = await imageryUpload(images, sequence.sequence_uuid, group_uuid)
 
         if (status === 'success') {
           willDelete.push(sequence.sequence_uuid)
@@ -132,7 +132,7 @@ const Upload = ({group_uuid = null, style, buttonStyle}) => {
     }
 
     for (let uuid of willDelete) {
-      await deleteSequence(uuid)
+      await deleteSequence(uuid, group_uuid)
       willDelete = willDelete.filter(item => item !== uuid)
     }
 
