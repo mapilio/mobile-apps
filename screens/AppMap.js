@@ -35,16 +35,17 @@ import { NewsletterModal } from "../components/SocialLogin";
 import { captureMessage } from "@sentry/react-native";
 import { probeVectorTile } from "../util/mapOverlayHealth";
 import { isUserInitiatedRegionMovement } from "../util/mapInteraction";
+import { tileConfig } from "../config/tileConfig";
 
 const DEFAULT_MAP_CENTER = [28.9784, 41.0082];
 const MAP_OVERLAY_RETRY_MS = 60000;
 const MAP_OVERLAY_PROBES = {
   roads: {
-    template: process.env.EXPO_PUBLIC_MAPBOX_ROAD_URL,
+    template: tileConfig.roadUrl,
     coordinates: {zoom: 6, x: 37, y: 24},
   },
   points: {
-    template: process.env.EXPO_PUBLIC_MAPBOX_POINT_URL,
+    template: tileConfig.pointUrl,
     coordinates: {zoom: 12, x: 2377, y: 1535},
   },
 };
@@ -362,7 +363,7 @@ const AppMap = ({ navigation }) => {
           }}
         />
       </View>
-      {/**  Mapbox cause overflow on early android versions. That's necessarry to call them in here for early devices. */}
+      {/* Keep these controls outside the map view for early Android rendering compatibility. */}
       {!showPano && (
         <View
           style={[appMapStyle.topWrapper, { marginTop: top + RFValue(10) }]}

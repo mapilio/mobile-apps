@@ -2,17 +2,18 @@ import React, { Fragment } from "react";
 import MapLibre from "@maplibre/maplibre-react-native";
 
 import Heading from "..//Heading";
+import { tileConfig } from "../../../config/tileConfig";
 
 const ActiveSources = ({ pointInformation, clickedCoord }) => {
   return (
     <Fragment>
       <MapLibre.VectorSource
         id={"road-lines-stroke"}
-        tileUrlTemplates={[process.env.EXPO_PUBLIC_MAPBOX_ROAD_URL]}
+        tileUrlTemplates={[tileConfig.roadUrl]}
       >
         <MapLibre.LineLayer
           id={"road-lines-stroke"}
-          sourceLayerID={process.env.EXPO_PUBLIC_MAPBOX_ROAD_ID}
+          sourceLayerID={tileConfig.roadId}
           filter={[
             "all",
             ["==", "sequence_uuid", pointInformation.sequenceID],
@@ -25,14 +26,14 @@ const ActiveSources = ({ pointInformation, clickedCoord }) => {
       </MapLibre.VectorSource>
       <MapLibre.VectorSource
         id={"road-points-stroke"}
-        tileUrlTemplates={[process.env.EXPO_PUBLIC_MAPBOX_POINT_URL]}
+        tileUrlTemplates={[tileConfig.pointUrl]}
         minZoomLevel={12}
         maxZoomLevel={22}
       >
         <MapLibre.CircleLayer
           minZoomLevel={16}
           id={"road-points-stroke-opacity"}
-          sourceLayerID={process.env.EXPO_PUBLIC_MAPBOX_POINT_ID}
+          sourceLayerID={tileConfig.pointId}
           style={{
             circleColor: "#fff",
             circleRadius: 8,
@@ -46,7 +47,7 @@ const ActiveSources = ({ pointInformation, clickedCoord }) => {
         />
         <MapLibre.CircleLayer
           id={"road-points-stroke"}
-          sourceLayerID={process.env.EXPO_PUBLIC_MAPBOX_POINT_ID}
+          sourceLayerID={tileConfig.pointId}
           style={{
             circleColor: "#0BBE3D",
             circleRadius: 6,

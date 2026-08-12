@@ -98,12 +98,12 @@
     "first": {
       "title": "Take a shot",
       "subtitle": "At street level",
-      "description": "Capture street-level imagery and contribute the map."
+      "description": "Capture street-level imagery and contribute to the map."
     },
     "second": {
       "title": "Upload Captures",
       "subtitle": "Contribute",
-      "description": "Upload your imagery to collect points and get high-position in leaderboard."
+      "description": "Upload your imagery to collect points and get a high position in the leaderboard."
     },
     "third": {
       "title": "Earn gifts",
@@ -112,7 +112,7 @@
     },
     "fourth": {
       "title": "OpenStreetMap",
-      "subtitle": "Union of forces",
+      "subtitle": "Join the community",
       "description": "Mapilio is the OpenStreetMap data provider"
     },
     "next": "Next",
@@ -384,13 +384,13 @@
       "map": "Map",
       "map_desc": "See your current location, roads, places, buildings and other details on map view. Also already captured areas can be observed here.",
       "marketplace": "Marketplace",
-      "marketplace_desc": "For some areas we have special requests for a capturing where you can earn cash or coupons in return. They are visible on the Marketplace page.",
+      "marketplace_desc": "We have special capture requests where you can earn cash or coupons as a reward. They are visible on the Marketplace page.",
       "upload": "Upload",
       "upload_desc": "Are you finished with capturing? Then click to upload all imagery.",
       "leaderboard": "Leaderboard",
-      "leaderboard_desc": "Leaderboard shows the points you scored for your shooting and your position in the ranking",
+      "leaderboard_desc": "Leaderboard shows the points earned from your captures and your position in the ranking",
       "capture": "Capture",
-      "capture_desc": "Start now to start capturing and contributing better maps",
+      "capture_desc": "Begin capturing imagery and help build better maps",
       "next": "Next",
       "done": "Done"
     },

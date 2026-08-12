@@ -130,7 +130,10 @@ Copy `.env.example` to `.env.development` (local dev) or `.env.production` (rele
 | Variable | Description |
 |---|---|
 | `EXPO_PUBLIC_SERVICE_URL` | Mapilio REST API base URL |
-| `EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN` | MapLibre/Mapbox public token |
+| `EXPO_PUBLIC_ROAD_TILE_URL` | Self-hosted road vector-tile URL template |
+| `EXPO_PUBLIC_ROAD_TILE_ID` | Road source-layer ID |
+| `EXPO_PUBLIC_POINT_TILE_URL` | Self-hosted point vector-tile URL template |
+| `EXPO_PUBLIC_POINT_TILE_ID` | Point source-layer ID |
 | `EXPO_PUBLIC_AUTH_CLIENT_ID` | OAuth2 client ID |
 | `EXPO_PUBLIC_AUTH_CLIENT_SECRET` | OAuth2 client secret |
 | `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID` | Google Sign-In iOS client ID |
@@ -138,14 +141,9 @@ Copy `.env.example` to `.env.development` (local dev) or `.env.production` (rele
 | `EXPO_PUBLIC_SENTRY_DSN` | Sentry DSN for error reporting |
 | `EXPO_PUBLIC_ONESIGNAL_APP_ID` | OneSignal app ID for push notifications |
 
-See `.env.example` for the full list.
-
-> **iOS + Mapbox:** Create `~/.netrc` if it does not exist and add your Mapbox token:
-> ```
-> machine api.mapbox.com
-> login mapbox
-> password sk.ey...your_secret_token
-> ```
+See `.env.example` for the full list. Existing deployments can continue using the
+legacy `EXPO_PUBLIC_MAPBOX_ROAD_*` and `EXPO_PUBLIC_MAPBOX_POINT_*` names during
+migration; new installations should use the neutral tile variables above.
 
 ---
 
@@ -162,7 +160,7 @@ npm run test:ci
 npm run test:ci -- --coverage
 ```
 
-The test suite covers reducers, helper functions, and the file-system adapter (~235 tests).
+The test suite covers reducers, helper functions, configuration, and the file-system adapter (more than 250 tests).
 
 ---
 
