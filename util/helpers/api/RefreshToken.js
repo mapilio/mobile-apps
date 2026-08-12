@@ -13,10 +13,8 @@ export const refreshToken = async () => {
   }
 
   try {
-    const user = await api.post(`${process.env.EXPO_PUBLIC_SERVICE_URL}/api/v2/login`, {
+    const user = await api.post(`${process.env.EXPO_PUBLIC_SERVICE_URL}/api/v1/mobile/auth/public-token`, {
       grant_type: 'refresh_token',
-      client_id: process.env.EXPO_PUBLIC_AUTH_CLIENT_ID,
-      client_secret: process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET,
       refresh_token: auth.refresh_token,
     }, {
       retry: 0,

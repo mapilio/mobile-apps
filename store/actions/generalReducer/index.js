@@ -54,7 +54,11 @@ export const checkVersion = (versionData) => {
 export const getConfig = () => {
   return (dispatch) => {
     api
-      .get("/config/general?token=" + process.env.EXPO_PUBLIC_APP_CONFIG_TOKEN)
+      .get("/config/general", {
+        headers: {
+          "X-Mapilio-Config-Token": process.env.EXPO_PUBLIC_APP_CONFIG_TOKEN,
+        },
+      })
       .then(({ config }) => {
         const {
           isMarketOpen,
