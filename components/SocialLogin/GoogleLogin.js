@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from '../../store/actionsName';
 import { getUserInformation } from '../../store/reducers/loginReducer/getUserInformation';
 
-import { api } from '../../util/helpers/api';
+import { socialTokenLogin } from '../../util/helpers/api';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTranslation } from 'react-i18next';
 import { captureException } from '@sentry/react-native';
@@ -33,28 +33,23 @@ const GoogleLogin = ({ navigation }) => {
       const {
         authentication: { accessToken },
       } = response;
-      api.get(process.env.EXPO_PUBLIC_GOOGLE_REQUEST_URL + accessToken).then((user) => {
-        setLoading(true);
-        loginToMapilio(user, accessToken);
-      });
+      setLoading(true);
+      loginToMapilio(accessToken);
     } else {
       setLoading(false);
     }
   }, [response]);
 
-  const loginToMapilio = (user, accessToken) => {
-    api
-      .post(
-        `/oauth-api/google/authenticate?token=${accessToken}&client_id=${process.env.EXPO_PUBLIC_AUTH_CLIENT_ID}&client_secret=${process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET}&is_mobile=true`
-      )
+  const loginToMapilio = (accessToken) => {
+    socialTokenLogin('google', accessToken)
       .then((res) => {
         dispatch({
           type: SET_CREDENTIAL,
-          payload: { ...response, type: 'google' },
+          payload: { type: 'google' },
         });
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
         dispatch(getUserInformation());
-        toast.show(`Login Success ${user.name}`, { type: 'success' });
+        toast.show(t('login_success'), { type: 'success' });
         setLoading(false);
         navigation.goBack();
       })

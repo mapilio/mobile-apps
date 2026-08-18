@@ -2,7 +2,7 @@ import { store } from '../../../store/store';
 
 import { EXIT_USER, GET_TOKEN_SUCCESS } from '../../../store/actionsName';
 import { translate } from '../index';
-import api from './Api';
+import publicApi from './PublicApi';
 
 export const refreshToken = async () => {
   const auth = store.getState().getTokenReducer.auth;
@@ -13,16 +13,10 @@ export const refreshToken = async () => {
   }
 
   try {
-    const user = await api.post(
-      `${process.env.EXPO_PUBLIC_SERVICE_URL}/api/v1/mobile/auth/public-token`,
-      {
-        grant_type: 'refresh_token',
-        refresh_token: auth.refresh_token,
-      },
-      {
-        retry: 0,
-      }
-    );
+    const user = await publicApi.post('/api/v1/mobile/auth/public-token', {
+      grant_type: 'refresh_token',
+      refresh_token: auth.refresh_token,
+    });
 
     store.dispatch({ type: GET_TOKEN_SUCCESS, payload: user });
 

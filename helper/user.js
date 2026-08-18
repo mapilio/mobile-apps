@@ -1,7 +1,7 @@
 import { store } from '../store/store';
 import { GET_TOKEN_START, GET_TOKEN_SUCCESS } from '../store/actionsName';
 import { getUserInformation } from '../store/reducers/loginReducer/getUserInformation';
-import { api } from '../util/helpers/api';
+import publicApi from '../util/helpers/api/PublicApi';
 
 export const fetchLogin = async (email, password) => {
   store.dispatch({ type: GET_TOKEN_START });
@@ -12,7 +12,7 @@ export const fetchLogin = async (email, password) => {
     data.append('password', password);
     data.append('grant_type', 'password');
 
-    const user = await api.post('/api/v1/mobile/auth/public-token', data, {
+    const user = await publicApi.post('/api/v1/mobile/auth/public-token', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

@@ -98,8 +98,6 @@ jobs:
         env:
           EXPO_PUBLIC_SERVICE_URL: https://api.mapilio.com
           EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN: pk.stub
-          EXPO_PUBLIC_AUTH_CLIENT_ID: stub
-          EXPO_PUBLIC_AUTH_CLIENT_SECRET: stub
           EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID: stub
           EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID: stub
           EXPO_PUBLIC_SENTRY_DSN: https://stub@sentry.io/0

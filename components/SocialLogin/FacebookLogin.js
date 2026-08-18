@@ -6,10 +6,11 @@ import { socialLoginStyles } from '../../styles/loginStyles';
 import { getUserInformation } from '../../store/reducers/loginReducer/getUserInformation';
 import { useDispatch } from 'react-redux';
 import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from '../../store/actionsName';
-import { api } from '../../util/helpers/api';
+import { socialTokenLogin } from '../../util/helpers/api';
 import { useTranslation } from 'react-i18next';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { captureException } from '@sentry/react-native';
+import { processFacebookProfile } from './facebookAuth';
 
 const FacebookLogin = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -35,37 +36,38 @@ const FacebookLogin = ({ navigation }) => {
       } else {
         const result = await AccessToken.getCurrentAccessToken();
         accessToken = result.accessToken;
-        json = await api.get(`${process.env.EXPO_PUBLIC_FACEBOOK_REQUEST_URL}${accessToken}`);
+        json = await Profile.getCurrentProfile();
       }
 
-      if (!json.email) {
-        toast.show(t('mail_error'), { type: 'error' });
-      } else {
-        api
-          .post(
-            `/oauth-api/facebook/authenticate?token=${accessToken}&client_id=${process.env.EXPO_PUBLIC_AUTH_CLIENT_ID}&client_secret=${process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET}&is_mobile=true`
-          )
-          .then((res) => {
-            dispatch({
-              type: SET_CREDENTIAL,
-              payload: { ...json, type: 'facebook' },
+      processFacebookProfile(json, {
+        onMissingEmail: () => {
+          setLoading(false);
+          toast.show(t('mail_error'), { type: 'error' });
+        },
+        onValidProfile: () => {
+          socialTokenLogin('facebook', accessToken)
+            .then((res) => {
+              dispatch({
+                type: SET_CREDENTIAL,
+                payload: { type: 'facebook' },
+              });
+              dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
+              dispatch(getUserInformation());
+              setLoading(false);
+              navigation.goBack();
+              toast.show(t('login_success') + json.name, { type: 'success' });
+            })
+            .catch((err) => {
+              captureException(err, {
+                tags: {
+                  functionName: 'facebookAccess',
+                },
+              });
+              setLoading(false);
+              toast.show(t('error'), { type: 'error' });
             });
-            dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
-            dispatch(getUserInformation());
-            setLoading(false);
-            navigation.goBack();
-            toast.show(t('login_success') + json.name, { type: 'success' });
-          })
-          .catch((err) => {
-            captureException(err, {
-              tags: {
-                functionName: 'facebookAccess',
-              },
-            });
-            setLoading(false);
-            toast.show(t('error'), { type: 'error' });
-          });
-      }
+        },
+      });
     } catch {
       setLoading(false);
     }

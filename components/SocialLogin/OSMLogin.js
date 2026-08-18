@@ -7,8 +7,7 @@ import { GET_TOKEN_SUCCESS, SET_CREDENTIAL, SET_MAIL_MODAL_SHOWN } from '../../s
 import { socialLoginStyles } from '../../styles/loginStyles';
 
 import { useTranslation } from 'react-i18next';
-import pkceChallenge from 'react-native-pkce-challenge';
-import { api } from '../../util/helpers/api';
+import { api, socialTokenLogin } from '../../util/helpers/api';
 import { useDispatch } from 'react-redux';
 import { getUserInformation } from '../../store/reducers/loginReducer/getUserInformation';
 import * as Application from 'expo-application';
@@ -18,8 +17,6 @@ const discovery = {
   authorizationEndpoint: 'https://www.openstreetmap.org/oauth2/authorize',
   tokenEndpoint: 'https://www.openstreetmap.org/oauth2/token',
 };
-const codeChallenge = pkceChallenge();
-
 const redirectUri = makeRedirectUri({
   scheme: Application.applicationId,
   path: 'redirect',
@@ -61,20 +58,16 @@ const OSMLogin = ({ navigation }) => {
       redirectUri: redirectUri,
       codeChallengeMethod: 'S256',
       usePKCE: true,
-      codeChallenge: codeChallenge.codeVerifier,
     },
     discovery
   );
 
   const loginToMapilio = (accessToken) => {
-    api
-      .post(
-        `/oauth-api/openstreetmap/authenticate?token=${accessToken}&client_id=${process.env.EXPO_PUBLIC_AUTH_CLIENT_ID}&client_secret=${process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET}&is_mobile=true`
-      )
+    socialTokenLogin('openstreetmap', accessToken)
       .then((res) => {
         dispatch({
           type: SET_CREDENTIAL,
-          payload: { ...response, type: 'openstreetmap' },
+          payload: { type: 'openstreetmap' },
         });
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
         dispatch(getUserInformation());
@@ -95,7 +88,6 @@ const OSMLogin = ({ navigation }) => {
         code: code,
         redirectUri: redirectUri,
         clientId: process.env.EXPO_PUBLIC_OSM_CLIENT_ID,
-        clientSecret: process.env.EXPO_PUBLIC_OSM_CLIENT_SECRET,
         scopes: ['read_prefs'],
         extraParams: {
           code_verifier: request.codeVerifier,

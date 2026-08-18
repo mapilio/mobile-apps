@@ -151,7 +151,6 @@ Copy `.env.example` to `.env.development` (local dev) or `.env.production` (rele
 | `EXPO_PUBLIC_ROAD_TILE_ID`             | Road source-layer ID                       |
 | `EXPO_PUBLIC_POINT_TILE_URL`           | Self-hosted point vector-tile URL template |
 | `EXPO_PUBLIC_POINT_TILE_ID`            | Point source-layer ID                      |
-| `EXPO_PUBLIC_AUTH_CLIENT_ID`           | OAuth2 client ID                           |
 | `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID`     | Google Sign-In iOS client ID               |
 | `EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID` | Google Sign-In Android client ID           |
 | `EXPO_PUBLIC_SENTRY_DSN`               | Sentry DSN for error reporting             |
@@ -161,10 +160,11 @@ See `.env.example` for the full list. Existing deployments can continue using th
 legacy `EXPO_PUBLIC_MAPBOX_ROAD_*` and `EXPO_PUBLIC_MAPBOX_POINT_*` names during
 migration; new installations should use the neutral tile variables above.
 
-The legacy authentication flow still references client-secret-named public
-variables. Community builds must use non-privileged placeholders until the
-[public-client authentication flow](https://github.com/mapilio/mobile-apps/issues/84)
-lands. Do not copy a confidential OAuth or provider secret into a mobile build.
+Social sign-in exchanges provider tokens through the backend-first
+`/api/v1/mobile/auth/social-token` endpoint. The mobile bundle contains only
+public provider client IDs; provider tokens and backend tokens are sent in
+request bodies, and no backend or provider client secret is configured in the
+mobile environment.
 
 ---
 

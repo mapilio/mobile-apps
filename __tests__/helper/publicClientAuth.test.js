@@ -31,6 +31,14 @@ jest.mock('../../util/helpers/api/Api', () => ({
   },
 }));
 
+jest.mock('../../util/helpers/api/PublicApi', () => ({
+  __esModule: true,
+  default: {
+    post: (...args) => mockPost(...args),
+    get: (...args) => mockGet(...args),
+  },
+}));
+
 const mockDispatch = jest.fn();
 
 jest.mock('../../store/store', () => ({
@@ -129,15 +137,23 @@ describe('public-client token refresh', () => {
     });
   });
 
-  it('does not retry a failed refresh', async () => {
-    // Retrying here would multiply load during an outage and can mask an
-    // expired session behind repeated failures.
+  it('uses the public client without retry options', async () => {
     mockPost.mockResolvedValue({ access_token: 'new', refresh_token: 'new-r' });
 
     const { refreshToken } = require('../../util/helpers/api/RefreshToken');
     await refreshToken();
 
-    expect(mockPost.mock.calls[0][2]).toEqual({ retry: 0 });
+    expect(mockPost.mock.calls[0]).toHaveLength(2);
+  });
+
+  it('logs out when refresh fails', async () => {
+    mockPost.mockRejectedValue(new Error('refresh failed'));
+
+    const { refreshToken } = require('../../util/helpers/api/RefreshToken');
+    await expect(refreshToken()).rejects.toThrow('token_expired');
+
+    expect(mockDispatch).toHaveBeenCalledWith({ type: 'GET_TOKEN_SUCCESS', payload: null });
+    expect(mockDispatch).toHaveBeenCalledWith({ type: 'EXIT_USER', payload: null });
   });
 });
 

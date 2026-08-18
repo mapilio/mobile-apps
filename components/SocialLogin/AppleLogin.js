@@ -4,7 +4,7 @@ import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from '../../store/actionsName';
 import { useDispatch } from 'react-redux';
 import { getUserInformation } from '../../store/reducers/loginReducer/getUserInformation';
 import { socialLoginStyles } from '../../styles/loginStyles';
-import { api } from '../../util/helpers/api';
+import { socialTokenLogin } from '../../util/helpers/api';
 
 import { Modal, View, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -21,15 +21,12 @@ const AppleLogin = ({ navigation }) => {
   }, []);
 
   const signInToApple = (credential) => {
-    api
-      .post(
-        `/oauth-api/apple/authenticate?token=${credential.identityToken}&client_id=${process.env.EXPO_PUBLIC_AUTH_CLIENT_ID}&client_secret=${process.env.EXPO_PUBLIC_AUTH_CLIENT_SECRET}&is_mobile=true`
-      )
+    socialTokenLogin('apple', credential.identityToken)
       .then((res) => {
         dispatch({ type: GET_TOKEN_SUCCESS, payload: res });
         dispatch({
           type: SET_CREDENTIAL,
-          payload: { ...credential, type: 'apple' },
+          payload: { type: 'apple', user: credential.user },
         });
         dispatch(getUserInformation(res));
         setLoading(false);
