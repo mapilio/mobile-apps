@@ -44,26 +44,6 @@ jobs:
           path: coverage/
           retention-days: 7
 
-      - name: Extract coverage percentage
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        id: coverage
-        run: |
-          LINES=$(node -e "const s=require('./coverage/coverage-summary.json');console.log(s.total.lines.pct)")
-          echo "lines=$LINES" >> $GITHUB_OUTPUT
-
-      - name: Update coverage badge (main branch only)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: Schneegans/dynamic-badges-action@v1.7.0
-        with:
-          auth: ${{ secrets.GIST_SECRET }}
-          gistID: ${{ vars.COVERAGE_GIST_ID }}
-          filename: mapilio-coverage.json
-          label: coverage
-          message: ${{ steps.coverage.outputs.lines }}%
-          valColorRange: ${{ steps.coverage.outputs.lines }}
-          maxColorRange: 80
-          minColorRange: 0
-
       - name: Post coverage comment on PR
         if: github.event_name == 'pull_request'
         uses: MishaKav/jest-coverage-comment@v1.0.29
@@ -102,3 +82,7 @@ jobs:
           EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID: stub
           EXPO_PUBLIC_SENTRY_DSN: https://stub@sentry.io/0
           EXPO_PUBLIC_ONESIGNAL_APP_ID: stub
+          GOOGLE_IOS_URL_SCHEME: com.googleusercontent.apps.stub
+          FACEBOOK_APP_ID: '000000000000000'
+          FACEBOOK_CLIENT_TOKEN: stub
+          EAS_PROJECT_ID: 00000000-0000-4000-8000-000000000000
