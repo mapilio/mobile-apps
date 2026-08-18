@@ -34,9 +34,9 @@ const ManuelActionButton = ({ disabled, uuid }) => {
     let storagePath = RNFS.DocumentDirectoryPath;
 
     if (Platform.OS === 'android' && defaultStoragePath === 'external') {
-      RNFS.getAllExternalFilesDirs().then((dirs) => {
-        storagePath = dirs[1];
-      });
+      const externalPath = await RNFS.getRemovableExternalFilesDir();
+      if (!externalPath) return;
+      storagePath = externalPath;
     }
 
     const isExit = await RNFS.exists(storagePath + `/${uuid}`);

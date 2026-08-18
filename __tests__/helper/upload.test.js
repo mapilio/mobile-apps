@@ -32,6 +32,7 @@ jest.mock('../../util/fs', () => ({
   DocumentDirectoryPath: '/mock/docs',
   stat: jest.fn().mockResolvedValue({ path: 'file:///mock/docs/test.jpg', size: 1024 }),
   getAllExternalFilesDirs: jest.fn().mockResolvedValue(['/ext0', '/ext1']),
+  getRemovableExternalFilesDir: jest.fn().mockResolvedValue('/ext1'),
   exists: jest.fn().mockResolvedValue(false),
   unlink: jest.fn().mockResolvedValue(undefined),
 }));
@@ -47,6 +48,7 @@ jest.mock('@sentry/react-native', () => ({
 }));
 
 import db from '../../db';
+import * as RNFS from '../../util/fs';
 import {
   deleteSequence,
   getHash,
@@ -130,7 +132,12 @@ describe('upload progress helpers', () => {
 
 describe('group-scoped sequence deletion', () => {
   beforeEach(() => {
-    db.getCapturesBySequenceIdAsync.mockClear();
+    jest.clearAllMocks();
+    db.getCapturesBySequenceIdAsync.mockResolvedValue([]);
+    db.deleteById.mockResolvedValue(undefined);
+    RNFS.getRemovableExternalFilesDir.mockResolvedValue('/ext1');
+    RNFS.exists.mockResolvedValue(false);
+    RNFS.unlink.mockResolvedValue(undefined);
   });
 
   it('filters direct sequence deletion by group when provided', async () => {
@@ -149,5 +156,54 @@ describe('group-scoped sequence deletion', () => {
     await deleteSequence('sequence-1');
 
     expect(db.getCapturesBySequenceIdAsync).toHaveBeenCalledWith('sequence-1', 'id ASC', null);
+  });
+
+  it('preserves files and metadata when removable storage is unavailable', async () => {
+    db.getCapturesBySequenceIdAsync.mockResolvedValue([
+      { id: 1, path: 'group/image.jpg', default_storage_path: 'external' },
+    ]);
+    RNFS.getRemovableExternalFilesDir.mockResolvedValue(null);
+
+    await expect(deleteSequence('sequence-1')).resolves.toBe(false);
+
+    expect(RNFS.exists).not.toHaveBeenCalled();
+    expect(RNFS.unlink).not.toHaveBeenCalled();
+    expect(db.deleteById).not.toHaveBeenCalled();
+  });
+
+  it('deletes metadata only after filesystem deletion succeeds', async () => {
+    db.getCapturesBySequenceIdAsync.mockResolvedValue([
+      { id: 1, path: 'group/image.jpg', default_storage_path: 'external' },
+    ]);
+    RNFS.exists.mockResolvedValue(true);
+
+    await deleteSequence('sequence-1');
+
+    expect(RNFS.unlink).toHaveBeenCalledWith('/ext1/group/image.jpg');
+    expect(RNFS.unlink.mock.invocationCallOrder[0]).toBeLessThan(
+      db.deleteById.mock.invocationCallOrder[0]
+    );
+  });
+
+  it('deletes metadata when the file is confirmed absent', async () => {
+    db.getCapturesBySequenceIdAsync.mockResolvedValue([
+      { id: 1, path: 'group/image.jpg', default_storage_path: 'internal' },
+    ]);
+
+    await deleteSequence('sequence-1');
+
+    expect(RNFS.unlink).not.toHaveBeenCalled();
+    expect(db.deleteById).toHaveBeenCalledWith(1);
+  });
+
+  it('preserves metadata when filesystem deletion fails', async () => {
+    db.getCapturesBySequenceIdAsync.mockResolvedValue([
+      { id: 1, path: 'group/image.jpg', default_storage_path: 'internal' },
+    ]);
+    RNFS.exists.mockResolvedValue(true);
+    RNFS.unlink.mockRejectedValue(new Error('delete failed'));
+
+    await expect(deleteSequence('sequence-1')).rejects.toThrow('delete failed');
+    expect(db.deleteById).not.toHaveBeenCalled();
   });
 });

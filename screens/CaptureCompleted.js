@@ -92,8 +92,8 @@ const CaptureCompleted = () => {
 
     let path = RNFS.DocumentDirectoryPath;
     if (default_storage_path === 'external') {
-      const dirs = await RNFS.getAllExternalFilesDirs();
-      path = dirs[1];
+      path = await RNFS.getRemovableExternalFilesDir();
+      if (!path) return;
     }
 
     const { size } = await RNFS.stat(path + `/${groupId}`);

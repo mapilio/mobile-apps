@@ -18,31 +18,36 @@ const List = ({ navigation }) => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
 
-  const deleteSequence = (group_id) => {
-    let path = RNFS.DocumentDirectoryPath;
-    if (uploadData.default_storage_path === 'external') {
-      RNFS.getAllExternalFilesDirs().then((dirs) => {
-        path = dirs[1];
-      });
+  const deleteSequence = async (group_id, defaultStoragePath) => {
+    try {
+      let path = RNFS.DocumentDirectoryPath;
+      if (defaultStoragePath === 'external') {
+        path = await RNFS.getRemovableExternalFilesDir();
+        if (!path) return false;
+      }
+      const groupPath = `${path}/${group_id}`;
+      if (await RNFS.exists(groupPath)) await RNFS.unlink(groupPath);
+      await database.deleteByGroupID(group_id);
+      return true;
+    } catch {
+      return false;
     }
-    database.deleteByGroupID(group_id, async () => {
-      await RNFS.unlink(path + `/${group_id}`);
-      getData();
-    });
   };
 
   const getData = () => {
-    database.getGroupByWithSequenceUUID().then((data) => {
-      const filteredData = data.filter((item) => {
-        if (item.count >= 5) {
-          return item;
-        } else {
-          deleteSequence(item.group_id);
-        }
-      });
+    database
+      .getGroupByWithSequenceUUID()
+      .then((data) => {
+        const filteredData = data.filter((item) => {
+          if (item.count >= 5) {
+            return item;
+          }
+          deleteSequence(item.group_id, item.default_storage_path);
+        });
 
-      dispatch({ type: UPLOAD_DATA, payload: filteredData });
-    });
+        dispatch({ type: UPLOAD_DATA, payload: filteredData });
+      })
+      .catch(() => {});
   };
 
   useEffect(() => getData(), []);
@@ -53,11 +58,14 @@ const List = ({ navigation }) => {
     setRefreshing(false);
   }, []);
 
-  const deleteRow = (sequence_uuid) => {
+  const deleteRow = (sequence_uuid, defaultStoragePath) => {
     Alert.alert(t('are_you_sure'), t('delete_message'), [
       {
         text: t('yes'),
-        onPress: () => deleteSequence(sequence_uuid),
+        onPress: async () => {
+          await deleteSequence(sequence_uuid, defaultStoragePath);
+          getData();
+        },
       },
       {
         text: t('no'),
@@ -78,7 +86,7 @@ const List = ({ navigation }) => {
       <View style={userUploadStyles.listItem}>
         <TouchableOpacity
           style={[userUploadStyles.backRightBtn]}
-          onPress={() => deleteRow(data.item.sequence_uuid)}>
+          onPress={() => deleteRow(data.item.sequence_uuid, data.item.default_storage_path)}>
           <Trash />
           <CustomText style={userUploadStyles.textWhite}>Delete</CustomText>
         </TouchableOpacity>

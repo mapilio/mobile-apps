@@ -149,15 +149,18 @@ class Database {
       if (item.count >= 5) {
         groups.push(item);
       } else {
-        this.deleteByGroupID(item.group_id);
         let path = RNFS.DocumentDirectoryPath;
         if (item.default_storage_path === 'external') {
-          try {
-            const dirs = await RNFS.getAllExternalFilesDirs();
-            path = dirs[1];
-          } catch {}
+          path = await RNFS.getRemovableExternalFilesDir();
+          if (!path) continue;
         }
-        RNFS.unlink(`${path}/${item.group_id}`).catch(() => {});
+        const groupPath = `${path}/${item.group_id}`;
+        try {
+          if (await RNFS.exists(groupPath)) await RNFS.unlink(groupPath);
+          await this.deleteByGroupID(item.group_id);
+        } catch {
+          continue;
+        }
       }
     }
     return groups;
@@ -171,7 +174,8 @@ class Database {
    * @param errorCallback {function}
    */
   deleteByGroupID(group_id, callback, errorCallback) {
-    db.runAsync(`DELETE FROM captures WHERE group_id = ?`, [group_id])
+    return db
+      .runAsync(`DELETE FROM captures WHERE group_id = ?`, [group_id])
       .then(callback)
       .catch(errorCallback);
   }
@@ -196,13 +200,16 @@ class Database {
           if (results.length < 5 && results.length > 0) {
             let path = RNFS.DocumentDirectoryPath;
             if (results[0].default_storage_path === 'external') {
-              try {
-                const externalPath = await RNFS.getAllExternalFilesDirs();
-                path = externalPath[1];
-              } catch {}
+              path = await RNFS.getRemovableExternalFilesDir();
+              if (!path) return reject('Group has less than 5 images');
             }
-            this.deleteByGroupID(results[0].group_id);
-            RNFS.unlink(`${path}/${results[0].group_id}`).catch(() => {});
+            const groupPath = `${path}/${results[0].group_id}`;
+            try {
+              if (await RNFS.exists(groupPath)) await RNFS.unlink(groupPath);
+              await this.deleteByGroupID(results[0].group_id);
+            } catch {
+              return reject('Group has less than 5 images');
+            }
             return reject('Group has less than 5 images');
           }
           resolve(results);
@@ -256,20 +263,17 @@ class Database {
    * @returns {Promise}
    */
   async deleteCapturesByIds(images) {
-    const placeholders = images.map(() => '?').join(', ');
-    const ids = images.map(({ id }) => id);
-    await db.runAsync(`DELETE FROM captures WHERE id IN (${placeholders})`, ids);
+    const hasExternalFiles = images.some((item) => item.default_storage_path === 'external');
+    const externalRoot = hasExternalFiles ? await RNFS.getRemovableExternalFilesDir() : null;
+    if (hasExternalFiles && !externalRoot) return;
 
-    await Promise.allSettled(
-      images.map(async (item) => {
-        let path = RNFS.DocumentDirectoryPath;
-        if (item.default_storage_path === 'external') {
-          const dirs = await RNFS.getAllExternalFilesDirs();
-          path = dirs[1];
-        }
-        return RNFS.unlink(path + item.path);
-      })
-    );
+    for (const item of images) {
+      const storageRoot =
+        item.default_storage_path === 'external' ? externalRoot : RNFS.DocumentDirectoryPath;
+      const filePath = `${storageRoot}/${item.path.replace(/^\//, '')}`;
+      if (await RNFS.exists(filePath)) await RNFS.unlink(filePath);
+      await this.deleteById(item.id);
+    }
   }
 
   /**

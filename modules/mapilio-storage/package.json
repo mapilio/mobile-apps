@@ -1,0 +1,6 @@
+{
+  "name": "mapilio-storage",
+  "version": "1.0.0",
+  "main": "src/MapilioStorageModule.ts",
+  "private": true
+}

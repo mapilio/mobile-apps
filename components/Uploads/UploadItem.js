@@ -30,7 +30,9 @@ const UploadItem = ({ item, deleteFunc }) => {
   const image =
     item.default_storage_path === 'internal'
       ? `file://${RNFS.DocumentDirectoryPath}/${item.group_id}/${item.filename}.jpeg`
-      : `file://${sdCardPath}/${item.group_id}/${item.filename}.jpeg`;
+      : sdCardPath
+        ? `file://${sdCardPath}/${item.group_id}/${item.filename}.jpeg`
+        : null;
 
   const calculateScore = async () => {
     const data = await db.getCapturesByGroupID(item.group_id);
@@ -67,7 +69,7 @@ const UploadItem = ({ item, deleteFunc }) => {
     calculateScore();
     !address && getAddress();
     if (Platform.OS === 'android') {
-      RNFS.getAllExternalFilesDirs().then((res) => setSdCardPath(res[1]));
+      RNFS.getRemovableExternalFilesDir().then(setSdCardPath);
     }
   }, []);
 
@@ -80,7 +82,12 @@ const UploadItem = ({ item, deleteFunc }) => {
             backgroundColor: pressed ? '#9C0E0E' : '#D33030',
           },
         ]}
-        onPress={() => deleteFunc(item.group_id)}>
+        onPress={() =>
+          deleteFunc({
+            group_id: item.group_id,
+            default_storage_path: item.default_storage_path,
+          })
+        }>
         <Trash width={RFValue(21)} height={RFValue(30)} />
       </Pressable>
     );
@@ -116,7 +123,7 @@ const UploadItem = ({ item, deleteFunc }) => {
             style={styles.imageGradient}
           />
 
-          <Image source={{ uri: image }} style={styles.image} />
+          <Image source={image ? { uri: image } : undefined} style={styles.image} />
           <Text style={styles.count}>
             {item.count} <Photos color={'#FFF'} />
           </Text>

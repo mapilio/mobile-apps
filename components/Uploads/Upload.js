@@ -48,17 +48,19 @@ const Upload = ({ group_uuid = null, style, buttonStyle }) => {
   };
 
   useEffect(() => {
-    let path = RNFS.DocumentDirectoryPath;
-    if (defaultStoragePath === 'external') {
-      // if external storage is selected, this will return multiple paths and get the second one
-      RNFS.getAllExternalFilesDirs().then((dirs) => {
-        path = dirs[1];
-      });
-    }
-
-    group_uuid && (path += `/${group_uuid}`);
-
-    RNFS.stat(path).then(({ size }) => setTotalSize(Math.round(size / 1024 / 1024)));
+    const loadSize = async () => {
+      let path = RNFS.DocumentDirectoryPath;
+      if (defaultStoragePath === 'external') {
+        path = await RNFS.getRemovableExternalFilesDir();
+        if (!path) return;
+      }
+      group_uuid && (path += `/${group_uuid}`);
+      try {
+        const { size } = await RNFS.stat(path);
+        setTotalSize(Math.round(size / 1024 / 1024));
+      } catch {}
+    };
+    loadSize();
 
     return () => setTotalSize(0);
   }, []);

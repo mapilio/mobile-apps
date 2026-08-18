@@ -263,8 +263,8 @@ const AutoActionButton = () => {
     let storagePath = RNFS.DocumentDirectoryPath;
 
     if (defaultStoragePath === 'external') {
-      const allExternalFilesDirs = await RNFS.getAllExternalFilesDirs();
-      storagePath = allExternalFilesDirs[1];
+      storagePath = await RNFS.getRemovableExternalFilesDir();
+      if (!storagePath) return;
     }
 
     const isExit = await RNFS.exists(storagePath + `/${groupId}`);

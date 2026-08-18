@@ -15,6 +15,11 @@ const ImageUpload = ({ navigation, group_id }) => {
   const [imageLoad, setLoadImage] = useState(true);
   const { sequenceImages } = useSelector((state) => state.uploadReducer);
   const { uploadedImages, selectedImages } = useSelector((state) => state.imagesReducer);
+  const [sdCardPath, setSdCardPath] = useState(null);
+
+  useEffect(() => {
+    RNFS.getRemovableExternalFilesDir().then(setSdCardPath);
+  }, []);
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
@@ -43,12 +48,9 @@ const ImageUpload = ({ navigation, group_id }) => {
       </View>
       <View style={[userSequenceStyles.sequenceWrapper, globalStyles.screenTextMargin]}>
         {sequenceImages.map((image) => {
-          let path = RNFS.DocumentDirectoryPath;
-          if (image.default_storage_path === 'external') {
-            RNFS.getAllExternalFilesDirs().then((dirs) => {
-              path = dirs[1];
-            });
-          }
+          const path =
+            image.default_storage_path === 'internal' ? RNFS.DocumentDirectoryPath : sdCardPath;
+          if (!path) return null;
           return (
             <UploadImageCard
               key={image.id}

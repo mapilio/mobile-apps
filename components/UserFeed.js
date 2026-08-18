@@ -6,7 +6,7 @@ import { userFeedStyles } from '../styles/userProfileStyle';
 import { useDispatch } from 'react-redux';
 import { ACTIVE_SEQUENCE, UPDATE_SELECTED_IMAGES } from '../store/actionsName';
 import { dateConvert } from '../helper/helper';
-import { DocumentDirectoryPath } from '../util/fs';
+import { DocumentDirectoryPath, getRemovableExternalFilesDir } from '../util/fs';
 import { useTranslation } from 'react-i18next';
 
 const UserFeed = ({ navigation, data }) => {
@@ -16,13 +16,11 @@ const UserFeed = ({ navigation, data }) => {
   const [sdCardPath, setSdCardPath] = React.useState(null);
   const path = data.default_storage_path === 'external' ? sdCardPath : DocumentDirectoryPath;
 
-  // useEffect(() => {
-  //   if (data.default_storage_path === 'external') {
-  //     RNFS.getAllExternalFilesDirs().then((dirs) => {
-  //       setSdCardPath(dirs[1])
-  //     })
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (data.default_storage_path === 'external') {
+      getRemovableExternalFilesDir().then(setSdCardPath);
+    }
+  }, [data.default_storage_path]);
 
   return (
     <TouchableOpacity
@@ -50,7 +48,9 @@ const UserFeed = ({ navigation, data }) => {
       <View>
         <Image
           style={userFeedStyles.imageStyle}
-          source={{ uri: `file://${path + `/${data.sequence_uuid}/${data.filename}.jpeg`}` }}
+          source={{
+            uri: path ? `file://${path}/${data.sequence_uuid}/${data.filename}.jpeg` : undefined,
+          }}
         />
       </View>
     </TouchableOpacity>

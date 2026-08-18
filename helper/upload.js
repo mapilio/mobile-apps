@@ -44,8 +44,8 @@ export const getHash = async (image) => {
   try {
     let path = `${RNFS.DocumentDirectoryPath}`;
     if (image.default_storage_path === 'external') {
-      const externalPath = await RNFS.getAllExternalFilesDirs();
-      path = externalPath[1];
+      path = await RNFS.getRemovableExternalFilesDir();
+      if (!path) throw new Error(translate('please-pluck-sdcard', 'camera_settings'));
     }
     const file = await RNFS.stat(`file://${path}/${image.path}`);
 
@@ -106,7 +106,13 @@ export const imageryUpload = async (images, sequence_uuid, group_uuid = null) =>
   let filesize = 0;
 
   if (images.length < 5) {
-    await deleteSequence(sequence_uuid, group_uuid);
+    const deleted = await deleteSequence(sequence_uuid, group_uuid);
+    if (!deleted) {
+      return {
+        status: 'error',
+        message: translate('please-pluck-sdcard', 'camera_settings'),
+      };
+    }
     return { status: 'success', message: translate('sequence_deleted') };
   }
 
@@ -146,8 +152,8 @@ export const imageryUpload = async (images, sequence_uuid, group_uuid = null) =>
     try {
       let path = `${RNFS.DocumentDirectoryPath}`;
       if (image.default_storage_path === 'external') {
-        const externalPath = await RNFS.getAllExternalFilesDirs();
-        path = externalPath[1];
+        path = await RNFS.getRemovableExternalFilesDir();
+        if (!path) throw new Error(translate('please-pluck-sdcard', 'camera_settings'));
       }
       const fileInfo = await RNFS.stat(`file://${path}/${image.path}`);
 
@@ -241,18 +247,21 @@ export const imageryUpload = async (images, sequence_uuid, group_uuid = null) =>
 
 export const deleteSequence = async (sequence, group_uuid = null) => {
   const files = await db.getCapturesBySequenceIdAsync(sequence, 'id ASC', group_uuid);
+  const hasExternalFiles = files.some((file) => file.default_storage_path === 'external');
+  const externalRoot = hasExternalFiles ? await RNFS.getRemovableExternalFilesDir() : null;
+
+  if (hasExternalFiles && !externalRoot) return false;
 
   for (const element of files) {
+    const storageRoot =
+      element.default_storage_path === 'external' ? externalRoot : RNFS.DocumentDirectoryPath;
+    const filePath = `${storageRoot}/${element.path}`;
+    const exists = await RNFS.exists(filePath);
+    if (exists) await RNFS.unlink(filePath);
     await db.deleteById(element.id);
-
-    let filePath = `${RNFS.DocumentDirectoryPath}`;
-    if (element.default_storage_path === 'external') {
-      const externalPath = await RNFS.getAllExternalFilesDirs();
-      filePath = externalPath[1];
-    }
-    const exists = await RNFS.exists(`${filePath}/${element.path}`);
-    exists && (await RNFS.unlink(`${filePath}/${element.path}`));
   }
+
+  return true;
 };
 
 export const percentage = (partialValue, totalValue) => {

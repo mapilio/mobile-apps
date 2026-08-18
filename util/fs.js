@@ -1,18 +1,11 @@
 /**
  * Filesystem abstraction - wraps expo-file-system (New Architecture ready).
  *
- * All 15 files that previously imported 'react-native-fs' now import this module,
- * providing the same API surface. This isolates the react-native-fs dependency:
- * when it is eventually replaced for full New Architecture support, only this file
- * needs to change.
- *
- * NOTE: getAllExternalFilesDirs() still delegates to react-native-fs because
- * expo-file-system does not expose Android external storage paths. This is
- * kept as a New Architecture interop exception until a future Expo Module
- * can replace it.
+ * Android removable-storage access is provided by the local MapilioStorage Expo module.
  */
 import { Directory, File, Paths } from 'expo-file-system';
-import * as RNFS from 'react-native-fs'; // used only for getAllExternalFilesDirs()
+import { Platform } from 'react-native';
+import MapilioStorageModule from '../modules/mapilio-storage/src/MapilioStorageModule';
 
 /** Convert a plain path to a file:// URI (idempotent). */
 const toUri = (path) =>
@@ -28,10 +21,28 @@ export const DocumentDirectoryPath = Paths.document?.uri
 
 /**
  * Android-only: returns external files directory paths.
- * [0] = primary external, [1] = removable SD card (if present).
+ * The native module preserves Android's Context.getExternalFilesDirs order.
  * @returns {Promise<string[]>}
  */
-export const getAllExternalFilesDirs = () => RNFS.getAllExternalFilesDirs();
+export const getAllExternalFilesDirs = async () => {
+  if (Platform.OS !== 'android' || !MapilioStorageModule) return [];
+  return MapilioStorageModule.getAllExternalFilesDirs();
+};
+
+/**
+ * Return the removable SD-card directory, or null when it is unavailable.
+ * Native failures are contained so background file operations cannot use a wrong path.
+ */
+export const getRemovableExternalFilesDir = async () => {
+  if (Platform.OS !== 'android' || !MapilioStorageModule?.getRemovableExternalFilesDir) {
+    return null;
+  }
+  try {
+    return (await MapilioStorageModule.getRemovableExternalFilesDir()) ?? null;
+  } catch {
+    return null;
+  }
+};
 
 /**
  * Get file or directory metadata.

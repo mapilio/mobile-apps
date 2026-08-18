@@ -55,17 +55,22 @@ jest.mock('expo-file-system', () => {
   };
 });
 
-// Mock react-native-fs (used only for getAllExternalFilesDirs)
-jest.mock('react-native-fs', () => ({
-  getAllExternalFilesDirs: jest.fn(),
+jest.mock('../../modules/mapilio-storage/src/MapilioStorageModule', () => ({
+  __esModule: true,
+  default: {
+    getAllExternalFilesDirs: jest.fn(),
+    getRemovableExternalFilesDir: jest.fn(),
+  },
 }));
 
 import { Directory, File, Paths } from 'expo-file-system';
-import * as RNFS from 'react-native-fs';
+import { Platform } from 'react-native';
+import MapilioStorageModule from '../../modules/mapilio-storage/src/MapilioStorageModule';
 import * as fs from '../../util/fs';
 
 beforeEach(() => {
   jest.clearAllMocks();
+  Object.defineProperty(Platform, 'OS', { configurable: true, value: 'android' });
   Paths.info.mockReturnValue({ exists: true, isDirectory: false });
 });
 
@@ -200,10 +205,69 @@ describe('getFSInfo', () => {
 });
 
 describe('getAllExternalFilesDirs', () => {
-  it('delegates to react-native-fs', async () => {
-    RNFS.getAllExternalFilesDirs.mockResolvedValue(['/ext/0', '/ext/1']);
+  it('preserves native path ordering', async () => {
+    MapilioStorageModule.getAllExternalFilesDirs.mockResolvedValue([
+      '/storage/primary/Android/data/com.mapilio.app',
+      '/storage/1234-5678/Android/data/com.mapilio.app',
+    ]);
     const dirs = await fs.getAllExternalFilesDirs();
-    expect(dirs).toEqual(['/ext/0', '/ext/1']);
-    expect(RNFS.getAllExternalFilesDirs).toHaveBeenCalledTimes(1);
+    expect(dirs).toEqual([
+      '/storage/primary/Android/data/com.mapilio.app',
+      '/storage/1234-5678/Android/data/com.mapilio.app',
+    ]);
+  });
+
+  it('propagates native rejection', async () => {
+    MapilioStorageModule.getAllExternalFilesDirs.mockRejectedValue(new Error('native failure'));
+    await expect(fs.getAllExternalFilesDirs()).rejects.toThrow('native failure');
+  });
+});
+
+describe('getRemovableExternalFilesDir', () => {
+  it('returns the dedicated native removable path', async () => {
+    MapilioStorageModule.getRemovableExternalFilesDir.mockResolvedValue(
+      '/storage/1234-5678/Android/data/com.mapilio.app'
+    );
+    await expect(fs.getRemovableExternalFilesDir()).resolves.toBe(
+      '/storage/1234-5678/Android/data/com.mapilio.app'
+    );
+    expect(MapilioStorageModule.getAllExternalFilesDirs).not.toHaveBeenCalled();
+  });
+
+  it('returns null when native reports missing or ejected removable storage', async () => {
+    MapilioStorageModule.getRemovableExternalFilesDir.mockResolvedValue(null);
+    await expect(fs.getRemovableExternalFilesDir()).resolves.toBeNull();
+  });
+
+  it('returns null when the platform is unsupported', async () => {
+    Object.defineProperty(Platform, 'OS', { configurable: true, value: 'ios' });
+    await expect(fs.getRemovableExternalFilesDir()).resolves.toBeNull();
+    expect(MapilioStorageModule.getRemovableExternalFilesDir).not.toHaveBeenCalled();
+  });
+
+  it('returns null when the optional native function is absent', async () => {
+    const nativeFunction = MapilioStorageModule.getRemovableExternalFilesDir;
+    MapilioStorageModule.getRemovableExternalFilesDir = undefined;
+    await expect(fs.getRemovableExternalFilesDir()).resolves.toBeNull();
+    MapilioStorageModule.getRemovableExternalFilesDir = nativeFunction;
+  });
+
+  it('contains native rejection', async () => {
+    MapilioStorageModule.getRemovableExternalFilesDir.mockRejectedValue(new Error('ejected'));
+    await expect(fs.getRemovableExternalFilesDir()).resolves.toBeNull();
+  });
+
+  it('returns null when the optional native module is absent', async () => {
+    let isolatedFs;
+    jest.isolateModules(() => {
+      jest.doMock('../../modules/mapilio-storage/src/MapilioStorageModule', () => ({
+        __esModule: true,
+        default: null,
+      }));
+      isolatedFs = require('../../util/fs');
+    });
+
+    await expect(isolatedFs.getRemovableExternalFilesDir()).resolves.toBeNull();
+    jest.dontMock('../../modules/mapilio-storage/src/MapilioStorageModule');
   });
 });

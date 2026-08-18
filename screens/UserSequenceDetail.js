@@ -28,9 +28,8 @@ const UserSequenceDetail = ({ item, changeImage, deleteHandler }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [sdCardPath, setSdCardPath] = useState(null);
   const documentDirectory =
-    item.default_storage_path === 'internal'
-      ? `file://${RNFS.DocumentDirectoryPath}`
-      : `file://${sdCardPath}`;
+    item.default_storage_path === 'internal' ? RNFS.DocumentDirectoryPath : sdCardPath;
+  const imageUri = documentDirectory ? `file://${documentDirectory}/${path}` : null;
 
   useEffect(() => {
     const date = dateConvert(
@@ -43,11 +42,7 @@ const UserSequenceDetail = ({ item, changeImage, deleteHandler }) => {
     setImageInfo((prev) => ({ ...prev, date }));
     !address ? getAddress() : setImageInfo((prev) => ({ ...prev, address }));
     if (Platform.OS === 'android') {
-      RNFS.getAllExternalFilesDirs().then((dirs) => {
-        if (dirs.length > 0) {
-          setSdCardPath(dirs[1]);
-        }
-      });
+      RNFS.getRemovableExternalFilesDir().then(setSdCardPath);
     }
   }, []);
 
@@ -85,13 +80,11 @@ const UserSequenceDetail = ({ item, changeImage, deleteHandler }) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={{ uri: `${documentDirectory}/${path}` }}
+        source={imageUri ? { uri: imageUri } : undefined}
         style={{ flex: 1 }}
         resizeMode={'cover'}
         progressiveRenderingEnabled
-        defaultSource={{
-          uri: `${documentDirectory}/${path}`,
-        }}>
+        defaultSource={imageUri ? { uri: imageUri } : undefined}>
         <LinearGradient
           colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.5)']}
           style={[styles.gradientBackground, { bottom: 0, height: '100%' }]}

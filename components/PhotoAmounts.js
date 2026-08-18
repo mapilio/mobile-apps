@@ -23,11 +23,11 @@ const PhotoAmounts = () => {
   useEffect(() => {
     if (photoAmount === 1) {
       if (defaultStoragePath === 'external' && Platform.OS === 'android') {
-        RNFS.getAllExternalFilesDirs().then((paths) => {
-          const sdCardPath = paths[1]; // The second path is usually the SD card path
-          StorageModule.getStorageInfo(sdCardPath).then(({ freeSpace }) =>
-            calculateStorage(freeSpace)
-          );
+        RNFS.getRemovableExternalFilesDir().then((sdCardPath) => {
+          if (!sdCardPath) return;
+          StorageModule.getStorageInfo(sdCardPath)
+            .then(({ freeSpace }) => calculateStorage(freeSpace))
+            .catch(() => {});
         });
       } else {
         RNFS.getFSInfo().then(({ freeSpace }) => calculateStorage(freeSpace));

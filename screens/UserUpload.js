@@ -34,8 +34,8 @@ const UserUpload = () => {
   const getData = () => {
     db.getGroupByWithGroupID().then((data) => {
       if (Platform.OS === 'android') {
-        RNFS.getAllExternalFilesDirs().then((dirs) => {
-          if (dirs.length === 1) {
+        RNFS.getRemovableExternalFilesDir().then((sdCardPath) => {
+          if (!sdCardPath) {
             const filtered = data.filter((item) => item.default_storage_path === 'internal');
             dispatch({ type: UPLOAD_DATA, payload: filtered });
           } else {
@@ -54,23 +54,23 @@ const UserUpload = () => {
     setLoading(false);
   };
 
-  const deleteSequence = () => {
+  const deleteSequence = async () => {
+    if (!deleteItem) return;
     setLoading(true);
-    let path = RNFS.DocumentDirectoryPath;
-    if (uploadData.default_storage_path === 'external') {
-      RNFS.getAllExternalFilesDirs().then((dirs) => {
-        path = dirs[1];
-      });
+    try {
+      let path = RNFS.DocumentDirectoryPath;
+      if (deleteItem.default_storage_path === 'external') {
+        path = await RNFS.getRemovableExternalFilesDir();
+        if (!path) return;
+      }
+      const groupPath = `${path}/${deleteItem.group_id}`;
+      if (await RNFS.exists(groupPath)) await RNFS.unlink(groupPath);
+      await db.deleteByGroupID(deleteItem.group_id);
+    } catch {
+      // Keep metadata when filesystem cleanup fails.
+    } finally {
+      resetToDefault();
     }
-    db.deleteByGroupID(
-      deleteItem,
-      () => {
-        RNFS.unlink(`${path}/${deleteItem}`)
-          .then(() => resetToDefault())
-          .catch(() => resetToDefault());
-      },
-      () => resetToDefault()
-    );
   };
 
   return (

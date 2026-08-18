@@ -28,11 +28,7 @@ const SequenceDetail = ({ sequence, onClick, deleteHandler }) => {
   useEffect(() => {
     scoreCalculate(sequence);
     if (Platform.OS === 'android') {
-      RNFS.getAllExternalFilesDirs().then((dirs) => {
-        if (dirs.length > 0) {
-          setSdCardPath(dirs[1]);
-        }
-      });
+      RNFS.getRemovableExternalFilesDir().then(setSdCardPath);
     }
   }, []);
 
@@ -67,8 +63,10 @@ const SequenceDetail = ({ sequence, onClick, deleteHandler }) => {
     const path =
       item.default_storage_path === 'internal'
         ? `${RNFS.DocumentDirectoryPath}/${item.path}`
-        : `${sdCardPath}/${item.path}`;
-    const imagePath = `file://${path}`;
+        : sdCardPath
+          ? `${sdCardPath}/${item.path}`
+          : null;
+    const imagePath = path ? `file://${path}` : null;
     const isSelected = selectedImages.some((selectedId) => selectedId.id === item.id);
 
     return (
@@ -78,7 +76,7 @@ const SequenceDetail = ({ sequence, onClick, deleteHandler }) => {
         onPress={() => handleClick(item)}
         onLongPress={() => selectImage(item)}>
         <Image
-          source={{ uri: imagePath, cache: 'force-cache' }}
+          source={imagePath ? { uri: imagePath, cache: 'force-cache' } : undefined}
           style={styles.image}
           resizeMode={'cover'}
         />
