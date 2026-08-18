@@ -224,5 +224,7 @@ We welcome bug reports, feature requests, and pull requests. Please read [CONTRI
 ## License
 
 Licensed under the [Apache License, Version 2.0](LICENSE).
+Bundled third-party materials are documented in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Copyright 2024–2026 Mapilio
