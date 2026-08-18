@@ -22,18 +22,17 @@
     "noEmit": true,
 
     // Path aliases — also configure in babel.config.js and metro.config.js
-    "baseUrl": ".",
     "paths": {
-      "@store/*": ["store/*"],
-      "@screens/*": ["screens/*"],
-      "@components/*": ["components/*"],
-      "@navigator/*": ["navigator/*"],
-      "@helper/*": ["helper/*"],
-      "@util/*": ["util/*"],
-      "@styles/*": ["styles/*"],
-      "@types/*": ["types/*"],
-      "@assets/*": ["assets/*"],
-      "@hooks/*": ["hooks/*"]
+      "@store/*": ["./store/*"],
+      "@screens/*": ["./screens/*"],
+      "@components/*": ["./components/*"],
+      "@navigator/*": ["./navigator/*"],
+      "@helper/*": ["./helper/*"],
+      "@util/*": ["./util/*"],
+      "@styles/*": ["./styles/*"],
+      "@types/*": ["./types/*"],
+      "@assets/*": ["./assets/*"],
+      "@hooks/*": ["./hooks/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

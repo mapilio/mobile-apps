@@ -8,7 +8,7 @@ module.exports = {
     slug: 'mapilio',
     scheme: 'mapilio',
     version: '1.2.1',
-    runtimeVersion: '3.0.0',
+    runtimeVersion: '4.0.0',
     orientation: 'portrait',
     icon: './assets/playstore.png',
     userInterfaceStyle: 'light',
@@ -114,7 +114,7 @@ module.exports = {
             kotlinVersion: '2.1.20',
           },
           ios: {
-            deploymentTarget: '15.1',
+            deploymentTarget: '16.4',
           },
         },
       ],

@@ -148,7 +148,7 @@ npm run test:ci -- --coverage   # With coverage report
 
 Before adding a package:
 
-1. Check it supports **Expo SDK 52** and **React Native 0.76.9**.
+1. Check it supports **Expo SDK 57**, **React Native 0.86.2**, and **React 19.2.3**.
 2. Check it works with the **New Architecture** (`newArchEnabled=true`) or document the blocker.
 3. Prefer packages that work without native module changes (pure JS or Expo modules).
 4. Update `README.md`'s Tech Stack table if it's a significant addition.
