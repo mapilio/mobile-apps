@@ -31,6 +31,13 @@ please report it to the same address above, or use the in-app image reporting to
 
 We support only the latest release of the app. If you are running an older version, please update before reporting.
 
+## Automated Secret Scanning
+
+Pull requests and pushes to `main` are checked with a checksum-verified Gitleaks
+8.30.1 binary. The gate scans both the new commit range and the complete tracked
+tree at the candidate revision. Full-history scanning remains a separate public
+release requirement until the historical credential remediation is complete.
+
 ## Preferred Languages
 
 We accept reports in English and Turkish.
