@@ -17,7 +17,7 @@ import MapLoading from '../../components/Map/MapLoading';
 import { MapilioBetaWatermark } from '../../assets/svg/illustrations';
 import { appMapStyle } from '../../styles/appMapStyle';
 import { api } from '../../util/helpers/api';
-import { getCurrentPositionAsync } from 'expo-location/build/Location';
+import { getCurrentPositionAsync } from 'expo-location';
 
 const Marketplace = ({ navigation }) => {
   const { t } = useTranslation('marketplace');

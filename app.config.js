@@ -7,7 +7,9 @@ module.exports = {
     name: 'Mapilio',
     slug: 'mapilio',
     scheme: 'mapilio',
+    newArchEnabled: true,
     version: '1.2.1',
+    runtimeVersion: '2.0.0',
     orientation: 'portrait',
     icon: './assets/playstore.png',
     userInterfaceStyle: 'light',
@@ -29,7 +31,6 @@ module.exports = {
           { SKAdNetworkIdentifier: 'n38lu8286q.skadnetwork' },
         ],
       },
-      runtimeVersion: '1.0.0',
     },
     android: {
       permissions: [
@@ -54,6 +55,11 @@ module.exports = {
       backgroundColor: '#ffffff',
     },
     plugins: [
+      '@sentry/react-native',
+      'expo-asset',
+      'expo-font',
+      'expo-sqlite',
+      'expo-web-browser',
       [
         'onesignal-expo-plugin',
         {
@@ -104,11 +110,11 @@ module.exports = {
         'expo-build-properties',
         {
           android: {
-            compileSdkVersion: 35,
-            targetSdkVersion: 35,
+            compileSdkVersion: 36,
+            targetSdkVersion: 36,
             minSdkVersion: 24,
-            buildToolsVersion: '35.0.0',
-            kotlinVersion: '2.0.21',
+            buildToolsVersion: '36.0.0',
+            kotlinVersion: '2.1.20',
           },
           ios: {
             deploymentTarget: '15.1',

@@ -1,0 +1,10 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated CocoaPods dependency checksums"
+condition = "AND"
+targetRules = ["generic-api-key"]
+regexTarget = "line"
+regexes = ['''[A-Za-z0-9_.+-]+: [0-9a-f]{40}''']
+paths = ['''(^|/)ios/Podfile\.lock$''']

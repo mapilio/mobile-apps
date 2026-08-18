@@ -35,6 +35,8 @@ gitleaks git \
     --redact \
     --no-banner \
     --verbose \
+    --exit-code 1 \
+    --config .gitleaks.toml \
     --log-opts="${scan_base}..${head_sha}" \
     .
 
@@ -47,5 +49,7 @@ gitleaks dir \
     --redact \
     --no-banner \
     --verbose \
+    --exit-code 1 \
+    --config .gitleaks.toml \
     --max-target-megabytes=20 \
     "${scan_dir}"

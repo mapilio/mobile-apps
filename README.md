@@ -4,8 +4,8 @@ A street-level imagery capture app for iOS and Android, built with Expo (bare wo
 
 [![CI](https://github.com/mapilio/mobile-apps/actions/workflows/ci.yml/badge.svg)](https://github.com/mapilio/mobile-apps/actions/workflows/ci.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Expo SDK](https://img.shields.io/badge/Expo-SDK%2053-000020?logo=expo)](https://expo.dev)
-[![React Native](https://img.shields.io/badge/React%20Native-0.79.6-61dafb?logo=react)](https://reactnative.dev)
+[![Expo SDK](https://img.shields.io/badge/Expo-SDK%2054-000020?logo=expo)](https://expo.dev)
+[![React Native](https://img.shields.io/badge/React%20Native-0.81.5-61dafb?logo=react)](https://reactnative.dev)
 [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://reactnative.dev)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![OpenStreetMap](https://img.shields.io/badge/community-OpenStreetMap-7EBC6F?logo=openstreetmap&logoColor=white)](https://www.openstreetmap.org)
@@ -53,8 +53,8 @@ See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, an
 
 | Layer         | Library                                  |
 | ------------- | ---------------------------------------- |
-| Framework     | Expo SDK 53 (Bare Workflow)              |
-| Runtime       | React Native 0.79.6                      |
+| Framework     | Expo SDK 54 (Bare Workflow)              |
+| Runtime       | React Native 0.81.5                      |
 | Navigation    | React Navigation v7                      |
 | State         | Redux 5 + Redux-Persist                  |
 | Maps          | MapLibre React Native                    |
@@ -72,7 +72,7 @@ See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, an
 
 | Tool           | Version                 |
 | -------------- | ----------------------- |
-| Node.js        | 20 LTS                  |
+| Node.js        | 22 LTS                  |
 | npm            | 10+                     |
 | Expo CLI       | `npm i -g expo-cli`     |
 | Xcode          | 15+ (iOS only)          |
@@ -90,7 +90,8 @@ See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, an
 ```bash
 git clone https://github.com/mapilio/mobile-apps.git
 cd mobile-apps
-npm install
+nvm use
+npm ci
 ```
 
 ### 2. Environment variables
@@ -104,7 +105,6 @@ Open `.env.development` and fill in your credentials (see [Environment Variables
 ### 3. iOS (macOS only)
 
 ```bash
-cd ios && pod install && cd ..
 npx expo run:ios
 ```
 
@@ -114,15 +114,20 @@ npx expo run:ios
 npx expo run:android
 ```
 
-### Rebuild native layers after dependency changes
+### Update native dependencies
 
 ```bash
-# iOS
-npx expo prebuild -p ios --clean && cd ios && pod install && cd ..
+# Install an Expo-compatible package version
+npx expo install <package>
 
-# Android
-npx expo prebuild -p android --clean
+# Refresh iOS pods after native dependency changes
+npx pod-install
 ```
+
+The committed Android and iOS projects contain reviewed Mapilio integrations.
+Do not run `expo prebuild --clean`. When a config plugin must update native
+files, use a dedicated branch, run prebuild without `--clean`, and review every
+generated native diff before opening the pull request.
 
 ### Production Android builds
 
@@ -161,9 +166,9 @@ migration; new installations should use the neutral tile variables above.
 
 Social sign-in exchanges provider tokens through the backend-first
 `/api/v1/mobile/auth/social-token` endpoint. The mobile bundle contains only
-public provider client IDs; provider tokens and backend tokens are sent in
-request bodies, and no backend or provider client secret is configured in the
-mobile environment.
+provider client identifiers and platform-SDK values intended for public native
+clients. Provider tokens and backend tokens are sent in request bodies; backend
+OAuth client secrets must never be configured in the mobile environment.
 
 ---
 

@@ -1,5 +1,5 @@
 /**
- * Filesystem abstraction — wraps expo-file-system (New Architecture ready).
+ * Filesystem abstraction - wraps expo-file-system (New Architecture ready).
  *
  * All 15 files that previously imported 'react-native-fs' now import this module,
  * providing the same API surface. This isolates the react-native-fs dependency:
@@ -7,10 +7,11 @@
  * needs to change.
  *
  * NOTE: getAllExternalFilesDirs() still delegates to react-native-fs because
- * expo-file-system does not expose Android external storage paths.
- * TODO: Replace with a custom Expo Module before enabling newArchEnabled=true.
+ * expo-file-system does not expose Android external storage paths. This is
+ * kept as a New Architecture interop exception until a future Expo Module
+ * can replace it.
  */
-import * as FileSystem from 'expo-file-system';
+import { Directory, File, Paths } from 'expo-file-system';
 import * as RNFS from 'react-native-fs'; // used only for getAllExternalFilesDirs()
 
 /** Convert a plain path to a file:// URI (idempotent). */
@@ -21,8 +22,8 @@ const toUri = (path) =>
  * Internal document directory — equivalent to RNFS.DocumentDirectoryPath.
  * Plain path without "file://" prefix and without trailing slash.
  */
-export const DocumentDirectoryPath = FileSystem.documentDirectory
-  ? FileSystem.documentDirectory.replace('file://', '').replace(/\/$/, '')
+export const DocumentDirectoryPath = Paths.document?.uri
+  ? Paths.document.uri.replace('file://', '').replace(/\/$/, '')
   : '';
 
 /**
@@ -38,13 +39,16 @@ export const getAllExternalFilesDirs = () => RNFS.getAllExternalFilesDirs();
  * @returns {Promise<{size: number, path: string, isFile: () => boolean, isDirectory: () => boolean, mtime: Date|null}>}
  */
 export const stat = async (path) => {
-  const info = await FileSystem.getInfoAsync(toUri(path), { size: true });
+  const uri = toUri(path);
+  const pathInfo = Paths.info(uri);
+  const resource = pathInfo.isDirectory ? new Directory(uri) : new File(uri);
+  const info = resource.info();
   return {
     size: info.size ?? 0,
-    path: info.uri,
-    isFile: () => !info.isDirectory,
-    isDirectory: () => Boolean(info.isDirectory),
-    mtime: info.modificationTime ? new Date(info.modificationTime * 1000) : null,
+    path: info.uri ?? resource.uri,
+    isFile: () => !pathInfo.isDirectory,
+    isDirectory: () => Boolean(pathInfo.isDirectory),
+    mtime: info.modificationTime ? new Date(info.modificationTime) : null,
   };
 };
 
@@ -53,24 +57,30 @@ export const stat = async (path) => {
  * @param {string} path
  * @returns {Promise<boolean>}
  */
-export const exists = async (path) => {
-  const info = await FileSystem.getInfoAsync(toUri(path));
-  return info.exists;
-};
+export const exists = async (path) => Paths.info(toUri(path)).exists;
 
 /**
  * Delete a file or directory (no-op if it does not exist).
  * @param {string} path
  * @returns {Promise<void>}
  */
-export const unlink = (path) => FileSystem.deleteAsync(toUri(path), { idempotent: true });
+export const unlink = async (path) => {
+  const uri = toUri(path);
+  const pathInfo = Paths.info(uri);
+  if (!pathInfo.exists) return;
+
+  const resource = pathInfo.isDirectory ? new Directory(uri) : new File(uri);
+  resource.delete();
+};
 
 /**
  * Create a directory, including any missing intermediate directories.
  * @param {string} path
  * @returns {Promise<void>}
  */
-export const mkdir = (path) => FileSystem.makeDirectoryAsync(toUri(path), { intermediates: true });
+export const mkdir = async (path) => {
+  new Directory(toUri(path)).create({ intermediates: true, idempotent: true });
+};
 
 /**
  * Move a file from src to dest.
@@ -78,16 +88,17 @@ export const mkdir = (path) => FileSystem.makeDirectoryAsync(toUri(path), { inte
  * @param {string} dest
  * @returns {Promise<void>}
  */
-export const moveFile = (src, dest) => FileSystem.moveAsync({ from: toUri(src), to: toUri(dest) });
+export const moveFile = async (src, dest) => {
+  new File(toUri(src)).move(new File(toUri(dest)));
+};
 
 /**
  * Get free and total disk space.
  * @returns {Promise<{freeSpace: number, totalSpace: number}>}
  */
 export const getFSInfo = async () => {
-  const [freeSpace, totalSpace] = await Promise.all([
-    FileSystem.getFreeDiskStorageAsync(),
-    FileSystem.getTotalDiskCapacityAsync(),
-  ]);
-  return { freeSpace, totalSpace };
+  return {
+    freeSpace: Paths.availableDiskSpace,
+    totalSpace: Paths.totalDiskSpace,
+  };
 };

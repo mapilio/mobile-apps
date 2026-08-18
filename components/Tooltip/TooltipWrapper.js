@@ -1,5 +1,5 @@
 import { View, Platform, Dimensions, InteractionManager } from 'react-native';
-import Tooltip from '@dogukany/react-native-walkthrough-tooltip';
+import Tooltip from 'react-native-walkthrough-tooltip';
 import { useDispatch, useSelector } from 'react-redux';
 import Content from './Content';
 import {

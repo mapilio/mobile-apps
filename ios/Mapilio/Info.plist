@@ -92,6 +92,8 @@
     <string>Allow $(PRODUCT_NAME) to access your device motion</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>$(PRODUCT_NAME) needs access to your Photo Library.</string>
+    <key>RCTNewArchEnabled</key>
+    <true/>
     <key>SKAdNetworkItems</key>
     <array>
       <dict>

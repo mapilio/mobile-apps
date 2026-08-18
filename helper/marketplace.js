@@ -1,4 +1,4 @@
-import { getCurrentPositionAsync } from 'expo-location/build/Location';
+import { getCurrentPositionAsync } from 'expo-location';
 import { Platform } from 'react-native';
 import { ActionCamera, Camera, PhoneCamera } from '../assets/svg/illustrations';
 import { distance, point } from '@turf/turf';

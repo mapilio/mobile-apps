@@ -45,16 +45,16 @@ Open an issue with the **enhancement** label. Describe the use case, not just th
 ## Development Setup
 
 ```bash
-git clone https://github.com/mapilio/mapilio-mobile-apps.git
-cd mapilio-mobile-apps
-npm install
+git clone https://github.com/mapilio/mobile-apps.git
+cd mobile-apps
+nvm use
+npm ci
 
 # Copy environment template
 cp .env.example .env.development
 # Fill in your credentials in .env.development
 
 # iOS
-cd ios && pod install && cd ..
 npx expo run:ios
 
 # Android
@@ -70,7 +70,6 @@ See [README.md](README.md) for full prerequisites.
 | Branch           | Purpose                       |
 | ---------------- | ----------------------------- |
 | `main`           | Stable, production-ready code |
-| `expo`           | Expo SDK migration work       |
 | `feature/<name>` | New features                  |
 | `fix/<name>`     | Bug fixes                     |
 | `chore/<name>`   | Tooling, deps, CI changes     |
@@ -104,7 +103,7 @@ Write a short, natural summary of the change. Prefixes such as `feat:` and `docs
 ```
 Add burst capture mode
 Retry uploads after a 503 response
-Update expo-camera to 16.0.18
+Update the camera dependency
 Cover the camera reducer reset behavior
 ```
 

@@ -1,14 +1,5 @@
-import {
-  ActivityIndicator,
-  Dimensions,
-  Image,
-  Platform,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
-import React, { Fragment, useState } from 'react';
-// import PanoramaView from "@lightbase/react-native-panorama-view";
+import { ActivityIndicator, Dimensions, Image, ScrollView, View } from 'react-native';
+import React, { useState } from 'react';
 
 const IsLoading = ({ height, status }) => {
   if (!status) {
@@ -39,18 +30,6 @@ const Panorama = ({ image, height, resolution = '1920x1080' }) => {
   const imageWidth = resourceWidth / (resourceHeight / height);
 
   const onLoad = () => setLoading(false);
-
-  const isIOS = Platform.OS === 'ios';
-  const isPanoramic = resourceWidth % resourceHeight === 0;
-
-  if (isIOS && isPanoramic) {
-    return (
-      <Fragment>
-        <IsLoading height={height} status={loading} />
-        {/*<PanoramaView style={{height: height}} imageUrl={image} onImageLoaded={onLoad}/>*/}
-      </Fragment>
-    );
-  }
 
   return (
     <ScrollView
