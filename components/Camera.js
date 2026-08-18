@@ -1,20 +1,20 @@
-import { Platform, StyleSheet, View } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { cameraStyles, fakeTasksStyle } from "../styles/cameraStyles";
-import RotationLine from "./RotationLine";
-import CameraFrame from "./CameraFrame";
-import CameraProjectInfo from "./CameraProjectInfo";
-import { useDispatch, useSelector } from "react-redux";
-import { TooltipWrapper } from "./Tooltip";
-import { tooltipContents } from "../util/consts/tooltip";
-import SelectProjectButton from "./SelectProjectButton";
-import { useNavigation } from "@react-navigation/native";
-import { CameraWarnings } from "../helper/camera";
-import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from "../store/actionsName";
-import { RFValue } from "react-native-responsive-fontsize";
-import { DeviceMotion } from "expo-sensors";
+import { Platform, StyleSheet, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { cameraStyles, fakeTasksStyle } from '../styles/cameraStyles';
+import RotationLine from './RotationLine';
+import CameraFrame from './CameraFrame';
+import CameraProjectInfo from './CameraProjectInfo';
+import { useDispatch, useSelector } from 'react-redux';
+import { TooltipWrapper } from './Tooltip';
+import { tooltipContents } from '../util/consts/tooltip';
+import SelectProjectButton from './SelectProjectButton';
+import { useNavigation } from '@react-navigation/native';
+import { CameraWarnings } from '../helper/camera';
+import { UPDATE_CAMERA_REF, UPDATE_CAMERA_STATUS } from '../store/actionsName';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { DeviceMotion } from 'expo-sensors';
 import { CameraView } from 'expo-camera';
-import CaptureInfoOverlay from "./CaptureInfoOverlay";
+import CaptureInfoOverlay from './CaptureInfoOverlay';
 
 const Camera = () => {
   const dispatch = useDispatch();
@@ -23,33 +23,32 @@ const Camera = () => {
   const { auth } = useSelector((state) => state.getTokenReducer);
   const { isActive } = useSelector((state) => state.cameraReducer);
   const { isInitialized } = useSelector((state) => state.tooltipReducer.camera);
-  const [cameraOrientation, setCameraOrientation] = useState("landscapeRight");
+  const [cameraOrientation, setCameraOrientation] = useState('landscapeRight');
 
   const handleCameraReady = () => {
-    dispatch({ type: UPDATE_CAMERA_STATUS, payload: "READY" });
+    dispatch({ type: UPDATE_CAMERA_STATUS, payload: 'READY' });
     dispatch({ type: UPDATE_CAMERA_REF, payload: cameraRef.current });
   };
 
   const orientationSubscription = () => {
+    const landscapeRight = Platform.OS === 'ios' ? -90 : 90;
+    const landscapeLeft = Platform.OS === 'ios' ? 90 : -90;
 
-    const landscapeRight = Platform.OS === "ios" ? -90 : 90;
-    const landscapeLeft = Platform.OS === "ios" ? 90 : -90;
-    
     return DeviceMotion.addListener(({ orientation }) => {
       if (orientation === landscapeRight || orientation === 0) {
         setCameraOrientation((prev) => {
-          if (prev === "landscapeRight") {
+          if (prev === 'landscapeRight') {
             return prev;
           } else {
-            return "landscapeRight";
+            return 'landscapeRight';
           }
         });
       } else if (orientation === landscapeLeft) {
         setCameraOrientation((prev) => {
-          if (prev === "landscapeLeft") {
+          if (prev === 'landscapeLeft') {
             return prev;
           } else {
-            return "landscapeLeft";
+            return 'landscapeLeft';
           }
         });
       }
@@ -88,8 +87,7 @@ const Camera = () => {
               <TooltipWrapper
                 name="tasks"
                 content={tooltipContents.camera.tasks}
-                placement={"bottom"}
-              >
+                placement={'bottom'}>
                 <FakeTasks />
               </TooltipWrapper>
             </View>
@@ -102,17 +100,17 @@ const Camera = () => {
     );
   }
 
-  return <View style={{ flex: 1, backgroundColor: "black" }} />;
+  return <View style={{ flex: 1, backgroundColor: 'black' }} />;
 };
 
 const styles = StyleSheet.create({
   cameraContents: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     flex: 1,
-    position: "absolute",
+    position: 'absolute',
     zIndex: 2,
-    padding:RFValue(16),
+    padding: RFValue(16),
   },
 });
 

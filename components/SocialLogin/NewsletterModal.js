@@ -6,34 +6,30 @@ import {
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
-} from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { CustomText, CustomTextMedium } from "../../highordercomponents";
-import AnimatedLottieView from "lottie-react-native";
-import { CloseIcon } from "../../assets/svg/illustrations";
-import { Trans, useTranslation } from "react-i18next";
-import i18next from "i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { api } from "../../util/helpers/api";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { Fragment } from "react";
-import { SET_MAIL_MODAL_SHOWN } from "../../store/actionsName";
-import {captureException} from "@sentry/react-native";
-
+} from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { CustomText, CustomTextMedium } from '../../highordercomponents';
+import AnimatedLottieView from 'lottie-react-native';
+import { CloseIcon } from '../../assets/svg/illustrations';
+import { Trans, useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { api } from '../../util/helpers/api';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Fragment } from 'react';
+import { SET_MAIL_MODAL_SHOWN } from '../../store/actionsName';
+import { captureException } from '@sentry/react-native';
 
 const NewsletterModal = () => {
   const config = useSelector((state) => state.generalReducer.config);
-  const { t } = useTranslation(["login", "register"], { nsMode: "fallback" });
+  const { t } = useTranslation(['login', 'register'], { nsMode: 'fallback' });
   const generalState = useSelector((state) => state.generalReducer);
   const dispatch = useDispatch();
 
   const emailValidationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .required("email_required")
-      .email("email_required"),
+    email: yup.string().required('email_required').email('email_required'),
   });
 
   const {
@@ -44,7 +40,7 @@ const NewsletterModal = () => {
     },
   } = useForm({
     defaultValues: {
-      email: "",
+      email: '',
     },
     resolver: yupResolver(emailValidationSchema),
   });
@@ -52,36 +48,35 @@ const NewsletterModal = () => {
   const setMail = (email) => {
     const emailData = new FormData();
 
-    emailData.append("options[parameters][email]", email);
+    emailData.append('options[parameters][email]', email);
 
     api
-      .post("/api/function/user_profile/profile/updateMail", emailData, {
+      .post('/api/function/user_profile/profile/updateMail', emailData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       })
       .then((res) => {
-          if(res.status){
-            dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
-          }else{
-            dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
-            toast.show(t("error"), { type: "error" });
-            captureException(res, {
-              tags: {
-                functionName: "setMail",
-              },
-            });
-          }
+        if (res.status) {
+          dispatch({ type: SET_MAIL_MODAL_SHOWN, payload: false });
+        } else {
+          dispatch({ type: SET_MAIL_MODAL_SHOWN, payload: false });
+          toast.show(t('error'), { type: 'error' });
+          captureException(res, {
+            tags: {
+              functionName: 'setMail',
+            },
+          });
+        }
       })
       .catch((err) => {
         captureException(err, {
           tags: {
-            functionName: "setMail",
+            functionName: 'setMail',
           },
         });
-        dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
-        toast.show(t("error"), { type: "error" });
-
+        dispatch({ type: SET_MAIL_MODAL_SHOWN, payload: false });
+        toast.show(t('error'), { type: 'error' });
       });
   };
 
@@ -94,30 +89,27 @@ const NewsletterModal = () => {
       visible={!!generalState?.shouldShowMailModal}
       statusBarTranslucent
       transparent
-      animationType="fade"
-    >
+      animationType="fade">
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}>
         <View style={styles.container}>
           <View style={styles.wrapper}>
             <TouchableOpacity
               style={styles.closeButton}
               onPress={() => {
-                dispatch({type:SET_MAIL_MODAL_SHOWN,payload:false})
-              }}
-            >
+                dispatch({ type: SET_MAIL_MODAL_SHOWN, payload: false });
+              }}>
               <CloseIcon color="white" />
             </TouchableOpacity>
             <View style={styles.profileIcon}>
               <AnimatedLottieView
                 style={{
-                  height: "100%",
-                  alignSelf: "center",
+                  height: '100%',
+                  alignSelf: 'center',
                   transform: [{ scale: 1.2 }],
                 }}
-                source={require("../../assets/animations/mailSubs.json")}
+                source={require('../../assets/animations/mailSubs.json')}
                 autoPlay
                 loop
               />
@@ -125,16 +117,14 @@ const NewsletterModal = () => {
             <CustomTextMedium style={styles.title}>
               <Trans
                 defaults={
-                  i18next.language === "en"
-                    ? config?.osmModal?.titleEN
-                    : config?.osmModal?.titleTR
+                  i18next.language === 'en' ? config?.osmModal?.titleEN : config?.osmModal?.titleTR
                 }
               />
             </CustomTextMedium>
             <CustomText style={styles.description}>
               <Trans
                 defaults={
-                  i18next.language === "en"
+                  i18next.language === 'en'
                     ? config?.osmModal?.descriptionEN
                     : config?.osmModal?.descriptionTR
                 }
@@ -150,21 +140,18 @@ const NewsletterModal = () => {
                     onBlur={onBlur}
                     value={value}
                     autoCapitalize="none"
-                    placeholder={t("enter_email")}
+                    placeholder={t('enter_email')}
                     style={styles.input}
                   />
                   {emailError && (
                     <CustomText style={styles.infoText}>
-                      {t(emailError.message, { ns: "register" })}
+                      {t(emailError.message, { ns: 'register' })}
                     </CustomText>
                   )}
                 </Fragment>
               )}
             />
-            <TouchableOpacity
-              style={styles.buttonApply}
-              onPress={handleSubmit(onSubmit)}
-            >
+            <TouchableOpacity style={styles.buttonApply} onPress={handleSubmit(onSubmit)}>
               <CustomText style={styles.buttonText}>Verify</CustomText>
             </TouchableOpacity>
           </View>
@@ -177,76 +164,76 @@ const NewsletterModal = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   wrapper: {
-    backgroundColor: "white",
-    width: "90%",
-    height: "45%",
+    backgroundColor: 'white',
+    width: '90%',
+    height: '45%',
     minHeight: RFValue(320),
     borderRadius: 20,
     marginBottom: RFValue(60),
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: RFValue(10),
     paddingTop: RFValue(20),
   },
   closeButton: {
-    position: "absolute",
+    position: 'absolute',
     right: RFValue(10),
     top: RFValue(10),
     width: RFValue(25),
     height: RFValue(25),
-    backgroundColor: "#d8d8d8",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#d8d8d8',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: RFValue(25),
   },
   profileIcon: {
-    width: "100%",
+    width: '100%',
     height: RFValue(77),
   },
   title: {
     fontSize: RFValue(14),
-    color: "#191919",
+    color: '#191919',
     marginTop: RFValue(10),
   },
   description: {
-    color: "#808080",
+    color: '#808080',
     fontSize: RFValue(12),
     marginTop: RFValue(10),
-    textAlign: "center",
+    textAlign: 'center',
   },
   input: {
-    backgroundColor: "#ECECEC",
+    backgroundColor: '#ECECEC',
     borderRadius: RFValue(24),
     paddingHorizontal: RFValue(21),
     fontSize: RFValue(10),
-    fontFamily: "Poppins-Light",
-    width: "80%",
+    fontFamily: 'Poppins-Light',
+    width: '80%',
     height: RFValue(40),
     marginTop: RFValue(10),
   },
   buttonApply: {
     marginTop: RFValue(10),
-    width: "80%",
+    width: '80%',
     height: RFValue(40),
     borderRadius: RFValue(50),
-    justifyContent: "center",
-    backgroundColor: "#0056F1",
-    alignItems: "center",
+    justifyContent: 'center',
+    backgroundColor: '#0056F1',
+    alignItems: 'center',
   },
   buttonText: {
-    color: "white",
+    color: 'white',
     fontSize: RFValue(13),
   },
   infoText: {
     fontSize: RFValue(8),
-    color: "#808080",
+    color: '#808080',
     marginTop: 20,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
 export default NewsletterModal;

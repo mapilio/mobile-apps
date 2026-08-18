@@ -1,11 +1,7 @@
-import {
-  MARKETPLACE_CENTER,
-  ZOOM_LEVEL,
-  MARKETPLACE_DATA,
-} from "../../actionsName";
+import { MARKETPLACE_CENTER, ZOOM_LEVEL, MARKETPLACE_DATA } from '../../actionsName';
 
 const INITIAL_STATE = {
-  marketplaceCenter: [9.667969,48.341646],
+  marketplaceCenter: [9.667969, 48.341646],
   zoomLevel: 5,
   marketplaceData: {},
 };

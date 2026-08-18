@@ -5,25 +5,24 @@ import {
   SET_TOOLTIP_MARKETPLACE_STEP,
   SET_TOOLTIP_CAMERA_INITIALIZED,
   SET_TOOLTIP_CAMERA_STEP,
-} from "../../actionsName";
+} from '../../actionsName';
 
 const INITIAL_STATE = {
   tabBar: {
     isInitialized: false,
-    step: "map",
+    step: 'map',
   },
   marketplace: {
     isInitialized: false,
-    step: "list",
+    step: 'list',
   },
   camera: {
     isInitialized: false,
-    step: "tasks",
+    step: 'tasks',
   },
 };
 
 const TooltipReducer = (state = INITIAL_STATE, action) => {
-
   switch (action.type) {
     case SET_TOOLTIP_TABBAR_INITIALIZED:
       return {

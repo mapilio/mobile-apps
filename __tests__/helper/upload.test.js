@@ -47,7 +47,13 @@ jest.mock('@sentry/react-native', () => ({
 }));
 
 import db from '../../db';
-import { deleteSequence, getHash, imageryUpload, percentage, remainingImages } from '../../helper/upload';
+import {
+  deleteSequence,
+  getHash,
+  imageryUpload,
+  percentage,
+  remainingImages,
+} from '../../helper/upload';
 
 const mockImage = {
   id: 1,
@@ -130,30 +136,18 @@ describe('group-scoped sequence deletion', () => {
   it('filters direct sequence deletion by group when provided', async () => {
     await deleteSequence('sequence-1', 'group-1');
 
-    expect(db.getCapturesBySequenceIdAsync).toHaveBeenCalledWith(
-      'sequence-1',
-      'id ASC',
-      'group-1',
-    );
+    expect(db.getCapturesBySequenceIdAsync).toHaveBeenCalledWith('sequence-1', 'id ASC', 'group-1');
   });
 
   it('propagates the group when imagery upload deletes a short sequence', async () => {
     await imageryUpload([], 'sequence-1', 'group-1');
 
-    expect(db.getCapturesBySequenceIdAsync).toHaveBeenCalledWith(
-      'sequence-1',
-      'id ASC',
-      'group-1',
-    );
+    expect(db.getCapturesBySequenceIdAsync).toHaveBeenCalledWith('sequence-1', 'id ASC', 'group-1');
   });
 
   it('preserves ungrouped sequence deletion', async () => {
     await deleteSequence('sequence-1');
 
-    expect(db.getCapturesBySequenceIdAsync).toHaveBeenCalledWith(
-      'sequence-1',
-      'id ASC',
-      null,
-    );
+    expect(db.getCapturesBySequenceIdAsync).toHaveBeenCalledWith('sequence-1', 'id ASC', null);
   });
 });

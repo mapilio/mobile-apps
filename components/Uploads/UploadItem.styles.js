@@ -1,42 +1,42 @@
-import {StyleSheet} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
+import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default StyleSheet.create({
   container: {
     marginHorizontal: RFValue(10),
     backgroundColor: '#FFF',
     marginBottom: RFValue(10),
-    borderWidth: .3,
+    borderWidth: 0.3,
     borderColor: '#00000029',
     borderRadius: RFValue(5),
   },
   image: {
-    width: "100%",
+    width: '100%',
     height: RFValue(110),
     borderRadius: RFValue(5),
   },
   imageGradient: {
     zIndex: 9,
-    position: "absolute",
+    position: 'absolute',
     height: RFValue(110),
     flex: 1,
-    width: "100%",
+    width: '100%',
     borderRadius: RFValue(5),
   },
   info: {
     backgroundColor: '#FFF',
     paddingVertical: RFValue(5),
     paddingHorizontal: RFValue(10),
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   address: {
     color: '#191919',
     fontSize: RFValue(12),
-    fontFamily: "Poppins-Medium",
+    fontFamily: 'Poppins-Medium',
   },
   subInfo: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   count: {
     color: '#FFF',
@@ -51,7 +51,7 @@ export default StyleSheet.create({
     color: '#808080',
     fontSize: RFValue(10),
     fontFamily: 'Poppins',
-    marginTop: 'auto'
+    marginTop: 'auto',
   },
   point: {
     color: '#191919',
@@ -66,5 +66,5 @@ export default StyleSheet.create({
   },
   bold: {
     fontFamily: 'Poppins-SemiBold',
-  }
+  },
 });

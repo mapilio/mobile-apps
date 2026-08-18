@@ -1,8 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { useTranslation } from "react-i18next";
-import { TitleIcon } from "./TitleIcon";
-import { ButtonIcon } from "./ButtonIcon";
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useTranslation } from 'react-i18next';
+import { TitleIcon } from './TitleIcon';
+import { ButtonIcon } from './ButtonIcon';
 
 /**
  * Returns the content of the tooltip
@@ -15,18 +15,15 @@ import { ButtonIcon } from "./ButtonIcon";
  * @returns {JSX.Element} Tooltip content
  *  */
 const Content = ({ title, description, buttonTitle, contentType, handleClose }) => {
-  const { t } = useTranslation(
-    "tooltip",
-    {
-      keyPrefix: contentType,
-    }
-  );
+  const { t } = useTranslation('tooltip', {
+    keyPrefix: contentType,
+  });
 
   return (
     <View>
       <View style={styles.title.wrap}>
         <Text style={styles.title.text}>
-          {t(title)} {""}
+          {t(title)} {''}
         </Text>
         <TitleIcon tabName={title} />
       </View>
@@ -42,35 +39,35 @@ const Content = ({ title, description, buttonTitle, contentType, handleClose }) 
 const styles = StyleSheet.create({
   title: {
     wrap: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     text: {
-      color: "white",
+      color: 'white',
       fontSize: RFValue(20),
-      fontFamily: "Poppins-SemiBold",
+      fontFamily: 'Poppins-SemiBold',
     },
   },
   description: {
-    color: "#C2C2C2",
+    color: '#C2C2C2',
     fontSize: RFValue(13),
-    fontFamily: "Poppins",
+    fontFamily: 'Poppins',
   },
   button: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: "#0056F1",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#0056F1',
     padding: RFValue(10),
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: RFValue(30),
     width: RFValue(110),
     marginTop: RFValue(10),
     text: {
-      color: "white",
+      color: 'white',
       fontSize: RFValue(13),
-      fontFamily: "Poppins",
+      fontFamily: 'Poppins',
     },
   },
 });

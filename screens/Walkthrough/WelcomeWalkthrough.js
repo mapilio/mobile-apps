@@ -1,21 +1,15 @@
-import React, { useRef, useState } from "react";
-import {
-  View,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Platform,
-} from "react-native";
-import PagerView from "react-native-pager-view";
-import { Next, Skip } from "../../components/Walkthrough/WelcomeWalkthrough";
-import { RFValue } from "react-native-responsive-fontsize";
-import { CustomText, CustomTextBold } from "../../highordercomponents";
-import { useTranslation } from "react-i18next";
-import { FocusAwareStatusBar } from "../../components";
-import { sliderData } from "../../util/consts/walkthrough/welcome";
+import React, { useRef, useState } from 'react';
+import { View, Image, SafeAreaView, StyleSheet, Platform } from 'react-native';
+import PagerView from 'react-native-pager-view';
+import { Next, Skip } from '../../components/Walkthrough/WelcomeWalkthrough';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { CustomText, CustomTextBold } from '../../highordercomponents';
+import { useTranslation } from 'react-i18next';
+import { FocusAwareStatusBar } from '../../components';
+import { sliderData } from '../../util/consts/walkthrough/welcome';
 
 const WelcomeWalkthrough = () => {
-  const { t } = useTranslation("welcome_walkthrough");
+  const { t } = useTranslation('welcome_walkthrough');
   const [activeStep, setActiveStep] = useState(0);
   const pagerRef = useRef();
 
@@ -24,18 +18,18 @@ const WelcomeWalkthrough = () => {
 
     const imageSource =
       index === 3 && Platform.isPad
-        ? require("../../assets/images/walkthrough/moveon_tablet.png")
+        ? require('../../assets/images/walkthrough/moveon_tablet.png')
         : item.image;
 
-    const resizeMode = isMoveOn && Platform.isPad ? "stretch" : "contain";
+    const resizeMode = isMoveOn && Platform.isPad ? 'stretch' : 'contain';
 
     return (
       <View key={index} style={{ flex: 1 }}>
         <Image
           style={{
-            width: "100%",
-            height: "70%",
-            marginTop: "auto",
+            width: '100%',
+            height: '70%',
+            marginTop: 'auto',
             marginBottom: -30,
             resizeMode,
           }}
@@ -44,7 +38,7 @@ const WelcomeWalkthrough = () => {
         <View style={styles.textWrapper}>
           <View style={styles.textContainer}>
             <CustomText style={styles.subTitle}>
-              {t(item.subTitle)}{" "}
+              {t(item.subTitle)}{' '}
               {item.icons.map((source) => (
                 <Image
                   key={source}
@@ -52,7 +46,7 @@ const WelcomeWalkthrough = () => {
                   style={{
                     width: RFValue(20),
                     height: RFValue(20),
-                    resizeMode: "contain",
+                    resizeMode: 'contain',
                   }}
                 />
               ))}
@@ -71,11 +65,7 @@ const WelcomeWalkthrough = () => {
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <FocusAwareStatusBar
-        barStyle="dark-content"
-        translucent={true}
-        backgroundColor={"#fff"}
-      />
+      <FocusAwareStatusBar barStyle="dark-content" translucent={true} backgroundColor={'#fff'} />
 
       {!isLastStep && <Skip />}
 
@@ -96,7 +86,7 @@ const WelcomeWalkthrough = () => {
                 styles.dot,
                 {
                   width: i === activeStep ? RFValue(27) : RFValue(17),
-                  backgroundColor: i === activeStep ? "#1976D2" : "#C0C0C0",
+                  backgroundColor: i === activeStep ? '#1976D2' : '#C0C0C0',
                 },
               ]}
             />
@@ -115,25 +105,25 @@ const WelcomeWalkthrough = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   pager: {
-    width: "100%",
-    height: "80%",
+    width: '100%',
+    height: '80%',
   },
   sliderNavigation: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    height: "10%",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    height: '10%',
+    justifyContent: 'space-between',
   },
   dots: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingLeft: RFValue(20),
-    alignItems: "center",
+    alignItems: 'center',
   },
   dot: {
     height: RFValue(4),
@@ -142,25 +132,25 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginBottom: RFValue(3),
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   textWrapper: {
-    paddingHorizontal: "5%",
-    justifyContent: "center",
+    paddingHorizontal: '5%',
+    justifyContent: 'center',
   },
   title: {
     marginBottom: RFValue(5),
     fontSize: RFValue(28),
-    color: "#191919",
+    color: '#191919',
   },
   subTitle: {
     fontSize: RFValue(16),
-    color: "#808080",
+    color: '#808080',
   },
   desc: {
     fontSize: RFValue(14),
-    color: "#808080",
+    color: '#808080',
     marginBottom: RFValue(40),
   },
 });

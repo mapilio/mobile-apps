@@ -1,5 +1,5 @@
-import { ActivityIndicator, View, StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const Loading = () => {
   return (
@@ -12,8 +12,8 @@ const Loading = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     marginTop: RFValue(20),
   },
 });

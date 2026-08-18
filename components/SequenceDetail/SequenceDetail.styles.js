@@ -1,37 +1,37 @@
-import {StyleSheet} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
+import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default StyleSheet.create({
   header: {
     paddingTop: RFValue(20),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: RFValue(10),
-    borderBottomColor: "#EAEAEA",
+    borderBottomColor: '#EAEAEA',
     borderBottomWidth: 1,
     paddingBottom: RFValue(10),
   },
   score: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginHorizontal: RFValue(5),
     height: RFValue(40),
   },
   scoreText: {
     fontSize: RFValue(16),
-    fontFamily: "Poppins-SemiBold",
+    fontFamily: 'Poppins-SemiBold',
     marginLeft: RFValue(5),
-    color:"#191919"
+    color: '#191919',
   },
-  button:{
-    marginBottom:0,
-    margin:0,
-    padding:0,
+  button: {
+    marginBottom: 0,
+    margin: 0,
+    padding: 0,
     height: RFValue(40),
     width: RFValue(150),
-    justifyContent: "center",
-  },  
+    justifyContent: 'center',
+  },
   content: {
     flex: 1,
     paddingHorizontal: RFValue(10),
@@ -39,13 +39,13 @@ export default StyleSheet.create({
   },
   address: {
     fontSize: RFValue(15),
-    fontFamily: "Poppins-SemiBold",
-    color: "#191919",
+    fontFamily: 'Poppins-SemiBold',
+    color: '#191919',
   },
   date: {
     fontSize: RFValue(13),
-    fontFamily: "Poppins",
-    color: "#666666",
+    fontFamily: 'Poppins',
+    color: '#666666',
     marginTop: RFValue(5),
     marginBottom: RFValue(20),
   },
@@ -53,45 +53,45 @@ export default StyleSheet.create({
     flex: 1,
     marginRight: RFValue(5),
     borderRadius: RFValue(10),
-    overflow: "hidden",
+    overflow: 'hidden',
     height: RFValue(75),
     marginBottom: RFValue(5),
     zIndex: 1,
   },
   image: {
-    height: "100%",
+    height: '100%',
     width: 'auto',
   },
   selectedWrapper: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#00000066",
-    borderColor: "#3F8BE9",
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#00000066',
+    borderColor: '#3F8BE9',
     borderWidth: 1.5,
     borderRadius: RFValue(10),
   },
   selectedIcon: {
-    position: "absolute",
+    position: 'absolute',
     right: RFValue(5),
     bottom: RFValue(5),
     width: RFValue(20),
     height: RFValue(20),
-    backgroundColor: "#3F8BE9",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#3F8BE9',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: RFValue(20),
   },
   clearSelection: {
-    position: "absolute",
+    position: 'absolute',
     right: RFValue(20),
     top: RFValue(47),
   },
   clearSelectionText: {
     fontSize: RFValue(12),
-    fontFamily: "Poppins",
-    color: "#0056F1",
-    textDecorationLine: "underline",
+    fontFamily: 'Poppins',
+    color: '#0056F1',
+    textDecorationLine: 'underline',
   },
   trashIcon: {
     backgroundColor: '#D33030',
@@ -103,6 +103,6 @@ export default StyleSheet.create({
     position: 'absolute',
     right: RFValue(20),
     bottom: RFValue(20),
-    zIndex: 10
-  }
+    zIndex: 10,
+  },
 });

@@ -10,11 +10,11 @@ import {
   SET_MAINTENANCE_MODE,
   SET_CONFIG,
   SET_MAIL_MODAL_SHOWN,
-  SET_DARK_MODE
-} from "../../actionsName";
+  SET_DARK_MODE,
+} from '../../actionsName';
 
 const INITIAL_STATE = {
-  connection: { connectionStatus: true, connectionType: "wifi" },
+  connection: { connectionStatus: true, connectionType: 'wifi' },
   welcomeWalkthroughStatus: false,
   db: null,
   currentFeedSequence: null,
@@ -25,7 +25,7 @@ const INITIAL_STATE = {
   mapShown: true,
   maintenanceMode: false,
   shouldShowMailModal: false,
-  config:{
+  config: {
     isMarketOpen: false,
     isChallengeOpen: false,
     challengeDescTR: '',
@@ -40,29 +40,29 @@ const INITIAL_STATE = {
       isFacebookEnabled: false,
       isGoogleEnabled: false,
       isAppleEnabled: false,
-      isOSMEnabled: false
+      isOSMEnabled: false,
     },
-    versions:{
-      ios:{
+    versions: {
+      ios: {
         version: 0,
-        minVersion: 0
+        minVersion: 0,
       },
-      android:{
+      android: {
         version: 0,
-        minVersion: 0
-      }
+        minVersion: 0,
+      },
     },
-    mapTokens:{
-      androidToken: "",
-      iosToken: ""
+    mapTokens: {
+      androidToken: '',
+      iosToken: '',
     },
-    osmModal:{
-      titleTR: "",
-      titleEN: "",
-      descriptionTR: "",
-      descriptionEN: ""
+    osmModal: {
+      titleTR: '',
+      titleEN: '',
+      descriptionTR: '',
+      descriptionEN: '',
     },
-  }
+  },
 };
 
 const generalReducer = (state = INITIAL_STATE, action) => {
@@ -90,46 +90,46 @@ const generalReducer = (state = INITIAL_STATE, action) => {
     case UPDATE_LANGUAGE:
       return {
         ...state,
-        language: action.payload
-      }
+        language: action.payload,
+      };
     case SET_CURRENT_POSITION:
       return {
         ...state,
-        currentPosition: action.payload
-      }
+        currentPosition: action.payload,
+      };
     case SET_DEBUG_MODE:
       return {
         ...state,
         debugMode: action.payload,
-      }
+      };
     case SET_MAP_MODE:
       return {
         ...state,
         mapShown: action.payload,
-      }
+      };
     case SET_MAINTENANCE_MODE:
       return {
         ...state,
         maintenanceMode: action.payload,
-      }
+      };
     case SET_MAIL_MODAL_SHOWN:
       return {
         ...state,
         shouldShowMailModal: action.payload,
-      }
+      };
     case SET_DARK_MODE:
       return {
         ...state,
         darkMode: action.payload,
-      }
+      };
     case SET_CONFIG:
       return {
         ...state,
         config: {
           ...state.config,
-          ...action.payload
-        }
-      }
+          ...action.payload,
+        },
+      };
     default:
       return state;
   }

@@ -1,144 +1,175 @@
-import React, {useState} from "react";
-import {ScrollView, TextInput, TouchableOpacity, View} from "react-native";
-import * as yup from "yup";
-import {loginStyles} from "../styles/loginStyles";
-import {Routes} from "../navigator/Routes";
-import {CustomText} from "../highordercomponents";
-import {globalStyles} from "../styles/globalStyles";
-import {RFValue} from "react-native-responsive-fontsize";
-import {Eye} from "../assets/svg/illustrations";
-import {SocialLogin} from "../components";
-import {useForm, Controller} from "react-hook-form";
-import {yupResolver} from '@hookform/resolvers/yup';
-import {SafeAreaView} from "react-native-safe-area-context";
-import {MapilioLogoBeta} from "../assets/svg/logos";
-import {fetchLogin} from "../helper/user";
-import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import {useTranslation} from "react-i18next";
-import {LanguageModal} from "../components/Login";
-import {useDispatch} from "react-redux";
-import {SET_CREDENTIAL} from "../store/actionsName";
-import {ActivityIndicator} from "react-native-paper";
-import {captureException} from "@sentry/react-native";
+import React, { useState } from 'react';
+import { ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
+import * as yup from 'yup';
+import { loginStyles } from '../styles/loginStyles';
+import { Routes } from '../navigator/Routes';
+import { CustomText } from '../highordercomponents';
+import { globalStyles } from '../styles/globalStyles';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { Eye } from '../assets/svg/illustrations';
+import { SocialLogin } from '../components';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { MapilioLogoBeta } from '../assets/svg/logos';
+import { fetchLogin } from '../helper/user';
+import FocusAwareStatusBar from '../components/FocusAwareStatusBar';
+import { useTranslation } from 'react-i18next';
+import { LanguageModal } from '../components/Login';
+import { useDispatch } from 'react-redux';
+import { SET_CREDENTIAL } from '../store/actionsName';
+import { ActivityIndicator } from 'react-native-paper';
+import { captureException } from '@sentry/react-native';
 
+const Login = ({ navigation }) => {
+  const { t } = useTranslation('login');
+  const dispatch = useDispatch();
+  const [securePassword, setSecurePassword] = useState(true);
+  const [toggleEye, setToggleEye] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-const Login = ({navigation}) => {
-	const {t} = useTranslation("login");
-	const dispatch = useDispatch();
-	const [securePassword, setSecurePassword] = useState(true);
-	const [toggleEye, setToggleEye] = useState(false);
-	const [loading, setLoading] = useState(false);
+  const loginValidationSchema = yup.object().shape({
+    email: yup.string().required('email_required'),
+    password: yup.string().required('password_required'),
+  });
 
-	const loginValidationSchema = yup.object().shape({
-		email: yup.string().required('email_required',),
-		password: yup.string().required('password_required'),
-	});
+  const {
+    control,
+    handleSubmit,
+    formState: {
+      errors: { email: emailError, password: passwordError },
+    },
+  } = useForm({
+    defaultValues: { email: '', password: '' },
+    resolver: yupResolver(loginValidationSchema),
+  });
 
-	const {control, handleSubmit, formState: {errors: {email: emailError, password: passwordError}}} = useForm({
-		defaultValues: {email: '', password: ''},
-		resolver: yupResolver(loginValidationSchema),
-	});
+  const handleLogin = (values) => {
+    const { email, password } = values;
+    setLoading(true);
+    fetchLogin(email, password)
+      .then((res) => {
+        dispatch({ type: SET_CREDENTIAL, payload: { type: 'default', ...res } });
+        navigation.goBack();
+      })
+      .catch((err) => {
+        captureException(err, {
+          tags: {
+            functionName: 'handleLoginCredentials',
+          },
+        });
+        toast.show(`${err}`, { type: 'error' });
+      })
+      .finally(() => setLoading(false));
+  };
 
-	const handleLogin = (values) => {
-		const {email, password} = values;
-		setLoading(true);
-		fetchLogin(email, password).then((res) => {
-			dispatch({type: SET_CREDENTIAL, payload: {type: 'default', ...res}});
-			navigation.goBack();
-		}).catch((err) => {
-			captureException(err, {
-				tags: {
-					functionName: 'handleLoginCredentials',
-				},
-			})	
-			toast.show(`${err}`, {type: "error"})
-		}).finally(() => setLoading(false))
-	}
+  return (
+    <SafeAreaView
+      style={[
+        globalStyles.container,
+        loginStyles.container,
+        {
+          paddingBottom: 0,
+          paddingVertical: 0,
+        },
+      ]}>
+      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor={'#fff'} />
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <View style={loginStyles.logo}>
+          <MapilioLogoBeta width={RFValue(218)} height={RFValue(43)} />
+        </View>
 
-	return (
-		<SafeAreaView style={[globalStyles.container, loginStyles.container, {
-			paddingBottom:0,
-			paddingVertical:0,
-		}]}>
-			      <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor={"#fff"} />
-				<ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
-				<View style={loginStyles.logo}>
-					<MapilioLogoBeta width={RFValue(218)} height={RFValue(43)}/>
-				</View>
+        <View style={{ marginBottom: RFValue(30) }}>
+          <CustomText style={loginStyles.headerText}>{t('title')}</CustomText>
+        </View>
 
-				<View style={{marginBottom: RFValue(30)}}>
-					<CustomText style={loginStyles.headerText}>
-						{t("title")}
-					</CustomText>
-				</View>
+        <Controller
+          name={'email'}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={loginStyles.formGroup}>
+              {emailError && (
+                <CustomText style={loginStyles.errorText}>
+                  {t(emailError.message, { ns: 'form' })}{' '}
+                </CustomText>
+              )}
+              <TextInput
+                name="email"
+                placeholder={t('email_username')}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                style={
+                  emailError
+                    ? { ...loginStyles.input, ...loginStyles.errorInput }
+                    : loginStyles.input
+                }
+              />
+            </View>
+          )}
+        />
 
-				<Controller name={"email"} control={control} render={({field: {onChange, onBlur, value}}) => (
-					<View style={loginStyles.formGroup}>
-						{emailError && <CustomText style={loginStyles.errorText}>{t(emailError.message, {ns: 'form'})} </CustomText>}
-						<TextInput
-							name="email"
-							placeholder={t("email_username")}
-							onChangeText={onChange}
-							onBlur={onBlur}
-							value={value}
-							keyboardType="email-address"
-							autoCapitalize="none"
-							style={emailError ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
-						/>
-					</View>
-				)}/>
+        <Controller
+          name={'password'}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={loginStyles.formGroup}>
+              {passwordError && (
+                <CustomText style={loginStyles.errorText}>
+                  {t(passwordError.message, { ns: 'form' })}
+                </CustomText>
+              )}
+              <TextInput
+                name="password"
+                placeholder={t('password')}
+                onChangeText={(e) => {
+                  setToggleEye(!!e.length);
+                  onChange(e);
+                }}
+                onBlur={onBlur}
+                value={value}
+                autoCapitalize="none"
+                style={
+                  passwordError
+                    ? { ...loginStyles.input, ...loginStyles.errorInput }
+                    : loginStyles.input
+                }
+                secureTextEntry={securePassword}
+              />
+              <TouchableOpacity
+                style={loginStyles.passwordIcon}
+                onPressIn={() => setSecurePassword(false)}
+                onPressOut={() => setSecurePassword(true)}>
+                {toggleEye && <Eye />}
+              </TouchableOpacity>
+            </View>
+          )}
+        />
 
-				<Controller name={"password"} control={control} render={({field: {onChange, onBlur, value}}) => (
-					<View style={loginStyles.formGroup}>
-						{passwordError && <CustomText style={loginStyles.errorText}>{t(passwordError.message, {ns: "form"})}</CustomText>}
-						<TextInput
-							name="password"
-							placeholder={t("password")}
-							onChangeText={(e) => {
-								setToggleEye(!!e.length)
-								onChange(e)
-							}}
-							onBlur={onBlur}
-							value={value}
-							autoCapitalize="none"
-							style={passwordError ? {...loginStyles.input, ...loginStyles.errorInput} : loginStyles.input}
-							secureTextEntry={securePassword}
-						/>
-						<TouchableOpacity
-							style={loginStyles.passwordIcon}
-							onPressIn={() => setSecurePassword(false)}
-							onPressOut={() => setSecurePassword(true)}
-						>
-							{toggleEye && <Eye/>}
-						</TouchableOpacity>
-					</View>
-				)}/>
+        <TouchableOpacity
+          style={loginStyles.button}
+          onPress={handleSubmit((values) => handleLogin(values))}
+          disabled={loading}>
+          <CustomText style={{ ...loginStyles.secondaryText, color: '#fff' }}>
+            {loading ? <ActivityIndicator size={'small'} color={'#FFFFFF'} /> : t('login')}
+          </CustomText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ alignItems: 'center' }}
+          onPress={() => navigation.navigate(Routes.forgotPassword)}>
+          <CustomText style={{ ...loginStyles.forgotPassword, marginVertical: RFValue(18) }}>
+            {t('forgot_password')}
+          </CustomText>
+        </TouchableOpacity>
 
-				<TouchableOpacity
-					style={loginStyles.button}
-					onPress={handleSubmit((values) => handleLogin(values))}
-					disabled={loading}
-				>
-					<CustomText style={{...loginStyles.secondaryText, color: "#fff"}}>
-						{loading ? (<ActivityIndicator size={"small"} color={"#FFFFFF"}/>) : t("login")}
-					</CustomText>
-				</TouchableOpacity>
-				<TouchableOpacity style={{alignItems:"center"}} onPress={() => navigation.navigate(Routes.forgotPassword)}>
-				<CustomText
-					style={{...loginStyles.forgotPassword, marginVertical: RFValue(18)}}
-				>
-					{t("forgot_password")}
-				</CustomText>
-				</TouchableOpacity>
-
-				<SocialLogin navigation={navigation}/>
-				<View style={{paddingTop:RFValue(20), marginRight:RFValue(10)}}>
-			<LanguageModal />
-
-				</View>
-
-				</ScrollView>
-		</SafeAreaView>
-	);
+        <SocialLogin navigation={navigation} />
+        <View style={{ paddingTop: RFValue(20), marginRight: RFValue(10) }}>
+          <LanguageModal />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 export default Login;

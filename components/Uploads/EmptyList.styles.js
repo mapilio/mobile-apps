@@ -1,5 +1,5 @@
-import {StyleSheet} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
+import { StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default StyleSheet.create({
   wrapper: {
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     fontSize: RFValue(12),
     fontFamily: 'Poppins-SemiBold',
     paddingBottom: RFValue(4),
-    position: "relative",
+    position: 'relative',
   },
   slideDescription: {
     color: '#FFFFFF',
@@ -62,7 +62,7 @@ export default StyleSheet.create({
   },
   dotStyleActive: {
     height: RFValue(6),
-    backgroundColor: "#3F8BE9",
+    backgroundColor: '#3F8BE9',
   },
   inactiveDotStyle: {
     backgroundColor: '#D8D8D8',
@@ -70,5 +70,5 @@ export default StyleSheet.create({
     height: RFValue(6),
     borderRadius: RFValue(5),
     marginHorizontal: RFValue(3),
-  }
+  },
 });

@@ -1,0 +1,16 @@
+node_modules/
+android/
+ios/
+.expo/
+dist/
+coverage/
+patches/
+__generated__/
+
+# Generated and binary assets
+**/*.generated.*
+**/*.{png,jpg,jpeg,gif,webp,avif,heic,ico,bmp,tiff,ttf,otf,woff,woff2,eot,mp3,mp4,mov,wav,zip,gz,pdf}
+
+# Generated visual assets
+assets/animations/
+assets/svg/

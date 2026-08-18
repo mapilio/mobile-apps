@@ -1,8 +1,8 @@
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-import { useState } from "react";
-import { RFValue } from "react-native-responsive-fontsize";
-import SkeletonPlaceholder from "../Skeleton";
+import { useState } from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
+import SkeletonPlaceholder from '../Skeleton';
 
 const ListImage = ({ onPress, item }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -11,19 +11,12 @@ const ListImage = ({ onPress, item }) => {
     <TouchableOpacity
       style={styles.listItem}
       onPress={() => {
-        if(isLoaded) onPress(item);
-      }}
-    >
+        if (isLoaded) onPress(item);
+      }}>
       {!isLoaded && (
-        <View
-          style={styles.placeholder}
-        >
+        <View style={styles.placeholder}>
           <SkeletonPlaceholder speed={2000}>
-            <SkeletonPlaceholder.Item
-              width={"100%"}
-              height={"100%"}
-              borderRadius={RFValue(5)}
-            />
+            <SkeletonPlaceholder.Item width={'100%'} height={'100%'} borderRadius={RFValue(5)} />
           </SkeletonPlaceholder>
         </View>
       )}
@@ -48,16 +41,15 @@ const styles = StyleSheet.create({
     margin: RFValue(2),
   },
   listImage: {
-    height: "100%",
-    width: "auto",
+    height: '100%',
+    width: 'auto',
     borderRadius: RFValue(5),
   },
-  placeholder:{
-    position: "absolute",
+  placeholder: {
+    position: 'absolute',
     ...StyleSheet.absoluteFill,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     zIndex: 1,
-
-  }
+  },
 });
 export default ListImage;

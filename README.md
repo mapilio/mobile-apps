@@ -31,12 +31,14 @@ A street-level imagery capture app for iOS and Android, built with Expo (bare wo
 Mapilio is a **street-level imagery capture and contribution app** for OpenStreetMap mappers and the open mapping community. Its mission is to make it easy to capture geotagged imagery on foot, by bicycle, or in a vehicle, and contribute it to the open mapping ecosystem.
 
 **In scope**
+
 - Capturing geotagged photos at configurable intervals during a journey
 - Reviewing, managing, and uploading captured sequences to the Mapilio platform
 - Browsing contributed imagery on a MapLibre-powered map
 - Integration with the Mapilio API for storage, processing, and publication
 
 **Out of scope**
+
 - General-purpose photography or video recording
 - Real-time navigation, turn-by-turn directions, or offline map downloads
 - Social networking beyond contributor profiles and the community leaderboard
@@ -50,33 +52,33 @@ See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, an
 
 ## Tech Stack
 
-| Layer | Library |
-|---|---|
-| Framework | Expo SDK 52 (Bare Workflow) |
-| Runtime | React Native 0.76.9 |
-| Navigation | React Navigation v7 |
-| State | Redux 5 + Redux-Persist |
-| Maps | MapLibre React Native |
-| Database | expo-sqlite |
-| File system | expo-file-system (adapter: `util/fs.js`) |
-| Camera | expo-camera |
-| Location | expo-location |
-| Notifications | OneSignal + expo-sensors |
-| Monitoring | Sentry |
-| Testing | Jest 29 + jest-expo |
+| Layer         | Library                                  |
+| ------------- | ---------------------------------------- |
+| Framework     | Expo SDK 52 (Bare Workflow)              |
+| Runtime       | React Native 0.76.9                      |
+| Navigation    | React Navigation v7                      |
+| State         | Redux 5 + Redux-Persist                  |
+| Maps          | MapLibre React Native                    |
+| Database      | expo-sqlite                              |
+| File system   | expo-file-system (adapter: `util/fs.js`) |
+| Camera        | expo-camera                              |
+| Location      | expo-location                            |
+| Notifications | OneSignal + expo-sensors                 |
+| Monitoring    | Sentry                                   |
+| Testing       | Jest 29 + jest-expo                      |
 
 ---
 
 ## Prerequisites
 
-| Tool | Version |
-|---|---|
-| Node.js | 20 LTS |
-| npm | 10+ |
-| Expo CLI | `npm i -g expo-cli` |
-| Xcode | 15+ (iOS only) |
+| Tool           | Version                 |
+| -------------- | ----------------------- |
+| Node.js        | 20 LTS                  |
+| npm            | 10+                     |
+| Expo CLI       | `npm i -g expo-cli`     |
+| Xcode          | 15+ (iOS only)          |
 | Android Studio | Giraffe+ (Android only) |
-| CocoaPods | 1.14+ (iOS only) |
+| CocoaPods      | 1.14+ (iOS only)        |
 
 > **macOS + nvm users:** After switching Node versions run `ln -s $(which node) /usr/local/bin/node` so Xcode build scripts can find Node.
 
@@ -129,18 +131,18 @@ npx expo prebuild -p android --clean
 
 Copy `.env.example` to `.env.development` (local dev) or `.env.production` (release builds) and provide only non-sensitive public runtime values. Expo embeds every `EXPO_PUBLIC_*` value in the app bundle, so never put a confidential credential in one of these variables.
 
-| Variable | Description |
-|---|---|
-| `EXPO_PUBLIC_SERVICE_URL` | Mapilio REST API base URL |
-| `EXPO_PUBLIC_ROAD_TILE_URL` | Self-hosted road vector-tile URL template |
-| `EXPO_PUBLIC_ROAD_TILE_ID` | Road source-layer ID |
-| `EXPO_PUBLIC_POINT_TILE_URL` | Self-hosted point vector-tile URL template |
-| `EXPO_PUBLIC_POINT_TILE_ID` | Point source-layer ID |
-| `EXPO_PUBLIC_AUTH_CLIENT_ID` | OAuth2 client ID |
-| `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID` | Google Sign-In iOS client ID |
-| `EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID` | Google Sign-In Android client ID |
-| `EXPO_PUBLIC_SENTRY_DSN` | Sentry DSN for error reporting |
-| `EXPO_PUBLIC_ONESIGNAL_APP_ID` | OneSignal app ID for push notifications |
+| Variable                               | Description                                |
+| -------------------------------------- | ------------------------------------------ |
+| `EXPO_PUBLIC_SERVICE_URL`              | Mapilio REST API base URL                  |
+| `EXPO_PUBLIC_ROAD_TILE_URL`            | Self-hosted road vector-tile URL template  |
+| `EXPO_PUBLIC_ROAD_TILE_ID`             | Road source-layer ID                       |
+| `EXPO_PUBLIC_POINT_TILE_URL`           | Self-hosted point vector-tile URL template |
+| `EXPO_PUBLIC_POINT_TILE_ID`            | Point source-layer ID                      |
+| `EXPO_PUBLIC_AUTH_CLIENT_ID`           | OAuth2 client ID                           |
+| `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID`     | Google Sign-In iOS client ID               |
+| `EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID` | Google Sign-In Android client ID           |
+| `EXPO_PUBLIC_SENTRY_DSN`               | Sentry DSN for error reporting             |
+| `EXPO_PUBLIC_ONESIGNAL_APP_ID`         | OneSignal app ID for push notifications    |
 
 See `.env.example` for the full list. Existing deployments can continue using the
 legacy `EXPO_PUBLIC_MAPBOX_ROAD_*` and `EXPO_PUBLIC_MAPBOX_POINT_*` names during

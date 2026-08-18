@@ -189,7 +189,7 @@ const FeedList = ({ userDetails }) => {
           <UserInfos userDetails={userDetails} scoreDetails={scoreDetails} />
         </Animated.View>
 
-        {(!userDetails && userInformation) && <Badges badgeDetails={scoreDetails?.badges} />}
+        {!userDetails && userInformation && <Badges badgeDetails={scoreDetails?.badges} />}
 
         <CustomTextBold style={styles.sectionTitle}>{t('feeds')}</CustomTextBold>
 
@@ -207,7 +207,9 @@ const FeedList = ({ userDetails }) => {
           <EmptyComponent />
         ) : null}
 
-        {gettingData && <ActivityIndicator style={{paddingVertical:RFValue(10)}} size={"small"} />}
+        {gettingData && (
+          <ActivityIndicator style={{ paddingVertical: RFValue(10) }} size={'small'} />
+        )}
       </Animated.ScrollView>
     </View>
   );

@@ -10,6 +10,7 @@ Version `1.2.1` is the repository configuration baseline. The public repository 
 ## [Unreleased]
 
 ### Added
+
 - `SECURITY.md` — responsible disclosure policy using GitHub private advisory reporting (PR #36)
 - `CODE_OF_CONDUCT.md` — references Contributor Covenant v2.1; enforcement contact added (PRs #31, #53)
 - `CONTRIBUTING.md` — AI-assisted contributions policy and Apache 2.0 licence section (PR #51)
@@ -18,6 +19,7 @@ Version `1.2.1` is the repository configuration baseline. The public repository 
 - README badges: platform, PRs Welcome, OpenStreetMap (PR #52)
 
 ### Fixed
+
 - SQL injection vulnerability in `helper/upload.js` — parameterised query replaces string interpolation (PR #27)
 - Skeleton loading crash — custom `Skeleton.js` backed by `expo-linear-gradient` replaces broken `react-native-skeleton-placeholder` dependency (PR #49)
 - Duplicate style keys in `styles/leaderStyles.js` flagged by ESLint `no-dupe-keys` (PR #38)
@@ -30,6 +32,7 @@ Version `1.2.1` is the repository configuration baseline. The public repository 
 - `no-undef` ESLint errors resolved across 6 files (PR #43)
 
 ### Changed
+
 - Licence updated to Apache 2.0
 - `actionsName.js` and `actionsName.ts` consolidated into a single TypeScript file (PR #44)
 

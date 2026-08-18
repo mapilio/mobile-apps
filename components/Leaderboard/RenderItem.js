@@ -1,12 +1,14 @@
-import { leaderStyles as styles } from "../../styles/leaderStyles";
-import AuthUserButton from "./AuthUserButton";
-import ListItem from "./ListItem";
+import { leaderStyles as styles } from '../../styles/leaderStyles';
+import AuthUserButton from './AuthUserButton';
+import ListItem from './ListItem';
 
 const renderItem = ({ item, index }, authUserIndex, screenType) => {
   const isAuthUser = index === authUserIndex;
 
   const displayName =
-    (screenType === "users" || screenType === "challange_users") ? item.display_name : item.organization_name;
+    screenType === 'users' || screenType === 'challange_users'
+      ? item.display_name
+      : item.organization_name;
 
   const displayNameStyle = isAuthUser
     ? styles.authUserListItem.displayName
@@ -20,7 +22,7 @@ const renderItem = ({ item, index }, authUserIndex, screenType) => {
         authUser={item}
         displayName={displayName}
         rankIndex={index}
-        type={"insideList"}
+        type={'insideList'}
       />
     );
   }

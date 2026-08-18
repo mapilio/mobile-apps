@@ -1,6 +1,6 @@
-import {ActivityIndicator, Modal, Text, TouchableOpacity, View} from "react-native";
-import {Trash} from "../../assets/svg/illustrations";
-import {RFValue} from "react-native-responsive-fontsize";
+import { ActivityIndicator, Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Trash } from '../../assets/svg/illustrations';
+import { RFValue } from 'react-native-responsive-fontsize';
 import styles from './AlertModal.styles';
 
 /**
@@ -35,14 +35,13 @@ import styles from './AlertModal.styles';
  *    }}
  *  />
  */
-export default ({visible, title, description, buttons, loading}) => {
+export default ({ visible, title, description, buttons, loading }) => {
   return (
     <Modal visible={visible} transparent={true}>
       <View style={styles.deleteModal}>
         <View style={styles.deleteModalContent}>
-
           <View style={styles.trashIcon}>
-            <Trash width={RFValue(17)} height={RFValue(24)}/>
+            <Trash width={RFValue(17)} height={RFValue(24)} />
           </View>
 
           <Text style={styles.deleteModalTitle}>{title}</Text>
@@ -52,21 +51,21 @@ export default ({visible, title, description, buttons, loading}) => {
             <TouchableOpacity
               disabled={loading}
               style={styles.actionsButton}
-              onPress={() => buttons.cancel.onPress()}
-            >
+              onPress={() => buttons.cancel.onPress()}>
               <Text style={styles.actionsButtonText}>{buttons.cancel.text}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               disabled={loading}
-              style={{...styles.actionsButton, ...styles.deleteButton}}
-              onPress={() => buttons.confirm.onPress()}
-            >
-              {loading && <ActivityIndicator color="#fff"/>}
-              <Text style={{...styles.actionsButtonText, ...styles.deleteButtonText}}>{buttons.confirm.text}</Text>
+              style={{ ...styles.actionsButton, ...styles.deleteButton }}
+              onPress={() => buttons.confirm.onPress()}>
+              {loading && <ActivityIndicator color="#fff" />}
+              <Text style={{ ...styles.actionsButtonText, ...styles.deleteButtonText }}>
+                {buttons.confirm.text}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
     </Modal>
-  )
-}
+  );
+};

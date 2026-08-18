@@ -1,18 +1,16 @@
-import { View, Text, StyleSheet } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { SearchWelcome } from "../../../assets/svg/illustrations";
-import { useTranslation } from "react-i18next";
-import { CustomText } from "../../../highordercomponents";
+import { View, Text, StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { SearchWelcome } from '../../../assets/svg/illustrations';
+import { useTranslation } from 'react-i18next';
+import { CustomText } from '../../../highordercomponents';
 
 const Welcome = () => {
-  const { t } = useTranslation("search");
+  const { t } = useTranslation('search');
 
   return (
     <View style={styles.wrapper}>
-        <SearchWelcome width={RFValue(200)} height={RFValue(200)} />
-      <CustomText style={styles.text}>
-        {t("empty_search")}
-     </CustomText>
+      <SearchWelcome width={RFValue(200)} height={RFValue(200)} />
+      <CustomText style={styles.text}>{t('empty_search')}</CustomText>
     </View>
   );
 };
@@ -20,15 +18,15 @@ const Welcome = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-start",
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     marginTop: RFValue(40),
   },
 
   text: {
-    color: "#808080",
+    color: '#808080',
     fontSize: RFValue(14),
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: RFValue(10),
   },
 });

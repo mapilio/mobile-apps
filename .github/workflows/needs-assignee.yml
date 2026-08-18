@@ -6,8 +6,8 @@ on:
   pull_request_target:
     types: [opened, reopened, assigned, unassigned]
   schedule:
-    - cron: '0 9 * * 1'  # Weekly sweep every Monday at 09:00 UTC
-  workflow_dispatch:       # Manual trigger for the initial sweep
+    - cron: '0 9 * * 1' # Weekly sweep every Monday at 09:00 UTC
+  workflow_dispatch: # Manual trigger for the initial sweep
 
 jobs:
   label:

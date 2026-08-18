@@ -6,14 +6,14 @@ import {
   SWITCH_SELECTOR,
   UPLOAD_DATA,
   IS_UPLOADED,
-} from "../../actionsName";
+} from '../../actionsName';
 
 const INITIAL_STATE = {
   progress: 0,
   uploadData: [],
-  activeSequence: "",
+  activeSequence: '',
   sequenceImages: [],
-  switchSelector: "image",
+  switchSelector: 'image',
   isUploaded: true,
   rank: {
     id: 0,

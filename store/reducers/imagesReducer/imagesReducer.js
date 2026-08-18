@@ -2,25 +2,25 @@ import {
   UPDATE_SELECTED_IMAGES,
   UPDATE_UPLOADED_IMAGES,
   UPDATE_ALL_SELECT,
-  UPDATE_CURRENT_SEQUENCE
-} from "../../actionsName";
+  UPDATE_CURRENT_SEQUENCE,
+} from '../../actionsName';
 
 const INITIAL_STATE = {
   uploadedImages: [
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
-    { id: Math.round(new Date().getTime() / 1000).toString(), path: "../assets/images/car.png" },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
+    { id: Math.round(new Date().getTime() / 1000).toString(), path: '../assets/images/car.png' },
   ],
   selectedImages: [],
   allSelect: false,
-  currentSequence: {sequence_uuid:null,user_id:null}
+  currentSequence: { sequence_uuid: null, user_id: null },
 };
 
 const imagesReducer = (state = INITIAL_STATE, action) => {

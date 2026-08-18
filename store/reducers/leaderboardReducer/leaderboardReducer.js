@@ -6,7 +6,7 @@ import {
   SET_LEADERBOARD_CHALLENGE_WINNERS,
   SET_LEADERBOARD_USERS_MONTH,
   SET_LEADERBOARD_USERS_WEEK,
-} from "../../actionsName";
+} from '../../actionsName';
 
 const INITIAL_STATE = {
   users: null,
@@ -55,13 +55,12 @@ const leaderboardReducer = (state = INITIAL_STATE, action) => {
         challangeUsers: null,
         usersMonth: null,
         usersWeek: null,
-        
       };
-      case SET_LEADERBOARD_CHALLENGE_WINNERS:
-        return {
-          ...state,
-          challengeWinners: action.payload,
-        };
+    case SET_LEADERBOARD_CHALLENGE_WINNERS:
+      return {
+        ...state,
+        challengeWinners: action.payload,
+      };
 
     default:
       return state;

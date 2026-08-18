@@ -5,8 +5,8 @@ import {
   GET_USER_INDEX_TYPE,
   GET_USER_INFORMATION,
   EXIT_USER,
-  SET_CREDENTIAL
-} from "../../actionsName";
+  SET_CREDENTIAL,
+} from '../../actionsName';
 
 const INITIAL_STATE = {
   isLoading: false,
@@ -56,7 +56,7 @@ const auth = (state = INITIAL_STATE, actions) => {
       return {
         ...state,
         credential: actions.payload,
-      }
+      };
     case EXIT_USER:
       return {
         ...state,

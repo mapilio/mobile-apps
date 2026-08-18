@@ -2,15 +2,16 @@ import {
   UPDATE_DISTANCE_BETWEEN,
   UPDATE_SELECTED_PROJECT,
   UPDATE_AUTOCAPTURE_START,
-  UPDATE_LOW_RESOLUTION, UPDATE_DEFAULT_STORAGE,
+  UPDATE_LOW_RESOLUTION,
+  UPDATE_DEFAULT_STORAGE,
 } from '../../actionsName';
 
 const INITIAL_STATE = {
   distanceBetween: 5,
   autoCaptureStart: false,
   lowResolution: false,
-  selectedProject: {type: "individual", key: 0, projectName: ""},
-  defaultStoragePath: "internal", // this state change only in android devices
+  selectedProject: { type: 'individual', key: 0, projectName: '' },
+  defaultStoragePath: 'internal', // this state change only in android devices
 };
 
 const settingsReducer = (state = INITIAL_STATE, action) => {

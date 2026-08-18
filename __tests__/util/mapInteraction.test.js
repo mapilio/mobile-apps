@@ -1,7 +1,7 @@
-import { isUserInitiatedRegionMovement } from "../../util/mapInteraction";
+import { isUserInitiatedRegionMovement } from '../../util/mapInteraction';
 
-describe("isUserInitiatedRegionMovement", () => {
-  it("recognizes an Android user gesture", () => {
+describe('isUserInitiatedRegionMovement', () => {
+  it('recognizes an Android user gesture', () => {
     expect(
       isUserInitiatedRegionMovement({
         properties: { isUserInteraction: true, animated: false },
@@ -9,7 +9,7 @@ describe("isUserInitiatedRegionMovement", () => {
     ).toBe(true);
   });
 
-  it("does not classify an Android developer animation as user movement", () => {
+  it('does not classify an Android developer animation as user movement', () => {
     expect(
       isUserInitiatedRegionMovement({
         properties: { isUserInteraction: true, animated: true },
@@ -17,7 +17,7 @@ describe("isUserInitiatedRegionMovement", () => {
     ).toBe(false);
   });
 
-  it("does not classify non-user camera changes as user movement", () => {
+  it('does not classify non-user camera changes as user movement', () => {
     expect(
       isUserInitiatedRegionMovement({
         properties: { isUserInteraction: false, animated: false },
@@ -25,7 +25,7 @@ describe("isUserInitiatedRegionMovement", () => {
     ).toBe(false);
   });
 
-  it("handles missing or incomplete region events safely", () => {
+  it('handles missing or incomplete region events safely', () => {
     expect(isUserInitiatedRegionMovement()).toBe(false);
     expect(isUserInitiatedRegionMovement({})).toBe(false);
     expect(isUserInitiatedRegionMovement({ properties: {} })).toBe(false);

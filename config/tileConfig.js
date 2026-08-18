@@ -11,13 +11,13 @@ export const getTileConfig = (env) => {
     env.EXPO_PUBLIC_ROAD_TILE_URL,
     env.EXPO_PUBLIC_ROAD_TILE_ID,
     env.EXPO_PUBLIC_MAPBOX_ROAD_URL,
-    env.EXPO_PUBLIC_MAPBOX_ROAD_ID,
+    env.EXPO_PUBLIC_MAPBOX_ROAD_ID
   );
   const point = resolveTileSource(
     env.EXPO_PUBLIC_POINT_TILE_URL,
     env.EXPO_PUBLIC_POINT_TILE_ID,
     env.EXPO_PUBLIC_MAPBOX_POINT_URL,
-    env.EXPO_PUBLIC_MAPBOX_POINT_ID,
+    env.EXPO_PUBLIC_MAPBOX_POINT_ID
   );
 
   return {

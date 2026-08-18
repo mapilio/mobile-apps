@@ -1,45 +1,46 @@
-import {centroid, polygon} from "@turf/turf"
+import { centroid, polygon } from '@turf/turf';
 
 const getCoordinate = (data) => {
-	if (data.location) {
-		return [JSON.parse(data.location).longitude, JSON.parse(data.location).latitude]
-	}
-	return [Number(data.longitude), Number(data.latitude)]
-}
+  if (data.location) {
+    return [JSON.parse(data.location).longitude, JSON.parse(data.location).latitude];
+  }
+  return [Number(data.longitude), Number(data.latitude)];
+};
 
 const setLineGeoJson = (data = []) => {
-	let line = {
-		type: "FeatureCollection",
-		features: [{type: "Feature", geometry: {type: "LineString", coordinates: []}, properties: {}}]
-	};
+  let line = {
+    type: 'FeatureCollection',
+    features: [
+      { type: 'Feature', geometry: { type: 'LineString', coordinates: [] }, properties: {} },
+    ],
+  };
 
-	data.map((properties) => {
-		line.features[0].geometry.coordinates.push(getCoordinate(properties));
-	});
+  data.map((properties) => {
+    line.features[0].geometry.coordinates.push(getCoordinate(properties));
+  });
 
-	return line;
-}
+  return line;
+};
 
 const setPointGeoJson = (data) => {
-	let points = {type: "FeatureCollection", features: []};
+  let points = { type: 'FeatureCollection', features: [] };
 
-	data.map((item, index) => {
-		item.count = ++index;
+  data.map((item, index) => {
+    item.count = ++index;
 
-		points.features.push({
-			type: "Feature",
-			properties: {item},
-			geometry: { type: "Point", coordinates: getCoordinate(item) },
-		});
-	});
+    points.features.push({
+      type: 'Feature',
+      properties: { item },
+      geometry: { type: 'Point', coordinates: getCoordinate(item) },
+    });
+  });
 
-	return points;
-}
+  return points;
+};
 
 const setPolygonGeoJson = (data) => {
-	return polygon(data)
-}
-
+  return polygon(data);
+};
 
 /**
  * @param data {array}
@@ -47,33 +48,33 @@ const setPolygonGeoJson = (data) => {
  * @returns {object}
  */
 export const setGeoJson = (data, type) => {
-	let geoJson = {};
+  let geoJson = {};
 
-	switch (type) {
-		case "line":
-			geoJson = setLineGeoJson(data);
-			break
-		case "point":
-			geoJson = setPointGeoJson(data)
-			break
-		case "polygon":
-			geoJson = setPolygonGeoJson(data)
-			break
-		default:
-			break
-	}
+  switch (type) {
+    case 'line':
+      geoJson = setLineGeoJson(data);
+      break;
+    case 'point':
+      geoJson = setPointGeoJson(data);
+      break;
+    case 'polygon':
+      geoJson = setPolygonGeoJson(data);
+      break;
+    default:
+      break;
+  }
 
-	return geoJson;
-}
+  return geoJson;
+};
 
 export const centerCoordinatesByPolygons = (geoJson) => {
-	let points = {type: "FeatureCollection", features: []};
+  let points = { type: 'FeatureCollection', features: [] };
 
-	geoJson.features?.map((feature, _i) => {
-		let centeredPoint = centroid(feature);
-		centeredPoint.properties = feature.properties
-		points.features.push(centeredPoint)
-	})
+  geoJson.features?.map((feature, _i) => {
+    let centeredPoint = centroid(feature);
+    centeredPoint.properties = feature.properties;
+    points.features.push(centeredPoint);
+  });
 
-	return points;
-}
+  return points;
+};

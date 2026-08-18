@@ -1,52 +1,41 @@
-import React, { memo, useEffect, useRef, useState } from "react";
-import {
-  Platform,
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  AppState,
-} from "react-native";
-import { appMapStyle } from "../styles/appMapStyle";
-import { RFValue } from "react-native-responsive-fontsize";
-import { MapView } from "../highordercomponents";
+import React, { memo, useEffect, useRef, useState } from 'react';
+import { Platform, View, StyleSheet, ActivityIndicator, AppState } from 'react-native';
+import { appMapStyle } from '../styles/appMapStyle';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { MapView } from '../highordercomponents';
 
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Search } from "../components/Search";
-import { initialPermissions } from "../helper/helper";
-import { RESULTS } from "react-native-permissions";
-import { point } from "@turf/turf";
-import { useDispatch, useSelector } from "react-redux";
-import { Routes } from "../navigator/Routes";
-import FocusAwareStatusBar from "../components/FocusAwareStatusBar";
-import { ActiveSources, Lines, Points } from "../components/Map/layers";
-import {
-  CenterToUserButton,
-  ProfileButton,
-  Pano,
-  AttributionButton,
-} from "../components/Map";
-import { MapilioBetaWatermark } from "../assets/svg/illustrations";
-import MapLoading from "../components/Map/MapLoading";
-import { useTranslation } from "react-i18next";
-import { api } from "../util/helpers/api";
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import { getConfig, checkMaintenance } from "../store/actions/generalReducer";
-import { NewsletterModal } from "../components/SocialLogin";
-import { captureMessage } from "@sentry/react-native";
-import { probeVectorTile } from "../util/mapOverlayHealth";
-import { isUserInitiatedRegionMovement } from "../util/mapInteraction";
-import { tileConfig } from "../config/tileConfig";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Search } from '../components/Search';
+import { initialPermissions } from '../helper/helper';
+import { RESULTS } from 'react-native-permissions';
+import { point } from '@turf/turf';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes } from '../navigator/Routes';
+import FocusAwareStatusBar from '../components/FocusAwareStatusBar';
+import { ActiveSources, Lines, Points } from '../components/Map/layers';
+import { CenterToUserButton, ProfileButton, Pano, AttributionButton } from '../components/Map';
+import { MapilioBetaWatermark } from '../assets/svg/illustrations';
+import MapLoading from '../components/Map/MapLoading';
+import { useTranslation } from 'react-i18next';
+import { api } from '../util/helpers/api';
+import MapLibreGL from '@maplibre/maplibre-react-native';
+import { getConfig, checkMaintenance } from '../store/actions/generalReducer';
+import { NewsletterModal } from '../components/SocialLogin';
+import { captureMessage } from '@sentry/react-native';
+import { probeVectorTile } from '../util/mapOverlayHealth';
+import { isUserInitiatedRegionMovement } from '../util/mapInteraction';
+import { tileConfig } from '../config/tileConfig';
 
 const DEFAULT_MAP_CENTER = [28.9784, 41.0082];
 const MAP_OVERLAY_RETRY_MS = 60000;
 const MAP_OVERLAY_PROBES = {
   roads: {
     template: tileConfig.roadUrl,
-    coordinates: {zoom: 6, x: 37, y: 24},
+    coordinates: { zoom: 6, x: 37, y: 24 },
   },
   points: {
     template: tileConfig.pointUrl,
-    coordinates: {zoom: 12, x: 2377, y: 1535},
+    coordinates: { zoom: 12, x: 2377, y: 1535 },
   },
 };
 
@@ -61,20 +50,18 @@ const AppMap = ({ navigation }) => {
     roads: false,
     points: false,
   });
-  const { welcomeWalkthroughStatus } = useSelector(
-    (state) => state.generalReducer
-  );
+  const { welcomeWalkthroughStatus } = useSelector((state) => state.generalReducer);
   const { connection } = useSelector((state) => state.generalReducer);
   let cameraRef = useRef();
   let mapRef = useRef();
   const { top } = useSafeAreaInsets();
   const { auth } = useSelector((state) => state.getTokenReducer);
-  const { t } = useTranslation("map");
+  const { t } = useTranslation('map');
   const initialCoordinate = useRef(null);
   const appState = useRef(AppState.currentState);
   const dispatch = useDispatch();
   const followUserLocation = useRef(false);
-  const overlayAvailabilityRef = useRef({roads: null, points: null});
+  const overlayAvailabilityRef = useRef({ roads: null, points: null });
 
   useEffect(() => {
     let active = true;
@@ -86,7 +73,7 @@ const AppMap = ({ navigation }) => {
       }
 
       const diagnostic = {
-        event: "map_overlay_health",
+        event: 'map_overlay_health',
         overlay: name,
         available: result.available,
         reason: result.reason,
@@ -95,10 +82,10 @@ const AppMap = ({ navigation }) => {
 
       if (__DEV__) {
         // eslint-disable-next-line no-console
-        console.info("[map-overlay]", diagnostic);
+        console.info('[map-overlay]', diagnostic);
       } else if (!result.available) {
-        captureMessage("Map overlay unavailable", {
-          level: "warning",
+        captureMessage('Map overlay unavailable', {
+          level: 'warning',
           tags: {
             overlay: name,
             reason: result.reason,
@@ -110,17 +97,14 @@ const AppMap = ({ navigation }) => {
 
     const checkOverlays = async (names = Object.keys(MAP_OVERLAY_PROBES)) => {
       const results = await Promise.all(
-        names.map(async (name) => [
-          name,
-          await probeVectorTile(MAP_OVERLAY_PROBES[name]),
-        ])
+        names.map(async (name) => [name, await probeVectorTile(MAP_OVERLAY_PROBES[name])])
       );
 
       if (!active) {
         return;
       }
 
-      const nextAvailability = {...overlayAvailabilityRef.current};
+      const nextAvailability = { ...overlayAvailabilityRef.current };
       const unavailable = [];
 
       results.forEach(([name, result]) => {
@@ -135,10 +119,7 @@ const AppMap = ({ navigation }) => {
       setAvailableOverlays(nextAvailability);
 
       if (unavailable.length > 0) {
-        retryTimer = setTimeout(
-          () => checkOverlays(unavailable),
-          MAP_OVERLAY_RETRY_MS
-        );
+        retryTimer = setTimeout(() => checkOverlays(unavailable), MAP_OVERLAY_RETRY_MS);
       }
     };
 
@@ -151,21 +132,17 @@ const AppMap = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    !connection.connectionStatus &&
-      navigation.navigate(Routes.noInternetAccess);
+    !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
     initialPermissions();
-    
-    const listener = AppState.addEventListener("change", handleAppStateChange);
+
+    const listener = AppState.addEventListener('change', handleAppStateChange);
     return () => {
       listener.remove();
     };
   }, []);
 
   const handleAppStateChange = (nextAppState) => {
-    if (
-      appState.current.match(/inactive|background/) &&
-      nextAppState === "active"
-    ) {
+    if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
       dispatch(getConfig());
       dispatch(checkMaintenance());
     }
@@ -174,8 +151,8 @@ const AppMap = ({ navigation }) => {
 
   useEffect(() => {
     if (!isMapReady && welcomeWalkthroughStatus) {
-      toast.show(t("map_loading"), {
-        type: "loading",
+      toast.show(t('map_loading'), {
+        type: 'loading',
         duration: 3000,
       });
     } else {
@@ -206,13 +183,13 @@ const AppMap = ({ navigation }) => {
     }
 
     const imageDetails = await api
-      .get("/api/sequence-detail?sequence_uuid=" + properties.sequence_uuid)
+      .get('/api/sequence-detail?sequence_uuid=' + properties.sequence_uuid)
       .then((res) => {
         const image = res.data.find((image) => image.id === properties.id);
         return image;
       })
       .catch(() => {
-        toast.show(t("pano_error"), { type: "error" });
+        toast.show(t('pano_error'), { type: 'error' });
       });
 
     setPointInformation({
@@ -233,9 +210,9 @@ const AppMap = ({ navigation }) => {
   const handleSetCenter = async () => {
     initialPermissions().then((res) => {
       if (res !== RESULTS.GRANTED) {
-        toast.show(t("gps_disabled"), { type: "error" });
+        toast.show(t('gps_disabled'), { type: 'error' });
       } else {
-        followUserLocation.current = !followUserLocation.current
+        followUserLocation.current = !followUserLocation.current;
       }
     });
   };
@@ -243,7 +220,7 @@ const AppMap = ({ navigation }) => {
   const handleProfile = () => {
     if (auth) {
       navigation.navigate(Routes.stackNavigator, {
-        screen: Routes.profileNavigator
+        screen: Routes.profileNavigator,
       });
       return true;
     } else {
@@ -256,8 +233,8 @@ const AppMap = ({ navigation }) => {
 
   const mapStyles = {
     ...appMapStyle.map,
-    height: showPano ? "50%" : "100%",
-    backgroundColor: "white",
+    height: showPano ? '50%' : '100%',
+    backgroundColor: 'white',
   };
 
   const onDidFinishLoadingMap = () => {
@@ -269,25 +246,24 @@ const AppMap = ({ navigation }) => {
       <View
         style={{
           zIndex: 2,
-          justifyContent: "center",
+          justifyContent: 'center',
           ...StyleSheet.absoluteFillObject,
         }}
-        pointerEvents="none"
-      >
+        pointerEvents="none">
         <ActivityIndicator size="large" color="#191919" />
       </View>
     );
-  }
+  };
 
   return (
     <View style={{ flex: 1 }}>
-      {!isMapReady && <MapLoading style={{position: "absolute", zIndex: 10}} />}
+      {!isMapReady && <MapLoading style={{ position: 'absolute', zIndex: 10 }} />}
       {isPanoLoading && <PanoLoading />}
       <NewsletterModal />
 
       <FocusAwareStatusBar
         barStyle="dark-content"
-        backgroundColor={"transparent"}
+        backgroundColor={'transparent'}
         translucent={true}
       />
       {showPano && (
@@ -306,33 +282,23 @@ const AppMap = ({ navigation }) => {
             followUserLocation.current = false;
           }
         }}
-        rotateEnabled={false}
-      >
+        rotateEnabled={false}>
         <MapLibreGL.Camera
-          animationMode={"flyTo"}
+          animationMode={'flyTo'}
           ref={cameraRef}
           zoomLevel={6}
-          centerCoordinate={
-            initialCoordinate.current?.geometry?.coordinates ?? DEFAULT_MAP_CENTER
-          }
+          centerCoordinate={initialCoordinate.current?.geometry?.coordinates ?? DEFAULT_MAP_CENTER}
         />
-        {isMapReady && availableOverlays.points && (
-          <Points touchPoint={touchPoint} />
-        )}
-        {isMapReady && availableOverlays.roads && (
-          <Lines zoomPoint={zoomPoint} />
-        )}
+        {isMapReady && availableOverlays.points && <Points touchPoint={touchPoint} />}
+        {isMapReady && availableOverlays.roads && <Lines zoomPoint={zoomPoint} />}
 
         {showLocation && (
           <MapLibreGL.UserLocation
-            renderMode={Platform.OS === "ios" ? "native" : "normal"}
+            renderMode={Platform.OS === 'ios' ? 'native' : 'normal'}
             onUpdate={(e) => {
-              if(followUserLocation.current){
+              if (followUserLocation.current) {
                 cameraRef.current?.setCamera({
-                  centerCoordinate: [
-                    e.coords.longitude,
-                    e.coords.latitude,
-                  ],
+                  centerCoordinate: [e.coords.longitude, e.coords.latitude],
                   zoomLevel: 15,
                   heading: 0,
                   pitch: 0,
@@ -345,10 +311,7 @@ const AppMap = ({ navigation }) => {
         )}
 
         {clickedCoord && showPano && (
-          <ActiveSources
-            clickedCoord={clickedCoord}
-            pointInformation={pointInformation}
-          />
+          <ActiveSources clickedCoord={clickedCoord} pointInformation={pointInformation} />
         )}
       </MapView>
       <View style={appMapStyle.watermark}>
@@ -365,9 +328,7 @@ const AppMap = ({ navigation }) => {
       </View>
       {/* Keep these controls outside the map view for early Android rendering compatibility. */}
       {!showPano && (
-        <View
-          style={[appMapStyle.topWrapper, { marginTop: top + RFValue(10) }]}
-        >
+        <View style={[appMapStyle.topWrapper, { marginTop: top + RFValue(10) }]}>
           <Search camera={cameraRef} />
           <ProfileButton onPress={handleProfile} />
         </View>

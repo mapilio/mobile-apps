@@ -1,17 +1,21 @@
-import { useRef, useState } from "react";
-import { FlatList, View, TouchableOpacity } from "react-native";
-import { leaderStyles as styles } from "../../styles/leaderStyles";
-import renderItem from "./RenderItem";
-import AuthUserButton from "./AuthUserButton";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchLeaderUsers, fetchLeaderUsersWeek, fetchLeaderUsersMonth } from "../../store/actions/leaderboard";
-import { RFValue } from "react-native-responsive-fontsize";
-import { vibrate } from "../../util/helpers";
-import InfoBox from "../InfoBox/InfoBox";
-import { Trans } from "react-i18next";
-import { CustomTextBold } from "../../highordercomponents";
-import WinnersBox from "./WinnersBox";
-import i18next from "i18next";
+import { useRef, useState } from 'react';
+import { FlatList, View, TouchableOpacity } from 'react-native';
+import { leaderStyles as styles } from '../../styles/leaderStyles';
+import renderItem from './RenderItem';
+import AuthUserButton from './AuthUserButton';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchLeaderUsers,
+  fetchLeaderUsersWeek,
+  fetchLeaderUsersMonth,
+} from '../../store/actions/leaderboard';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { vibrate } from '../../util/helpers';
+import InfoBox from '../InfoBox/InfoBox';
+import { Trans } from 'react-i18next';
+import { CustomTextBold } from '../../highordercomponents';
+import WinnersBox from './WinnersBox';
+import i18next from 'i18next';
 
 const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
   const dispatch = useDispatch();
@@ -20,11 +24,11 @@ const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
   const [isRefresh, setIsRefresh] = useState(false);
   const flatListRef = useRef(null);
 
-  const challengeWinners = useSelector(
-    (state) => state.leaderboardReducer.challengeWinners
-  );
+  const challengeWinners = useSelector((state) => state.leaderboardReducer.challengeWinners);
 
-  const {config:{isInfoBoxOpen, infoBoxDescTR, infoBoxDescEN, challengeDates}} = useSelector((state) => state.generalReducer);
+  const {
+    config: { isInfoBoxOpen, infoBoxDescTR, infoBoxDescEN, challengeDates },
+  } = useSelector((state) => state.generalReducer);
 
   const onViewableItemsChanged = ({ viewableItems }) => {
     const isAuthUserExistInVisibleIndex =
@@ -32,14 +36,12 @@ const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
         return item.index === authUserIndex;
       }).length > 0;
 
-    isAuthUserExistInVisibleIndex
-      ? setIsAuthUserVisible(false)
-      : setIsAuthUserVisible(true);
+    isAuthUserExistInVisibleIndex ? setIsAuthUserVisible(false) : setIsAuthUserVisible(true);
   };
 
   const viewabilityConfigCallbackPairs = useRef([{ onViewableItemsChanged }]);
   const scrollToIndex = () => {
-    vibrate("light")
+    vibrate('light');
     flatListRef.current.scrollToIndex({ index: authUserIndex });
   };
 
@@ -49,11 +51,11 @@ const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
   const refreshLeaderboard = () => {
     setIsRefresh(true);
     setTimeout(() => {
-      if (usersType === "all") {
+      if (usersType === 'all') {
         dispatch(fetchLeaderUsers());
-      } else if (usersType === "week") {
+      } else if (usersType === 'week') {
         dispatch(fetchLeaderUsersWeek());
-      } else if (usersType === "month") {
+      } else if (usersType === 'month') {
         dispatch(fetchLeaderUsersMonth());
       } else {
         dispatch(fetchLeaderUsers(challengeDates[0], challengeDates[1], true));
@@ -63,33 +65,33 @@ const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
   };
 
   const InfoHeader = () => {
-    if (listType === "challange_users") {
-     if(isInfoBoxOpen) {
+    if (listType === 'challange_users') {
+      if (isInfoBoxOpen) {
         return (
           <View style={{ paddingVertical: RFValue(10) }}>
             <InfoBox
               type="info"
               content={
                 <Trans
-                  defaults={i18next.language === "en" ? infoBoxDescEN : infoBoxDescTR}
+                  defaults={i18next.language === 'en' ? infoBoxDescEN : infoBoxDescTR}
                   components={[<CustomTextBold />]}
                 />
               }
             />
           </View>
         );
-      }else if (challengeWinners.is_calculated && challengeWinners.leaderboard.length > 0) {
+      } else if (challengeWinners.is_calculated && challengeWinners.leaderboard.length > 0) {
         return <WinnersBox winners={challengeWinners.leaderboard} />;
-      } else{
-        return null
+      } else {
+        return null;
       }
     }
-  }
+  };
 
   return (
     <View style={styles.subScreens}>
       <FlatList
-        style={{paddingHorizontal:RFValue(10)}}
+        style={{ paddingHorizontal: RFValue(10) }}
         ref={flatListRef}
         data={leaders}
         extraData={authUserIndex}
@@ -103,18 +105,17 @@ const LeadersList = ({ leaders, authUserIndex, listType, usersType }) => {
         }}
         ListHeaderComponent={() => <InfoHeader />}
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
-        renderItem={({ item, index }) =>
-          renderItem({ item, index }, authUserIndex, listType)
-        }
-        ListFooterComponent={() =>
-          <View style={{ height: RFValue(24) }} />
-        }
+        renderItem={({ item, index }) => renderItem({ item, index }, authUserIndex, listType)}
+        ListFooterComponent={() => <View style={{ height: RFValue(24) }} />}
       />
       {AuthUserInLeadersAndVisible ? (
         <TouchableOpacity
-          style={{ ...styles.authUserInList, marginBottom: RFValue(21), paddingHorizontal:RFValue(10) }}
-          onPress={scrollToIndex}
-        >
+          style={{
+            ...styles.authUserInList,
+            marginBottom: RFValue(21),
+            paddingHorizontal: RFValue(10),
+          }}
+          onPress={scrollToIndex}>
           <AuthUserButton
             onPress={scrollToIndex}
             authUser={authUser}

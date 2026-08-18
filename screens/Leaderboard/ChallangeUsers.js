@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import LeadersList from "../../components/Leaderboard/LeadersList";
+import { useSelector } from 'react-redux';
+import LeadersList from '../../components/Leaderboard/LeadersList';
 
 const ChallangeUsers = () => {
-  const {challengeUsers} = useSelector((state) => state.leaderboardReducer);
+  const { challengeUsers } = useSelector((state) => state.leaderboardReducer);
 
   const authUserUsername = useSelector((state) => {
     if (state.getTokenReducer.userInformation) {
@@ -18,7 +18,7 @@ const ChallangeUsers = () => {
     <LeadersList
       leaders={challengeUsers}
       authUserIndex={authUserIndex}
-      listType={"challange_users"}
+      listType={'challange_users'}
     />
   );
 };

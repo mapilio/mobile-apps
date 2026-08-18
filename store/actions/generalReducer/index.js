@@ -1,49 +1,42 @@
-import { api, cdn } from "../../../util/helpers/api";
+import { api, cdn } from '../../../util/helpers/api';
 
-import { SET_CONFIG, SET_MAINTENANCE_MODE } from "../../../store/actionsName";
-import * as Application from "expo-application";
-import { Alert, Platform, Linking } from "react-native";
-import { translate } from "../../../util/helpers";
-import * as Network from "expo-network";
+import { SET_CONFIG, SET_MAINTENANCE_MODE } from '../../../store/actionsName';
+import * as Application from 'expo-application';
+import { Alert, Platform, Linking } from 'react-native';
+import { translate } from '../../../util/helpers';
+import * as Network from 'expo-network';
 
 export const checkVersion = (versionData) => {
   const platform = Platform.OS;
 
   const { version } = versionData;
 
-  if (platform !== "ios" && platform !== "android") {
+  if (platform !== 'ios' && platform !== 'android') {
     console.warn(
-      "Platform is not supported for version check. Expected ios or android, got " +
-        platform
+      'Platform is not supported for version check. Expected ios or android, got ' + platform
     );
     return;
   }
 
-  const appVersion = parseInt(
-    Application.nativeApplicationVersion.split(".").join("")
-  );
-  const latestVersion = parseInt(version.split(".").join(""));
+  const appVersion = parseInt(Application.nativeApplicationVersion.split('.').join(''));
+  const latestVersion = parseInt(version.split('.').join(''));
 
   if (appVersion < latestVersion) {
     Alert.alert(
-      translate("update_required_title", "alerts"),
-      translate("update_required_description", "alerts"),
+      translate('update_required_title', 'alerts'),
+      translate('update_required_description', 'alerts'),
       [
         {
-          text: translate("later", "alerts"),
-          style: "cancel",
+          text: translate('later', 'alerts'),
+          style: 'cancel',
         },
         {
-          text: translate("update", "alerts"),
+          text: translate('update', 'alerts'),
           onPress: () => {
-            if (platform === "ios") {
-              Linking.openURL(
-                "https://apps.apple.com/tr/app/mapilio/id1609035791"
-              );
+            if (platform === 'ios') {
+              Linking.openURL('https://apps.apple.com/tr/app/mapilio/id1609035791');
             } else {
-              Linking.openURL(
-                "https://play.google.com/store/apps/details?id=com.mapilio.app"
-              );
+              Linking.openURL('https://play.google.com/store/apps/details?id=com.mapilio.app');
             }
           },
         },
@@ -54,9 +47,9 @@ export const checkVersion = (versionData) => {
 export const getConfig = () => {
   return (dispatch) => {
     api
-      .get("/config/general", {
+      .get('/config/general', {
         headers: {
-          "X-Mapilio-Config-Token": process.env.EXPO_PUBLIC_APP_CONFIG_TOKEN,
+          'X-Mapilio-Config-Token': process.env.EXPO_PUBLIC_APP_CONFIG_TOKEN,
         },
       })
       .then(({ config }) => {
@@ -73,23 +66,20 @@ export const getConfig = () => {
             infoBoxDescEN,
             showWeek,
           },
-          socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled,isOSMEnabled },
+          socialLogin: { isFacebookEnabled, isGoogleEnabled, isAppleEnabled, isOSMEnabled },
           versions: { ios, android },
-          mapTokens:{
-            androidToken,
-            iosToken
-          },
-          osmModal
+          mapTokens: { androidToken, iosToken },
+          osmModal,
         } = config;
 
-        const versionData = Platform.OS === "ios" ? ios : android;
+        const versionData = Platform.OS === 'ios' ? ios : android;
         checkVersion(versionData);
 
         dispatch({
           type: SET_CONFIG,
           payload: {
             isMarketOpen,
-            challengeDates: challengeDates.split(","),
+            challengeDates: challengeDates.split(','),
             isChallengeOpen,
             challengeDescEN,
             challengeDescTR,
@@ -102,7 +92,7 @@ export const getConfig = () => {
               isFacebookEnabled,
               isGoogleEnabled,
               isAppleEnabled,
-              isOSMEnabled
+              isOSMEnabled,
             },
             versions: {
               ios: {
@@ -114,16 +104,16 @@ export const getConfig = () => {
                 minVersion: android.minVersion,
               },
             },
-            mapTokens:{
+            mapTokens: {
               androidToken,
-              iosToken
+              iosToken,
             },
-            osmModal:{
+            osmModal: {
               titleTR: osmModal.titleTR,
               titleEN: osmModal.titleEN,
               descriptionTR: osmModal.descriptionTR,
               descriptionEN: osmModal.descriptionEN,
-            }
+            },
           },
         });
       })
@@ -141,19 +131,21 @@ export const getConfig = () => {
 
 export const checkMaintenance = () => {
   return (dispatch) => {
-    Network.getNetworkStateAsync().then(({ isConnected }) => {
-      if (isConnected) {
-        cdn
-          .get("/v1/hearbeat-check")
-          .then(({ mode }) => {
-            dispatch({ type: SET_MAINTENANCE_MODE, payload: mode });
-          })
-          .catch(() => {
-            dispatch({ type: SET_MAINTENANCE_MODE, payload: true });
-          });
-      }
-    }).catch(() => {
-      dispatch({ type: SET_MAINTENANCE_MODE, payload: false });
-    }) 
-  }
+    Network.getNetworkStateAsync()
+      .then(({ isConnected }) => {
+        if (isConnected) {
+          cdn
+            .get('/v1/hearbeat-check')
+            .then(({ mode }) => {
+              dispatch({ type: SET_MAINTENANCE_MODE, payload: mode });
+            })
+            .catch(() => {
+              dispatch({ type: SET_MAINTENANCE_MODE, payload: true });
+            });
+        }
+      })
+      .catch(() => {
+        dispatch({ type: SET_MAINTENANCE_MODE, payload: false });
+      });
+  };
 };

@@ -21,11 +21,7 @@ jest.mock('i18next', () => ({
   t: (key) => key,
 }));
 
-import {
-  maxCharacterHandler,
-  thousandFormatter,
-  headingPointGeoJson,
-} from '../../helper/helper';
+import { maxCharacterHandler, thousandFormatter, headingPointGeoJson } from '../../helper/helper';
 
 describe('maxCharacterHandler', () => {
   it('returns text unchanged when within limit', () => {
@@ -70,7 +66,7 @@ describe('thousandFormatter', () => {
 
 describe('headingPointGeoJson', () => {
   it('returns a valid GeoJSON FeatureCollection', () => {
-    const result = headingPointGeoJson(90, [28.979530, 41.015137]);
+    const result = headingPointGeoJson(90, [28.97953, 41.015137]);
     expect(result.type).toBe('FeatureCollection');
     expect(Array.isArray(result.features)).toBe(true);
     expect(result.features).toHaveLength(1);
@@ -82,7 +78,7 @@ describe('headingPointGeoJson', () => {
   });
 
   it('sets coordinates correctly', () => {
-    const coords = [28.979530, 41.015137];
+    const coords = [28.97953, 41.015137];
     const result = headingPointGeoJson(0, coords);
     expect(result.features[0].geometry.coordinates).toEqual(coords);
   });

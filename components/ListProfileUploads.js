@@ -1,16 +1,16 @@
-import React, {useEffect} from "react";
-import {View} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-import {globalStyles} from "../styles/globalStyles";
-import {FeedImageCard} from "./index";
-import SkeletonPlaceholder from "./Skeleton";
-import {CustomText, CustomTextMedium} from "../highordercomponents";
-import {userSequenceStyles} from "../styles/userSequenceStyle";
-import {ActivityIndicator} from "react-native-paper";
-import {useDispatch} from "react-redux";
-import {UPDATE_CURRENT_SEQUENCE} from "../store/actionsName";
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { globalStyles } from '../styles/globalStyles';
+import { FeedImageCard } from './index';
+import SkeletonPlaceholder from './Skeleton';
+import { CustomText, CustomTextMedium } from '../highordercomponents';
+import { userSequenceStyles } from '../styles/userSequenceStyle';
+import { ActivityIndicator } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
+import { UPDATE_CURRENT_SEQUENCE } from '../store/actionsName';
 
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 const ListProfileUploads = ({
   navigation,
@@ -22,13 +22,13 @@ const ListProfileUploads = ({
   loading,
   paginationLoading,
 }) => {
-  const {t} = useTranslation("profile");
+  const { t } = useTranslation('profile');
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let unsubscribe = navigation.addListener("blur", () => {
+    let unsubscribe = navigation.addListener('blur', () => {
       setImagesList([]);
-      dispatch({type: UPDATE_CURRENT_SEQUENCE, payload: null});
+      dispatch({ type: UPDATE_CURRENT_SEQUENCE, payload: null });
     });
     return () => unsubscribe();
   }, [navigation]);
@@ -36,32 +36,26 @@ const ListProfileUploads = ({
   return (
     <View style={globalStyles.container}>
       <View style={{ marginTop: RFValue(25) }}>
-        <CustomTextMedium style={globalStyles.screenTitle}>
-          {t("uploaded_title")}
-        </CustomTextMedium>
-        <CustomText style={globalStyles.screenDescription}>
-          {t("uploaded_subtitle")}
-        </CustomText>
+        <CustomTextMedium style={globalStyles.screenTitle}>{t('uploaded_title')}</CustomTextMedium>
+        <CustomText style={globalStyles.screenDescription}>{t('uploaded_subtitle')}</CustomText>
       </View>
       <View
         style={[
           {
             ...userSequenceStyles.sequenceWrapper,
             ...globalStyles.screenTextMargin,
-            justifyContent: "center",
+            justifyContent: 'center',
           },
-        ]}
-      >
+        ]}>
         {loading
           ? [...Array(16)].map((value, index) => (
               <View
                 style={{
-                  maxWidth: "31%",
+                  maxWidth: '31%',
                   marginRight: RFValue(5),
-                  justifyContent: "space-between",
+                  justifyContent: 'space-between',
                 }}
-                key={index}
-              >
+                key={index}>
                 <SkeletonPlaceholder speed={1000}>
                   <View
                     style={{
@@ -92,12 +86,12 @@ const ListProfileUploads = ({
         {paginationLoading && (
           <ActivityIndicator
             style={{
-              alignSelf: "center",
-              textAlign: "center",
+              alignSelf: 'center',
+              textAlign: 'center',
               marginHorizontal: RFValue(50),
-              minWidth: "100%",
+              minWidth: '100%',
             }}
-            color={"#130C47"}
+            color={'#130C47'}
           />
         )}
       </View>

@@ -1,5 +1,5 @@
-import {Languages} from "../components";
+import { Languages } from '../components';
 
-const Language = () => <Languages />
+const Language = () => <Languages />;
 
 export default Language;

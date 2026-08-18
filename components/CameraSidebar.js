@@ -1,31 +1,27 @@
-import {Fragment, useRef} from "react";
-import {StyleSheet, TouchableOpacity, View} from "react-native";
-import {RFValue} from "react-native-responsive-fontsize";
-import {CustomText, CustomTextBold} from "../highordercomponents";
-import {
-  GoBackIcon,
-  InformationIcon,
-  SettingsIcon,
-} from "../assets/svg/illustrations";
-import CameraActionsButtons from "./CameraActionsButtons";
-import {Routes} from "../navigator/Routes";
-import {useDispatch, useSelector} from "react-redux";
-import {IS_ACTIVE} from "../store/actionsName";
-import * as Brightness from "expo-brightness";
-import {exitCapture} from "../helper/camera";
-import {useTranslation} from "react-i18next";
-import {TooltipWrapper} from "./Tooltip";
-import {tooltipContents} from "../util/consts/tooltip";
+import { Fragment, useRef } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { CustomText, CustomTextBold } from '../highordercomponents';
+import { GoBackIcon, InformationIcon, SettingsIcon } from '../assets/svg/illustrations';
+import CameraActionsButtons from './CameraActionsButtons';
+import { Routes } from '../navigator/Routes';
+import { useDispatch, useSelector } from 'react-redux';
+import { IS_ACTIVE } from '../store/actionsName';
+import * as Brightness from 'expo-brightness';
+import { exitCapture } from '../helper/camera';
+import { useTranslation } from 'react-i18next';
+import { TooltipWrapper } from './Tooltip';
+import { tooltipContents } from '../util/consts/tooltip';
 import db from '../db';
 import { useNavigation } from '@react-navigation/native';
 
-const CapturedComponent = ({navigation, setLowBrightness}) => {
-  const {t} = useTranslation("camera");
+const CapturedComponent = ({ navigation, setLowBrightness }) => {
+  const { t } = useTranslation('camera');
   const permissionsGranted = useRef(false);
 
   const lowLightHandler = () => {
     try {
-      Brightness.getPermissionsAsync().then(async permissions => {
+      Brightness.getPermissionsAsync().then(async (permissions) => {
         if (permissions.status !== Brightness.PermissionStatus.GRANTED && permissions.canAskAgain) {
           permissions = await Brightness.requestPermissionsAsync();
         }
@@ -33,126 +29,148 @@ const CapturedComponent = ({navigation, setLowBrightness}) => {
         if (permissions.status === Brightness.PermissionStatus.GRANTED) {
           permissionsGranted.current = true;
           Brightness.getBrightnessAsync().then(() => {
-            Brightness.setSystemBrightnessAsync(0).then(() => setLowBrightness(true))
-          })
+            Brightness.setSystemBrightnessAsync(0).then(() => setLowBrightness(true));
+          });
         }
-      })
+      });
     } catch (e) {
-      toast.show(`${e}`, {type: 'error'})
+      toast.show(`${e}`, { type: 'error' });
     }
-  }
+  };
 
   return (
     <Fragment>
-      <CustomTextBold style={styles.title}>{t("title")}</CustomTextBold>
-      <CustomText style={styles.description}>{t("description")}</CustomText>
+      <CustomTextBold style={styles.title}>{t('title')}</CustomTextBold>
+      <CustomText style={styles.description}>{t('description')}</CustomText>
       <CameraActionsButtons />
-      <CustomTextBold style={styles.safeMode} onPress={lowLightHandler}>{t("safe_mode")}</CustomTextBold>
+      <CustomTextBold style={styles.safeMode} onPress={lowLightHandler}>
+        {t('safe_mode')}
+      </CustomTextBold>
     </Fragment>
-  )
-}
+  );
+};
 
-const CaptureComponent = ({navigation, exitHandler}) => {
+const CaptureComponent = ({ navigation, exitHandler }) => {
   const dispatch = useDispatch();
 
   const changeRoute = (route) => {
-    dispatch({type: IS_ACTIVE, payload: false})
+    dispatch({ type: IS_ACTIVE, payload: false });
     navigation.navigate(route);
-  }
+  };
 
   return (
     <>
       <View style={styles.buttons}>
-      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate(Routes.captureWalkthrough)}
-        accessibilityRole="button" accessibilityLabel="Capture information">
-        <InformationIcon fill={"#333333"} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.navigate(Routes.captureWalkthrough)}
+          accessibilityRole="button"
+          accessibilityLabel="Capture information">
+          <InformationIcon fill={'#333333'} />
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.menuButton} onPress={() => changeRoute(Routes.generalSettings)}
-        accessibilityRole="button" accessibilityLabel="Camera settings">
-        <SettingsIcon fill={"#333333"} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => changeRoute(Routes.generalSettings)}
+          accessibilityRole="button"
+          accessibilityLabel="Camera settings">
+          <SettingsIcon fill={'#333333'} />
+        </TouchableOpacity>
 
-      <TouchableOpacity style={{...styles.menuButton, backgroundColor:"transparent"}} onPress={exitHandler}
-        accessibilityRole="button" accessibilityLabel="Exit camera">
-        <GoBackIcon/>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={{ ...styles.menuButton, backgroundColor: 'transparent' }}
+          onPress={exitHandler}
+          accessibilityRole="button"
+          accessibilityLabel="Exit camera">
+          <GoBackIcon />
+        </TouchableOpacity>
       </View>
-  
-      <TooltipWrapper content={tooltipContents.camera.startCapture} name={"startCapture"} placement={"left"}>
+
+      <TooltipWrapper
+        content={tooltipContents.camera.startCapture}
+        name={'startCapture'}
+        placement={'left'}>
         <CameraActionsButtons />
       </TooltipWrapper>
     </>
-  )
-}
+  );
+};
 
-const CameraSidebar = ({setLowBrightness}) => {
+const CameraSidebar = ({ setLowBrightness }) => {
   const navigation = useNavigation();
-  const {autoCaptureStart} = useSelector((state) => state.settingsReducer);
-  const {groupId} = useSelector((status) => status.cameraReducer);
+  const { autoCaptureStart } = useSelector((state) => state.settingsReducer);
+  const { groupId } = useSelector((status) => status.cameraReducer);
 
   const exitHandler = async () => {
-    const data = await db.getCapturesByGroupID(groupId)
+    const data = await db.getCapturesByGroupID(groupId);
 
     if (data.length <= 5) {
-      navigation.navigate(Routes.uploadTab, {screen: Routes.captureWalkthrough});
+      navigation.navigate(Routes.uploadTab, { screen: Routes.captureWalkthrough });
       exitCapture();
       return;
     }
 
-    navigation.reset({index: 0, routes: [{name: Routes.uploadTab, params: {screen: Routes.captureCompleted}}]});
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.uploadTab, params: { screen: Routes.captureCompleted } }],
+    });
     exitCapture();
-  }
+  };
 
   return (
     <View style={styles.wrapper}>
-      {autoCaptureStart
-        ? <CapturedComponent navigation={navigation} setLowBrightness={setLowBrightness} exitHandler={exitHandler}/>
-        : <CaptureComponent navigation={navigation} exitHandler={exitHandler}/>
-      }
+      {autoCaptureStart ? (
+        <CapturedComponent
+          navigation={navigation}
+          setLowBrightness={setLowBrightness}
+          exitHandler={exitHandler}
+        />
+      ) : (
+        <CaptureComponent navigation={navigation} exitHandler={exitHandler} />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex:1,
-    justifyContent: "center",
+    flex: 1,
+    justifyContent: 'center',
   },
   title: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     marginTop: RFValue(-50),
-    textAlign: "center",
-    marginLeft: "auto",
-    marginRight: "auto"
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   description: {
-    textAlign: "center",
-    color: "#FFFFFF",
+    textAlign: 'center',
+    color: '#FFFFFF',
     fontSize: RFValue(12),
   },
   safeMode: {
-    color: "#ffc231",
-    textAlign: "center",
+    color: '#ffc231',
+    textAlign: 'center',
     bottom: RFValue(-80),
-    marginLeft: "auto",
-    marginRight: "auto"
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
-  buttons:{
-    position: "absolute",
+  buttons: {
+    position: 'absolute',
     top: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
-  menuButton:{
-    backgroundColor: "#FFFFFF",
+  menuButton: {
+    backgroundColor: '#FFFFFF',
     borderRadius: RFValue(50),
     width: RFValue(40),
     height: RFValue(40),
-    justifyContent: "center",
-    alignItems: "center",
-  }
-})
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default CameraSidebar;

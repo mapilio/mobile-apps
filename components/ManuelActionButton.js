@@ -10,19 +10,15 @@ import Database from '../db';
 
 // THIS COMPONENT FOR TESTING PURPOSES
 const ManuelActionButton = ({ disabled, uuid }) => {
-  const { cameraStatus, camera } = useSelector(
-    (status) => status.cameraReducer
-  );
+  const { cameraStatus, camera } = useSelector((status) => status.cameraReducer);
   const { selectedProject, defaultStoragePath } = useSelector((status) => status.settingsReducer);
   const { userInformation } = useSelector((state) => state.getTokenReducer);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
   const [photoAmount, setPhotoAmount] = useState(0);
   const dispatch = useDispatch();
 
   // TODO ADD TO HELPER.JS
   const takePicture = async () => {
-
-
     const db = Database.getConnection();
 
     // const id =
@@ -37,13 +33,13 @@ const ManuelActionButton = ({ disabled, uuid }) => {
 
     let storagePath = RNFS.DocumentDirectoryPath;
 
-    if (Platform.OS === "android" && defaultStoragePath === "external") {
+    if (Platform.OS === 'android' && defaultStoragePath === 'external') {
       RNFS.getAllExternalFilesDirs().then((dirs) => {
         storagePath = dirs[1];
-      })
+      });
     }
 
-    const isExit = await RNFS.exists(storagePath + `/${uuid}`)
+    const isExit = await RNFS.exists(storagePath + `/${uuid}`);
 
     // if (!isExit) {
     //   try {
@@ -87,39 +83,32 @@ const ManuelActionButton = ({ disabled, uuid }) => {
         marginBottom: RFValue(-55),
         marginTop: RFValue(35),
       }}
-      onPress={takePicture}
-    >
-      {image.length !== 0 && (
-        <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />
-      )}
+      onPress={takePicture}>
+      {image.length !== 0 && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
       <View
         style={{
-          position: "absolute",
-          top: "12%",
-          left: "12%",
-          bottom: "12%",
-          right: "12%",
+          position: 'absolute',
+          top: '12%',
+          left: '12%',
+          bottom: '12%',
+          right: '12%',
           borderRadius:
-            Math.round(
-              Dimensions.get("window").width + Dimensions.get("window").height
-            ) / 2,
-          backgroundColor: "#ffffff",
+            Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+          backgroundColor: '#ffffff',
         }}
       />
       <View
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
           bottom: 0,
           right: 0,
           borderWidth: RFValue(5),
           margin: RFValue(-2),
-          borderColor: convertHexToRGBA("#FFFFFF", 10),
+          borderColor: convertHexToRGBA('#FFFFFF', 10),
           borderRadius:
-            Math.round(
-              Dimensions.get("window").width + Dimensions.get("window").height
-            ) / 2,
+            Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
         }}
       />
     </TouchableOpacity>

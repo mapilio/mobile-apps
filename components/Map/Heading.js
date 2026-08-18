@@ -1,8 +1,8 @@
-import React from "react";
-import {headingPointGeoJson} from "../../helper/helper";
+import React from 'react';
+import { headingPointGeoJson } from '../../helper/helper';
 // import MapLibreGL from "@maplibre/maplibre-react-native";
 
-const Heading = ({heading, coordinates, markerPath}) => {
+const Heading = ({ heading, coordinates, markerPath }) => {
   return (
     // <MapLibreGL.ShapeSource
     //   id={"headingShape"}
@@ -20,7 +20,7 @@ const Heading = ({heading, coordinates, markerPath}) => {
     //   />
     // </MapLibreGL.ShapeSource>
     <></>
-  )
+  );
 };
 
 export default Heading;

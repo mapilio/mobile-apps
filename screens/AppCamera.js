@@ -1,11 +1,11 @@
-import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
-import * as Brightness from "expo-brightness";
-import React, { useCallback, useEffect, useState } from "react";
-import { Camera, CameraSidebar, Loading } from "../components";
-import { useNavigation, CommonActions } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import * as Brightness from 'expo-brightness';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Camera, CameraSidebar, Loading } from '../components';
+import { useNavigation, CommonActions } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { BackHandler, StatusBar, StyleSheet, AppState, Text, Platform } from 'react-native';
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from 'react-native-responsive-fontsize';
 import {
   GROUP_ID,
   SET_CAMERA_LOCATION,
@@ -14,17 +14,14 @@ import {
   UPDATE_MOCKED_STATUS,
   UPDATE_OPENED_STATUS,
   UPDATE_PHOTO_AMOUNT,
-} from "../store/actionsName";
-import { useDispatch } from "react-redux";
-import * as ScreenOrientation from "expo-screen-orientation";
-import uuid from "react-native-uuid";
-import { exitCapture } from "../helper/camera";
-import { Routes } from "../navigator/Routes";
-import { useOrientation } from "../hooks/ui";
-import {
-  LocationAccuracy,
-  watchPositionAsync,
-} from "expo-location";
+} from '../store/actionsName';
+import { useDispatch } from 'react-redux';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import uuid from 'react-native-uuid';
+import { exitCapture } from '../helper/camera';
+import { Routes } from '../navigator/Routes';
+import { useOrientation } from '../hooks/ui';
+import { LocationAccuracy, watchPositionAsync } from 'expo-location';
 import { captureException } from '@sentry/react-native';
 import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 
@@ -35,10 +32,7 @@ const AppCamera = () => {
   const [lowBrightness, setLowBrightness] = useState(false);
 
   const breakBrightness = () => {
-    lowBrightness &&
-      Brightness.setSystemBrightnessAsync(0.7).then(() =>
-        setLowBrightness(false)
-      );
+    lowBrightness && Brightness.setSystemBrightnessAsync(0.7).then(() => setLowBrightness(false));
   };
 
   const watchPosition = () => {
@@ -68,7 +62,7 @@ const AppCamera = () => {
           function: 'watchPosition',
         },
       });
-      toast.show("GPS Error. Please restart your app", { type: "error" });
+      toast.show('GPS Error. Please restart your app', { type: 'error' });
     });
   };
   const closeHandler = useCallback(() => {
@@ -77,7 +71,7 @@ const AppCamera = () => {
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{name: Routes.uploadTab, params: {screen: Routes.captureCompleted}}]
+        routes: [{ name: Routes.uploadTab, params: { screen: Routes.captureCompleted } }],
       })
     );
   }, []);
@@ -87,12 +81,10 @@ const AppCamera = () => {
     dispatch({ type: GROUP_ID, payload: uuid.v4() });
     dispatch({ type: UPDATE_PHOTO_AMOUNT, payload: 0 });
     dispatch({ type: UPDATE_OPENED_STATUS, payload: false });
-    activateKeepAwakeAsync("camera").catch((error) =>
-      toast.show(`${error}`, { type: "error" })
-    );
+    activateKeepAwakeAsync('camera').catch((error) => toast.show(`${error}`, { type: 'error' }));
     const gpsSubscription = watchPosition();
-    const appStateSubscription = AppState.addEventListener("change", (nextAppState) => {
-      if (nextAppState === "background" || nextAppState === "inactive") {
+    const appStateSubscription = AppState.addEventListener('change', (nextAppState) => {
+      if (nextAppState === 'background' || nextAppState === 'inactive') {
         gpsSubscription.then((sub) => {
           sub.remove();
           dispatch({
@@ -106,10 +98,8 @@ const AppCamera = () => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
 
     return () => {
-      deactivateKeepAwake("camera").catch((error) =>
-        toast.show(`${error}`, { type: "error" })
-      );
-      BackHandler.removeEventListener("hardwareBackPress", closeHandler);
+      deactivateKeepAwake('camera').catch((error) => toast.show(`${error}`, { type: 'error' }));
+      BackHandler.removeEventListener('hardwareBackPress', closeHandler);
       appStateSubscription.remove();
       gpsSubscription
         .then((sub) => {
@@ -123,14 +113,14 @@ const AppCamera = () => {
               function: 'gpsSubscription',
             },
           });
-          toast.show("GPS Error. Please restart your app", {
-            type: "error",
+          toast.show('GPS Error. Please restart your app', {
+            type: 'error',
           });
         });
     };
   }, []);
 
-  if (orientation !== "LANDSCAPE") {
+  if (orientation !== 'LANDSCAPE') {
     return <Loading backgroundColor="black" indicatorColor="white" />;
   }
 
@@ -138,16 +128,14 @@ const AppCamera = () => {
     <SafeAreaProvider>
       <SafeAreaView
         edges={[]}
-        style={{ flex: 1, flexDirection: "row" }}
-        onTouchEndCapture={breakBrightness}
-      >
+        style={{ flex: 1, flexDirection: 'row' }}
+        onTouchEndCapture={breakBrightness}>
         <Camera />
 
         <LinearGradient
-          colors={["rgba(51, 51, 51, 0)", "rgba(0, 0, 0, 0.8)"]}
+          colors={['rgba(51, 51, 51, 0)', 'rgba(0, 0, 0, 0.8)']}
           style={styles.gradient}
-          start={{ x: 0, y: 1 }}
-        >
+          start={{ x: 0, y: 1 }}>
           <CameraSidebar setLowBrightness={setLowBrightness} />
         </LinearGradient>
       </SafeAreaView>
@@ -156,13 +144,13 @@ const AppCamera = () => {
 };
 
 const styles = StyleSheet.create({
-  gradient:{
+  gradient: {
     padding: RFValue(16),
-    position: "absolute",
+    position: 'absolute',
     right: 0,
-    height: "100%",
-    width: "25%",
+    height: '100%',
+    width: '25%',
     zIndex: 2,
-  }
+  },
 });
 export default AppCamera;

@@ -1,33 +1,27 @@
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-  Platform,
-} from "react-native";
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import MapLibreGL from "@maplibre/maplibre-react-native";
-import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
-import { api } from "../../util/helpers/api";
-import { CustomText, CustomTextBold, MapView } from "../../highordercomponents";
-import { RFValue } from "react-native-responsive-fontsize";
-import { dateConvert, maxCharacterHandler } from "../../helper/helper";
-import { setGeoJson } from "../../helper/geojson";
-import { styles as mapStyles } from "../../styles/circleStyles";
-import { bbox } from "@turf/turf";
-import { ArrowLeft } from "../../assets/svg/illustrations";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
-import ActiveImage from "../../components/UserFeed/ActiveImage";
-import { Heading } from "../../components/Map";
-import { FocusAwareStatusBar } from "../../components";
-import { useTranslation } from "react-i18next";
-import ListImage from "../../components/UserFeed/ListImage";
+import { View, StyleSheet, TouchableOpacity, Modal, Platform } from 'react-native';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import MapLibreGL from '@maplibre/maplibre-react-native';
+import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import { api } from '../../util/helpers/api';
+import { CustomText, CustomTextBold, MapView } from '../../highordercomponents';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { dateConvert, maxCharacterHandler } from '../../helper/helper';
+import { setGeoJson } from '../../helper/geojson';
+import { styles as mapStyles } from '../../styles/circleStyles';
+import { bbox } from '@turf/turf';
+import { ArrowLeft } from '../../assets/svg/illustrations';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import ActiveImage from '../../components/UserFeed/ActiveImage';
+import { Heading } from '../../components/Map';
+import { FocusAwareStatusBar } from '../../components';
+import { useTranslation } from 'react-i18next';
+import ListImage from '../../components/UserFeed/ListImage';
 
 const UserFeedDetails = ({ route }) => {
   const navigation = useNavigation();
   const { top } = useSafeAreaInsets();
-  const {t} = useTranslation("profile");
+  const { t } = useTranslation('profile');
   const { id, user_id, start_address, capture_time } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [mapData, setMapData] = useState({
@@ -42,7 +36,9 @@ const UserFeedDetails = ({ route }) => {
   const cameraRef = useRef(null);
 
   const getData = async () => {
-    const linesRes = await api.get("/api/get-uploaded-roads-group?group_key=" + id).then((res) => res.data);
+    const linesRes = await api
+      .get('/api/get-uploaded-roads-group?group_key=' + id)
+      .then((res) => res.data);
 
     await api
       .get(
@@ -51,17 +47,14 @@ const UserFeedDetails = ({ route }) => {
       .then((res) => {
         setMapData({
           sequenceData: res.data,
-          points: setGeoJson(res.data, "point"),
+          points: setGeoJson(res.data, 'point'),
           lines: linesRes,
-          bbox: bbox(setGeoJson(res.data, "line")),
+          bbox: bbox(setGeoJson(res.data, 'line')),
           totalPhotos: res.data.length,
         });
         cameraRef.current?.setCamera({
           bounds: {
-            ne: [
-              parseFloat(res.data[0].longitude),
-              parseFloat(res.data[0].latitude),
-            ],
+            ne: [parseFloat(res.data[0].longitude), parseFloat(res.data[0].latitude)],
             sw: [
               parseFloat(res.data[res.data.length - 1].longitude),
               parseFloat(res.data[res.data.length - 1].latitude),
@@ -81,7 +74,7 @@ const UserFeedDetails = ({ route }) => {
   }, []);
 
   const snapPoints = useMemo(() => {
-    return activeImage ? ["40%"] : ["40%", "80%"];
+    return activeImage ? ['40%'] : ['40%', '80%'];
   }, [activeImage]);
 
   const handleBack = () => {
@@ -99,8 +92,7 @@ const UserFeedDetails = ({ route }) => {
           ...styles.base,
           top: top + RFValue(20),
         }}
-        onPress={handleBack}
-      >
+        onPress={handleBack}>
         <ArrowLeft width={RFValue(18)} height={RFValue(18)} />
       </TouchableOpacity>
     );
@@ -109,20 +101,15 @@ const UserFeedDetails = ({ route }) => {
   useEffect(() => {
     if (activeImage) {
       cameraRef.current.setCamera({
-        centerCoordinate: [
-          parseFloat(activeImage.longitude),
-          parseFloat(activeImage.latitude),
-        ],
+        centerCoordinate: [parseFloat(activeImage.longitude), parseFloat(activeImage.latitude)],
         animationDuration: 300,
       });
     }
   }, [activeImage]);
 
   const changeImage = (type) => {
-    const index = mapData.sequenceData.findIndex(
-      ({ id }) => id === activeImage.id
-    );
-    const newIndex = type === "next" ? index + 1 : index - 1;
+    const index = mapData.sequenceData.findIndex(({ id }) => id === activeImage.id);
+    const newIndex = type === 'next' ? index + 1 : index - 1;
 
     if (newIndex < 0 || newIndex > mapData.sequenceData.length - 1) return;
 
@@ -139,7 +126,7 @@ const UserFeedDetails = ({ route }) => {
 
   const hideToast = () => toast.hideAll();
   const showToast = (message, options) => toast.show(message, options);
-  
+
   const onImagePress = (item) => {
     bottomSheetRef.current?.snapToIndex(0);
     setActiveImage({
@@ -151,23 +138,18 @@ const UserFeedDetails = ({ route }) => {
       heading: item.heading,
       capture_time: item.capture_time,
     });
-  }
+  };
 
   return (
     <View style={{ flex: 1 }}>
-      <FocusAwareStatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
-      />
+      <FocusAwareStatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
       <BackButton />
       <Modal
-        statusBarTranslucent={Platform.OS === "android"}
+        statusBarTranslucent={Platform.OS === 'android'}
         visible={modalVisible}
-        supportedOrientations={["landscape"]}
+        supportedOrientations={['landscape']}
         presentationStyle="fullScreen"
-        animationType={Platform.OS === "ios" ? "slide" : "fade"}
-      >
+        animationType={Platform.OS === 'ios' ? 'slide' : 'fade'}>
         {activeImage && (
           <ActiveImage
             imgCode={activeImage.img_code}
@@ -182,34 +164,24 @@ const UserFeedDetails = ({ route }) => {
             setModalVisible={setModalVisible}
             modalVisible={modalVisible}
             totalImages={mapData.sequenceData.length}
-            activeImageIndex={mapData.sequenceData.findIndex(
-              ({ id }) => id === activeImage.id
-            )}
+            activeImageIndex={mapData.sequenceData.findIndex(({ id }) => id === activeImage.id)}
           />
         )}
       </Modal>
-      <MapView
-        style={{ flex: 1 }}
-        isAttributionsEnabled={false}
-        pitchEnabled={false}
-      >
+      <MapView style={{ flex: 1 }} isAttributionsEnabled={false} pitchEnabled={false}>
         <MapLibreGL.Camera ref={cameraRef} animationDuration={500} />
         {mapData.bbox.length > 0 && (
           <Fragment>
-           {mapData?.lines?.map((line, index) => (
+            {mapData?.lines?.map((line, index) => (
               <MapLibreGL.ShapeSource
-                id={"LineShape" + index}
+                id={'LineShape' + index}
                 shape={JSON.parse(line.linefeature)}
-                key={index}
-              >
-                <MapLibreGL.LineLayer
-                  id={"LineLayer" + index}
-                  style={mapStyles.lineStyles}
-                />
+                key={index}>
+                <MapLibreGL.LineLayer id={'LineLayer' + index} style={mapStyles.lineStyles} />
               </MapLibreGL.ShapeSource>
             ))}
             <MapLibreGL.ShapeSource
-              id={"PointShape"}
+              id={'PointShape'}
               shape={mapData?.points}
               onPress={(e) => {
                 setActiveImage({
@@ -221,23 +193,16 @@ const UserFeedDetails = ({ route }) => {
                   heading: e.features[0].properties.item.heading,
                   capture_time: e.features[0].properties.item.capture_time,
                 });
-              }}
-            >
-              <MapLibreGL.CircleLayer
-                id="pointLayer"
-                style={mapStyles.circles}
-              />
+              }}>
+              <MapLibreGL.CircleLayer id="pointLayer" style={mapStyles.circles} />
             </MapLibreGL.ShapeSource>
           </Fragment>
         )}
         {activeImage && (
           <Heading
-            coordinates={[
-              parseFloat(activeImage.longitude),
-              parseFloat(activeImage.latitude),
-            ]}
+            coordinates={[parseFloat(activeImage.longitude), parseFloat(activeImage.latitude)]}
             heading={activeImage.heading}
-            markerPath={require("../../assets/images/heading.png")}
+            markerPath={require('../../assets/images/heading.png')}
           />
         )}
       </MapView>
@@ -246,8 +211,7 @@ const UserFeedDetails = ({ route }) => {
         snapPoints={snapPoints}
         index={0}
         ref={bottomSheetRef}
-        handleStyle={{ display: "none" }}
-      >
+        handleStyle={{ display: 'none' }}>
         {activeImage && (
           <ActiveImage
             imgCode={activeImage.img_code}
@@ -259,9 +223,7 @@ const UserFeedDetails = ({ route }) => {
             imageID={activeImage.id}
             modalVisible={modalVisible}
             totalImages={mapData.sequenceData.length}
-            activeImageIndex={mapData.sequenceData.findIndex(
-              ({ id }) => id === activeImage.id
-            )}
+            activeImageIndex={mapData.sequenceData.findIndex(({ id }) => id === activeImage.id)}
           />
         )}
 
@@ -271,14 +233,10 @@ const UserFeedDetails = ({ route }) => {
 
         <View style={styles.listWrapper}>
           <CustomTextBold style={styles.h1} adjustFontSize={false}>
-            {start_address
-              ? maxCharacterHandler(start_address, 30)
-              : t("no_address")}
+            {start_address ? maxCharacterHandler(start_address, 30) : t('no_address')}
           </CustomTextBold>
           <CustomText style={styles.h2} adjustFontSize={false}>
-            {capture_time
-              ? dateConvert(capture_time, "MMM DD, YYYY - HH:mm")
-              : null}
+            {capture_time ? dateConvert(capture_time, 'MMM DD, YYYY - HH:mm') : null}
           </CustomText>
           <BottomSheetFlatList
             data={mapData.sequenceData}
@@ -289,7 +247,7 @@ const UserFeedDetails = ({ route }) => {
             maxToRenderPerBatch={10}
             keyExtractor={(item) => item.id}
             style={styles.listContent}
-            renderItem={({ item }) => (<ListImage item={item} onPress={onImagePress} /> )}
+            renderItem={({ item }) => <ListImage item={item} onPress={onImagePress} />}
           />
         </View>
       </BottomSheet>
@@ -299,21 +257,21 @@ const UserFeedDetails = ({ route }) => {
 
 const styles = StyleSheet.create({
   base: {
-    position: "absolute",
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
+    position: 'absolute',
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: RFValue(8),
     borderRadius: RFValue(20),
     left: RFValue(20),
     zIndex: 2,
   },
   activeImageWrapper: {
-    height: "100%",
-    width: "100%",
-    position: "absolute",
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
     zIndex: 100,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   listWrapper: {
     paddingTop: RFValue(10),
@@ -328,12 +286,12 @@ const styles = StyleSheet.create({
   indicator: {
     width: RFValue(40),
     height: RFValue(3),
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
     borderRadius: RFValue(5),
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: RFValue(10),
   },
-  h1: { color: "#333333", fontSize: RFValue(16) },
-  h2: { color: "#666666", fontSize: RFValue(12) },
+  h1: { color: '#333333', fontSize: RFValue(16) },
+  h2: { color: '#666666', fontSize: RFValue(12) },
 });
 export default UserFeedDetails;

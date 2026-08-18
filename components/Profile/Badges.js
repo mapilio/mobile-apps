@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 const Badges = ({ badgeDetails }) => {
   const bottomSheetRef = useRef(null);
   const [selectedBadgeDetails, setSelectedBadgeDetails] = useState(null);
-  const {t} = useTranslation('profile');
+  const { t } = useTranslation('profile');
   badgeDetails?.sort((a, b) => a.available_level - b.available_level);
 
   const snapPoints = useMemo(
@@ -56,7 +56,7 @@ const Badges = ({ badgeDetails }) => {
         snapPoints={snapPoints}
         handleIndicatorStyle={{ backgroundColor: '#D8D8D8' }}
         ref={bottomSheetRef}>
-        <CustomTextBold style={styles.title}>{t("badges")}</CustomTextBold>
+        <CustomTextBold style={styles.title}>{t('badges')}</CustomTextBold>
         <BottomSheetFlatList
           numColumns={3}
           data={badgeDetails}
@@ -73,7 +73,7 @@ const Badges = ({ badgeDetails }) => {
                   <View style={styles.badgePointWrapper}>
                     <CustomTextBold style={styles.badgePoint}>
                       {item?.point}
-                      {t("pt")}
+                      {t('pt')}
                     </CustomTextBold>
                   </View>
                 </View>
@@ -87,9 +87,9 @@ const Badges = ({ badgeDetails }) => {
 
       <View style={styles.container}>
         <View style={styles.header}>
-          <CustomTextBold style={styles.title}>{t("badges")}</CustomTextBold>
+          <CustomTextBold style={styles.title}>{t('badges')}</CustomTextBold>
           <TouchableOpacity onPress={() => bottomSheetRef.current?.present()}>
-            <CustomText style={styles.seeAll}>{t("see_all")}</CustomText>
+            <CustomText style={styles.seeAll}>{t('see_all')}</CustomText>
           </TouchableOpacity>
         </View>
         <ScrollView
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: RFValue(15),
     marginHorizontal: RFValue(10),
-    flex:1,
+    flex: 1,
   },
   modalBadgeWrapper: {
     flexDirection: 'column',
@@ -173,6 +173,5 @@ const styles = StyleSheet.create({
     height: RFValue(65),
     resizeMode: 'contain',
   },
-
 });
 export default Badges;

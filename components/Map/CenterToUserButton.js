@@ -1,7 +1,7 @@
-import { TouchableOpacity } from "react-native";
-import CurrentLocationIcon from "../../assets/svg/illustrations/CurrentLocationIcon";
-import { appMapStyle } from "../../styles/appMapStyle";
-import { vibrate } from "../../util/helpers";
+import { TouchableOpacity } from 'react-native';
+import CurrentLocationIcon from '../../assets/svg/illustrations/CurrentLocationIcon';
+import { appMapStyle } from '../../styles/appMapStyle';
+import { vibrate } from '../../util/helpers';
 
 const CenterToUserButton = ({ handleSetCenter, setShowUser }) => {
   return (
@@ -11,10 +11,9 @@ const CenterToUserButton = ({ handleSetCenter, setShowUser }) => {
         handleSetCenter();
       }}
       onLongPress={() => {
-        vibrate("medium")
-        setShowUser(prev => !prev);
-      }}
-    >
+        vibrate('medium');
+        setShowUser((prev) => !prev);
+      }}>
       <CurrentLocationIcon />
     </TouchableOpacity>
   );

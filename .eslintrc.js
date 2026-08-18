@@ -1,9 +1,6 @@
 module.exports = {
   root: true,
-  extends: [
-    '@react-native',
-    'prettier',
-  ],
+  extends: ['@react-native', 'prettier'],
   globals: {
     // toast is injected as an app-level global via react-native-toast-message
     toast: 'readonly',

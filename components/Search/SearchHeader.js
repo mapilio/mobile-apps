@@ -1,24 +1,28 @@
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { StyleSheet, TextInput, TouchableOpacity, View, Keyboard } from "react-native";
-import { ArrowLeft, CloseIcon } from "../../assets/svg/illustrations";
-import SearchIcon from "../../assets/svg/illustrations/SearchIcon";
-import { RFValue } from "react-native-responsive-fontsize";
-import { useState, useCallback } from "react";
-import { debounce } from "lodash";
-import { useDispatch } from "react-redux";
-import {SET_SEARCH_ERROR, SET_SEARCH_LOADING, SET_SEARCH_LOCATIONS} from "../../store/actionsName";
-import { useTranslation } from "react-i18next";
-import {search} from "../../util/helpers/api";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleSheet, TextInput, TouchableOpacity, View, Keyboard } from 'react-native';
+import { ArrowLeft, CloseIcon } from '../../assets/svg/illustrations';
+import SearchIcon from '../../assets/svg/illustrations/SearchIcon';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useState, useCallback } from 'react';
+import { debounce } from 'lodash';
+import { useDispatch } from 'react-redux';
+import {
+  SET_SEARCH_ERROR,
+  SET_SEARCH_LOADING,
+  SET_SEARCH_LOCATIONS,
+} from '../../store/actionsName';
+import { useTranslation } from 'react-i18next';
+import { search } from '../../util/helpers/api';
 
 const SearchHeader = ({ closeHandler }) => {
   const { top } = useSafeAreaInsets();
-  const [searchText, setSearchText] = useState("");
-  const { t } = useTranslation("search");
+  const [searchText, setSearchText] = useState('');
+  const { t } = useTranslation('search');
 
   const dispatch = useDispatch();
 
   const handleClear = () => {
-    setSearchText("");
+    setSearchText('');
     setLocations([]);
     setSearchError(false);
     setLoading(false);
@@ -51,10 +55,9 @@ const SearchHeader = ({ closeHandler }) => {
     });
   };
 
-
   const fetchSearch = (param) => {
     if (param) {
-      search.get(`/api/?q=${param}`).then(({data}) => {
+      search.get(`/api/?q=${param}`).then(({ data }) => {
         if (data.features.length === 0) {
           setSearchError(true);
         } else {
@@ -67,17 +70,17 @@ const SearchHeader = ({ closeHandler }) => {
 
   return (
     <View style={{ ...styles.header, paddingTop: top + RFValue(5) }}>
-      <TouchableOpacity style={styles.back} onPress={()=>closeHandler(false)}>
+      <TouchableOpacity style={styles.back} onPress={() => closeHandler(false)}>
         <ArrowLeft color="#808080" width={19} height={19} />
       </TouchableOpacity>
-      <View style={{ flex: 1, justifyContent: "center" }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
         <TextInput
-          selectionColor={"#666666"}
+          selectionColor={'#666666'}
           style={styles.search}
           value={searchText}
-          placeholder={t("search")}
+          placeholder={t('search')}
           onChangeText={(text) => {
-            if (text.trim(" ").length > 0) {
+            if (text.trim(' ').length > 0) {
               setLoading(true);
               debounceFn(text);
             } else {
@@ -88,28 +91,19 @@ const SearchHeader = ({ closeHandler }) => {
           }}
         />
         <View style={styles.searchIcon}>
-          <SearchIcon
-            width={RFValue(19)}
-            height={RFValue(19)}
-            color={"#191919"}
-          />
+          <SearchIcon width={RFValue(19)} height={RFValue(19)} color={'#191919'} />
         </View>
         {searchText && (
           <TouchableOpacity
             style={{
-              position: "absolute",
+              position: 'absolute',
               right: RFValue(15),
               top: RFValue(13),
               borderRadius: RFValue(15),
-              backgroundColor: "#D8D8D8",
+              backgroundColor: '#D8D8D8',
             }}
-            onPress={handleClear}
-          >
-            <CloseIcon
-              width={RFValue(19)}
-              height={RFValue(19)}
-              color={"white"}
-            />
+            onPress={handleClear}>
+            <CloseIcon width={RFValue(19)} height={RFValue(19)} color={'white'} />
           </TouchableOpacity>
         )}
       </View>
@@ -119,36 +113,36 @@ const SearchHeader = ({ closeHandler }) => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#FFFF",
+    backgroundColor: '#FFFF',
     paddingBottom: RFValue(13),
     paddingHorizontal: RFValue(18),
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   back: {
     width: RFValue(40),
     height: RFValue(40),
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: RFValue(20),
-    backgroundColor: "#ECECEC",
+    backgroundColor: '#ECECEC',
   },
   search: {
-    borderColor: "#FFFFFF40",
+    borderColor: '#FFFFFF40',
     borderWidth: RFValue(1),
     borderRadius: RFValue(22.5),
     paddingLeft: RFValue(40),
     paddingRight: RFValue(40),
     paddingVertical: RFValue(10),
     marginLeft: RFValue(10),
-    color: "#808080",
-    backgroundColor: "#ECECEC",
+    color: '#808080',
+    backgroundColor: '#ECECEC',
     fontSize: RFValue(16),
-    fontFamily: "Poppins",
-    position: "relative",
+    fontFamily: 'Poppins',
+    position: 'relative',
   },
   searchIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: RFValue(13),
     left: RFValue(25),
   },

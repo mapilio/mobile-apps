@@ -1,17 +1,15 @@
-import React from "react";
-import { View, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import {CustomTextMedium} from "../../../highordercomponents";
-import {sequenceRight} from "../../../styles/navigatorBarStyles";
-import {Upload} from "../../../components/Uploads";
-import {UPDATE_ALL_SELECT, UPDATE_SELECTED_IMAGES,} from "../../../store/actionsName";
+import React from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { CustomTextMedium } from '../../../highordercomponents';
+import { sequenceRight } from '../../../styles/navigatorBarStyles';
+import { Upload } from '../../../components/Uploads';
+import { UPDATE_ALL_SELECT, UPDATE_SELECTED_IMAGES } from '../../../store/actionsName';
 
-const SequenceNavigatorRight = ({navigation}) => {
+const SequenceNavigatorRight = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { allSelect, uploadedImages } = useSelector(
-    (state) => state.imagesReducer
-  );
-  const {activeSequence, switchSelector} = useSelector((state) => state.uploadReducer)
+  const { allSelect, uploadedImages } = useSelector((state) => state.imagesReducer);
+  const { activeSequence, switchSelector } = useSelector((state) => state.uploadReducer);
 
   const allSelectHandler = () => {
     if (allSelect) {
@@ -26,15 +24,13 @@ const SequenceNavigatorRight = ({navigation}) => {
 
   return (
     <View style={sequenceRight.container}>
-      {
-        switchSelector === 'image' && (
-          <TouchableOpacity onPress={allSelectHandler}>
-            <CustomTextMedium style={sequenceRight.title}>
-              {allSelect ? "Unselect" : "Select"}
-            </CustomTextMedium>
-          </TouchableOpacity>
-        )
-      }
+      {switchSelector === 'image' && (
+        <TouchableOpacity onPress={allSelectHandler}>
+          <CustomTextMedium style={sequenceRight.title}>
+            {allSelect ? 'Unselect' : 'Select'}
+          </CustomTextMedium>
+        </TouchableOpacity>
+      )}
 
       <Upload sequence_uuid={activeSequence} navigation={navigation} />
     </View>

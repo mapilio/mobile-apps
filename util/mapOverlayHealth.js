@@ -1,14 +1,11 @@
 const DEFAULT_TIMEOUT_MS = 5000;
 
-export const buildVectorTileUrl = (template, {zoom, x, y}) => {
+export const buildVectorTileUrl = (template, { zoom, x, y }) => {
   if (!template) {
     return null;
   }
 
-  return template
-    .replace("{z}", String(zoom))
-    .replace("{x}", String(x))
-    .replace("{y}", String(y));
+  return template.replace('{z}', String(zoom)).replace('{x}', String(x)).replace('{y}', String(y));
 };
 
 export const probeVectorTile = async ({
@@ -20,7 +17,7 @@ export const probeVectorTile = async ({
   const url = buildVectorTileUrl(template, coordinates);
 
   if (!url) {
-    return {available: false, reason: "missing_url"};
+    return { available: false, reason: 'missing_url' };
   }
 
   const controller = new AbortController();
@@ -28,9 +25,9 @@ export const probeVectorTile = async ({
 
   try {
     const response = await fetchImplementation(url, {
-      method: "HEAD",
+      method: 'HEAD',
       headers: {
-        Accept: "application/vnd.mapbox-vector-tile",
+        Accept: 'application/vnd.mapbox-vector-tile',
       },
       signal: controller.signal,
     });
@@ -38,16 +35,16 @@ export const probeVectorTile = async ({
     if (!response.ok) {
       return {
         available: false,
-        reason: "http_error",
+        reason: 'http_error',
         status: response.status,
       };
     }
 
-    return {available: true, reason: null, status: response.status};
+    return { available: true, reason: null, status: response.status };
   } catch (error) {
     return {
       available: false,
-      reason: error?.name === "AbortError" ? "timeout" : "network_error",
+      reason: error?.name === 'AbortError' ? 'timeout' : 'network_error',
     };
   } finally {
     clearTimeout(timeout);

@@ -67,27 +67,29 @@ See [README.md](README.md) for full prerequisites.
 
 ## Branching Strategy
 
-| Branch | Purpose |
-|---|---|
-| `master` | Stable, production-ready code |
-| `expo` | Expo SDK migration work |
-| `feature/<name>` | New features |
-| `fix/<name>` | Bug fixes |
-| `chore/<name>` | Tooling, deps, CI changes |
+| Branch           | Purpose                       |
+| ---------------- | ----------------------------- |
+| `main`           | Stable, production-ready code |
+| `expo`           | Expo SDK migration work       |
+| `feature/<name>` | New features                  |
+| `fix/<name>`     | Bug fixes                     |
+| `chore/<name>`   | Tooling, deps, CI changes     |
 
-Branch off `master` for all new work unless instructed otherwise.
+Branch off `main` for all new work unless instructed otherwise.
 
 ---
 
 ## Making a Pull Request
 
-1. Fork the repository and create your branch from `master`.
+1. Fork the repository and create your branch from `main`.
 2. Make your changes — keep PRs focused (one concern per PR).
 3. Add or update tests for any changed logic.
-4. Ensure all tests pass: `npm run test:ci`
-5. Ensure TypeScript compiles: `npx tsc --noEmit`
-6. Push your branch and open a PR against `master`.
-7. Fill in the PR template (description, test plan, screenshots if UI).
+4. Ensure formatting passes: `npm run format:check`
+5. Ensure lint passes: `npm run lint`
+6. Ensure all tests pass: `npm run test:ci`
+7. Ensure TypeScript compiles: `npx tsc --noEmit`
+8. Push your branch and open a PR against `main`.
+9. Fill in the PR template (description, test plan, screenshots if UI).
 
 PRs that fail CI will not be merged.
 
@@ -95,22 +97,15 @@ PRs that fail CI will not be merged.
 
 ## Commit Messages
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-<type>(<scope>): <short summary>
-
-[optional body]
-```
-
-**Types:** `feat`, `fix`, `chore`, `refactor`, `test`, `docs`, `perf`, `ci`
+Write a short, natural summary of the change. Prefixes such as `feat:` and `docs:` are not required.
 
 **Examples:**
+
 ```
-feat(camera): add burst-capture mode
-fix(upload): retry on 503 response
-chore(deps): bump expo-camera to 16.0.18
-test(reducers): add coverage for CAMERA_REDUCER_RESET
+Add burst capture mode
+Retry uploads after a 503 response
+Update expo-camera to 16.0.18
+Cover the camera reducer reset behavior
 ```
 
 - Use the imperative mood ("add", not "added" or "adds").
@@ -121,7 +116,9 @@ test(reducers): add coverage for CAMERA_REDUCER_RESET
 
 ## Code Style
 
-- **JavaScript/TypeScript** — no formatter is enforced yet; follow the style of surrounding code.
+- **JavaScript/TypeScript/JSON/Markdown/YAML** — format with Prettier before opening a PR:
+  `npm run format`
+- Run `npm run format:check` to verify that maintained files are formatted without changing them.
 - **Imports** — group: React → React Native → third-party → local, separated by a blank line.
 - **No commented-out code** — delete dead code; use version control to recover it.
 - **No `console.log`** in production paths — use the Sentry integration for error reporting.

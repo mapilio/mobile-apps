@@ -22,7 +22,7 @@ if (fs.existsSync(specPath)) {
   if (content.includes('CodegenTypes')) {
     content = content.replace(
       /import type \{ CodegenTypes, TurboModule \} from 'react-native';/,
-      "import type { TurboModule } from 'react-native';",
+      "import type { TurboModule } from 'react-native';"
     );
     content = content.replace(/\s*readonly \w+: CodegenTypes\.EventEmitter<[^>]+>;/g, '');
     fs.writeFileSync(specPath, content, 'utf8');
@@ -72,13 +72,13 @@ if (fs.existsSync(mmPath)) {
   ];
 }
 
-`,
+`
       );
     }
     // Remove getTurboModule: method (not needed for old architecture)
     content = content.replace(
       /- \(std::shared_ptr<facebook::react::TurboModule>\)getTurboModule[\s\S]*?\n\}/,
-      '',
+      ''
     );
     fs.writeFileSync(mmPath, content, 'utf8');
     console.log('[patch-onesignal] 2/3 Patched RCTOneSignalEventEmitter.mm');
@@ -93,11 +93,11 @@ if (fs.existsSync(hPath)) {
     // Replace codegen import and class inheritance
     content = content.replace(
       '#import <RNOneSignalSpec/RNOneSignalSpec.h>',
-      '#import <React/RCTEventEmitter.h>',
+      '#import <React/RCTEventEmitter.h>'
     );
     content = content.replace(
       /: NativeOneSignalSpecBase <NativeOneSignalSpec,\s*OSNotificationLifecycleListener>/,
-      ': RCTEventEmitter <RCTBridgeModule, OSNotificationLifecycleListener>',
+      ': RCTEventEmitter <RCTBridgeModule, OSNotificationLifecycleListener>'
     );
     fs.writeFileSync(hPath, content, 'utf8');
     console.log('[patch-onesignal] 3/3 Patched RCTOneSignalEventEmitter.h');
@@ -112,7 +112,7 @@ if (fs.existsSync(distPath)) {
     // Add NativeEventEmitter import at the top
     content = content.replace(
       "const { NativeModules } = require('react-native');",
-      "const { NativeModules, NativeEventEmitter } = require('react-native');",
+      "const { NativeModules, NativeEventEmitter } = require('react-native');"
     );
     // If above didn't match, try alternative import pattern
     if (!content.includes('NativeEventEmitter')) {
@@ -120,7 +120,8 @@ if (fs.existsSync(distPath)) {
     }
 
     // Replace setupListeners method
-    const oldSetup = /setupListeners\(\)\s*\{[\s\S]*?this\.RNOneSignal\.onInAppMessageDidDismiss\(\(payload\) => \{[^}]*\}\)\);[\s\n]*\}/;
+    const oldSetup =
+      /setupListeners\(\)\s*\{[\s\S]*?this\.RNOneSignal\.onInAppMessageDidDismiss\(\(payload\) => \{[^}]*\}\)\);[\s\n]*\}/;
     const newSetup = `setupListeners() {
 		if (this.RNOneSignal == null) return;
 		const emitter = new NativeEventEmitter(this.RNOneSignal);

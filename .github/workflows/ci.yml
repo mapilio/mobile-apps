@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Prettier — check formatting
+        run: npm run format:check
+
       - name: ESLint
         run: npm run lint
 
@@ -71,7 +74,7 @@ jobs:
   bundle-check:
     name: Expo Bundle Smoke Test
     runs-on: ubuntu-latest
-    # Only run on pushes to master to save CI minutes on every PR
+    # Only run on pushes to main to save CI minutes on every PR
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
