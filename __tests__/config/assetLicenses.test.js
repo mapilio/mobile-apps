@@ -1,6 +1,19 @@
 const crypto = require('crypto');
+const { execFileSync } = require('child_process');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
+const manifest = require('../../asset-rights-manifest.json');
+const {
+  buildInventory,
+  classifyAsset,
+  checkInventory,
+  parseGitIndexEntries,
+  trackedAssetPaths,
+  trackedRepositoryPaths,
+  validateManifest,
+  validateTrackedEntries,
+} = require('../../scripts/assets/asset-inventory');
 
 const projectFile = (...parts) => path.join(__dirname, '..', '..', ...parts);
 
@@ -26,5 +39,235 @@ describe('bundled asset licensing', () => {
     const actual = crypto.createHash('sha256').update(contents).digest('hex');
 
     expect(actual).toBe(digest);
+  });
+
+  it('has one deterministic record for every tracked asset', () => {
+    const inventory = buildInventory(projectFile());
+    const paths = inventory.assets.map((record) => record.path);
+
+    expect(paths).toHaveLength(trackedAssetPaths(projectFile()).length);
+    expect(new Set(paths).size).toBe(paths.length);
+    expect(
+      inventory.assets.every(
+        (record) =>
+          record.path.startsWith('assets/') &&
+          Number.isInteger(record.bytes) &&
+          /^[a-f0-9]{64}$/.test(record.sha256)
+      )
+    ).toBe(true);
+    expect(paths).toEqual([...paths].sort());
+    expect(() => checkInventory(projectFile())).not.toThrow();
+  });
+
+  it('keeps non-font families pending rights-owner confirmation', () => {
+    const nonFonts = manifest.families.filter((family) => family.id !== 'fonts');
+
+    expect(nonFonts).not.toHaveLength(0);
+    expect(
+      nonFonts.every(
+        (family) =>
+          family.rightsStatus === 'review-required' &&
+          family.rightsOwnerConfirmation === 'pending' &&
+          family.license === null
+      )
+    ).toBe(true);
+    expect(manifest.families.find((family) => family.id === 'fonts')).toMatchObject({
+      rightsStatus: 'verified',
+      license: 'OFL-1.1',
+      notice: 'assets/fonts/OFL.txt',
+    });
+  });
+
+  it('rejects unclassified and multiply classified assets', () => {
+    expect(() => classifyAsset('assets/new-area/image.png', manifest)).toThrow(
+      /exactly one family/
+    );
+    expect(() => classifyAsset('assets/.DS_Store', manifest)).toThrow(/exactly one family/);
+
+    const overlappingManifest = {
+      ...manifest,
+      families: [
+        ...manifest.families,
+        {
+          ...manifest.families.find((family) => family.id === 'brand-root-images'),
+          id: 'overlapping-brand-path',
+          paths: ['assets/animations/award.json'],
+        },
+      ],
+    };
+    const currentAssetPaths = trackedAssetPaths(projectFile());
+    expect(() =>
+      validateManifest(
+        overlappingManifest,
+        currentAssetPaths,
+        trackedRepositoryPaths(projectFile())
+      )
+    ).toThrow(/exactly one family/);
+    expect(() => classifyAsset('assets/svg/illustrations/NewDirectory/icon.js', manifest)).toThrow(
+      /exactly one family/
+    );
+  });
+
+  it('rejects duplicate family identifiers and invalid pending status', () => {
+    const duplicateManifest = {
+      ...manifest,
+      families: [manifest.families[0], { ...manifest.families[1], id: manifest.families[0].id }],
+    };
+    expect(() => validateManifest(duplicateManifest)).toThrow(/family ids must be unique/);
+
+    const claimedManifest = {
+      ...manifest,
+      families: manifest.families.map((family) =>
+        family.id === 'general-raster'
+          ? { ...family, rightsOwnerConfirmation: 'confirmed' }
+          : family
+      ),
+    };
+    expect(() => validateManifest(claimedManifest)).toThrow(/pending rights-owner confirmation/);
+  });
+
+  it('rejects malformed schema, selectors, and field types', () => {
+    const cases = [
+      { ...manifest, schemaVersion: 2 },
+      { ...manifest, assetRoot: 'assets/' },
+      { ...manifest, reviewNote: '' },
+      {
+        ...manifest,
+        families: manifest.families.map((family) =>
+          family.id === 'animations' ? { ...family, prefix: 'assets/animations' } : family
+        ),
+      },
+      {
+        ...manifest,
+        families: manifest.families.map((family) =>
+          family.id === 'animations' ? { ...family, prefix: 'assets/does-not-exist/' } : family
+        ),
+      },
+      {
+        ...manifest,
+        families: manifest.families.map((family) =>
+          family.id === 'animations' ? { ...family, directChildrenOnly: 'true' } : family
+        ),
+      },
+      {
+        ...manifest,
+        families: manifest.families.map((family) =>
+          family.id === 'animations' ? { ...family, unexpected: true } : family
+        ),
+      },
+      {
+        ...manifest,
+        families: manifest.families.map((family) =>
+          family.id === 'animations' ? { ...family, license: 'MIT' } : family
+        ),
+      },
+      {
+        ...manifest,
+        families: manifest.families.map((family) =>
+          family.id === 'animations' ? { ...family, source: 42 } : family
+        ),
+      },
+      {
+        ...manifest,
+        families: manifest.families.map((family) =>
+          family.id === 'fonts' ? { ...family, notice: 'missing-notice.md' } : family
+        ),
+      },
+    ];
+
+    for (const invalidManifest of cases) {
+      expect(() => validateManifest(invalidManifest)).toThrow();
+    }
+  });
+
+  it('rejects stale explicit selectors and non-regular Git index entries', () => {
+    const staleManifest = {
+      ...manifest,
+      families: manifest.families.map((family) =>
+        family.id === 'brand-root-images'
+          ? { ...family, paths: [...family.paths, 'assets/removed.png'] }
+          : family
+      ),
+    };
+    expect(() => validateManifest(staleManifest, ['assets/appstore.png'])).toThrow(
+      /stale path selector/
+    );
+
+    const hash = 'a'.repeat(40);
+    const entries = parseGitIndexEntries(
+      `120000 ${hash} 0\tassets/link.png\0` + `160000 ${hash} 0\tassets/submodule\0`
+    );
+    expect(() => validateTrackedEntries(entries)).toThrow(/non-regular Git mode/);
+    expect(entries).toEqual([
+      { mode: '120000', path: 'assets/link.png' },
+      { mode: '160000', path: 'assets/submodule' },
+    ]);
+  });
+
+  it('preserves parser paths and rejects nonportable tracked paths', () => {
+    const hash = 'b'.repeat(40);
+    const parsed = parseGitIndexEntries(
+      `100644 ${hash} 0\tassets/line\nname.png\0` + `100644 ${hash} 0\tassets\\literal.png\0`
+    );
+    expect(parsed).toEqual([
+      { mode: '100644', path: 'assets/line\nname.png' },
+      { mode: '100644', path: 'assets\\literal.png' },
+    ]);
+    for (const invalidPath of [
+      'assets/line\nname.png',
+      'assets\\literal.png',
+      '../assets/file.png',
+      '/assets/file.png',
+      'assets/dir/../file.png',
+    ]) {
+      expect(() => validateTrackedEntries([{ mode: '100644', path: invalidPath }])).toThrow(
+        /portable normalized repository path/
+      );
+    }
+  });
+
+  it('rejects asset symlinks without rejecting unrelated repository symlinks', () => {
+    const temporaryRepository = fs.mkdtempSync(path.join(os.tmpdir(), 'asset-inventory-'));
+
+    try {
+      execFileSync('git', ['init', '--quiet'], { cwd: temporaryRepository });
+      fs.mkdirSync(path.join(temporaryRepository, 'assets'));
+      fs.writeFileSync(path.join(temporaryRepository, 'LICENSE'), 'notice\n');
+      fs.writeFileSync(path.join(temporaryRepository, 'assets', 'icon.png'), 'image\n');
+      fs.symlinkSync('LICENSE', path.join(temporaryRepository, 'notice-link'));
+      execFileSync('git', ['add', 'LICENSE', 'notice-link', 'assets/icon.png'], {
+        cwd: temporaryRepository,
+      });
+
+      expect(trackedRepositoryPaths(temporaryRepository)).toContain('notice-link');
+      expect(trackedAssetPaths(temporaryRepository)).toEqual(['assets/icon.png']);
+
+      fs.symlinkSync('../LICENSE', path.join(temporaryRepository, 'assets', 'license-link'));
+      execFileSync('git', ['add', 'assets/license-link'], { cwd: temporaryRepository });
+
+      expect(() => trackedAssetPaths(temporaryRepository)).toThrow(/non-regular Git mode/);
+    } finally {
+      fs.rmSync(temporaryRepository, { recursive: true, force: true });
+    }
+  });
+
+  it('accepts partial pending evidence and a repository-level verified notice', () => {
+    const currentAssetPaths = trackedAssetPaths(projectFile());
+    const currentRepositoryPaths = trackedRepositoryPaths(projectFile());
+    const evidenceManifest = {
+      ...manifest,
+      families: manifest.families.map((family) => {
+        if (family.id === 'animations') {
+          return { ...family, owner: 'Pending owner', source: 'README.md' };
+        }
+        if (family.id === 'fonts') {
+          return { ...family, notice: 'THIRD_PARTY_NOTICES.md' };
+        }
+        return family;
+      }),
+    };
+    expect(() =>
+      validateManifest(evidenceManifest, currentAssetPaths, currentRepositoryPaths)
+    ).not.toThrow();
   });
 });

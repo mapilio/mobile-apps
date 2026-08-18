@@ -232,4 +232,19 @@ Licensed under the [Apache License, Version 2.0](LICENSE).
 Bundled third-party materials are documented in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
+### Mobile asset rights gate
+
+The repository tracks every Git-tracked file in `assets/**` in
+[asset-inventory.json](asset-inventory.json). Family
+classification and the current rights-review state are defined in
+[asset-rights-manifest.json](asset-rights-manifest.json).
+
+Maintainers must review an intentional asset change, then run
+`npm run assets:update`, inspect the generated diff, and commit the manifest or
+inventory changes together with the asset change. CI runs `npm run assets:check`
+and does not regenerate files. New directories must be added to the manifest
+before their assets can be inventoried. `npm run assets:check` only verifies
+repository bookkeeping; it does not close legal review or confirm rights for
+non-font assets.
+
 Copyright 2024–2026 Mapilio

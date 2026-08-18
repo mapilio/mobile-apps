@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "assetRoot": "assets",
+  "reviewNote": "Only the Poppins family is verified. Every other family is pending rights-owner confirmation; this manifest does not close legal review.",
+  "families": [
+    {
+      "id": "brand-root-images",
+      "paths": [
+        "assets/appstore.png",
+        "assets/favicon.png",
+        "assets/icon.png",
+        "assets/logo.png",
+        "assets/playstore.png",
+        "assets/splash-icon.png"
+      ],
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "animations",
+      "prefix": "assets/animations/",
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "language-flags",
+      "prefix": "assets/images/languages/",
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "walkthrough-osm",
+      "prefix": "assets/images/walkthrough/",
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "marketplace",
+      "prefix": "assets/images/marketplace/",
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "tooltip",
+      "prefix": "assets/images/tooltip/",
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "map-raster",
+      "prefix": "assets/images/map/",
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "profile-raster",
+      "prefix": "assets/images/profile/",
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "general-raster",
+      "prefix": "assets/images/",
+      "directChildrenOnly": true,
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "standalone-svg",
+      "prefix": "assets/svg/",
+      "directChildrenOnly": true,
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "illustration-modules",
+      "prefix": "assets/svg/illustrations/",
+      "directChildrenOnly": true,
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "marketplace-illustration-modules",
+      "prefix": "assets/svg/illustrations/Marketplace/",
+      "directChildrenOnly": true,
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "user-feed-illustration-modules",
+      "prefix": "assets/svg/illustrations/UserFeed/",
+      "directChildrenOnly": true,
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "logos",
+      "prefix": "assets/svg/logos/",
+      "directChildrenOnly": true,
+      "rightsStatus": "review-required",
+      "rightsOwnerConfirmation": "pending",
+      "license": null
+    },
+    {
+      "id": "fonts",
+      "prefix": "assets/fonts/",
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "OFL-1.1",
+      "notice": "assets/fonts/OFL.txt",
+      "owner": "The Poppins Project Authors"
+    }
+  ]
+}

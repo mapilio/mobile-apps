@@ -14,6 +14,8 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "test:ci": "jest --ci --coverage --coverageReporters=json-summary --coverageReporters=text",
+    "assets:update": "node scripts/assets/asset-inventory.js update",
+    "assets:check": "node scripts/assets/asset-inventory.js check",
     "lint": "eslint . --ext .js,.ts,.tsx --ignore-pattern node_modules --ignore-pattern android --ignore-pattern ios --ignore-pattern .expo",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

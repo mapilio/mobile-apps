@@ -33,3 +33,16 @@ These notices do not establish the provenance or redistribution rights of
 unlisted images, animations, logos, or illustrations. Those assets require a
 separate owner review before the repository's complete asset-licensing gate can
 be considered closed.
+
+## Asset inventory and review status
+
+`asset-rights-manifest.json` defines the non-overlapping asset families and
+records whether each family is verified or still review-required. The generated
+`asset-inventory.json` records every tracked asset path, family,
+byte size, and SHA-256 digest. Run `npm run assets:check` to detect additions, removals,
+renames, byte changes, duplicate records, stale records, and unclassified
+assets. Run `npm run assets:update` only after reviewing an intentional change.
+
+The inventory check is a repository consistency control, not legal advice or
+confirmation of ownership or redistribution rights. All non-font families are
+pending rights-owner confirmation.

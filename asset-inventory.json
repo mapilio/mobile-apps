@@ -1,0 +1,1452 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/assets/asset-inventory.js",
+  "assets": [
+    {
+      "path": "assets/animations/award.json",
+      "family": "animations",
+      "bytes": 40963,
+      "sha256": "50fff642a49982a7e057ed9e51b51d1abb969243630593f352e871c546dcaeaf"
+    },
+    {
+      "path": "assets/animations/badGps.json",
+      "family": "animations",
+      "bytes": 38970,
+      "sha256": "ebf377d33e6e57c5dc6810d3991e4d5d06fb0352639f845e3ae0c6de927908ab"
+    },
+    {
+      "path": "assets/animations/completed.json",
+      "family": "animations",
+      "bytes": 182630,
+      "sha256": "d1815b3dd6d429e39dbc26157b320603c2c1bd2978f7fe5ab3c75d588dbc9180"
+    },
+    {
+      "path": "assets/animations/gift.json",
+      "family": "animations",
+      "bytes": 339636,
+      "sha256": "9e888a7874f57c0f5f5eafbeaef171fcb2400d9f3c2b825441b7b66272ba4c3b"
+    },
+    {
+      "path": "assets/animations/goodGps.json",
+      "family": "animations",
+      "bytes": 38974,
+      "sha256": "c539a7925c7cffdeee3d905f2896be1083f965fa57efbf833083938c2b513db6"
+    },
+    {
+      "path": "assets/animations/mailSubs.json",
+      "family": "animations",
+      "bytes": 75731,
+      "sha256": "e749b397cbc6a34fc46bd59be48246798c4df31c38ef0812b5e2d95956ca595f"
+    },
+    {
+      "path": "assets/animations/upload.json",
+      "family": "animations",
+      "bytes": 6199,
+      "sha256": "19d9d1c0cf70d7726fe8ac792fce30b42b77cedd331651f7d730fd1f94f9a9ec"
+    },
+    {
+      "path": "assets/appstore.png",
+      "family": "brand-root-images",
+      "bytes": 40036,
+      "sha256": "72662ad170196f9be0635e9b83f00014453b2caefc102e61eda851853327eff4"
+    },
+    {
+      "path": "assets/favicon.png",
+      "family": "brand-root-images",
+      "bytes": 1466,
+      "sha256": "24272cdaeff82cc5facdaccd982a6f05b60c4504704bbf94c19a6388659880bb"
+    },
+    {
+      "path": "assets/fonts/OFL.txt",
+      "family": "fonts",
+      "bytes": 4384,
+      "sha256": "8503c30a4d7e09c4c09015fee42f829f18acbe6330755e9930ba50ea44eaa157"
+    },
+    {
+      "path": "assets/fonts/Poppins-Light.ttf",
+      "family": "fonts",
+      "bytes": 159892,
+      "sha256": "647f014d36822ef7e0413ffbb65598ae0cb57fb798e635c63912c93d94eb356a"
+    },
+    {
+      "path": "assets/fonts/Poppins-Medium.ttf",
+      "family": "fonts",
+      "bytes": 156480,
+      "sha256": "e554db189b5d944ef0e6f98ee0e4e8c75f69e95315dc9f4ae0c616a8756a2ba4"
+    },
+    {
+      "path": "assets/fonts/Poppins-Regular.ttf",
+      "family": "fonts",
+      "bytes": 158192,
+      "sha256": "78f127277756ae464f4eb665ce214cb6315746f6f4193e95b31f18f4b3e97527"
+    },
+    {
+      "path": "assets/fonts/Poppins-SemiBold.ttf",
+      "family": "fonts",
+      "bytes": 155192,
+      "sha256": "bf9c1ff640acc8bb5441a9b564360943f9db90969742aa33a36329b2828d2759"
+    },
+    {
+      "path": "assets/icon.png",
+      "family": "brand-root-images",
+      "bytes": 22380,
+      "sha256": "74c64047eb557b1341bba7a2831eedde9ddb705e6451a9ad9f5552bf558f13de"
+    },
+    {
+      "path": "assets/images/Error.png",
+      "family": "general-raster",
+      "bytes": 785,
+      "sha256": "e6b83fc607e8a1611bf12fb95f65eeafab0846f85b983dc862821b88026363a0"
+    },
+    {
+      "path": "assets/images/Error@2x.png",
+      "family": "general-raster",
+      "bytes": 1763,
+      "sha256": "55afb3e39a193dc2d5e594511d029d6a71aeb4d63bc6490ae147e8588d778ac3"
+    },
+    {
+      "path": "assets/images/Error@3x.png",
+      "family": "general-raster",
+      "bytes": 2705,
+      "sha256": "e8dc49f919f553e09922be2367abebfc4dd84a2ec5c143a2089a4ee1fdde6667"
+    },
+    {
+      "path": "assets/images/Info.png",
+      "family": "general-raster",
+      "bytes": 656,
+      "sha256": "5f97933dd8146c5b98ace8019735ae80a6a9918b0d44a4de21763bae9949de3f"
+    },
+    {
+      "path": "assets/images/Info@1.5x.png",
+      "family": "general-raster",
+      "bytes": 934,
+      "sha256": "34f7fdae45d0a9e87ec7a7c24ac8f1b7730c95edf92afdb781c973cabb1cacd7"
+    },
+    {
+      "path": "assets/images/Info@2x.png",
+      "family": "general-raster",
+      "bytes": 1247,
+      "sha256": "dbee79c92b2b1ed388677c84b87fe493754c623aa202fe922419513e68340b88"
+    },
+    {
+      "path": "assets/images/Info@3x.png",
+      "family": "general-raster",
+      "bytes": 1758,
+      "sha256": "4eab3f19e0025c968b7f4f4893687c12419eba98b04183d1de13404e4405e9a8"
+    },
+    {
+      "path": "assets/images/Info@4x.png",
+      "family": "general-raster",
+      "bytes": 2424,
+      "sha256": "cda00b568de08dd263bfeb721c58a1052f244bfa6e33f7ad4df2a5cadb55be99"
+    },
+    {
+      "path": "assets/images/MaximizePano.png",
+      "family": "general-raster",
+      "bytes": 1476,
+      "sha256": "5a2359618c913b3aee51c09fdd36829f2f1191cea42acceb7945dbd351ee2e42"
+    },
+    {
+      "path": "assets/images/Success.png",
+      "family": "general-raster",
+      "bytes": 591,
+      "sha256": "163a82ac6f27363daddcf8778f2ebf6d5a8f76759f8e0b2c0196de519c204227"
+    },
+    {
+      "path": "assets/images/Success@1.5x.png",
+      "family": "general-raster",
+      "bytes": 886,
+      "sha256": "4061e61ecce65b4ed4874d60e8927c88e07bfae14703058248b7fbaff8315ed6"
+    },
+    {
+      "path": "assets/images/Success@2x.png",
+      "family": "general-raster",
+      "bytes": 1114,
+      "sha256": "e7f49a206dfba98656fc12ad38c3955f0a1b45e195a7106520defdba9b19ab3e"
+    },
+    {
+      "path": "assets/images/Success@3x.png",
+      "family": "general-raster",
+      "bytes": 1764,
+      "sha256": "2056b4e9b48064d74627ec13d1f0982ef4edf5088ac7f4e106bc5d677a1ffe75"
+    },
+    {
+      "path": "assets/images/Success@4x.png",
+      "family": "general-raster",
+      "bytes": 2353,
+      "sha256": "6d55f1c95e9094214a9dc08c66a6ebdb6f5b0d466407541adc5debfd06254c2a"
+    },
+    {
+      "path": "assets/images/Warning.png",
+      "family": "general-raster",
+      "bytes": 521,
+      "sha256": "138d80c81bbb4a360c488c4bcee49926b28ea230da0ff10713d78d4c7b973435"
+    },
+    {
+      "path": "assets/images/Warning@1.5x.png",
+      "family": "general-raster",
+      "bytes": 788,
+      "sha256": "5b319aaa4eb1e809585934aa564c3327ed683863e273d8a625a2c58c56006f5c"
+    },
+    {
+      "path": "assets/images/Warning@2x.png",
+      "family": "general-raster",
+      "bytes": 1069,
+      "sha256": "46b0dd20c7ad960d018555ddc56e27b39f1d4393f34206602ef73f88f5f446f6"
+    },
+    {
+      "path": "assets/images/Warning@3x.png",
+      "family": "general-raster",
+      "bytes": 1492,
+      "sha256": "c1aa7c6ee99c9cc2fd18d6edb948750348befe8392c09c8a2ea99e4fc510d44f"
+    },
+    {
+      "path": "assets/images/Warning@4x.png",
+      "family": "general-raster",
+      "bytes": 2065,
+      "sha256": "0b51120a4f8a70bbbf85b79ef07a65283aa165591553da684c8b7d9e01d44ab3"
+    },
+    {
+      "path": "assets/images/accessibleWorld.png",
+      "family": "general-raster",
+      "bytes": 236151,
+      "sha256": "384a3065d79e550a0cf34dec0f33cf25f3f07c183888d9c56ce8da9eeece3384"
+    },
+    {
+      "path": "assets/images/auto_1.png",
+      "family": "general-raster",
+      "bytes": 3101,
+      "sha256": "4ac9c135862deb64684157cc2157ef45d0e651dfc11eebafed6e43477f1a12a2"
+    },
+    {
+      "path": "assets/images/auto_2.png",
+      "family": "general-raster",
+      "bytes": 2253,
+      "sha256": "c4bc7474a9aabfc4ccf413b75f2ecd41c97cfd6464a3e6e9ce53edf4a4b7df73"
+    },
+    {
+      "path": "assets/images/auto_3.png",
+      "family": "general-raster",
+      "bytes": 1296,
+      "sha256": "2862487b7ee586b9c0c9d544c0eba8f4501a5f4fdbc04f6b7c9fc2d7667c4a4c"
+    },
+    {
+      "path": "assets/images/awardImage.png",
+      "family": "general-raster",
+      "bytes": 96913,
+      "sha256": "acd39693d0779d2500ce217850a82aada7d418eda31910e5d0c93cfb066e4644"
+    },
+    {
+      "path": "assets/images/bronzeMedal.png",
+      "family": "general-raster",
+      "bytes": 1702,
+      "sha256": "2800142d9338919d6f5fbf2c478a88f090ade3f987e0722fe2e53686e3229aae"
+    },
+    {
+      "path": "assets/images/bronzeMedal@2x.png",
+      "family": "general-raster",
+      "bytes": 5496,
+      "sha256": "7e5b84d47903c3c43883f36e47e36395c24c5a2f6916fa9beca4e22ec63e7385"
+    },
+    {
+      "path": "assets/images/bronzeMedal@3x.png",
+      "family": "general-raster",
+      "bytes": 10671,
+      "sha256": "573fd2e45b1e9ca3b6d62de31a25131252f86b11d7192780da66b26e5803e560"
+    },
+    {
+      "path": "assets/images/capture_zone.png",
+      "family": "general-raster",
+      "bytes": 25409,
+      "sha256": "0f9d5b8c2de5003d992d5f392396ceccc132f84ac15dad4a44fae1420cd3a6e3"
+    },
+    {
+      "path": "assets/images/car.png",
+      "family": "general-raster",
+      "bytes": 353646,
+      "sha256": "d7849edf4fa8d7caf0d961870fc07a965d262d470dde0f87dceb96a672d9b364"
+    },
+    {
+      "path": "assets/images/contributeEnvironment.png",
+      "family": "general-raster",
+      "bytes": 163899,
+      "sha256": "e26db6772df13bf9e3cb97c54279e52d4ba4791cb19ad3905ce720b3c6245109"
+    },
+    {
+      "path": "assets/images/default_avatar.png",
+      "family": "general-raster",
+      "bytes": 2497,
+      "sha256": "38935e8b464234bfa7ca880e230142867d53ae085326958a7d7d152f19f7a2ca"
+    },
+    {
+      "path": "assets/images/emergencies.png",
+      "family": "general-raster",
+      "bytes": 182787,
+      "sha256": "8ca2404cd6ca461bae24b6c3a717d94b7031f7f4db2d6b8a42971438f0f1dc65"
+    },
+    {
+      "path": "assets/images/goldMedal.png",
+      "family": "general-raster",
+      "bytes": 1676,
+      "sha256": "e5fd2b94bb806d421c9a0df113a3e3767f356d879df72c1803016f85f20e9a8a"
+    },
+    {
+      "path": "assets/images/goldMedal@2x.png",
+      "family": "general-raster",
+      "bytes": 5430,
+      "sha256": "86b6f9e1e906a865d48c4eff1c9b9fccac6c6ba87c9180fac5a1666536bc5e24"
+    },
+    {
+      "path": "assets/images/goldMedal@3x.png",
+      "family": "general-raster",
+      "bytes": 10355,
+      "sha256": "bc04f9af1ee640e2f913464395132d4817d72d5ee6afbe8d3e42b6fa7bbb24b7"
+    },
+    {
+      "path": "assets/images/gopro.png",
+      "family": "general-raster",
+      "bytes": 45907,
+      "sha256": "5d6402e1b87bf5fc2252d6a479cfdece0259c6ca3775087ec439e968895cdd6f"
+    },
+    {
+      "path": "assets/images/heading.png",
+      "family": "general-raster",
+      "bytes": 7113,
+      "sha256": "d1880f3269cef22931bda85ea1ae30b0cce1f253b3f5659241ac3f2bdc8baba5"
+    },
+    {
+      "path": "assets/images/imgIcon.png",
+      "family": "general-raster",
+      "bytes": 643,
+      "sha256": "423f0e656790735f03da219634ddf56d4f0cdba733881e621fc4fb38b8dfb20b"
+    },
+    {
+      "path": "assets/images/languages/ar.png",
+      "family": "language-flags",
+      "bytes": 534,
+      "sha256": "88595cb8bf2912a12096ae963bd813d9548f5dd2f649eac6802fa7cea0375b85"
+    },
+    {
+      "path": "assets/images/languages/arap.png",
+      "family": "language-flags",
+      "bytes": 1065,
+      "sha256": "e0c9672dd183884c2e2db9780b396c951cf5bcef3ec96a48b7cf0665c4e79de6"
+    },
+    {
+      "path": "assets/images/languages/ca.png",
+      "family": "language-flags",
+      "bytes": 475,
+      "sha256": "d020fbc142194ff276d63a3d53c529564a5019aee604e9da80654e0d340ca194"
+    },
+    {
+      "path": "assets/images/languages/china.png",
+      "family": "language-flags",
+      "bytes": 604,
+      "sha256": "8d8ac309e48a8bcaa8dfe0f0067f539bbd1608104409e3b53ee0ec97bc8098e5"
+    },
+    {
+      "path": "assets/images/languages/cs.png",
+      "family": "language-flags",
+      "bytes": 485,
+      "sha256": "7af63785ec300b29e393aa344c420d783de4f2591e19d0efcb8dc6e87c0d3aeb"
+    },
+    {
+      "path": "assets/images/languages/da.png",
+      "family": "language-flags",
+      "bytes": 232,
+      "sha256": "d92df57e64e4ecda9d7a87529dcd3970f1bc49a21936e74eb5035241edf40e7b"
+    },
+    {
+      "path": "assets/images/languages/de.png",
+      "family": "language-flags",
+      "bytes": 180,
+      "sha256": "4136eb0d97654ddd79516d0944be2ac39ece44fa655dca86f13741e4e594c97b"
+    },
+    {
+      "path": "assets/images/languages/el.png",
+      "family": "language-flags",
+      "bytes": 506,
+      "sha256": "5bcfc3cb7295d8e50434f47c20cd06ac665b2901faae214511e83d9ad496c0f3"
+    },
+    {
+      "path": "assets/images/languages/en.png",
+      "family": "language-flags",
+      "bytes": 968,
+      "sha256": "56fb70f6fa89eaf2794b9d7dba71449f677f4c0f0a46f8fbffefb70295818ae3"
+    },
+    {
+      "path": "assets/images/languages/england.png",
+      "family": "language-flags",
+      "bytes": 1595,
+      "sha256": "ab70397185e86c73d1acb21b8f50788b2d891d27d15b49390396f1abde10412f"
+    },
+    {
+      "path": "assets/images/languages/es.png",
+      "family": "language-flags",
+      "bytes": 450,
+      "sha256": "6fbf65bd5f7bd6b7696be1e69986e7c100567909a79fcbccbf4faa8a7684fc3a"
+    },
+    {
+      "path": "assets/images/languages/fi.png",
+      "family": "language-flags",
+      "bytes": 317,
+      "sha256": "1518a3522d312124199288f97e0bd29fb3eeef9292b2210d2727210396def3ea"
+    },
+    {
+      "path": "assets/images/languages/fr.png",
+      "family": "language-flags",
+      "bytes": 195,
+      "sha256": "cc92097ab63a1985e646409b6d53c231e55f66a32cb54a9702ed8e77bd05f976"
+    },
+    {
+      "path": "assets/images/languages/france.png",
+      "family": "language-flags",
+      "bytes": 324,
+      "sha256": "3a04e7196a56d321d0864b8fd3dde1f40713c19e365761ed83e4009425c30727"
+    },
+    {
+      "path": "assets/images/languages/germany.png",
+      "family": "language-flags",
+      "bytes": 264,
+      "sha256": "29a256e58e7438b5293f0285c316b56d4c8a135cb9f0a6253d77b5e120067730"
+    },
+    {
+      "path": "assets/images/languages/it.png",
+      "family": "language-flags",
+      "bytes": 194,
+      "sha256": "7ddebc0051d26ee2fb0fbeb7599980a3281a3d580ac2fa358ad60d1316075017"
+    },
+    {
+      "path": "assets/images/languages/italy.png",
+      "family": "language-flags",
+      "bytes": 323,
+      "sha256": "5d68731fbe1e98cd62977f1005b6a63523a11200856f25ff67afb5e16ccbdb74"
+    },
+    {
+      "path": "assets/images/languages/portugal.png",
+      "family": "language-flags",
+      "bytes": 1536,
+      "sha256": "01ebf5d380d83d68edc25488ed9f9a6e2d96830776a152ba63761a5430c15a84"
+    },
+    {
+      "path": "assets/images/languages/pt.png",
+      "family": "language-flags",
+      "bytes": 595,
+      "sha256": "e817a5277038a1695a1a598fb6325855352ab4a8a0e5ec3406916bbf41a8908e"
+    },
+    {
+      "path": "assets/images/languages/ro.png",
+      "family": "language-flags",
+      "bytes": 219,
+      "sha256": "842152ef9dcdbcc402c6d6d06a31845cfff241784916f3c16142410761689c95"
+    },
+    {
+      "path": "assets/images/languages/ru.png",
+      "family": "language-flags",
+      "bytes": 193,
+      "sha256": "039257efcaafbe71ce86e41845889a4fcc8fa1d96ab8ad63c7afdca766b371b2"
+    },
+    {
+      "path": "assets/images/languages/spain.png",
+      "family": "language-flags",
+      "bytes": 1072,
+      "sha256": "7dbf474f821c9e49d20ecaaa8aacbd3872e361bd06b0abe5521f90d9ec817919"
+    },
+    {
+      "path": "assets/images/languages/turkey.png",
+      "family": "language-flags",
+      "bytes": 699,
+      "sha256": "6a32059b0df715e2ca9024d0a3a6c70e3224e02a0a72dc88027bb2a4c4d5e9e7"
+    },
+    {
+      "path": "assets/images/manuel_1.png",
+      "family": "general-raster",
+      "bytes": 2067,
+      "sha256": "4e95edf4d8682c2d36edbf61546da5d06a28e23f61d95f6f4759d51ef377f59c"
+    },
+    {
+      "path": "assets/images/manuel_2.png",
+      "family": "general-raster",
+      "bytes": 2564,
+      "sha256": "cf3748c2ae546063078ce712883ee3c7915791c3173242dabfe0464b1741aae1"
+    },
+    {
+      "path": "assets/images/map.png",
+      "family": "general-raster",
+      "bytes": 68196,
+      "sha256": "0b3773a1ccde06f59d11d8ccf055d7b8a1caa25297ce9ac6febf43d262903091"
+    },
+    {
+      "path": "assets/images/map/arrow.png",
+      "family": "map-raster",
+      "bytes": 412,
+      "sha256": "8497d198d83d679aac3b416f2ddcabdecaffa058dfbb11a674b26162e754eb2b"
+    },
+    {
+      "path": "assets/images/map/location.png",
+      "family": "map-raster",
+      "bytes": 1367,
+      "sha256": "e78640ee164e1fece7056ee0723836a30c06b7909c0fbcd30c2c5e7d77c58ece"
+    },
+    {
+      "path": "assets/images/map/location@2x.png",
+      "family": "map-raster",
+      "bytes": 2166,
+      "sha256": "b7f74d1ebf5cb034ce34492551cbe72a06203fec8f5798f1db625c8bf8258b50"
+    },
+    {
+      "path": "assets/images/map/location@3x.png",
+      "family": "map-raster",
+      "bytes": 2725,
+      "sha256": "9fed6ab52a58e54e75f38bd3a994d47fb26ef5f0999605dd3d5484b6753a4b19"
+    },
+    {
+      "path": "assets/images/mapIcon.png",
+      "family": "general-raster",
+      "bytes": 868,
+      "sha256": "4b3250a5d3be335226309e8134b663dd799cd87ac8ecc6a4bc8f746f77778e44"
+    },
+    {
+      "path": "assets/images/marketplace/sugar.png",
+      "family": "marketplace",
+      "bytes": 2773,
+      "sha256": "c1d3cba2d794f90e5399c82192e29e1b60b0bc1640cc4c97d1c87000a8a23a9b"
+    },
+    {
+      "path": "assets/images/marketplaceMap.png",
+      "family": "general-raster",
+      "bytes": 135115,
+      "sha256": "f7697203a3336be0e653409ba3ba82cb720e6511df55fb5c6e3f03f537d1cd76"
+    },
+    {
+      "path": "assets/images/marketplaceMarker.png",
+      "family": "general-raster",
+      "bytes": 1816,
+      "sha256": "7d7c5991e495f22545cfa35d65deecf17aa1149ef7a8b6b1d83da5cbc447c29c"
+    },
+    {
+      "path": "assets/images/medals.png",
+      "family": "general-raster",
+      "bytes": 4794,
+      "sha256": "ddc3399f4dad7959d9c8469ea30dac858027e01513b97e7b225e99c46fb381bf"
+    },
+    {
+      "path": "assets/images/osm.png",
+      "family": "general-raster",
+      "bytes": 13277,
+      "sha256": "2034e2850af8a407a687ca459f063ecf7cc96e6f114dd126c2954a4425babab8"
+    },
+    {
+      "path": "assets/images/pano.png",
+      "family": "general-raster",
+      "bytes": 195703,
+      "sha256": "44c98380ad5c5ecf3578b772897941f6a1033ba2a2f64dcfcff8968e282826b3"
+    },
+    {
+      "path": "assets/images/placeholder_avatar.png",
+      "family": "general-raster",
+      "bytes": 9905,
+      "sha256": "fc88def0508d9cca60e47b3cfb7cc3df4da540288b2a7c8077ba22f0a5bca0a1"
+    },
+    {
+      "path": "assets/images/profile/lockedbadge.png",
+      "family": "profile-raster",
+      "bytes": 2782,
+      "sha256": "3060c3120df8fe5b9bb9828eb5c50f5331621310d9fb4326932c550f31fff4fa"
+    },
+    {
+      "path": "assets/images/received.png",
+      "family": "general-raster",
+      "bytes": 33635,
+      "sha256": "3e975c2b60eba752507b6e6a4e3573419d9a94848a59eca2b78379a7a301a35b"
+    },
+    {
+      "path": "assets/images/silverMedal.png",
+      "family": "general-raster",
+      "bytes": 1435,
+      "sha256": "5d6d3a2edaa9f375d6b0fc478f254fa30ad4a0be9c24fa3104a41e3b97793251"
+    },
+    {
+      "path": "assets/images/silverMedal@2x.png",
+      "family": "general-raster",
+      "bytes": 4297,
+      "sha256": "579e7da80c7c030c07a9429fdfdcc30db53d9231738b5fb4efc7d971d10837a7"
+    },
+    {
+      "path": "assets/images/silverMedal@3x.png",
+      "family": "general-raster",
+      "bytes": 7857,
+      "sha256": "37af624b53a570bcadf021867434865937958010c14577f5b5a8775524ededd9"
+    },
+    {
+      "path": "assets/images/tooltip/angle.png",
+      "family": "tooltip",
+      "bytes": 6468,
+      "sha256": "3811af5682c5bcc1d8b8ece0b30a6b336f6938f4907f53a33a3d4c2f560ccc93"
+    },
+    {
+      "path": "assets/images/tooltip/apply.png",
+      "family": "tooltip",
+      "bytes": 4443,
+      "sha256": "3e60ff2ed40b1b19678f52fa794f5ec555ac28b805fd9405a300168bba69fad8"
+    },
+    {
+      "path": "assets/images/tooltip/capture.png",
+      "family": "tooltip",
+      "bytes": 7639,
+      "sha256": "6e499dc9ddeb47acca073da5df660961bdaee1233f579cb3c8dfca2d515b411b"
+    },
+    {
+      "path": "assets/images/tooltip/leaderboard.png",
+      "family": "tooltip",
+      "bytes": 7219,
+      "sha256": "2dd3949a980a54c440fed9c5e612e57ef9fac18984fe9a0f04444e9cc04fd05b"
+    },
+    {
+      "path": "assets/images/tooltip/list.png",
+      "family": "tooltip",
+      "bytes": 7061,
+      "sha256": "3bd7f41b5ae66836ffe0f6e8a65ee00f7a164d6b6549e8cd7eecc395452111c0"
+    },
+    {
+      "path": "assets/images/tooltip/map.png",
+      "family": "tooltip",
+      "bytes": 8906,
+      "sha256": "7da7071fe2d19cf89392c0e9ca840043d60ffa44bc7a35ef3fe1689220b59817"
+    },
+    {
+      "path": "assets/images/tooltip/marketplace.png",
+      "family": "tooltip",
+      "bytes": 9819,
+      "sha256": "1b1b52e3ba85c6dbb0b5fb9069e4963f861cb075d700cff87b1fc5ba567e54a1"
+    },
+    {
+      "path": "assets/images/tooltip/tasks.png",
+      "family": "tooltip",
+      "bytes": 5819,
+      "sha256": "c97c013929b8ccc854ca900db1dcedd6ffddf9909ed09cb119c3cd7340b1871a"
+    },
+    {
+      "path": "assets/images/tooltip/upload.png",
+      "family": "tooltip",
+      "bytes": 6825,
+      "sha256": "3207c4a201946407c6ca678bbe334b4d4b220c3879b168d227e649b5a3b17946"
+    },
+    {
+      "path": "assets/images/trafficProblem.png",
+      "family": "general-raster",
+      "bytes": 146510,
+      "sha256": "2e7f9cbb9bc81f6370a59946893c069d0607d010b5ea6e0a5bee1cca66bb98b2"
+    },
+    {
+      "path": "assets/images/userLocation.png",
+      "family": "general-raster",
+      "bytes": 662,
+      "sha256": "29b156bb4277e9105c01030fd6602f3bced77a68a89eb73ecac68cd81a2182dd"
+    },
+    {
+      "path": "assets/images/walkthrough/community.png",
+      "family": "walkthrough-osm",
+      "bytes": 173326,
+      "sha256": "417b737e50ad452bc49c115655398d43e71432af41936b4dfa2ff75f57485dfa"
+    },
+    {
+      "path": "assets/images/walkthrough/gift.png",
+      "family": "walkthrough-osm",
+      "bytes": 5247,
+      "sha256": "379a13d2200b1b89b66876d9e449fafa070c46429ecbb1bfc44d8edb94472ca1"
+    },
+    {
+      "path": "assets/images/walkthrough/gifts.png",
+      "family": "walkthrough-osm",
+      "bytes": 247111,
+      "sha256": "a08f3a9880e902ca65cd82d6cc5271ff4e7500bdb99b4a930f8830e4d98f5040"
+    },
+    {
+      "path": "assets/images/walkthrough/goldmadal.png",
+      "family": "walkthrough-osm",
+      "bytes": 3852,
+      "sha256": "1409d6dc5effa8142721baa5f3bf29712b030db0ca1a469b53cc43f826f04dfb"
+    },
+    {
+      "path": "assets/images/walkthrough/moveon.png",
+      "family": "walkthrough-osm",
+      "bytes": 126160,
+      "sha256": "af44eea00dbfbc902babb3b98f4b92c27f7b3cdedbdebc53dd55bce824131c01"
+    },
+    {
+      "path": "assets/images/walkthrough/moveon_tablet.png",
+      "family": "walkthrough-osm",
+      "bytes": 485026,
+      "sha256": "c6bc020aff13cf71ac6d48de17954deb5da03ce25ec0e75bdfd1bc1714e09918"
+    },
+    {
+      "path": "assets/images/walkthrough/openstreetmap.png",
+      "family": "walkthrough-osm",
+      "bytes": 220561,
+      "sha256": "5732cf09cc507e480c0c0a56850c6e3f36dd04cc30666bed52ef71ddb247e188"
+    },
+    {
+      "path": "assets/images/walkthrough/openstreetmap_logo.png",
+      "family": "walkthrough-osm",
+      "bytes": 40661,
+      "sha256": "c5b2975b35d5e563ec3c29152b0e6c691451c341533852678074fbb8c6d2c925"
+    },
+    {
+      "path": "assets/images/walkthrough/party.png",
+      "family": "walkthrough-osm",
+      "bytes": 6033,
+      "sha256": "e844b2da592051f67b6f68f8365cf0b65a72fc225a62b34c4f3ec0deeea81ff3"
+    },
+    {
+      "path": "assets/images/walkthrough/streetlevel.png",
+      "family": "walkthrough-osm",
+      "bytes": 436757,
+      "sha256": "609035a60b6c8d5cac020f964e00c9ecab068937b40b85fc9d4c91c5285b6f8f"
+    },
+    {
+      "path": "assets/images/walkthrough/uploadcapture.png",
+      "family": "walkthrough-osm",
+      "bytes": 273758,
+      "sha256": "e9238e0f8ea828acdec2c114f6a1791a93ca11fcc423a6098c231fb542401cd2"
+    },
+    {
+      "path": "assets/logo.png",
+      "family": "brand-root-images",
+      "bytes": 5270,
+      "sha256": "503ea1baec904080d0e6299e652885dbfc41b50a08ce96bf3a3e5d4ce6db3973"
+    },
+    {
+      "path": "assets/playstore.png",
+      "family": "brand-root-images",
+      "bytes": 130682,
+      "sha256": "80f4328f49029c960f357fbd8331edcebd8734bd180e75a078d8bc9bada9060c"
+    },
+    {
+      "path": "assets/splash-icon.png",
+      "family": "brand-root-images",
+      "bytes": 72725,
+      "sha256": "9884816f0e7a72b4e4e9f7e9cb719b51c3afe983206a1aa80afbca9001a80317"
+    },
+    {
+      "path": "assets/svg/completed.svg",
+      "family": "standalone-svg",
+      "bytes": 1301,
+      "sha256": "a1ec2083ae9fe7dd983393f4a9b9c8f1064712db9112979e5d1dccfddb8d958a"
+    },
+    {
+      "path": "assets/svg/illustrations/ActionCamera.js",
+      "family": "illustration-modules",
+      "bytes": 1158,
+      "sha256": "0094a2474c129b6414919855080d997a213fcdc227a6791760419605d1c9dc54"
+    },
+    {
+      "path": "assets/svg/illustrations/ArrowLeft.js",
+      "family": "illustration-modules",
+      "bytes": 673,
+      "sha256": "2abbd51f43d8193717ea12d631ad9a857fa50fe373470d6c6b2c0284c164d27b"
+    },
+    {
+      "path": "assets/svg/illustrations/ArrowRight.js",
+      "family": "illustration-modules",
+      "bytes": 837,
+      "sha256": "0ea1542b1ab1deb3825a5ef0444536eb248cb3a3f91c2d4686d9ce3e9b2fed93"
+    },
+    {
+      "path": "assets/svg/illustrations/AttributionIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1089,
+      "sha256": "3cff575a6571111b8feeb80916189ab068739ce262c5c09f7abffdf64f39004d"
+    },
+    {
+      "path": "assets/svg/illustrations/AwardCompanies.js",
+      "family": "illustration-modules",
+      "bytes": 119167,
+      "sha256": "6745a59443d84bfab7a16299be86f3f57919127ad997d3034bfe06919cc911b7"
+    },
+    {
+      "path": "assets/svg/illustrations/BadGPS.js",
+      "family": "illustration-modules",
+      "bytes": 1156,
+      "sha256": "f53d850706768ad735d63c02ed880926023c71b673ac91d5e77d4d942be201dd"
+    },
+    {
+      "path": "assets/svg/illustrations/BatteryLevel.js",
+      "family": "illustration-modules",
+      "bytes": 1146,
+      "sha256": "de7223082382f56755b7035561a5ebbf69dd2a9ddb1100cbba27971e6e6e7aa7"
+    },
+    {
+      "path": "assets/svg/illustrations/Camera.js",
+      "family": "illustration-modules",
+      "bytes": 1158,
+      "sha256": "0094a2474c129b6414919855080d997a213fcdc227a6791760419605d1c9dc54"
+    },
+    {
+      "path": "assets/svg/illustrations/CameraFilledIcon.js",
+      "family": "illustration-modules",
+      "bytes": 951,
+      "sha256": "8a881f51831b40acbdc449ecae886434326359cb03a8c5a5b00a0e98e50a34f5"
+    },
+    {
+      "path": "assets/svg/illustrations/CameraLine.js",
+      "family": "illustration-modules",
+      "bytes": 3911,
+      "sha256": "31fad722d22091c833cc3cb2848ea71caecb339ba46f0c8aea2d871833dd3a47"
+    },
+    {
+      "path": "assets/svg/illustrations/CameraRotate.js",
+      "family": "illustration-modules",
+      "bytes": 3025,
+      "sha256": "7aa4723ec7cd33115312b2fdce6c28b3a9ef36840fd29cd65ba2fdf665c859c5"
+    },
+    {
+      "path": "assets/svg/illustrations/Campus.js",
+      "family": "illustration-modules",
+      "bytes": 1153,
+      "sha256": "85e4319440994d699291d9e1ff71bac7978abec2fe58cdc96677b6e4b90078a3"
+    },
+    {
+      "path": "assets/svg/illustrations/Capture.js",
+      "family": "illustration-modules",
+      "bytes": 1987,
+      "sha256": "1328534fdf9446fd616cc91501c8ad80514cbb61b62686a375ff3c4cf612a667"
+    },
+    {
+      "path": "assets/svg/illustrations/CaptureIcon.js",
+      "family": "illustration-modules",
+      "bytes": 965,
+      "sha256": "1aa7aefe08809e95adab619b2c0c49e3de48877664d0b2aae8a5ea6bdd95f136"
+    },
+    {
+      "path": "assets/svg/illustrations/ChargeIcon.js",
+      "family": "illustration-modules",
+      "bytes": 567,
+      "sha256": "8202f1555c59f068f75893e41eee418f059ddfbe7b5c92b97fdf6f4175c6d006"
+    },
+    {
+      "path": "assets/svg/illustrations/CheckIcon.js",
+      "family": "illustration-modules",
+      "bytes": 745,
+      "sha256": "b9e04c39dce2a908ec7b3216f7bf759df3227b58cea0ec93ca3ab332fca754e3"
+    },
+    {
+      "path": "assets/svg/illustrations/CleanRoad.js",
+      "family": "illustration-modules",
+      "bytes": 995,
+      "sha256": "55c5b44417b86c0e826e6c83752f9b08c0bd410041e1c26c8a7c45559e87f327"
+    },
+    {
+      "path": "assets/svg/illustrations/CloseIcon.js",
+      "family": "illustration-modules",
+      "bytes": 624,
+      "sha256": "06b0fe7ea08b2cf5f3b7a0cd02584d5ad9756baafd673ced0d33c90219f945ae"
+    },
+    {
+      "path": "assets/svg/illustrations/Cog.js",
+      "family": "illustration-modules",
+      "bytes": 2609,
+      "sha256": "e45013047e813377ebc756ed7ef00c35c712e19c3d701734765b69d6bb2d7936"
+    },
+    {
+      "path": "assets/svg/illustrations/CorwnIcon.js",
+      "family": "illustration-modules",
+      "bytes": 929,
+      "sha256": "5628261ca0653fcdf34d1fecbb5464c54353caf46da46538dba39dc6da502bcf"
+    },
+    {
+      "path": "assets/svg/illustrations/CurrentLocationIcon.js",
+      "family": "illustration-modules",
+      "bytes": 740,
+      "sha256": "0c535659e036cb7c5f9855b461cb670aefcdc2a6d879a22c5e69145487605892"
+    },
+    {
+      "path": "assets/svg/illustrations/Device.js",
+      "family": "illustration-modules",
+      "bytes": 852,
+      "sha256": "849d3cec02a63f30e0174fe70434a9f8b7d49c153a5e36afa913e7b37fed9db0"
+    },
+    {
+      "path": "assets/svg/illustrations/Document.js",
+      "family": "illustration-modules",
+      "bytes": 855,
+      "sha256": "86b024639e5d0851f7adbc8321c50d2d0bf5188d35d6fc5e9fe18eac7722cf09"
+    },
+    {
+      "path": "assets/svg/illustrations/DropdownArrow.js",
+      "family": "illustration-modules",
+      "bytes": 1112,
+      "sha256": "c8a5f843a6798473f1a6784d9fb2773655b4f8a882f025ef2e80d7608fa5b769"
+    },
+    {
+      "path": "assets/svg/illustrations/ErrorIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1341,
+      "sha256": "d5970b06f66d1fb9c49d734d0fd46b71aa715749cb4b5cd5168ef0212623f7f5"
+    },
+    {
+      "path": "assets/svg/illustrations/Eye.js",
+      "family": "illustration-modules",
+      "bytes": 3255,
+      "sha256": "9ccb99887a8d68255c228d3691fe618f8121b249d93aa0ceb1b43771e81e8edc"
+    },
+    {
+      "path": "assets/svg/illustrations/EyeSlash.js",
+      "family": "illustration-modules",
+      "bytes": 2863,
+      "sha256": "94dfb8b4297f28b3167dcba853acddc6b93919b1ac17cf6ce64155538b0bbf4c"
+    },
+    {
+      "path": "assets/svg/illustrations/FacebookIcon.js",
+      "family": "illustration-modules",
+      "bytes": 760,
+      "sha256": "eebdec1e84f4fa270b375af58c822bc3ae6e8ac817b5c0c95b59d6d3364b0506"
+    },
+    {
+      "path": "assets/svg/illustrations/Flags.js",
+      "family": "illustration-modules",
+      "bytes": 1786,
+      "sha256": "3281165593c8f8a78ddd46b48694c7d72fcc924ef1b64d94c7e41734d4ec84b6"
+    },
+    {
+      "path": "assets/svg/illustrations/FrameLeftBottom.js",
+      "family": "illustration-modules",
+      "bytes": 748,
+      "sha256": "738623fb7b11fb47126159b5b69f73f2622e72ab029716f501f54b3204b515e1"
+    },
+    {
+      "path": "assets/svg/illustrations/FrameLeftTop.js",
+      "family": "illustration-modules",
+      "bytes": 742,
+      "sha256": "8b52d33bfa4deec31ca2040aec4ff1b980887cd684439ee7d62ffca7645ec614"
+    },
+    {
+      "path": "assets/svg/illustrations/FrameRightBottom.js",
+      "family": "illustration-modules",
+      "bytes": 751,
+      "sha256": "bd6b16cac83075a62c5529e4e7c12da958cd767dfde3d908af9ada2c89486765"
+    },
+    {
+      "path": "assets/svg/illustrations/FrameRightTop.js",
+      "family": "illustration-modules",
+      "bytes": 745,
+      "sha256": "f49564573ec50caecd326e2e4d67471a83f5484362af2cdc409c0ca7112c0b06"
+    },
+    {
+      "path": "assets/svg/illustrations/GPSError.js",
+      "family": "illustration-modules",
+      "bytes": 1150,
+      "sha256": "1012522cd853287b2456c452eb58110d69742be0f0ac0575e3789fd79c67bd0e"
+    },
+    {
+      "path": "assets/svg/illustrations/GPSSearch.js",
+      "family": "illustration-modules",
+      "bytes": 6971,
+      "sha256": "14b494a8121810753be4e760dff19d89f423bd28174451167acaf3e82eeb3de1"
+    },
+    {
+      "path": "assets/svg/illustrations/GoBack.js",
+      "family": "illustration-modules",
+      "bytes": 1290,
+      "sha256": "125da435380a8b3c22331dbaae40aa447d1ae955b25b136a799b3c8c105aa975"
+    },
+    {
+      "path": "assets/svg/illustrations/GoodGPS.js",
+      "family": "illustration-modules",
+      "bytes": 888,
+      "sha256": "e032e863a2b554a174c015519e47b8163536c15fa6d6fcc2dd9deff2a65918ce"
+    },
+    {
+      "path": "assets/svg/illustrations/GoogleIcon.js",
+      "family": "illustration-modules",
+      "bytes": 2026,
+      "sha256": "10eb00b664490e237e45cde3d7e40500d6c2e7d92fdd898f4a6853cac6437eb3"
+    },
+    {
+      "path": "assets/svg/illustrations/HowToScore.js",
+      "family": "illustration-modules",
+      "bytes": 1189,
+      "sha256": "a13b8d3a6ee08d15f53db499c8e61b935b2cb1c7fae6f266c9777b7abb3f1276"
+    },
+    {
+      "path": "assets/svg/illustrations/Icon.js",
+      "family": "illustration-modules",
+      "bytes": 1213,
+      "sha256": "eb3a8afe29be546f0e6fa5c8ed380b2c00a6d176f73bd317cedea4bd29fdb087"
+    },
+    {
+      "path": "assets/svg/illustrations/Images.js",
+      "family": "illustration-modules",
+      "bytes": 6142,
+      "sha256": "e27f1cba7a41ecbc3e2efe990e2d3aac1d0713dafc9e1f6148950286c4b09fde"
+    },
+    {
+      "path": "assets/svg/illustrations/Info.js",
+      "family": "illustration-modules",
+      "bytes": 2017,
+      "sha256": "3ff71a07945e36d038dc2a38e4a121f9c6cc32c83d00951e78e7031ac04dcea9"
+    },
+    {
+      "path": "assets/svg/illustrations/InfoFilled.js",
+      "family": "illustration-modules",
+      "bytes": 1350,
+      "sha256": "27e9a7d1d79cfa594d11fa896fcc7de6622c827642b8ce6f03f5f5131a4f15a5"
+    },
+    {
+      "path": "assets/svg/illustrations/InfoIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1372,
+      "sha256": "d7cdeeab6bcb845a94adb5bb7b841d591804ee683b3a9b6aec2ea5b39909105d"
+    },
+    {
+      "path": "assets/svg/illustrations/Information.js",
+      "family": "illustration-modules",
+      "bytes": 1382,
+      "sha256": "e7924fee4287dd014c81f25fcabd21e457247206a17ac4d7d0dab6d9d86b8b5a"
+    },
+    {
+      "path": "assets/svg/illustrations/InternetAccess.js",
+      "family": "illustration-modules",
+      "bytes": 2076,
+      "sha256": "0b05d0440705e03358680e728232869274980e30947fc271b034cde6c1d60dec"
+    },
+    {
+      "path": "assets/svg/illustrations/LeaderIcon.js",
+      "family": "illustration-modules",
+      "bytes": 2552,
+      "sha256": "cbc47b5a853e85cb9ae556dca6ff94f5f60828976687a5202d0a6cfe6dc84b31"
+    },
+    {
+      "path": "assets/svg/illustrations/LogoWatermark.js",
+      "family": "illustration-modules",
+      "bytes": 3334,
+      "sha256": "095f4b51e249d6ccf7a6fee8ad75b151b5520a7f2235cfd13a35d8409762445d"
+    },
+    {
+      "path": "assets/svg/illustrations/LowLight.js",
+      "family": "illustration-modules",
+      "bytes": 2154,
+      "sha256": "1e0a96ae7bbe1b08b0043db43b0dcaa6f1cf6615079e27b9ebe085d3f3c5e026"
+    },
+    {
+      "path": "assets/svg/illustrations/Map.js",
+      "family": "illustration-modules",
+      "bytes": 3778,
+      "sha256": "4b1f5860b60d5835889a269467ecd4e07314ca59f444078c73ee7c08be4ad654"
+    },
+    {
+      "path": "assets/svg/illustrations/MapLogo.js",
+      "family": "illustration-modules",
+      "bytes": 5794,
+      "sha256": "fa53911bfedcd872946c7366a7d8e9ecadd0c7f55a68eb27ca088db67f9f50e7"
+    },
+    {
+      "path": "assets/svg/illustrations/MapilioBetaWatermark.js",
+      "family": "illustration-modules",
+      "bytes": 3919,
+      "sha256": "9e54f5ffcd1c6ddef26d22e237d774df7ed35625ec9382a27119a81812b539f4"
+    },
+    {
+      "path": "assets/svg/illustrations/Marketplace.js",
+      "family": "illustration-modules",
+      "bytes": 1493,
+      "sha256": "54a019220d3a7655eaae96372c1f5a3cc2a735a2f62fa6bed6e7e2fbb913334b"
+    },
+    {
+      "path": "assets/svg/illustrations/Marketplace/MarketplaceSoonIcon.js",
+      "family": "marketplace-illustration-modules",
+      "bytes": 34753,
+      "sha256": "53cce82b64e4551080a0f0ee597db637e0bfbc3640e9188bdf1cf7e88a04678a"
+    },
+    {
+      "path": "assets/svg/illustrations/Marketplace/Ready.js",
+      "family": "marketplace-illustration-modules",
+      "bytes": 11412,
+      "sha256": "eb853994cc451a35cd4209276913ee144c86123904c52d1d815a5e2a96928b61"
+    },
+    {
+      "path": "assets/svg/illustrations/MarketplaceIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1398,
+      "sha256": "1b7f151cbe8a177ed67a6594eb94940f1d368ae34f03e3c04b917ed8da8058c0"
+    },
+    {
+      "path": "assets/svg/illustrations/MarketplacePoint.js",
+      "family": "illustration-modules",
+      "bytes": 4816,
+      "sha256": "fa391d12c91f44fb3a3219409a7dbaa8db28f6c5fed46de703adc7530e7c0af9"
+    },
+    {
+      "path": "assets/svg/illustrations/Maximize.js",
+      "family": "illustration-modules",
+      "bytes": 1917,
+      "sha256": "bf29f841417d7b8603c997986cb960d2bb4cb7345527b407c0aa1e41ca0e3498"
+    },
+    {
+      "path": "assets/svg/illustrations/MaximizePano.js",
+      "family": "illustration-modules",
+      "bytes": 1992,
+      "sha256": "df435eae3185c80ce0bd96f10d89f81f4ba49eb282d25a42acd2886345be9801"
+    },
+    {
+      "path": "assets/svg/illustrations/Minimize.js",
+      "family": "illustration-modules",
+      "bytes": 1910,
+      "sha256": "53bda3986a51d6beab6afa21160453072ad7fc9edab88fb5a5206a65ff759db8"
+    },
+    {
+      "path": "assets/svg/illustrations/MinimizePano.js",
+      "family": "illustration-modules",
+      "bytes": 2510,
+      "sha256": "9918a9040a7a5c4e68502ea788fbda739522d2c2bf5e6d73d1b433ae9f201e23"
+    },
+    {
+      "path": "assets/svg/illustrations/Mocked.js",
+      "family": "illustration-modules",
+      "bytes": 2128,
+      "sha256": "157c622947edb9f53ec3ecb7b75d45925fff3e4bd7b67521e542daf5742068cd"
+    },
+    {
+      "path": "assets/svg/illustrations/NoFeed.js",
+      "family": "illustration-modules",
+      "bytes": 13701,
+      "sha256": "64d9e6b5e552d865d595b09d0f2f3aaa4367f84bc136bd8c2a6e308e6e0bc4f8"
+    },
+    {
+      "path": "assets/svg/illustrations/NoInternetAccess.js",
+      "family": "illustration-modules",
+      "bytes": 16475,
+      "sha256": "f06898fe9db8c89eb95f587f4b6cbb1e9da15436ba1db528a59c21e188ac0f09"
+    },
+    {
+      "path": "assets/svg/illustrations/NoLocation.js",
+      "family": "illustration-modules",
+      "bytes": 7538,
+      "sha256": "e80801e816df8c6a093de4eb1e87a10161f530350d26e612ceaca26e959ef48c"
+    },
+    {
+      "path": "assets/svg/illustrations/NoResultIcon.js",
+      "family": "illustration-modules",
+      "bytes": 24534,
+      "sha256": "432276856efdfd01dd9b217fda184646d2130aa037a039fbc3f317a1f3ee43ef"
+    },
+    {
+      "path": "assets/svg/illustrations/NoUpload.js",
+      "family": "illustration-modules",
+      "bytes": 6514,
+      "sha256": "63642aab7da5995bb4144355c53f1ab5dcea9885e3f44ea45cda1a3de9fd15c9"
+    },
+    {
+      "path": "assets/svg/illustrations/NorthArrow.js",
+      "family": "illustration-modules",
+      "bytes": 413,
+      "sha256": "2811f6ff53747b8f3437991db0f4768d61213aa03ba37e4a399546a10e340379"
+    },
+    {
+      "path": "assets/svg/illustrations/Orientation.js",
+      "family": "illustration-modules",
+      "bytes": 1165,
+      "sha256": "083fd10265f627d5708c835fdec15bb8051702c42b1cee8c90c5e03974db8446"
+    },
+    {
+      "path": "assets/svg/illustrations/PanoPlayBtn.js",
+      "family": "illustration-modules",
+      "bytes": 1533,
+      "sha256": "906edea878b84d55c6ceb9ea295d26c051362191908f9b997225f5867b8e3b37"
+    },
+    {
+      "path": "assets/svg/illustrations/PhoneCamera.js",
+      "family": "illustration-modules",
+      "bytes": 1604,
+      "sha256": "920a0206ac0476f986a4e373efb60982a2c28e7ea561fffa5cff520b612ea0ab"
+    },
+    {
+      "path": "assets/svg/illustrations/Photos.js",
+      "family": "illustration-modules",
+      "bytes": 1121,
+      "sha256": "5c8de76aeccde89e2a77cc350e5ca153bd775fb69ac5fe49bb812cbcb6fbd414"
+    },
+    {
+      "path": "assets/svg/illustrations/Play.js",
+      "family": "illustration-modules",
+      "bytes": 564,
+      "sha256": "d7db3611cd2f797b465cbf95039d8288ad70814bb98798f4b67d944316e1f8fd"
+    },
+    {
+      "path": "assets/svg/illustrations/PlayArrowLeft.js",
+      "family": "illustration-modules",
+      "bytes": 1359,
+      "sha256": "d72f5d979c431d75316edea5963e155b1513eadb84bc3c7da80fc2a9781c956b"
+    },
+    {
+      "path": "assets/svg/illustrations/PlayArrowRight.js",
+      "family": "illustration-modules",
+      "bytes": 1395,
+      "sha256": "f09adc1a9b538e3dad83b5839a375cd17100ae5eee75798d01387a7b62738d42"
+    },
+    {
+      "path": "assets/svg/illustrations/PointIcon.js",
+      "family": "illustration-modules",
+      "bytes": 6452,
+      "sha256": "ad7f90adfc0780d6bda7895590aeb3152e64e678e540f684ae3e5af3f7c28b06"
+    },
+    {
+      "path": "assets/svg/illustrations/Profile.js",
+      "family": "illustration-modules",
+      "bytes": 1200,
+      "sha256": "d8bb304b6b640d10cab5dc5fd20fd052639b0875c212170955f8b16037f2c07e"
+    },
+    {
+      "path": "assets/svg/illustrations/ProfileBackground.js",
+      "family": "illustration-modules",
+      "bytes": 2836,
+      "sha256": "27659598154db8a232b8dd0fcc797aa0ba419155d073b381a8b43ec4cb3b9547"
+    },
+    {
+      "path": "assets/svg/illustrations/ProfileCamera.js",
+      "family": "illustration-modules",
+      "bytes": 1363,
+      "sha256": "b48380c139d623eaecf2bff2bebbdd07a554265f92105f61265f8530bfcd1338"
+    },
+    {
+      "path": "assets/svg/illustrations/Rec.js",
+      "family": "illustration-modules",
+      "bytes": 1450,
+      "sha256": "0453920efa61c359961aeba4880f23622b7f83cd3ce6cea78b778e45b8d164e5"
+    },
+    {
+      "path": "assets/svg/illustrations/ReportIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1104,
+      "sha256": "be56265055891db50412fc5954894ec1ccfa9a2e4130a1f0c21486c6632426c4"
+    },
+    {
+      "path": "assets/svg/illustrations/RightTopDirectionIcon.js",
+      "family": "illustration-modules",
+      "bytes": 755,
+      "sha256": "4fdd4efc8452fb404127200e9507beabcd2238153aa56866bdbf29b47cd89d2e"
+    },
+    {
+      "path": "assets/svg/illustrations/Road.js",
+      "family": "illustration-modules",
+      "bytes": 3338,
+      "sha256": "298efc43ebf72ef8787a68148447a1c0cbab016efff5e5c0d0145f16dafdfb7b"
+    },
+    {
+      "path": "assets/svg/illustrations/RoadIcon.js",
+      "family": "illustration-modules",
+      "bytes": 502,
+      "sha256": "898dd8639f196b51601f420f5d05a981df74aafbc3841df21374c177bc1c892b"
+    },
+    {
+      "path": "assets/svg/illustrations/SDCard.js",
+      "family": "illustration-modules",
+      "bytes": 658,
+      "sha256": "ae34776e3b8ee17776f210cbf81ad9afcd079a1bf93622e5a7410e2425d196cd"
+    },
+    {
+      "path": "assets/svg/illustrations/SadWorld.js",
+      "family": "illustration-modules",
+      "bytes": 25135,
+      "sha256": "9b500fd187c4df7d6c267c60b0ca79b3d6d8036a7e9c5262253213710afabf14"
+    },
+    {
+      "path": "assets/svg/illustrations/SearchIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1619,
+      "sha256": "c85d3252ca97a39d992735d54e97868e3af5b41001e5fc24620d15156e371994"
+    },
+    {
+      "path": "assets/svg/illustrations/SearchWelcome.js",
+      "family": "illustration-modules",
+      "bytes": 17891,
+      "sha256": "b9c256af106ddf84224429b486955e9f60bc4c04024104bf34da1686df20c4cf"
+    },
+    {
+      "path": "assets/svg/illustrations/SelectedIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1113,
+      "sha256": "448138a2f6a4c61c55aa2c0068ae0b6916257719d82fc5cb81fdbcf119f27dbb"
+    },
+    {
+      "path": "assets/svg/illustrations/Settings.js",
+      "family": "illustration-modules",
+      "bytes": 2175,
+      "sha256": "5b0029c93292f40acc2b912bbfe348dcf508659a70c0e3701ff2cef7e2242dec"
+    },
+    {
+      "path": "assets/svg/illustrations/SettingsDots.js",
+      "family": "illustration-modules",
+      "bytes": 747,
+      "sha256": "ad32a32ba86472376eb20146ba61e249b37e4df78b40d62635f941a618129a14"
+    },
+    {
+      "path": "assets/svg/illustrations/SignOut.js",
+      "family": "illustration-modules",
+      "bytes": 1969,
+      "sha256": "8ed57b942b8c4b9f97b69421cd75983e05856dd2831fed769cf0d8bd47a45b23"
+    },
+    {
+      "path": "assets/svg/illustrations/Stop.js",
+      "family": "illustration-modules",
+      "bytes": 508,
+      "sha256": "adab81aa9a8c2e2ad5683603ccac18bab98cda0e2930bbc63ff119b017b856be"
+    },
+    {
+      "path": "assets/svg/illustrations/SuccessBlackIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1096,
+      "sha256": "bc421e14d637a3253cac9c3d437e43e8af5ed4dd4eeefa0b29348af83befb113"
+    },
+    {
+      "path": "assets/svg/illustrations/SuccessIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1106,
+      "sha256": "6819405db0914180e62519df2f3efe5b46759c1f964eaca49ed13183111b6626"
+    },
+    {
+      "path": "assets/svg/illustrations/SwipeLine.js",
+      "family": "illustration-modules",
+      "bytes": 428,
+      "sha256": "9562244266de45347eae00250b443f7c69ba71ea8df7c92a8b20b18308153cf7"
+    },
+    {
+      "path": "assets/svg/illustrations/SwitchMapPano.js",
+      "family": "illustration-modules",
+      "bytes": 593,
+      "sha256": "154c448a486446ff27566b1fd7b63f3933baab834a790ed9faf605a74c2d19c5"
+    },
+    {
+      "path": "assets/svg/illustrations/TabMap.js",
+      "family": "illustration-modules",
+      "bytes": 1711,
+      "sha256": "dea4d2a849ab6ff39d70c708b442ceae9d60299d451f1c3f2a7b447119f404e6"
+    },
+    {
+      "path": "assets/svg/illustrations/Task.js",
+      "family": "illustration-modules",
+      "bytes": 5073,
+      "sha256": "ab05bbfdfd2b02491b7c1cf360494ec702d58247be8b7cc5978cec6d7e818ffe"
+    },
+    {
+      "path": "assets/svg/illustrations/TimeIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1173,
+      "sha256": "5a5320d516be0845b72c7329227175f79df86bf205e580d826f78f7668a072b1"
+    },
+    {
+      "path": "assets/svg/illustrations/Trash.js",
+      "family": "illustration-modules",
+      "bytes": 828,
+      "sha256": "96dc9cf8f5a2d6f3cf38119d7f7e082bafa4b339d47df07831f81712aae7d313"
+    },
+    {
+      "path": "assets/svg/illustrations/Upload.js",
+      "family": "illustration-modules",
+      "bytes": 3896,
+      "sha256": "4cf73062f3ffdb2ac7c8510943a0ee8237d21b6b36e607d8cfb7fc0caf5e80c4"
+    },
+    {
+      "path": "assets/svg/illustrations/UploadCompletedSvg.js",
+      "family": "illustration-modules",
+      "bytes": 1772,
+      "sha256": "d3ba2cbdb1ae9b6d4f209deb4c520ef0a92d9d3b05491875480e440ba64fff95"
+    },
+    {
+      "path": "assets/svg/illustrations/UploadIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1806,
+      "sha256": "10306cccdc71c35a0579ae3fb3fa1a0cb6651de57094cf6b3eef6ee70bc9ee37"
+    },
+    {
+      "path": "assets/svg/illustrations/UserFeed/OpenStreetMap.js",
+      "family": "user-feed-illustration-modules",
+      "bytes": 60978,
+      "sha256": "be3b3c1c2d87e5480902857db373c097a4934cfed378d52225584bfb6816b777"
+    },
+    {
+      "path": "assets/svg/illustrations/UserFeed/ToggleOrientation.js",
+      "family": "user-feed-illustration-modules",
+      "bytes": 969,
+      "sha256": "fbd9b04979f4dcd41273d1461b4d95e8a3a2d948b818a030a1c3e5f5a94cd30c"
+    },
+    {
+      "path": "assets/svg/illustrations/WarningFilled.js",
+      "family": "illustration-modules",
+      "bytes": 1320,
+      "sha256": "7e8a117ff381cafb7c384d4aecc13a73cc941ec8d0a56b39477c6801ee16e88a"
+    },
+    {
+      "path": "assets/svg/illustrations/WarningIcon.js",
+      "family": "illustration-modules",
+      "bytes": 1291,
+      "sha256": "a84f91b420cb46b61affe9075aad16679b08285a3747e3ac51092943fc46a839"
+    },
+    {
+      "path": "assets/svg/illustrations/ZoomIn.js",
+      "family": "illustration-modules",
+      "bytes": 1253,
+      "sha256": "382290da9074d45c8fc566b3b6bd1b5ea9310bdeaa5ac8bcca48e1bfede7ff76"
+    },
+    {
+      "path": "assets/svg/illustrations/ZoomOut.js",
+      "family": "illustration-modules",
+      "bytes": 807,
+      "sha256": "75ff77bf4fcc7d4365cc468b4bef36e70a2d8fa4aedf836de049f29f37a689f9"
+    },
+    {
+      "path": "assets/svg/illustrations/index.js",
+      "family": "illustration-modules",
+      "bytes": 4578,
+      "sha256": "dc808052bb840ee245aafab26701bd0b3c516adf5da23d0bbb6bf8b73cb26d31"
+    },
+    {
+      "path": "assets/svg/logos/AppleIcon.js",
+      "family": "logos",
+      "bytes": 1184,
+      "sha256": "a0715550844c19bef4e7493c4d05348382ca4f8c7200983e27e6a65f2b9a9612"
+    },
+    {
+      "path": "assets/svg/logos/AppleLogo.js",
+      "family": "logos",
+      "bytes": 1878,
+      "sha256": "82994bba2ec723889ae9113f0eca10837e600875cbf57e682ffe93f8793f1f9a"
+    },
+    {
+      "path": "assets/svg/logos/FacebookLogo.js",
+      "family": "logos",
+      "bytes": 535,
+      "sha256": "03452397312800340fe954e2e698ea8d449f97f896a92539bc90c4d878ba7950"
+    },
+    {
+      "path": "assets/svg/logos/GoogleLogo.js",
+      "family": "logos",
+      "bytes": 1308,
+      "sha256": "c7dabb468d0f160e7188bf484e36fdabf304e6346af1b5618ae4fed9b958d9a4"
+    },
+    {
+      "path": "assets/svg/logos/MapilioLightLogo.js",
+      "family": "logos",
+      "bytes": 11505,
+      "sha256": "5f71584580e568cfa8b0b927e325fb6a7765befa778ad28f2e0b7dfcba3ac884"
+    },
+    {
+      "path": "assets/svg/logos/MapilioLogo.js",
+      "family": "logos",
+      "bytes": 3705,
+      "sha256": "026a72b7a7c63c828d032ce305350d0d5a59966bd5e467578d6cab625ea5a4c6"
+    },
+    {
+      "path": "assets/svg/logos/MapilioLogoBeta.js",
+      "family": "logos",
+      "bytes": 3932,
+      "sha256": "b1cabfde599e1e8163db594e6a05cabcd4bcc2e4548ec10e573879ef2cd86cc5"
+    },
+    {
+      "path": "assets/svg/logos/index.js",
+      "family": "logos",
+      "bytes": 346,
+      "sha256": "193d7585ef3f63ddba4ac240f0ef758940e5f1724e1f404f8c53217d33aa15b7"
+    }
+  ]
+}
