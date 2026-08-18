@@ -125,6 +125,19 @@ npx expo prebuild -p ios --clean && cd ios && pod install && cd ..
 npx expo prebuild -p android --clean
 ```
 
+### Production Android builds
+
+Production builds use release credentials managed outside this repository. The
+`production` EAS profile explicitly uses Expo's remote credential store:
+
+```bash
+eas build --platform android --profile production
+```
+
+The tracked `android/app/debug.keystore` is only for local debug builds. A local
+Gradle release build is intentionally not configured to use that key; provide a
+secure external signing configuration when building outside EAS.
+
 ---
 
 ## Environment Variables
