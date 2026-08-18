@@ -1,5 +1,5 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json",
+  "extends": "@react-native/typescript-config",
   "compilerOptions": {
     // .js files are allowed for gradual migration but NOT type-checked
     // Rename files to .ts/.tsx to get type checking
@@ -12,6 +12,7 @@
     "strictNullChecks": true,
 
     // Module resolution
+    "module": "esnext",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "resolveJsonModule": true,

@@ -4,8 +4,8 @@ A street-level imagery capture app for iOS and Android, built with Expo (bare wo
 
 [![CI](https://github.com/mapilio/mobile-apps/actions/workflows/ci.yml/badge.svg)](https://github.com/mapilio/mobile-apps/actions/workflows/ci.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Expo SDK](https://img.shields.io/badge/Expo-SDK%2054-000020?logo=expo)](https://expo.dev)
-[![React Native](https://img.shields.io/badge/React%20Native-0.81.5-61dafb?logo=react)](https://reactnative.dev)
+[![Expo SDK](https://img.shields.io/badge/Expo-SDK%2055-000020?logo=expo)](https://expo.dev)
+[![React Native](https://img.shields.io/badge/React%20Native-0.83.10-61dafb?logo=react)](https://reactnative.dev)
 [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://reactnative.dev)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![OpenStreetMap](https://img.shields.io/badge/community-OpenStreetMap-7EBC6F?logo=openstreetmap&logoColor=white)](https://www.openstreetmap.org)
@@ -53,8 +53,8 @@ See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, an
 
 | Layer         | Library                                  |
 | ------------- | ---------------------------------------- |
-| Framework     | Expo SDK 54 (Bare Workflow)              |
-| Runtime       | React Native 0.81.5                      |
+| Framework     | Expo SDK 55 (Bare Workflow)              |
+| Runtime       | React Native 0.83.10                     |
 | Navigation    | React Navigation v7                      |
 | State         | Redux 5 + Redux-Persist                  |
 | Maps          | MapLibre React Native                    |

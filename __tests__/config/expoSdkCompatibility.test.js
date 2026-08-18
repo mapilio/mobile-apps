@@ -23,6 +23,17 @@ const iosUpdatesConfig = fs.readFileSync(
   path.join(__dirname, '../../ios/Mapilio/Supporting/Expo.plist'),
   'utf8'
 );
+const iosPodfileProperties = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '../../ios/Podfile.properties.json'), 'utf8')
+);
+const iosAppDelegate = fs.readFileSync(
+  path.join(__dirname, '../../ios/Mapilio/AppDelegate.swift'),
+  'utf8'
+);
+const iosProject = fs.readFileSync(
+  path.join(__dirname, '../../ios/Mapilio.xcodeproj/project.pbxproj'),
+  'utf8'
+);
 const gitignore = fs.readFileSync(path.join(__dirname, '../../.gitignore'), 'utf8');
 const nodeVersion = fs.readFileSync(path.join(__dirname, '../../.nvmrc'), 'utf8').trim();
 const storageModuleConfig = fs.readFileSync(
@@ -38,14 +49,16 @@ const storageModuleKotlin = fs.readFileSync(
 );
 
 describe('Expo SDK compatibility contract', () => {
-  test('pins the SDK 54 and React Native 0.81 runtime pair', () => {
-    expect(packageJson.dependencies.expo).toBe('~54.0.0');
-    expect(packageJson.dependencies['react-native']).toBe('0.81.5');
-    expect(packageJson.dependencies.react).toBe('19.1.0');
-    expect(packageJson.devDependencies['jest-expo']).toBe('~54.0.18');
-    expect(packageJson.devDependencies['@types/react']).toBe('~19.1.10');
-    expect(packageJson.devDependencies['@react-native/babel-preset']).toBe('0.81.5');
-    expect(packageJson.devDependencies['@react-native/metro-config']).toBe('0.81.5');
+  test('pins the SDK 55 and React Native 0.83 runtime pair', () => {
+    expect(packageJson.dependencies.expo).toBe('^55.0.0');
+    expect(packageJson.dependencies['react-native']).toBe('0.83.10');
+    expect(packageJson.dependencies.react).toBe('19.2.0');
+    expect(packageJson.devDependencies['jest-expo']).toBe('~55.0.21');
+    expect(packageJson.devDependencies['@types/react']).toBe('~19.2.10');
+    expect(packageJson.devDependencies['@react-native/babel-preset']).toBe('0.83.10');
+    expect(packageJson.devDependencies['@react-native/metro-config']).toBe('0.83.10');
+    expect(packageJson.devDependencies['@react-native/eslint-config']).toBe('0.83.10');
+    expect(packageJson.devDependencies['@react-native/typescript-config']).toBe('0.83.10');
     expect(packageJson.engines.node).toBe('>=22 <25');
     expect(nodeVersion).toBe('22');
   });
@@ -55,9 +68,9 @@ describe('Expo SDK compatibility contract', () => {
     expect(packageJson.dependencies['@maplibre/maplibre-react-native']).toBeDefined();
     expect(packageJson.dependencies['react-native-onesignal']).toBeDefined();
     expect(packageJson.dependencies['react-native-fbsdk-next']).toBeDefined();
-    expect(packageJson.dependencies['expo-camera']).toBe('~17.0.10');
-    expect(packageJson.dependencies['react-native-reanimated']).toBe('~4.1.1');
-    expect(packageJson.dependencies['react-native-worklets']).toBe('0.5.1');
+    expect(packageJson.dependencies['expo-camera']).toBe('~55.0.22');
+    expect(packageJson.dependencies['react-native-reanimated']).toBe('4.2.1');
+    expect(packageJson.dependencies['react-native-worklets']).toBe('0.7.4');
     expect(packageJson.dependencies['react-native-walkthrough-tooltip']).toBe('^1.6.0');
     expect(packageJson.dependencies['@lightbase/react-native-panorama-view']).toBeUndefined();
     expect(packageJson.scripts.postinstall).toBeUndefined();
@@ -94,28 +107,49 @@ describe('Expo SDK compatibility contract', () => {
     ).toBe(true);
   });
 
-  test('uses the SDK 54 Android toolchain and New Architecture', () => {
-    expect(appConfigSource).toContain('newArchEnabled: true');
+  test('uses the SDK 55 Android toolchain and preserves New Architecture natively', () => {
+    expect(appConfigSource).not.toContain('newArchEnabled');
     expect(appConfigSource).toContain('compileSdkVersion: 36');
     expect(appConfigSource).toContain('targetSdkVersion: 36');
     expect(appConfigSource).toContain("kotlinVersion: '2.1.20'");
     expect(androidGradleProperties).toContain('newArchEnabled=true');
     expect(androidGradleProperties).toContain('edgeToEdgeEnabled=true');
+    expect(iosPodfileProperties.newArchEnabled).toBe('true');
     expect(androidGradleProperties).not.toContain('android.enableJetifier=true');
     expect(androidBuildGradle).not.toContain('kotlinVersion = findProperty');
   });
 
-  test('isolates SDK 54 updates from older native runtimes', () => {
-    expect(appConfigSource).toContain("runtimeVersion: '2.0.0'");
+  test('uses the SDK 55 Swift app delegate entry point', () => {
+    expect(iosAppDelegate).toContain('@main');
+    expect(iosAppDelegate).toContain('class AppDelegate: ExpoAppDelegate');
+    expect(iosAppDelegate).toContain('ExpoReactNativeFactory(delegate: delegate)');
+    expect(iosAppDelegate).toContain('delegate.dependencyProvider = RCTAppDependencyProvider()');
+    expect(iosAppDelegate).toContain('withModuleName: "main"');
+    expect(iosAppDelegate).toContain('forBundleRoot: ".expo/.virtual-metro-entry"');
+    expect(iosAppDelegate).toContain(
+      'Bundle.main.url(forResource: "main", withExtension: "jsbundle")'
+    );
+    expect(iosAppDelegate).toContain('RCTLinkingManager.application');
+    expect(iosAppDelegate).toContain('didRegisterForRemoteNotificationsWithDeviceToken');
+    expect(iosAppDelegate).not.toContain('EXAppDelegateWrapper');
+    expect(iosProject).toContain('AppDelegate.swift in Sources');
+    expect(iosProject).not.toMatch(/AppDelegate\.(h|mm)|main\.m|noop-file\.swift/);
+    expect(fs.existsSync(path.join(__dirname, '../../ios/Mapilio/AppDelegate.h'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, '../../ios/Mapilio/AppDelegate.mm'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, '../../ios/Mapilio/main.m'))).toBe(false);
+  });
+
+  test('isolates SDK 55 updates from older native runtimes', () => {
+    expect(appConfigSource).toContain("runtimeVersion: '3.0.0'");
     expect(appConfigSource).not.toContain("runtimeVersion: '1.0.0'");
     expect(androidManifest).toContain(
       'android:name="expo.modules.updates.EXPO_RUNTIME_VERSION" android:value="@string/expo_runtime_version"'
     );
     expect(androidStrings).toContain(
-      '<string name="expo_runtime_version" translatable="false">2.0.0</string>'
+      '<string name="expo_runtime_version" translatable="false">3.0.0</string>'
     );
     expect(iosUpdatesConfig).toContain(
-      '<key>EXUpdatesRuntimeVersion</key>\n    <string>2.0.0</string>'
+      '<key>EXUpdatesRuntimeVersion</key>\n    <string>3.0.0</string>'
     );
   });
 
