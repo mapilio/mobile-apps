@@ -50,7 +50,9 @@
     "tooltip": "Najděte nebo nabídněte pomoc s projekty shromažďování snímků a ověřování dat, abyste mohli vytvořit nová mapová data v místech, kde jsou potřeba.",
     "map_loading": "Mapa trhu se načítá...",
     "soon_description": "Mapilio nabízí tržiště map, kde mohou uživatelé požádat o mapování konkrétních regionů. Přispěvatelé budou odměněni a k dispozici je bezplatná služba pro ověření přesnosti obrázků.",
-    "very_soon": "Velmi brzy"
+    "very_soon": "Velmi brzy",
+    "close_details": "Zavřít podrobnosti projektu",
+    "information": "Informace o tržišti"
   },
   "map": {
     "map_loading": "Načítání mapy a zón...",
@@ -322,7 +324,9 @@
     "this_month": "Tento měsíc",
     "this_week": "Tento týden",
     "join": "Připojit",
-    "winners_title": "A vítězové \n Mapilio"
+    "winners_title": "A vítězové \n Mapilio",
+    "view_own_profile": "Zobrazit váš profil",
+    "view_profile": "Zobrazit profil uživatele {{name}}"
   },
   "upload_modal": {
     "title": "Umožňuje vytvořit více až\ndatových map",

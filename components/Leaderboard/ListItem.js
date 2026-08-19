@@ -101,7 +101,7 @@ const ListItem = ({ baseStyle, isAuthUser, index, displayName, displayNameStyle,
               right: 0,
             }}
             accessibilityRole="button"
-            accessibilityLabel={`View ${displayName}'s profile`}>
+            accessibilityLabel={t('view_profile', { name: displayName })}>
             <ArrowLeft color="#fff" width={RFValue(10)} height={RFValue(10)} />
           </TouchableOpacity>
         </View>

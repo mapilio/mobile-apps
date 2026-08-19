@@ -50,7 +50,9 @@
     "tooltip": "Recherchez ou proposez de l'aide sur des projets de collecte d'images et de vérification de données afin de créer de nouvelles données cartographiques là où elles sont nécessaires.",
     "map_loading": "La carte du marché est en cours de chargement...",
     "soon_description": "Mapilio propose un marché de cartographie où les utilisateurs peuvent demander la cartographie de régions spécifiques. Les contributeurs seront récompensés et il existe un service gratuit pour vérifier l'exactitude des images.",
-    "very_soon": "Très bientôt"
+    "very_soon": "Très bientôt",
+    "close_details": "Fermer les détails du projet",
+    "information": "Informations sur le marché"
   },
   "map": {
     "map_loading": "Chargement de la carte et des zones...",
@@ -322,7 +324,9 @@
     "this_month": "Ce mois-ci",
     "this_week": "Cette semaine",
     "join": "Rejoindre",
-    "winners_title": "Et les gagnants de \n Mapilio"
+    "winners_title": "Et les gagnants de \n Mapilio",
+    "view_own_profile": "Voir votre profil",
+    "view_profile": "Voir le profil de {{name}}"
   },
   "upload_modal": {
     "title": "Créons plus de cartes de date jusqu'à\n",

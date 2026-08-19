@@ -50,7 +50,9 @@
     "tooltip": "Find eller tilbud hjælp til billedindsamling og databekræftelsesprojekter for at skabe friske kortdata på steder, hvor det er nødvendigt.",
     "map_loading": "Markedskortet indlæses...",
     "soon_description": "Mapilio tilbyder en kortlægningsmarkedsplads, hvor brugere kan anmode om kortlægning af specifikke regioner. Bidragydere vil blive belønnet, og der er en gratis service til at bekræfte billedets nøjagtighed.",
-    "very_soon": "Meget snart"
+    "very_soon": "Meget snart",
+    "close_details": "Luk projektdetaljer",
+    "information": "Markedspladsoplysninger"
   },
   "map": {
     "map_loading": "Indlæser kort og zoner...",
@@ -322,7 +324,9 @@
     "this_month": "Denne måned",
     "this_week": "Denne uge",
     "join": "Tilslutte",
-    "winners_title": "Og vinderne af \n Mapilio"
+    "winners_title": "Og vinderne af \n Mapilio",
+    "view_own_profile": "Se din profil",
+    "view_profile": "Se {{name}}'s profil"
   },
   "upload_modal": {
     "title": "Lad os oprette flere op til\ndatokort",

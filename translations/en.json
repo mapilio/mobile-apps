@@ -50,7 +50,9 @@
     "tooltip": "Find or offer help on image collection and data verification projects to create fresh map data in locations where it’s needed.",
     "map_loading": "Market map is loading...",
     "soon_description": "Mapilio offers a mapping marketplace where users can request mapping of specific regions. Contributors will be rewarded, and there's a free service to verify image accuracy.",
-    "very_soon": "Very Soon"
+    "very_soon": "Very Soon",
+    "close_details": "Close project details",
+    "information": "Marketplace information"
   },
   "map": {
     "map_loading": "Loading map and zones...",
@@ -336,7 +338,9 @@
     "this_month": "This Month",
     "this_week": "This Week",
     "join": "Join",
-    "winners_title": "And the winners of \n Mapilio"
+    "winners_title": "And the winners of \n Mapilio",
+    "view_own_profile": "View your profile",
+    "view_profile": "View {{name}}'s profile"
   },
   "upload_modal": {
     "title": "Let's Create More Up To\nDate Maps",

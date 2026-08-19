@@ -50,7 +50,9 @@
     "tooltip": "Encuentre u ofrezca ayuda en proyectos de recopilación de imágenes y verificación de datos para crear datos de mapas nuevos en las ubicaciones donde sea necesario.",
     "map_loading": "El mapa del mercado se está cargando...",
     "soon_description": "Mapilio ofrece un mercado de mapas donde los usuarios pueden solicitar mapas de regiones específicas. Los contribuyentes serán recompensados y hay un servicio gratuito para verificar la precisión de la imagen.",
-    "very_soon": "Muy pronto"
+    "very_soon": "Muy pronto",
+    "close_details": "Cerrar los detalles del proyecto",
+    "information": "Información del mercado"
   },
   "map": {
     "map_loading": "Cargando mapa y zonas...",
@@ -321,7 +323,9 @@
     "this_month": "Este mes",
     "this_week": "Esta semana",
     "join": "Unirse",
-    "winners_title": "Y los ganadores de \n Mapilio"
+    "winners_title": "Y los ganadores de \n Mapilio",
+    "view_own_profile": "Ver tu perfil",
+    "view_profile": "Ver el perfil de {{name}}"
   },
   "upload_modal": {
     "title": "Creemos más mapas de hasta\nfechas",

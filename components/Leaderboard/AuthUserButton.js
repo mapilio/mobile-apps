@@ -88,7 +88,7 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
             onPress={goToHandler}
             style={styles.gotoFeedListButton}
             accessibilityRole="button"
-            accessibilityLabel="View your profile">
+            accessibilityLabel={t('view_own_profile')}>
             <ArrowLeft color="#fff" width={RFValue(10)} height={RFValue(10)} />
           </TouchableOpacity>
         </View>

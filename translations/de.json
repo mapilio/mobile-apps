@@ -50,7 +50,9 @@
     "tooltip": "Finden Sie Hilfe bei Bilderfassungs- und Datenüberprüfungsprojekten oder bieten Sie Hilfe an, um frische Kartendaten an den Orten zu erstellen, an denen sie benötigt werden.",
     "map_loading": "Marktkarte wird geladen...",
     "soon_description": "Mapilio bietet einen Kartenmarktplatz, auf dem Benutzer Karten für bestimmte Regionen anfordern können. Mitwirkende werden belohnt und es gibt einen kostenlosen Service zur Überprüfung der Bildgenauigkeit.",
-    "very_soon": "Sehr bald"
+    "very_soon": "Sehr bald",
+    "close_details": "Projektdetails schließen",
+    "information": "Marktplatzinformationen"
   },
   "map": {
     "map_loading": "Karte und Zonen werden geladen...",
@@ -322,7 +324,9 @@
     "this_month": "Diesen Monat",
     "this_week": "Diese Woche",
     "join": "Verbinden",
-    "winners_title": "Und die Gewinner von \n Mapilio"
+    "winners_title": "Und die Gewinner von \n Mapilio",
+    "view_own_profile": "Eigenes Profil anzeigen",
+    "view_profile": "Profil von {{name}} anzeigen"
   },
   "upload_modal": {
     "title": "Ermöglicht die Erstellung weiterer Karten mit einem Datum von bis zu\n",

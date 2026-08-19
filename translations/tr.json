@@ -50,7 +50,9 @@
     "tooltip": "İhtiyaç duyulan yerlerde yeni harita verileri oluşturmak için görüntü toplama ve veri doğrulama projelerinde yardımda bulun veya sunun.",
     "map_loading": "Market haritası yükleniyor...",
     "soon_description": "Mapilio, kullanıcıların belirli bölgelerin haritalanmasını isteyebileceği bir haritalama pazarı sunar. Katkıda bulunanlar ödüllendirilir ve görüntü doğruluğunu doğrulamak için ücretsiz bir hizmet mevcuttur.",
-    "very_soon": "Çok Yakında"
+    "very_soon": "Çok Yakında",
+    "close_details": "Proje ayrıntılarını kapat",
+    "information": "Market bilgileri"
   },
   "map": {
     "map_loading": "Harita ve bölgeler yükleniyor...",
@@ -336,7 +338,9 @@
     "this_month": "Bu Ay",
     "this_week": "Bu Hafta",
     "join": "Katıl",
-    "winners_title": "Mapilio'nun Kazananları"
+    "winners_title": "Mapilio'nun Kazananları",
+    "view_own_profile": "Profilinizi görüntüleyin",
+    "view_profile": "{{name}} adlı kullanıcının profilini görüntüleyin"
   },
   "upload_modal": {
     "title": "Daha Güncel Haritalar Oluşturalım",

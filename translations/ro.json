@@ -50,7 +50,9 @@
     "tooltip": "Găsiți sau oferiți ajutor pentru colectarea imaginilor și proiectele de verificare a datelor pentru a crea date proaspete ale hărților în locații unde este nevoie.",
     "map_loading": "Harta pieței se încarcă...",
     "soon_description": "Mapilio oferă o piață de cartografiere unde utilizatorii pot solicita cartografierea anumitor regiuni. Colaboratorii vor fi recompensați și există un serviciu gratuit pentru a verifica acuratețea imaginii.",
-    "very_soon": "Foarte curand"
+    "very_soon": "Foarte curand",
+    "close_details": "Închide detaliile proiectului",
+    "information": "Informații despre marketplace"
   },
   "map": {
     "map_loading": "Se încarcă harta și zonele...",
@@ -312,7 +314,9 @@
     "this_month": "Luna aceasta",
     "this_week": "În această săptămână",
     "join": "A te alatura",
-    "winners_title": "Și câștigătorii lui \n Mapilio"
+    "winners_title": "Și câștigătorii lui \n Mapilio",
+    "view_own_profile": "Vezi profilul tău",
+    "view_profile": "Vezi profilul lui {{name}}"
   },
   "upload_modal": {
     "title": "Să creăm mai multe hărți de până la\ndate",

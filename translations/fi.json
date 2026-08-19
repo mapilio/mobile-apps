@@ -50,7 +50,9 @@
     "tooltip": "Etsi tai tarjoa apua kuvien keräämiseen ja tietojen varmennusprojekteihin luodaksesi tuoreita karttatietoja paikkoihin, joissa sitä tarvitaan.",
     "map_loading": "Markkinakartta latautuu...",
     "soon_description": "Mapilio tarjoaa kartoitusmarkkinapaikan, josta käyttäjät voivat pyytää tiettyjen alueiden kartoitusta. Osallistujat palkitaan, ja käytettävissä on ilmainen palvelu kuvan tarkkuuden tarkistamiseksi.",
-    "very_soon": "Erittäin Pian"
+    "very_soon": "Erittäin Pian",
+    "close_details": "Sulje projektin tiedot",
+    "information": "Kauppapaikan tiedot"
   },
   "map": {
     "map_loading": "Ladataan karttaa ja vyöhykkeitä...",
@@ -322,7 +324,9 @@
     "this_month": "Tässä kuussa",
     "this_week": "Tämä viikko",
     "join": "Liittyä seuraan",
-    "winners_title": "Ja \n Mapilion voittajat"
+    "winners_title": "Ja \n Mapilion voittajat",
+    "view_own_profile": "Näytä profiilisi",
+    "view_profile": "Näytä käyttäjän {{name}} profiili"
   },
   "upload_modal": {
     "title": "Luodaan lisää\nkarttoja",

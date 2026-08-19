@@ -57,7 +57,7 @@ const WinnersBox = ({ winners }) => {
                 });
               }}
               accessibilityRole="button"
-              accessibilityLabel={`View ${winner.display_name}'s profile`}>
+              accessibilityLabel={t('view_profile', { name: winner.display_name })}>
               <Image
                 source={{ uri: winner.user_profile_photo }}
                 style={styles.photo}
