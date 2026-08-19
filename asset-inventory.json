@@ -777,12 +777,6 @@
       "sha256": "85e4319440994d699291d9e1ff71bac7978abec2fe58cdc96677b6e4b90078a3"
     },
     {
-      "path": "assets/svg/illustrations/Capture.js",
-      "family": "illustration-modules",
-      "bytes": 1987,
-      "sha256": "1328534fdf9446fd616cc91501c8ad80514cbb61b62686a375ff3c4cf612a667"
-    },
-    {
       "path": "assets/svg/illustrations/CaptureIcon.js",
       "family": "illustration-modules",
       "bytes": 965,
@@ -861,52 +855,10 @@
       "sha256": "9ccb99887a8d68255c228d3691fe618f8121b249d93aa0ceb1b43771e81e8edc"
     },
     {
-      "path": "assets/svg/illustrations/EyeSlash.js",
-      "family": "illustration-modules",
-      "bytes": 2863,
-      "sha256": "94dfb8b4297f28b3167dcba853acddc6b93919b1ac17cf6ce64155538b0bbf4c"
-    },
-    {
-      "path": "assets/svg/illustrations/FacebookIcon.js",
-      "family": "illustration-modules",
-      "bytes": 760,
-      "sha256": "eebdec1e84f4fa270b375af58c822bc3ae6e8ac817b5c0c95b59d6d3364b0506"
-    },
-    {
       "path": "assets/svg/illustrations/Flags.js",
       "family": "illustration-modules",
       "bytes": 1786,
       "sha256": "3281165593c8f8a78ddd46b48694c7d72fcc924ef1b64d94c7e41734d4ec84b6"
-    },
-    {
-      "path": "assets/svg/illustrations/FrameLeftBottom.js",
-      "family": "illustration-modules",
-      "bytes": 748,
-      "sha256": "738623fb7b11fb47126159b5b69f73f2622e72ab029716f501f54b3204b515e1"
-    },
-    {
-      "path": "assets/svg/illustrations/FrameLeftTop.js",
-      "family": "illustration-modules",
-      "bytes": 742,
-      "sha256": "8b52d33bfa4deec31ca2040aec4ff1b980887cd684439ee7d62ffca7645ec614"
-    },
-    {
-      "path": "assets/svg/illustrations/FrameRightBottom.js",
-      "family": "illustration-modules",
-      "bytes": 751,
-      "sha256": "bd6b16cac83075a62c5529e4e7c12da958cd767dfde3d908af9ada2c89486765"
-    },
-    {
-      "path": "assets/svg/illustrations/FrameRightTop.js",
-      "family": "illustration-modules",
-      "bytes": 745,
-      "sha256": "f49564573ec50caecd326e2e4d67471a83f5484362af2cdc409c0ca7112c0b06"
-    },
-    {
-      "path": "assets/svg/illustrations/GPSError.js",
-      "family": "illustration-modules",
-      "bytes": 1150,
-      "sha256": "1012522cd853287b2456c452eb58110d69742be0f0ac0575e3789fd79c67bd0e"
     },
     {
       "path": "assets/svg/illustrations/GPSSearch.js",
@@ -921,18 +873,6 @@
       "sha256": "125da435380a8b3c22331dbaae40aa447d1ae955b25b136a799b3c8c105aa975"
     },
     {
-      "path": "assets/svg/illustrations/GoodGPS.js",
-      "family": "illustration-modules",
-      "bytes": 888,
-      "sha256": "e032e863a2b554a174c015519e47b8163536c15fa6d6fcc2dd9deff2a65918ce"
-    },
-    {
-      "path": "assets/svg/illustrations/GoogleIcon.js",
-      "family": "illustration-modules",
-      "bytes": 2026,
-      "sha256": "10eb00b664490e237e45cde3d7e40500d6c2e7d92fdd898f4a6853cac6437eb3"
-    },
-    {
       "path": "assets/svg/illustrations/HowToScore.js",
       "family": "illustration-modules",
       "bytes": 1189,
@@ -943,12 +883,6 @@
       "family": "illustration-modules",
       "bytes": 1213,
       "sha256": "eb3a8afe29be546f0e6fa5c8ed380b2c00a6d176f73bd317cedea4bd29fdb087"
-    },
-    {
-      "path": "assets/svg/illustrations/Images.js",
-      "family": "illustration-modules",
-      "bytes": 6142,
-      "sha256": "e27f1cba7a41ecbc3e2efe990e2d3aac1d0713dafc9e1f6148950286c4b09fde"
     },
     {
       "path": "assets/svg/illustrations/Info.js",
@@ -963,22 +897,10 @@
       "sha256": "27e9a7d1d79cfa594d11fa896fcc7de6622c827642b8ce6f03f5f5131a4f15a5"
     },
     {
-      "path": "assets/svg/illustrations/InfoIcon.js",
-      "family": "illustration-modules",
-      "bytes": 1372,
-      "sha256": "d7cdeeab6bcb845a94adb5bb7b841d591804ee683b3a9b6aec2ea5b39909105d"
-    },
-    {
       "path": "assets/svg/illustrations/Information.js",
       "family": "illustration-modules",
       "bytes": 1382,
       "sha256": "e7924fee4287dd014c81f25fcabd21e457247206a17ac4d7d0dab6d9d86b8b5a"
-    },
-    {
-      "path": "assets/svg/illustrations/InternetAccess.js",
-      "family": "illustration-modules",
-      "bytes": 2076,
-      "sha256": "0b05d0440705e03358680e728232869274980e30947fc271b034cde6c1d60dec"
     },
     {
       "path": "assets/svg/illustrations/LeaderIcon.js",
@@ -991,24 +913,6 @@
       "family": "illustration-modules",
       "bytes": 3334,
       "sha256": "095f4b51e249d6ccf7a6fee8ad75b151b5520a7f2235cfd13a35d8409762445d"
-    },
-    {
-      "path": "assets/svg/illustrations/LowLight.js",
-      "family": "illustration-modules",
-      "bytes": 2154,
-      "sha256": "1e0a96ae7bbe1b08b0043db43b0dcaa6f1cf6615079e27b9ebe085d3f3c5e026"
-    },
-    {
-      "path": "assets/svg/illustrations/Map.js",
-      "family": "illustration-modules",
-      "bytes": 3778,
-      "sha256": "4b1f5860b60d5835889a269467ecd4e07314ca59f444078c73ee7c08be4ad654"
-    },
-    {
-      "path": "assets/svg/illustrations/MapLogo.js",
-      "family": "illustration-modules",
-      "bytes": 5794,
-      "sha256": "fa53911bfedcd872946c7366a7d8e9ecadd0c7f55a68eb27ca088db67f9f50e7"
     },
     {
       "path": "assets/svg/illustrations/MapilioBetaWatermark.js",
@@ -1041,28 +945,10 @@
       "sha256": "1b7f151cbe8a177ed67a6594eb94940f1d368ae34f03e3c04b917ed8da8058c0"
     },
     {
-      "path": "assets/svg/illustrations/MarketplacePoint.js",
-      "family": "illustration-modules",
-      "bytes": 4816,
-      "sha256": "fa391d12c91f44fb3a3219409a7dbaa8db28f6c5fed46de703adc7530e7c0af9"
-    },
-    {
-      "path": "assets/svg/illustrations/Maximize.js",
-      "family": "illustration-modules",
-      "bytes": 1917,
-      "sha256": "bf29f841417d7b8603c997986cb960d2bb4cb7345527b407c0aa1e41ca0e3498"
-    },
-    {
       "path": "assets/svg/illustrations/MaximizePano.js",
       "family": "illustration-modules",
       "bytes": 1992,
       "sha256": "df435eae3185c80ce0bd96f10d89f81f4ba49eb282d25a42acd2886345be9801"
-    },
-    {
-      "path": "assets/svg/illustrations/Minimize.js",
-      "family": "illustration-modules",
-      "bytes": 1910,
-      "sha256": "53bda3986a51d6beab6afa21160453072ad7fc9edab88fb5a5206a65ff759db8"
     },
     {
       "path": "assets/svg/illustrations/MinimizePano.js",
@@ -1077,22 +963,10 @@
       "sha256": "157c622947edb9f53ec3ecb7b75d45925fff3e4bd7b67521e542daf5742068cd"
     },
     {
-      "path": "assets/svg/illustrations/NoFeed.js",
-      "family": "illustration-modules",
-      "bytes": 13701,
-      "sha256": "64d9e6b5e552d865d595b09d0f2f3aaa4367f84bc136bd8c2a6e308e6e0bc4f8"
-    },
-    {
       "path": "assets/svg/illustrations/NoInternetAccess.js",
       "family": "illustration-modules",
       "bytes": 16475,
       "sha256": "f06898fe9db8c89eb95f587f4b6cbb1e9da15436ba1db528a59c21e188ac0f09"
-    },
-    {
-      "path": "assets/svg/illustrations/NoLocation.js",
-      "family": "illustration-modules",
-      "bytes": 7538,
-      "sha256": "e80801e816df8c6a093de4eb1e87a10161f530350d26e612ceaca26e959ef48c"
     },
     {
       "path": "assets/svg/illustrations/NoResultIcon.js",
@@ -1107,22 +981,10 @@
       "sha256": "63642aab7da5995bb4144355c53f1ab5dcea9885e3f44ea45cda1a3de9fd15c9"
     },
     {
-      "path": "assets/svg/illustrations/NorthArrow.js",
-      "family": "illustration-modules",
-      "bytes": 413,
-      "sha256": "2811f6ff53747b8f3437991db0f4768d61213aa03ba37e4a399546a10e340379"
-    },
-    {
       "path": "assets/svg/illustrations/Orientation.js",
       "family": "illustration-modules",
       "bytes": 1165,
       "sha256": "083fd10265f627d5708c835fdec15bb8051702c42b1cee8c90c5e03974db8446"
-    },
-    {
-      "path": "assets/svg/illustrations/PanoPlayBtn.js",
-      "family": "illustration-modules",
-      "bytes": 1533,
-      "sha256": "906edea878b84d55c6ceb9ea295d26c051362191908f9b997225f5867b8e3b37"
     },
     {
       "path": "assets/svg/illustrations/PhoneCamera.js",
@@ -1141,18 +1003,6 @@
       "family": "illustration-modules",
       "bytes": 564,
       "sha256": "d7db3611cd2f797b465cbf95039d8288ad70814bb98798f4b67d944316e1f8fd"
-    },
-    {
-      "path": "assets/svg/illustrations/PlayArrowLeft.js",
-      "family": "illustration-modules",
-      "bytes": 1359,
-      "sha256": "d72f5d979c431d75316edea5963e155b1513eadb84bc3c7da80fc2a9781c956b"
-    },
-    {
-      "path": "assets/svg/illustrations/PlayArrowRight.js",
-      "family": "illustration-modules",
-      "bytes": 1395,
-      "sha256": "f09adc1a9b538e3dad83b5839a375cd17100ae5eee75798d01387a7b62738d42"
     },
     {
       "path": "assets/svg/illustrations/PointIcon.js",
@@ -1245,18 +1095,6 @@
       "sha256": "5b0029c93292f40acc2b912bbfe348dcf508659a70c0e3701ff2cef7e2242dec"
     },
     {
-      "path": "assets/svg/illustrations/SettingsDots.js",
-      "family": "illustration-modules",
-      "bytes": 747,
-      "sha256": "ad32a32ba86472376eb20146ba61e249b37e4df78b40d62635f941a618129a14"
-    },
-    {
-      "path": "assets/svg/illustrations/SignOut.js",
-      "family": "illustration-modules",
-      "bytes": 1969,
-      "sha256": "8ed57b942b8c4b9f97b69421cd75983e05856dd2831fed769cf0d8bd47a45b23"
-    },
-    {
       "path": "assets/svg/illustrations/Stop.js",
       "family": "illustration-modules",
       "bytes": 508,
@@ -1293,12 +1131,6 @@
       "sha256": "dea4d2a849ab6ff39d70c708b442ceae9d60299d451f1c3f2a7b447119f404e6"
     },
     {
-      "path": "assets/svg/illustrations/Task.js",
-      "family": "illustration-modules",
-      "bytes": 5073,
-      "sha256": "ab05bbfdfd2b02491b7c1cf360494ec702d58247be8b7cc5978cec6d7e818ffe"
-    },
-    {
       "path": "assets/svg/illustrations/TimeIcon.js",
       "family": "illustration-modules",
       "bytes": 1173,
@@ -1323,18 +1155,6 @@
       "sha256": "d3ba2cbdb1ae9b6d4f209deb4c520ef0a92d9d3b05491875480e440ba64fff95"
     },
     {
-      "path": "assets/svg/illustrations/UploadIcon.js",
-      "family": "illustration-modules",
-      "bytes": 1806,
-      "sha256": "10306cccdc71c35a0579ae3fb3fa1a0cb6651de57094cf6b3eef6ee70bc9ee37"
-    },
-    {
-      "path": "assets/svg/illustrations/UserFeed/OpenStreetMap.js",
-      "family": "user-feed-illustration-modules",
-      "bytes": 60978,
-      "sha256": "be3b3c1c2d87e5480902857db373c097a4934cfed378d52225584bfb6816b777"
-    },
-    {
       "path": "assets/svg/illustrations/UserFeed/ToggleOrientation.js",
       "family": "user-feed-illustration-modules",
       "bytes": 969,
@@ -1353,34 +1173,10 @@
       "sha256": "a84f91b420cb46b61affe9075aad16679b08285a3747e3ac51092943fc46a839"
     },
     {
-      "path": "assets/svg/illustrations/ZoomIn.js",
-      "family": "illustration-modules",
-      "bytes": 1253,
-      "sha256": "382290da9074d45c8fc566b3b6bd1b5ea9310bdeaa5ac8bcca48e1bfede7ff76"
-    },
-    {
-      "path": "assets/svg/illustrations/ZoomOut.js",
-      "family": "illustration-modules",
-      "bytes": 807,
-      "sha256": "75ff77bf4fcc7d4365cc468b4bef36e70a2d8fa4aedf836de049f29f37a689f9"
-    },
-    {
       "path": "assets/svg/illustrations/index.js",
       "family": "illustration-modules",
-      "bytes": 4578,
-      "sha256": "dc808052bb840ee245aafab26701bd0b3c516adf5da23d0bbb6bf8b73cb26d31"
-    },
-    {
-      "path": "assets/svg/logos/AppleIcon.js",
-      "family": "logos",
-      "bytes": 1184,
-      "sha256": "a0715550844c19bef4e7493c4d05348382ca4f8c7200983e27e6a65f2b9a9612"
-    },
-    {
-      "path": "assets/svg/logos/AppleLogo.js",
-      "family": "logos",
-      "bytes": 1878,
-      "sha256": "82994bba2ec723889ae9113f0eca10837e600875cbf57e682ffe93f8793f1f9a"
+      "bytes": 3529,
+      "sha256": "ff0d94be4a5ad848811e0b9bc9ee22d926a70e26d57be018045476f047962a93"
     },
     {
       "path": "assets/svg/logos/FacebookLogo.js",
@@ -1395,18 +1191,6 @@
       "sha256": "c7dabb468d0f160e7188bf484e36fdabf304e6346af1b5618ae4fed9b958d9a4"
     },
     {
-      "path": "assets/svg/logos/MapilioLightLogo.js",
-      "family": "logos",
-      "bytes": 11505,
-      "sha256": "5f71584580e568cfa8b0b927e325fb6a7765befa778ad28f2e0b7dfcba3ac884"
-    },
-    {
-      "path": "assets/svg/logos/MapilioLogo.js",
-      "family": "logos",
-      "bytes": 3705,
-      "sha256": "026a72b7a7c63c828d032ce305350d0d5a59966bd5e467578d6cab625ea5a4c6"
-    },
-    {
       "path": "assets/svg/logos/MapilioLogoBeta.js",
       "family": "logos",
       "bytes": 3932,
@@ -1415,8 +1199,8 @@
     {
       "path": "assets/svg/logos/index.js",
       "family": "logos",
-      "bytes": 346,
-      "sha256": "193d7585ef3f63ddba4ac240f0ef758940e5f1724e1f404f8c53217d33aa15b7"
+      "bytes": 176,
+      "sha256": "81a313e49ffc0b8e9b73a52ce5cf65417a93f49dd40ffc1fdab77954d4b3a888"
     }
   ]
 }
