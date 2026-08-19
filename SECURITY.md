@@ -38,6 +38,15 @@ Pull requests and pushes to `main` are checked with a checksum-verified Gitleaks
 tree at the candidate revision. Full-history scanning remains a separate public
 release requirement until the historical credential remediation is complete.
 
+## Public-release block
+
+Public visibility remains blocked by historical-secret remediation. Run
+`npm run security:history-audit -- PATH local-baseline` only as a local
+preparation check; local refs are not publication evidence. Release evidence
+must come from a fresh disposable bare mirror with `release-mirror` after all
+refs are rechecked. See the [public-release history remediation runbook](docs/security/public-release-history-remediation.md)
+for the required gates and approvals.
+
 ## Preferred Languages
 
 We accept reports in English and Turkish.

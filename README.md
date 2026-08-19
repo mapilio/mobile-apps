@@ -171,6 +171,12 @@ provider client identifiers and platform-SDK values intended for public native
 clients. Provider tokens and backend tokens are sent in request bodies; backend
 OAuth client secrets must never be configured in the mobile environment.
 
+### Public release status
+
+This repository is **not approved for public visibility** until historical
+credential remediation is complete. See the [security policy](SECURITY.md) and
+[public-release history remediation runbook](docs/security/public-release-history-remediation.md).
+
 ---
 
 ## Running Tests
