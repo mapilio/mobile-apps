@@ -321,28 +321,10 @@
       "sha256": "423f0e656790735f03da219634ddf56d4f0cdba733881e621fc4fb38b8dfb20b"
     },
     {
-      "path": "assets/images/languages/ar.png",
-      "family": "language-flags",
-      "bytes": 534,
-      "sha256": "88595cb8bf2912a12096ae963bd813d9548f5dd2f649eac6802fa7cea0375b85"
-    },
-    {
       "path": "assets/images/languages/arap.png",
       "family": "language-flags",
       "bytes": 1065,
       "sha256": "e0c9672dd183884c2e2db9780b396c951cf5bcef3ec96a48b7cf0665c4e79de6"
-    },
-    {
-      "path": "assets/images/languages/ca.png",
-      "family": "language-flags",
-      "bytes": 475,
-      "sha256": "d020fbc142194ff276d63a3d53c529564a5019aee604e9da80654e0d340ca194"
-    },
-    {
-      "path": "assets/images/languages/china.png",
-      "family": "language-flags",
-      "bytes": 604,
-      "sha256": "8d8ac309e48a8bcaa8dfe0f0067f539bbd1608104409e3b53ee0ec97bc8098e5"
     },
     {
       "path": "assets/images/languages/cs.png",
@@ -357,22 +339,10 @@
       "sha256": "d92df57e64e4ecda9d7a87529dcd3970f1bc49a21936e74eb5035241edf40e7b"
     },
     {
-      "path": "assets/images/languages/de.png",
-      "family": "language-flags",
-      "bytes": 180,
-      "sha256": "4136eb0d97654ddd79516d0944be2ac39ece44fa655dca86f13741e4e594c97b"
-    },
-    {
       "path": "assets/images/languages/el.png",
       "family": "language-flags",
       "bytes": 506,
       "sha256": "5bcfc3cb7295d8e50434f47c20cd06ac665b2901faae214511e83d9ad496c0f3"
-    },
-    {
-      "path": "assets/images/languages/en.png",
-      "family": "language-flags",
-      "bytes": 968,
-      "sha256": "56fb70f6fa89eaf2794b9d7dba71449f677f4c0f0a46f8fbffefb70295818ae3"
     },
     {
       "path": "assets/images/languages/england.png",
@@ -393,12 +363,6 @@
       "sha256": "1518a3522d312124199288f97e0bd29fb3eeef9292b2210d2727210396def3ea"
     },
     {
-      "path": "assets/images/languages/fr.png",
-      "family": "language-flags",
-      "bytes": 195,
-      "sha256": "cc92097ab63a1985e646409b6d53c231e55f66a32cb54a9702ed8e77bd05f976"
-    },
-    {
       "path": "assets/images/languages/france.png",
       "family": "language-flags",
       "bytes": 324,
@@ -411,22 +375,10 @@
       "sha256": "29a256e58e7438b5293f0285c316b56d4c8a135cb9f0a6253d77b5e120067730"
     },
     {
-      "path": "assets/images/languages/it.png",
-      "family": "language-flags",
-      "bytes": 194,
-      "sha256": "7ddebc0051d26ee2fb0fbeb7599980a3281a3d580ac2fa358ad60d1316075017"
-    },
-    {
       "path": "assets/images/languages/italy.png",
       "family": "language-flags",
       "bytes": 323,
       "sha256": "5d68731fbe1e98cd62977f1005b6a63523a11200856f25ff67afb5e16ccbdb74"
-    },
-    {
-      "path": "assets/images/languages/portugal.png",
-      "family": "language-flags",
-      "bytes": 1536,
-      "sha256": "01ebf5d380d83d68edc25488ed9f9a6e2d96830776a152ba63761a5430c15a84"
     },
     {
       "path": "assets/images/languages/pt.png",
@@ -445,12 +397,6 @@
       "family": "language-flags",
       "bytes": 193,
       "sha256": "039257efcaafbe71ce86e41845889a4fcc8fa1d96ab8ad63c7afdca766b371b2"
-    },
-    {
-      "path": "assets/images/languages/spain.png",
-      "family": "language-flags",
-      "bytes": 1072,
-      "sha256": "7dbf474f821c9e49d20ecaaa8aacbd3872e361bd06b0abe5521f90d9ec817919"
     },
     {
       "path": "assets/images/languages/turkey.png",
@@ -857,8 +803,8 @@
     {
       "path": "assets/svg/illustrations/Flags.js",
       "family": "illustration-modules",
-      "bytes": 1786,
-      "sha256": "3281165593c8f8a78ddd46b48694c7d72fcc924ef1b64d94c7e41734d4ec84b6"
+      "bytes": 1708,
+      "sha256": "953d201c6d964af2f49e8635f491b7d3a10d22f6392c3b66d314cbc38d882339"
     },
     {
       "path": "assets/svg/illustrations/GPSSearch.js",
