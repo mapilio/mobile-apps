@@ -549,12 +549,6 @@
       "sha256": "fc88def0508d9cca60e47b3cfb7cc3df4da540288b2a7c8077ba22f0a5bca0a1"
     },
     {
-      "path": "assets/images/profile/lockedbadge.png",
-      "family": "profile-raster",
-      "bytes": 2782,
-      "sha256": "3060c3120df8fe5b9bb9828eb5c50f5331621310d9fb4326932c550f31fff4fa"
-    },
-    {
       "path": "assets/images/received.png",
       "family": "general-raster",
       "bytes": 33635,
@@ -645,18 +639,6 @@
       "sha256": "29b156bb4277e9105c01030fd6602f3bced77a68a89eb73ecac68cd81a2182dd"
     },
     {
-      "path": "assets/images/walkthrough/community.png",
-      "family": "walkthrough-osm",
-      "bytes": 173326,
-      "sha256": "417b737e50ad452bc49c115655398d43e71432af41936b4dfa2ff75f57485dfa"
-    },
-    {
-      "path": "assets/images/walkthrough/gift.png",
-      "family": "walkthrough-osm",
-      "bytes": 5247,
-      "sha256": "379a13d2200b1b89b66876d9e449fafa070c46429ecbb1bfc44d8edb94472ca1"
-    },
-    {
       "path": "assets/images/walkthrough/gifts.png",
       "family": "walkthrough-osm",
       "bytes": 247111,
@@ -667,12 +649,6 @@
       "family": "walkthrough-osm",
       "bytes": 3852,
       "sha256": "1409d6dc5effa8142721baa5f3bf29712b030db0ca1a469b53cc43f826f04dfb"
-    },
-    {
-      "path": "assets/images/walkthrough/moveon.png",
-      "family": "walkthrough-osm",
-      "bytes": 126160,
-      "sha256": "af44eea00dbfbc902babb3b98f4b92c27f7b3cdedbdebc53dd55bce824131c01"
     },
     {
       "path": "assets/images/walkthrough/moveon_tablet.png",
@@ -727,12 +703,6 @@
       "family": "brand-root-images",
       "bytes": 72725,
       "sha256": "9884816f0e7a72b4e4e9f7e9cb719b51c3afe983206a1aa80afbca9001a80317"
-    },
-    {
-      "path": "assets/svg/completed.svg",
-      "family": "standalone-svg",
-      "bytes": 1301,
-      "sha256": "a1ec2083ae9fe7dd983393f4a9b9c8f1064712db9112979e5d1dccfddb8d958a"
     },
     {
       "path": "assets/svg/illustrations/ActionCamera.js",

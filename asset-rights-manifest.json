@@ -60,23 +60,8 @@
       "license": null
     },
     {
-      "id": "profile-raster",
-      "prefix": "assets/images/profile/",
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null
-    },
-    {
       "id": "general-raster",
       "prefix": "assets/images/",
-      "directChildrenOnly": true,
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null
-    },
-    {
-      "id": "standalone-svg",
-      "prefix": "assets/svg/",
       "directChildrenOnly": true,
       "rightsStatus": "review-required",
       "rightsOwnerConfirmation": "pending",
