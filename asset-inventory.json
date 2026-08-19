@@ -93,118 +93,10 @@
       "sha256": "74c64047eb557b1341bba7a2831eedde9ddb705e6451a9ad9f5552bf558f13de"
     },
     {
-      "path": "assets/images/Error.png",
-      "family": "general-raster",
-      "bytes": 785,
-      "sha256": "e6b83fc607e8a1611bf12fb95f65eeafab0846f85b983dc862821b88026363a0"
-    },
-    {
-      "path": "assets/images/Error@2x.png",
-      "family": "general-raster",
-      "bytes": 1763,
-      "sha256": "55afb3e39a193dc2d5e594511d029d6a71aeb4d63bc6490ae147e8588d778ac3"
-    },
-    {
-      "path": "assets/images/Error@3x.png",
-      "family": "general-raster",
-      "bytes": 2705,
-      "sha256": "e8dc49f919f553e09922be2367abebfc4dd84a2ec5c143a2089a4ee1fdde6667"
-    },
-    {
-      "path": "assets/images/Info.png",
-      "family": "general-raster",
-      "bytes": 656,
-      "sha256": "5f97933dd8146c5b98ace8019735ae80a6a9918b0d44a4de21763bae9949de3f"
-    },
-    {
-      "path": "assets/images/Info@1.5x.png",
-      "family": "general-raster",
-      "bytes": 934,
-      "sha256": "34f7fdae45d0a9e87ec7a7c24ac8f1b7730c95edf92afdb781c973cabb1cacd7"
-    },
-    {
-      "path": "assets/images/Info@2x.png",
-      "family": "general-raster",
-      "bytes": 1247,
-      "sha256": "dbee79c92b2b1ed388677c84b87fe493754c623aa202fe922419513e68340b88"
-    },
-    {
-      "path": "assets/images/Info@3x.png",
-      "family": "general-raster",
-      "bytes": 1758,
-      "sha256": "4eab3f19e0025c968b7f4f4893687c12419eba98b04183d1de13404e4405e9a8"
-    },
-    {
-      "path": "assets/images/Info@4x.png",
-      "family": "general-raster",
-      "bytes": 2424,
-      "sha256": "cda00b568de08dd263bfeb721c58a1052f244bfa6e33f7ad4df2a5cadb55be99"
-    },
-    {
       "path": "assets/images/MaximizePano.png",
       "family": "general-raster",
       "bytes": 1476,
       "sha256": "5a2359618c913b3aee51c09fdd36829f2f1191cea42acceb7945dbd351ee2e42"
-    },
-    {
-      "path": "assets/images/Success.png",
-      "family": "general-raster",
-      "bytes": 591,
-      "sha256": "163a82ac6f27363daddcf8778f2ebf6d5a8f76759f8e0b2c0196de519c204227"
-    },
-    {
-      "path": "assets/images/Success@1.5x.png",
-      "family": "general-raster",
-      "bytes": 886,
-      "sha256": "4061e61ecce65b4ed4874d60e8927c88e07bfae14703058248b7fbaff8315ed6"
-    },
-    {
-      "path": "assets/images/Success@2x.png",
-      "family": "general-raster",
-      "bytes": 1114,
-      "sha256": "e7f49a206dfba98656fc12ad38c3955f0a1b45e195a7106520defdba9b19ab3e"
-    },
-    {
-      "path": "assets/images/Success@3x.png",
-      "family": "general-raster",
-      "bytes": 1764,
-      "sha256": "2056b4e9b48064d74627ec13d1f0982ef4edf5088ac7f4e106bc5d677a1ffe75"
-    },
-    {
-      "path": "assets/images/Success@4x.png",
-      "family": "general-raster",
-      "bytes": 2353,
-      "sha256": "6d55f1c95e9094214a9dc08c66a6ebdb6f5b0d466407541adc5debfd06254c2a"
-    },
-    {
-      "path": "assets/images/Warning.png",
-      "family": "general-raster",
-      "bytes": 521,
-      "sha256": "138d80c81bbb4a360c488c4bcee49926b28ea230da0ff10713d78d4c7b973435"
-    },
-    {
-      "path": "assets/images/Warning@1.5x.png",
-      "family": "general-raster",
-      "bytes": 788,
-      "sha256": "5b319aaa4eb1e809585934aa564c3327ed683863e273d8a625a2c58c56006f5c"
-    },
-    {
-      "path": "assets/images/Warning@2x.png",
-      "family": "general-raster",
-      "bytes": 1069,
-      "sha256": "46b0dd20c7ad960d018555ddc56e27b39f1d4393f34206602ef73f88f5f446f6"
-    },
-    {
-      "path": "assets/images/Warning@3x.png",
-      "family": "general-raster",
-      "bytes": 1492,
-      "sha256": "c1aa7c6ee99c9cc2fd18d6edb948750348befe8392c09c8a2ea99e4fc510d44f"
-    },
-    {
-      "path": "assets/images/Warning@4x.png",
-      "family": "general-raster",
-      "bytes": 2065,
-      "sha256": "0b51120a4f8a70bbbf85b79ef07a65283aa165591553da684c8b7d9e01d44ab3"
     },
     {
       "path": "assets/images/accessibleWorld.png",
@@ -427,24 +319,6 @@
       "family": "map-raster",
       "bytes": 412,
       "sha256": "8497d198d83d679aac3b416f2ddcabdecaffa058dfbb11a674b26162e754eb2b"
-    },
-    {
-      "path": "assets/images/map/location.png",
-      "family": "map-raster",
-      "bytes": 1367,
-      "sha256": "e78640ee164e1fece7056ee0723836a30c06b7909c0fbcd30c2c5e7d77c58ece"
-    },
-    {
-      "path": "assets/images/map/location@2x.png",
-      "family": "map-raster",
-      "bytes": 2166,
-      "sha256": "b7f74d1ebf5cb034ce34492551cbe72a06203fec8f5798f1db625c8bf8258b50"
-    },
-    {
-      "path": "assets/images/map/location@3x.png",
-      "family": "map-raster",
-      "bytes": 2725,
-      "sha256": "9fed6ab52a58e54e75f38bd3a994d47fb26ef5f0999605dd3d5484b6753a4b19"
     },
     {
       "path": "assets/images/mapIcon.png",
