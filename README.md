@@ -43,7 +43,7 @@ Mapilio is a **street-level imagery capture and contribution app** for OpenStree
 - Social networking beyond contributor profiles and the community leaderboard
 - Server-side image processing — that is handled by the Mapilio backend
 
-If you have an idea that falls outside this scope, please open a [Discussion](../../discussions) rather than an Issue. Feature requests are evaluated against the capture-and-contribute mission; the project aims to do a few things well rather than many things broadly.
+If you have an idea that falls outside this scope, please open a [Discussion](https://github.com/mapilio/mobile-apps/discussions) rather than an Issue. Feature requests are evaluated against the capture-and-contribute mission; the project aims to do a few things well rather than many things broadly.
 
 See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, and longer-term direction. GitHub issues, milestones, and discussions remain the source of truth; the roadmap includes no dates or promises.
 
@@ -176,6 +176,8 @@ OAuth client secrets must never be configured in the mobile environment.
 This repository is **not approved for public visibility** until historical
 credential remediation is complete. See the [security policy](SECURITY.md) and
 [public-release history remediation runbook](docs/security/public-release-history-remediation.md).
+The factual, non-approving legal preparation packet for issues #4 and #10 is
+the [public-release legal review packet](docs/legal/public-release-review.md).
 
 ---
 
