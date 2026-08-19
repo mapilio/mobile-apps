@@ -9,6 +9,9 @@ This is a direction of travel, not a schedule. GitHub [issues](https://github.co
 The repository remains private until maintainers can demonstrate all of the following:
 
 - Privacy Policy and Terms & Conditions have current, approved content and links.
+- The [public-release legal review packet](docs/legal/public-release-review.md)
+  records preparation evidence for issues #4 and #10; it is not legal approval,
+  and the approval gate remains open.
 - Historical credentials have been inventoried and rotated, affected Git history has been sanitized, and a redacted all-refs Gitleaks scan has no unexplained findings.
 - A pinned secret scan runs on every pull request and push to the default branch.
 - Login and refresh use a mobile public-client flow such as Authorization Code with PKCE or a backend exchange; no confidential secret is shipped in the app, and contract tests cover both flows.
