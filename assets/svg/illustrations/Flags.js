@@ -23,7 +23,6 @@ const Flags = ({ flag, width = RFValue(20), height = RFValue(12) }) => {
     { code: "ro", component: require("../../images/languages/ro.png") },
     { code: "ru", component: require("../../images/languages/ru.png") },
     { code: "tr", component: require("../../images/languages/turkey.png") },
-//    { code: "ch", component: require("../../images/languages/china.png") },
     { code: "de", component: require("../../images/languages/germany.png") },
     { code: "it", component: require("../../images/languages/italy.png") },
     { code: "ar", component: require("../../images/languages/arap.png") },
