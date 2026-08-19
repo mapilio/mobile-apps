@@ -99,7 +99,9 @@ const ListItem = ({ baseStyle, isAuthUser, index, displayName, displayNameStyle,
               borderRadius: 20,
               transform: [{ rotateY: '180deg' }],
               right: 0,
-            }}>
+            }}
+            accessibilityRole="button"
+            accessibilityLabel={`View ${displayName}'s profile`}>
             <ArrowLeft color="#fff" width={RFValue(10)} height={RFValue(10)} />
           </TouchableOpacity>
         </View>

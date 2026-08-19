@@ -55,7 +55,9 @@ const WinnersBox = ({ winners }) => {
                     userID: winner.id,
                   },
                 });
-              }}>
+              }}
+              accessibilityRole="button"
+              accessibilityLabel={`View ${winner.display_name}'s profile`}>
               <Image
                 source={{ uri: winner.user_profile_photo }}
                 style={styles.photo}

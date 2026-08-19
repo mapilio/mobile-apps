@@ -84,7 +84,11 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
               {authUser.total_length ? thousandFormatter(authUser.total_length) : 0} km
             </CustomTextBold>
           </View>
-          <TouchableOpacity onPress={goToHandler} style={styles.gotoFeedListButton}>
+          <TouchableOpacity
+            onPress={goToHandler}
+            style={styles.gotoFeedListButton}
+            accessibilityRole="button"
+            accessibilityLabel="View your profile">
             <ArrowLeft color="#fff" width={RFValue(10)} height={RFValue(10)} />
           </TouchableOpacity>
         </View>
