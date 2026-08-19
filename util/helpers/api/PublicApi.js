@@ -1,6 +1,23 @@
 import axios from 'axios';
 import { translate } from '../index';
 
+export const getPublicApiErrorMessage = (error) => {
+  const responseData = error.response?.data;
+  const validationMessage =
+    responseData && typeof responseData === 'object'
+      ? Object.values(responseData)
+          .flat()
+          .find((value) => typeof value === 'string')
+      : null;
+
+  return (
+    responseData?.message ||
+    validationMessage ||
+    error.message ||
+    translate('server_error', 'errors')
+  );
+};
+
 const publicAxiosInstance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_SERVICE_URL,
   timeout: 10000,
@@ -18,9 +35,7 @@ publicAxiosInstance.interceptors.response.use(
       error.message = translate('timeout', 'errors');
     }
 
-    const message =
-      error.response?.data?.message || error.message || translate('server_error', 'errors');
-    throw new Error(message);
+    throw new Error(getPublicApiErrorMessage(error));
   }
 );
 

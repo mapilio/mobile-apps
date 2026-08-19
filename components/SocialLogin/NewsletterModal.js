@@ -14,7 +14,7 @@ import { CloseIcon } from '../../assets/svg/illustrations';
 import { Trans, useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { api } from '../../util/helpers/api';
+import { mobileAccountApi } from '../../util/helpers/api/MobileAccountApi';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -48,14 +48,10 @@ const NewsletterModal = () => {
   const setMail = (email) => {
     const emailData = new FormData();
 
-    emailData.append('options[parameters][email]', email);
+    emailData.append('email', email);
 
-    api
-      .post('/api/function/user_profile/profile/updateMail', emailData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+    mobileAccountApi
+      .updateEmail(emailData)
       .then((res) => {
         if (res.status) {
           dispatch({ type: SET_MAIL_MODAL_SHOWN, payload: false });

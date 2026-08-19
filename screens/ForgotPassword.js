@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { CustomText, CustomTextBold } from '../highordercomponents';
 import FocusAwareStatusBar from '../components/FocusAwareStatusBar';
 import { useTranslation } from 'react-i18next';
-import { api } from '../util/helpers/api';
+import { mobileAccountApi } from '../util/helpers/api/MobileAccountApi';
 import { ActivityIndicator } from 'react-native-paper';
 
 const forgotValidationSchema = yup.object().shape({
@@ -31,26 +31,18 @@ const ForgotPassword = ({ navigation }) => {
 
   const forgotPassword = (values) => {
     setLoading(true);
-    api
-      .post(
-        `/api/forgot-password`,
-        {
-          email: values.email,
-          callback: process.env.EXPO_PUBLIC_FORGOT_URL,
-          'success-params': 'tverification=true',
-          'error-params': 'tverification=false',
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      )
+    mobileAccountApi
+      .forgotPassword({
+        email: values.email,
+        callback: process.env.EXPO_PUBLIC_FORGOT_URL,
+        'success-params': 'tverification=true',
+        'error-params': 'tverification=false',
+      })
       .then(() => {
         navigation.reset({ index: 0, routes: [{ name: Routes.login }] });
         toast.show(t('reset_success'), { type: 'success' });
       })
-      .catch((err) => toast.show(`${err.response.data.message}`, { type: 'error' }))
+      .catch((err) => toast.show(err.message || t('reset_error'), { type: 'error' }))
       .finally(() => setLoading(false));
   };
 

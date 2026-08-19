@@ -24,7 +24,7 @@ import { getUserInformation } from '../store/reducers/loginReducer/getUserInform
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useTranslation } from 'react-i18next';
 import FocusAwareStatusBar from '../components/FocusAwareStatusBar';
-import { api } from '../util/helpers/api';
+import { mobileAccountApi } from '../util/helpers/api/MobileAccountApi';
 
 const ProfileEdit = () => {
   const { t } = useTranslation('profile_edit');
@@ -52,9 +52,9 @@ const ProfileEdit = () => {
     setIsLoading(true);
 
     let data = new FormData();
-    data.append('options[parameters][user_bio]', user_bio);
-    data.append('options[parameters][display_name]', display_name);
-    data.append('options[parameters][username]', username);
+    data.append('user_bio', user_bio);
+    data.append('display_name', display_name);
+    data.append('username', username);
 
     if (selectedImage) {
       const image = {
@@ -63,17 +63,11 @@ const ProfileEdit = () => {
         type: selectedImage.type,
       };
 
-      data.append('options[parameters][user_profile_photo]', image, image.name);
+      data.append('user_profile_photo', image, image.name);
     }
 
-    const url = `${process.env.EXPO_PUBLIC_SERVICE_URL}/api/function/user_profile/profile/updateProfile`;
-
-    api
-      .post(url, data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+    mobileAccountApi
+      .updateProfile(data)
       .then(() => {
         dispatch(getUserInformation());
         toast.show(`Update is successfully`, { type: 'success' });

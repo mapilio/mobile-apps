@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { useState } from 'react';
-import { api } from '../../util/helpers/api';
+import { mobileAccountApi } from '../../util/helpers/api/MobileAccountApi';
 
 const DeleteAccount = () => {
   const dispatch = useDispatch();
@@ -21,9 +21,7 @@ const DeleteAccount = () => {
 
   const deleteFetch = async (data) => {
     try {
-      await api.post(`/api/function/user_profile/profile/delete-account`, {
-        options: { parameters: data },
-      });
+      await mobileAccountApi.deleteAccount(data);
 
       navigation.navigate(Routes.tabNavigator, { screen: Routes.map });
       dispatch({ type: EXIT_USER });

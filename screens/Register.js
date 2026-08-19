@@ -14,7 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MapilioLogoBeta } from '../assets/svg/logos';
 import FocusAwareStatusBar from '../components/FocusAwareStatusBar';
 import { Trans, useTranslation } from 'react-i18next';
-import { api } from '../util/helpers/api';
+import { mobileAccountApi } from '../util/helpers/api/MobileAccountApi';
 import { ActivityIndicator } from 'react-native-paper';
 import { captureException } from '@sentry/react-native';
 
@@ -36,25 +36,16 @@ const Register = ({ navigation }) => {
   const register = (values) => {
     setLoading(true);
 
-    api
-      .post(
-        '/api/register',
-        {
-          name: values.name,
-          username: values.name,
-          email: values.email,
-          password: values.password,
-          register_type: 'credentials',
-          callback: `https://mapilio.com?deeplink=mapilio://`,
-          'success-params': 'tverification=true',
-          'error-params': 'tverification=false',
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      )
+    mobileAccountApi
+      .register({
+        name: values.name,
+        username: values.name,
+        email: values.email,
+        password: values.password,
+        callback: `https://mapilio.com?deeplink=mapilio://`,
+        'success-params': 'tverification=true',
+        'error-params': 'tverification=false',
+      })
       .then(() => {
         navigation.reset({ index: 0, routes: [{ name: Routes.login }] });
         toast.show(t('account_created'), { type: 'success' });
@@ -65,13 +56,7 @@ const Register = ({ navigation }) => {
             functionName: 'register',
           },
         });
-        if (Object.keys(err).length === 0) {
-          toast.show(t('register_error'), { type: 'error' });
-        } else {
-          Object.values(err.response.data).map((item, _i) => {
-            toast.show(`${item[0]}`, { type: 'error' });
-          });
-        }
+        toast.show(err.message || t('register_error'), { type: 'error' });
       })
       .finally(() => setLoading(false));
   };

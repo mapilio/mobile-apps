@@ -68,4 +68,5 @@ axiosInstance.interceptors.response.use(
 export default {
   get: axiosInstance.get,
   post: axiosInstance.post,
+  delete: axiosInstance.delete,
 };
