@@ -27,6 +27,33 @@ important, but does not by itself keep source code private. A known finding move
 back into this gate only when it exposes a legal, credential, security, signing,
 asset-rights, or supported-build risk.
 
+## Recurring modern API simulator gate
+
+This is a continuing compatibility check, not a one-time migration task. Run the
+mobile app against the modern backend in a supported iOS simulator:
+
+- after any mobile or backend change to authentication, API transport, endpoint
+  contracts, maps, profile/feed, Marketplace, capture, or upload;
+- before merging a release candidate and again from the exact merged `main`
+  revisions; and
+- after dependency/native upgrades or a change to the configured API base URL.
+
+Each run must record the mobile and backend commit SHAs, simulator model/runtime,
+API base URL/environment, date, tester, pass/fail per workflow, and linked failure
+issues. The minimum smoke matrix is cold launch/config, password login, token
+refresh or re-authentication, authenticated map and tiles, simulated location and
+follow mode, leaderboard, another contributor's profile, own profile and grouped
+feed detail, Marketplace list/detail, profile settings, and sign-out. Capture,
+upload, account writes, Marketplace application, and destructive actions use only
+an approved isolated staging environment with disposable data.
+
+Simulator evidence never replaces physical-device GPS, camera, permission,
+background/resume, removable-storage, notification, upload-retry, signed-build,
+or store-artifact checks. This Mac currently has Xcode but no installed iOS
+simulator runtime; installing a supported runtime and restoring this recurring
+gate is the first open environment action. Until then, no new simulator result may
+be claimed from this machine.
+
 ## Near term
 
 - Resolve the localization architecture in #122: add an English fallback, select a
