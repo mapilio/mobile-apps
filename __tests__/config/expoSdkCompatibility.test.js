@@ -70,7 +70,7 @@ describe('Expo SDK compatibility contract', () => {
 
   test('keeps native-sensitive integrations without the obsolete OneSignal patch', () => {
     expect(packageJson.dependencies['react-native-fs']).toBeUndefined();
-    expect(packageJson.dependencies['@maplibre/maplibre-react-native']).toBeDefined();
+    expect(packageJson.dependencies['@maplibre/maplibre-react-native']).toBe('11.3.6');
     expect(packageJson.dependencies['react-native-onesignal']).toBeDefined();
     expect(packageJson.dependencies['react-native-fbsdk-next']).toBeDefined();
     expect(packageJson.dependencies['expo-camera']).toBe('~57.0.3');

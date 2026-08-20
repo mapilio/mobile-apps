@@ -6,9 +6,11 @@ import { MapView } from '../highordercomponents';
 import { ArrowLeft } from '../assets/svg/illustrations';
 import { globalStyles } from '../styles/globalStyles';
 import MapLibreGL from '@maplibre/maplibre-react-native';
+import { toMapLibrePaint } from '../components/Map/mapLibreStyle';
+import { fitCameraBounds, getGeoJsonBounds } from '../util/maplibreCamera';
 import { useDispatch, useSelector } from 'react-redux';
 import db from '../db';
-import { bbox, lineString } from '@turf/turf';
+import { lineString } from '@turf/turf';
 import BottomSheet from '@gorhom/bottom-sheet';
 import UserSequenceDetail from './UserSequenceDetail';
 import { Heading } from '../components/Map';
@@ -37,12 +39,12 @@ const UserSequence = ({ navigation }) => {
 
   useEffect(() => {
     if (imageDetail) {
-      cameraRef.current.setCamera({
-        centerCoordinate: [
+      cameraRef.current.setStop({
+        center: [
           JSON.parse(imageDetail.location).longitude,
           JSON.parse(imageDetail.location).latitude,
         ],
-        animationDuration: 300,
+        duration: 300,
       });
     }
   }, [imageDetail]);
@@ -113,7 +115,7 @@ const UserSequence = ({ navigation }) => {
 
       const point = setGeoJson(result, 'point');
       const line = lineString(coordinates);
-      const bboxData = bbox(line);
+      const bboxData = getGeoJsonBounds(line);
 
       setMapGeoJson({ lines, point, bboxData, result });
       setTimeout(() => {
@@ -170,14 +172,9 @@ const UserSequence = ({ navigation }) => {
   const onPointClick = (e) => {
     if (e.features.length > 1) {
       const coordinates = e.features.map(({ geometry: { coordinates } }) => coordinates);
-      const clickedBbox = bbox(lineString(coordinates || []));
+      const clickedBbox = getGeoJsonBounds(lineString(coordinates || []));
 
-      cameraRef.current?.fitBounds(
-        [clickedBbox[0], clickedBbox[1]],
-        [clickedBbox[2], clickedBbox[3]],
-        [20, 20],
-        500
-      );
+      fitCameraBounds(cameraRef, clickedBbox, { top: 20, right: 20, bottom: 20, left: 20 }, 500);
     } else {
       bottomSheetModalRef.current?.snapToIndex(0);
       const item = e.features[0].properties.item;
@@ -198,39 +195,41 @@ const UserSequence = ({ navigation }) => {
       {mapGeoJson && (
         <MapView
           style={{ height: '100%' }}
-          pitchEnabled={false}
+          touchPitch={false}
           onDidFinishLoadingMap={() => {
             setTimeout(() => {
               setIsMapLoading(false);
             }, 300);
           }}>
           <MapLibreGL.Camera
-            bounds={{
-              ne: [mapGeoJson?.bboxData[2], mapGeoJson?.bboxData[3]],
-              sw: [mapGeoJson?.bboxData[0], mapGeoJson?.bboxData[1]],
-              paddingTop: 100,
-              paddingBottom: 300,
-              paddingLeft: 100,
-              paddingRight: 100,
-            }}
+            bounds={[
+              mapGeoJson?.bboxData[0],
+              mapGeoJson?.bboxData[1],
+              mapGeoJson?.bboxData[2],
+              mapGeoJson?.bboxData[3],
+            ]}
             ref={cameraRef}
-            animationDuration={0}
+            duration={0}
           />
 
           {Object.keys(mapGeoJson?.lines).map((key, index) => {
             return (
-              <MapLibreGL.ShapeSource id={key} key={index} shape={mapGeoJson?.lines[key]}>
-                <MapLibreGL.LineLayer id={key} style={styles.lineStyles} />
-              </MapLibreGL.ShapeSource>
+              <MapLibreGL.GeoJSONSource id={key} key={index} data={mapGeoJson?.lines[key]}>
+                <MapLibreGL.Layer type="line" id={key} paint={toMapLibrePaint(styles.lineStyles)} />
+              </MapLibreGL.GeoJSONSource>
             );
           })}
 
-          <MapLibreGL.ShapeSource
+          <MapLibreGL.GeoJSONSource
             id={'PointShape'}
-            shape={mapGeoJson?.point}
-            onPress={onPointClick}>
-            <MapLibreGL.CircleLayer id="pointLayer" style={styles.circleStyles} />
-          </MapLibreGL.ShapeSource>
+            data={mapGeoJson?.point}
+            onPress={(event) => onPointClick(event.nativeEvent)}>
+            <MapLibreGL.Layer
+              type="circle"
+              id="pointLayer"
+              paint={toMapLibrePaint(styles.circleStyles)}
+            />
+          </MapLibreGL.GeoJSONSource>
           {imageDetail && (
             <Heading
               coordinates={[

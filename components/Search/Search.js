@@ -23,18 +23,16 @@ const Search = ({ camera }) => {
     setOpenSearchbar(false);
     timeout = setTimeout(() => {
       coordinates.length === 4 &&
-        camera.current.fitBounds(
-          [coordinates[0], coordinates[1]],
-          [coordinates[2], coordinates[3]],
-          [20, 20],
-          1000
-        );
+        camera.current.fitBounds([coordinates[0], coordinates[1], coordinates[2], coordinates[3]], {
+          padding: { top: 20, right: 20, bottom: 20, left: 20 },
+          duration: 1000,
+        });
 
       coordinates.length === 2 &&
-        camera.current.setCamera({
-          centerCoordinate: coordinates,
-          zoomLevel: 10,
-          animationDuration: 1000,
+        camera.current.setStop({
+          center: coordinates,
+          zoom: 10,
+          duration: 1000,
         });
     }, 200);
     addSearchHistory({

@@ -4,6 +4,7 @@ import { styles } from '../../../styles/circleStyles';
 import MapLibre from '@maplibre/maplibre-react-native';
 import { useSelector } from 'react-redux';
 import { tileConfig } from '../../../config/tileConfig';
+import { toMapLibrePaint } from '../mapLibreStyle';
 
 const Points = ({ touchPoint }) => {
   const { maintenanceMode } = useSelector((state) => state.generalReducer);
@@ -11,30 +12,35 @@ const Points = ({ touchPoint }) => {
     <Fragment>
       <MapLibre.VectorSource
         id={'road-points'}
-        tileUrlTemplates={[tileConfig.pointUrl]}
-        minZoomLevel={12}
-        maxZoomLevel={22}
+        tiles={[tileConfig.pointUrl]}
+        minzoom={12}
+        maxzoom={22}
         onPress={(e) => {
           if (!maintenanceMode) {
-            touchPoint(e);
+            touchPoint(e.nativeEvent);
           }
         }}>
-        <MapLibre.CircleLayer
+        <MapLibre.Layer
+          type="circle"
           id={'road-points'}
-          sourceLayerID={tileConfig.pointId}
-          style={{ ...styles.circles, circleColor: maintenanceMode ? '#fba63c' : '#146aff' }}
-          belowLayerID={'road-points-opacity'}
-          minZoomLevel={12}
+          source-layer={tileConfig.pointId}
+          paint={toMapLibrePaint({
+            ...styles.circles,
+            circleColor: maintenanceMode ? '#fba63c' : '#146aff',
+          })}
+          beforeId={'road-points-opacity'}
+          minzoom={12}
         />
-        <MapLibre.CircleLayer
+        <MapLibre.Layer
+          type="circle"
           id={'road-points-opacity'}
-          sourceLayerID={tileConfig.pointId}
-          style={{
+          source-layer={tileConfig.pointId}
+          paint={toMapLibrePaint({
             ...styles.circlesOpacity,
             circleColor: maintenanceMode ? '#fba63c' : '#146aff',
             circleStrokeColor: maintenanceMode ? '#fba63c' : '#146aff',
-          }}
-          minZoomLevel={17}
+          })}
+          minzoom={17}
         />
       </MapLibre.VectorSource>
     </Fragment>

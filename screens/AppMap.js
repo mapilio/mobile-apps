@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { Platform, View, StyleSheet, ActivityIndicator, AppState } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, AppState } from 'react-native';
 import { appMapStyle } from '../styles/appMapStyle';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { MapView } from '../highordercomponents';
@@ -18,7 +18,7 @@ import { MapilioBetaWatermark } from '../assets/svg/illustrations';
 import MapLoading from '../components/Map/MapLoading';
 import { useTranslation } from 'react-i18next';
 import { api } from '../util/helpers/api';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import MapLibreGL, { useCurrentPosition } from '@maplibre/maplibre-react-native';
 import { getConfig, checkMaintenance } from '../store/actions/generalReducer';
 import { NewsletterModal } from '../components/SocialLogin';
 import { captureMessage } from '@sentry/react-native';
@@ -46,6 +46,7 @@ const AppMap = ({ navigation }) => {
   const [isMapReady, setIsMapReady] = useState(false);
   const [isPanoLoading, setIsPanoLoading] = useState(false);
   const [showLocation, setShowLocation] = useState(true);
+  const [locationPermissionGranted, setLocationPermissionGranted] = useState(false);
   const [availableOverlays, setAvailableOverlays] = useState({
     roads: false,
     points: false,
@@ -61,7 +62,22 @@ const AppMap = ({ navigation }) => {
   const appState = useRef(AppState.currentState);
   const dispatch = useDispatch();
   const followUserLocation = useRef(false);
+  const currentPosition = useCurrentPosition({
+    enabled: locationPermissionGranted && showLocation,
+  });
   const overlayAvailabilityRef = useRef({ roads: null, points: null });
+
+  useEffect(() => {
+    if (followUserLocation.current && currentPosition) {
+      cameraRef.current?.setStop({
+        center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
+        zoom: 15,
+        bearing: 0,
+        pitch: 0,
+        duration: 1000,
+      });
+    }
+  }, [currentPosition]);
 
   useEffect(() => {
     let active = true;
@@ -133,7 +149,9 @@ const AppMap = ({ navigation }) => {
 
   useEffect(() => {
     !connection.connectionStatus && navigation.navigate(Routes.noInternetAccess);
-    initialPermissions();
+    initialPermissions()
+      .then((status) => setLocationPermissionGranted(status === RESULTS.GRANTED))
+      .catch(() => setLocationPermissionGranted(false));
 
     const listener = AppState.addEventListener('change', handleAppStateChange);
     return () => {
@@ -162,18 +180,18 @@ const AppMap = ({ navigation }) => {
 
   const zoomPoint = (coordinates) => {
     mapRef.current?.getZoom().then((zoomLevel) => {
-      cameraRef.current?.setCamera({
-        centerCoordinate: [coordinates?.longitude, coordinates?.latitude],
-        zoomLevel: zoomLevel + 3,
-        animationDuration: 800,
+      cameraRef.current?.setStop({
+        center: [coordinates?.[0], coordinates?.[1]],
+        zoom: zoomLevel + 3,
+        duration: 800,
       });
     });
   };
 
   const touchPoint = async (e) => {
-    cameraRef.current?.setCamera({
-      centerCoordinate: e.features[0]?.geometry?.coordinates,
-      animationDuration: 200,
+    cameraRef.current?.setStop({
+      center: e.features[0]?.geometry?.coordinates,
+      duration: 200,
     });
 
     const { geometry, properties } = e.features[0];
@@ -208,13 +226,17 @@ const AppMap = ({ navigation }) => {
   };
 
   const handleSetCenter = async () => {
-    initialPermissions().then((res) => {
-      if (res !== RESULTS.GRANTED) {
-        toast.show(t('gps_disabled'), { type: 'error' });
-      } else {
-        followUserLocation.current = !followUserLocation.current;
-      }
-    });
+    const status = locationPermissionGranted ? RESULTS.GRANTED : await initialPermissions();
+    const granted = status === RESULTS.GRANTED;
+    setLocationPermissionGranted(granted);
+
+    if (!granted) {
+      toast.show(t('gps_disabled'), { type: 'error' });
+      return;
+    }
+
+    setShowLocation(true);
+    followUserLocation.current = !followUserLocation.current;
   };
 
   const handleProfile = () => {
@@ -282,32 +304,18 @@ const AppMap = ({ navigation }) => {
             followUserLocation.current = false;
           }
         }}
-        rotateEnabled={false}>
+        touchRotate={false}>
         <MapLibreGL.Camera
-          animationMode={'flyTo'}
+          easing={'fly'}
           ref={cameraRef}
-          zoomLevel={6}
-          centerCoordinate={initialCoordinate.current?.geometry?.coordinates ?? DEFAULT_MAP_CENTER}
+          zoom={6}
+          center={initialCoordinate.current?.geometry?.coordinates ?? DEFAULT_MAP_CENTER}
         />
         {isMapReady && availableOverlays.points && <Points touchPoint={touchPoint} />}
         {isMapReady && availableOverlays.roads && <Lines zoomPoint={zoomPoint} />}
 
-        {showLocation && (
-          <MapLibreGL.UserLocation
-            renderMode={Platform.OS === 'ios' ? 'native' : 'normal'}
-            onUpdate={(e) => {
-              if (followUserLocation.current) {
-                cameraRef.current?.setCamera({
-                  centerCoordinate: [e.coords.longitude, e.coords.latitude],
-                  zoomLevel: 15,
-                  heading: 0,
-                  pitch: 0,
-                  bearing: 0,
-                  animationDuration: 1000,
-                });
-              }
-            }}
-          />
+        {locationPermissionGranted && showLocation && (
+          <MapLibreGL.UserLocation accuracy heading minDisplacement={1} />
         )}
 
         {clickedCoord && showPano && (

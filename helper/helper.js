@@ -7,6 +7,7 @@ import { tabHeight } from '../util/consts/ui';
 import i18next from 'i18next';
 
 let isOpenOnce = false;
+let locationPermissionRequest;
 Moment.suppressDeprecationWarnings = true;
 
 const convertHexToRGBA = (hexCode, opacity) => {
@@ -58,19 +59,15 @@ const initialPermissions = () => {
       ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
       : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION;
 
-  return new Promise((resolve, reject) => {
-    check(permission)
-      .then((status) => {
-        if (status !== RESULTS.GRANTED) {
-          request(permission).then(() => resolve(status));
-        } else {
-          resolve(status);
-        }
-      })
-      .catch((error) => {
-        reject(error);
+  if (!locationPermissionRequest) {
+    locationPermissionRequest = check(permission)
+      .then((status) => (status === RESULTS.GRANTED ? status : request(permission)))
+      .finally(() => {
+        locationPermissionRequest = undefined;
       });
-  });
+  }
+
+  return locationPermissionRequest;
 };
 
 const cameraPermission = (onPress) => {

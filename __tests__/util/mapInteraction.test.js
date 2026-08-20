@@ -4,7 +4,7 @@ describe('isUserInitiatedRegionMovement', () => {
   it('recognizes an Android user gesture', () => {
     expect(
       isUserInitiatedRegionMovement({
-        properties: { isUserInteraction: true, animated: false },
+        nativeEvent: { userInteraction: true, animated: false },
       })
     ).toBe(true);
   });
@@ -12,7 +12,7 @@ describe('isUserInitiatedRegionMovement', () => {
   it('does not classify an Android developer animation as user movement', () => {
     expect(
       isUserInitiatedRegionMovement({
-        properties: { isUserInteraction: true, animated: true },
+        nativeEvent: { userInteraction: true, animated: true },
       })
     ).toBe(false);
   });
@@ -20,7 +20,7 @@ describe('isUserInitiatedRegionMovement', () => {
   it('does not classify non-user camera changes as user movement', () => {
     expect(
       isUserInitiatedRegionMovement({
-        properties: { isUserInteraction: false, animated: false },
+        nativeEvent: { userInteraction: false, animated: false },
       })
     ).toBe(false);
   });
@@ -28,10 +28,10 @@ describe('isUserInitiatedRegionMovement', () => {
   it('handles missing or incomplete region events safely', () => {
     expect(isUserInitiatedRegionMovement()).toBe(false);
     expect(isUserInitiatedRegionMovement({})).toBe(false);
-    expect(isUserInitiatedRegionMovement({ properties: {} })).toBe(false);
+    expect(isUserInitiatedRegionMovement({ nativeEvent: {} })).toBe(false);
     expect(
       isUserInitiatedRegionMovement({
-        properties: { isUserInteraction: true },
+        nativeEvent: { userInteraction: true },
       })
     ).toBe(false);
   });

@@ -21,7 +21,13 @@ jest.mock('i18next', () => ({
   t: (key) => key,
 }));
 
-import { maxCharacterHandler, thousandFormatter, headingPointGeoJson } from '../../helper/helper';
+import {
+  maxCharacterHandler,
+  thousandFormatter,
+  headingPointGeoJson,
+  initialPermissions,
+} from '../../helper/helper';
+import { check, request, RESULTS } from 'react-native-permissions';
 
 describe('maxCharacterHandler', () => {
   it('returns text unchanged when within limit', () => {
@@ -86,5 +92,39 @@ describe('headingPointGeoJson', () => {
   it('geometry type is Point', () => {
     const result = headingPointGeoJson(45, [10, 20]);
     expect(result.features[0].geometry.type).toBe('Point');
+  });
+});
+
+describe('initialPermissions', () => {
+  beforeEach(() => {
+    check.mockReset();
+    request.mockReset();
+  });
+
+  it('returns the existing granted status without requesting again', async () => {
+    check.mockResolvedValue(RESULTS.GRANTED);
+
+    await expect(initialPermissions()).resolves.toBe(RESULTS.GRANTED);
+    expect(request).not.toHaveBeenCalled();
+  });
+
+  it('returns the new request result when the initial check is denied', async () => {
+    check.mockResolvedValue(RESULTS.DENIED);
+    request.mockResolvedValue(RESULTS.GRANTED);
+
+    await expect(initialPermissions()).resolves.toBe(RESULTS.GRANTED);
+    expect(request).toHaveBeenCalledTimes(1);
+  });
+
+  it('deduplicates concurrent permission requests', async () => {
+    check.mockResolvedValue(RESULTS.DENIED);
+    request.mockResolvedValue(RESULTS.GRANTED);
+
+    await expect(Promise.all([initialPermissions(), initialPermissions()])).resolves.toEqual([
+      RESULTS.GRANTED,
+      RESULTS.GRANTED,
+    ]);
+    expect(check).toHaveBeenCalledTimes(1);
+    expect(request).toHaveBeenCalledTimes(1);
   });
 });

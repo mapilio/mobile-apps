@@ -16,6 +16,7 @@ import db from '../db';
 import { dateConvert } from '../helper/helper';
 import { lineString, bbox, length, points } from '@turf/turf';
 import MapLibreGL from '@maplibre/maplibre-react-native';
+import { toMapLibrePaint } from '../components/Map/mapLibreStyle';
 import Loading from '../components/Loading';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Routes } from '../navigator/Routes';
@@ -145,32 +146,34 @@ const CaptureCompleted = () => {
 
         <MapView
           mapStyle={styles.map}
-          scrollEnabled={false}
-          zoomEnabled={false}
-          pitchEnabled={false}
-          rotateEnabled={false}
+          dragPan={false}
+          touchZoom={false}
+          touchPitch={false}
+          touchRotate={false}
           onDidFinishLoadingMap={() => setMapLoading(false)}>
           <MapLibreGL.Camera
-            zoomLevel={10}
+            zoom={10}
             ref={cameraRef}
-            animationDuration={0}
-            bounds={{
-              ne: [lineDetail.bboxData[0] || 0, lineDetail.bboxData[1] || 0],
-              sw: [lineDetail.bboxData[2] || 0, lineDetail.bboxData[3] || 0],
-              paddingTop: 25,
-              paddingBottom: 25,
-              paddingLeft: 25,
-              paddingRight: 25,
-            }}
+            duration={0}
+            bounds={[
+              lineDetail.bboxData[0] || 0,
+              lineDetail.bboxData[1] || 0,
+              lineDetail.bboxData[2] || 0,
+              lineDetail.bboxData[3] || 0,
+            ]}
           />
 
-          <MapLibreGL.ShapeSource id={'capturedShape'} shape={lineDetail.line}>
-            <MapLibreGL.LineLayer id="capturedLine" style={styles.line} />
-          </MapLibreGL.ShapeSource>
+          <MapLibreGL.GeoJSONSource id={'capturedShape'} data={lineDetail.line}>
+            <MapLibreGL.Layer type="line" id="capturedLine" paint={toMapLibrePaint(styles.line)} />
+          </MapLibreGL.GeoJSONSource>
 
-          <MapLibreGL.ShapeSource id={'capturedPoint'} shape={lineDetail.point}>
-            <MapLibreGL.CircleLayer id="capturedCircle" style={styles.point} />
-          </MapLibreGL.ShapeSource>
+          <MapLibreGL.GeoJSONSource id={'capturedPoint'} data={lineDetail.point}>
+            <MapLibreGL.Layer
+              type="circle"
+              id="capturedCircle"
+              paint={toMapLibrePaint(styles.point)}
+            />
+          </MapLibreGL.GeoJSONSource>
         </MapView>
       </View>
 

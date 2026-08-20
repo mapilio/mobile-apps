@@ -8,6 +8,7 @@ import MapLibre from '@maplibre/maplibre-react-native';
 import SwitchSelector from 'react-native-switch-selector';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { styles } from '../styles/circleStyles';
+import { toMapLibrePaint } from '../components/Map/mapLibreStyle';
 import { Routes } from '../navigator/Routes';
 import { ActivityIndicator } from 'react-native-paper';
 import { captureException } from '@sentry/react-native';
@@ -181,16 +182,17 @@ const UserSequence = ({ navigation, route }) => {
           <MapView
             mapStyle={{ ...appMapStyle.map, height: Dimensions.get('screen').height - bottom }}>
             <MapLibre.Camera
-              animationMode={'flyTo'}
-              animationDuration={0}
-              centerCoordinate={center.length !== 0 && [center[0] + 0.0009, center[1]]}
-              zoomLevel={16}
+              easing={'fly'}
+              duration={0}
+              center={center.length !== 0 && [center[0] + 0.0009, center[1]]}
+              zoom={16}
             />
             {!!Object.keys(points).length && (
-              <MapLibre.ShapeSource
+              <MapLibre.GeoJSONSource
                 id={'pointsProfileShape'}
-                shape={points}
-                onPress={(point) => {
+                data={points}
+                onPress={(event) => {
+                  const point = event.nativeEvent;
                   navigation.navigate(Routes.feedDetail, {
                     id: point.features[0].properties.item.id,
                     path: `${process.env.EXPO_PUBLIC_IMAGE_API}/${point.features[0].properties.item.img_code}/${point.features[0].properties.item.filename}/1080`,
@@ -202,14 +204,26 @@ const UserSequence = ({ navigation, route }) => {
                     user_id: route.params.user_id,
                   });
                 }}>
-                <MapLibre.CircleLayer id={'circle5'} style={styles.circles} />
-                <MapLibre.CircleLayer id={'circleBuffer5'} style={styles.circlesOpacity} />
-              </MapLibre.ShapeSource>
+                <MapLibre.Layer
+                  type="circle"
+                  id={'circle5'}
+                  paint={toMapLibrePaint(styles.circles)}
+                />
+                <MapLibre.Layer
+                  type="circle"
+                  id={'circleBuffer5'}
+                  paint={toMapLibrePaint(styles.circlesOpacity)}
+                />
+              </MapLibre.GeoJSONSource>
             )}
             {!!Object.keys(coordinates).length && (
-              <MapLibre.ShapeSource id={'uploadedShape'} shape={coordinates}>
-                <MapLibre.LineLayer id="linelayer2" style={styles.lineStyles} />
-              </MapLibre.ShapeSource>
+              <MapLibre.GeoJSONSource id={'uploadedShape'} data={coordinates}>
+                <MapLibre.Layer
+                  type="line"
+                  id="linelayer2"
+                  paint={toMapLibrePaint(styles.lineStyles)}
+                />
+              </MapLibre.GeoJSONSource>
             )}
           </MapView>
         )}

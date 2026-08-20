@@ -1,5 +1,5 @@
 import React, { Fragment, memo } from 'react';
-import MapLibreGL, { Logger } from '@maplibre/maplibre-react-native';
+import MapLibreGL, { LogManager } from '@maplibre/maplibre-react-native';
 import { AttributionButton } from '../components/Map';
 import { appMapStyle } from '../styles/appMapStyle';
 import { Platform, View } from 'react-native';
@@ -7,8 +7,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import * as Linking from 'expo-linking';
 
-MapLibreGL.setAccessToken(null);
-Logger.setLogLevel('error');
+LogManager.setLogLevel('error');
 
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron';
 
@@ -43,25 +42,25 @@ const MapView = ({
 
   return (
     <Fragment>
-      <MapLibreGL.MapView
+      <MapLibreGL.Map
         style={mapStyle}
         mapStyle={STYLE_URL}
         ref={mapRef}
         onRegionDidChange={regionChange}
-        logoEnabled={false}
+        logo={false}
         attributionPosition={{ right: RFValue(30), bottom: RFValue(10) }}
-        compassEnabled={false}
-        attributionEnabled={false}
-        scaleBarEnabled={false}
+        compass={false}
+        attribution={false}
+        scaleBar={false}
         logoPosition={{ bottom: 20, left: 25 }}
-        rotateEnabled={false}
+        touchRotate={false}
         onPress={onPress}
         onDidFinishLoadingMap={() => {
           onDidFinishLoadingMap && onDidFinishLoadingMap();
         }}
         {...props}>
         {children}
-      </MapLibreGL.MapView>
+      </MapLibreGL.Map>
       {isAttributionsEnabled && (
         <View style={{ ...appMapStyle.mapButtons, width: RFValue(35) }}>
           <AttributionButton showAttribution={showAttributions} />

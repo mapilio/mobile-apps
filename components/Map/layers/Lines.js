@@ -4,6 +4,7 @@ import { styles } from '../../../styles/circleStyles';
 import MapLibreGL from '@maplibre/maplibre-react-native';
 import { useSelector } from 'react-redux';
 import { tileConfig } from '../../../config/tileConfig';
+import { toMapLibrePaint } from '../mapLibreStyle';
 
 const Lines = ({ zoomPoint }) => {
   const { maintenanceMode } = useSelector((state) => state.generalReducer);
@@ -11,15 +12,19 @@ const Lines = ({ zoomPoint }) => {
     <Fragment>
       <MapLibreGL.VectorSource
         id={'road-lines'}
-        tileUrlTemplates={[tileConfig.roadUrl]}
+        tiles={[tileConfig.roadUrl]}
         onPress={(e) => {
-          zoomPoint(e.coordinates);
+          zoomPoint(e.nativeEvent.lngLat);
         }}>
-        <MapLibreGL.LineLayer
+        <MapLibreGL.Layer
+          type="line"
           id={'road-lines'}
-          sourceLayerID={tileConfig.roadId}
-          style={{ ...styles.lineStyles, lineColor: maintenanceMode ? '#fba63c' : '#146aff' }}
-          belowLayerID={'road-points'}
+          source-layer={tileConfig.roadId}
+          paint={toMapLibrePaint({
+            ...styles.lineStyles,
+            lineColor: maintenanceMode ? '#fba63c' : '#146aff',
+          })}
+          beforeId={'road-points'}
         />
       </MapLibreGL.VectorSource>
     </Fragment>

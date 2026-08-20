@@ -8,7 +8,8 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { dateConvert, maxCharacterHandler } from '../../helper/helper';
 import { setGeoJson } from '../../helper/geojson';
 import { styles as mapStyles } from '../../styles/circleStyles';
-import { bbox } from '@turf/turf';
+import { toMapLibrePaint } from '../../components/Map/mapLibreStyle';
+import { getGeoJsonBounds, setCameraBounds } from '../../util/maplibreCamera';
 import { ArrowLeft } from '../../assets/svg/illustrations';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -45,27 +46,21 @@ const UserFeedDetails = ({ route }) => {
         `/api/user-uploads-detail-v2?options[parameters][user_id]=${user_id}&options[parameters][group_key]=${id}&options[limit]=3000&page=1`
       )
       .then((res) => {
+        const mapLine = setGeoJson(res.data, 'line');
+        const mapBounds = getGeoJsonBounds(mapLine);
         setMapData({
           sequenceData: res.data,
           points: setGeoJson(res.data, 'point'),
           lines: linesRes,
-          bbox: bbox(setGeoJson(res.data, 'line')),
+          bbox: mapBounds,
           totalPhotos: res.data.length,
         });
-        cameraRef.current?.setCamera({
-          bounds: {
-            ne: [parseFloat(res.data[0].longitude), parseFloat(res.data[0].latitude)],
-            sw: [
-              parseFloat(res.data[res.data.length - 1].longitude),
-              parseFloat(res.data[res.data.length - 1].latitude),
-            ],
-            paddingTop: 100,
-            paddingBottom: 400,
-            paddingLeft: 100,
-            paddingRight: 100,
-          },
-          animationDuration: 300,
-        });
+        setCameraBounds(
+          cameraRef,
+          mapBounds,
+          { top: 100, right: 100, bottom: 400, left: 100 },
+          300
+        );
       });
   };
 
@@ -100,9 +95,9 @@ const UserFeedDetails = ({ route }) => {
 
   useEffect(() => {
     if (activeImage) {
-      cameraRef.current.setCamera({
-        centerCoordinate: [parseFloat(activeImage.longitude), parseFloat(activeImage.latitude)],
-        animationDuration: 300,
+      cameraRef.current.setStop({
+        center: [parseFloat(activeImage.longitude), parseFloat(activeImage.latitude)],
+        duration: 300,
       });
     }
   }, [activeImage]);
@@ -168,22 +163,27 @@ const UserFeedDetails = ({ route }) => {
           />
         )}
       </Modal>
-      <MapView style={{ flex: 1 }} isAttributionsEnabled={false} pitchEnabled={false}>
-        <MapLibreGL.Camera ref={cameraRef} animationDuration={500} />
+      <MapView style={{ flex: 1 }} isAttributionsEnabled={false} touchPitch={false}>
+        <MapLibreGL.Camera ref={cameraRef} duration={500} />
         {mapData.bbox.length > 0 && (
           <Fragment>
             {mapData?.lines?.map((line, index) => (
-              <MapLibreGL.ShapeSource
+              <MapLibreGL.GeoJSONSource
                 id={'LineShape' + index}
-                shape={JSON.parse(line.linefeature)}
+                data={JSON.parse(line.linefeature)}
                 key={index}>
-                <MapLibreGL.LineLayer id={'LineLayer' + index} style={mapStyles.lineStyles} />
-              </MapLibreGL.ShapeSource>
+                <MapLibreGL.Layer
+                  type="line"
+                  id={'LineLayer' + index}
+                  paint={toMapLibrePaint(mapStyles.lineStyles)}
+                />
+              </MapLibreGL.GeoJSONSource>
             ))}
-            <MapLibreGL.ShapeSource
+            <MapLibreGL.GeoJSONSource
               id={'PointShape'}
-              shape={mapData?.points}
-              onPress={(e) => {
+              data={mapData?.points}
+              onPress={(event) => {
+                const e = event.nativeEvent;
                 setActiveImage({
                   img_code: e.features[0].properties.item.img_code,
                   filename: e.features[0].properties.item.filename,
@@ -194,8 +194,12 @@ const UserFeedDetails = ({ route }) => {
                   capture_time: e.features[0].properties.item.capture_time,
                 });
               }}>
-              <MapLibreGL.CircleLayer id="pointLayer" style={mapStyles.circles} />
-            </MapLibreGL.ShapeSource>
+              <MapLibreGL.Layer
+                type="circle"
+                id="pointLayer"
+                paint={toMapLibrePaint(mapStyles.circles)}
+              />
+            </MapLibreGL.GeoJSONSource>
           </Fragment>
         )}
         {activeImage && (
