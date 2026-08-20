@@ -20,15 +20,48 @@ The repository remains private until maintainers can demonstrate all of the foll
 - Prettier is applied to the maintained source tree and enforced in CI.
 - Third-party fonts, images, and bundled assets have documented redistribution rights.
 
+The current visibility blockers are tracked in issues #4, #10, #74, #83, #84,
+#99, and #120. Near-term accessibility, localization, coverage, Marketplace,
+processing-status, optional-distribution, and launch-communications work remains
+important, but does not by itself keep source code private. A known finding moves
+back into this gate only when it exposes a legal, credential, security, signing,
+asset-rights, or supported-build risk.
+
 ## Near term
 
-- Add contract and device-matrix coverage for capture, grouped upload, interruption, retry, and completion without losing local imagery.
-- When the API exposes timestamps and failure states, show processing age, delayed-job warnings, terminal failure reasons, and a safe retry or delete action.
-- Record the Meta-free build decision in Discussions; if accepted, build that flavor in CI without the Facebook native SDK.
-- Audit the map, capture, upload, login, and leaderboard workflows for screen-reader labels, contrast, touch targets, startup time, and list performance, then track concrete failures as issues.
+- Resolve the localization architecture in #122: add an English fallback, select a
+  supported device locale on first launch, define persisted-locale migration, and
+  implement and test RTL direction for Arabic. PR #121 is a useful single-source
+  cleanup, but must preserve previously loaded locale resources such as Romanian
+  before it can merge.
+- Complete the accessibility work in #87 and #124 across login, map, Marketplace,
+  leaderboard, capture, and upload. PR #111 covers the Marketplace and leaderboard
+  icon controls, but still needs a clean current-`main` CI run and TalkBack/VoiceOver
+  smoke evidence. Add discoverable alternatives for long-press and swipe-only
+  actions, roles, labels, state, and minimum touch targets.
+- Add component and contract coverage in #94 for capture, grouped upload,
+  interruption, cancellation, retry, and completion without losing local imagery.
+  Keep camera, GPS, filesystem, removable-storage, background/resume, and network
+  failure checks in a separate physical-device matrix.
+- Finish the server contract in backend #56 before implementing mobile #73. Reuse
+  the existing `fail` status, expose a processing-start timestamp and safe failure
+  reason, preserve older-client behavior, then test age, warning, retry, and delete
+  states in the app.
+- Add a Marketplace test track covering anonymous GeoJSON load, coordinate sorting,
+  map polygons, empty/error/loading states, authenticated job application, duplicate
+  application, distance/equipment rules, capture hand-off, and accessibility. The
+  modern backend's isolated Marketplace and project-job contract suite currently
+  passes 14 tests / 56 assertions; mobile screen/API and real staging apply evidence
+  remain open.
 
 ## Longer term
 
+- Record the Meta-free build decision from #72 in Discussions; if accepted, build
+  that flavor in CI without the Facebook native SDK and prove the package/plugin is
+  absent from both native artifacts.
+- Finalize and approve the OSM community announcement in #95 only after every public
+  repository gate is green. Verify all project-history, licensing, imagery, and
+  contribution claims before publishing it.
 - Document a stable mobile/backend compatibility policy and versioned API contract for third-party capture clients.
 - Graduate community integrations only after each has an owner, supported API boundary, tests, and operational documentation.
 
