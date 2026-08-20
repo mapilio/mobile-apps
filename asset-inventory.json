@@ -93,34 +93,10 @@
       "sha256": "74c64047eb557b1341bba7a2831eedde9ddb705e6451a9ad9f5552bf558f13de"
     },
     {
-      "path": "assets/images/MaximizePano.png",
-      "family": "general-raster",
-      "bytes": 1476,
-      "sha256": "5a2359618c913b3aee51c09fdd36829f2f1191cea42acceb7945dbd351ee2e42"
-    },
-    {
       "path": "assets/images/accessibleWorld.png",
       "family": "general-raster",
       "bytes": 236151,
       "sha256": "384a3065d79e550a0cf34dec0f33cf25f3f07c183888d9c56ce8da9eeece3384"
-    },
-    {
-      "path": "assets/images/auto_1.png",
-      "family": "general-raster",
-      "bytes": 3101,
-      "sha256": "4ac9c135862deb64684157cc2157ef45d0e651dfc11eebafed6e43477f1a12a2"
-    },
-    {
-      "path": "assets/images/auto_2.png",
-      "family": "general-raster",
-      "bytes": 2253,
-      "sha256": "c4bc7474a9aabfc4ccf413b75f2ecd41c97cfd6464a3e6e9ce53edf4a4b7df73"
-    },
-    {
-      "path": "assets/images/auto_3.png",
-      "family": "general-raster",
-      "bytes": 1296,
-      "sha256": "2862487b7ee586b9c0c9d544c0eba8f4501a5f4fdbc04f6b7c9fc2d7667c4a4c"
     },
     {
       "path": "assets/images/awardImage.png",
@@ -163,12 +139,6 @@
       "family": "general-raster",
       "bytes": 163899,
       "sha256": "e26db6772df13bf9e3cb97c54279e52d4ba4791cb19ad3905ce720b3c6245109"
-    },
-    {
-      "path": "assets/images/default_avatar.png",
-      "family": "general-raster",
-      "bytes": 2497,
-      "sha256": "38935e8b464234bfa7ca880e230142867d53ae085326958a7d7d152f19f7a2ca"
     },
     {
       "path": "assets/images/emergencies.png",
@@ -297,30 +267,6 @@
       "sha256": "6a32059b0df715e2ca9024d0a3a6c70e3224e02a0a72dc88027bb2a4c4d5e9e7"
     },
     {
-      "path": "assets/images/manuel_1.png",
-      "family": "general-raster",
-      "bytes": 2067,
-      "sha256": "4e95edf4d8682c2d36edbf61546da5d06a28e23f61d95f6f4759d51ef377f59c"
-    },
-    {
-      "path": "assets/images/manuel_2.png",
-      "family": "general-raster",
-      "bytes": 2564,
-      "sha256": "cf3748c2ae546063078ce712883ee3c7915791c3173242dabfe0464b1741aae1"
-    },
-    {
-      "path": "assets/images/map.png",
-      "family": "general-raster",
-      "bytes": 68196,
-      "sha256": "0b3773a1ccde06f59d11d8ccf055d7b8a1caa25297ce9ac6febf43d262903091"
-    },
-    {
-      "path": "assets/images/map/arrow.png",
-      "family": "map-raster",
-      "bytes": 412,
-      "sha256": "8497d198d83d679aac3b416f2ddcabdecaffa058dfbb11a674b26162e754eb2b"
-    },
-    {
       "path": "assets/images/mapIcon.png",
       "family": "general-raster",
       "bytes": 868,
@@ -333,18 +279,6 @@
       "sha256": "c1d3cba2d794f90e5399c82192e29e1b60b0bc1640cc4c97d1c87000a8a23a9b"
     },
     {
-      "path": "assets/images/marketplaceMap.png",
-      "family": "general-raster",
-      "bytes": 135115,
-      "sha256": "f7697203a3336be0e653409ba3ba82cb720e6511df55fb5c6e3f03f537d1cd76"
-    },
-    {
-      "path": "assets/images/marketplaceMarker.png",
-      "family": "general-raster",
-      "bytes": 1816,
-      "sha256": "7d7c5991e495f22545cfa35d65deecf17aa1149ef7a8b6b1d83da5cbc447c29c"
-    },
-    {
       "path": "assets/images/medals.png",
       "family": "general-raster",
       "bytes": 4794,
@@ -355,18 +289,6 @@
       "family": "general-raster",
       "bytes": 13277,
       "sha256": "2034e2850af8a407a687ca459f063ecf7cc96e6f114dd126c2954a4425babab8"
-    },
-    {
-      "path": "assets/images/pano.png",
-      "family": "general-raster",
-      "bytes": 195703,
-      "sha256": "44c98380ad5c5ecf3578b772897941f6a1033ba2a2f64dcfcff8968e282826b3"
-    },
-    {
-      "path": "assets/images/placeholder_avatar.png",
-      "family": "general-raster",
-      "bytes": 9905,
-      "sha256": "fc88def0508d9cca60e47b3cfb7cc3df4da540288b2a7c8077ba22f0a5bca0a1"
     },
     {
       "path": "assets/images/received.png",
@@ -453,24 +375,6 @@
       "sha256": "2e7f9cbb9bc81f6370a59946893c069d0607d010b5ea6e0a5bee1cca66bb98b2"
     },
     {
-      "path": "assets/images/userLocation.png",
-      "family": "general-raster",
-      "bytes": 662,
-      "sha256": "29b156bb4277e9105c01030fd6602f3bced77a68a89eb73ecac68cd81a2182dd"
-    },
-    {
-      "path": "assets/images/walkthrough/gifts.png",
-      "family": "walkthrough-osm",
-      "bytes": 247111,
-      "sha256": "a08f3a9880e902ca65cd82d6cc5271ff4e7500bdb99b4a930f8830e4d98f5040"
-    },
-    {
-      "path": "assets/images/walkthrough/goldmadal.png",
-      "family": "walkthrough-osm",
-      "bytes": 3852,
-      "sha256": "1409d6dc5effa8142721baa5f3bf29712b030db0ca1a469b53cc43f826f04dfb"
-    },
-    {
       "path": "assets/images/walkthrough/moveon_tablet.png",
       "family": "walkthrough-osm",
       "bytes": 485026,
@@ -505,12 +409,6 @@
       "family": "walkthrough-osm",
       "bytes": 273758,
       "sha256": "e9238e0f8ea828acdec2c114f6a1791a93ca11fcc423a6098c231fb542401cd2"
-    },
-    {
-      "path": "assets/logo.png",
-      "family": "brand-root-images",
-      "bytes": 5270,
-      "sha256": "503ea1baec904080d0e6299e652885dbfc41b50a08ce96bf3a3e5d4ce6db3973"
     },
     {
       "path": "assets/playstore.png",

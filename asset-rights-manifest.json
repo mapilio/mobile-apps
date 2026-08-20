@@ -9,7 +9,6 @@
         "assets/appstore.png",
         "assets/favicon.png",
         "assets/icon.png",
-        "assets/logo.png",
         "assets/playstore.png",
         "assets/splash-icon.png"
       ],
@@ -48,13 +47,6 @@
     {
       "id": "tooltip",
       "prefix": "assets/images/tooltip/",
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null
-    },
-    {
-      "id": "map-raster",
-      "prefix": "assets/images/map/",
       "rightsStatus": "review-required",
       "rightsOwnerConfirmation": "pending",
       "license": null

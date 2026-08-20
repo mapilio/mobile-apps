@@ -13,16 +13,6 @@ export const sliderData = [
     icons: [require('../../../../assets/images/tooltip/map.png')],
     desc: 'second.description',
   },
-  /*  {
-    image: require("../../../../assets/images/walkthrough/gifts.png"),
-    title: "third.title",
-    subTitle: "third.subtitle",
-    icons: [
-      require("../../../../assets/images/walkthrough/goldmadal.png"),
-      require("../../../../assets/images/walkthrough/party.png"),
-    ],
-    desc: "third.description",
-  }, */
   {
     image: require('../../../../assets/images/walkthrough/openstreetmap.png'),
     title: 'fourth.title',
