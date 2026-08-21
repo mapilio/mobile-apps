@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import db from '../db';
 import { dateConvert } from '../helper/helper';
 import { lineString, bbox, length, points } from '@turf/turf';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import * as MapLibreGL from '@maplibre/maplibre-react-native';
 import { toMapLibrePaint } from '../components/Map/mapLibreStyle';
 import Loading from '../components/Loading';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, View } from 'react-native';
 import { sequenceDetailStyles } from '../styles/userSequenceStyle';
-import MapLibre from '@maplibre/maplibre-react-native';
+import * as MapLibre from '@maplibre/maplibre-react-native';
 import { appMapStyle } from '../styles/appMapStyle';
 import { MapView } from '../highordercomponents';
 import { styles } from '../styles/circleStyles';

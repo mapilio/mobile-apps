@@ -4,7 +4,7 @@ import ListProfileUploads from '../components/ListProfileUploads';
 import { userSequenceStyles } from '../styles/userSequenceStyle';
 import { CustomText, MapView } from '../highordercomponents';
 import { appMapStyle } from '../styles/appMapStyle';
-import MapLibre from '@maplibre/maplibre-react-native';
+import * as MapLibre from '@maplibre/maplibre-react-native';
 import SwitchSelector from 'react-native-switch-selector';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { styles } from '../styles/circleStyles';

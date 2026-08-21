@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import { styles } from '../../../styles/circleStyles';
-import MapLibre from '@maplibre/maplibre-react-native';
+import * as MapLibre from '@maplibre/maplibre-react-native';
 import { useSelector } from 'react-redux';
 import { tileConfig } from '../../../config/tileConfig';
 import { toMapLibrePaint } from '../mapLibreStyle';

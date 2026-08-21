@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import MapLibre from '@maplibre/maplibre-react-native';
+import * as MapLibre from '@maplibre/maplibre-react-native';
 
 import Heading from '..//Heading';
 import { tileConfig } from '../../../config/tileConfig';

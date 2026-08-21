@@ -14,6 +14,9 @@ const mapFiles = [
   'screens/CaptureCompleted.js',
   'screens/ProfileSequence.js',
   'screens/ProfileUploadDetail.js',
+  'components/Map/layers/Lines.js',
+  'components/Map/layers/ActiveSources.js',
+  'components/Map/layers/Points.js',
 ];
 
 describe('MapLibre v11 contract', () => {
@@ -32,6 +35,10 @@ describe('MapLibre v11 contract', () => {
   it('uses the v11 wrapper, logging, and GPS contracts', () => {
     const wrapper = read('highordercomponents/MapView.js');
     const appMap = read('screens/AppMap.js');
+    const source = mapFiles.map(read).join('\n');
+    expect(source).not.toMatch(
+      /import\s+\w+\s*(?:,\s*\{[^}]*\})?\s+from\s+['"]@maplibre\/maplibre-react-native['"]/
+    );
     expect(wrapper).toContain('<MapLibreGL.Map');
     expect(wrapper).toContain('LogManager.setLogLevel');
     expect(wrapper).not.toMatch(/setAccessToken|Logger|MapLibreGL\.MapView/);

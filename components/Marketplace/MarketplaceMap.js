@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { MapView } from '../../highordercomponents';
 import { appMapStyle } from '../../styles/appMapStyle';
-import MapLibre from '@maplibre/maplibre-react-native';
+import * as MapLibre from '@maplibre/maplibre-react-native';
 import { useSelector } from 'react-redux';
 
 const MarketplaceMap = ({ navigation, onDidFinishLoadingMap }) => {

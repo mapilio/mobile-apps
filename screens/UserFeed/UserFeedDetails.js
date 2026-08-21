@@ -1,6 +1,6 @@
 import { View, StyleSheet, TouchableOpacity, Modal, Platform } from 'react-native';
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import * as MapLibreGL from '@maplibre/maplibre-react-native';
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { api } from '../../util/helpers/api';
 import { CustomText, CustomTextBold, MapView } from '../../highordercomponents';

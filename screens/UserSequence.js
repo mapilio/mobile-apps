@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MapView } from '../highordercomponents';
 import { ArrowLeft } from '../assets/svg/illustrations';
 import { globalStyles } from '../styles/globalStyles';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import * as MapLibreGL from '@maplibre/maplibre-react-native';
 import { toMapLibrePaint } from '../components/Map/mapLibreStyle';
 import { fitCameraBounds, getGeoJsonBounds } from '../util/maplibreCamera';
 import { useDispatch, useSelector } from 'react-redux';

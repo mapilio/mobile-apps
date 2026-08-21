@@ -1,5 +1,6 @@
 import React, { Fragment, memo } from 'react';
-import MapLibreGL, { LogManager } from '@maplibre/maplibre-react-native';
+import * as MapLibreGL from '@maplibre/maplibre-react-native';
+import { LogManager } from '@maplibre/maplibre-react-native';
 import { AttributionButton } from '../components/Map';
 import { appMapStyle } from '../styles/appMapStyle';
 import { Platform, View } from 'react-native';
