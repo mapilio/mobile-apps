@@ -12,13 +12,14 @@ import {
   SET_MAIL_MODAL_SHOWN,
   SET_DARK_MODE,
 } from '../../actionsName';
+import { getInitialLocale, normalizeLocale } from '../../../localization/localization';
 
 const INITIAL_STATE = {
   connection: { connectionStatus: true, connectionType: 'wifi' },
   welcomeWalkthroughStatus: false,
   db: null,
   currentFeedSequence: null,
-  language: 'en',
+  language: getInitialLocale(),
   currentPosition: undefined,
   darkMode: false,
   debugMode: false,
@@ -90,7 +91,7 @@ const generalReducer = (state = INITIAL_STATE, action) => {
     case UPDATE_LANGUAGE:
       return {
         ...state,
-        language: action.payload,
+        language: normalizeLocale(action.payload),
       };
     case SET_CURRENT_POSITION:
       return {
