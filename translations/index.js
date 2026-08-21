@@ -1,3 +1,7 @@
+import { ENABLED_LOCALES } from '../localization/localization';
+
+export { ENABLED_LOCALES };
+
 export default () => ({
   ar: require('./ar.json'),
   cs: require('./cs.json'),

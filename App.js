@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import MainNavigator from './navigator/MainNavigator';
 import { persistor, store } from './store/store';
@@ -33,6 +33,7 @@ import translations from './translations';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { useDispatch, useSelector } from 'react-redux';
 import 'moment/locale/tr';
 import 'moment/locale/ar';
 import 'moment/locale/cs';
@@ -46,6 +47,12 @@ import 'moment/locale/pt';
 import 'moment/locale/ro';
 import 'moment/locale/ru';
 import 'moment/locale/de';
+import {
+  ENABLED_LOCALES,
+  FALLBACK_LOCALE,
+  createLocaleSynchronizer,
+} from './localization/localization';
+import { UPDATE_LANGUAGE } from './store/actionsName';
 
 if (!__DEV__) {
   Sentry.init({
@@ -67,16 +74,62 @@ if (oneSignalAppId) {
 }
 SplashScreen.preventAutoHideAsync();
 
-const {
-  generalReducer: { language },
-} = store.getState();
-
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     compatibilityJSON: 'v3',
     resources: translations(),
-    lng: language,
+    fallbackLng: FALLBACK_LOCALE,
+    supportedLngs: ENABLED_LOCALES,
+    lng: FALLBACK_LOCALE,
   });
+}
+
+function LocalizedApp() {
+  const language = useSelector((state) => state.generalReducer.language);
+  const dispatch = useDispatch();
+  const synchronizationGeneration = useRef(0);
+  const localeSynchronizer = useRef(null);
+
+  if (!localeSynchronizer.current) {
+    localeSynchronizer.current = createLocaleSynchronizer();
+  }
+
+  useEffect(() => {
+    const generation = ++synchronizationGeneration.current;
+
+    localeSynchronizer.current
+      .enqueue({
+        locale: language,
+        flush: () => persistor.flush(),
+        isCurrent: () => synchronizationGeneration.current === generation,
+        onNormalize: (normalizedLocale) => {
+          dispatch({ type: UPDATE_LANGUAGE, payload: normalizedLocale });
+        },
+        i18n,
+      })
+      .catch(() => {
+        // The next app start can retry a failed native direction reload.
+      });
+
+    return () => {
+      if (synchronizationGeneration.current === generation) {
+        synchronizationGeneration.current += 1;
+      }
+    };
+  }, [dispatch, language]);
+
+  return (
+    <NavigationContainer>
+      <BottomSheetModalProvider>
+        <ActionSheetProvider>
+          <SafeAreaProvider>
+            <MainNavigator />
+            <Toaster position="top-center" />
+          </SafeAreaProvider>
+        </ActionSheetProvider>
+      </BottomSheetModalProvider>
+    </NavigationContainer>
+  );
 }
 
 function App() {
@@ -110,16 +163,7 @@ function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <NavigationContainer>
-            <BottomSheetModalProvider>
-              <ActionSheetProvider>
-                <SafeAreaProvider>
-                  <MainNavigator />
-                  <Toaster position="top-center" />
-                </SafeAreaProvider>
-              </ActionSheetProvider>
-            </BottomSheetModalProvider>
-          </NavigationContainer>
+          <LocalizedApp />
         </PersistGate>
       </Provider>
     </GestureHandlerRootView>

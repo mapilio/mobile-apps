@@ -146,16 +146,16 @@ describe('Expo SDK compatibility contract', () => {
   });
 
   test('isolates SDK 57 updates from older native runtimes', () => {
-    expect(appConfigSource).toContain("runtimeVersion: '4.0.0'");
-    expect(appConfigSource).not.toContain("runtimeVersion: '1.0.0'");
+    expect(appConfigSource).toContain("runtimeVersion: '5.0.0'");
+    expect(appConfigSource).not.toContain("runtimeVersion: '4.0.0'");
     expect(androidManifest).toContain(
       'android:name="expo.modules.updates.EXPO_RUNTIME_VERSION" android:value="@string/expo_runtime_version"'
     );
     expect(androidStrings).toContain(
-      '<string name="expo_runtime_version" translatable="false">4.0.0</string>'
+      '<string name="expo_runtime_version" translatable="false">5.0.0</string>'
     );
     expect(iosUpdatesConfig).toContain(
-      '<key>EXUpdatesRuntimeVersion</key>\n    <string>4.0.0</string>'
+      '<key>EXUpdatesRuntimeVersion</key>\n    <string>5.0.0</string>'
     );
     expect(iosPodfileProperties['ios.deploymentTarget']).toBe('16.4');
     expect(appConfigSource).toContain("deploymentTarget: '16.4'");
