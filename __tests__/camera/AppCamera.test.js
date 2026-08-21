@@ -1,8 +1,5 @@
 import React from 'react';
 import renderer, { act } from 'react-test-renderer';
-import { BackHandler } from 'react-native';
-import * as ScreenOrientation from 'expo-screen-orientation';
-import AppCamera from '../../screens/AppCamera';
 
 const mockRemove = jest.fn();
 
@@ -16,6 +13,11 @@ jest.mock('react-native', () => {
     StatusBar: { setHidden: jest.fn() },
     StyleSheet: { create: (styles) => styles },
     Text: () => null,
+    NativeModules: {},
+    TurboModuleRegistry: {
+      get: jest.fn(() => null),
+      getEnforcing: jest.fn(() => ({})),
+    },
   };
 });
 
@@ -52,6 +54,10 @@ jest.mock('react-native-safe-area-context', () => ({
   SafeAreaProvider: ({ children }) => children,
   SafeAreaView: ({ children }) => children,
 }));
+
+const { BackHandler } = require('react-native');
+const ScreenOrientation = require('expo-screen-orientation');
+const AppCamera = require('../../screens/AppCamera').default;
 
 describe('AppCamera', () => {
   it('removes the BackHandler subscription and restores portrait mode when unmounted', async () => {
