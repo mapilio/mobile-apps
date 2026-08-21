@@ -1,5 +1,5 @@
 import * as Localization from 'expo-localization';
-import { I18nManager } from 'react-native';
+import { DevSettings, I18nManager } from 'react-native';
 import * as Updates from 'expo-updates';
 
 export const ENABLED_LOCALES = [
@@ -55,11 +55,19 @@ export const getInitialLocale = () => {
   }
 };
 
+export const reloadForDirectionChange = ({ updates = Updates, devSettings = DevSettings } = {}) => {
+  if (updates.isEnabled) {
+    return updates.reloadAsync();
+  }
+
+  return devSettings.reload();
+};
+
 export const synchronizeLocale = async ({
   locale,
   i18n,
   i18nManager = I18nManager,
-  reload = () => Updates.reloadAsync(),
+  reload = reloadForDirectionChange,
   reloadState = {},
   isCurrent = () => true,
 }) => {

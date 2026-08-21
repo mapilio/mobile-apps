@@ -3,6 +3,7 @@ jest.mock('expo-localization', () => ({
 }));
 
 jest.mock('expo-updates', () => ({
+  isEnabled: true,
   reloadAsync: jest.fn(),
 }));
 
@@ -13,12 +14,54 @@ import {
   createLocaleSynchronizer,
   getInitialLocale,
   normalizeLocale,
+  reloadForDirectionChange,
   selectDeviceLocale,
   synchronizePersistedLocale,
   synchronizeLocale,
 } from '../../localization/localization';
 
 describe('localization policy', () => {
+  test('reloads through expo-updates when updates are enabled', async () => {
+    const reloadAsync = jest.fn().mockResolvedValue(undefined);
+    const reload = reloadForDirectionChange({
+      updates: { isEnabled: true, reloadAsync },
+      devSettings: { reload: jest.fn() },
+    });
+
+    await reload;
+
+    expect(reloadAsync).toHaveBeenCalledTimes(1);
+  });
+
+  test('falls back to the development reload when updates are disabled', async () => {
+    const devReload = jest.fn();
+    const reload = reloadForDirectionChange({
+      updates: { isEnabled: false, reloadAsync: jest.fn() },
+      devSettings: { reload: devReload },
+    });
+
+    await reload;
+
+    expect(devReload).toHaveBeenCalledTimes(1);
+  });
+
+  test('preserves reload failures for callers and clears the pending direction', async () => {
+    const error = new Error('reload failed');
+    const i18n = { changeLanguage: jest.fn().mockResolvedValue(undefined) };
+    const i18nManager = {
+      isRTL: false,
+      allowRTL: jest.fn(),
+      forceRTL: jest.fn(),
+    };
+    const reloadState = {};
+    const reload = jest.fn().mockRejectedValue(error);
+
+    await expect(
+      synchronizeLocale({ locale: 'ar', i18n, i18nManager, reload, reloadState })
+    ).rejects.toBe(error);
+    expect(reloadState.pendingDirection).toBeUndefined();
+  });
+
   test('keeps the enabled locale set at thirteen languages', () => {
     expect(ENABLED_LOCALES).toHaveLength(13);
     expect(ENABLED_LOCALES).toEqual(

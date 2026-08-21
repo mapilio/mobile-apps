@@ -94,13 +94,16 @@ const AppCamera = () => {
         });
       }
     });
-    BackHandler.addEventListener('hardwareBackPress', closeHandler);
+    const backHandlerSubscription = BackHandler.addEventListener('hardwareBackPress', closeHandler);
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
 
     return () => {
       deactivateKeepAwake('camera').catch((error) => toast.show(`${error}`, { type: 'error' }));
-      BackHandler.removeEventListener('hardwareBackPress', closeHandler);
+      backHandlerSubscription.remove();
       appStateSubscription.remove();
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP).catch(
+        captureException
+      );
       gpsSubscription
         .then((sub) => {
           sub.remove();
