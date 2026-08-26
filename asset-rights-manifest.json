@@ -1,95 +1,158 @@
 {
   "schemaVersion": 1,
   "assetRoot": "assets",
-  "reviewNote": "Only the Poppins family is verified. Every other family is pending rights-owner confirmation; this manifest does not close legal review.",
+  "reviewNote": "Mapilio-created or Mapilio-commissioned custom families are verified only where the durable owner confirmation below is recorded. Third-party, mixed, and unclear-provenance families remain review-required; this manifest does not close legal review.",
   "families": [
     {
       "id": "brand-root-images",
-      "paths": [
-        "assets/appstore.png",
-        "assets/favicon.png",
-        "assets/icon.png",
-        "assets/playstore.png",
-        "assets/splash-icon.png"
-      ],
+      "paths": ["assets/favicon.png", "assets/icon.png", "assets/splash-icon.png"],
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
+    },
+    {
+      "id": "store-badges",
+      "paths": ["assets/appstore.png", "assets/playstore.png"],
       "rightsStatus": "review-required",
       "rightsOwnerConfirmation": "pending",
-      "license": null
+      "license": null,
+      "owner": "Apple, Google, or other third-party rights holders",
+      "source": "App Store and Google Play badges require separate platform-mark and redistribution review"
     },
     {
       "id": "animations",
       "prefix": "assets/animations/",
       "rightsStatus": "review-required",
       "rightsOwnerConfirmation": "pending",
-      "license": null
+      "license": null,
+      "owner": "Unknown third-party creator",
+      "source": "LottieFiles export metadata is present for some files; creator and redistribution rights remain unverified"
     },
     {
       "id": "language-flags",
       "prefix": "assets/images/languages/",
       "rightsStatus": "review-required",
       "rightsOwnerConfirmation": "pending",
-      "license": null
+      "license": null,
+      "owner": "Unknown third-party creator",
+      "source": "Bundled language-flag images have no verified owner or license record"
     },
     {
       "id": "walkthrough-osm",
       "prefix": "assets/images/walkthrough/",
       "rightsStatus": "review-required",
       "rightsOwnerConfirmation": "pending",
-      "license": null
+      "license": null,
+      "owner": "OpenStreetMap and other third-party rights holders",
+      "source": "Walkthrough family includes OpenStreetMap-branded assets; attribution and redistribution terms require review"
     },
     {
       "id": "marketplace",
       "prefix": "assets/images/marketplace/",
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
     },
     {
       "id": "tooltip",
       "prefix": "assets/images/tooltip/",
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
     },
     {
-      "id": "general-raster",
-      "prefix": "assets/images/",
-      "directChildrenOnly": true,
+      "id": "general-raster-mapilio",
+      "paths": [
+        "assets/images/accessibleWorld.png",
+        "assets/images/awardImage.png",
+        "assets/images/bronzeMedal.png",
+        "assets/images/bronzeMedal@2x.png",
+        "assets/images/bronzeMedal@3x.png",
+        "assets/images/capture_zone.png",
+        "assets/images/car.png",
+        "assets/images/contributeEnvironment.png",
+        "assets/images/emergencies.png",
+        "assets/images/goldMedal.png",
+        "assets/images/goldMedal@2x.png",
+        "assets/images/goldMedal@3x.png",
+        "assets/images/heading.png",
+        "assets/images/imgIcon.png",
+        "assets/images/mapIcon.png",
+        "assets/images/medals.png",
+        "assets/images/received.png",
+        "assets/images/silverMedal.png",
+        "assets/images/silverMedal@2x.png",
+        "assets/images/silverMedal@3x.png",
+        "assets/images/trafficProblem.png"
+      ],
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
+    },
+    {
+      "id": "general-raster-third-party",
+      "paths": ["assets/images/gopro.png", "assets/images/osm.png"],
       "rightsStatus": "review-required",
       "rightsOwnerConfirmation": "pending",
-      "license": null
+      "license": null,
+      "owner": "GoPro, OpenStreetMap, or other third-party rights holders",
+      "source": "GoPro-branded and OpenStreetMap-related images require separate permission, attribution, and redistribution review"
     },
     {
       "id": "illustration-modules",
       "prefix": "assets/svg/illustrations/",
       "directChildrenOnly": true,
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
     },
     {
       "id": "marketplace-illustration-modules",
       "prefix": "assets/svg/illustrations/Marketplace/",
       "directChildrenOnly": true,
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
     },
     {
       "id": "user-feed-illustration-modules",
       "prefix": "assets/svg/illustrations/UserFeed/",
       "directChildrenOnly": true,
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
     },
     {
-      "id": "logos",
-      "prefix": "assets/svg/logos/",
-      "directChildrenOnly": true,
+      "id": "mapilio-logos",
+      "paths": ["assets/svg/logos/MapilioLogoBeta.js", "assets/svg/logos/index.js"],
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
+    },
+    {
+      "id": "provider-logos",
+      "paths": ["assets/svg/logos/FacebookLogo.js", "assets/svg/logos/GoogleLogo.js"],
       "rightsStatus": "review-required",
       "rightsOwnerConfirmation": "pending",
-      "license": null
+      "license": null,
+      "owner": "Google, Facebook, or other third-party rights holders",
+      "source": "Provider marks require trademark and redistribution review"
     },
     {
       "id": "fonts",

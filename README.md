@@ -3,7 +3,7 @@
 A street-level imagery capture app for iOS and Android, built with Expo (bare workflow) and React Native. Contribute to the world's open map by capturing geotagged 360° and standard photos while you walk, cycle, or drive.
 
 [![CI](https://github.com/mapilio/mobile-apps/actions/workflows/ci.yml/badge.svg)](https://github.com/mapilio/mobile-apps/actions/workflows/ci.yml)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Code License: Apache 2.0](https://img.shields.io/badge/Code_License-Apache_2.0-blue.svg)](LICENSE)
 [![Expo SDK](https://img.shields.io/badge/Expo-SDK%2057-000020?logo=expo)](https://expo.dev)
 [![React Native](https://img.shields.io/badge/React%20Native-0.86.2-61dafb?logo=react)](https://reactnative.dev)
 [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://reactnative.dev)
@@ -236,8 +236,12 @@ We welcome bug reports, feature requests, and pull requests. Please read [CONTRI
 
 ## License
 
-Licensed under the [Apache License, Version 2.0](LICENSE).
-Bundled third-party materials are documented in
+The Mapilio Mobile source code is licensed under the [Apache License, Version
+2.0](LICENSE). Bundled visual assets are not automatically covered by that
+source-code license: Mapilio-proprietary visual families and their current
+owner/source evidence are identified in
+[asset-rights-manifest.json](asset-rights-manifest.json), while retained
+third-party materials are documented in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ### Mobile asset rights gate
@@ -252,7 +256,10 @@ Maintainers must review an intentional asset change, then run
 inventory changes together with the asset change. CI runs `npm run assets:check`
 and does not regenerate files. New directories must be added to the manifest
 before their assets can be inventoried. `npm run assets:check` only verifies
-repository bookkeeping; it does not close legal review or confirm rights for
-non-font assets.
+repository bookkeeping. The manifest verifies only documented Mapilio-created
+or Mapilio-commissioned custom families; OpenStreetMap, GoPro, Google/Facebook,
+language-flag, and unclear Lottie assets remain review-required. Third-party
+notices for retained materials are in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Copyright 2024–2026 Mapilio

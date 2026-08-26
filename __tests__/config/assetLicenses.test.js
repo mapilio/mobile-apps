@@ -4,6 +4,8 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const manifest = require('../../asset-rights-manifest.json');
+const ownerConfirmationUrl =
+  'https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489';
 const {
   buildInventory,
   classifyAsset,
@@ -59,23 +61,81 @@ describe('bundled asset licensing', () => {
     expect(() => checkInventory(projectFile())).not.toThrow();
   });
 
-  it('keeps non-font families pending rights-owner confirmation', () => {
-    const nonFonts = manifest.families.filter((family) => family.id !== 'fonts');
+  it('asserts the exact verified and review-required family split', () => {
+    const customFamilies = manifest.families.filter(
+      (family) => family.license === 'Mapilio proprietary'
+    );
+    const verifiedIds = [
+      'brand-root-images',
+      'marketplace',
+      'tooltip',
+      'general-raster-mapilio',
+      'illustration-modules',
+      'marketplace-illustration-modules',
+      'user-feed-illustration-modules',
+      'mapilio-logos',
+    ];
+    const reviewRequiredIds = [
+      'store-badges',
+      'animations',
+      'language-flags',
+      'walkthrough-osm',
+      'general-raster-third-party',
+      'provider-logos',
+    ];
 
-    expect(nonFonts).not.toHaveLength(0);
+    expect(customFamilies.length).toBeGreaterThan(0);
     expect(
-      nonFonts.every(
+      customFamilies.every(
         (family) =>
-          family.rightsStatus === 'review-required' &&
-          family.rightsOwnerConfirmation === 'pending' &&
-          family.license === null
+          family.rightsStatus === 'verified' &&
+          family.rightsOwnerConfirmation === 'confirmed' &&
+          family.owner === 'Mapilio' &&
+          family.source === ownerConfirmationUrl
       )
+    ).toBe(true);
+    expect(
+      manifest.families
+        .filter((family) => family.rightsStatus === 'verified')
+        .map((family) => family.id)
+    ).toEqual([...verifiedIds, 'fonts']);
+    expect(
+      manifest.families
+        .filter((family) => family.rightsStatus === 'review-required')
+        .map((family) => family.id)
+    ).toEqual(reviewRequiredIds);
+    expect(classifyAsset('assets/favicon.png', manifest).id).toBe('brand-root-images');
+    expect(classifyAsset('assets/appstore.png', manifest).id).toBe('store-badges');
+    expect(classifyAsset('assets/images/osm.png', manifest).id).toBe('general-raster-third-party');
+    expect(classifyAsset('assets/images/gopro.png', manifest).id).toBe(
+      'general-raster-third-party'
+    );
+    expect(classifyAsset('assets/svg/logos/MapilioLogoBeta.js', manifest).id).toBe('mapilio-logos');
+    expect(classifyAsset('assets/svg/logos/index.js', manifest).id).toBe('mapilio-logos');
+    expect(classifyAsset('assets/svg/logos/GoogleLogo.js', manifest).id).toBe('provider-logos');
+    expect(
+      manifest.families
+        .filter((family) => family.rightsStatus === 'review-required')
+        .every((family) => family.rightsOwnerConfirmation === 'pending' && family.license === null)
     ).toBe(true);
     expect(manifest.families.find((family) => family.id === 'fonts')).toMatchObject({
       rightsStatus: 'verified',
       license: 'OFL-1.1',
       notice: 'assets/fonts/OFL.txt',
     });
+  });
+
+  it('keeps package metadata and LICENSE scope aligned', () => {
+    const packageMetadata = require('../../package.json');
+    const lockfileRoot = require('../../package-lock.json').packages[''];
+    const licenseText = fs.readFileSync(projectFile('LICENSE'), 'utf8');
+
+    expect(packageMetadata.license).toBe('SEE LICENSE IN LICENSE');
+    expect(lockfileRoot.license).toBe('SEE LICENSE IN LICENSE');
+    expect(licenseText).toContain('source code in this repository is licensed under the Apache');
+    expect(licenseText).toContain('Mapilio-proprietary visual families listed in');
+    expect(licenseText).toContain('asset-rights-manifest.json are excluded');
+    expect(licenseText).toContain('Poppins and other third-party assets follow the notices');
   });
 
   it('rejects unclassified and multiply classified assets', () => {
@@ -118,9 +178,7 @@ describe('bundled asset licensing', () => {
     const claimedManifest = {
       ...manifest,
       families: manifest.families.map((family) =>
-        family.id === 'general-raster'
-          ? { ...family, rightsOwnerConfirmation: 'confirmed' }
-          : family
+        family.id === 'animations' ? { ...family, rightsOwnerConfirmation: 'confirmed' } : family
       ),
     };
     expect(() => validateManifest(claimedManifest)).toThrow(/pending rights-owner confirmation/);
