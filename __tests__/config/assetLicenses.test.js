@@ -76,7 +76,6 @@ describe('bundled asset licensing', () => {
       'mapilio-logos',
     ];
     const reviewRequiredIds = [
-      'store-badges',
       'animations',
       'language-flags',
       'walkthrough-osm',
@@ -105,7 +104,8 @@ describe('bundled asset licensing', () => {
         .map((family) => family.id)
     ).toEqual(reviewRequiredIds);
     expect(classifyAsset('assets/favicon.png', manifest).id).toBe('brand-root-images');
-    expect(classifyAsset('assets/appstore.png', manifest).id).toBe('store-badges');
+    expect(classifyAsset('assets/appstore.png', manifest).id).toBe('brand-root-images');
+    expect(classifyAsset('assets/playstore.png', manifest).id).toBe('brand-root-images');
     expect(classifyAsset('assets/images/osm.png', manifest).id).toBe('general-raster-third-party');
     expect(classifyAsset('assets/images/gopro.png', manifest).id).toBe(
       'general-raster-third-party'

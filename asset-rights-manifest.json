@@ -5,21 +5,18 @@
   "families": [
     {
       "id": "brand-root-images",
-      "paths": ["assets/favicon.png", "assets/icon.png", "assets/splash-icon.png"],
+      "paths": [
+        "assets/appstore.png",
+        "assets/favicon.png",
+        "assets/icon.png",
+        "assets/playstore.png",
+        "assets/splash-icon.png"
+      ],
       "rightsStatus": "verified",
       "rightsOwnerConfirmation": "confirmed",
       "license": "Mapilio proprietary",
       "owner": "Mapilio",
       "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
-    },
-    {
-      "id": "store-badges",
-      "paths": ["assets/appstore.png", "assets/playstore.png"],
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null,
-      "owner": "Apple, Google, or other third-party rights holders",
-      "source": "App Store and Google Play badges require separate platform-mark and redistribution review"
     },
     {
       "id": "animations",

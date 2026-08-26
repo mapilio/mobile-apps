@@ -15,8 +15,8 @@ The repository stays private until these three issues are complete:
   social-login exchange, verify Google, Facebook, Apple, and OpenStreetMap in
   production, then rotate the superseded credentials.
 - [#99](https://github.com/mapilio/mobile-apps/issues/99): Mapilio ownership is
-  now recorded for the custom visual families. Resolve the remaining store
-  badges, OpenStreetMap and GoPro material, provider marks, language flags, and
+  now recorded for the custom visual families. Resolve the remaining
+  OpenStreetMap and GoPro material, provider marks, language flags, and
   unclear-source animations through attribution, replacement, or removal.
 
 No accessibility, Marketplace, test-coverage, announcement, or general cleanup

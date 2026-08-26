@@ -39,9 +39,6 @@ subject to rights review:
   confirmed with the applicable OpenStreetMap rights information.
 - `assets/images/gopro.png`, which contains GoPro branding and requires
   permission/trademark review.
-- `assets/appstore.png` and `assets/playstore.png`, which are App Store and
-  Google Play badges and require separate platform-mark and redistribution
-  review.
 - `assets/svg/logos/GoogleLogo.js` and `assets/svg/logos/FacebookLogo.js`,
   which contain provider marks and require trademark/use review.
 - `assets/images/languages/`, whose flag-image provenance and license are not

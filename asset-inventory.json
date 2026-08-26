@@ -46,7 +46,7 @@
     },
     {
       "path": "assets/appstore.png",
-      "family": "store-badges",
+      "family": "brand-root-images",
       "bytes": 40036,
       "sha256": "72662ad170196f9be0635e9b83f00014453b2caefc102e61eda851853327eff4"
     },
@@ -412,7 +412,7 @@
     },
     {
       "path": "assets/playstore.png",
-      "family": "store-badges",
+      "family": "brand-root-images",
       "bytes": 130682,
       "sha256": "80f4328f49029c960f357fbd8331edcebd8734bd180e75a078d8bc9bada9060c"
     },
