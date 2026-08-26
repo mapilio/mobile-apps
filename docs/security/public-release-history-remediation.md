@@ -1,10 +1,10 @@
 # Public-Release History Remediation
 
-This runbook is a controlled preparation and release gate for issue #83. It
-does not authorize publication by itself. Use a restricted channel for every
-finding or evidence package. Do not put secret material, replacement
-expressions, matches, fingerprints, commit identifiers tied to findings, or
-line numbers in tickets, logs, screenshots, or this repository.
+This runbook records the selected controlled release procedure for issue #83.
+Use a restricted channel for every finding or evidence package. Do not put
+secret material, replacement expressions, matches, fingerprints, commit
+identifiers tied to findings, or line numbers in tickets, logs, screenshots,
+or this repository.
 
 ## Current baseline
 
@@ -18,9 +18,10 @@ release artifact.
 
 ## Gates before any rewrite
 
-1. The credential owner inventory is complete, and owners revoke or rotate
-   every potentially affected credential first. Record status in restricted
-   evidence, without values.
+1. The credential owner inventory is complete. Historical credential rotation
+   remains an operational security and binary-rollout task tracked under #84;
+   do not claim it is complete in this release procedure. Record status in
+   restricted evidence, without values.
 2. Deployed social authentication works through the backend-first flow. Run
    real provider smoke tests and an adoption gate for existing users before
    changing history.
@@ -38,7 +39,8 @@ release artifact.
    baseline mode is for preparation only. This release audit requires
    read-only GitHub access, a maintenance freeze, and an exact live ref-set
    comparison before and after the scan.
-7. Obtain two-person approval from the security owner and repository owner.
+7. Confirm the release owner has reviewed the restricted evidence and the
+   selected fresh-snapshot procedure.
 
 The audit script can attest only to the canonical repository's live refs, the
 mirror's matching refs, and its aggregate scan result. It cannot validate
@@ -66,32 +68,33 @@ included here.
 
 ## Abort conditions
 
-Abort on any unowned credential, failed revoke/rotate, social-auth smoke or
-adoption failure, incomplete ref/fork/PR inventory, backup verification issue,
-unexpected changed ref, nonzero all-ref audit, unavailable GitHub support path,
-unclear protection state, or any attempt to log sensitive scanner output.
+Abort on any unowned credential requiring restricted incident handling,
+social-auth smoke or adoption failure, incomplete ref/fork/PR inventory, backup
+verification issue, unexpected changed ref, nonzero all-ref audit, unavailable
+GitHub support path, unclear protection state, or any attempt to log sensitive
+scanner output. Track credential rotation and binary rollout status under #84.
 
-## Same-repository publication path
+## Selected fresh-snapshot publication path
 
-Only in an approved maintenance window, perform the same-repository force
-update after the dry-run and approvals. Restore branch protection and rules
-immediately, then rerun the all-ref audit and review changed refs and affected
-PRs. Contact [GitHub Support](https://support.github.com/) for cached views or
-read-only PR refs when the case is eligible; rewriting does not guarantee
-removal from every cache.
+Keep the current repository private under an archive name as an immutable
+restricted record. Create a new public repository at the canonical
+`mapilio/mobile-apps` URL and publish one clean root snapshot only. Do not copy
+old branches, tags, pull refs, or Git objects. The canonical URL is reused
+after the private repository is renamed and the new repository is created.
 
-Every collaborator must re-clone after the rewrite; never pull the old clone.
-Monitor post-release access, provider sign-in, builds, and scanning. If a
-credential reappears, stop publication, revoke or rotate it, preserve restricted
-evidence, identify the recontamination source, and repeat the approved audit
-and remediation gate.
+Before publication, scan the exact snapshot and retain restricted evidence of
+the current snapshot scan result. Recreate repository settings, branch
+protection, rules, access restrictions, and other required controls on the new
+repository, then verify them after publication. The first push must use the
+zero-base path in `scripts/security/scan-new-secrets.sh`, which scans all
+history reachable from the new root and then scans the tracked tree archive.
 
-## Safer alternative
-
-When the owner accepts losing or transferring PR, issue, and history
-continuity, a fresh clean public repository is safer than rewriting the
-existing one. Keep the old repository restricted as the immutable record and
-make continuity limitations explicit to users.
+This procedure intentionally loses pull-request, issue, branch, tag, commit,
+and other historical continuity. Record those continuity limitations clearly
+for collaborators and users. Existing clones must be freshly cloned from the
+new public repository; do not pull from the archived repository. Monitor
+post-release access, provider sign-in, builds, and scanning. If a credential
+reappears, stop publication and follow the restricted incident procedure.
 
 Read GitHub's [Removing sensitive data from a repository](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository)
-guidance before choosing the path.
+guidance as background for the archived private record and release controls.
