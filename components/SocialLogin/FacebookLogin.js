@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, Modal, Platform, TouchableOpacity, View } from 'react-native';
-import FacebookLogo from '../../assets/svg/logos/FacebookLogo';
+import { CustomText } from '../../highordercomponents';
 import { AccessToken, AuthenticationToken, LoginManager, Profile } from 'react-native-fbsdk-next';
 import { socialLoginStyles } from '../../styles/loginStyles';
 import { getUserInformation } from '../../store/reducers/loginReducer/getUserInformation';
@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from '../../store/actionsName';
 import { socialTokenLogin } from '../../util/helpers/api';
 import { useTranslation } from 'react-i18next';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { captureException } from '@sentry/react-native';
 import { processFacebookProfile } from './facebookAuth';
 
@@ -74,14 +73,20 @@ const FacebookLogin = ({ navigation }) => {
   };
 
   return (
-    <TouchableOpacity style={socialLoginStyles.facebookButton} onPress={facebookAccess}>
+    <TouchableOpacity
+      accessibilityLabel="Sign in with Facebook"
+      accessibilityRole="button"
+      style={socialLoginStyles.facebookButton}
+      onPress={facebookAccess}>
       <Modal visible={loading} transparent={true} animationType="fade" statusBarTranslucent>
         <View style={socialLoginStyles.modal}>
           <ActivityIndicator size="large" color="white" />
         </View>
       </Modal>
 
-      <FacebookLogo width={RFValue(12)} height={RFValue(12)} />
+      <CustomText accessibilityRole="text" style={socialLoginStyles.providerText}>
+        FB
+      </CustomText>
     </TouchableOpacity>
   );
 };

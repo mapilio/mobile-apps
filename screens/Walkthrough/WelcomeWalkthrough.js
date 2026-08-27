@@ -34,6 +34,7 @@ const WelcomeWalkthrough = () => {
             resizeMode,
           }}
           source={imageSource}
+          accessibilityLabel={index === 2 ? 'Mapilio mapping presentation' : undefined}
         />
         <View style={styles.textWrapper}>
           <View style={styles.textContainer}>

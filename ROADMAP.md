@@ -6,18 +6,21 @@ for current work; this file keeps release scope deliberately small.
 
 ## Public source release
 
-The repository stays private until these three issues are complete:
+The repository stays private until these two source-publication gates are complete:
 
-- [#83](https://github.com/mapilio/mobile-apps/issues/83): rotate or revoke
-  historical credentials, publish sanitized history, and pass a redacted
-  all-refs secret scan with no unexplained findings.
-- [#84](https://github.com/mapilio/mobile-apps/issues/84): deploy the backend-first
-  social-login exchange, verify Google, Facebook, Apple, and OpenStreetMap in
-  production, then rotate the superseded credentials.
-- [#99](https://github.com/mapilio/mobile-apps/issues/99): Mapilio ownership is
-  now recorded for the custom visual families. Resolve the remaining
-  OpenStreetMap and GoPro material, provider marks, language flags, and
-  unclear-source animations through attribution, replacement, or removal.
+- [#99](https://github.com/mapilio/mobile-apps/issues/99): merge the prepared
+  removal of the 27 unclear-provenance or third-party visual assets after the
+  iOS Simulator presentation check. The retained inventory then contains only
+  verified Mapilio families and Poppins under OFL-1.1.
+- [#83](https://github.com/mapilio/mobile-apps/issues/83): publish the current
+  clean tree as a new single-commit public repository, keep the existing
+  history in a private archive, and pass current-tree secret scanning before
+  changing visibility. No old branch, tag, pull-request ref, or Git object is
+  copied into the public repository.
+
+[#84](https://github.com/mapilio/mobile-apps/issues/84) remains an operational
+security and binary-rollout gate, but no longer blocks publishing a clean source
+snapshot: the current mobile tree does not ship the superseded client secrets.
 
 No accessibility, Marketplace, test-coverage, announcement, or general cleanup
 issue blocks source visibility unless it uncovers a credential, security,
@@ -34,8 +37,8 @@ licensing, or supported-build risk.
   implemented and tested.
 - CI covers formatting, TypeScript, Jest, dependency auditing, bundle smoke tests,
   asset inventory, and incremental secret scanning.
-- A safe full-history audit and publication runbook exist; running the approved
-  credential rotation and history-remediation operation remains open in #83.
+- The existing private history has a redacted audit and remains available as a
+  restricted archive; the public repository starts from a clean snapshot.
 
 ## Store release
 
@@ -43,8 +46,11 @@ These items matter for signed App Store and Google Play releases, but do not kee
 the source repository private:
 
 - [#4](https://github.com/mapilio/mobile-apps/issues/4) and
-  [#10](https://github.com/mapilio/mobile-apps/issues/10): owner/legal approval of
+  [#10](https://github.com/mapilio/mobile-apps/issues/10): final legal check of
   the current Privacy Policy and Terms, followed by release-build link checks.
+- [#84](https://github.com/mapilio/mobile-apps/issues/84): verify Google,
+  Facebook, Apple, and OpenStreetMap against the deployed backend-first exchange,
+  then rotate the superseded credentials using the binary adoption plan.
 - [#74](https://github.com/mapilio/mobile-apps/issues/74): signed AAB/IPA evidence,
   ELF and 16 KB verification on the signed Android artifact, and the supported
   physical-device matrix.

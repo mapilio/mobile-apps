@@ -3,9 +3,8 @@ import { userUploadModalStyles } from '../../styles/userUploadStyle';
 import { CustomText, CustomTextBold } from '../../highordercomponents';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { RFValue } from 'react-native-responsive-fontsize';
-import Lottie from 'lottie-react-native';
 import { percentage, remainingImages } from '../../helper/upload';
-import { CloseIcon } from '../../assets/svg/illustrations';
+import { CloseIcon, Upload } from '../../assets/svg/illustrations';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import FocusAwareStatusBar from '../FocusAwareStatusBar';
@@ -62,12 +61,7 @@ const UploadModal = ({
         </View>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: RFValue(35) }}>
-          <Lottie
-            source={require('../../assets/animations/upload.json')}
-            style={{ width: RFValue(30), height: RFValue(30) }}
-            autoPlay={true}
-            loop={true}
-          />
+          <Upload fill="#0056F1" width={RFValue(30)} height={RFValue(30)} />
 
           <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: RFValue(10) }}>
             <CustomTextBold style={{ fontSize: RFValue(16), color: '#191919' }}>

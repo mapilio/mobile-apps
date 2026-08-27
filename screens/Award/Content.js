@@ -1,5 +1,4 @@
 import { Image, StyleSheet, Text, View, useWindowDimensions, TouchableOpacity } from 'react-native';
-import Lottie from 'lottie-react-native';
 import { Fragment } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Button, FocusAwareStatusBar } from '../../components';
@@ -167,13 +166,6 @@ const Content = ({ slidePanel }) => {
   return (
     <Fragment>
       <FocusAwareStatusBar barStyle="dark-content" translucent backgroundColor={'#fff'} />
-      <Lottie
-        source={require('../../assets/animations/award.json')}
-        style={styles.confetti}
-        resizeMode={'cover'}
-        loop={false}
-        autoPlay
-      />
       <Image source={require('../../assets/images/awardImage.png')} style={styles.awardImage} />
 
       <Fragment>

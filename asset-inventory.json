@@ -3,48 +3,6 @@
   "generatedBy": "scripts/assets/asset-inventory.js",
   "assets": [
     {
-      "path": "assets/animations/award.json",
-      "family": "animations",
-      "bytes": 40963,
-      "sha256": "50fff642a49982a7e057ed9e51b51d1abb969243630593f352e871c546dcaeaf"
-    },
-    {
-      "path": "assets/animations/badGps.json",
-      "family": "animations",
-      "bytes": 38970,
-      "sha256": "ebf377d33e6e57c5dc6810d3991e4d5d06fb0352639f845e3ae0c6de927908ab"
-    },
-    {
-      "path": "assets/animations/completed.json",
-      "family": "animations",
-      "bytes": 182630,
-      "sha256": "d1815b3dd6d429e39dbc26157b320603c2c1bd2978f7fe5ab3c75d588dbc9180"
-    },
-    {
-      "path": "assets/animations/gift.json",
-      "family": "animations",
-      "bytes": 339636,
-      "sha256": "9e888a7874f57c0f5f5eafbeaef171fcb2400d9f3c2b825441b7b66272ba4c3b"
-    },
-    {
-      "path": "assets/animations/goodGps.json",
-      "family": "animations",
-      "bytes": 38974,
-      "sha256": "c539a7925c7cffdeee3d905f2896be1083f965fa57efbf833083938c2b513db6"
-    },
-    {
-      "path": "assets/animations/mailSubs.json",
-      "family": "animations",
-      "bytes": 75731,
-      "sha256": "e749b397cbc6a34fc46bd59be48246798c4df31c38ef0812b5e2d95956ca595f"
-    },
-    {
-      "path": "assets/animations/upload.json",
-      "family": "animations",
-      "bytes": 6199,
-      "sha256": "19d9d1c0cf70d7726fe8ac792fce30b42b77cedd331651f7d730fd1f94f9a9ec"
-    },
-    {
       "path": "assets/appstore.png",
       "family": "brand-root-images",
       "bytes": 40036,
@@ -165,12 +123,6 @@
       "sha256": "bc04f9af1ee640e2f913464395132d4817d72d5ee6afbe8d3e42b6fa7bbb24b7"
     },
     {
-      "path": "assets/images/gopro.png",
-      "family": "general-raster-third-party",
-      "bytes": 45907,
-      "sha256": "5d6402e1b87bf5fc2252d6a479cfdece0259c6ca3775087ec439e968895cdd6f"
-    },
-    {
       "path": "assets/images/heading.png",
       "family": "general-raster-mapilio",
       "bytes": 7113,
@@ -181,90 +133,6 @@
       "family": "general-raster-mapilio",
       "bytes": 643,
       "sha256": "423f0e656790735f03da219634ddf56d4f0cdba733881e621fc4fb38b8dfb20b"
-    },
-    {
-      "path": "assets/images/languages/arap.png",
-      "family": "language-flags",
-      "bytes": 1065,
-      "sha256": "e0c9672dd183884c2e2db9780b396c951cf5bcef3ec96a48b7cf0665c4e79de6"
-    },
-    {
-      "path": "assets/images/languages/cs.png",
-      "family": "language-flags",
-      "bytes": 485,
-      "sha256": "7af63785ec300b29e393aa344c420d783de4f2591e19d0efcb8dc6e87c0d3aeb"
-    },
-    {
-      "path": "assets/images/languages/da.png",
-      "family": "language-flags",
-      "bytes": 232,
-      "sha256": "d92df57e64e4ecda9d7a87529dcd3970f1bc49a21936e74eb5035241edf40e7b"
-    },
-    {
-      "path": "assets/images/languages/el.png",
-      "family": "language-flags",
-      "bytes": 506,
-      "sha256": "5bcfc3cb7295d8e50434f47c20cd06ac665b2901faae214511e83d9ad496c0f3"
-    },
-    {
-      "path": "assets/images/languages/england.png",
-      "family": "language-flags",
-      "bytes": 1595,
-      "sha256": "ab70397185e86c73d1acb21b8f50788b2d891d27d15b49390396f1abde10412f"
-    },
-    {
-      "path": "assets/images/languages/es.png",
-      "family": "language-flags",
-      "bytes": 450,
-      "sha256": "6fbf65bd5f7bd6b7696be1e69986e7c100567909a79fcbccbf4faa8a7684fc3a"
-    },
-    {
-      "path": "assets/images/languages/fi.png",
-      "family": "language-flags",
-      "bytes": 317,
-      "sha256": "1518a3522d312124199288f97e0bd29fb3eeef9292b2210d2727210396def3ea"
-    },
-    {
-      "path": "assets/images/languages/france.png",
-      "family": "language-flags",
-      "bytes": 324,
-      "sha256": "3a04e7196a56d321d0864b8fd3dde1f40713c19e365761ed83e4009425c30727"
-    },
-    {
-      "path": "assets/images/languages/germany.png",
-      "family": "language-flags",
-      "bytes": 264,
-      "sha256": "29a256e58e7438b5293f0285c316b56d4c8a135cb9f0a6253d77b5e120067730"
-    },
-    {
-      "path": "assets/images/languages/italy.png",
-      "family": "language-flags",
-      "bytes": 323,
-      "sha256": "5d68731fbe1e98cd62977f1005b6a63523a11200856f25ff67afb5e16ccbdb74"
-    },
-    {
-      "path": "assets/images/languages/pt.png",
-      "family": "language-flags",
-      "bytes": 595,
-      "sha256": "e817a5277038a1695a1a598fb6325855352ab4a8a0e5ec3406916bbf41a8908e"
-    },
-    {
-      "path": "assets/images/languages/ro.png",
-      "family": "language-flags",
-      "bytes": 219,
-      "sha256": "842152ef9dcdbcc402c6d6d06a31845cfff241784916f3c16142410761689c95"
-    },
-    {
-      "path": "assets/images/languages/ru.png",
-      "family": "language-flags",
-      "bytes": 193,
-      "sha256": "039257efcaafbe71ce86e41845889a4fcc8fa1d96ab8ad63c7afdca766b371b2"
-    },
-    {
-      "path": "assets/images/languages/turkey.png",
-      "family": "language-flags",
-      "bytes": 699,
-      "sha256": "6a32059b0df715e2ca9024d0a3a6c70e3224e02a0a72dc88027bb2a4c4d5e9e7"
     },
     {
       "path": "assets/images/mapIcon.png",
@@ -283,12 +151,6 @@
       "family": "general-raster-mapilio",
       "bytes": 4794,
       "sha256": "ddc3399f4dad7959d9c8469ea30dac858027e01513b97e7b225e99c46fb381bf"
-    },
-    {
-      "path": "assets/images/osm.png",
-      "family": "general-raster-third-party",
-      "bytes": 13277,
-      "sha256": "2034e2850af8a407a687ca459f063ecf7cc96e6f114dd126c2954a4425babab8"
     },
     {
       "path": "assets/images/received.png",
@@ -376,37 +238,25 @@
     },
     {
       "path": "assets/images/walkthrough/moveon_tablet.png",
-      "family": "walkthrough-osm",
+      "family": "walkthrough-mapilio",
       "bytes": 485026,
       "sha256": "c6bc020aff13cf71ac6d48de17954deb5da03ce25ec0e75bdfd1bc1714e09918"
     },
     {
-      "path": "assets/images/walkthrough/openstreetmap.png",
-      "family": "walkthrough-osm",
-      "bytes": 220561,
-      "sha256": "5732cf09cc507e480c0c0a56850c6e3f36dd04cc30666bed52ef71ddb247e188"
-    },
-    {
-      "path": "assets/images/walkthrough/openstreetmap_logo.png",
-      "family": "walkthrough-osm",
-      "bytes": 40661,
-      "sha256": "c5b2975b35d5e563ec3c29152b0e6c691451c341533852678074fbb8c6d2c925"
-    },
-    {
       "path": "assets/images/walkthrough/party.png",
-      "family": "walkthrough-osm",
+      "family": "walkthrough-mapilio",
       "bytes": 6033,
       "sha256": "e844b2da592051f67b6f68f8365cf0b65a72fc225a62b34c4f3ec0deeea81ff3"
     },
     {
       "path": "assets/images/walkthrough/streetlevel.png",
-      "family": "walkthrough-osm",
+      "family": "walkthrough-mapilio",
       "bytes": 436757,
       "sha256": "609035a60b6c8d5cac020f964e00c9ecab068937b40b85fc9d4c91c5285b6f8f"
     },
     {
       "path": "assets/images/walkthrough/uploadcapture.png",
-      "family": "walkthrough-osm",
+      "family": "walkthrough-mapilio",
       "bytes": 273758,
       "sha256": "e9238e0f8ea828acdec2c114f6a1791a93ca11fcc423a6098c231fb542401cd2"
     },
@@ -575,8 +425,8 @@
     {
       "path": "assets/svg/illustrations/Flags.js",
       "family": "illustration-modules",
-      "bytes": 1708,
-      "sha256": "953d201c6d964af2f49e8635f491b7d3a10d22f6392c3b66d314cbc38d882339"
+      "bytes": 593,
+      "sha256": "6b4379d39316cc6f999ec933c11dceb6559fe957d27955bde7522eb59f402df0"
     },
     {
       "path": "assets/svg/illustrations/GPSSearch.js",
@@ -897,18 +747,6 @@
       "sha256": "ff0d94be4a5ad848811e0b9bc9ee22d926a70e26d57be018045476f047962a93"
     },
     {
-      "path": "assets/svg/logos/FacebookLogo.js",
-      "family": "provider-logos",
-      "bytes": 535,
-      "sha256": "03452397312800340fe954e2e698ea8d449f97f896a92539bc90c4d878ba7950"
-    },
-    {
-      "path": "assets/svg/logos/GoogleLogo.js",
-      "family": "provider-logos",
-      "bytes": 1308,
-      "sha256": "c7dabb468d0f160e7188bf484e36fdabf304e6346af1b5618ae4fed9b958d9a4"
-    },
-    {
       "path": "assets/svg/logos/MapilioLogoBeta.js",
       "family": "mapilio-logos",
       "bytes": 3932,
@@ -917,8 +755,8 @@
     {
       "path": "assets/svg/logos/index.js",
       "family": "mapilio-logos",
-      "bytes": 176,
-      "sha256": "81a313e49ffc0b8e9b73a52ce5cf65417a93f49dd40ffc1fdab77954d4b3a888"
+      "bytes": 64,
+      "sha256": "08ffb8a7d76c1cdffc90dace47c8c66978b45aa29c1628d04f7700be3bf0f76a"
     }
   ]
 }

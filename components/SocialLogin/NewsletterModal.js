@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { CustomText, CustomTextMedium } from '../../highordercomponents';
-import AnimatedLottieView from 'lottie-react-native';
 import { CloseIcon } from '../../assets/svg/illustrations';
 import { Trans, useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -99,16 +98,9 @@ const NewsletterModal = () => {
               <CloseIcon color="white" />
             </TouchableOpacity>
             <View style={styles.profileIcon}>
-              <AnimatedLottieView
-                style={{
-                  height: '100%',
-                  alignSelf: 'center',
-                  transform: [{ scale: 1.2 }],
-                }}
-                source={require('../../assets/animations/mailSubs.json')}
-                autoPlay
-                loop
-              />
+              <CustomTextMedium style={{ color: 'white', fontSize: RFValue(18) }}>
+                Mail
+              </CustomTextMedium>
             </View>
             <CustomTextMedium style={styles.title}>
               <Trans

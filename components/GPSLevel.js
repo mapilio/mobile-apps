@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useSelector } from 'react-redux';
 import { CustomTextMedium } from '../highordercomponents';
-import Lottie from 'lottie-react-native';
+import { CheckIcon, WarningIcon } from '../assets/svg/illustrations';
 
 const GPSLevel = () => {
   const { GPSAccuracy } = useSelector((state) => state.cameraReducer);
@@ -20,25 +20,9 @@ const GPSLevel = () => {
           ],
         }}>
         {GPSAccuracy ? (
-          <Lottie
-            source={require('../assets/animations/goodGps.json')}
-            autoPlay
-            loop={false}
-            style={{
-              width: RFValue(40),
-              height: RFValue(40),
-            }}
-          />
+          <CheckIcon width={RFValue(24)} height={RFValue(24)} />
         ) : (
-          <Lottie
-            source={require('../assets/animations/badGps.json')}
-            autoPlay
-            loop
-            style={{
-              width: RFValue(40),
-              height: RFValue(40),
-            }}
-          />
+          <WarningIcon width={RFValue(24)} height={RFValue(24)} />
         )}
       </View>
       <CustomTextMedium style={styles.statusText}>

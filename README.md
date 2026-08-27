@@ -257,9 +257,8 @@ inventory changes together with the asset change. CI runs `npm run assets:check`
 and does not regenerate files. New directories must be added to the manifest
 before their assets can be inventoried. `npm run assets:check` only verifies
 repository bookkeeping. The manifest verifies only documented Mapilio-created
-or Mapilio-commissioned custom families; OpenStreetMap, GoPro, Google/Facebook,
-language-flag, and unclear Lottie assets remain review-required. Third-party
-notices for retained materials are in
+or Mapilio-commissioned custom families. Removed third-party and
+unclear-provenance assets are documented in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Copyright 2024–2026 Mapilio

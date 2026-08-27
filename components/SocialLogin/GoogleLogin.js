@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Modal, TouchableOpacity, View } from 'react-native';
-import GoogleLogo from '../../assets/svg/logos/GoogleLogo';
+import { CustomText } from '../../highordercomponents';
 import * as Google from 'expo-auth-session/providers/google';
 import { socialLoginStyles } from '../../styles/loginStyles';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,6 @@ import { GET_TOKEN_SUCCESS, SET_CREDENTIAL } from '../../store/actionsName';
 import { getUserInformation } from '../../store/reducers/loginReducer/getUserInformation';
 
 import { socialTokenLogin } from '../../util/helpers/api';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { useTranslation } from 'react-i18next';
 import { captureException } from '@sentry/react-native';
 
@@ -65,13 +64,19 @@ const GoogleLogin = ({ navigation }) => {
   };
 
   return (
-    <TouchableOpacity style={socialLoginStyles.googleButton} onPress={handleLogin}>
+    <TouchableOpacity
+      accessibilityLabel="Sign in with Google"
+      accessibilityRole="button"
+      style={socialLoginStyles.googleButton}
+      onPress={handleLogin}>
       <Modal visible={loading} transparent={true} animationType="fade" statusBarTranslucent>
         <View style={socialLoginStyles.modal}>
           <ActivityIndicator size="large" color="white" />
         </View>
       </Modal>
-      <GoogleLogo width={RFValue(12)} height={RFValue(12)} />
+      <CustomText accessibilityRole="text" style={socialLoginStyles.providerText}>
+        G
+      </CustomText>
     </TouchableOpacity>
   );
 };

@@ -61,12 +61,13 @@ describe('bundled asset licensing', () => {
     expect(() => checkInventory(projectFile())).not.toThrow();
   });
 
-  it('asserts the exact verified and review-required family split', () => {
+  it('asserts the exact verified family split and removed families', () => {
     const customFamilies = manifest.families.filter(
       (family) => family.license === 'Mapilio proprietary'
     );
     const verifiedIds = [
       'brand-root-images',
+      'walkthrough-mapilio',
       'marketplace',
       'tooltip',
       'general-raster-mapilio',
@@ -74,13 +75,6 @@ describe('bundled asset licensing', () => {
       'marketplace-illustration-modules',
       'user-feed-illustration-modules',
       'mapilio-logos',
-    ];
-    const reviewRequiredIds = [
-      'animations',
-      'language-flags',
-      'walkthrough-osm',
-      'general-raster-third-party',
-      'provider-logos',
     ];
 
     expect(customFamilies.length).toBeGreaterThan(0);
@@ -98,26 +92,19 @@ describe('bundled asset licensing', () => {
         .filter((family) => family.rightsStatus === 'verified')
         .map((family) => family.id)
     ).toEqual([...verifiedIds, 'fonts']);
-    expect(
-      manifest.families
-        .filter((family) => family.rightsStatus === 'review-required')
-        .map((family) => family.id)
-    ).toEqual(reviewRequiredIds);
+    expect(manifest.families.filter((family) => family.rightsStatus === 'review-required')).toEqual(
+      []
+    );
     expect(classifyAsset('assets/favicon.png', manifest).id).toBe('brand-root-images');
     expect(classifyAsset('assets/appstore.png', manifest).id).toBe('brand-root-images');
     expect(classifyAsset('assets/playstore.png', manifest).id).toBe('brand-root-images');
-    expect(classifyAsset('assets/images/osm.png', manifest).id).toBe('general-raster-third-party');
-    expect(classifyAsset('assets/images/gopro.png', manifest).id).toBe(
-      'general-raster-third-party'
-    );
+    expect(() => classifyAsset('assets/images/osm.png', manifest)).toThrow(/exactly one family/);
+    expect(() => classifyAsset('assets/images/gopro.png', manifest)).toThrow(/exactly one family/);
     expect(classifyAsset('assets/svg/logos/MapilioLogoBeta.js', manifest).id).toBe('mapilio-logos');
     expect(classifyAsset('assets/svg/logos/index.js', manifest).id).toBe('mapilio-logos');
-    expect(classifyAsset('assets/svg/logos/GoogleLogo.js', manifest).id).toBe('provider-logos');
-    expect(
-      manifest.families
-        .filter((family) => family.rightsStatus === 'review-required')
-        .every((family) => family.rightsOwnerConfirmation === 'pending' && family.license === null)
-    ).toBe(true);
+    expect(() => classifyAsset('assets/svg/logos/GoogleLogo.js', manifest)).toThrow(
+      /exactly one family/
+    );
     expect(manifest.families.find((family) => family.id === 'fonts')).toMatchObject({
       rightsStatus: 'verified',
       license: 'OFL-1.1',
@@ -149,9 +136,8 @@ describe('bundled asset licensing', () => {
       families: [
         ...manifest.families,
         {
-          ...manifest.families.find((family) => family.id === 'brand-root-images'),
-          id: 'overlapping-brand-path',
-          paths: ['assets/animations/award.json'],
+          ...manifest.families.find((family) => family.id === 'walkthrough-mapilio'),
+          id: 'overlapping-walkthrough-family',
         },
       ],
     };
@@ -162,26 +148,28 @@ describe('bundled asset licensing', () => {
         currentAssetPaths,
         trackedRepositoryPaths(projectFile())
       )
-    ).toThrow(/exactly one family/);
+    ).toThrow(/Duplicate asset selector/);
     expect(() => classifyAsset('assets/svg/illustrations/NewDirectory/icon.js', manifest)).toThrow(
       /exactly one family/
     );
   });
 
-  it('rejects duplicate family identifiers and invalid pending status', () => {
+  it('rejects duplicate family identifiers and invalid verified status', () => {
     const duplicateManifest = {
       ...manifest,
       families: [manifest.families[0], { ...manifest.families[1], id: manifest.families[0].id }],
     };
     expect(() => validateManifest(duplicateManifest)).toThrow(/family ids must be unique/);
 
-    const claimedManifest = {
+    const invalidManifest = {
       ...manifest,
       families: manifest.families.map((family) =>
-        family.id === 'animations' ? { ...family, rightsOwnerConfirmation: 'confirmed' } : family
+        family.id === 'walkthrough-mapilio'
+          ? { ...family, rightsOwnerConfirmation: 'pending' }
+          : family
       ),
     };
-    expect(() => validateManifest(claimedManifest)).toThrow(/pending rights-owner confirmation/);
+    expect(() => validateManifest(invalidManifest)).toThrow(/Verified asset family/);
   });
 
   it('rejects malformed schema, selectors, and field types', () => {
@@ -192,37 +180,48 @@ describe('bundled asset licensing', () => {
       {
         ...manifest,
         families: manifest.families.map((family) =>
-          family.id === 'animations' ? { ...family, prefix: 'assets/animations' } : family
+          family.id === 'illustration-modules'
+            ? { ...family, prefix: 'assets/svg/illustrations' }
+            : family
         ),
       },
       {
         ...manifest,
         families: manifest.families.map((family) =>
-          family.id === 'animations' ? { ...family, prefix: 'assets/does-not-exist/' } : family
+          family.id === 'illustration-modules'
+            ? { ...family, prefix: 'assets/does-not-exist/' }
+            : family
         ),
       },
       {
         ...manifest,
         families: manifest.families.map((family) =>
-          family.id === 'animations' ? { ...family, directChildrenOnly: 'true' } : family
+          family.id === 'illustration-modules' ? { ...family, directChildrenOnly: 'true' } : family
         ),
       },
       {
         ...manifest,
         families: manifest.families.map((family) =>
-          family.id === 'animations' ? { ...family, unexpected: true } : family
+          family.id === 'illustration-modules' ? { ...family, unexpected: true } : family
         ),
       },
       {
         ...manifest,
         families: manifest.families.map((family) =>
-          family.id === 'animations' ? { ...family, license: 'MIT' } : family
+          family.id === 'illustration-modules'
+            ? {
+                ...family,
+                rightsStatus: 'review-required',
+                rightsOwnerConfirmation: 'pending',
+                license: 'MIT',
+              }
+            : family
         ),
       },
       {
         ...manifest,
         families: manifest.families.map((family) =>
-          family.id === 'animations' ? { ...family, source: 42 } : family
+          family.id === 'illustration-modules' ? { ...family, source: 42 } : family
         ),
       },
       {
@@ -309,15 +308,12 @@ describe('bundled asset licensing', () => {
     }
   });
 
-  it('accepts partial pending evidence and a repository-level verified notice', () => {
+  it('accepts a repository-level verified notice', () => {
     const currentAssetPaths = trackedAssetPaths(projectFile());
     const currentRepositoryPaths = trackedRepositoryPaths(projectFile());
     const evidenceManifest = {
       ...manifest,
       families: manifest.families.map((family) => {
-        if (family.id === 'animations') {
-          return { ...family, owner: 'Pending owner', source: 'README.md' };
-        }
         if (family.id === 'fonts') {
           return { ...family, notice: 'THIRD_PARTY_NOTICES.md' };
         }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "assetRoot": "assets",
-  "reviewNote": "Mapilio-created or Mapilio-commissioned custom families are verified only where the durable owner confirmation below is recorded. Third-party, mixed, and unclear-provenance families remain review-required; this manifest does not close legal review.",
+  "reviewNote": "Bundled visual families are verified only where the durable owner confirmation below is recorded. Removed third-party and unclear-provenance assets are intentionally absent from this bundle.",
   "families": [
     {
       "id": "brand-root-images",
@@ -19,31 +19,18 @@
       "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
     },
     {
-      "id": "animations",
-      "prefix": "assets/animations/",
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null,
-      "owner": "Unknown third-party creator",
-      "source": "LottieFiles export metadata is present for some files; creator and redistribution rights remain unverified"
-    },
-    {
-      "id": "language-flags",
-      "prefix": "assets/images/languages/",
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null,
-      "owner": "Unknown third-party creator",
-      "source": "Bundled language-flag images have no verified owner or license record"
-    },
-    {
-      "id": "walkthrough-osm",
-      "prefix": "assets/images/walkthrough/",
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null,
-      "owner": "OpenStreetMap and other third-party rights holders",
-      "source": "Walkthrough family includes OpenStreetMap-branded assets; attribution and redistribution terms require review"
+      "id": "walkthrough-mapilio",
+      "paths": [
+        "assets/images/walkthrough/moveon_tablet.png",
+        "assets/images/walkthrough/party.png",
+        "assets/images/walkthrough/streetlevel.png",
+        "assets/images/walkthrough/uploadcapture.png"
+      ],
+      "rightsStatus": "verified",
+      "rightsOwnerConfirmation": "confirmed",
+      "license": "Mapilio proprietary",
+      "owner": "Mapilio",
+      "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
     },
     {
       "id": "marketplace",
@@ -95,15 +82,6 @@
       "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
     },
     {
-      "id": "general-raster-third-party",
-      "paths": ["assets/images/gopro.png", "assets/images/osm.png"],
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null,
-      "owner": "GoPro, OpenStreetMap, or other third-party rights holders",
-      "source": "GoPro-branded and OpenStreetMap-related images require separate permission, attribution, and redistribution review"
-    },
-    {
       "id": "illustration-modules",
       "prefix": "assets/svg/illustrations/",
       "directChildrenOnly": true,
@@ -141,15 +119,6 @@
       "license": "Mapilio proprietary",
       "owner": "Mapilio",
       "source": "https://github.com/mapilio/mobile-apps/issues/99#issuecomment-5425094489"
-    },
-    {
-      "id": "provider-logos",
-      "paths": ["assets/svg/logos/FacebookLogo.js", "assets/svg/logos/GoogleLogo.js"],
-      "rightsStatus": "review-required",
-      "rightsOwnerConfirmation": "pending",
-      "license": null,
-      "owner": "Google, Facebook, or other third-party rights holders",
-      "source": "Provider marks require trademark and redistribution review"
     },
     {
       "id": "fonts",

@@ -1,8 +1,8 @@
-import { View, ActivityIndicator, Modal, TouchableOpacity, Image } from 'react-native';
+import { View, ActivityIndicator, Modal, TouchableOpacity } from 'react-native';
+import { CustomText } from '../../highordercomponents';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri, useAuthRequest, AccessTokenRequest } from 'expo-auth-session';
 import { useEffect, useState } from 'react';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { GET_TOKEN_SUCCESS, SET_CREDENTIAL, SET_MAIL_MODAL_SHOWN } from '../../store/actionsName';
 import { socialLoginStyles } from '../../styles/loginStyles';
 
@@ -108,6 +108,8 @@ const OSMLogin = ({ navigation }) => {
 
   return (
     <TouchableOpacity
+      accessibilityLabel="Sign in with OpenStreetMap"
+      accessibilityRole="button"
       style={socialLoginStyles.osmButton}
       onPress={() => {
         promptAsync();
@@ -117,10 +119,9 @@ const OSMLogin = ({ navigation }) => {
           <ActivityIndicator size="large" color="white" />
         </View>
       </Modal>
-      <Image
-        source={require('../../assets/images/osm.png')}
-        style={{ width: RFValue(12), height: RFValue(12) }}
-      />
+      <CustomText accessibilityRole="text" style={socialLoginStyles.providerText}>
+        OSM
+      </CustomText>
     </TouchableOpacity>
   );
 };
