@@ -173,11 +173,14 @@ OAuth client secrets must never be configured in the mobile environment.
 
 ### Public release status
 
-This repository is **not approved for public visibility** until historical
-credential remediation is complete. See the [security policy](SECURITY.md) and
+When published, the public repository will consist of one clean root snapshot
+of the approved tracked tree. Earlier development history will remain in a
+restricted private archive and will not be copied into the public repository as
+commits, branches, tags, pull-request refs, or Git objects. See the
+[security policy](SECURITY.md) and
 [public-release history remediation runbook](docs/security/public-release-history-remediation.md).
-The factual, non-approving legal preparation packet for issues #4 and #10 is
-the [public-release legal review packet](docs/legal/public-release-review.md).
+The [public-release legal review packet](docs/legal/public-release-review.md)
+records factual, non-approving preparation for later store releases.
 
 ---
 
@@ -244,21 +247,22 @@ owner/source evidence are identified in
 third-party materials are documented in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-### Mobile asset rights gate
+### Mobile asset rights inventory
 
 The repository tracks every Git-tracked file in `assets/**` in
 [asset-inventory.json](asset-inventory.json). Family
 classification and the current rights-review state are defined in
-[asset-rights-manifest.json](asset-rights-manifest.json).
+[asset-rights-manifest.json](asset-rights-manifest.json). The current retained
+inventory contains 126 records; the manifest records verified redistribution
+rights for every retained record.
 
 Maintainers must review an intentional asset change, then run
 `npm run assets:update`, inspect the generated diff, and commit the manifest or
 inventory changes together with the asset change. CI runs `npm run assets:check`
 and does not regenerate files. New directories must be added to the manifest
 before their assets can be inventoried. `npm run assets:check` only verifies
-repository bookkeeping. The manifest verifies only documented Mapilio-created
-or Mapilio-commissioned custom families. Removed third-party and
-unclear-provenance assets are documented in
+repository bookkeeping; it does not replace rights review for future changes.
+Removed third-party and unclear-provenance assets are documented in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Copyright 2024–2026 Mapilio

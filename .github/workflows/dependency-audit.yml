@@ -25,5 +25,5 @@ jobs:
 
       - name: Run audit
         # Fails on critical severity. Remaining build-tool findings are tracked by
-        # the staged Expo upgrade in issue #74 and reviewed at every SDK boundary.
+        # the staged Expo upgrade and reviewed at every SDK boundary.
         run: npm audit --audit-level=critical
