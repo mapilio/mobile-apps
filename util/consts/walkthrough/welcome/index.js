@@ -14,10 +14,10 @@ export const sliderData = [
     desc: 'second.description',
   },
   {
-    image: require('../../../../assets/images/walkthrough/openstreetmap.png'),
+    image: require('../../../../assets/images/accessibleWorld.png'),
     title: 'fourth.title',
     subTitle: 'fourth.subtitle',
     desc: 'fourth.description',
-    icons: [require('../../../../assets/images/walkthrough/openstreetmap_logo.png')],
+    icons: [],
   },
 ];

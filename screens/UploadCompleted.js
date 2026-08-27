@@ -3,7 +3,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import React, { useEffect } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { TouchableOpacity, View } from 'react-native';
-import Lottie from 'lottie-react-native';
 import { CustomText, CustomTextBold } from '../highordercomponents';
 import { UploadCompletedSvg } from '../assets/svg/illustrations';
 import { useTranslation } from 'react-i18next';
@@ -31,18 +30,15 @@ const UploadCompleted = () => {
           marginBottom: 'auto',
           marginHorizontal: RFValue(40),
         }}>
-        <View style={{ alignItems: 'center' }}>
-          <View style={{ zIndex: 1 }}>
-            <Lottie
-              source={require('../assets/animations/completed.json')}
-              style={{ height: RFValue(375), paddingTop: RFValue(25) }}
-              autoPlay={true}
-              loop={true}
-            />
-          </View>
-          <View style={{ position: 'absolute', bottom: RFValue(25), zIndex: 2 }}>
-            <UploadCompletedSvg height={RFValue(75)} width={RFValue(75)} />
-          </View>
+        <View
+          style={{
+            width: '100%',
+            maxWidth: RFValue(235),
+            height: RFValue(230),
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <UploadCompletedSvg height={RFValue(125)} width={RFValue(125)} />
         </View>
 
         <View style={{ alignItems: 'center' }}>

@@ -7,6 +7,7 @@ import { marketplaceDetailStyles } from '../../styles/marketplaceStyles';
 import { Routes } from '../../navigator/Routes';
 import Moment from 'moment';
 import { api } from '../../util/helpers/api';
+import { ActionCamera } from '../../assets/svg/illustrations';
 
 const MarketplaceDetail = ({ navigation, route }) => {
   const applyProject = () => {
@@ -54,11 +55,7 @@ const MarketplaceDetail = ({ navigation, route }) => {
               resizeMode={'contain'}
               style={marketplaceDetailStyles.image}
             />
-            <Image
-              source={require('../../assets/images/gopro.png')}
-              resizeMode={'contain'}
-              style={marketplaceDetailStyles.image}
-            />
+            <ActionCamera width={RFValue(120)} height={RFValue(87)} />
           </View>
           <CustomTextMedium
             style={{

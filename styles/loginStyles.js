@@ -116,6 +116,11 @@ export const loginStyles = StyleSheet.create({
 });
 
 export const socialLoginStyles = StyleSheet.create({
+  providerText: {
+    fontSize: RFValue(11),
+    color: '#191919',
+    fontFamily: 'Poppins-Medium',
+  },
   container: {
     justifyContent: 'center',
     alignItems: 'center',

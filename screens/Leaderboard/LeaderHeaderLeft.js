@@ -1,4 +1,3 @@
-import Lottie from 'lottie-react-native';
 import { Pressable, StyleSheet } from 'react-native';
 import { CustomText } from '../../highordercomponents';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -15,12 +14,7 @@ const LeaderHeaderLeft = () => {
 
   return (
     <Pressable style={styles.award} onPress={goToAward}>
-      <Lottie
-        source={require('../../assets/animations/gift.json')}
-        style={styles.award.gift}
-        autoPlay
-        loop
-      />
+      <CustomText style={styles.award.gift}>*</CustomText>
       <CustomText style={styles.award.text}>{t('join_the_race')}</CustomText>
     </Pressable>
   );
@@ -36,6 +30,8 @@ const styles = StyleSheet.create({
       zIndex: -1,
       position: 'absolute',
       marginLeft: RFValue(2),
+      fontSize: RFValue(22),
+      color: '#0056F1',
     },
     text: {
       fontSize: RFValue(10),

@@ -1,3 +1,1 @@
-export { default as FacebookLogo } from "./FacebookLogo";
-export { default as GoogleLogo } from "./GoogleLogo";
 export { default as MapilioLogoBeta } from "./MapilioLogoBeta";
