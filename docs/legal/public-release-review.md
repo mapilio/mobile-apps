@@ -1,9 +1,8 @@
 # Public-release legal review packet
 
-**Status:** preparation evidence for GitHub issues #4 and #10. This packet is
-not legal advice, does not grant legal approval, and does not close either
-issue. It records repository evidence and questions for the maintainer and
-legal owner to decide.
+**Status:** preparation evidence for public and store release review. This
+packet is not legal advice and does not grant legal approval. It records
+repository evidence and questions for the maintainer and legal owner to decide.
 
 **Evidence snapshot:** 2026-08-19, branch `prepare-legal-release-review`.
 Live pages returned HTTP 200 on this date:
@@ -171,10 +170,11 @@ delete-account logic is TODO. Evidence: `store/store.js:14-25`,
       public fields, account deletion, provider sign-in deletion, and takedown.
 - [ ] Verify network requests against the owner-approved host inventory and
       confirm no secrets or personal test-account data enter this packet.
-- [ ] Attach restricted evidence for legal-owner decisions and production
-      results to the relevant GitHub issues; keep this public packet factual.
+- [ ] Store restricted evidence for legal-owner decisions and production
+      results in the approved private release record; keep this public packet
+      factual.
 
-## Acceptance evidence for issues #4 and #10
+## Acceptance evidence
 
 Closing evidence should include: (1) maintainer fact checklist completed with
 an owner and date; (2) legal decision checklist explicitly marked approved,
@@ -182,6 +182,6 @@ revised, or still open by the legal owner; (3) production verification results
 for both platforms and the approved host/policy/link inventory; (4) evidence
 that Google/Facebook deletion, contribution retention/takedown, and asset
 rights are either verified or explicitly dispositioned; and (5) links to the
-final policy versions and issue comments. Until all required evidence is
-attached and the responsible owners record their decisions, #4 and #10 remain
-open. This packet itself is preparation only.
+final policy versions and approval record. Until all required evidence is
+attached and the responsible owners record their decisions, legal review
+remains pending. This packet itself is preparation only.
