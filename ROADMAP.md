@@ -67,6 +67,9 @@ evidence does not replace signed artifacts or physical-device checks.
 
 ## After the repository is public
 
+- [mapilio/backend#70](https://github.com/mapilio/backend/issues/70): optimize
+  `/api/user-uploads-v2` for high-volume contributors. The latest modern-backend
+  canary check completed successfully but took about nine seconds.
 - Complete accessibility work in #87 and #124, including PR #111, with
   TalkBack/VoiceOver verification.
 - Add capture, grouped-upload, interruption, retry, and completion coverage in #94.

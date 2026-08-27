@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import FocusAwareStatusBar from '../components/FocusAwareStatusBar';
 import { LoginManager, Profile } from 'react-native-fbsdk-next';
 import * as Application from 'expo-application';
+import { logoutUser } from '../helper/user';
 
 const ListItem = ({ name, onPress }) => {
   const { t } = useTranslation('profile_settings');
@@ -22,12 +23,57 @@ const ListItem = ({ name, onPress }) => {
   );
 };
 
+export const signOutUser = ({ auth, credential, dispatch, navigation, userInformation }) => {
+  const logoutCredentials = {
+    access_token: auth?.access_token || credential?.access_token,
+    refresh_token: auth?.refresh_token || credential?.refresh_token,
+  };
+  const email = userInformation?.email;
+  const providerType = credential?.type;
+
+  dispatch({ type: EXIT_USER });
+
+  try {
+    Promise.resolve(logoutUser(logoutCredentials)).catch(() => undefined);
+  } catch {
+    // Local sign-out must also survive a synchronous failure in the logout client.
+  }
+
+  try {
+    navigation.navigate(Routes.tabNavigator, { screen: Routes.map });
+  } catch {
+    // Navigation cleanup is independent from token revocation and provider cleanup.
+  }
+
+  if (email) {
+    try {
+      OneSignal.User.removeEmail(email);
+    } catch {
+      // Continue with the remaining provider cleanup if OneSignal fails synchronously.
+    }
+  }
+
+  if (providerType === 'facebook') {
+    try {
+      Promise.resolve(Profile.getCurrentProfile())
+        .then((currentProfile) => {
+          if (currentProfile) {
+            LoginManager.logOut();
+          }
+        })
+        .catch(() => undefined);
+    } catch {
+      // Provider cleanup is best-effort and must not escape sign-out.
+    }
+  }
+};
+
 const ProfileSettings = ({ navigation }) => {
   const dispatch = useDispatch();
   const { bottom } = useSafeAreaInsets();
   const { t } = useTranslation('profile_settings');
   const { debugMode } = useSelector((status) => status.generalReducer);
-  const { credential, userInformation } = useSelector((status) => status.getTokenReducer);
+  const { auth, credential, userInformation } = useSelector((status) => status.getTokenReducer);
 
   useEffect(() => {
     navigation.getParent().setOptions({ tabBarStyle: { display: 'none' } });
@@ -58,22 +104,7 @@ const ProfileSettings = ({ navigation }) => {
     navigation.navigate(Routes.webview, { url: url });
   };
 
-  const exitHandle = () => {
-    const email = userInformation?.email;
-
-    navigation.navigate(Routes.tabNavigator, { screen: Routes.map });
-    if (credential?.type === 'facebook') {
-      Profile.getCurrentProfile().then((currentProfile) => {
-        if (currentProfile) {
-          LoginManager.logOut();
-        }
-      });
-    }
-    if (email) {
-      OneSignal.User.removeEmail(email);
-    }
-    dispatch({ type: EXIT_USER });
-  };
+  const exitHandle = () => signOutUser({ auth, credential, dispatch, navigation, userInformation });
 
   return (
     <View style={styles.wrapper}>

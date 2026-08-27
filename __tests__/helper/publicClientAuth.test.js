@@ -13,11 +13,13 @@
  */
 
 const mockPost = jest.fn();
+const mockAuthenticatedPost = jest.fn();
 const mockGet = jest.fn();
+const mockCaptureException = jest.fn();
 
 jest.mock('../../util/helpers/api', () => ({
   api: {
-    post: (...args) => mockPost(...args),
+    post: (...args) => mockAuthenticatedPost(...args),
     get: (...args) => mockGet(...args),
   },
   cdn: { post: jest.fn(), get: jest.fn() },
@@ -26,7 +28,7 @@ jest.mock('../../util/helpers/api', () => ({
 jest.mock('../../util/helpers/api/Api', () => ({
   __esModule: true,
   default: {
-    post: (...args) => mockPost(...args),
+    post: (...args) => mockAuthenticatedPost(...args),
     get: (...args) => mockGet(...args),
   },
 }));
@@ -37,6 +39,10 @@ jest.mock('../../util/helpers/api/PublicApi', () => ({
     post: (...args) => mockPost(...args),
     get: (...args) => mockGet(...args),
   },
+}));
+
+jest.mock('@sentry/react-native', () => ({
+  captureException: (...args) => mockCaptureException(...args),
 }));
 
 const mockDispatch = jest.fn();
@@ -107,6 +113,55 @@ describe('public-client login', () => {
       password: 'correct-password',
       grant_type: 'password',
     });
+  });
+});
+
+describe('mobile logout', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('posts the refresh token with an access bearer to the versioned logout endpoint', async () => {
+    mockPost.mockResolvedValue({});
+
+    const { logoutUser } = require('../../helper/user');
+    await expect(
+      logoutUser({ access_token: 'access-token', refresh_token: 'refresh-token' })
+    ).resolves.toBe(true);
+
+    expect(mockPost).toHaveBeenCalledWith(
+      '/api/v1/mobile/auth/logout',
+      { refresh_token: 'refresh-token' },
+      {
+        headers: { Authorization: 'Bearer access-token' },
+        timeout: 2000,
+      }
+    );
+    expect(mockAuthenticatedPost).not.toHaveBeenCalled();
+  });
+
+  it('does not call the API when either token is missing', async () => {
+    const { logoutUser } = require('../../helper/user');
+
+    await expect(logoutUser({ access_token: 'access-token' })).resolves.toBe(false);
+    await expect(logoutUser({ refresh_token: 'refresh-token' })).resolves.toBe(false);
+    expect(mockPost).not.toHaveBeenCalled();
+    expect(mockCaptureException).not.toHaveBeenCalled();
+  });
+
+  it('captures a sanitized failure without rejecting sign-out', async () => {
+    mockPost.mockRejectedValue(new Error('request failed with refresh-token'));
+
+    const { logoutUser } = require('../../helper/user');
+    await expect(
+      logoutUser({ access_token: 'access-token', refresh_token: 'refresh-token' })
+    ).resolves.toBe(false);
+
+    expect(mockCaptureException).toHaveBeenCalledWith(
+      expect.objectContaining({ message: 'Mobile logout request failed' }),
+      expect.objectContaining({ tags: { functionName: 'logoutUser' } })
+    );
+    expect(JSON.stringify(mockCaptureException.mock.calls)).not.toContain('refresh-token');
   });
 });
 
