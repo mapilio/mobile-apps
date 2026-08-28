@@ -154,10 +154,26 @@ describe('scan-new-secrets first-push and revision handling', () => {
     }
   });
 
+  test('scans the full new history when a force-push base is no longer available', () => {
+    const fixture = makeFixture();
+    try {
+      commit(fixture.repo, 'root');
+      commit(fixture.repo, 'second');
+      const head = commit(fixture.repo, 'third');
+      const result = run(fixture, '2'.repeat(40), head);
+
+      expect(result.status).toBe(0);
+      expect(evidence(fixture)).toContain('git-revision-count=3');
+      expect(calls(fixture)[1]).toContain(`--log-opts=${head}`);
+      expect(`${result.stdout}${result.stderr}`).not.toContain('SECRET_MATERIAL');
+    } finally {
+      fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true });
+    }
+  });
+
   test.each([
     ['invalid base', 'not-a-sha', '0'.repeat(40)],
     ['missing head', zeroSha, '1'.repeat(40)],
-    ['missing base', '2'.repeat(40), '0'.repeat(40)],
   ])('rejects %s before invoking the scanner', (_name, base, head) => {
     const fixture = makeFixture();
     try {
