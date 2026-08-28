@@ -5,8 +5,11 @@ restricted channel for every finding, replacement map, and evidence package.
 Never place secret values, matches, fingerprints, sensitive source lines, or
 unredacted scanner output in tickets, logs, screenshots, or this repository.
 
-Git history cleanup is not credential revocation. Revoke or rotate every secret
-that may still be valid before rewriting the remote repository.
+Git history cleanup is not credential remediation. Before rewriting the remote
+repository, revoke the obsolete build-time Sentry and Mapbox credentials. The
+runtime MapTiler keys were intentionally shipped to installed clients: public
+release requires provider-side restrictions, a usage/adoption review, and a
+recorded rotation plan, but not an immediate rotation that breaks active maps.
 
 ## Release model
 
@@ -50,10 +53,14 @@ Do not broaden this list without a new redacted finding and another dry run.
 
 ## Required release gates
 
-1. Revoke or rotate the superseded Sentry auth tokens, Mapbox download tokens,
-   and MapTiler keys. Keep the intentionally shipped Facebook client token
-   documented as public-client configuration. Treat the historical Apple
-   identity-token sample as sensitive user data even though it is short-lived.
+1. Revoke the superseded Sentry auth tokens and Mapbox download tokens; these
+   are build-time credentials and the current source does not use them. The
+   historical MapTiler keys were embedded in runtime style URLs, so first apply
+   provider-side scope/quota restrictions, inspect usage by installed builds,
+   and plan rotation around adoption without breaking active maps. Keep the
+   intentionally shipped Facebook client token documented as public-client
+   configuration. Treat the historical Apple identity-token sample as
+   sensitive user data even though it is short-lived.
 2. Announce a write freeze. Record the current repository visibility, default
    branch, collaborators, forks, open pull requests, branch protections,
    rulesets, Actions permissions, security settings, and every live ref. Require
@@ -126,12 +133,14 @@ release requirement, not a suggestion.
 
 ## Abort criteria
 
-Abort before force-push if credential rotation is incomplete; the write freeze
-is not effective; the fresh mirror differs from live refs; any affected fork
-exists or cannot be cleaned; the replacement scope or count changes without
-review; the current `main` tree ID changes; any local mirror ref name disappears
-or appears; Gitleaks is nonzero; `git fsck` fails; the application release gate
-fails; or sensitive output reaches an unrestricted location.
+Abort before force-push if Sentry/Mapbox revocation is incomplete; MapTiler
+provider restrictions, usage/adoption review, or the recorded rotation plan are
+incomplete; the write freeze is not effective; the fresh mirror differs from
+live refs; any affected fork exists or cannot be cleaned; the replacement scope
+or count changes without review; the current `main` tree ID changes; any local
+mirror ref name disappears or appears; Gitleaks is nonzero; `git fsck` fails;
+the application release gate fails; or sensitive output reaches an unrestricted
+location.
 
 After the first force-push, keep the repository private and frozen if any
 branch/tag update fails, a branch/tag ref name changes unexpectedly, Support
@@ -145,8 +154,10 @@ and complete or quarantine the rewrite under the security incident process.
 
 Smoke-test Google, Facebook, Apple, and OpenStreetMap against the deployed
 backend-first authentication flow. Complete installed-build credential rotation
-and adoption monitoring through the store-release issue. This operational work
-does not permit old Git objects or old clones to re-enter the cleaned repository.
+and adoption monitoring through the store-release issue. Rotate the restricted
+MapTiler runtime keys when provider usage confirms that supported installed
+builds no longer depend on them. This operational work does not permit old Git
+objects or old clones to re-enter the cleaned repository.
 
 GitHub's [Removing sensitive data from a repository](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository)
 guidance is the controlling external reference for the force-push, Support, and
