@@ -39,14 +39,10 @@ if ! git cat-file -e "${head_sha}^{commit}" >/dev/null 2>&1; then
     exit 2
 fi
 
-if [[ "${base_sha}" == '0000000000000000000000000000000000000000' ]]; then
+if [[ "${base_sha}" == '0000000000000000000000000000000000000000' ]] || \
+    ! git cat-file -e "${base_sha}^{commit}" >/dev/null 2>&1; then
     scan_log_opts="${head_sha}"
 else
-    if ! git cat-file -e "${base_sha}^{commit}" >/dev/null 2>&1; then
-        echo 'The supplied base revision is not a Git commit in this repository.' >&2
-        exit 2
-    fi
-
     if ! scan_base=$(git merge-base "${base_sha}" "${head_sha}"); then
         echo 'The supplied revisions do not share a Git history.' >&2
         exit 2
