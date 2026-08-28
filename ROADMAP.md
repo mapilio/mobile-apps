@@ -10,7 +10,9 @@ The current retained asset inventory contains 126 records, all recorded as
 having verified redistribution rights. The remaining source-publication gate is
 the controlled rewrite of the existing repository's sensitive history:
 
-- Revoke or rotate the superseded Sentry, Mapbox, and MapTiler credentials.
+- Revoke the obsolete build-time Sentry and Mapbox credentials. Restrict the
+  historical runtime MapTiler keys and schedule rotation around installed-build
+  usage so active maps are not broken.
 - Freeze writes and repeat the accepted path-scoped `git-filter-repo` procedure
   against a fresh exact mirror of every live ref.
 - Preserve every ref name in the local rewrite mirror, preserve all branch/tag
