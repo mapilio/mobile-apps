@@ -41,7 +41,8 @@ Version `1.2.1` is the repository configuration baseline. The public repository 
 ## Pre-open-source history
 
 This project was developed as a closed-source product prior to its open source
-launch. The public repository begins with one clean root snapshot; earlier
-history remains in a restricted private archive and is not available through
-the public repository's Git log. This changelog documents the public baseline
-and subsequent changes.
+launch. Before publication, affected history is sanitized with a path-scoped
+rewrite that preserves the current source tree but changes descendant commit
+hashes. A restricted pre-rewrite backup is retained for recovery and must never
+be pushed into the cleaned public repository. This changelog documents the
+public baseline and subsequent changes.
