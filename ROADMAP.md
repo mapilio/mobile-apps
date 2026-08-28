@@ -8,16 +8,18 @@ deliberately small and does not assign dates or promises.
 
 The current retained asset inventory contains 126 records, all recorded as
 having verified redistribution rights. The remaining source-publication gate is
-the exact snapshot scan and publication operation:
+the controlled rewrite of the existing repository's sensitive history:
 
-- Freeze and identify the tracked `origin/main` tree selected for release.
-- Scan that exact current root tree and retain redacted restricted evidence of
-  a zero-finding result.
-- Publish the tree as the single root commit of a new repository while keeping
-  all earlier history in a restricted private archive. Do not copy an old
-  branch, tag, pull-request ref, commit, or other Git object.
-- Verify the public repository's CI, settings, branch protections, rules, and
-  private vulnerability reporting after the first zero-base secret scan.
+- Revoke or rotate the superseded Sentry, Mapbox, and MapTiler credentials.
+- Freeze writes and repeat the accepted path-scoped `git-filter-repo` procedure
+  against a fresh exact mirror of every live ref.
+- Preserve every ref name in the local rewrite mirror, preserve all branch/tag
+  names remotely, and keep the byte-identical approved `main` tree while
+  requiring a zero-finding all-history scan and clean Git object database.
+- Force-push the rewritten branches and tags, then complete GitHub Support
+  dereferencing of affected pull-request refs/caches and require fresh clones.
+- Restore and verify CI, access, branch protections, rules, secret scanning,
+  push protection, and private vulnerability reporting before public visibility.
 
 Signed builds, legal approval, social-provider rollout, accessibility,
 Marketplace validation, test expansion, announcements, and general cleanup do
@@ -37,16 +39,16 @@ credential, security, licensing, or supported-build risk.
   tests, asset inventory, and incremental secret scanning.
 - The current manifest records verified rights for all 126 retained asset
   records.
-- At publication, earlier private history will remain available only as a
-  restricted archive, and the public repository will start from a clean
-  snapshot.
+- A restricted backup and clean-root fallback exist, but the selected release
+  path preserves the canonical repository with sanitized history. The accepted
+  dry run reached zero findings without changing the approved current tree.
 
 ## Store and operational release
 
 These items matter for operational rollout or signed App Store and Google Play
 releases, but do not keep the source repository private:
 
-- Complete legal-owner review of the current Privacy Policy and Terms, then
+- Record Mapilio's legal approval of the current Privacy Policy and Terms, then
   verify every policy, support, and deletion link in release builds.
 - Smoke-test Google, Facebook, Apple, and OpenStreetMap against the deployed
   backend-first exchange, then rotate superseded credentials through the

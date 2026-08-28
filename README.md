@@ -173,10 +173,12 @@ OAuth client secrets must never be configured in the mobile environment.
 
 ### Public release status
 
-When published, the public repository will consist of one clean root snapshot
-of the approved tracked tree. Earlier development history will remain in a
-restricted private archive and will not be copied into the public repository as
-commits, branches, tags, pull-request refs, or Git objects. See the
+Before publication, the existing repository's affected history will be
+rewritten with a path-scoped `git-filter-repo` procedure. The release gate
+requires revoked or rotated credentials, a byte-identical approved `main` tree,
+zero all-history Gitleaks findings, GitHub Support cleanup for affected pull
+requests, and fresh collaborator/deployment clones. A restricted backup and
+clean-root fallback remain private. See the
 [security policy](SECURITY.md) and
 [public-release history remediation runbook](docs/security/public-release-history-remediation.md).
 The [public-release legal review packet](docs/legal/public-release-review.md)
