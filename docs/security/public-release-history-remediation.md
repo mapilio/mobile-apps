@@ -18,8 +18,9 @@ branches and useful development history are preserved, but commits that descend
 from the first affected commit receive new hashes after the sensitive values are
 replaced. The current approved `main` tree must remain byte-identical.
 
-The clean-root staging repository is a private rollback fallback only. It must
-not be made public or transferred while this rewrite path is active.
+No separate staging repository is part of this publication path. The verified
+restricted local mirror and bundle are the rollback source, and their unclean
+history must never be pushed after cutover.
 
 ## Known restricted dry-run result
 
