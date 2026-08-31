@@ -39,8 +39,8 @@ export const appMapStyle = StyleSheet.create({
   },
   centerButton: {
     backgroundColor: 'rgba(255,255,255,0.9)',
-    width: RFValue(35),
-    height: RFValue(35),
+    width: RFValue(48),
+    height: RFValue(48),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: RFValue(30),

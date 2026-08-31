@@ -53,6 +53,7 @@ const UploadCompleted = () => {
 
       <TouchableOpacity
         onPress={() => navigation.reset({ index: 0, routes: [{ name: 'MapTab' }] })}
+        accessibilityRole="button"
         style={{
           borderWidth: RFValue(1),
           borderColor: '#3F8BE9',

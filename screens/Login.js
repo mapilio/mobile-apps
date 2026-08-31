@@ -138,12 +138,16 @@ const Login = ({ navigation }) => {
                 }
                 secureTextEntry={securePassword}
               />
-              <TouchableOpacity
-                style={loginStyles.passwordIcon}
-                onPressIn={() => setSecurePassword(false)}
-                onPressOut={() => setSecurePassword(true)}>
-                {toggleEye && <Eye />}
-              </TouchableOpacity>
+              {toggleEye && (
+                <TouchableOpacity
+                  style={loginStyles.passwordIcon}
+                  accessibilityRole="button"
+                  accessibilityLabel={securePassword ? 'Show password' : 'Hide password'}
+                  accessibilityState={{ expanded: !securePassword }}
+                  onPress={() => setSecurePassword((current) => !current)}>
+                  <Eye />
+                </TouchableOpacity>
+              )}
             </View>
           )}
         />
@@ -151,6 +155,9 @@ const Login = ({ navigation }) => {
         <TouchableOpacity
           style={loginStyles.button}
           onPress={handleSubmit((values) => handleLogin(values))}
+          accessibilityRole="button"
+          accessibilityLabel={t('login')}
+          accessibilityState={{ disabled: loading, busy: loading }}
           disabled={loading}>
           <CustomText style={{ ...loginStyles.secondaryText, color: '#fff' }}>
             {loading ? <ActivityIndicator size={'small'} color={'#FFFFFF'} /> : t('login')}

@@ -73,6 +73,13 @@ const UploadItem = ({ item, deleteFunc }) => {
     }
   }, []);
 
+  const requestDelete = () => {
+    deleteFunc({
+      group_id: item.group_id,
+      default_storage_path: item.default_storage_path,
+    });
+  };
+
   const renderRightActions = () => {
     return (
       <Pressable
@@ -82,12 +89,9 @@ const UploadItem = ({ item, deleteFunc }) => {
             backgroundColor: pressed ? '#9C0E0E' : '#D33030',
           },
         ]}
-        onPress={() =>
-          deleteFunc({
-            group_id: item.group_id,
-            default_storage_path: item.default_storage_path,
-          })
-        }>
+        accessibilityRole="button"
+        accessibilityLabel={t('delete')}
+        onPress={requestDelete}>
         <Trash width={RFValue(21)} height={RFValue(30)} />
       </Pressable>
     );
@@ -114,7 +118,19 @@ const UploadItem = ({ item, deleteFunc }) => {
       containerStyle={styles.container}
       overshootRight={false}
       useNativeAnimations>
-      <RectButton onPress={goToDetail}>
+      <RectButton
+        onPress={goToDetail}
+        accessibilityRole="button"
+        accessibilityLabel={`${address || t('no_address')}. ${t('image_count', {
+          count: item.count,
+        })}`}
+        accessibilityHint="Opens upload details"
+        accessibilityActions={[{ name: 'deleteUpload', label: t('delete') }]}
+        onAccessibilityAction={({ nativeEvent }) => {
+          if (nativeEvent.actionName === 'deleteUpload') {
+            requestDelete();
+          }
+        }}>
         <View>
           <LinearGradient
             colors={['#00000000', '#000000BF']}
