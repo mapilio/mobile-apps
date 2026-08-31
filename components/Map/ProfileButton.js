@@ -30,7 +30,11 @@ const ProfileButton = ({ onPress }) => {
   const { userInformation } = useSelector((state) => state.getTokenReducer);
 
   return (
-    <TouchableOpacity style={{ ...styles.profileButton }} onPress={onPress}>
+    <TouchableOpacity
+      style={{ ...styles.profileButton }}
+      accessibilityRole="button"
+      accessibilityLabel="Profile"
+      onPress={onPress}>
       <View style={styles.profileIcon}>
         {userInformation ? (
           <UserImage userInformation={userInformation} />

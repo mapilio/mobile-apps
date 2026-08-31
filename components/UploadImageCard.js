@@ -41,6 +41,22 @@ const UploadImageCard = (props) => {
     <TouchableOpacity
       activeOpacity={0.9}
       style={sequenceCardStyles.cardContainer}
+      accessibilityRole="button"
+      accessibilityLabel={selected ? 'Selected image' : 'Image ready to upload'}
+      accessibilityHint={
+        selectedImages.length
+          ? 'Double tap to select or deselect this image'
+          : 'Double tap to view details, or use the select image action'
+      }
+      accessibilityState={{ selected }}
+      accessibilityActions={[
+        { name: 'toggleSelection', label: selected ? 'Deselect image' : 'Select image' },
+      ]}
+      onAccessibilityAction={({ nativeEvent }) => {
+        if (nativeEvent.actionName === 'toggleSelection') {
+          addToSelectedImages();
+        }
+      }}
       onPress={() => {
         selectedImages.length
           ? addToSelectedImages()

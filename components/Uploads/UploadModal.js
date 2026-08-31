@@ -77,6 +77,8 @@ const UploadModal = ({
       <View style={userUploadModalStyles.bottomBar}>
         <Pressable
           onPress={togglePause}
+          accessibilityRole="button"
+          accessibilityLabel={isPaused ? t('resume') : t('pause')}
           style={[
             userUploadModalStyles.closeIcon,
             { backgroundColor: isPaused ? '#0056F1' : '#FFA500', marginRight: RFValue(12) },
@@ -87,7 +89,11 @@ const UploadModal = ({
           </CustomText>
         </Pressable>
         <CustomText style={userUploadModalStyles.close}>{t('stop_upload')}</CustomText>
-        <Pressable onPress={handleStop} style={userUploadModalStyles.closeIcon}>
+        <Pressable
+          onPress={handleStop}
+          accessibilityRole="button"
+          accessibilityLabel={t('stop_upload')}
+          style={userUploadModalStyles.closeIcon}>
           <CloseIcon />
         </Pressable>
       </View>

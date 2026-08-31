@@ -210,7 +210,10 @@ const CaptureCompleted = () => {
       <View style={{ marginTop: 'auto', marginBottom: bottom ? bottom : RFValue(30) }}>
         <Upload group_uuid={groupId} />
 
-        <TouchableOpacity style={styles.skipButton} onPress={skipHandler}>
+        <TouchableOpacity
+          style={styles.skipButton}
+          accessibilityRole="button"
+          onPress={skipHandler}>
           <Text style={styles.skip}>{t('upload_later')}</Text>
         </TouchableOpacity>
       </View>

@@ -43,9 +43,13 @@ const CapturedComponent = ({ navigation, setLowBrightness }) => {
       <CustomTextBold style={styles.title}>{t('title')}</CustomTextBold>
       <CustomText style={styles.description}>{t('description')}</CustomText>
       <CameraActionsButtons />
-      <CustomTextBold style={styles.safeMode} onPress={lowLightHandler}>
-        {t('safe_mode')}
-      </CustomTextBold>
+      <TouchableOpacity
+        style={styles.safeModeButton}
+        accessibilityRole="button"
+        accessibilityLabel={t('safe_mode')}
+        onPress={lowLightHandler}>
+        <CustomTextBold style={styles.safeMode}>{t('safe_mode')}</CustomTextBold>
+      </TouchableOpacity>
     </Fragment>
   );
 };
@@ -149,12 +153,15 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: RFValue(12),
   },
-  safeMode: {
-    color: '#ffc231',
-    textAlign: 'center',
+  safeModeButton: {
     bottom: RFValue(-80),
     marginLeft: 'auto',
     marginRight: 'auto',
+    padding: RFValue(8),
+  },
+  safeMode: {
+    color: '#ffc231',
+    textAlign: 'center',
   },
   buttons: {
     position: 'absolute',
