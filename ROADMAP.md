@@ -31,13 +31,14 @@ remaining store, legal, provider, and physical-device work is tracked below.
   iPhone 17 / iOS 26.4 using a cached development build with matching native
   sources and dependency locks. Login, leaderboard, contributor and own
   profiles, feed maps/photos, policy pages, and the empty upload screen passed.
-  Map recentering did not respond and capture remained on a loading screen;
-  diagnosis is still open. This read-only smoke did not verify refresh,
-  sign-out, real capture, or upload/retry.
-- Follow-up fixes request the correct camera/location permissions and recenter
-  immediately on an existing GPS fix. The focused regression suite passes
-  (29 tests). Simulator confirmation is still pending; these results do not
-  close the capture or store-release checks.
+- Follow-up fixes in [PR #144](https://github.com/mapilio/mobile-apps/pull/144)
+  passed 29 focused tests and a fresh iOS simulator replay: the location button
+  centers on an existing fix, repeated taps keep following enabled, camera
+  permission is requested, denial stays outside capture, and allowed capture
+  opens after physical landscape rotation and exits to Upload. The portrait
+  waiting screen still needs a clear orientation hint and an exit control.
+  Refresh, sign-out, real capture, and upload/retry were not verified in this
+  read-only run. These results do not replace physical-device or store checks.
 
 ## Store and operational release
 
