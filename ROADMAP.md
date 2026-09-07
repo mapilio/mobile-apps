@@ -6,27 +6,13 @@ deliberately small and does not assign dates or promises.
 
 ## Public source release
 
-The current retained asset inventory contains 126 records, all recorded as
-having verified redistribution rights. The remaining source-publication gate is
-the controlled rewrite of the existing repository's sensitive history:
+The repository is public as of 2026-09-07. Asset-rights verification, sensitive
+history cleanup, GitHub Support ref cleanup, and public-clone checks are
+complete. Repository protections and security reporting are enabled, and
+workflow actions are pinned. See [PR #143](https://github.com/mapilio/mobile-apps/pull/143).
 
-- Revoke the obsolete build-time Sentry and Mapbox credentials. Restrict the
-  historical runtime MapTiler keys and schedule rotation around installed-build
-  usage so active maps are not broken.
-- Freeze writes and repeat the accepted path-scoped `git-filter-repo` procedure
-  against a fresh exact mirror of every live ref.
-- Preserve every ref name in the local rewrite mirror, preserve all branch/tag
-  names remotely, and keep the byte-identical approved `main` tree while
-  requiring a zero-finding all-history scan and clean Git object database.
-- Force-push the rewritten branches and tags, then complete GitHub Support
-  dereferencing of affected pull-request refs/caches and require fresh clones.
-- Restore and verify CI, access, branch protections, rules, secret scanning,
-  push protection, and private vulnerability reporting before public visibility.
-
-Signed builds, legal approval, social-provider rollout, accessibility,
-Marketplace validation, test expansion, announcements, and general cleanup do
-not block publication of the approved source snapshot unless they uncover a
-credential, security, licensing, or supported-build risk.
+Source publication is separate from an App Store or Google Play release. The
+remaining store, legal, provider, and physical-device work is tracked below.
 
 ## Ready foundation
 
@@ -41,9 +27,18 @@ credential, security, licensing, or supported-build risk.
   tests, asset inventory, and incremental secret scanning.
 - The current manifest records verified rights for all 126 retained asset
   records.
-- A restricted backup and clean-root fallback exist, but the selected release
-  path preserves the canonical repository with sanitized history. The accepted
-  dry run reached zero findings without changing the approved current tree.
+- On 2026-09-07, mobile `63bd14a` JavaScript ran against backend `5aa58cca` on
+  iPhone 17 / iOS 26.4 using a cached development build with matching native
+  sources and dependency locks. Login, leaderboard, contributor and own
+  profiles, feed maps/photos, policy pages, and the empty upload screen passed.
+- Follow-up fixes in [PR #144](https://github.com/mapilio/mobile-apps/pull/144)
+  passed 29 focused tests and a fresh iOS simulator replay: the location button
+  centers on an existing fix, repeated taps keep following enabled, camera
+  permission is requested, denial stays outside capture, and allowed capture
+  opens after physical landscape rotation and exits to Upload. The portrait
+  waiting screen still needs a clear orientation hint and an exit control.
+  Refresh, sign-out, real capture, and upload/retry were not verified in this
+  read-only run. These results do not replace physical-device or store checks.
 
 ## Store and operational release
 
@@ -71,13 +66,14 @@ upload, and once more from each release candidate. Record the mobile/backend
 commit, simulator or device, API environment, and pass/fail result. Use isolated
 staging with disposable data for writes and destructive actions.
 
-The latest verified iOS simulator pass covers cold launch, password login,
+Earlier iOS simulator checks covered cold launch, password login,
 refresh, map rendering, simulated location, leaderboard, contributor and own
 profiles, feed detail, profile settings, localization/RTL switching, and
-sign-out. Simulator evidence does not replace signed artifacts or
+sign-out. The dated check above records the current results and unresolved
+observations. Simulator evidence does not replace signed artifacts or
 physical-device checks.
 
-## After the repository is public
+## Follow-up work
 
 - [mapilio/backend#70](https://github.com/mapilio/backend/issues/70): optimize
   `/api/user-uploads-v2` for high-volume contributors. The latest modern-backend

@@ -68,15 +68,23 @@ const AppMap = ({ navigation }) => {
   });
   const overlayAvailabilityRef = useRef({ roads: null, points: null });
 
+  const centerOnPosition = (position) => {
+    if (!position) {
+      return;
+    }
+
+    cameraRef.current?.setStop({
+      center: [position.coords.longitude, position.coords.latitude],
+      zoom: 15,
+      bearing: 0,
+      pitch: 0,
+      duration: 1000,
+    });
+  };
+
   useEffect(() => {
-    if (followUserLocation.current && currentPosition) {
-      cameraRef.current?.setStop({
-        center: [currentPosition.coords.longitude, currentPosition.coords.latitude],
-        zoom: 15,
-        bearing: 0,
-        pitch: 0,
-        duration: 1000,
-      });
+    if (followUserLocation.current) {
+      centerOnPosition(currentPosition);
     }
   }, [currentPosition]);
 
@@ -237,7 +245,8 @@ const AppMap = ({ navigation }) => {
     }
 
     setShowLocation(true);
-    followUserLocation.current = !followUserLocation.current;
+    followUserLocation.current = true;
+    centerOnPosition(currentPosition);
   };
 
   const handleProfile = () => {
