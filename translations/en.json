@@ -124,6 +124,8 @@
     "description": "In the meantime, make sure that the angle of your camera is correct and stable.",
     "safe_mode": "Power safe mode",
     "advanced": "Advanced",
+    "orientation_required": "Landscape orientation required",
+    "exit_camera": "Exit camera",
     "getting_ready": "Camera is getting ready. Please wait.",
     "something_went_wrong": "Something went wrong. Please try again.",
     "tasks": "Tasks",
