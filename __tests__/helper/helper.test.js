@@ -1,10 +1,37 @@
 // Mock heavy dependencies that pull in native modules
+jest.mock('axios', () => {
+  const axios = jest.fn();
+  axios.defaults = { headers: { common: {} } };
+  return { __esModule: true, default: axios };
+});
+
 jest.mock('react-native-permissions', () => ({
   check: jest.fn(),
   request: jest.fn(),
   requestMultiple: jest.fn(),
-  PERMISSIONS: { IOS: {}, ANDROID: {} },
+  PERMISSIONS: {
+    IOS: {
+      CAMERA: 'ios.camera',
+      LOCATION_WHEN_IN_USE: 'ios.location',
+    },
+    ANDROID: {
+      CAMERA: 'android.camera',
+      ACCESS_FINE_LOCATION: 'android.location',
+    },
+  },
   RESULTS: { GRANTED: 'granted', LIMITED: 'limited', DENIED: 'denied' },
+}));
+
+jest.mock('react-native', () => ({
+  Alert: { alert: jest.fn() },
+  Dimensions: { get: jest.fn(() => ({ height: 800, width: 400 })) },
+  Linking: { openSettings: jest.fn(), openURL: jest.fn() },
+  NativeModules: {},
+  Platform: { OS: 'ios', select: (options) => options.ios ?? options.native ?? options.default },
+  TurboModuleRegistry: {
+    get: jest.fn(() => null),
+    getEnforcing: jest.fn(() => ({})),
+  },
 }));
 
 jest.mock('../../store/store', () => ({
@@ -26,8 +53,10 @@ import {
   thousandFormatter,
   headingPointGeoJson,
   initialPermissions,
+  cameraPermission,
 } from '../../helper/helper';
-import { check, request, RESULTS } from 'react-native-permissions';
+import { Alert, Platform } from 'react-native';
+import { check, request, requestMultiple, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 describe('maxCharacterHandler', () => {
   it('returns text unchanged when within limit', () => {
@@ -126,5 +155,107 @@ describe('initialPermissions', () => {
     ]);
     expect(check).toHaveBeenCalledTimes(1);
     expect(request).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('cameraPermission', () => {
+  beforeEach(() => {
+    requestMultiple.mockReset();
+    Alert.alert.mockReset();
+    Alert.alert.mockImplementation((title, message, buttons) => {
+      buttons[1].onPress();
+    });
+    Platform.OS = 'ios';
+  });
+
+  it('requests camera and location on iOS', async () => {
+    requestMultiple.mockResolvedValue({
+      [PERMISSIONS.IOS.CAMERA]: RESULTS.GRANTED,
+      [PERMISSIONS.IOS.LOCATION_WHEN_IN_USE]: RESULTS.GRANTED,
+    });
+
+    await cameraPermission(jest.fn());
+
+    expect(requestMultiple).toHaveBeenCalledWith([
+      PERMISSIONS.IOS.CAMERA,
+      PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+    ]);
+  });
+
+  it('requests camera and location on Android', async () => {
+    Platform.OS = 'android';
+    requestMultiple.mockResolvedValue({
+      [PERMISSIONS.ANDROID.CAMERA]: RESULTS.GRANTED,
+      [PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION]: RESULTS.GRANTED,
+    });
+
+    await cameraPermission(jest.fn());
+
+    expect(requestMultiple).toHaveBeenCalledWith([
+      PERMISSIONS.ANDROID.CAMERA,
+      PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+    ]);
+  });
+
+  it('shows the camera denial message without proceeding', async () => {
+    const onPress = jest.fn();
+    requestMultiple.mockResolvedValue({
+      [PERMISSIONS.IOS.CAMERA]: RESULTS.DENIED,
+      [PERMISSIONS.IOS.LOCATION_WHEN_IN_USE]: RESULTS.GRANTED,
+    });
+
+    await cameraPermission(onPress);
+
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'No access to camera',
+      'Mapilio needs access to the camera before you can capture photos. Go to your settings to enable.',
+      expect.any(Array)
+    );
+    expect(onPress).not.toHaveBeenCalled();
+  });
+
+  it('shows the location denial message without proceeding', async () => {
+    const onPress = jest.fn();
+    Platform.OS = 'android';
+    requestMultiple.mockResolvedValue({
+      [PERMISSIONS.ANDROID.CAMERA]: RESULTS.GRANTED,
+      [PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION]: RESULTS.DENIED,
+    });
+
+    await cameraPermission(onPress);
+
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'No access to camera',
+      'Mapilio needs access to the location before you can capture photos. Go to your settings to enable.',
+      expect.any(Array)
+    );
+    expect(onPress).not.toHaveBeenCalled();
+  });
+
+  it('proceeds only when camera and location are granted', async () => {
+    const onPress = jest.fn();
+    requestMultiple.mockResolvedValue({
+      [PERMISSIONS.IOS.CAMERA]: RESULTS.GRANTED,
+      [PERMISSIONS.IOS.LOCATION_WHEN_IN_USE]: RESULTS.GRANTED,
+    });
+
+    await cameraPermission(onPress);
+
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(Alert.alert).not.toHaveBeenCalled();
+  });
+
+  it('handles a rejected permission request without proceeding', async () => {
+    const onPress = jest.fn();
+    requestMultiple.mockRejectedValue(new Error('permission request failed'));
+
+    await expect(cameraPermission(onPress)).resolves.toBeUndefined();
+
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'No access to camera',
+      'Mapilio could not verify camera and location access. Go to your settings to enable.',
+      expect.any(Array)
+    );
+    expect(onPress).not.toHaveBeenCalled();
   });
 });
