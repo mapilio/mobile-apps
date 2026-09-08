@@ -866,7 +866,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mapilio/Mapilio.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = N2SMV6WY7N;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -905,7 +905,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mapilio/Mapilio.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = N2SMV6WY7N;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Mapilio/Info.plist;
