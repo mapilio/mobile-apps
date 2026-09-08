@@ -25,6 +25,8 @@ const FeedList = ({ userDetails }) => {
   const [loading, setLoading] = useState(true);
   const [gettingData, setGettingData] = useState(false);
   const [scoreDetails, setScoreDetails] = useState(null);
+  const [scoreLoaded, setScoreLoaded] = useState(false);
+  const requestVersion = useRef(0);
   const userid = userDetails?.id || userInformation?.id;
 
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -47,9 +49,8 @@ const FeedList = ({ userDetails }) => {
     extrapolate: 'clamp',
   });
 
-  const getData = async () => {
-    setGettingData(true);
-    const url = `/api/user-uploads-v2?options[parameters][user_id]=${userid}&options[limit]=10&page=${page}`;
+  const getData = async (requestUserid, requestPage) => {
+    const url = `/api/user-uploads-v2?options[parameters][user_id]=${requestUserid}&options[limit]=10&page=${requestPage}`;
 
     try {
       const { data, pagination } = await api.get(url, {
@@ -58,38 +59,62 @@ const FeedList = ({ userDetails }) => {
         },
       });
 
-      if (!!pagination) {
-        setPage(pagination?.current_page + 1);
-        setTotalPage(pagination?.last_page);
-      }
-
       return { status: 'success', data, pagination };
     } catch (e) {
       throw new Error(e);
     }
   };
 
-  const getScoreData = async () => {
+  const getScoreData = async (requestUserid) => {
     try {
-      const scoreUrl = `/api/gamification/badges/${userid}`;
-      const scoreData = await api.get(scoreUrl);
-      setScoreDetails(scoreData);
+      const scoreUrl = `/api/gamification/badges/${requestUserid}`;
+      return await api.get(scoreUrl);
     } catch (e) {
       captureException(e, {
         tags: {
           functionName: 'getScoreData',
         },
       });
+      throw e;
     }
   };
 
   useEffect(() => {
-    getData()
-      .then(({ data }) => {
+    let isActive = true;
+    const currentRequestVersion = requestVersion.current + 1;
+    requestVersion.current = currentRequestVersion;
+    const isCurrentRequest = () => isActive && requestVersion.current === currentRequestVersion;
+
+    if (!userid) {
+      setLoading(true);
+      setGettingData(false);
+      setScoreDetails(null);
+      setScoreLoaded(false);
+      return () => {
+        isActive = false;
+        requestVersion.current += 1;
+      };
+    }
+
+    setLoading(true);
+    setGettingData(true);
+    setData([]);
+    setPage(1);
+    setTotalPage(1);
+    setScoreDetails(null);
+    setScoreLoaded(false);
+
+    getData(userid, 1)
+      .then(({ data, pagination }) => {
+        if (!isCurrentRequest()) return;
         setData(data);
-        setLoading(false);
+        if (!!pagination) {
+          setPage(pagination?.current_page + 1);
+          setTotalPage(pagination?.last_page);
+        }
       })
       .catch((err) => {
+        if (!isCurrentRequest()) return;
         captureException(err, {
           tags: {
             functionName: 'FeedList',
@@ -97,22 +122,53 @@ const FeedList = ({ userDetails }) => {
         });
         toast.show(t('fetch_error'), { type: 'error' });
       })
-      .finally(() => setGettingData(false));
+      .finally(() => {
+        if (!isCurrentRequest()) return;
+        setLoading(false);
+        setGettingData(false);
+      });
 
-    getScoreData();
-  }, []);
+    getScoreData(userid)
+      .then((scoreData) => {
+        if (isCurrentRequest()) setScoreDetails(scoreData);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (isCurrentRequest()) setScoreLoaded(true);
+      });
+
+    return () => {
+      isActive = false;
+      requestVersion.current += 1;
+    };
+  }, [userid]);
 
   const nextPage = async () => {
-    if (page > totalPage) return;
+    if (!userid || page > totalPage) return;
+    const requestUserid = userid;
+    const currentRequestVersion = requestVersion.current;
     setGettingData(true);
 
-    getData()
-      .then(({ data }) => setData((prev) => [...prev, ...data]))
-      .catch(() => toast.show(t('fetch_error'), { type: 'error' }))
-      .finally(() => setGettingData(false));
+    getData(requestUserid, page)
+      .then(({ data, pagination }) => {
+        if (requestVersion.current !== currentRequestVersion) return;
+        setData((prev) => [...prev, ...data]);
+        if (!!pagination) {
+          setPage(pagination?.current_page + 1);
+          setTotalPage(pagination?.last_page);
+        }
+      })
+      .catch(() => {
+        if (requestVersion.current === currentRequestVersion) {
+          toast.show(t('fetch_error'), { type: 'error' });
+        }
+      })
+      .finally(() => {
+        if (requestVersion.current === currentRequestVersion) setGettingData(false);
+      });
   };
 
-  if (loading || !scoreDetails) {
+  if (loading || !scoreLoaded) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size={'large'} />
