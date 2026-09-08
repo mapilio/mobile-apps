@@ -2,6 +2,7 @@ jest.mock('react-native', () => ({
   Alert: { alert: jest.fn() },
   Linking: { openURL: jest.fn() },
   Platform: { OS: 'android' },
+  TurboModuleRegistry: { get: jest.fn(() => null) },
 }));
 
 jest.mock('expo-application', () => ({
