@@ -8,6 +8,42 @@ const mockBadges = jest.fn(() => null);
 const mockCaptureException = jest.fn();
 let mockUserInformation = null;
 
+// Hydration tests do not need native view or animation scheduling.
+jest.mock('react-native', () => {
+  const ReactNative = require('react');
+  const View = ({ children, ...props }) => ReactNative.createElement('View', props, children);
+  const Image = ({ children, ...props }) => ReactNative.createElement('Image', props, children);
+
+  return {
+    ActivityIndicator: ({ children, ...props }) =>
+      ReactNative.createElement('ActivityIndicator', props, children),
+    Image,
+    View,
+    StyleSheet: { create: (styles) => styles },
+    Platform: {
+      OS: 'ios',
+      select: (options) => options.ios ?? options.native ?? options.default,
+    },
+    NativeModules: {},
+    TurboModuleRegistry: {
+      get: jest.fn(() => null),
+      getEnforcing: jest.fn(() => ({})),
+    },
+    Animated: {
+      Image,
+      View,
+      ScrollView: ({ children, ...props }) =>
+        ReactNative.createElement('ScrollView', props, children),
+      Value: class {
+        interpolate({ outputRange }) {
+          return outputRange[0];
+        }
+      },
+      event: jest.fn(() => jest.fn()),
+    },
+  };
+});
+
 jest.mock('../../../util/helpers/api', () => ({
   api: {
     get: (...args) => mockGet(...args),
