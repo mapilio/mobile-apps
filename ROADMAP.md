@@ -35,10 +35,15 @@ remaining store, legal, provider, and physical-device work is tracked below.
   passed 29 focused tests and a fresh iOS simulator replay: the location button
   centers on an existing fix, repeated taps keep following enabled, camera
   permission is requested, denial stays outside capture, and allowed capture
-  opens after physical landscape rotation and exits to Upload. The portrait
-  waiting screen still needs a clear orientation hint and an exit control.
+  opens after physical landscape rotation and exits to Upload.
   Refresh, sign-out, real capture, and upload/retry were not verified in this
   read-only run. These results do not replace physical-device or store checks.
+- The 2026-09-08 follow-up for [PR #145](https://github.com/mapilio/mobile-apps/pull/145)
+  verified capture entry, the portrait waiting-screen exit, foreground GPS
+  recovery, and direct Upload-to-Capture re-entry on the same iOS simulator and
+  modern backend. Small-capture exit now resets the camera route so an old
+  screen cannot restore portrait orientation over the next capture session.
+  No imagery was recorded or uploaded in this check.
 
 ## Store and operational release
 
