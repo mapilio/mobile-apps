@@ -73,9 +73,9 @@ const feedItem = {
   capture_time: '2026-09-07T10:00:00Z',
 };
 
-const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
-
 describe('FeedList profile hydration', () => {
+  let tree;
+
   beforeEach(() => {
     mockUserInformation = null;
     mockGet.mockReset();
@@ -83,6 +83,15 @@ describe('FeedList profile hydration', () => {
     mockBadges.mockClear();
     mockCaptureException.mockClear();
     global.toast.show.mockClear();
+  });
+
+  afterEach(async () => {
+    if (tree) {
+      await act(async () => {
+        tree.unmount();
+      });
+      tree = null;
+    }
   });
 
   it('waits for a hydrated user id before fetching and renders the hydrated content', async () => {
@@ -93,10 +102,8 @@ describe('FeedList profile hydration', () => {
       return Promise.resolve(scoreDetails);
     });
 
-    let tree;
     await act(async () => {
       tree = renderer.create(<FeedList />);
-      await flushPromises();
     });
 
     expect(mockGet).not.toHaveBeenCalled();
@@ -104,7 +111,6 @@ describe('FeedList profile hydration', () => {
     mockUserInformation = profile;
     await act(async () => {
       tree.update(<FeedList />);
-      await flushPromises();
     });
 
     expect(mockGet).toHaveBeenCalledTimes(2);
@@ -126,10 +132,8 @@ describe('FeedList profile hydration', () => {
     mockUserInformation = profile;
     mockGet.mockRejectedValue(new Error('network unavailable'));
 
-    let tree;
     await act(async () => {
       tree = renderer.create(<FeedList />);
-      await flushPromises();
     });
 
     expect(tree.root.findAllByType(ActivityIndicator)).toHaveLength(0);
@@ -142,32 +146,27 @@ describe('FeedList profile hydration', () => {
       (url) => new Promise((resolve) => pendingRequests.set(url, resolve))
     );
 
-    let tree;
     await act(async () => {
       tree = renderer.create(<FeedList userDetails={{ id: 'first', username: 'first-user' }} />);
-      await flushPromises();
     });
 
     await act(async () => {
       tree.update(<FeedList userDetails={{ id: 'second', username: 'second-user' }} />);
-      await flushPromises();
     });
 
-    pendingRequests.get(
-      '/api/user-uploads-v2?options[parameters][user_id]=first&options[limit]=10&page=1'
-    )?.({ data: [{ ...feedItem, group_key: 'stale' }], pagination: null });
-    pendingRequests.get('/api/gamification/badges/first')?.(scoreDetails);
     await act(async () => {
-      await flushPromises();
+      pendingRequests.get(
+        '/api/user-uploads-v2?options[parameters][user_id]=first&options[limit]=10&page=1'
+      )?.({ data: [{ ...feedItem, group_key: 'stale' }], pagination: null });
+      pendingRequests.get('/api/gamification/badges/first')?.(scoreDetails);
     });
     expect(mockProfileFeed).not.toHaveBeenCalled();
 
-    pendingRequests.get(
-      '/api/user-uploads-v2?options[parameters][user_id]=second&options[limit]=10&page=1'
-    )?.({ data: [feedItem], pagination: null });
-    pendingRequests.get('/api/gamification/badges/second')?.(scoreDetails);
     await act(async () => {
-      await flushPromises();
+      pendingRequests.get(
+        '/api/user-uploads-v2?options[parameters][user_id]=second&options[limit]=10&page=1'
+      )?.({ data: [feedItem], pagination: null });
+      pendingRequests.get('/api/gamification/badges/second')?.(scoreDetails);
     });
     expect(mockProfileFeed).toHaveBeenCalledWith(
       expect.objectContaining({ data: feedItem }),
@@ -176,16 +175,17 @@ describe('FeedList profile hydration', () => {
 
     await act(async () => {
       tree.update(<FeedList userDetails={{ id: 'third', username: 'third-user' }} />);
-      await flushPromises();
     });
     const requestCountBeforeUnmount = mockGet.mock.calls.length;
-    await act(async () => tree.unmount());
-    pendingRequests.get(
-      '/api/user-uploads-v2?options[parameters][user_id]=third&options[limit]=10&page=1'
-    )?.({ data: [], pagination: null });
-    pendingRequests.get('/api/gamification/badges/third')?.(scoreDetails);
     await act(async () => {
-      await flushPromises();
+      tree.unmount();
+    });
+    tree = null;
+    await act(async () => {
+      pendingRequests.get(
+        '/api/user-uploads-v2?options[parameters][user_id]=third&options[limit]=10&page=1'
+      )?.({ data: [], pagination: null });
+      pendingRequests.get('/api/gamification/badges/third')?.(scoreDetails);
     });
     expect(mockGet).toHaveBeenCalledTimes(requestCountBeforeUnmount);
   });
