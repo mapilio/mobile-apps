@@ -5,11 +5,10 @@ import * as Application from 'expo-application';
 import { Alert, Platform, Linking } from 'react-native';
 import { translate } from '../../../util/helpers';
 import * as Network from 'expo-network';
+import semver from 'semver';
 
 export const checkVersion = (versionData) => {
   const platform = Platform.OS;
-
-  const { version } = versionData;
 
   if (platform !== 'ios' && platform !== 'android') {
     console.warn(
@@ -18,10 +17,21 @@ export const checkVersion = (versionData) => {
     return;
   }
 
-  const appVersion = parseInt(Application.nativeApplicationVersion.split('.').join(''));
-  const latestVersion = parseInt(version.split('.').join(''));
+  const currentVersion = Application.nativeApplicationVersion;
+  const latestVersion = versionData?.version;
 
-  if (appVersion < latestVersion) {
+  if (typeof currentVersion !== 'string' || typeof latestVersion !== 'string') {
+    return;
+  }
+
+  const appVersion = semver.valid(currentVersion);
+  const serverVersion = semver.valid(latestVersion);
+
+  if (!appVersion || !serverVersion) {
+    return;
+  }
+
+  if (semver.lt(appVersion, serverVersion)) {
     Alert.alert(
       translate('update_required_title', 'alerts'),
       translate('update_required_description', 'alerts'),
