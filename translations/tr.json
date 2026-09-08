@@ -124,6 +124,8 @@
     "description": "Bu arada kameranızın açısının doğru ve sabit olduğundan emin olun.",
     "safe_mode": "Güç tasarrufu modu",
     "advanced": "Gelişmiş",
+    "orientation_required": "Yatay ekran yönü gerekli",
+    "exit_camera": "Kameradan çık",
     "getting_ready": "Kamera hazırlanıyor. Lütfen bekle.",
     "something_went_wrong": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
     "tasks": "İşler",

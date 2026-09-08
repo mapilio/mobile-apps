@@ -109,7 +109,10 @@ const CameraSidebar = ({ setLowBrightness }) => {
     const data = await db.getCapturesByGroupID(groupId);
 
     if (data.length <= 5) {
-      navigation.navigate(Routes.uploadTab, { screen: Routes.captureWalkthrough });
+      navigation.reset({
+        index: 0,
+        routes: [{ name: Routes.uploadTab, params: { screen: Routes.captureWalkthrough } }],
+      });
       exitCapture();
       return;
     }
