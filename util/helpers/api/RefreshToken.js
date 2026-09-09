@@ -18,10 +18,18 @@ export const refreshToken = async () => {
       refresh_token: auth.refresh_token,
     });
 
-    store.dispatch({ type: GET_TOKEN_SUCCESS, payload: user });
+    if (store.getState().getTokenReducer.auth !== auth) {
+      throw new Error('Authentication session changed during token refresh');
+    }
+
+    store.dispatch({ type: GET_TOKEN_SUCCESS, payload: user, meta: { isTokenRefresh: true } });
 
     return user;
-  } catch {
+  } catch (error) {
+    if (store.getState().getTokenReducer.auth !== auth) {
+      throw error;
+    }
+
     isTokenExpired();
   }
 };
