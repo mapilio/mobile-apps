@@ -15,6 +15,7 @@ const INITIAL_STATE = {
   error: false,
   accountType: null,
   credential: undefined,
+  sessionVersion: 0,
 };
 
 const auth = (state = INITIAL_STATE, actions) => {
@@ -22,19 +23,25 @@ const auth = (state = INITIAL_STATE, actions) => {
     case GET_TOKEN_START:
       return {
         ...state,
+        sessionVersion: (state.sessionVersion ?? 0) + 1,
         isLoading: true,
         error: false,
         auth: null,
         userInformation: null,
       };
-    case GET_TOKEN_SUCCESS:
+    case GET_TOKEN_SUCCESS: {
+      const isTokenRefresh = actions.meta?.isTokenRefresh && state.auth && actions.payload;
       return {
         ...state,
+        sessionVersion: isTokenRefresh
+          ? (state.sessionVersion ?? 0)
+          : (state.sessionVersion ?? 0) + 1,
         auth: actions.payload,
-        userInformation: null,
+        userInformation: isTokenRefresh ? state.userInformation : null,
         isLoading: false,
         error: false,
       };
+    }
     case GET_TOKEN_ERROR:
       return {
         ...state,
@@ -60,6 +67,7 @@ const auth = (state = INITIAL_STATE, actions) => {
     case EXIT_USER:
       return {
         ...state,
+        sessionVersion: (state.sessionVersion ?? 0) + 1,
         isLoading: false,
         auth: null,
         userInformation: null,
