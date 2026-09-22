@@ -50,6 +50,13 @@ remaining store, legal, provider, and physical-device work is tracked below.
 These items matter for operational rollout or signed App Store and Google Play
 releases, but do not keep the source repository private:
 
+- Complete the outstanding Play organization verification separately from
+  Android developer registration; keep official account records out of the repo.
+- Correct the published Android version's Data safety declaration, including
+  the reported identifier collection, and confirm Google's review result.
+  The [source-to-category mapping](docs/legal/public-release-review.md#google-play-data-safety-correction)
+  was checked on 2026-09-22; release-artifact verification and submission remain
+  open in [#4](https://github.com/mapilio/mobile-apps/issues/4).
 - Record Mapilio's legal approval of the current Privacy Policy and Terms, then
   verify every policy, support, and deletion link in release builds.
 - Smoke-test Google, Facebook, Apple, and OpenStreetMap against the deployed
