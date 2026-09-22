@@ -94,6 +94,60 @@ delete-account logic is TODO. Evidence: `store/store.js:14-25`,
 `util/helpers/api/MobileAccountApi.js:1-17`,
 `screens/Profile/DeleteAccount.js:22-74`.
 
+## Google Play Data safety correction
+
+**Checked 2026-09-22:** the Play Console still reports an invalid Data safety
+declaration. The existing finding concerns undeclared Device or other IDs in
+published Android `1.0.58 (69)`. The saved non-health declaration cannot be
+submitted while this check fails. The repository candidate `1.2.1 (70)` has
+not replaced that binary. Account verification is a separate store-level task;
+neither task reopens the completed public-source release.
+
+The table below maps source evidence at `0ab665e` to fields that need checking.
+It is not a completed form or evidence of the exact behavior of version 69.
+Use the shipped artifact and effective provider configuration to reconcile it
+before submitting. Do not assume the reported identifier comes from one SDK
+without checking the released build.
+
+| Play data type                                      | Evidence in this repository                                                                                                                                                       | What still needs verification                                                                                                                                                                 |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name, Email address, User IDs                       | Profile data includes `display_name`, `username`, `email`, and `id`. `getUserInformation` associates email/id with Sentry and sends email to the identity endpoint and OneSignal. | Shipped account/profile flows, associated purposes, provider retention and deletion. A profile read alone does not prove a fresh upload of every field.                                       |
+| Photos; Precise location                            | `getHash` uploads a JPEG and account email; `imageryUpload` sends latitude/longitude, route and capture metadata.                                                                 | Version 69 upload payloads, publication behavior, user controls and retention, including the image server.                                                                                    |
+| Crash logs, Diagnostics, Other app performance data | Non-development `Sentry.init` enables tracing at `1.0`; upload failures call `captureException`.                                                                                  | Actual release events, integrations, sampling and scrubbing, including request/error context.                                                                                                 |
+| App interactions                                    | OneSignal initializes at startup when configured. Its documented collection includes sessions and notification interactions.                                                      | Effective shipped SDK configuration and purposes; notification permission is not evidence that all SDK collection has stopped.                                                                |
+| Device or other IDs                                 | Google has already reported off-device transmission in version 69. OneSignal documents push-token processing.                                                                     | Identify the actual fields and destinations in the shipped build and declare the applicable uses. Not collecting an advertising ID does not prove that no other identifiers leave the device. |
+| In-app search history; Other user-generated content | Search/reverse-geocoding and profile/contribution flows are present.                                                                                                              | Which query/content fields leave the device, actual recipients, persistence and corresponding categories. Local Redux history alone is not evidence of off-device collection.                 |
+
+Source anchors: [`App.js`](../../App.js),
+[`getUserInformation`](../../store/reducers/loginReducer/getUserInformation.js),
+[`upload helpers`](../../helper/upload.js), and
+[`search client`](../../util/helpers/api/Search.js).
+OneSignal's [Data safety guidance](https://documentation.onesignal.com/docs/en/google-play-data-safety-requirements)
+and [collected-data inventory](https://documentation.onesignal.com/docs/en/data-collected-by-the-onesignal-sdk)
+were checked on the same date. They describe SDK behavior, not proof of our
+released configuration. A free app is not automatically exempt from disclosures;
+equally, do not claim purchase-history collection just because an SDK supports it.
+
+Following [Google's definitions](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en),
+include off-device SDK processing and all currently distributed versions.
+Decide collection and sharing separately: a service-provider or user-initiated
+transfer exception needs facts supporting it. Do not mark data optional merely
+because an OS permission exists, or infer encryption, deletion, or retention
+from a local test.
+
+Remaining submission work for [#4](https://github.com/mapilio/mobile-apps/issues/4):
+
+- [ ] Compare the shipped version 69 SDKs/network behavior and active release
+      tracks with the categories above, then correct the form, including the
+      identifier finding, Name and User IDs.
+- [ ] Resolve collection purposes, optional/required collection, sharing,
+      encryption and deletion answers from actual behavior and provider terms.
+- [ ] Verify the public deletion-request URL, privacy policy and age/Families
+      answers against the app and existing published policies.
+- [ ] Review the form preview, submit the corrected declaration and saved
+      non-health change, then confirm Google's review result. Saving a draft
+      or passing local tests does not complete this step.
+
 ## Deletion and retention observations
 
 - Local capture deletion removes the image file when present and then its
