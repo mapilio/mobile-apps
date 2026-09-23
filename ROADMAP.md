@@ -89,6 +89,11 @@ releases, but do not keep the source repository private:
   fullscreen views. The old prop mismatch omitted `imagery_id`. Regression tests
   cover changing photos, the nested request payload, cancellation and failures;
   no test complaint was submitted to the production service.
+- Feed-detail empty responses and failed requests now have a retry path in the
+  pending app change: preserve `data: null` as an empty feed, show the existing
+  localized error, and pull to refresh. Component tests cover both request
+  failures and stale responses. Simulator verification of empty/error/retry and
+  the normal photo flow is still required before merging this UI change.
 - Complete physical Android and iOS checks for camera, real GPS, permissions,
   background/resume, removable storage, notifications, capture, upload/retry,
   and destructive account actions.
