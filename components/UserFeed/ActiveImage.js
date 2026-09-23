@@ -8,8 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { dateConvert, maxCharacterHandler } from '../../helper/helper';
 import LogoWatermark from '../../assets/svg/illustrations/LogoWatermark';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useEffect, useState } from 'react';
-import * as ScreenOrientation from 'expo-screen-orientation';
+import { useState } from 'react';
 import ReportIcon from '../../assets/svg/illustrations/ReportIcon';
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +25,7 @@ const ActiveImage = ({
   hideToast,
   activeImageIndex,
   changeImage,
-  setModalVisible,
+  onToggleFullScreen,
   isFullScreen,
 }) => {
   const uri = `${process.env.EXPO_PUBLIC_IMAGE_API}/${imgCode}/${filename}/1080`;
@@ -35,12 +34,6 @@ const ActiveImage = ({
   const [loading, setLoading] = useState(true);
   const { showActionSheetWithOptions } = useActionSheet();
   const { t } = useTranslation(['report', 'profile'], { nsMode: 'fallback' });
-
-  useEffect(() => {
-    if (isAndroid && isFullScreen) {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
-    }
-  }, []);
 
   const report = (reason) => {
     api
@@ -99,21 +92,6 @@ const ActiveImage = ({
     );
   };
 
-  const toggleFullScreen = async () => {
-    if (isAndroid && isFullScreen) {
-      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-    }
-
-    setModalVisible((prev) => {
-      ScreenOrientation.lockAsync(
-        prev
-          ? ScreenOrientation.OrientationLock.PORTRAIT_UP
-          : ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-      );
-      return !prev;
-    });
-  };
-
   const fullScreenBorder = !isFullScreen && {
     borderTopLeftRadius: RFValue(10),
     borderTopRightRadius: RFValue(10),
@@ -156,7 +134,7 @@ const ActiveImage = ({
 
           <TouchableOpacity
             style={[styles.buttonBase, styles.rotateButton, isFullScreen && isAndroid && { left }]}
-            onPress={toggleFullScreen}>
+            onPress={onToggleFullScreen}>
             <ToggleOrientation color="white" width={RFValue(20)} height={RFValue(20)} />
           </TouchableOpacity>
 

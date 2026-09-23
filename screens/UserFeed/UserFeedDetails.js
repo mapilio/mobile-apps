@@ -11,13 +11,15 @@ import { styles as mapStyles } from '../../styles/circleStyles';
 import { toMapLibrePaint } from '../../components/Map/mapLibreStyle';
 import { getGeoJsonBounds, setCameraBounds } from '../../util/maplibreCamera';
 import { ArrowLeft } from '../../assets/svg/illustrations';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import ActiveImage from '../../components/UserFeed/ActiveImage';
 import { Heading } from '../../components/Map';
 import { FocusAwareStatusBar } from '../../components';
 import { useTranslation } from 'react-i18next';
 import ListImage from '../../components/UserFeed/ListImage';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import { captureException } from '@sentry/react-native';
 
 const UserFeedDetails = ({ route }) => {
   const navigation = useNavigation();
@@ -35,6 +37,19 @@ const UserFeedDetails = ({ route }) => {
   const [activeImage, setActiveImage] = useState(null);
   const bottomSheetRef = useRef(null);
   const cameraRef = useRef(null);
+
+  useEffect(() => {
+    if (!modalVisible) return;
+
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT).catch(
+      captureException
+    );
+    return () => {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP).catch(
+        captureException
+      );
+    };
+  }, [modalVisible]);
 
   const getData = async () => {
     const linesRes = await api
@@ -142,26 +157,29 @@ const UserFeedDetails = ({ route }) => {
       <Modal
         statusBarTranslucent={Platform.OS === 'android'}
         visible={modalVisible}
-        supportedOrientations={['landscape']}
+        // Dismissal overlaps the portrait lock; both masks must stay compatible on iOS.
+        supportedOrientations={['portrait', 'portrait-upside-down', 'landscape']}
+        onRequestClose={() => setModalVisible(false)}
         presentationStyle="fullScreen"
         animationType={Platform.OS === 'ios' ? 'slide' : 'fade'}>
-        {activeImage && (
-          <ActiveImage
-            imgCode={activeImage.img_code}
-            filename={activeImage.filename}
-            captureDate={activeImage.capture_time}
-            sequenceName={start_address}
-            changeImage={changeImage}
-            imageID={activeImage.id}
-            isFullScreen
-            showToast={showToast}
-            hideToast={hideToast}
-            setModalVisible={setModalVisible}
-            modalVisible={modalVisible}
-            totalImages={mapData.sequenceData.length}
-            activeImageIndex={mapData.sequenceData.findIndex(({ id }) => id === activeImage.id)}
-          />
-        )}
+        <SafeAreaProvider>
+          {activeImage && (
+            <ActiveImage
+              imgCode={activeImage.img_code}
+              filename={activeImage.filename}
+              captureDate={activeImage.capture_time}
+              sequenceName={start_address}
+              changeImage={changeImage}
+              imageID={activeImage.id}
+              isFullScreen
+              showToast={showToast}
+              hideToast={hideToast}
+              onToggleFullScreen={() => setModalVisible(false)}
+              totalImages={mapData.sequenceData.length}
+              activeImageIndex={mapData.sequenceData.findIndex(({ id }) => id === activeImage.id)}
+            />
+          )}
+        </SafeAreaProvider>
       </Modal>
       <MapView style={{ flex: 1 }} isAttributionsEnabled={false} touchPitch={false}>
         <MapLibreGL.Camera ref={cameraRef} duration={500} />
@@ -223,9 +241,8 @@ const UserFeedDetails = ({ route }) => {
             captureDate={activeImage.capture_time}
             sequenceName={start_address}
             changeImage={changeImage}
-            setModalVisible={setModalVisible}
+            onToggleFullScreen={() => setModalVisible(true)}
             imageID={activeImage.id}
-            modalVisible={modalVisible}
             totalImages={mapData.sequenceData.length}
             activeImageIndex={mapData.sequenceData.findIndex(({ id }) => id === activeImage.id)}
           />
