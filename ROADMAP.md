@@ -77,6 +77,14 @@ releases, but do not keep the source repository private:
   installed-build adoption plan.
 - Produce signed AAB and IPA evidence, verify ELF and 16 KB compatibility on the
   signed Android artifact, and complete the supported physical-device matrix.
+- The 2026-09-23 iPhone 17 / iOS 26.4 replay caught and fixed a fullscreen-photo
+  exit crash: the modal's landscape-only mask conflicted with the portrait lock
+  during dismissal. The viewer now accepts both orientations, restores portrait
+  on close/unmount, handles Android back, and measures its own safe area so the
+  previous-photo control clears the notch. Against modern backend `9466de6`, a
+  209-photo feed, route, thumbnails, fullscreen images, next/previous navigation
+  and return to portrait worked. This used a fresh JS bundle in the existing
+  development native build; Android back is component-tested, not a new device pass.
 - Complete physical Android and iOS checks for camera, real GPS, permissions,
   background/resume, removable storage, notifications, capture, upload/retry,
   and destructive account actions.
