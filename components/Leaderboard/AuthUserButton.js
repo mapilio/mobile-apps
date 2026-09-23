@@ -36,7 +36,11 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
     <Animated.View
       style={{ ...leaderStyles.authUserListItem, height }}
       pointerEvents={type !== 'insideList' ? 'none' : undefined}>
-      <TouchableOpacity style={styles.button} onPress={() => setExpanded(!expanded)}>
+      <TouchableOpacity
+        style={styles.button}
+        accessibilityRole="button"
+        accessibilityState={{ expanded }}
+        onPress={() => setExpanded(!expanded)}>
         {!expanded && <Rank rankIndex={rankIndex} isAuthUser={true} />}
         {authUser.user_profile_photo ? (
           <UserProfileImage source={authUser.user_profile_photo} spinnerColor={'white'} />
@@ -84,7 +88,11 @@ const AuthUserButton = ({ authUser, displayName, rankIndex, type }) => {
               {authUser.total_length ? thousandFormatter(authUser.total_length) : 0} km
             </CustomTextBold>
           </View>
-          <TouchableOpacity onPress={goToHandler} style={styles.gotoFeedListButton}>
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel={`${t('navigation:profile')}: ${displayName}`}
+            onPress={goToHandler}
+            style={styles.gotoFeedListButton}>
             <ArrowLeft color="#fff" width={RFValue(10)} height={RFValue(10)} />
           </TouchableOpacity>
         </View>

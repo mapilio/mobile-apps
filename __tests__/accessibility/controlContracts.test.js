@@ -59,4 +59,36 @@ describe('accessible control contracts', () => {
     expect(uploadCompleted).toContain('accessibilityRole="button"');
     expect(cameraSidebar).toContain("accessibilityLabel={t('safe_mode')}");
   });
+
+  it('names the Marketplace information and close buttons', () => {
+    const popover = read('components/Marketplace/MarketplacePopover.js');
+    const list = read('components/Marketplace/List.js');
+
+    expect(popover).toContain('accessibilityLabel="Marketplace information"');
+    expect(popover).toContain('accessibilityRole="button"');
+    expect(popover).toContain('onPress={() => setShowPopover(true)}');
+    expect(popover).not.toContain('onPressIn=');
+    expect(list).toContain("accessibilityLabel={t('profile:close')}");
+    expect(list).toContain('accessibilityRole="button"');
+  });
+
+  it.each(['AuthUserButton', 'ListItem'])(
+    'names %s profile navigation and exposes row expansion',
+    (component) => {
+      const source = read(`components/Leaderboard/${component}.js`);
+
+      expect(source).toContain('accessibilityRole="button"');
+      expect(source).toContain("accessibilityLabel={`${t('navigation:profile')}: ${displayName}`}");
+      expect(source).toContain('accessibilityState={{ expanded }}');
+    }
+  );
+
+  it('identifies each winner profile by name', () => {
+    const winners = read('components/Leaderboard/WinnersBox.js');
+
+    expect(winners).toContain('accessibilityRole="button"');
+    expect(winners).toContain(
+      "accessibilityLabel={`${t('navigation:profile')}: ${winner.display_name}`}"
+    );
+  });
 });

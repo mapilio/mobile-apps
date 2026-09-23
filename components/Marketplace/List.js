@@ -89,7 +89,11 @@ const Detail = ({ project, onClose, setOnScroll, navigation }) => {
 
   return (
     <View style={marketplaceStyles.container}>
-      <TouchableOpacity style={marketplaceStyles.closeIcon} onPress={onClose}>
+      <TouchableOpacity
+        style={marketplaceStyles.closeIcon}
+        accessibilityRole="button"
+        accessibilityLabel={t('profile:close')}
+        onPress={onClose}>
         <CloseIcon />
       </TouchableOpacity>
 
