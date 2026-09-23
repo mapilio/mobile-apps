@@ -85,6 +85,10 @@ releases, but do not keep the source repository private:
   209-photo feed, route, thumbnails, fullscreen images, next/previous navigation
   and return to portrait worked. This used a fresh JS bundle in the existing
   development native build; Android back is component-tested, not a new device pass.
+- Feed photo reports now receive the selected image ID in both embedded and
+  fullscreen views. The old prop mismatch omitted `imagery_id`. Regression tests
+  cover changing photos, the nested request payload, cancellation and failures;
+  no test complaint was submitted to the production service.
 - Complete physical Android and iOS checks for camera, real GPS, permissions,
   background/resume, removable storage, notifications, capture, upload/retry,
   and destructive account actions.

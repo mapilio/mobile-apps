@@ -137,6 +137,21 @@ describe('feed photo fullscreen orientation', () => {
     expect(ScreenOrientation.lockAsync.mock.calls).toEqual([[4], [1]]);
   });
 
+  it('passes the selected photo ID to both report controls', async () => {
+    await renderPhoto();
+    await toggle(false);
+    expect(tree.root.findAllByType('ActiveImage').map((node) => node.props.pointID)).toEqual([
+      1, 1,
+    ]);
+
+    const item = { id: 2, img_code: 'next', filename: 'next.jpg', longitude: 1, latitude: 2 };
+    const photo = tree.root.findByType('BottomSheetFlatList').props.renderItem({ item });
+    await act(async () => photo.props.onPress(item));
+    expect(tree.root.findAllByType('ActiveImage').map((node) => node.props.pointID)).toEqual([
+      2, 2,
+    ]);
+  });
+
   it('keeps the photo closable when native orientation locking fails', async () => {
     const error = new Error('orientation unavailable');
     await renderPhoto();
