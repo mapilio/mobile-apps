@@ -5,6 +5,16 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { captureException } from '@sentry/react-native';
 import UserFeedDetails from '../../screens/UserFeed/UserFeedDetails';
 
+jest.mock('react-native', () => ({
+  View: 'View',
+  TouchableOpacity: 'TouchableOpacity',
+  Modal: 'Modal',
+  StyleSheet: { create: (styles) => styles },
+  Platform: { OS: 'ios', select: (options) => options.ios ?? options.default },
+  NativeModules: {},
+  TurboModuleRegistry: { get: jest.fn(() => null), getEnforcing: jest.fn(() => ({})) },
+}));
+jest.mock('react-native-responsive-fontsize', () => ({ RFValue: (value) => value }));
 jest.mock('expo-screen-orientation', () => ({
   OrientationLock: { LANDSCAPE_RIGHT: 4, PORTRAIT_UP: 1 },
   lockAsync: jest.fn(),
