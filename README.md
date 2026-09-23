@@ -1,6 +1,32 @@
 # Mapilio Mobile
 
-A street-level imagery capture app for iOS and Android, built with Expo (bare workflow) and React Native. Contribute to the world's open map by capturing geotagged 360° and standard photos while you walk, cycle, or drive.
+Capture GPS-tagged street-level photos on iOS and Android, review your sequences,
+and upload them to Mapilio. OpenStreetMap contributors can use the imagery as a
+reference to improve the map. This repository contains the mobile app, built with
+Expo (bare workflow) and React Native.
+
+## Try Mapilio
+
+- Get the published app on the [App Store](https://apps.apple.com/app/mapilio/id1609035791)
+  or [Google Play](https://play.google.com/store/apps/details?id=com.mapilio.app).
+- [Explore imagery in your browser](https://mapilio.com/app).
+- [Build the app locally](#getting-started) to try the source in this repository.
+
+The source has been public since **7 September 2026**. Store listings may contain
+an earlier version; publishing the source does not mean the next store build has
+shipped. See the [store-release checklist](ROADMAP.md#store-and-operational-release).
+
+## Help Build It
+
+Start with the [contribution guide](CONTRIBUTING.md) and [roadmap](ROADMAP.md).
+Small fixes, clearer documentation, translations, and reproducible bug reports
+are welcome. Browse [good first issues](https://github.com/mapilio/mobile-apps/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22)
+or [help wanted](https://github.com/mapilio/mobile-apps/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22help%20wanted%22).
+Those lists may be empty; [start a discussion](https://github.com/mapilio/mobile-apps/discussions)
+to find a small task before taking on a release blocker.
+
+A star helps others find the project. Choose **Watch > Custom > Releases** on
+GitHub for release notifications without following every issue.
 
 [![CI](https://github.com/mapilio/mobile-apps/actions/workflows/ci.yml/badge.svg)](https://github.com/mapilio/mobile-apps/actions/workflows/ci.yml)
 [![Code License: Apache 2.0](https://img.shields.io/badge/Code_License-Apache_2.0-blue.svg)](LICENSE)
@@ -17,11 +43,15 @@ A street-level imagery capture app for iOS and Android, built with Expo (bare wo
 - **Camera capture** — GPS-tagged photos with automatic interval shooting
 - **Sequence management** — Organize, review, and upload photo sequences
 - **Interactive map** — Browse captured imagery on a MapLibre-powered map
-- **Social layer** — Profiles, leaderboards, awards, and a marketplace
+- **Community** — Contributor profiles and a capture leaderboard
 - **Upload pipeline** — Background upload with progress tracking and retry
 - **Offline-first** — Local SQLite database; syncs when connectivity is restored
 - **Localization** — 31 languages supported via i18next
 - **Multi-auth** — Email, Google, Apple, Facebook, and OpenStreetMap OAuth
+
+Marketplace and future reward campaigns are roadmap work, not a promise of
+available paid tasks or prizes. Provider sign-in and capture/upload changes still
+need the deployment and device checks recorded in [ROADMAP.md](ROADMAP.md).
 
 ---
 
@@ -71,14 +101,14 @@ See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, an
 
 ## Prerequisites
 
-| Tool           | Version                 |
-| -------------- | ----------------------- |
-| Node.js        | >=22.13 <25             |
-| npm            | 10+                     |
-| Expo CLI       | `npm i -g expo-cli`     |
-| Xcode          | 15+ (iOS only)          |
-| Android Studio | Giraffe+ (Android only) |
-| CocoaPods      | 1.14+ (iOS only)        |
+| Tool           | Version                          |
+| -------------- | -------------------------------- |
+| Node.js        | >=22.13 <25                      |
+| npm            | 10+                              |
+| Expo CLI       | Project-local CLI via `npx expo` |
+| Xcode          | 15+ (iOS only)                   |
+| Android Studio | Giraffe+ (Android only)          |
+| CocoaPods      | 1.14+ (iOS only)                 |
 
 > **macOS + nvm users:** After switching Node versions run `ln -s $(which node) /usr/local/bin/node` so Xcode build scripts can find Node.
 
@@ -101,7 +131,9 @@ npm ci
 cp .env.example .env.development
 ```
 
-Open `.env.development` and fill in your credentials (see [Environment Variables](#environment-variables) below).
+Open `.env.development` and set your API URLs and public client identifiers
+(see [Environment Variables](#environment-variables) below). Do not put server
+secrets or signing credentials in the app environment.
 
 ### 3. iOS (macOS only)
 
@@ -173,16 +205,17 @@ OAuth client secrets must never be configured in the mobile environment.
 
 ### Public release status
 
-Before publication, the existing repository's affected history will be
-rewritten with a path-scoped `git-filter-repo` procedure. The release gate
-requires revoked or rotated credentials, a byte-identical approved `main` tree,
-zero all-history Gitleaks findings, GitHub Support cleanup for affected pull
-requests, and fresh collaborator/deployment clones. A restricted backup and
-clean-root fallback remain private. See the
-[security policy](SECURITY.md) and
-[public-release history remediation runbook](docs/security/public-release-history-remediation.md).
-The [public-release legal review packet](docs/legal/public-release-review.md)
-records factual, non-approving preparation for later store releases.
+The mobile source is public. Sensitive-history cleanup, GitHub Support ref
+cleanup, asset-rights verification, and public-clone checks are complete. The
+[history remediation runbook](docs/security/public-release-history-remediation.md)
+documents that completed work; it is not a pending publication gate.
+
+Signed App Store and Google Play releases remain separate work. Follow the
+[store and operational release checklist](ROADMAP.md#store-and-operational-release)
+for provider verification, store declarations, signed artifacts, and physical
+device checks. The [legal review packet](docs/legal/public-release-review.md)
+records preparation, not legal approval. Report vulnerabilities privately using
+the [security policy](SECURITY.md).
 
 ---
 
