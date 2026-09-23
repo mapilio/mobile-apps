@@ -164,10 +164,18 @@ is closed; release evidence is tracked in [#74](https://github.com/mapilio/mobil
 - Contributions may remain publicly available after account deletion or
   contribution deletion depending on backend policy and license. Confirm the
   rule, user-facing notice, and a tested takedown path.
-- Google/Facebook account deletion is an explicit source TODO. Do not describe
-  provider deletion as complete until implemented or an approved backend
-  process is documented and verified. Tracked in
-  [#164](https://github.com/mapilio/mobile-apps/issues/164).
+- Google/Facebook deletion now has app and backend code, tracked in
+  [#164](https://github.com/mapilio/mobile-apps/issues/164), but is not yet
+  verified with real providers. Deploy and configure
+  [backend #179](https://github.com/mapilio/backend/pull/179) before releasing
+  this mobile change. Google obtains a fresh access token through AuthSession
+  without storing it or switching the Mapilio session. Facebook revocation uses
+  the backend app token and stored identity, including for iOS Limited Login;
+  SDK logout happens only after confirmed account deletion. Provider failures
+  and cancellation do not fall back to default deletion. The destructive HTTP
+  call has no automatic retries and a 30-second timeout. Mocked tests cover
+  these boundaries; disposable-account success, cancellation, failure and
+  post-deletion sign-in checks on both platforms are still required.
 
 ## Terms decision checklist
 

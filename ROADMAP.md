@@ -66,9 +66,12 @@ releases, but do not keep the source repository private:
   [#4](https://github.com/mapilio/mobile-apps/issues/4) is closed; keep outstanding
   declaration results and signed-build policy, support and deletion-link checks
   with the existing release work in [#74](https://github.com/mapilio/mobile-apps/issues/74).
-- Implement and verify Google/Facebook authorization revocation on account
-  deletion in [#164](https://github.com/mapilio/mobile-apps/issues/164). Do not
-  treat local sign-out as revoking the provider's grant.
+- Verify Google/Facebook account deletion end to end in
+  [#164](https://github.com/mapilio/mobile-apps/issues/164). The app now sends
+  provider-specific requests, with fresh Google authorization and no default
+  fallback on provider failure. [Backend #179](https://github.com/mapilio/backend/pull/179)
+  must be deployed and configured first. Disposable-account provider checks on
+  both platforms remain open; mocked tests are not a live revocation pass.
 - Smoke-test Google, Facebook, Apple, and OpenStreetMap against the deployed
   backend-first exchange, then rotate superseded credentials through the
   installed-build adoption plan.
