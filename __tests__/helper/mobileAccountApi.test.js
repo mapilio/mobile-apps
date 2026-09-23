@@ -78,6 +78,10 @@ describe('versioned mobile account API', () => {
       email,
       expect.any(Object)
     );
-    expect(api.delete).toHaveBeenCalledWith(mobileAccountPaths.account, { data: deletion });
+    expect(api.delete).toHaveBeenCalledWith(mobileAccountPaths.account, {
+      data: deletion,
+      retry: 0,
+      timeout: 30000,
+    });
   });
 });

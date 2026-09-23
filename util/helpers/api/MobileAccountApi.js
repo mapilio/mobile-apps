@@ -14,5 +14,6 @@ export const mobileAccountApi = Object.freeze({
     publicApi.post(mobileAccountPaths.forgotPassword, payload, multipartConfig),
   updateProfile: (payload) => api.post(mobileAccountPaths.profile, payload, multipartConfig),
   updateEmail: (payload) => api.post(mobileAccountPaths.email, payload, multipartConfig),
-  deleteAccount: (payload) => api.delete(mobileAccountPaths.account, { data: payload }),
+  deleteAccount: (payload) =>
+    api.delete(mobileAccountPaths.account, { data: payload, retry: 0, timeout: 30000 }),
 });

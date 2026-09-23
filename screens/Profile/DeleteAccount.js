@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import * as AppleAuthentication from 'expo-apple-authentication';
-import { useState } from 'react';
+import { LoginManager } from 'react-native-fbsdk-next';
+import { useRef, useState } from 'react';
 import { mobileAccountApi } from '../../util/helpers/api/MobileAccountApi';
+import { authorizeGoogleDeletion } from '../../components/SocialLogin/googleDeletionAuthorization';
 
 const DeleteAccount = () => {
   const dispatch = useDispatch();
@@ -18,23 +20,33 @@ const DeleteAccount = () => {
   const { t } = useTranslation('delete_account');
   const { credential, userInformation } = useSelector((state) => state.getTokenReducer);
   const [loading, setLoading] = useState(false);
+  const deleting = useRef(false);
 
   const deleteFetch = async (data) => {
-    try {
-      await mobileAccountApi.deleteAccount(data);
-
-      navigation.navigate(Routes.tabNavigator, { screen: Routes.map });
-      dispatch({ type: EXIT_USER });
-      OneSignal.User.removeEmail(userInformation.email);
-    } catch (e) {
-      throw new Error(e);
+    const response = await mobileAccountApi.deleteAccount(data);
+    if (response?.response?.success !== true) {
+      throw new Error('Account deletion was not confirmed.');
     }
+    dispatch({ type: EXIT_USER });
+    // Optional SDK cleanup must not turn a confirmed deletion into an error.
+    try {
+      if (credential.type === 'facebook') {
+        LoginManager.logOut();
+      }
+    } catch {}
+    try {
+      if (userInformation?.email) {
+        OneSignal.User.removeEmail(userInformation.email);
+      }
+    } catch {}
+    navigation.navigate(Routes.tabNavigator, { screen: Routes.map });
   };
 
   const deleteHandler = async () => {
-    setLoading(true);
-
-    if (typeof credential === 'undefined') {
+    if (deleting.current) {
+      return;
+    }
+    if (!credential?.type) {
       Alert.alert(t('login_again'), t('login_again_description'), [
         { text: t('cancel') },
         {
@@ -43,37 +55,44 @@ const DeleteAccount = () => {
         },
       ]);
 
-      setLoading(false);
-
-      return { status: 'success' };
+      return;
     }
 
+    deleting.current = true;
+    setLoading(true);
     try {
       if (credential.type === 'apple') {
         const credentialState = await AppleAuthentication.getCredentialStateAsync(credential.user);
 
-        if (credentialState === AppleAuthentication.AppleAuthenticationCredentialState.AUTHORIZED) {
-          const { authorizationCode } = await AppleAuthentication.refreshAsync({
-            user: credential.user,
-          });
-          authorizationCode &&
-            (await deleteFetch({
-              delete: true,
-              auth_code: authorizationCode,
-              login_type: 'apple',
-            }));
-
-          return { status: 'success' };
+        if (credentialState !== AppleAuthentication.AppleAuthenticationCredentialState.AUTHORIZED) {
+          throw new Error('Apple authentication is no longer authorized.');
         }
+        const { authorizationCode } = await AppleAuthentication.refreshAsync({
+          user: credential.user,
+        });
+        if (!authorizationCode) {
+          throw new Error('Apple authentication did not return an authorization code.');
+        }
+        await deleteFetch({ delete: true, auth_code: authorizationCode, login_type: 'apple' });
+      } else if (credential.type === 'google') {
+        const providerToken = await authorizeGoogleDeletion();
+        if (providerToken === null) {
+          return;
+        }
+        await deleteFetch({ delete: true, login_type: 'google', provider_token: providerToken });
+      } else if (credential.type === 'facebook') {
+        await deleteFetch({ delete: true, login_type: 'facebook' });
+      } else if (credential.type === 'default' || credential.type === 'openstreetmap') {
+        await deleteFetch({ delete: true, login_type: 'default' });
+      } else {
+        throw new Error('Unknown account provider.');
       }
-
-      // TODO: Add Google and Facebook delete account logic here
-
-      await deleteFetch({ delete: true, login_type: 'default' });
-
-      setLoading(false);
     } catch (e) {
-      toast.show(t('delete_error'), { type: 'error' });
+      if (e?.code !== 'ERR_REQUEST_CANCELED') {
+        toast.show(t('delete_error'), { type: 'error' });
+      }
+    } finally {
+      deleting.current = false;
       setLoading(false);
     }
   };
