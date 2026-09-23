@@ -21,18 +21,18 @@ import ListImage from '../../components/UserFeed/ListImage';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { captureException } from '@sentry/react-native';
 
+const emptyMapData = { sequenceData: [], points: {}, lines: [], bbox: [] };
+
 const UserFeedDetails = ({ route }) => {
   const navigation = useNavigation();
   const { top } = useSafeAreaInsets();
   const { t } = useTranslation('profile');
   const { id, user_id, start_address, capture_time } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
-  const [mapData, setMapData] = useState({
-    sequenceData: [],
-    points: {},
-    lines: {},
-    bbox: [],
-  });
+  const [mapData, setMapData] = useState(emptyMapData);
+  const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [reloadAttempt, setReloadAttempt] = useState(0);
 
   const [activeImage, setActiveImage] = useState(null);
   const bottomSheetRef = useRef(null);
@@ -51,37 +51,56 @@ const UserFeedDetails = ({ route }) => {
     };
   }, [modalVisible]);
 
-  const getData = async () => {
-    const linesRes = await api
-      .get('/api/get-uploaded-roads-group?group_key=' + id)
-      .then((res) => res.data);
-
-    await api
-      .get(
-        `/api/user-uploads-detail-v2?options[parameters][user_id]=${user_id}&options[parameters][group_key]=${id}&options[limit]=3000&page=1`
-      )
-      .then((res) => {
-        const mapLine = setGeoJson(res.data, 'line');
-        const mapBounds = getGeoJsonBounds(mapLine);
-        setMapData({
-          sequenceData: res.data,
-          points: setGeoJson(res.data, 'point'),
-          lines: linesRes,
-          bbox: mapBounds,
-          totalPhotos: res.data.length,
-        });
-        setCameraBounds(
-          cameraRef,
-          mapBounds,
-          { top: 100, right: 100, bottom: 400, left: 100 },
-          300
-        );
-      });
-  };
-
   useEffect(() => {
-    getData();
-  }, []);
+    let isCurrent = true;
+    setLoading(true);
+    setLoadFailed(false);
+    setMapData(emptyMapData);
+    setActiveImage(null);
+    setModalVisible(false);
+
+    const load = async () => {
+      try {
+        const roads = await api.get('/api/get-uploaded-roads-group?group_key=' + id);
+        if (!isCurrent) return;
+        const res = await api.get(
+          `/api/user-uploads-detail-v2?options[parameters][user_id]=${user_id}&options[parameters][group_key]=${id}&options[limit]=3000&page=1`
+        );
+        if (!isCurrent) return;
+        const images = res.data ?? [];
+        const lines = roads.data ?? [];
+        if (!Array.isArray(images) || !Array.isArray(lines)) {
+          throw new Error('Invalid feed detail response');
+        }
+        const mapBounds = images.length ? getGeoJsonBounds(setGeoJson(images, 'line')) : [];
+        setMapData({
+          sequenceData: images,
+          points: setGeoJson(images, 'point'),
+          lines,
+          bbox: mapBounds,
+          totalPhotos: images.length,
+        });
+        if (mapBounds.length) {
+          setCameraBounds(
+            cameraRef,
+            mapBounds,
+            { top: 100, right: 100, bottom: 400, left: 100 },
+            300
+          );
+        }
+      } catch (error) {
+        if (!isCurrent) return;
+        captureException(error);
+        setLoadFailed(true);
+      } finally {
+        if (isCurrent) setLoading(false);
+      }
+    };
+    load();
+    return () => {
+      isCurrent = false;
+    };
+  }, [id, user_id, reloadAttempt]);
 
   const snapPoints = useMemo(() => {
     return activeImage ? ['40%'] : ['40%', '80%'];
@@ -261,6 +280,18 @@ const UserFeedDetails = ({ route }) => {
           </CustomText>
           <BottomSheetFlatList
             data={mapData.sequenceData}
+            refreshing={loading}
+            onRefresh={() => {
+              if (!loading) setReloadAttempt((attempt) => attempt + 1);
+            }}
+            alwaysBounceVertical
+            ListEmptyComponent={
+              loading ? null : (
+                <CustomText style={styles.emptyText}>
+                  {t(loadFailed ? 'fetch_error' : 'no_feed')}
+                </CustomText>
+              )
+            }
             numColumns={3}
             disableIntervalMomentum={true}
             pagingEnabled={true}
@@ -277,6 +308,7 @@ const UserFeedDetails = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+  emptyText: { textAlign: 'center', margin: RFValue(20) },
   base: {
     position: 'absolute',
     backgroundColor: 'white',

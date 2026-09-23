@@ -4,6 +4,8 @@ import { Modal, Platform } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { captureException } from '@sentry/react-native';
 import UserFeedDetails from '../../screens/UserFeed/UserFeedDetails';
+import { api } from '../../util/helpers/api';
+import { setCameraBounds } from '../../util/maplibreCamera';
 
 jest.mock('react-native', () => ({
   View: 'View',
@@ -63,7 +65,7 @@ jest.mock('../../util/maplibreCamera', () => ({
   setCameraBounds: jest.fn(),
 }));
 
-describe('feed photo fullscreen orientation', () => {
+describe('feed detail screen', () => {
   let tree;
   const originalOS = Platform.OS;
 
@@ -71,6 +73,7 @@ describe('feed photo fullscreen orientation', () => {
     jest.clearAllMocks();
     Platform.OS = 'ios';
     ScreenOrientation.lockAsync.mockResolvedValue(undefined);
+    api.get.mockReset().mockResolvedValue({ data: [] });
   });
 
   afterEach(async () => {
@@ -79,12 +82,16 @@ describe('feed photo fullscreen orientation', () => {
     Platform.OS = originalOS;
   });
 
-  const renderPhoto = async () => {
+  const renderScreen = async (params = { id: 'group', user_id: 1 }) => {
     await act(async () => {
-      tree = renderer.create(<UserFeedDetails route={{ params: { id: 'group', user_id: 1 } }} />, {
+      tree = renderer.create(<UserFeedDetails route={{ params }} />, {
         createNodeMock: () => ({ setStop: jest.fn(), snapToIndex: jest.fn() }),
       });
     });
+  };
+
+  const renderPhoto = async () => {
+    await renderScreen();
     const item = { id: 1, img_code: 'image', filename: 'photo.jpg', longitude: 1, latitude: 2 };
     const photo = tree.root.findByType('BottomSheetFlatList').props.renderItem({ item });
     await act(async () => photo.props.onPress(item));
@@ -96,6 +103,103 @@ describe('feed photo fullscreen orientation', () => {
       .find((node) => Boolean(node.props.isFullScreen) === fullScreen);
     await act(async () => photo.props.onToggleFullScreen());
   };
+
+  it('handles the API empty-result envelope without fitting an empty map', async () => {
+    api.get.mockResolvedValue({ data: null });
+    await renderScreen();
+    const list = tree.root.findByType('BottomSheetFlatList');
+    expect(list.props.data).toEqual([]);
+    expect(list.props.refreshing).toBe(false);
+    expect(list.props.ListEmptyComponent.props.children).toBe('no_feed');
+    expect(setCameraBounds).not.toHaveBeenCalled();
+    expect(captureException).not.toHaveBeenCalled();
+  });
+
+  it.each(['roads', 'photos'])('can refresh after a failed %s request', async (stage) => {
+    const error = new Error('feed unavailable');
+    if (stage === 'photos') api.get.mockResolvedValueOnce({ data: [] });
+    api.get.mockRejectedValueOnce(error);
+    await renderScreen();
+    let list = tree.root.findByType('BottomSheetFlatList');
+    expect(list.props.refreshing).toBe(false);
+    expect(list.props.ListEmptyComponent.props.children).toBe('fetch_error');
+    expect(captureException).toHaveBeenCalledWith(error);
+
+    api.get.mockClear();
+    await act(async () => list.props.onRefresh());
+    list = tree.root.findByType('BottomSheetFlatList');
+    expect(api.get).toHaveBeenCalledTimes(2);
+    expect(list.props.refreshing).toBe(false);
+    expect(list.props.ListEmptyComponent.props.children).toBe('no_feed');
+  });
+
+  it('does not start another refresh while a request is pending', async () => {
+    let resolveRoads;
+    api.get.mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolveRoads = resolve;
+      })
+    );
+    await renderScreen();
+    const list = tree.root.findByType('BottomSheetFlatList');
+    expect(list.props.refreshing).toBe(true);
+    expect(list.props.ListEmptyComponent).toBeNull();
+    await act(async () => list.props.onRefresh());
+    expect(api.get).toHaveBeenCalledTimes(1);
+    await act(async () => resolveRoads({ data: null }));
+    expect(tree.root.findByType('BottomSheetFlatList').props.refreshing).toBe(false);
+  });
+
+  it.each(['resolve', 'reject'])(
+    'ignores an old feed request when it later %ss',
+    async (outcome) => {
+      let finishOld;
+      api.get.mockImplementation((url) => {
+        if (url.includes('roads-group')) return Promise.resolve({ data: [] });
+        if (url.includes('group_key]=group&')) {
+          return new Promise((resolve, reject) => {
+            finishOld = outcome === 'resolve' ? resolve : reject;
+          });
+        }
+        return Promise.resolve({ data: [{ id: 2 }] });
+      });
+      await renderScreen();
+      await act(async () =>
+        tree.update(<UserFeedDetails route={{ params: { id: 'new-group', user_id: 2 } }} />)
+      );
+      await act(async () =>
+        finishOld(outcome === 'resolve' ? { data: [{ id: 1 }] } : new Error('old failure'))
+      );
+      const list = tree.root.findByType('BottomSheetFlatList');
+      expect(list.props.data).toEqual([{ id: 2 }]);
+      expect(list.props.refreshing).toBe(false);
+      expect(captureException).not.toHaveBeenCalled();
+    }
+  );
+
+  it('does not display an error from a request completed after leaving the screen', async () => {
+    let rejectRoads;
+    api.get.mockReturnValueOnce(
+      new Promise((resolve, reject) => {
+        rejectRoads = reject;
+      })
+    );
+    await renderScreen();
+    await act(async () => tree.unmount());
+    tree = null;
+    await act(async () => rejectRoads(new Error('late failure')));
+    expect(captureException).not.toHaveBeenCalled();
+    expect(api.get).toHaveBeenCalledTimes(1);
+  });
+
+  it('treats malformed photo data as an error rather than an empty feed', async () => {
+    api.get.mockResolvedValueOnce({ data: [] }).mockResolvedValueOnce({ data: {} });
+    await renderScreen();
+    const list = tree.root.findByType('BottomSheetFlatList');
+    expect(list.props.ListEmptyComponent.props.children).toBe('fetch_error');
+    expect(list.props.refreshing).toBe(false);
+    expect(setCameraBounds).not.toHaveBeenCalled();
+  });
 
   it('keeps the modal compatible with portrait and landscape during native transitions', async () => {
     await renderPhoto();
