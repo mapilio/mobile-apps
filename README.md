@@ -101,16 +101,24 @@ See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, an
 
 ## Prerequisites
 
-| Tool           | Version                          |
-| -------------- | -------------------------------- |
-| Node.js        | >=22.13 <25                      |
-| npm            | 10+                              |
-| Expo CLI       | Project-local CLI via `npx expo` |
-| Xcode          | 15+ (iOS only)                   |
-| Android Studio | Giraffe+ (Android only)          |
-| CocoaPods      | 1.14+ (iOS only)                 |
+| Tool           | Version                                                          |
+| -------------- | ---------------------------------------------------------------- |
+| Node.js        | >=22.13 <25                                                      |
+| npm            | 10+                                                              |
+| Expo CLI       | Project-local CLI via `npx expo`                                 |
+| Xcode          | Compatible with the pinned Expo SDK; React Native enforces 16.1+ |
+| Android Studio | A version supporting Android Gradle Plugin 8.12                  |
+| Java           | JDK 17 for the Android toolchain                                 |
+| CocoaPods      | 1.14+ (iOS only)                                                 |
 
-> **macOS + nvm users:** After switching Node versions run `ln -s $(which node) /usr/local/bin/node` so Xcode build scripts can find Node.
+> **macOS + nvm users:** Run `nvm use` before building. The tracked
+> `ios/.xcode.env` resolves Node from your PATH. If Xcode cannot find it, set
+> `NODE_BINARY` to your selected Node executable in the ignored
+> `ios/.xcode.env.local`; a system-wide Node symlink is not required.
+
+Use the committed Gradle wrapper (9.3.1), not a separate global Gradle install.
+The native build requirements come from the locked React Native/Expo packages;
+the store and physical-device evidence remains in [ROADMAP.md](ROADMAP.md).
 
 ---
 
