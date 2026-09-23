@@ -96,12 +96,13 @@ delete-account logic is TODO. Evidence: `store/store.js:14-25`,
 
 ## Google Play Data safety correction
 
-**Checked 2026-09-22:** the Play Console still reports an invalid Data safety
-declaration. The existing finding concerns undeclared Device or other IDs in
-published Android `1.0.58 (69)`. The saved non-health declaration cannot be
-submitted while this check fails. The repository candidate `1.2.1 (70)` has
-not replaced that binary. Account verification is a separate store-level task;
-neither task reopens the completed public-source release.
+**Checked 2026-09-23:** the Data safety and Health apps submission attempt
+failed Google's quick checks: Device or other IDs remain undeclared for
+published Android `1.0.58 (69)`. Both changes returned to "not yet submitted"
+and the submit button is disabled. The "Proceed anyway" override was not used.
+The repository candidate `1.2.1 (70)` has not replaced that binary. The separate
+developer-account policy page now reports no issues after organization
+verification. Neither task reopens the completed public-source release.
 
 The table below maps source evidence at `0ab665e` to fields that need checking.
 It is not a completed form or evidence of the exact behavior of version 69.
@@ -135,7 +136,8 @@ transfer exception needs facts supporting it. Do not mark data optional merely
 because an OS permission exists, or infer encryption, deletion, or retention
 from a local test.
 
-Remaining submission work for [#4](https://github.com/mapilio/mobile-apps/issues/4):
+Remaining verification (historical [#4](https://github.com/mapilio/mobile-apps/issues/4)
+is closed; release evidence is tracked in [#74](https://github.com/mapilio/mobile-apps/issues/74)):
 
 - [ ] Compare the shipped version 69 SDKs/network behavior and active release
       tracks with the categories above, then correct the form, including the
@@ -144,9 +146,10 @@ Remaining submission work for [#4](https://github.com/mapilio/mobile-apps/issues
       encryption and deletion answers from actual behavior and provider terms.
 - [ ] Verify the public deletion-request URL, privacy policy and age/Families
       answers against the app and existing published policies.
-- [ ] Review the form preview, submit the corrected declaration and saved
-      non-health change, then confirm Google's review result. Saving a draft
-      or passing local tests does not complete this step.
+- [ ] Correct the identifier declaration and resubmit Data safety and Health
+      apps. The 2026-09-23 attempt did not pass quick checks or enter review.
+- [ ] Confirm Google's review result and publication. Submission or passing
+      local tests does not complete this step.
 
 ## Deletion and retention observations
 
@@ -163,7 +166,8 @@ Remaining submission work for [#4](https://github.com/mapilio/mobile-apps/issues
   rule, user-facing notice, and a tested takedown path.
 - Google/Facebook account deletion is an explicit source TODO. Do not describe
   provider deletion as complete until implemented or an approved backend
-  process is documented and verified.
+  process is documented and verified. Tracked in
+  [#164](https://github.com/mapilio/mobile-apps/issues/164).
 
 ## Terms decision checklist
 

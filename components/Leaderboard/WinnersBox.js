@@ -48,6 +48,8 @@ const WinnersBox = ({ winners }) => {
               marginHorizontal: index === 1 ? RFValue(20) : 0,
             }}>
             <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityLabel={`${t('navigation:profile')}: ${winner.display_name}`}
               onPress={() => {
                 navigation.navigate(Routes.stackNavigator, {
                   screen: Routes.stackUserFeed,

@@ -14,7 +14,12 @@ const MarketplacePopover = () => {
 
   return (
     <View>
-      <TouchableOpacity ref={touchable} onPressIn={() => setShowPopover(true)}>
+      <TouchableOpacity
+        ref={touchable}
+        accessibilityRole="button"
+        accessibilityLabel="Marketplace information"
+        accessibilityState={{ expanded: showPopover }}
+        onPress={() => setShowPopover(true)}>
         <Info width={RFValue(16)} height={RFValue(16)} color={'#D8D8D8'} />
       </TouchableOpacity>
       <Popover

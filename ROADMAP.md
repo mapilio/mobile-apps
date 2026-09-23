@@ -11,6 +11,10 @@ history cleanup, GitHub Support ref cleanup, and public-clone checks are
 complete. Repository protections and security reporting are enabled, and
 workflow actions are pinned. See [PR #143](https://github.com/mapilio/mobile-apps/pull/143).
 
+Chris published the community announcement on 2026-09-22 to the OSM forum,
+talk@openstreetmap.org and Mapilio's Discord, as recorded in
+[#95](https://github.com/mapilio/mobile-apps/issues/95#issuecomment-5780308201).
+
 Source publication is separate from an App Store or Google Play release. The
 remaining store, legal, provider, and physical-device work is tracked below.
 
@@ -50,15 +54,21 @@ remaining store, legal, provider, and physical-device work is tracked below.
 These items matter for operational rollout or signed App Store and Google Play
 releases, but do not keep the source repository private:
 
-- Complete the outstanding Play organization verification separately from
-  Android developer registration; keep official account records out of the repo.
-- Correct the published Android version's Data safety declaration, including
-  the reported identifier collection, and confirm Google's review result.
+- Play organization verification is complete: on 2026-09-23 the account policy
+  page reported no developer-account issues. App policy review is separate;
+  official account records remain private.
+- Correct the published Android version's Data safety declaration. The
+  2026-09-23 submission attempt failed Google's quick checks: Device or other
+  IDs are still undeclared for version 69. Data safety and Health apps changes
+  returned to "not yet submitted"; neither is approved or published.
   The [source-to-category mapping](docs/legal/public-release-review.md#google-play-data-safety-correction)
-  was checked on 2026-09-22; release-artifact verification and submission remain
-  open in [#4](https://github.com/mapilio/mobile-apps/issues/4).
-- Record Mapilio's legal approval of the current Privacy Policy and Terms, then
-  verify every policy, support, and deletion link in release builds.
+  remains evidence for reconciling the shipped build, not proof of its behavior.
+  [#4](https://github.com/mapilio/mobile-apps/issues/4) is closed; keep outstanding
+  declaration results and signed-build policy, support and deletion-link checks
+  with the existing release work in [#74](https://github.com/mapilio/mobile-apps/issues/74).
+- Implement and verify Google/Facebook authorization revocation on account
+  deletion in [#164](https://github.com/mapilio/mobile-apps/issues/164). Do not
+  treat local sign-out as revoking the provider's grant.
 - Smoke-test Google, Facebook, Apple, and OpenStreetMap against the deployed
   backend-first exchange, then rotate superseded credentials through the
   installed-build adoption plan.
@@ -90,12 +100,19 @@ physical-device checks.
 - [mapilio/backend#70](https://github.com/mapilio/backend/issues/70): optimize
   `/api/user-uploads-v2` for high-volume contributors. The latest modern-backend
   canary check completed successfully but took about nine seconds.
-- Add capture, grouped-upload, interruption, retry, and completion coverage.
+- Keep focused regression tests with capture/upload fixes; the broad coverage
+  umbrella [#94](https://github.com/mapilio/mobile-apps/issues/94) is closed as
+  not planned. Real capture, grouped upload and interruption/retry checks remain
+  part of the device work in [#74](https://github.com/mapilio/mobile-apps/issues/74)
+  and [#104](https://github.com/mapilio/mobile-apps/issues/104).
 - Complete the backend processing-status contract before implementing its
   mobile UI.
 - Expand Marketplace tests and staging evidence.
-- Decide whether to offer an optional Meta-free build.
-- Finalize the OSM community announcement after its factual claims are reviewed.
+- F-Droid/Meta-free distribution is a later direction, not a current release
+  decision. [#72](https://github.com/mapilio/mobile-apps/issues/72) is closed as
+  not planned for this release; revisit native SDK exclusion when that work starts.
+- Panorama, drone integration, Marketplace, refreshed interfaces and scoring
+  remain future product work, separate from the current store-release scope.
 
 Priorities can change, but new work must not be promoted into the public-source
 gate without a concrete publication risk.

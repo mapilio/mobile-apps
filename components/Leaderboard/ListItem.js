@@ -33,7 +33,11 @@ const ListItem = ({ baseStyle, isAuthUser, index, displayName, displayNameStyle,
         height,
         backgroundColor: !expanded ? 'white' : '#F9F9F9',
       }}>
-      <TouchableOpacity style={styles.button} onPress={() => setExpanded(!expanded)}>
+      <TouchableOpacity
+        style={styles.button}
+        accessibilityRole="button"
+        accessibilityState={{ expanded }}
+        onPress={() => setExpanded(!expanded)}>
         {!expanded && <Rank rankIndex={index} isAuthUser={isAuthUser} />}
         {item.user_profile_photo ? (
           <UserProfileImage source={item.user_profile_photo} />
@@ -84,6 +88,8 @@ const ListItem = ({ baseStyle, isAuthUser, index, displayName, displayNameStyle,
             </CustomTextBold>
           </View>
           <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel={`${t('navigation:profile')}: ${displayName}`}
             onPress={() => {
               navigation.navigate(Routes.stackNavigator, {
                 screen: Routes.stackUserFeed,
