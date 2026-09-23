@@ -170,7 +170,7 @@ const UserFeedDetails = ({ route }) => {
               captureDate={activeImage.capture_time}
               sequenceName={start_address}
               changeImage={changeImage}
-              imageID={activeImage.id}
+              pointID={activeImage.id}
               isFullScreen
               showToast={showToast}
               hideToast={hideToast}
@@ -242,7 +242,7 @@ const UserFeedDetails = ({ route }) => {
             sequenceName={start_address}
             changeImage={changeImage}
             onToggleFullScreen={() => setModalVisible(true)}
-            imageID={activeImage.id}
+            pointID={activeImage.id}
             totalImages={mapData.sequenceData.length}
             activeImageIndex={mapData.sequenceData.findIndex(({ id }) => id === activeImage.id)}
           />
