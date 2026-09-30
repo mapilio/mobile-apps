@@ -62,6 +62,8 @@ npx expo run:android
 ```
 
 See [README.md](README.md) for full prerequisites.
+Before changing a shared path, read the [architecture overview](docs/architecture.md)
+for the capture/upload flow, API clients, persistence and provider sign-in boundaries.
 
 ---
 

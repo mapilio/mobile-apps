@@ -20,6 +20,10 @@ remaining store, legal, provider, and physical-device work is tracked below.
 
 ## Ready foundation
 
+- New contributors can follow the [architecture overview](docs/architecture.md)
+  from capture and local storage through image upload, metadata submission and
+  sign-in. It documents the current in-app retry model without promising a native
+  background upload service. Requested in [#171](https://github.com/mapilio/mobile-apps/issues/171).
 - The project uses Expo 57, React Native 0.86, and MapLibre React Native 11.
 - Password login, refresh, profile, leaderboard, feed detail, and the modern API
   compatibility path have passed iOS simulator checks.
