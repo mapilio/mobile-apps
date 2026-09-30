@@ -19,6 +19,8 @@ shipped. See the [store-release checklist](ROADMAP.md#store-and-operational-rele
 ## Help Build It
 
 Start with the [contribution guide](CONTRIBUTING.md) and [roadmap](ROADMAP.md).
+The [architecture overview](docs/architecture.md) explains capture, upload,
+API clients, state and sign-in, with links to the code.
 Small fixes, clearer documentation, translations, and reproducible bug reports
 are welcome. Browse [good first issues](https://github.com/mapilio/mobile-apps/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22)
 or [help wanted](https://github.com/mapilio/mobile-apps/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22help%20wanted%22).
@@ -44,8 +46,8 @@ GitHub for release notifications without following every issue.
 - **Sequence management** — Organize, review, and upload photo sequences
 - **Interactive map** — Browse captured imagery on a MapLibre-powered map
 - **Community** — Contributor profiles and a capture leaderboard
-- **Upload pipeline** — Background upload with progress tracking and retry
-- **Offline-first** — Local SQLite database; syncs when connectivity is restored
+- **Upload pipeline** — In-app upload with progress tracking, pause and retry
+- **Local capture storage** — JPEG files and SQLite metadata retained for later upload
 - **Localization** — 31 languages supported via i18next
 - **Multi-auth** — Email, Google, Apple, Facebook, and OpenStreetMap OAuth
 
@@ -251,8 +253,12 @@ mobile-apps/
 ├── App.js                  # Root component (providers, global toast shim)
 ├── index.js                # Expo entry point
 ├── db.js                   # SQLite initialization
+├── config/                 # Tile service URLs and source-layer configuration
+├── modules/mapilio-storage/ # Android removable-storage discovery (Expo module)
+├── resolver/               # Legacy React Native compatibility shim
 ├── util/
-│   └── fs.js               # File-system adapter (expo-file-system wrapper)
+│   ├── fs.js               # File-system adapter (expo-file-system wrapper)
+│   └── helpers/api/        # API transports, account paths and token exchange
 ├── store/
 │   ├── store.js
 │   ├── actionsName.ts
@@ -262,7 +268,8 @@ mobile-apps/
 ├── components/             # Reusable UI components
 ├── highordercomponents/    # Higher-order components (MapView, …)
 ├── navigator/              # React Navigation stacks & tabs
-├── helper/                 # Pure utility functions (calculator, upload, …)
+├── helper/                 # Helpers and side effects (capture, upload, auth, …)
+├── docs/                   # Architecture, security and release notes
 ├── hooks/                  # Custom React hooks
 ├── styles/                 # Global style constants
 ├── translations/           # i18n JSON files (31 locales)
