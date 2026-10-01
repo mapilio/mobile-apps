@@ -249,14 +249,13 @@ const AutoActionButton = () => {
       roll: roll.current,
     });
 
-    camera.takePictureAsync(options).then((image) => {
-      vibrate('light');
-      savePicture(image, location, sensorData, captureID);
-    });
+    const image = await camera.takePictureAsync(options);
+    vibrate('light');
+    await savePicture(image, location, sensorData, captureID);
   };
 
   const savePicture = async (image, location, sensorData, captureID) => {
-    const imageUri = image.path;
+    const imageUri = image.uri;
 
     if (!imageUri) return;
 
@@ -290,7 +289,7 @@ const AutoActionButton = () => {
     await RNFS.unlink(`${imageUri}`);
 
     image.uri = newPath;
-    db.insertToDB({
+    await db.insertToDB({
       exif: JSON.stringify({
         ...image.exif,
         accelerometer: sensorData.accelerometer,
