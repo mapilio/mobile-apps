@@ -105,9 +105,12 @@ releases, but do not keep the source repository private:
   scrolling could recursively dispatch `scrollTo` on the UI thread. The pending
   fix keeps the declared heights, restores the native draggable handle, and
   bounds re-entry through the library's existing scroll handler hook. All 552
-  tests, TypeScript, formatting and Android export pass. Expand/collapse,
-  pull-to-refresh recovery and the normal photo flow still need a complete
-  simulator replay before this change is merged. No production data was written.
+  tests, TypeScript, formatting and Android export pass. The normal route,
+  thumbnails, photo selection, fullscreen next-photo and return to portrait
+  passed against the direct read-only modern backend. Expand/collapse and
+  pull-to-refresh recovery still need a complete simulator replay before this
+  change is merged. The temporary fault-injection proxy is stopped; no production
+  data was written.
 - Complete physical Android and iOS checks for camera, real GPS, permissions,
   background/resume, removable storage, notifications, capture, upload/retry,
   and destructive account actions.
