@@ -20,6 +20,11 @@ remaining store, legal, provider, and physical-device work is tracked below.
 
 ## Ready foundation
 
+- Automatic capture now saves Expo Camera's `uri` result, waits for the SQLite
+  record before counting the photo, and reports capture/save failures through the
+  existing error message. Component regressions cover internal/external paths,
+  upload metadata, delayed persistence and camera/compression/file/database
+  errors. Real capture and upload/retry on devices remain in the store checks.
 - New contributors can follow the [architecture overview](docs/architecture.md)
   from capture and local storage through image upload, metadata submission and
   sign-in. It documents the current in-app retry model without promising a native
