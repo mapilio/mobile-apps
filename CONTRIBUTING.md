@@ -26,7 +26,7 @@ Be respectful and constructive. We follow the [Contributor Covenant](https://www
 
 ## Reporting Bugs
 
-1. Search [existing issues](../../issues) to avoid duplicates.
+1. Search [existing issues](https://github.com/mapilio/mobile-apps/issues) to avoid duplicates.
 2. Open a new issue and include:
    - Device model and OS version
    - App version (from `app.json`)
@@ -52,7 +52,7 @@ npm ci
 
 # Copy environment template
 cp .env.example .env.development
-# Fill in your credentials in .env.development
+# Set API URLs and public client identifiers, never server secrets
 
 # iOS
 npx expo run:ios
@@ -62,17 +62,19 @@ npx expo run:android
 ```
 
 See [README.md](README.md) for full prerequisites.
+Before changing a shared path, read the [architecture overview](docs/architecture.md)
+for the capture/upload flow, API clients, persistence and provider sign-in boundaries.
 
 ---
 
 ## Branching Strategy
 
-| Branch           | Purpose                       |
-| ---------------- | ----------------------------- |
-| `main`           | Stable, production-ready code |
-| `feature/<name>` | New features                  |
-| `fix/<name>`     | Bug fixes                     |
-| `chore/<name>`   | Tooling, deps, CI changes     |
+| Branch           | Purpose                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| `main`           | Integration branch; store releases are verified separately in [ROADMAP.md](ROADMAP.md) |
+| `feature/<name>` | New features                                                                           |
+| `fix/<name>`     | Bug fixes                                                                              |
+| `chore/<name>`   | Tooling, deps, CI changes                                                              |
 
 Branch off `main` for all new work unless instructed otherwise.
 

@@ -20,6 +20,15 @@ remaining store, legal, provider, and physical-device work is tracked below.
 
 ## Ready foundation
 
+- Automatic capture now saves Expo Camera's `uri` result, waits for the SQLite
+  record before counting the photo, and reports capture/save failures through the
+  existing error message. Component regressions cover internal/external paths,
+  upload metadata, delayed persistence and camera/compression/file/database
+  errors. Real capture and upload/retry on devices remain in the store checks.
+- New contributors can follow the [architecture overview](docs/architecture.md)
+  from capture and local storage through image upload, metadata submission and
+  sign-in. It documents the current in-app retry model without promising a native
+  background upload service. Requested in [#171](https://github.com/mapilio/mobile-apps/issues/171).
 - The project uses Expo 57, React Native 0.86, and MapLibre React Native 11.
 - Password login, refresh, profile, leaderboard, feed detail, and the modern API
   compatibility path have passed iOS simulator checks.
@@ -117,6 +126,13 @@ physical-device checks.
 
 ## Follow-up work
 
+- The 2026-10-01 dependency pass updates Axios to 1.20.0, Moment to 2.31.0 and
+  compatible brace-expansion patches without changing Expo or React Native.
+  The production dependency audit falls from 18 affected package entries to 15
+  (one high, 14 moderate, no critical findings). Remaining advisories come from
+  Metro's image-size, navigation's decode-uri-component and Xcode tooling's
+  UUID dependency. Follow their compatible parent updates; do not force an Expo
+  downgrade or treat this as a clean security audit.
 - [mapilio/backend#70](https://github.com/mapilio/backend/issues/70): optimize
   `/api/user-uploads-v2` for high-volume contributors. The latest modern-backend
   canary check completed successfully but took about nine seconds.
