@@ -6,6 +6,7 @@ import { captureException } from '@sentry/react-native';
 import UserFeedDetails from '../../screens/UserFeed/UserFeedDetails';
 import { api } from '../../util/helpers/api';
 import { setCameraBounds } from '../../util/maplibreCamera';
+import { useScrollEventsHandlersDefault } from '@gorhom/bottom-sheet';
 
 jest.mock('react-native', () => ({
   View: 'View',
@@ -54,7 +55,12 @@ jest.mock('@gorhom/bottom-sheet', () => ({
   __esModule: true,
   default: 'BottomSheet',
   BottomSheetFlatList: 'BottomSheetFlatList',
+  useScrollEventsHandlersDefault: jest.fn(),
 }));
+jest.mock('react-native-reanimated', () => {
+  const { useRef } = require('react');
+  return { useSharedValue: (value) => useRef({ value }).current };
+});
 jest.mock('../../helper/geojson', () => ({ setGeoJson: () => ({}) }));
 jest.mock('../../helper/helper', () => ({
   dateConvert: () => '',
@@ -97,6 +103,58 @@ describe('feed detail screen', () => {
     await act(async () => photo.props.onPress(item));
   };
 
+  it.each(['handleOnScroll', 'handleOnEndDrag', 'handleOnMomentumEnd'])(
+    'bounds synchronous scroll re-entry from %s',
+    async (eventName) => {
+      await renderScreen();
+      let handlers;
+      let calls = 0;
+      const original = jest.fn((event, context) => {
+        calls += 1;
+        if (calls < 10) handlers.handleOnScroll(event, context);
+      });
+      const onBeginDrag = jest.fn();
+      useScrollEventsHandlersDefault.mockReturnValue({
+        handleOnScroll: original,
+        handleOnEndDrag: original,
+        handleOnMomentumEnd: original,
+        handleOnBeginDrag: onBeginDrag,
+      });
+      const useHandlers =
+        tree.root.findByType('BottomSheetFlatList').props.scrollEventsHandlersHook ??
+        useScrollEventsHandlersDefault;
+      const ref = { current: null };
+      const offset = { value: 0 };
+      const Harness = () => {
+        handlers = useHandlers(ref, offset);
+        return null;
+      };
+      let harness;
+      await act(async () => {
+        harness = renderer.create(<Harness />);
+      });
+      try {
+        const event = { contentOffset: { y: 12 } };
+        const context = {};
+        handlers[eventName](event, context);
+        expect(original).toHaveBeenCalledTimes(1);
+        expect(original).toHaveBeenCalledWith(event, context);
+        handlers.handleOnBeginDrag(event, context);
+        expect(onBeginDrag).toHaveBeenCalledWith(event, context);
+        handlers.handleOnScroll(event, context);
+        expect(original).toHaveBeenCalledTimes(2);
+        original.mockImplementationOnce(() => {
+          throw new Error('native command failed');
+        });
+        expect(() => handlers[eventName](event, context)).toThrow('native command failed');
+        handlers.handleOnScroll(event, context);
+        expect(original).toHaveBeenCalledTimes(4);
+      } finally {
+        await act(async () => harness.unmount());
+      }
+    }
+  );
+
   const toggle = async (fullScreen) => {
     const photo = tree.root
       .findAllByType('ActiveImage')
@@ -113,6 +171,19 @@ describe('feed detail screen', () => {
     expect(list.props.ListEmptyComponent.props.children).toBe('no_feed');
     expect(setCameraBounds).not.toHaveBeenCalled();
     expect(captureException).not.toHaveBeenCalled();
+  });
+
+  it('keeps empty feeds at the declared snap points with a visible draggable handle', async () => {
+    await renderScreen();
+    const sheet = tree.root.findByType('BottomSheet');
+    expect(sheet.props.enableDynamicSizing).toBe(false);
+    expect(sheet.props.snapPoints).toEqual(['40%', '80%']);
+    expect(sheet.props.handleStyle?.display).not.toBe('none');
+    expect(sheet.props.handleComponent).not.toBeNull();
+    expect(sheet.props.enableHandlePanningGesture).not.toBe(false);
+    expect(tree.root.findByType('BottomSheetFlatList').props.onRefresh).toEqual(
+      expect.any(Function)
+    );
   });
 
   it.each(['roads', 'photos'])('can refresh after a failed %s request', async (stage) => {

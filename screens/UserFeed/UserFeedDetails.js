@@ -18,6 +18,7 @@ import { Heading } from '../../components/Map';
 import { FocusAwareStatusBar } from '../../components';
 import { useTranslation } from 'react-i18next';
 import ListImage from '../../components/UserFeed/ListImage';
+import useFeedScrollEventsHandlers from '../../components/UserFeed/useFeedScrollEventsHandlers';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { captureException } from '@sentry/react-native';
 
@@ -250,9 +251,11 @@ const UserFeedDetails = ({ route }) => {
 
       <BottomSheet
         snapPoints={snapPoints}
+        enableDynamicSizing={false}
         index={0}
         ref={bottomSheetRef}
-        handleStyle={{ display: 'none' }}>
+        handleStyle={{ height: RFValue(20), padding: 0 }}
+        handleIndicatorStyle={styles.indicator}>
         {activeImage && (
           <ActiveImage
             imgCode={activeImage.img_code}
@@ -267,10 +270,6 @@ const UserFeedDetails = ({ route }) => {
           />
         )}
 
-        <View style={{ zIndex: 2, height: RFValue(20) }}>
-          <View style={styles.indicator} />
-        </View>
-
         <View style={styles.listWrapper}>
           <CustomTextBold style={styles.h1} adjustFontSize={false}>
             {start_address ? maxCharacterHandler(start_address, 30) : t('no_address')}
@@ -279,6 +278,7 @@ const UserFeedDetails = ({ route }) => {
             {capture_time ? dateConvert(capture_time, 'MMM DD, YYYY - HH:mm') : null}
           </CustomText>
           <BottomSheetFlatList
+            scrollEventsHandlersHook={useFeedScrollEventsHandlers}
             data={mapData.sequenceData}
             refreshing={loading}
             onRefresh={() => {
