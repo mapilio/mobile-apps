@@ -7,9 +7,6 @@ Expo (bare workflow) and React Native.
 
 [![Mapilio Mobile: capture street-level photos, contribute imagery, build better maps, explore imagery, review your captures, and upload images.](docs/images/mapilio-mobile-overview.png)](docs/images/mapilio-mobile-overview.png)
 
-_Promotional overview. Interface details and example points may differ from the
-current app._
-
 ## Try Mapilio
 
 - Get the published app on the [App Store](https://apps.apple.com/app/mapilio/id1609035791)
