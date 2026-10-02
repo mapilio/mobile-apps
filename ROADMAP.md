@@ -98,6 +98,19 @@ releases, but do not keep the source repository private:
   fullscreen views. The old prop mismatch omitted `imagery_id`. Regression tests
   cover changing photos, the nested request payload, cancellation and failures;
   no test complaint was submitted to the production service.
+- Feed-detail empty responses and failed requests have a retry path in draft
+  #169. The October 1 iOS simulator replay verified the empty and error messages
+  and exposed two native layout/scroll issues missed by component mocks: empty
+  content collapsed the panel below its declared snap points, and locked-list
+  scrolling could recursively dispatch `scrollTo` on the UI thread. The pending
+  fix keeps the declared heights, restores the native draggable handle, and
+  bounds re-entry through the library's existing scroll handler hook. All 552
+  tests, TypeScript, formatting and Android export pass. The normal route,
+  thumbnails, photo selection, fullscreen next-photo and return to portrait
+  passed against the direct read-only modern backend. Expand/collapse and
+  pull-to-refresh recovery still need a complete simulator replay before this
+  change is merged. The temporary fault-injection proxy is stopped; no production
+  data was written.
 - Complete physical Android and iOS checks for camera, real GPS, permissions,
   background/resume, removable storage, notifications, capture, upload/retry,
   and destructive account actions.
