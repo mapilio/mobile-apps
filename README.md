@@ -5,6 +5,8 @@ and upload them to Mapilio. OpenStreetMap contributors can use the imagery as a
 reference to improve the map. This repository contains the mobile app, built with
 Expo (bare workflow) and React Native.
 
+[![Mapilio Mobile: capture street-level photos, contribute imagery, build better maps, explore imagery, review your captures, and upload images.](docs/images/mapilio-mobile-overview.png)](docs/images/mapilio-mobile-overview.png)
+
 ## Try Mapilio
 
 - Get the published app on the [App Store](https://apps.apple.com/app/mapilio/id1609035791)
