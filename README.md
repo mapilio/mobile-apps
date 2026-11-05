@@ -371,4 +371,3 @@ Removed third-party and unclear-provenance assets are documented in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Copyright 2024–2026 Mapilio
-
