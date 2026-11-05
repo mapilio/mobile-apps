@@ -171,12 +171,19 @@ npx expo run:android
 ```
 
 **Compile an APK only.** This needs no device, and it doesn't install or run
-anything. Gradle doesn't read `.env.development` by itself, so load it first:
+anything. Gradle doesn't read `.env.development` by itself. From the repository
+root, run:
 
 ```bash
-set -a; . ./.env.development; set +a
-export NODE_ENV=development
-cd android && ./gradlew assembleDebug
+NODE_ENV=development node --env-file=.env.development - <<'NODE'
+const { spawnSync } = require('node:child_process');
+const result = spawnSync('./gradlew', ['assembleDebug'], {
+  cwd: 'android',
+  stdio: 'inherit',
+});
+if (result.error) throw result.error;
+process.exit(result.status ?? 1);
+NODE
 ```
 
 The APK is written to `android/app/build/outputs/apk/debug/app-debug.apk`. The
@@ -364,3 +371,4 @@ Removed third-party and unclear-provenance assets are documented in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 Copyright 2024–2026 Mapilio
+
