@@ -107,11 +107,13 @@ See the [public roadmap](ROADMAP.md) for release gates, near-term priorities, an
 
 | Tool           | Version                                                          |
 | -------------- | ---------------------------------------------------------------- |
+| Git            | Any recent version                                               |
+| nvm            | Any recent version; selects the Node version in `.nvmrc`         |
 | Node.js        | >=22.13 <25                                                      |
 | npm            | 10+                                                              |
 | Expo CLI       | Project-local CLI via `npx expo`                                 |
 | Xcode          | Compatible with the pinned Expo SDK; React Native enforces 16.1+ |
-| Android Studio | A version supporting Android Gradle Plugin 8.12                  |
+| Android Studio | A version supporting Android Gradle Plugin 8.12, or CLI tools    |
 | Java           | JDK 17 for the Android toolchain                                 |
 | CocoaPods      | 1.14+ (iOS only)                                                 |
 
@@ -133,9 +135,12 @@ the store and physical-device evidence remains in [ROADMAP.md](ROADMAP.md).
 ```bash
 git clone https://github.com/mapilio/mobile-apps.git
 cd mobile-apps
-nvm use
+nvm install
 npm ci
 ```
+
+`nvm install` installs the Node version in `.nvmrc` if it is missing, then
+selects it. In later shells, `nvm use` is enough.
 
 ### 2. Environment variables
 
@@ -155,9 +160,57 @@ npx expo run:ios
 
 ### 4. Android
 
+Set `ANDROID_HOME` to your Android SDK folder first. Android Studio shows the
+location under its SDK settings.
+
+**Compile, install and run.** This needs a connected device or a running
+emulator, and stops before compiling if it can't find one:
+
 ```bash
 npx expo run:android
 ```
+
+**Compile an APK only.** This needs no device, and it doesn't install or run
+anything. Gradle doesn't read `.env.development` by itself. From the repository
+root, run:
+
+```bash
+NODE_ENV=development node --env-file=.env.development - <<'NODE'
+const { spawnSync } = require('node:child_process');
+const result = spawnSync('./gradlew', ['assembleDebug'], {
+  cwd: 'android',
+  stdio: 'inherit',
+});
+if (result.error) throw result.error;
+process.exit(result.status ?? 1);
+NODE
+```
+
+The APK is written to `android/app/build/outputs/apk/debug/app-debug.apk`. The
+placeholder values in `.env.example` are enough to compile it. A first build
+can take around 30 minutes and uses about 15 GB of disk, including the SDK and
+Gradle cache.
+
+#### Android SDK without Android Studio
+
+Install JDK 17 and the "command line tools only" package from the
+[Android Studio download page](https://developer.android.com/studio), so that
+`sdkmanager` is at `$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager`. Then
+accept the licences and install the SDK components a debug build uses:
+
+```bash
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+sdkmanager --licenses
+sdkmanager "platform-tools" \
+  "platforms;android-36" "platforms;android-33" \
+  "build-tools;36.0.0" "build-tools;35.0.0" \
+  "ndk;27.1.12297006" "ndk;27.0.12077973" \
+  "cmake;3.22.1"
+```
+
+Once the licences are accepted, Gradle can download platform 33, build-tools 35,
+NDK 27.0 and CMake by itself, but an offline build needs them installed first.
+`platform-tools` provides `adb`, which installs the app on a device.
 
 ### Update native dependencies
 
