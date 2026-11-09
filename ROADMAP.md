@@ -139,9 +139,12 @@ physical-device checks.
 - Complete the backend processing-status contract before implementing its
   mobile UI.
 - Expand Marketplace tests and staging evidence.
-- F-Droid/Meta-free distribution is a later direction, not a current release
-  decision. [#72](https://github.com/mapilio/mobile-apps/issues/72) is closed as
-  not planned for this release; revisit native SDK exclusion when that work starts.
+- [#72](https://github.com/mapilio/mobile-apps/issues/72#issuecomment-5935466039)
+  is reopened for F-Droid/Meta-free distribution. The first scoped slice disables
+  unused Android barcode-scanner runtime dependencies for photo capture. A full
+  F-Droid build still needs the remaining native SDK exclusions, Google-free
+  location, artwork redistribution permission and no-Play device validation;
+  this slice does not make it ready for release.
 - Panorama, drone integration, Marketplace, refreshed interfaces and scoring
   remain future product work, separate from the current store-release scope.
 
